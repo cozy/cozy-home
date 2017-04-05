@@ -19,6 +19,9 @@ const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
 // store
+window.initKonnectors = require('./initKonnectors.json')
+window.initFolders = require('./initFolders.json')
+
 const store = new MyAccountsStore(window.initKonnectors, window.initFolders, context)
 const categories = store.getCategories()
 const useCases = store.getUseCases()

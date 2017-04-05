@@ -1,0 +1,33 @@
+{
+  "name": "My Accounts",
+  "slug": "my-accounts",
+  "icon": "app-icon.svg",
+  "description": "Configuration application for konnectors",
+  "source": "https://github.com/cozy/cozy-my-accounts.git@build",
+  "developer": {
+    "name": "Cozy",
+    "url": "https://cozy.io"
+  },
+  "default_locale": "en",
+  "locales": {
+    "fr": {
+      "description": "Application de configuration pour les konnectors"
+    }
+  },
+  "version": "3.0.3",
+  "licence": "AGPL-3.0",
+  "permissions": {
+    "apps": {
+      "description": "Required by the cozy-bar to display the icons of the apps",
+      "type": "io.cozy.apps",
+      "verbs": ["GET", "POST", "PUT"]
+    }
+  },
+  "routes": {
+    "/": {
+      "folder": "/",
+      "index": "index.html",
+      "public": false
+    }
+  }
+}

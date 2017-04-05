@@ -9,6 +9,8 @@ const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const pkg = require(path.resolve(__dirname, 'package.json'))
 
 // use the `OPTIMIZE` env to switch from dev to production build
 const optimize = process.env.OPTIMIZE === 'true'
@@ -59,6 +61,10 @@ let loaders = [
     test: /\.(png|gif|jpe?g|svg)$/i,
     exclude: /(vendor|sprites|icons)/,
     loader: 'file?name=' + imgPath
+  },
+  {
+    test: require.resolve('cozy-bar/dist/cozy-bar.js'),
+    loader: 'imports?css=./cozy-bar.css'
   }
 ]
 
@@ -84,7 +90,19 @@ let plugins = [
   new ExtractTextPlugin(optimize ? 'app.[hash].css' : 'app.css'),
   new CopyPlugin([
     { from: 'vendor/assets', ignore: ['.gitkeep'] }
-  ])
+  ]),
+  new HtmlWebpackPlugin({
+    template: 'app/index.ejs',
+    title: pkg.name,
+    inject: false,
+    minify: {
+      collapseWhitespace: true
+    }
+  }),
+  new webpack.ProvidePlugin({
+    'cozy.client': 'cozy-client-js/dist/cozy-client.js',
+    'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
+  })
 ]
 
 if (optimize) {
@@ -98,14 +116,15 @@ if (optimize) {
       }
     }),
     new webpack.DefinePlugin({
-      __SERVER__: !optimize,
+      __SERVER__: JSON.stringify('http://app.cozy.local'),
       __DEVELOPMENT__: !optimize,
-      __DEVTOOLS__: !optimize
+      __DEVTOOLS__: !optimize,
+      __STACK_ASSETS__: false
     }),
     function () {
       this.plugin('done', function (stats) {
         fs.writeFileSync(
-          path.join(__dirname, '..', 'build', 'assets.json'),
+          path.join(__dirname, 'build', 'assets.json'),
           '{"hash":"' + stats.hash + '"}'
         )
       })
@@ -130,7 +149,7 @@ if (optimize) {
 module.exports = {
   entry: './app',
   output: {
-    path: path.join(optimize ? '../build/client' : '.', 'public'),
+    path: path.resolve('build'),
     filename: optimize ? 'app.[hash].js' : 'app.js'
   },
   resolve: {

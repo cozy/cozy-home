@@ -1,0 +1,14 @@
+# NPM packages folder.
+node_modules/
+
+# build files
+build/
+
+
+# Locales
+**/locales/*
+!**/locales/en.json
+
+
+# Default
+!.gitkeep
