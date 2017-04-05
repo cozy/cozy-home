@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g fill="none" fill-rule="evenodd" transform="translate(-192 -192)">
+    <g stroke-width="2" transform="translate(193 193)" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#95999D">
+        <polyline points="18 42 0 42 0 0 22 0 32 10 32 25"/>
+        <polyline points="22 0 22 10 32 10"/>
+      </g>
+      <g stroke="currentColor" transform="translate(24 24)">
+        <polygon points="7 20.004 0 22.004 2 15.004 17.002 0 22.002 5"/>
+        <path d="M13.002 4L18.002 9M2 15.004L7 20.004"/>
+      </g>
+    </g>
+  </g>
+</svg>

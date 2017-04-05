@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g fill="none" fill-rule="evenodd" transform="translate(-192 -384)">
+    <g stroke-width="2" transform="translate(193 386)" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#95999D" transform="translate(6 10)">
+        <path d="M30 26L30 17C30 11.594 26.696 6.96 22 5 22 2.238 19.758 0 17 0 14.234 0 12 2.238 12 5 7.298 6.96 4 11.594 4 17L4 26C4 28.21 2.208 30 0 30L34 30C31.79 30 30 28.21 30 26L30 26zM21 30C21 32.21 19.208 34 17 34 14.79 34 13 32.21 13 30"/>
+      </g>
+      <g stroke="currentColor">
+        <polyline points="0 10 6 10 0 16 6 16"/>
+        <polyline points="18 0 22 0 18 4 22 4"/>
+        <polyline points="38 4 46 4 38 12 46 12"/>
+      </g>
+    </g>
+  </g>
+</svg>

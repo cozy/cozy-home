@@ -1,0 +1,534 @@
+@import '../../node_modules/normalize.css/normalize.css'
+@import './base/_normalize'
+@import './base/_colors'
+
+@import 'cozy-ui'
+
+// Should be imported from another stylus in the future,
+// 'base/_fonts' for example
+// Variable used as divisor for px to em calculations.
+base-font-size = 16
+
+[role=application]
+    @extend $app-2panes-sticky
+    background-color #ffffff
+
+    h1
+        font-size 2em
+        margin    1.5em 2em 1em
+
+@media (max-width: (1023/basefont)rem)
+    [role=application]
+        h1
+            font-size 1.5em
+            margin    1em 1em .5em
+
+aside
+    background-color $grey-01
+    box-shadow       inset -1px 0 0 0 $grey-01-alpha
+    //               to put back to cozy-ui
+    overflow         auto
+    overflow-x       hidden
+
+    h4
+        font-weight normal
+        font-size   1.5em
+        padding     1em
+        margin      0
+
+
+[role="navigation"]
+    width 13.75em
+    a
+        display         block
+        text-decoration none
+        color           $red
+        flex            1
+        padding         .75em 1.5em
+        margin          .5em 0
+
+        &:hover:not(.router-link-active)
+            background-color $grey-01-alpha
+
+    .submenu
+        margin .5em 0 0 3em
+
+        a
+            padding 0.5em 1em
+            color   $grey-08
+            margin  0
+
+        .router-link-active
+            color            white
+            background-color $grey-08
+            border-radius    4px 0 0 4px
+
+    .router-link-active
+        background-color $red
+        color            white
+
+        svg
+            fill white
+
+    svg
+        width          1.5em
+        height         1.5em
+        margin-right   0.5em
+        display        inline-block
+        vertical-align middle
+        fill           $red
+
+@media (max-width: (1023/basefont)rem)
+    aside
+        box-shadow inset 0 1px 0 0 $grey-01-alpha
+
+        h4
+            display none
+
+    [role="navigation"]
+        width           100%
+        display         flex
+        justify-content space-around
+
+        a
+            text-align center
+            font-size(10px)
+
+            svg
+                display block
+                margin  0 auto em(5px)
+
+        .submenu
+            display none
+
+.connector-list, .use-cases-list
+    display          flex
+    flex-wrap        wrap
+    justify-content  flex-start
+    margin           0 3em 2em
+
+@media (max-width: (1023/basefont)rem)
+    .connector-list, .use-cases-list
+        margin 0 1em 1em
+
+$item-margin = .7em
+
+.item-wrapper
+    flex             1 1 'calc(100% - %s * 2)' % $item-margin
+    position         relative
+    border-radius    4px
+    background-color white
+    box-shadow       0 2px 6px 0 rgba(0, 0, 0, 0.15)
+    margin           $item-margin
+    padding-bottom   1em
+    cursor           pointer
+    text-decoration  none
+    transition       .2s ease all
+    &:hover
+        box-shadow 0 4px 12px 0 rgba(0, 0, 0, 0.25)
+        transform  scale(1.05)
+        transition .2s ease all
+    .item-header
+        position      relative
+        border-radius 4px 4px 0px 0px
+        height        9em
+        .item-icon
+            position      relative
+            display       block
+            border-radius 4px 4px 0px 0px
+            width         14em
+            height        4em
+            margin        0 auto
+            top           50%
+            transform     translateY(-50%)
+    .item-title
+        padding   0em .5em
+        font-size 20px
+        margin    .5em
+        color     black
+    .item-subtitle
+        font-size 14px
+        padding   0em 1em
+        margin    0em .5em
+        color     $grey-06
+    .item-connected
+        position absolute
+        width    24px
+        height   24px
+        bottom   1em
+        right    1em
+
+@media (min-width: 40em)
+    .item-wrapper
+        flex-grow  0
+        flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+@media (min-width: 64em)
+    .item-wrapper
+        flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+@media (min-width: 80em)
+    .item-wrapper
+        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+
+@media (min-width: 96em)
+    .item-wrapper
+        flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+@media (min-width: 112em)
+    .item-wrapper
+        flex-basis 'calc(20% - %s * 2)' % $item-margin
+
+@media (min-width: 128em)
+    .item-wrapper
+        flex-basis 'calc(16.666% - %s * 2)' % $item-margin
+
+
+// Global styles for dialog
+[role=dialog]
+    @extend $dialog
+
+    [role=separator]
+        cursor           pointer
+        background-color rgba(78, 91, 105, 0.75)
+
+    .wrapper
+        min-height 100vh
+        padding    3em 1em
+        box-sizing border-box
+
+    .close-button
+        height   3em
+        width    3em
+        cursor   pointer
+        position absolute
+        right    2.25em
+        top      2.25em
+        &:after, &:before
+            position         absolute
+            content          ' '
+            height           2.5em
+            width            2px
+            background-color white
+            margin           0em 1.5em
+        &:after
+            transform rotate(-45deg);
+        &:before
+            transform rotate(45deg);
+
+    [role=contentinfo]
+        overflow       initial
+        flex-direction column
+        border         none
+        flex-basis     80rem
+        box-shadow     0 6px 18px 0 rgba(0, 0, 0, 0.22), 0 1px 3px 0 rgba(0, 0, 0, 0.16)
+
+        .dialog-header
+            height                  7em
+            overflow                hidden
+            border-top-left-radius  inherit
+            border-top-right-radius inherit
+
+        .dialog-content
+
+            .account-connection
+            .account-management
+                display flex
+
+                h3
+                    margin 2em 0 .5em
+                    font-size(24px)
+
+                a:not([role=button])
+                    color           $blue
+                    text-transform  uppercase
+                    text-decoration none
+                    cursor          pointer
+
+                p
+                    margin 0.5em 0
+
+            .account-connection
+                > div
+                    width          50%
+                    padding-bottom 2em
+
+            .account-management
+                width  70%
+                margin auto
+
+            .account-description
+                background-color $grey-01
+                padding          0 2em 0 15%
+                > p
+                    margin-top 2em
+
+            .account-datas
+                display     flex
+                flex-wrap   wrap
+                align-items stretch
+                padding-top .5em
+
+            .account-data
+                flex           30% 0 0
+                padding-bottom 1em
+                text-align     center
+
+            .account-dataIcon
+                display    block
+                width      100%
+                max-width  em(50px)
+                max-height em(50px)
+                margin     0 auto 1em
+
+            .account-login
+                padding 0 15% 0 2em
+
+            .account-list
+                width 25%
+                ul
+                    margin 2.4em 1em 0.5em 0
+                li
+                    padding       0.5em 1em
+                    color         $grey-08
+                    font-weight   bold
+                    text-overflow ellipsis
+                    white-space   nowrap
+                    overflow      hidden
+                    &.selected
+                        background-color $grey-01
+                        a
+                            color $grey-08
+
+            .account-config
+                .account-field
+                    max-width 80%
+
+        .account-form
+            margin-bottom 1em
+
+        .account-form.error
+            .account-field
+                input
+                    border      1px solid $red
+                    background  none
+
+        // Onboarding form styles
+        // TODO: move into cozy-ui ?
+        .account-field
+            position relative
+            margin   1em 0 0.5em
+
+            // Managing input width with flex
+            display         flex
+            flex-direction  column
+
+            button.password-visibility
+                position absolute
+                top      0
+                right    0
+
+            button.icon
+                background none
+                padding    0em
+                width      1.3em
+                height     1.3em
+                display    block
+
+                svg
+                    width  1.3em
+                    height 1.3em
+
+            label
+                display        block
+                text-transform uppercase
+                color          $grey-05
+                font-size      .9em
+                padding        .55em 0
+
+            .error-label
+                display none
+                color   $red
+
+            input[type=text]
+            input[type=password]
+            select
+                display       inline-block
+                padding       0.75em 0.75em 0.9em
+                border-radius 4px
+                box-sizing    border-box
+                border        1px solid $grey-03
+                background    #f5f5f5
+                color         black
+                &::placeholder
+                    color     $grey-07
+                    font-size 1.05em
+                &:focus
+                    border     1px solid $blue
+                    background none
+                &:hover
+                    border 1px solid $grey-06
+                &.error
+                    border     1px solid $red
+                    background none
+
+            select
+                -moz-appearance     none
+                -webkit-appearance  none
+                appearance          none
+                background-image    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px'><polyline points='14.764,4.966 8.053,11.677 1.342,4.966'/></svg>")
+                background-position right 8px center
+                background-repeat   no-repeat
+                &::-ms-expand
+                    display none
+
+        .account-form-controls
+            margin-top 2em
+
+            button
+                width 100%
+
+        .account-management-controls
+            width      70%
+            padding     0 15%
+            display    flex
+            border-top 1px solid $grey-04
+
+            button
+                width  50%
+                margin 0.4em
+
+
+        [role=button]
+        button
+            // mutualize behavior between button and a
+            box-sizing        border-box
+            border            0
+            display           block
+            padding           0.9em 0.75em
+            min-height        (40/base-font-size)em
+            border-radius     4px
+            background-color  $blue
+            font-family       "Source Sans Pro", sans-serif
+            text-align        center
+            text-transform    uppercase
+            color             white
+            text-decoration   none
+
+            &.cancel
+                background-color $grey-01
+                color            $grey-08
+
+            &.danger
+                background-color rgba(255, 93, 70, 0.1)
+                border           solid 1px rgba(255, 93, 71, 0.1)
+                color            #ff5d47
+                margin           1em 0 3em
+                width            80%
+
+            &.flat
+                background      none
+                padding         0em
+                min-height      0
+                color           $blue
+                text-transform  uppercase
+                text-decoration none
+                cursor          pointer
+
+            &[disabled]
+            &[aria-disabled=true]
+                opacity .5
+                cursor  default
+
+            &[aria-busy=true]
+                position relative
+
+                &::after
+                    position     static
+                    width        (16/base-font-size)em
+                    height       (16/base-font-size)em
+                    margin-left  (8/base-font-size)em
+                    margin-right (-24/base-font-size)em
+                    @extend      $icon-spinner-white
+
+
+        .errors
+            color $red
+    // specific to use case dialog
+    &.use-case-dialog
+        [role=contentinfo]
+            flex-basis 75rem
+            > div
+                > h3
+                    font-size 32px
+                    margin    1em 0em .5em 1.5em
+
+                > p
+                    margin-left   3em
+                    margin-bottom 2em
+                .accounts-list
+                    margin-bottom   5em
+                    margin-left     .5em
+                    justify-content center
+
+    // specific to account dialog
+    &.connector-dialog
+        padding-top .5em
+        .dialog-header
+            svg
+                height 4em
+                width  100%
+                margin 1.5em 0em
+
+// Onboarding notification styles
+// TODO: move into cozy-ui ?
+notification-width = (546/base-font-size)em
+.coz-notifier
+    z-index 100
+
+.coz-notification
+    display          block
+    position         absolute
+    top              (16/base-font-size)em
+    left             0
+    margin           0 (16/base-font-size)em
+    border-radius    (10/base-font-size)em
+    background-color #2bba40
+    box-shadow       0 (6/base-font-size)em (18/base-font-size)em 0 rgba(50, 54, 63, 0.23)
+    box-sizing       border-box
+    padding          1em
+    color            white
+
+    //                  When only a title is displayed
+    min-height          (96/base-font-size)em
+    padding-left        (96/base-font-size)em
+    background-image    embedurl('../assets/icons/icon-check.svg')
+    background-repeat   no-repeat
+    background-position (24/base-font-size)em center
+
+    transition                 top 0.5s
+    transition-timing-function ease-out
+    cursor                     pointer
+
+    .coz-notification-title
+        font-size(18px)
+        font-weight bold
+
+    .coz-notification-details
+        margin-top em(5px)
+        font-size(15px)
+
+.coz-notification--error
+    background-color $red
+    background-image embedurl('../assets/icons/icon-warning.svg')
+
+.coz-notification--closing
+    top                        -25%
+    transition-timing-function ease-in
+
+@media all and (min-width notification-width)
+    .coz-notification
+        left        50%
+        max-width   notification-width
+        margin-left -(notification-width/2)
+        width       100%

@@ -1,0 +1,65 @@
+{
+  "useCases":[{
+    "slug": "phone-bills",
+    "connectors": [{
+      "slug": "virgin_mobile"
+    }, {
+      "slug": "sfr_mobile"
+    }, {
+      "slug": "orange"
+    }, {
+      "slug": "sosh"
+    }, {
+      "slug": "bouyguestelecom"
+    }, {
+      "slug": "free"
+    }],
+    "figure": "facture-telephonique-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
+  },
+  {
+    "slug": "fai-bills",
+    "connectors": [{
+      "slug": "bouyguesbox"
+    }, {
+      "slug": "free"
+    }, {
+      "slug": "numericable"
+    }, {
+      "slug": "sfr_box"
+    }],
+    "figure": "facture-fournisseur-internet-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
+  },
+  {
+    "slug": "contacts",
+    "connectors": [{
+      "slug": "googlecontacts"
+    }, {
+      "slug": "linkedin"
+    }],
+    "figure": "regroupement-contacts-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
+  },
+  {
+    "slug": "agenda",
+    "connectors": [ {
+      "slug": "doctolib"
+    },{
+      "slug": "facebook_events"
+    }, {
+      "slug": "ical_feed"
+    },{
+      "slug": "meetup"
+    }, {
+      "slug": "voyages_sncf"
+    }],
+    "figure": "regroupement-agendas-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
+  }]
+
+}

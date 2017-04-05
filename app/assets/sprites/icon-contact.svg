@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g fill="none" fill-rule="evenodd" transform="translate(-96 -192)">
+    <g stroke-width="2" transform="translate(97 193)" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#95999D">
+        <polygon points="40 46 6 46 6 0 40 0"/>
+        <path d="M6 0L2 0C.9 0 0 .9 0 2L0 44C0 45.1.9 46 2 46L6 46M40 3L42 3C44.2 3 46 4.8 46 7L46 13 40 13"/>
+        <polyline points="40 13 46 13 46 23 40 23"/>
+        <polyline points="40 23 46 23 46 33 40 33"/>
+        <path d="M40,33 L46,33 L46,39 C46,41.2 44.2,43 42,43 L40,43"/>
+      </g>
+      <g stroke="currentColor" transform="translate(12 10)">
+        <path d="M13,14 L13,16 L18.076,17.452 C19.134,17.754 20,18.9 20,20 L20,26 L0,26 L0,20 C0,18.9 0.866,17.754 1.922,17.452 L7,16 L7,14"/>
+        <path d="M16,7.541 C16,11.157 13.312,14.083 10,14.083 C6.686,14.083 4,11.157 4,7.541 C4,3.929 6.686,0.999 10,0.999 C13.312,0.999 16,3.929 16,7.541 L16,7.541 Z"/>
+        <path d="M15.9376,6.3516 C14.9376,7.3516 12.0776,7.3476 10.9996,5.3416 C8.9996,7.3416 5.7496,7.3416 4.1316,6.1996"/>
+      </g>
+    </g>
+  </g>
+</svg>

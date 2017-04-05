@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g fill="none" fill-rule="evenodd" transform="translate(-288 -384)">
+    <g stroke-width="2" transform="translate(289 392)" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#95999D">
+        <polygon points="23 24.5 0 12.5 23 .5 46 12.5"/>
+        <path d="M16,30.414 C18.006,30.958 20.354,31.456 23.002,31.456 C32.39,31.456 38,25.5 38,21.5 L38,16.5"/>
+      </g>
+      <g stroke="currentColor" transform="translate(5 12)">
+        <polyline points="18 .414 3 4.674 3 14.5"/>
+        <path d="M6,17.6738 C6,19.3298 4.656,20.6738 3,20.6738 C1.344,20.6738 0,19.3298 0,17.6738 C0,16.0178 1.344,14.6738 3,14.6738 C4.656,14.6738 6,16.0178 6,17.6738 L6,17.6738 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

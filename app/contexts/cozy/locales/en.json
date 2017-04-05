@@ -1,0 +1,10 @@
+{
+  "use-case phone-bills title": "Retrieve your phone bills",
+  "use-case phone-bills description": "It's always good to have all your bills in one place, automatically, so you can access them rapidly when you need them.",
+  "use-case fai-bills title": "Retrieve your ISP bills",
+  "use-case fai-bills description": "It's always good to have all your bills in one place, automatically, so you can access them rapidly when you need them.",
+  "use-case contacts title": "Gather your contacts",
+  "use-case contacts description": "It's always good to have all your contacts in one place, so you can access them rapidly when you need them.",
+  "use-case agenda title": "Gather your events",
+  "use-case agenda description": "It's always good to have all your events in one place, so you can access them rapidly when you need them."
+}
