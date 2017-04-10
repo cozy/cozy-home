@@ -9,7 +9,7 @@ tx pull -a
 echo "Locales updated."
 
 echo "Clean previous build..."
-rm -rf build && mkdir -p build/app
+rm -rf build/* && mkdir -p build/app
 echo "Previous build cleaned."
 
 echo "Build entry point..."
@@ -19,6 +19,5 @@ cp -r ./app/locales ./build/app/
 echo "Locales built."
 
 echo "Build client..."
-npm install
 webpack
 echo "Client built."

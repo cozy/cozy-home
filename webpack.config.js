@@ -55,7 +55,10 @@ let loaders = [
   {
     test: /\.svg$/,
     include: /(sprites|icons)/,
-    loader: 'svg-sprite?name=[name]_[hash]'
+    loader: 'svg-sprite?' + JSON.stringify({
+      name: '[name]_[hash]',
+      spriteModule: path.join(__dirname, 'config/csp-proof-sprite')
+    })
   },
   {
     test: /\.(png|gif|jpe?g|svg)$/i,
