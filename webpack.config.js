@@ -61,10 +61,6 @@ let loaders = [
     test: /\.(png|gif|jpe?g|svg)$/i,
     exclude: /(vendor|sprites|icons)/,
     loader: 'file?name=' + imgPath
-  },
-  {
-    test: require.resolve('cozy-bar/dist/cozy-bar.js'),
-    loader: 'imports?css=./cozy-bar.css'
   }
 ]
 
@@ -98,10 +94,6 @@ let plugins = [
     minify: {
       collapseWhitespace: true
     }
-  }),
-  new webpack.ProvidePlugin({
-    'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-    'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
   })
 ]
 

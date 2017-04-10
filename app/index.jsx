@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 /** @jsx h */
+/* global cozy */
 import { h, render } from 'preact'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
@@ -18,75 +19,90 @@ import './styles/index.styl'
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
-// store
-window.initKonnectors = require('./initKonnectors.json')
-window.initFolders = require('./initFolders.json')
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('[role=application]')
+  const data = root.dataset
+  cozy.client.init({
+    cozyURL: '//' + data.cozyDomain,
+    token: data.cozyToken
+  })
+  cozy.bar.init({
+    appName: data.cozyAppName,
+    iconPath: data.cozyIconPath,
+    lang: data.cozyLocale,
+    replaceTitleOnMobile: true
+  })
 
-const store = new MyAccountsStore(window.initKonnectors, window.initFolders, context)
-const categories = store.getCategories()
-const useCases = store.getUseCases()
+  // store
+  window.initKonnectors = require('./initKonnectors.json')
+  window.initFolders = require('./initFolders.json')
 
-render((
-  <Provider store={store}>
-    <I18n context={context} locale={lang}>
-      <Router history={hashHistory}>
-        <Route
-          component={(props) =>
-            <App categories={categories} {...props}
-            />}
-        >
-          <Redirect from='/' to='/discovery' />
+  const store = new MyAccountsStore(window.initKonnectors, window.initFolders, context)
+  const categories = store.getCategories()
+  const useCases = store.getUseCases()
+
+  render((
+    <Provider store={store}>
+      <I18n context={context} locale={lang}>
+        <Router history={hashHistory}>
           <Route
-            path='/discovery'
             component={(props) =>
-              <DiscoveryList
-                useCases={useCases} context={context} {...props}
+              <App categories={categories} {...props}
               />}
           >
+            <Redirect from='/' to='/discovery' />
             <Route
-              path=':useCase'
+              path='/discovery'
               component={(props) =>
-                <UseCaseDialog
-                  item={useCases.find(u => u.slug === props.params.useCase)}
-                  connectors={store.findByUseCase(props.params.useCase)}
-                  context={context}
-                  {...props}
+                <DiscoveryList
+                  useCases={useCases} context={context} {...props}
                 />}
-            />
-            <Route
-              path=':useCase/:account'
-              component={(props) =>
-                <div class='multi-dialogs-wrapper'>
+            >
+              <Route
+                path=':useCase'
+                component={(props) =>
                   <UseCaseDialog
                     item={useCases.find(u => u.slug === props.params.useCase)}
                     connectors={store.findByUseCase(props.params.useCase)}
                     context={context}
                     {...props}
-                  />
-                  <ConnectorManagement {...props} />
-                </div>}
-            />
+                  />}
+              />
+              <Route
+                path=':useCase/:account'
+                component={(props) =>
+                  <div class='multi-dialogs-wrapper'>
+                    <UseCaseDialog
+                      item={useCases.find(u => u.slug === props.params.useCase)}
+                      connectors={store.findByUseCase(props.params.useCase)}
+                      context={context}
+                      {...props}
+                    />
+                    <ConnectorManagement {...props} />
+                  </div>}
+              />
+            </Route>
+            <Redirect from='/category' to='/category/all' />
+            <Route
+              path='/category/:filter'
+              component={(props) =>
+                <CategoryList
+                  category={props.params.filter}
+                  connectors={store.findByCategory(props.params)} {...props}
+                />}
+            >
+              <Route path=':account' component={ConnectorManagement} />
+            </Route>
+            <Route
+              path='/connected'
+              component={(props) =>
+                <ConnectedList connectors={store.findConnected()} {...props} />}
+            >
+              <Route path=':account' component={ConnectorManagement} />
+            </Route>
           </Route>
-          <Redirect from='/category' to='/category/all' />
-          <Route
-            path='/category/:filter'
-            component={(props) =>
-              <CategoryList
-                category={props.params.filter}
-                connectors={store.findByCategory(props.params)} {...props}
-              />}
-          >
-            <Route path=':account' component={ConnectorManagement} />
-          </Route>
-          <Route
-            path='/connected'
-            component={(props) =>
-              <ConnectedList connectors={store.findConnected()} {...props} />}
-          >
-            <Route path=':account' component={ConnectorManagement} />
-          </Route>
-        </Route>
-      </Router>
-    </I18n>
-  </Provider>
-), document.querySelector('[role=application]'))
+        </Router>
+      </I18n>
+    </Provider>
+  ), document.querySelector('[role=application]'))
+})

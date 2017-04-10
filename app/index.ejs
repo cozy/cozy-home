@@ -14,10 +14,8 @@
 <% _.forEach(htmlWebpackPlugin.files.js, function(file) { %>
   <script src="<%- file %>" defer></script>
 <% }); %>
-<% if (__STACK_ASSETS__) { %>
 {{.CozyClientJS}}
 {{.CozyBar}}
-<% } %>
 <div
   role="application"
   data-cozy-token="{{.Token}}"
