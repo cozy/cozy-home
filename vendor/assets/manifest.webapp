@@ -1,7 +1,7 @@
 {
   "name": "My Accounts",
   "slug": "my-accounts",
-  "icon": "app-icon.svg",
+  "icon": "favicon-32x32.png",
   "description": "Configuration application for konnectors",
   "source": "https://github.com/cozy/cozy-my-accounts.git@build",
   "developer": {
