@@ -1,6 +1,5 @@
 
 [![Travis build status shield](https://img.shields.io/travis/cozy/cozy-my-accounts.svg?branch=master)](https://travis-ci.org/cozy/cozy-my-accounts)
-[![NPM release version shield](https://img.shields.io/npm/v/cozy-my-accounts.svg)](https://www.npmjs.com/package/cozy-my-accounts)
 [![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-my-accounts.svg)](https://github.com/cozy/cozy-my-accounts/releases)
 [![NPM Licence shield](https://img.shields.io/npm/l/cozy-my-accounts.svg)](https://github.com/cozy/cozy-my-accounts/blob/master/LICENSE)
 
