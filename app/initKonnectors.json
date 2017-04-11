@@ -1,26 +1,62 @@
 [
   {
-    "slug":"bouyguesbox",
     "accounts":[],
-    "default":[],
-    "password":"[{}]",
-    "isImporting":false,
-    "importInterval":"none",
-    "errorMessage":null,
-    "importErrorMessage":null,
-    "docType":"konnector",
+    "slug":"bouyguesbox",
     "name":"Bouygues Box",
     "description":"konnector description bouygues box",
     "vendorLink":"https://www.bouyguestelecom.fr/",
     "category":"isp",
     "color":{"hex":"#009DCC","css":"#009DCC"},
-    "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "models":{},
-    "modelNames":["InternetBill"]
+    "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "repo": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
   },
-  {"slug":"bouyguestelecom","accounts":[],"default":[],"password":"[{}]","isImporting":false,"importInterval":"none","errorMessage":null,"importErrorMessage":null,"_id":"6571a667734b749276c26128e1097d73","id":"6571a667734b749276c26128e1097d73","docType":"konnector","name":"Bouygues Telecom","description":"konnector description bouygues","vendorLink":"https://www.bouyguestelecom.fr/","category":"telecom","color":{"hex":"#009DCC","css":"#009DCC"},"fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},"dataType":["bill"],"models":{},"modelNames":["PhoneBill"]},
-  {"slug":"trainline","accounts":[],"default":[],"password":"[{}]","isImporting":false,"importInterval":"none","errorMessage":null,"importErrorMessage":null,"_id":"6571a667734b749276c26128e1098a96","id":"6571a667734b749276c26128e1098a96","docType":"konnector","name":"Trainline","vendorLink":"www.captaintrain.com","category":"transport","color":{"hex":"#48D5B5","css":"#48D5B5"},"fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},"dataType":["bill"],"models":{},"fetchOperations":[null,null,null,null,null,null],"description":"konnector description trainline","logger":{"options":{"prefix":"Trainline","date":true,"dateFormat":"YYYY-MM-DD hh:mm:ss:S"}},"modelNames":["Bill"]},
-  {"slug":"sfr_box","accounts":[],"default":[],"password":"[{}]","isImporting":false,"importInterval":"none","errorMessage":null,"importErrorMessage":null,"_id":"6571a667734b749276c26128e10a57ba","id":"6571a667734b749276c26128e10a57ba","docType":"konnector","name":"SFR Box","vendorLink":"espace-client.sfr.fr/facture-fixe/consultation","category":"isp","color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},"fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},"dataType":["bill"],"models":{},"fetchOperations":[null,null,null,null,null,null,null,null],"description":"konnector description sfr_box","logger":{"options":{"prefix":"SFR Box","date":true,"dateFormat":"YYYY-MM-DD hh:mm:ss:S"}},"modelNames":["Bill"]},
-  {"slug":"sfr_mobile","accounts":[],"default":[],"password":"[{}]","isImporting":false,"importInterval":"none","errorMessage":null,"importErrorMessage":null,"_id":"6571a667734b749276c26128e10a5e61","id":"6571a667734b749276c26128e10a5e61","docType":"konnector","name":"SFR Mobile","vendorLink":"espace-client.sfr.fr/facture-mobile/consultation","category":"telecom","color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},"fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},"dataType":["bill"],"models":{},"fetchOperations":[null,null,null,null,null,null,null,null],"description":"konnector description sfr_mobile","logger":{"options":{"prefix":"SFR Mobile","date":true,"dateFormat":"YYYY-MM-DD hh:mm:ss:S"}},"modelNames":["Bill"]}
+  {
+    "accounts":[],
+    "slug":"bouyguestelecom",
+    "name":"Bouygues Telecom",
+    "description":"konnector description bouygues",
+    "vendorLink":"https://www.bouyguestelecom.fr/",
+    "category":"telecom",
+    "color":{"hex":"#009DCC","css":"#009DCC"},
+    "dataType":["bill"],
+    "fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"trainline",
+    "name":"Trainline",
+    "vendorLink":"www.captaintrain.com",
+    "category":"transport",
+    "color":{"hex":"#48D5B5","css":"#48D5B5"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "description":"konnector description trainline",
+    "repo": "git://github.com/cozy/cozy-konnector-trainline.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"sfr_box",
+    "name":"SFR Box",
+    "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
+    "category":"isp",
+    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "description":"konnector description sfr_box",
+    "repo": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"sfr_mobile",
+    "name":"SFR Mobile",
+    "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
+    "category":"telecom",
+    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "description":"konnector description sfr_mobile",
+    "repo": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
+  }
 ]
