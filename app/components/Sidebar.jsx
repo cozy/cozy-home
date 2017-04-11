@@ -12,7 +12,6 @@ const Sidebar = ({ t, categories, router }) => {
 
   return (
     <aside>
-      <h4>{t('my_accounts title')}</h4>
       <ul role='navigation'>
         <li>
           <Link to='/discovery' activeClassName='router-link-active'>
