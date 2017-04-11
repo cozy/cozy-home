@@ -4,7 +4,8 @@
     "watch": "webpack --display-modules --display-chunks --watch",
     "test": "npm run lint && jest",
     "lint": "sh scripts/lint.sh",
-    "pretest": "tx pull -a || true"
+    "pretest": "tx pull -a || true",
+    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-my-accounts.git"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -36,6 +37,7 @@
     "css-mqpacker": "5.0.1",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
+    "git-directory-deploy": "^1.5.1",
     "html-webpack-plugin": "^2.28.0",
     "jest": "^18.0.0",
     "json-loader": "0.5.4",
