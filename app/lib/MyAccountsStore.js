@@ -133,7 +133,7 @@ export default class MyAccountsStore {
             })
             .catch(err => {
               console.log(err, 'not installed yet')
-              // TODO check the timeout and reject the promise of out of timeout
+              // TODO check the timeout and reject the promise on timeout
             })
           }, 1000)
         })
