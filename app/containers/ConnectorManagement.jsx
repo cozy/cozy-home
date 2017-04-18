@@ -52,14 +52,14 @@ export default class ConnectorManagement extends Component {
       connector.id,
       refreshedConnector => this.setState({
         connector: refreshedConnector,
-        isInstalled: refreshedConnector.state && refreshedConnector.state === 'ready'
+        isInstalled: this.isInstalled(refreshedConnector)
       })
     )
     const { name, fields } = connector
     this.state = {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
-      isInstalled: connector.state && connector.state === 'ready',
+      isInstalled: this.isInstalled(connector),
       selectedAccount: 0,
       fields: this.configureFields(fields, context.t, name),
       submitting: false,
@@ -67,6 +67,10 @@ export default class ConnectorManagement extends Component {
       deleting: false,
       error: null
     }
+  }
+
+  isInstalled (connector) {
+    return connector.state != null && connector.state === 'ready'
   }
 
   render () {
