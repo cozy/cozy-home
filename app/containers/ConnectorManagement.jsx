@@ -50,12 +50,16 @@ export default class ConnectorManagement extends Component {
     const connector = this.store.find(c => c.slug === props.params.account)
     this.store.subscribeTo(
       connector.id,
-      refreshedConnector => this.setState({ connector: refreshedConnector })
+      refreshedConnector => this.setState({
+        connector: refreshedConnector,
+        isInstalled: refreshedConnector.state && refreshedConnector.state === 'ready'
+      })
     )
     const { name, fields } = connector
     this.state = {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
+      isInstalled: connector.state && connector.state === 'ready',
       selectedAccount: 0,
       fields: this.configureFields(fields, context.t, name),
       submitting: false,
@@ -67,32 +71,39 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
-    const { isConnected, selectedAccount } = this.state
-    return (
-      <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
-        {isConnected
-          ? <AccountManagement
-            name={name}
-            customView={customView}
-            lastImport={lastImport}
-            accounts={accounts}
-            values={accounts[selectedAccount] || {}}
-            selectAccount={idx => this.selectAccount(idx)}
-            addAccount={() => this.addAccount()}
-            synchronize={() => this.synchronize()}
-            deleteAccount={idx => this.deleteAccount(idx)}
-            cancel={() => this.gotoParent()}
-            onSubmit={values => this.updateAccount(selectedAccount, values)}
-            {...this.state}
-            {...this.context} />
-          : <AccountConnection
-            connectUrl={prepareConnectURL(this.state.connector)}
-            onSubmit={values => this.connectAccount(values)}
-            {...this.state}
-            {...this.context} />
-        }
+    const { isConnected, isInstalled, selectedAccount } = this.state
+
+    if (!isInstalled) {
+      return <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+        <div>Installing</div>
       </ConnectorDialog>
-    )
+    } else {
+      return (
+        <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+          {isConnected
+            ? <AccountManagement
+              name={name}
+              customView={customView}
+              lastImport={lastImport}
+              accounts={accounts}
+              values={accounts[selectedAccount] || {}}
+              selectAccount={idx => this.selectAccount(idx)}
+              addAccount={() => this.addAccount()}
+              synchronize={() => this.synchronize()}
+              deleteAccount={idx => this.deleteAccount(idx)}
+              cancel={() => this.gotoParent()}
+              onSubmit={values => this.updateAccount(selectedAccount, values)}
+              {...this.state}
+              {...this.context} />
+            : <AccountConnection
+              connectUrl={prepareConnectURL(this.state.connector)}
+              onSubmit={values => this.connectAccount(values)}
+              {...this.state}
+              {...this.context} />
+          }
+        </ConnectorDialog>
+      )
+    }
   }
 
   gotoParent () {

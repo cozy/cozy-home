@@ -1,4 +1,5 @@
 /* global fetch */
+/* global cozy */
 import { Component } from 'preact'
 
 export default class MyAccountsStore {
@@ -20,10 +21,10 @@ export default class MyAccountsStore {
 
   updateConnector (connector) {
     this.connectors = this.connectors.map(
-      c => c.id === connector.id ? Object.assign({}, c, connector) : c
+      c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
     )
     if (this.listener) {
-      this.listener(this.find(c => c.id === connector.id))
+      this.listener(this.find(c => c.slug === connector.slug))
     }
   }
 
@@ -86,6 +87,59 @@ export default class MyAccountsStore {
       .then(() => this.updateConnector(connector))
   }
 
+  fetchOrInstallConnector (slug) {
+    const connectorSpec = this.connectors.find(conn => conn.slug === slug)
+    this.fetchConnector(connectorSpec)
+    .then(connector => {
+      if (connector === null) {
+        return this.installConnector(connectorSpec)
+      } else {
+        return connector
+      }
+    })
+  }
+
+  // Fetch stack data for the given connector
+  fetchConnector (connector) {
+    return cozy.client.data.defineIndex('io.cozy.konnectors', ['slug'])
+      .then(index => cozy.client.data.query(index, {selector: {slug: connector.slug}}))
+      .then(list => {
+        if (list.length) {
+          return list[0]
+        } else {
+          return null
+        }
+      })
+      .then(connector => {
+        if (connector) this.updateConnector(connector)
+        return connector
+      })
+  }
+
+  // Trigger the installation of the given connector
+  // and check that the installation is terminated
+  installConnector (connector) {
+    return this.fetch('POST', `/konnectors/${connector.slug}?Source=${encodeURIComponent(connector.repo)}`)
+      .then(() => {
+        // monitor the status of the connector
+        return new Promise((resolve, reject) => {
+          const idInterval = window.setInterval(() => {
+            this.fetchConnector(connector)
+            .then(connector => {
+              if (connector.state === 'ready') {
+                window.clearInterval(idInterval)
+                resolve(connector)
+              }
+            })
+            .catch(err => {
+              console.log(err, 'not installed yet')
+              // TODO check the timeout and reject the promise of out of timeout
+            })
+          }, 1000)
+        })
+      })
+  }
+
   putConnector (connector) {
     return this.fetch('PUT', `konnectors/${connector.id}`, connector)
       .then(response => {
@@ -141,18 +195,34 @@ export default class MyAccountsStore {
   }
 
   fetch (method, url, body) {
+    const STACK_DOMAIN = '//' + document.querySelector('[role=application]').dataset.cozyDomain
+    const STACK_TOKEN = document.querySelector('[role=application]').dataset.cozyToken
     let params = {
       method: method,
-      credentials: 'same-origin',
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${STACK_TOKEN}`
       }
     }
     if (body) {
       params.body = JSON.stringify(body)
     }
-    return fetch(url, params)
+    return fetch(`${STACK_DOMAIN}${url}`, params)
+      .then(response => {
+        let data
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.indexOf('json') >= 0) {
+          data = response.json()
+        } else {
+          data = response.text()
+        }
+
+        return (response.status === 200 || response.status === 202 || response.status === 204)
+          ? data
+          : data.then(Promise.reject.bind(Promise))
+      })
   }
 }
 
@@ -167,6 +237,6 @@ export class Provider extends Component {
   }
 
   render ({children}) {
-    return children && children[0] || null
+    return (children && children[0]) || null
   }
 }
