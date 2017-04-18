@@ -21,6 +21,10 @@
       "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
       "verbs": ["GET", "POST", "PUT"]
+    },
+    "konnectors": {
+      "description": "Required to get the list of konnectors",
+      "type": "io.cozy.konnectors"
     }
   },
   "routes": {
