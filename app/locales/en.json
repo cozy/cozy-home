@@ -202,6 +202,7 @@
   "my_accounts account delete success": "Account removed succesfully",
   "my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
   "my_accounts title description": "Description of this connector",
+  "my_accounts installing": "Installing",
 
   "dataType title": "Your Cozy retrieves the following data:",
   "dataType disclaimer": "won't access any data in your Cozy",

@@ -9,7 +9,7 @@
     "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "repo": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
+    "repo": "git://github.com/cozy/cozy-konnector-bouyguesbox.git"
   },
   {
     "accounts":[],
@@ -21,42 +21,42 @@
     "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
+    "repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git"
   },
   {
     "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
-    "vendorLink":"www.captaintrain.com",
+    "vendorLink":"www.trainline.fr",
+    "description":"konnector description trainline",
     "category":"transport",
     "color":{"hex":"#48D5B5","css":"#48D5B5"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "description":"konnector description trainline",
-    "repo": "git://github.com/cozy/cozy-konnector-trainline.git#build"
+    "repo": "git://github.com/cozy/cozy-konnector-trainline.git"
   },
   {
     "accounts":[],
-    "slug":"sfr_box",
+    "slug":"sfrbox",
     "name":"SFR Box",
     "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
+    "description":"konnector description sfrbox",
     "category":"isp",
     "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "description":"konnector description sfr_box",
-    "repo": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
+    "repo": "git://github.com/cozy/cozy-konnector-sfrbox.git"
   },
   {
     "accounts":[],
-    "slug":"sfr_mobile",
+    "slug":"sfrmobile",
     "name":"SFR Mobile",
     "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
+    "description":"konnector description sfrmobile",
     "category":"telecom",
     "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "description":"konnector description sfr_mobile",
-    "repo": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
+    "repo": "git://github.com/cozy/cozy-konnector-sfrmobile.git"
   }
 ]

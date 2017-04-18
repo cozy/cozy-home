@@ -91,7 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                   connectors={store.findByCategory(props.params)} {...props}
                 />}
             >
-              <Route path=':account' component={ConnectorManagement} />
+              <Route
+                path=':account'
+                component={ConnectorManagement}
+                onEnter={({params}) => store.fetchOrInstallConnector(params.account)}
+              />
             </Route>
             <Route
               path='/connected'
