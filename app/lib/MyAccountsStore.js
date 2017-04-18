@@ -123,11 +123,11 @@ export default class MyAccountsStore {
       .then(() => {
         // monitor the status of the connector
         return new Promise((resolve, reject) => {
-          const idInterval = window.setInterval(() => {
+          const idInterval = setInterval(() => {
             this.fetchConnector(connector)
             .then(connector => {
               if (connector.state === 'ready') {
-                window.clearInterval(idInterval)
+                clearInterval(idInterval)
                 resolve(connector)
               }
             })
