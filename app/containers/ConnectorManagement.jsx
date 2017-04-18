@@ -76,10 +76,11 @@ export default class ConnectorManagement extends Component {
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
     const { isConnected, isInstalled, selectedAccount } = this.state
+    const { t } = this.context
 
     if (!isInstalled) {
       return <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
-        <div>Installing</div>
+        <div>{t('my_accounts installing')}</div>
       </ConnectorDialog>
     } else {
       return (
