@@ -131,10 +131,6 @@ export default class MyAccountsStore {
                 resolve(connector)
               }
             })
-            .catch(err => {
-              console.log(err, 'not installed yet')
-              // TODO check the timeout and reject the promise on timeout
-            })
           }, 1000)
         })
       })

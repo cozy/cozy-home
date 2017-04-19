@@ -67,6 +67,20 @@ export default class ConnectorManagement extends Component {
       deleting: false,
       error: null
     }
+
+    this.store
+      .fetchOrInstallConnector(props.params.account)
+      .catch(error => {
+        console.error(error)
+        // Errors from stack, should be encapsulate by CozyClient calls in
+        // the near future
+        if (error.errors) {
+          error = error.errors[0].detail
+        }
+
+        Notifier.error(error)
+        this.gotoParent()
+      })
   }
 
   isInstalled (connector) {
