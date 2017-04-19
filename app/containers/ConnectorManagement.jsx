@@ -80,7 +80,11 @@ export default class ConnectorManagement extends Component {
 
     if (!isInstalled) {
       return <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
-        <div>{t('my_accounts installing')}</div>
+        {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
+        <div class='installing'>
+          <div class='installing-spinner' />
+          <div>{t('my_accounts installing')}</div>
+        </div>
       </ConnectorDialog>
     } else {
       return (
