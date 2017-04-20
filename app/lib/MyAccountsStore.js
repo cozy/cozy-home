@@ -89,7 +89,7 @@ export default class MyAccountsStore {
 
   fetchOrInstallConnector (slug) {
     const connectorSpec = this.connectors.find(conn => conn.slug === slug)
-    this.fetchConnector(connectorSpec)
+    return this.fetchConnector(connectorSpec)
     .then(connector => {
       if (connector === null) {
         return this.installConnector(connectorSpec)
