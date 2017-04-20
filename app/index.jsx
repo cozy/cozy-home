@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route
                 path=':account'
                 component={ConnectorManagement}
-                onEnter={({params}) => store.fetchOrInstallConnector(params.account)}
               />
             </Route>
             <Route

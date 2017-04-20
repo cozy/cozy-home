@@ -89,7 +89,7 @@ export default class MyAccountsStore {
 
   fetchOrInstallConnector (slug) {
     const connectorSpec = this.connectors.find(conn => conn.slug === slug)
-    this.fetchConnector(connectorSpec)
+    return this.fetchConnector(connectorSpec)
     .then(connector => {
       if (connector === null) {
         return this.installConnector(connectorSpec)
@@ -130,10 +130,6 @@ export default class MyAccountsStore {
                 clearInterval(idInterval)
                 resolve(connector)
               }
-            })
-            .catch(err => {
-              console.log(err, 'not installed yet')
-              // TODO check the timeout and reject the promise on timeout
             })
           }, 1000)
         })
