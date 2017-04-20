@@ -112,6 +112,7 @@
   "konnector description uber": "Downloads all your invoices from the Uber website. This konnector requires the Files application to store the invoices PDF files.",
   "konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
   "konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
+  "konnector installation timeout error": "Konnector installation timed out.",
   "notification import error": "an error occurred during import of data",
   "notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
   "notification prefix": "Konnector %{name}:",

@@ -2,6 +2,8 @@
 /* global cozy */
 import { Component } from 'preact'
 
+const INSTALL_TIMEOUT = 120
+
 export default class MyAccountsStore {
   constructor (connectors, folders, context) {
     this.listener = null
@@ -120,20 +122,28 @@ export default class MyAccountsStore {
   // and check that the installation is terminated
   installConnector (connector) {
     return this.fetch('POST', `/konnectors/${connector.slug}?Source=${encodeURIComponent(connector.repo)}`)
-      .then(() => {
+      .then(() => new Promise((resolve, reject) => {
+        const idTimeout = setTimeout(() => {
+          reject(new Error('konnector installation timeout error'))
+        }, INSTALL_TIMEOUT * 1000)
+
         // monitor the status of the connector
-        return new Promise((resolve, reject) => {
-          const idInterval = setInterval(() => {
-            this.fetchConnector(connector)
+        const idInterval = setInterval(() => {
+          this.fetchConnector(connector)
             .then(connector => {
               if (connector.state === 'ready') {
+                clearTimeout(idTimeout)
                 clearInterval(idInterval)
                 resolve(connector)
               }
             })
-          }, 1000)
-        })
-      })
+            .catch(err => {
+              clearTimeout(idTimeout)
+              clearInterval(idInterval)
+              reject(err)
+            })
+        }, 1000)
+      }))
   }
 
   putConnector (connector) {
