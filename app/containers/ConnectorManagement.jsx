@@ -47,6 +47,7 @@ export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    const {t} = context
     const connector = this.store.find(c => c.slug === props.params.account)
     this.store.subscribeTo(
       connector.id,
@@ -77,7 +78,7 @@ export default class ConnectorManagement extends Component {
           error = error.errors[0].detail
         }
 
-        Notifier.error(error)
+        Notifier.error(t(error.message || error))
         this.gotoParent()
       })
   }
