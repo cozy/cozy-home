@@ -1,19 +1,18 @@
 'use strict'
 
 const path = require('path')
-const fs = require('fs')
 
-const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require(path.resolve(__dirname, 'package.json'))
 
+const merge = require('webpack-merge')
+const { production, extractor } = require('./config/webpack.vars')
 // use the `OPTIMIZE` env to switch from dev to production build
-const optimize = process.env.OPTIMIZE === 'true'
+const optimize = process.env.NODE_ENV === production
 
 /**
  * Loaders used by webpack
@@ -29,7 +28,7 @@ const imgPath = 'img/' + '[name]' + (optimize ? '.[hash]' : '') + '.[ext]'
 let loaders = [
   {
     test: /\.jsx?$/,
-    exclude: /node_modules/,
+    exclude: /(node_modules|cozy-(bar|client-js))/,
     loader: 'babel-loader',
     query: {
       presets: [
@@ -50,7 +49,7 @@ let loaders = [
   },
   {
     test: /\.styl$/,
-    loader: ExtractTextPlugin.extract('style', cssOptions + '!postcss-loader!stylus')
+    loader: extractor.extract('style', cssOptions + '!postcss-loader!stylus')
   },
   {
     test: /\.svg$/,
@@ -100,40 +99,6 @@ let plugins = [
   })
 ]
 
-if (optimize) {
-  plugins = plugins.concat([
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.DefinePlugin({
-      __SERVER__: JSON.stringify('http://app.cozy.local'),
-      __DEVELOPMENT__: !optimize,
-      __DEVTOOLS__: !optimize,
-      __STACK_ASSETS__: false
-    }),
-    function () {
-      this.plugin('done', function (stats) {
-        fs.writeFileSync(
-          path.join(__dirname, 'build', 'assets.json'),
-          '{"hash":"' + stats.hash + '"}'
-        )
-      })
-    }
-  ])
-} else {
-  plugins = plugins.concat([
-    new BrowserSyncPlugin({
-      proxy: 'http://localhost:' + (process.env.PORT || 9358) + '/',
-      open: false
-    })
-  ])
-}
-
 /**
  * Webpack config
  *
@@ -141,7 +106,7 @@ if (optimize) {
  * - cache-bust assets when build for production
  */
 
-module.exports = {
+module.exports = merge(require('./config/webpack.config.base.js'), {
   entry: './app',
   output: {
     path: path.resolve('build'),
@@ -175,4 +140,6 @@ module.exports = {
   stylus: {
     use: [require('cozy-ui/stylus')()]
   }
-}
+},
+  require(production ? './config/webpack.config.prod' : './config/webpack.config.dev')
+)

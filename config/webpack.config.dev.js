@@ -1,0 +1,23 @@
+'use strict'
+
+const webpack = require('webpack')
+module.exports = {
+  devtool: '#source-map',
+  externals: ['cozy'],
+  module: {
+    loaders: [{
+      test: require.resolve('cozy-bar/dist/cozy-bar.js'),
+      loader: 'imports?css=./cozy-bar.css'
+    }]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __SERVER__: JSON.stringify('http://app.cozy.tools'),
+      __STACK_ASSETS__: false
+    }),
+    new webpack.ProvidePlugin({
+      'cozy.client': 'cozy-client-js/dist/cozy-client.js',
+      'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
+    })
+  ]
+}
