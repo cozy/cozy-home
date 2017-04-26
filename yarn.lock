@@ -1464,13 +1464,13 @@ cozy-client-js@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.2.1.tgz#1404f4a22be25dd8dfbfd496957bb4c127beca6e"
 
-cozy-ui@3.0.0-beta2:
-  version "3.0.0-beta2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-3.0.0-beta2.tgz#b0c9f248f1a27c9c12129eb35a243d3ae739f73e"
+cozy-ui@^3.0.0-beta20:
+  version "3.0.0-beta20"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-3.0.0-beta20.tgz#1ecf336883eec9d758788a86df4021a1bcd34151"
   dependencies:
+    classnames "^2.2.5"
     md5 "^2.2.0"
     normalize.css "5.0.0"
-    stylus "^0.54.0"
 
 crypt@~0.0.1:
   version "0.0.2"
@@ -5312,7 +5312,7 @@ stylus-loader@2.3.1:
     loader-utils "^0.2.9"
     when "~3.6.x"
 
-stylus@0.54.5, stylus@^0.54.0:
+stylus@0.54.5:
   version "0.54.5"
   resolved "https://registry.yarnpkg.com/stylus/-/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"
   dependencies:
