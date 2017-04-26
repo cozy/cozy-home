@@ -33,7 +33,7 @@
     "copy-webpack-plugin": "4.0.0",
     "cozy-bar": "^3.0.0-beta17",
     "cozy-client-js": "^0.2.1",
-    "cozy-ui": "3.0.0-beta2",
+    "cozy-ui": "^3.0.0-beta20",
     "css-loader": "0.25.0",
     "css-mqpacker": "5.0.1",
     "extract-text-webpack-plugin": "1.0.1",
