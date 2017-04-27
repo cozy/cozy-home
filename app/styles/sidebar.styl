@@ -1,0 +1,26 @@
+@require 'cozy-ui'
+
+:local
+    @extend $sidebar
+    @extend $navigation
+
+.con-nav-submenu
+    margin .5em 0 0 3em
+
+    .con-nav-submenu-link
+        padding 0.5em 1em
+        color   grey-08
+        margin  0
+
+    .active
+        color            white
+        background-color grey-08
+        border-radius    4px 0 0 4px
+
+.active
+    background-color pomegranate
+    color            white
+
+@media (max-width: (1023/basefont)rem)
+    .coz-nav-submenu
+        display none
