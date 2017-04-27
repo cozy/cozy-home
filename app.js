@@ -35767,7 +35767,7 @@
 		"konnector description free": "無料ですべてのインターネット請求書をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
 		"konnector description free mobile": "フリーモバイルからすべての電話料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
 		"konnector description maif": "Maif は、Cozy でいくつかのデータをダウンロードしていただくことができます(社会、自宅、請求、...)。",
-		"konnector customview maif": "To do that<ol><li>use the 'connect' button to connect on your Maif account,</li><li>select 'every day' as update schedule,</li></li>click on 'Import and Save'.",
+		"konnector customview maif": "これを行うには<ol><li>'接続' ボタンを使用して、Maif アカウントに接続します。</li><li>更新スケジュールとして '毎日' を選択します。</li></li>'インポートと保存' をクリックします。",
 		"konnector description bouygues": "Download all your phone bills from Bouygues Telecom. This konnector requires the Files application to store the bill PDF files.",
 		"konnector description bouygues box": "Download all your internet bills from Bouygues Telecom. This konnector requires the Files application to store the bill PDF files.",
 		"konnector description digiposte": "Download all your bills from the Digiposte service. This konnector requires the Files application to store the bill PDF files.",
@@ -36739,22 +36739,10 @@
 				"slug": "phone-bills",
 				"connectors": [
 					{
-						"slug": "virgin_mobile"
-					},
-					{
-						"slug": "sfr_mobile"
-					},
-					{
-						"slug": "orange"
-					},
-					{
-						"slug": "sosh"
+						"slug": "sfrmobile"
 					},
 					{
 						"slug": "bouyguestelecom"
-					},
-					{
-						"slug": "free"
 					}
 				],
 				"figure": "facture-telephonique-lg.jpg",
@@ -36770,13 +36758,7 @@
 						"slug": "bouyguesbox"
 					},
 					{
-						"slug": "free"
-					},
-					{
-						"slug": "numericable"
-					},
-					{
-						"slug": "sfr_box"
+						"slug": "sfrbox"
 					}
 				],
 				"figure": "facture-fournisseur-internet-lg.jpg",
@@ -36787,14 +36769,7 @@
 			},
 			{
 				"slug": "contacts",
-				"connectors": [
-					{
-						"slug": "googlecontacts"
-					},
-					{
-						"slug": "linkedin"
-					}
-				],
+				"connectors": [],
 				"figure": "regroupement-contacts-lg.jpg",
 				"color": {
 					"css": "#1FA8F1"
@@ -36803,23 +36778,7 @@
 			},
 			{
 				"slug": "agenda",
-				"connectors": [
-					{
-						"slug": "doctolib"
-					},
-					{
-						"slug": "facebook_events"
-					},
-					{
-						"slug": "ical_feed"
-					},
-					{
-						"slug": "meetup"
-					},
-					{
-						"slug": "voyages_sncf"
-					}
-				],
+				"connectors": [],
 				"figure": "regroupement-agendas-lg.jpg",
 				"color": {
 					"css": "#1FA8F1"
