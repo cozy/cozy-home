@@ -33,9 +33,9 @@
       "index": "index.html",
       "public": false
     },
-    "/": {
-      "folder": "/create",
-      "index": "create.html",
+    "/service-create": {
+      "folder": "/",
+      "index": "index.html",
       "public": true
     }
   },
