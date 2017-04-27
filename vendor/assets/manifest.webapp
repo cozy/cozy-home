@@ -43,7 +43,7 @@
     {
       "action": "CREATE",
       "type": ["io.cozy.accounts"],
-      "href": "/create"
+      "href": "/service-create"
     }
   ]
 }
