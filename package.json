@@ -10,7 +10,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "node-polyglot": "2.0.0",
-    "normalize.css": "5.0.0",
     "preact": "^7.1.0",
     "preact-compat": "^3.9.2",
     "react-markdown": "^2.4.4",

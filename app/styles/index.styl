@@ -1,13 +1,4 @@
-@import '../../node_modules/normalize.css/normalize.css'
-@import './base/_normalize'
-@import './base/_colors'
-
 @import 'cozy-ui'
-
-// Should be imported from another stylus in the future,
-// 'base/_fonts' for example
-// Variable used as divisor for px to em calculations.
-base-font-size = 16
 
 #svg-sprite-content
     position absolute
@@ -17,7 +8,7 @@ base-font-size = 16
 
 [role=application]
     @extend $app-2panes-sticky
-    background-color #ffffff
+    background-color white
 
     h1
         font-size 2em
@@ -30,8 +21,8 @@ base-font-size = 16
             margin    1em 1em .5em
 
 aside
-    background-color $grey-01
-    box-shadow       inset -1px 0 0 0 $grey-01-alpha
+    background-color grey-10
+    box-shadow       inset -1px 0 0 0 alpha(grey-08, .16)
     //               to put back to cozy-ui
     overflow         auto
     overflow-x       hidden
@@ -48,29 +39,29 @@ aside
     a
         display         block
         text-decoration none
-        color           $red
+        color           pomegranate
         flex            1
         padding         .75em 1.5em
         margin          .5em 0
 
         &:hover:not(.router-link-active)
-            background-color $grey-01-alpha
+            background-color alpha(grey-08, .16)
 
     .submenu
         margin .5em 0 0 3em
 
         a
             padding 0.5em 1em
-            color   $grey-08
+            color   grey-08
             margin  0
 
         .router-link-active
             color            white
-            background-color $grey-08
+            background-color grey-08
             border-radius    4px 0 0 4px
 
     .router-link-active
-        background-color $red
+        background-color pomegranate
         color            white
 
         svg
@@ -82,11 +73,11 @@ aside
         margin-right   0.5em
         display        inline-block
         vertical-align middle
-        fill           $red
+        fill           pomegranate
 
 @media (max-width: (1023/basefont)rem)
     aside
-        box-shadow inset 0 1px 0 0 $grey-01-alpha
+        box-shadow inset 0 1px 0 0 alpha(grey-08, .16)
 
         h4
             display none
@@ -124,14 +115,14 @@ $item-margin = .7em
     position         relative
     border-radius    4px
     background-color white
-    box-shadow       0 2px 6px 0 rgba(0, 0, 0, 0.15)
+    box-shadow       0 2px 6px 0 alpha(black, .15)
     margin           $item-margin
     padding-bottom   1em
     cursor           pointer
     text-decoration  none
     transition       .2s ease all
     &:hover
-        box-shadow 0 4px 12px 0 rgba(0, 0, 0, 0.25)
+        box-shadow 0 4px 12px 0 alpha(black, .15)
         transform  scale(1.05)
         transition .2s ease all
     .item-header
@@ -156,7 +147,7 @@ $item-margin = .7em
         font-size 14px
         padding   0em 1em
         margin    0em .5em
-        color     $grey-06
+        color     grey-06
     .item-connected
         position absolute
         width    24px
@@ -196,7 +187,7 @@ $item-margin = .7em
 
     [role=separator]
         cursor           pointer
-        background-color rgba(78, 91, 105, 0.75)
+        background-color alpha(grey-07, .75)
 
     .wrapper
         min-height 100vh
@@ -227,7 +218,7 @@ $item-margin = .7em
         flex-direction column
         border         none
         flex-basis     80rem
-        box-shadow     0 6px 18px 0 rgba(0, 0, 0, 0.22), 0 1px 3px 0 rgba(0, 0, 0, 0.16)
+        box-shadow     0 6px 18px 0 alpha(black, .22), 0 1px 3px 0 alpha(black, .16)
 
         .dialog-header
             height                  7em
@@ -246,7 +237,7 @@ $item-margin = .7em
                     font-size(24px)
 
                 a:not([role=button])
-                    color           $blue
+                    color           dodger-blue
                     text-transform  uppercase
                     text-decoration none
                     cursor          pointer
@@ -264,7 +255,7 @@ $item-margin = .7em
                 margin auto
 
             .account-description
-                background-color $grey-01
+                background-color grey-10
                 padding          0 2em 0 15%
                 > p
                     margin-top 2em
@@ -296,15 +287,15 @@ $item-margin = .7em
                     margin 2.4em 1em 0.5em 0
                 li
                     padding       0.5em 1em
-                    color         $grey-08
+                    color         grey-08
                     font-weight   bold
                     text-overflow ellipsis
                     white-space   nowrap
                     overflow      hidden
                     &.selected
-                        background-color $grey-01
+                        background-color grey-10
                         a
-                            color $grey-08
+                            color grey-08
 
             .account-config
                 .account-field
@@ -316,7 +307,7 @@ $item-margin = .7em
         .account-form.error
             .account-field
                 input
-                    border      1px solid $red
+                    border      1px solid pomegranate
                     background  none
 
         // Onboarding form styles
@@ -348,13 +339,13 @@ $item-margin = .7em
             label
                 display        block
                 text-transform uppercase
-                color          $grey-05
+                color          grey-05
                 font-size      .9em
                 padding        .55em 0
 
             .error-label
                 display none
-                color   $red
+                color   pomegranate
 
             input[type=text]
             input[type=password]
@@ -363,19 +354,19 @@ $item-margin = .7em
                 padding       0.75em 0.75em 0.9em
                 border-radius 4px
                 box-sizing    border-box
-                border        1px solid $grey-03
-                background    #f5f5f5
+                border        1px solid grey-03
+                background    grey-10
                 color         black
                 &::placeholder
-                    color     $grey-07
+                    color     grey-07
                     font-size 1.05em
                 &:focus
-                    border     1px solid $blue
+                    border     1px solid dodger-blue
                     background none
                 &:hover
-                    border 1px solid $grey-06
+                    border 1px solid grey-06
                 &.error
-                    border     1px solid $red
+                    border     1px solid pomegranate
                     background none
 
             select
@@ -398,7 +389,7 @@ $item-margin = .7em
             width      70%
             padding     0 15%
             display    flex
-            border-top 1px solid $grey-04
+            border-top 1px solid grey-04
 
             button
                 width  50%
@@ -414,7 +405,7 @@ $item-margin = .7em
             padding           0.9em 0.75em
             min-height        (40/base-font-size)em
             border-radius     4px
-            background-color  $blue
+            background-color  dodger-blue
             font-family       "Source Sans Pro", sans-serif
             text-align        center
             text-transform    uppercase
@@ -422,8 +413,8 @@ $item-margin = .7em
             text-decoration   none
 
             &.cancel
-                background-color $grey-01
-                color            $grey-08
+                background-color grey-10
+                color            grey-08
 
             &.danger
                 background-color rgba(255, 93, 70, 0.1)
@@ -436,7 +427,7 @@ $item-margin = .7em
                 background      none
                 padding         0em
                 min-height      0
-                color           $blue
+                color           dodger-blue
                 text-transform  uppercase
                 text-decoration none
                 cursor          pointer
@@ -459,7 +450,7 @@ $item-margin = .7em
 
 
         .errors
-            color $red
+            color pomegranate
     // specific to use case dialog
     &.use-case-dialog
         [role=contentinfo]
@@ -525,7 +516,7 @@ notification-width = (546/base-font-size)em
         font-size(15px)
 
 .coz-notification--error
-    background-color $red
+    background-color pomegranate
     background-image embedurl('../assets/icons/icon-warning.svg')
 
 .coz-notification--closing
@@ -543,7 +534,7 @@ notification-width = (546/base-font-size)em
     padding 2em
     text-align center
     font-size 2em
-    color $grey-06
+    color grey-06
 
 .installing-spinner
     @extend $icon-spinner-blue
