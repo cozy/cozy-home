@@ -1,16 +1,17 @@
 /** @jsx h */
 import { h } from 'preact'
 
+import styles from '../styles/app.styl'
+import classNames from 'classnames'
+
 import Sidebar from './Sidebar'
 import Notifier from './Notifier'
 
 const App = ({ categories, children }) => (
-  <div role='application'>
+  <div className={classNames(styles['con-wrapper'], styles['coz-sticky'])}>
     <Sidebar categories={categories} />
-    <main>
-      <div role='contentinfo'>
-        {children}
-      </div>
+    <main className={styles['con-content']}>
+      {children}
     </main>
     <Notifier />
   </div>

@@ -1,3 +1,4 @@
+@import 'cozy-ui/defaults'
 @import 'cozy-ui'
 
 #svg-sprite-content
@@ -5,98 +6,6 @@
     width 0
     height 0
     visibility hidden
-
-[role=application]
-    @extend $app-2panes-sticky
-    background-color white
-
-    h1
-        font-size 2em
-        margin    1.5em 2em 1em
-
-@media (max-width: (1023/basefont)rem)
-    [role=application]
-        h1
-            font-size 1.5em
-            margin    1em 1em .5em
-
-aside
-    background-color grey-10
-    box-shadow       inset -1px 0 0 0 alpha(grey-08, .16)
-    //               to put back to cozy-ui
-    overflow         auto
-    overflow-x       hidden
-
-    h4
-        font-weight normal
-        font-size   1.5em
-        padding     1em
-        margin      0
-
-
-[role="navigation"]
-    width 13.75em
-    a
-        display         block
-        text-decoration none
-        color           pomegranate
-        flex            1
-        padding         .75em 1.5em
-        margin          .5em 0
-
-        &:hover:not(.router-link-active)
-            background-color alpha(grey-08, .16)
-
-    .submenu
-        margin .5em 0 0 3em
-
-        a
-            padding 0.5em 1em
-            color   grey-08
-            margin  0
-
-        .router-link-active
-            color            white
-            background-color grey-08
-            border-radius    4px 0 0 4px
-
-    .router-link-active
-        background-color pomegranate
-        color            white
-
-        svg
-            fill white
-
-    svg
-        width          1.5em
-        height         1.5em
-        margin-right   0.5em
-        display        inline-block
-        vertical-align middle
-        fill           pomegranate
-
-@media (max-width: (1023/basefont)rem)
-    aside
-        box-shadow inset 0 1px 0 0 alpha(grey-08, .16)
-
-        h4
-            display none
-
-    [role="navigation"]
-        width           100%
-        display         flex
-        justify-content space-around
-
-        a
-            text-align center
-            font-size(10px)
-
-            svg
-                display block
-                margin  0 auto em(5px)
-
-        .submenu
-            display none
 
 .connector-list, .use-cases-list
     display          flex
