@@ -1,0 +1,81 @@
+.connector-list, .use-cases-list
+    display          flex
+    flex-wrap        wrap
+    justify-content  flex-start
+    margin           0 3em 2em
+
+@media (max-width: (1023/basefont)rem)
+    .connector-list, .use-cases-list
+        margin 0 1em 1em
+
+$item-margin = .7em
+
+.item-wrapper
+    flex             1 1 'calc(100% - %s * 2)' % $item-margin
+    position         relative
+    border-radius    4px
+    background-color white
+    box-shadow       0 2px 6px 0 alpha(black, .15)
+    margin           $item-margin
+    padding-bottom   1em
+    cursor           pointer
+    text-decoration  none
+    transition       .2s ease all
+    &:hover
+        box-shadow 0 4px 12px 0 alpha(black, .15)
+        transform  scale(1.05)
+        transition .2s ease all
+    .item-header
+        position      relative
+        border-radius 4px 4px 0px 0px
+        height        9em
+        .item-icon
+            position      relative
+            display       block
+            border-radius 4px 4px 0px 0px
+            width         14em
+            height        4em
+            margin        0 auto
+            top           50%
+            transform     translateY(-50%)
+    .item-title
+        padding   0em .5em
+        font-size 20px
+        margin    .5em
+        color     black
+    .item-subtitle
+        font-size 14px
+        padding   0em 1em
+        margin    0em .5em
+        color     grey-06
+    .item-connected
+        position absolute
+        width    24px
+        height   24px
+        bottom   1em
+        right    1em
+
+@media (min-width: 40em)
+    .item-wrapper
+        flex-grow  0
+        flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+@media (min-width: 64em)
+    .item-wrapper
+        flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+@media (min-width: 80em)
+    .item-wrapper
+        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+
+@media (min-width: 96em)
+    .item-wrapper
+        flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+@media (min-width: 112em)
+    .item-wrapper
+        flex-basis 'calc(20% - %s * 2)' % $item-margin
+
+@media (min-width: 128em)
+    .item-wrapper
+        flex-basis 'calc(16.666% - %s * 2)' % $item-margin
