@@ -14,23 +14,13 @@ const Sidebar = ({ t, categories, router }) => {
     <aside className='coz-sidebar'>
       <ul role='navigation' className='coz-nav'>
         <li className='coz-nav-item'>
-          <Link to='/discovery' className='coz-nav-link' activeClassName='active'>
-            <svg>
-              <use
-                xlinkHref={require('../assets/sprites/icon-compass.svg')}
-              />
-            </svg>
+          <Link to='/discovery' className='coz-nav-link con-cat-discovery' activeClassName='active'>
             {t('my_accounts discovery title')}
           </Link>
         </li>
         <li className='coz-nav-item'>
           <Link to='/category/all'
-            className={isCategoryView ? 'active' : ''}>
-            <svg>
-              <use
-                xlinkHref={require('../assets/sprites/icon-grid.svg')}
-              />
-            </svg>
+            className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
             {t('my_accounts category title')}
           </Link>
           {isCategoryView &&
@@ -56,12 +46,7 @@ const Sidebar = ({ t, categories, router }) => {
           }
         </li>
         <li className='coz-nav-item'>
-          <Link to='/connected' className='coz-nav-link' activeClassName='active'>
-            <svg>
-              <use
-                xlinkHref={require('../assets/sprites/icon-pin.svg')}
-              />
-            </svg>
+          <Link to='/connected' className='coz-nav-link con-cat-pinned' activeClassName='active'>
             {t('my_accounts connected title')}
           </Link>
         </li>
