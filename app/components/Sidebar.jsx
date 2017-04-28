@@ -3,8 +3,6 @@ import { h } from 'preact'
 import { Link, withRouter } from 'react-router'
 import { translate } from '../plugins/preact-polyglot'
 
-import styles from '../styles/sidebar.styl'
-
 const Sidebar = ({ t, categories, router }) => {
   let isCategoryView = router.location.pathname.match(/^\/category/) !== null
   const i18nCategories =
@@ -13,10 +11,10 @@ const Sidebar = ({ t, categories, router }) => {
       .sort((a, b) => a.label.localeCompare(b.label))
 
   return (
-    <aside className={styles['coz-sidebar']}>
-      <ul role='navigation' className={styles['coz-nav']}>
-        <li className={styles['coz-nav-item']}>
-          <Link to='/discovery' className={styles['coz-nav-link']} activeClassName={styles['active']}>
+    <aside className='coz-sidebar'>
+      <ul role='navigation' className='coz-nav'>
+        <li className='coz-nav-item'>
+          <Link to='/discovery' className='coz-nav-link' activeClassName='active'>
             <svg>
               <use
                 xlinkHref={require('../assets/sprites/icon-compass.svg')}
@@ -25,9 +23,9 @@ const Sidebar = ({ t, categories, router }) => {
             {t('my_accounts discovery title')}
           </Link>
         </li>
-        <li className={styles['coz-nav-item']}>
+        <li className='coz-nav-item'>
           <Link to='/category/all'
-            className={isCategoryView ? styles['active'] : ''}>
+            className={isCategoryView ? 'active' : ''}>
             <svg>
               <use
                 xlinkHref={require('../assets/sprites/icon-grid.svg')}
@@ -36,29 +34,29 @@ const Sidebar = ({ t, categories, router }) => {
             {t('my_accounts category title')}
           </Link>
           {isCategoryView &&
-            <ul className={styles['con-nav-submenu']}>
+            <ul className='con-nav-submenu'>
               <li>
-                <Link to='/category/all' className={styles['con-nav-submenu-link']} activeClassName={styles['active']}>
+                <Link to='/category/all' className='con-nav-submenu-link' activeClassName='active'>
                   {t('all category')}
                 </Link>
               </li>
               {i18nCategories.map(category => (
                 <li>
-                  <Link to={`/category/${category.slug}`} className={styles['con-nav-submenu-link']} activeClassName={styles['active']}>
+                  <Link to={`/category/${category.slug}`} className='con-nav-submenu-link' activeClassName='active'>
                     {category.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link to='/category/others' className={styles['con-nav-submenu-link']} activeClassName={styles['active']}>
+                <Link to='/category/others' className='con-nav-submenu-link' activeClassName='active'>
                   {t('others category')}
                 </Link>
               </li>
             </ul>
           }
         </li>
-        <li className={styles['coz-nav-item']}>
-          <Link to='/connected' className={styles['coz-nav-link']} activeClassName={styles['active']}>
+        <li className='coz-nav-item'>
+          <Link to='/connected' className='coz-nav-link' activeClassName='active'>
             <svg>
               <use
                 xlinkHref={require('../assets/sprites/icon-pin.svg')}
