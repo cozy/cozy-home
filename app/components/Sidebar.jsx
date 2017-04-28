@@ -12,17 +12,19 @@ const Sidebar = ({ t, categories, router }) => {
 
   return (
     <aside className='coz-sidebar'>
-      <ul role='navigation' className='coz-nav'>
-        <li className='coz-nav-item'>
-          <Link to='/discovery' className='coz-nav-link con-cat-discovery' activeClassName='active'>
-            {t('my_accounts discovery title')}
-          </Link>
-        </li>
-        <li className='coz-nav-item'>
-          <Link to='/category/all'
-            className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
-            {t('my_accounts category title')}
-          </Link>
+      <nav>
+        <ul className='coz-nav'>
+          <li className='coz-nav-item'>
+            <Link to='/discovery' className='coz-nav-link con-cat-discovery' activeClassName='active'>
+              {t('my_accounts discovery title')}
+            </Link>
+          </li>
+          <li className='coz-nav-item'>
+            <Link to='/category/all'
+              className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
+              {t('my_accounts category title')}
+            </Link>
+          </li>
           {isCategoryView &&
             <ul className='con-nav-submenu'>
               <li>
@@ -44,13 +46,13 @@ const Sidebar = ({ t, categories, router }) => {
               </li>
             </ul>
           }
-        </li>
-        <li className='coz-nav-item'>
-          <Link to='/pinned' className='coz-nav-link con-cat-pinned' activeClassName='active'>
-            {t('my_accounts pinned title')}
-          </Link>
-        </li>
-      </ul>
+          <li className='coz-nav-item'>
+            <Link to='/pinned' className='coz-nav-link con-cat-pinned' activeClassName='active'>
+              {t('my_accounts pinned title')}
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </aside>
   )
 }
