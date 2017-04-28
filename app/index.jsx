@@ -10,7 +10,7 @@ import MyAccountsStore, { Provider } from './lib/MyAccountsStore'
 import App from './components/App'
 import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
-import ConnectedList from './components/ConnectedList'
+import PinnedList from './components/PinnedList'
 import ConnectorManagement from './containers/ConnectorManagement'
 import UseCaseDialog from './components/UseCaseDialog'
 
@@ -97,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
               />
             </Route>
             <Route
-              path='/connected'
+              path='/pinned'
               component={(props) =>
-                <ConnectedList connectors={store.findConnected()} {...props} />}
+                <PinnedList connectors={store.findConnected()} {...props} />}
             >
               <Route path=':account' component={ConnectorManagement} />
             </Route>
