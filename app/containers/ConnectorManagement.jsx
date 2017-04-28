@@ -102,7 +102,7 @@ export default class ConnectorManagement extends Component {
       </ConnectorDialog>
     } else {
       return (
-        <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+        <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
           {isConnected
             ? <AccountManagement
               name={name}

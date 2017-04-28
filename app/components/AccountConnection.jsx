@@ -24,7 +24,7 @@ const AccountConnection = ({ t, connector, fields, dirty, error, submit, submitt
         </p>
         <h3>{t('dataType title')}</h3>
         <ul class='account-datas'>
-          {connector.dataType.map(data =>
+          {connector.dataType && connector.dataType.map(data =>
             <DataItem
               dataType={data}
               hex={connector.color.hex}
