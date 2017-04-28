@@ -2,6 +2,27 @@
     @extend $sidebar
     @extend $navigation
 
+.con-cat-discovery
+    background: embedurl("../assets/sprites/icon-compass.svg") em(24px) center no-repeat
+    &.active
+        background-image: embedurl("../assets/sprites/icon-compass-active.svg")
+.con-cat-categories
+    background: embedurl("../assets/sprites/icon-grid.svg") em(24px) center no-repeat
+    &.active
+        background-image: embedurl("../assets/sprites/icon-grid-active.svg")
+.con-cat-pinned
+    background: embedurl("../assets/sprites/icon-pin.svg") em(24px) center no-repeat
+    &.active
+        background-image: embedurl("../assets/sprites/icon-pin-active.svg")
+
+
+@media (max-width: (1023/basefont)rem)
+    .con-cat-discovery
+    .con-cat-categories
+    .con-cat-pinned
+        background-position center top
+
+
 .con-nav-submenu
     margin .5em 0 0 3em
 
@@ -14,10 +35,6 @@
         color            white
         background-color grey-08
         border-radius    4px 0 0 4px
-
-.active
-    background-color pomegranate
-    color            white
 
 @media (max-width: (1023/basefont)rem)
     .coz-nav-submenu
