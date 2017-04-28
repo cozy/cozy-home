@@ -112,6 +112,7 @@
   "konnector description uber": "Télécharge toutes vos factures depuis le site internet d'Uber. Pour pouvoir stocker les factures au format PDF, ce connecteur requiert que l'application Files soit installée sur votre Cozy.",
   "konnector description podcast": "Téléchargez vos podcasts audios préférés depuis leurs flux RSS. Les importations peuvent prendre du temps.",
   "konnector description materiel_net": "Télécharge vos factures Materiel.net. Pour pouvoir stocker les factures au format PDF, ce connecteur requiert que l'application Files soit installée sur votre Cozy.",
+  "konnector installation timeout error": "Konnector installation timed out.",
   "notification import error": "une erreur est survenue pendant l'importation des données",
   "notification malakoff_mederic": "%{smart_count} nouveau remboursement importé |||| %{smart_count} nouveaux remboursements importés",
   "notification prefix": "Konnector %{name} :",
@@ -202,6 +203,7 @@
   "my_accounts account delete success": "Compte supprimé",
   "my_accounts account delete error": "Une erreur est survenue, vos identifiants n'ont pas pu être enregistrés. Pouvez-vous recommencer ?",
   "my_accounts title description": "Description du connecteur",
+  "my_accounts installing": "Installing",
 
   "dataType title": "Votre Cozy récupère les données suivantes :",
   "dataType disclaimer": "n’accédera à aucune donnée présente sur votre Cozy.",

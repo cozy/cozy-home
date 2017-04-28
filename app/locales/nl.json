@@ -112,6 +112,7 @@
   "konnector description uber": "Download jouw rekeningen van de Uber webpagina. Deze verbinder vereist de Bestanden toepassing om PDF facturen op te slaan.",
   "konnector description podcast": "Download jouw favoriete geluids podcasts van een RSS feed. Deze import kan even duren.",
   "konnector description materiel_net": "Download jouw rekeningen van Materiel.net. Deze verbinder vereist de Bestanden toepassing om PDF facturen op te slaan.",
+  "konnector installation timeout error": "Konnector installation timed out.",
   "notification import error": "er is een fout opgetreden tijden het importeren van gegevens",
   "notification malakoff_mederic": "%{smart_count} nieuwe declaratie geïmporteerd |||| %{smart_count} nieuwe declaraties geïmporteerd",
   "notification prefix": "Verbinder %{name}:",
@@ -202,6 +203,7 @@
   "my_accounts account delete success": "Account succesvol verwijderd",
   "my_accounts account delete error": "Verontschuldigingen, onze server had een probleem, vind je het erg om opnieuw te beginnen?",
   "my_accounts title description": "Beschrijving van deze verbinder",
+  "my_accounts installing": "Installing",
 
   "dataType title": "Jouw Cozy heeft de volgende gegevens opgehaald:",
   "dataType disclaimer": "zal geen gegevens raadplagen in jouw Cozy",
