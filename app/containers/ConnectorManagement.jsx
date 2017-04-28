@@ -120,7 +120,7 @@ export default class ConnectorManagement extends Component {
               {...this.context} />
             : <AccountConnection
               connectUrl={prepareConnectURL(this.state.connector)}
-              onSubmit={values => this.connectAccount(values)}
+              onSubmit={values => this.connectAccount({values, folder: t('konnector default base folder')})}
               {...this.state}
               {...this.context} />
           }
@@ -144,27 +144,31 @@ export default class ConnectorManagement extends Component {
     this.selectAccount(this.state.connector.accounts.length - 1)
   }
 
-  connectAccount (values) {
-    if (this.state.connector.connectUrl) {
-      return this.connectAccountOAuth(values)
-    }
-
-    const id = this.state.connector.id
+  async connectAccount (values) {
     const { t } = this.context
+
     this.setState({ submitting: true })
-    this.store.connectAccount(id, values)
-      .then(fetchedConnector => {
-        this.setState({ submitting: false })
-        if (fetchedConnector.importErrorMessage) {
-          this.setState({ error: fetchedConnector.importErrorMessage })
-        } else {
-          this.gotoParent()
-          if (values.folderPath) {
-            Notifier.info(t('my_accounts account config success'), t('my_accounts account config details') + values.folderPath)
-          } else {
-            Notifier.info(t('my_accounts account config success'))
-          }
+    // TODO: Replace this automatic folder computation by intent to pick file.
+    this.store.getKonnectorFolder(this.state.connector, values.folder)
+      .then(folder => {
+        if (this.state.connector.connectUrl) {
+          return this.connectAccountOAuth(values)
         }
+
+        return this.store.connectAccount(this.state.connector, values, folder)
+          .then(fetchedConnector => {
+            this.setState({ submitting: false })
+            if (fetchedConnector.importErrorMessage) {
+              this.setState({ error: fetchedConnector.importErrorMessage })
+            } else {
+              this.gotoParent()
+              if (values.folderPath) {
+                Notifier.info(t('my_accounts account config success'), t('my_accounts account config details') + values.folderPath)
+              } else {
+                Notifier.info(t('my_accounts account config success'))
+              }
+            }
+          })
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })

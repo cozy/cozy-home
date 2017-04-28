@@ -63,22 +63,42 @@ export default class MyAccountsStore {
     return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug))
   }
 
-  connectAccount (connectorId, values, accountId = 0) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts[accountId] = values
-    return this.importConnector(connector)
-      .then(() => this.refreshFolders())
-      .then(() => this.startConnectorPoll(connector.id))
+  getKonnectorFolder (konnector, base = '/') {
+    base = base.charAt(base.length) === '/'
+      ? base.substr(0, base.length - 1)
+        : base
+
+    base = base.charAt(0) === '/'
+      ? base
+        : `/${base}`
+
+    const folderPath = `${base}/${konnector.name}`
+    return cozy.client.files.createDirectoryByPath(folderPath)
   }
 
-  addAccount (connectorId, values = {}) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts.push(values)
-    this.updateConnector(connector)
+  connectAccount (konnector, account, folder) {
+    return account.id
+      // TODO: replace by updateAccount
+      ? Promise.resolve(account)
+        : this.addAccount(konnector, account.values)
   }
 
   isInstalled (konnector) {
     return konnector.state && konnector.state === KONNECTOR_STATE_READY
+  }
+
+  addAccount (konnector, auth) {
+    return accounts.create(cozy.client, konnector, auth)
+      .then(account => {
+        const installationPromise = this.isInstalled(konnector)
+          ? Promise.resolve(konnector)
+            : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT)
+
+        return installationPromise
+          .then(konnector => {
+            return konnectors.addAccount(cozy.client, konnector, account)
+          })
+      })
   }
 
   updateAccount (connectorId, accountIdx, values) {
