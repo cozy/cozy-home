@@ -61,6 +61,7 @@ export default class ConnectorManagement extends Component {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
       isInstalled: this.isInstalled(connector),
+      isWorking: false,
       selectedAccount: 0,
       fields: this.configureFields(fields, context.t, name),
       submitting: false,
@@ -69,15 +70,14 @@ export default class ConnectorManagement extends Component {
       error: null
     }
 
-    this.store
-      .fetchOrInstallConnector(props.params.account)
+    this.store.fetchKonnectorInfos(props.params.account)
+      .then(konnector => {
+        this.setState({
+          connector: konnector,
+          isWorking: false
+        })
+      })
       .catch(error => {
-        // Errors from stack, should be encapsulated by CozyClient calls in
-        // the near future
-        if (error.errors) {
-          error = error.errors[0].detail
-        }
-
         Notifier.error(t(error.message || error))
         this.gotoParent()
       })
@@ -89,11 +89,11 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
-    const { isConnected, isInstalled, selectedAccount } = this.state
+    const { isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    if (!isInstalled) {
-      return <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+    if (isWorking) {
+      return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
         {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
         <div class='installing'>
           <div class='installing-spinner' />
@@ -102,7 +102,7 @@ export default class ConnectorManagement extends Component {
       </ConnectorDialog>
     } else {
       return (
-        <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+        <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
           {isConnected
             ? <AccountManagement
               name={name}
@@ -120,7 +120,7 @@ export default class ConnectorManagement extends Component {
               {...this.context} />
             : <AccountConnection
               connectUrl={prepareConnectURL(this.state.connector)}
-              onSubmit={values => this.connectAccount(values)}
+              onSubmit={values => this.connectAccount({values, folder: t('konnector default base folder')})}
               {...this.state}
               {...this.context} />
           }
@@ -144,27 +144,31 @@ export default class ConnectorManagement extends Component {
     this.selectAccount(this.state.connector.accounts.length - 1)
   }
 
-  connectAccount (values) {
-    if (this.state.connector.connectUrl) {
-      return this.connectAccountOAuth(values)
-    }
-
-    const id = this.state.connector.id
+  async connectAccount (values) {
     const { t } = this.context
+
     this.setState({ submitting: true })
-    this.store.connectAccount(id, values)
-      .then(fetchedConnector => {
-        this.setState({ submitting: false })
-        if (fetchedConnector.importErrorMessage) {
-          this.setState({ error: fetchedConnector.importErrorMessage })
-        } else {
-          this.gotoParent()
-          if (values.folderPath) {
-            Notifier.info(t('my_accounts account config success'), t('my_accounts account config details') + values.folderPath)
-          } else {
-            Notifier.info(t('my_accounts account config success'))
-          }
+    // TODO: Replace this automatic folder computation by intent to pick file.
+    this.store.getKonnectorFolder(this.state.connector, values.folder)
+      .then(folder => {
+        if (this.state.connector.connectUrl) {
+          return this.connectAccountOAuth(values)
         }
+
+        return this.store.connectAccount(this.state.connector, values, folder)
+          .then(fetchedConnector => {
+            this.setState({ submitting: false })
+            if (fetchedConnector.importErrorMessage) {
+              this.setState({ error: fetchedConnector.importErrorMessage })
+            } else {
+              this.gotoParent()
+              if (values.folderPath) {
+                Notifier.info(t('my_accounts account config success'), t('my_accounts account config details') + values.folderPath)
+              } else {
+                Notifier.info(t('my_accounts account config success'))
+              }
+            }
+          })
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })

@@ -2,7 +2,11 @@
 /* global cozy */
 import { Component } from 'preact'
 
+import * as accounts from './accounts'
+import * as konnectors from './konnectors'
+
 const INSTALL_TIMEOUT = 120
+const KONNECTOR_STATE_READY = 'ready'
 
 export default class MyAccountsStore {
   constructor (connectors, folders, context) {
@@ -22,12 +26,15 @@ export default class MyAccountsStore {
   }
 
   updateConnector (connector) {
-    this.connectors = this.connectors.map(
-      c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
-    )
-    if (this.listener) {
-      this.listener(this.find(c => c.slug === connector.slug))
+    if (connector) {
+      this.connectors = this.connectors.map(
+        c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
+      )
+      if (this.listener) {
+        this.listener(this.find(c => c.slug === connector.slug))
+      }
     }
+    return this.connectors.find(k => k.slug === connector.slug)
   }
 
   getCategories () {
@@ -56,18 +63,42 @@ export default class MyAccountsStore {
     return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug))
   }
 
-  connectAccount (connectorId, values, accountId = 0) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts[accountId] = values
-    return this.importConnector(connector)
-      .then(() => this.refreshFolders())
-      .then(() => this.startConnectorPoll(connector.id))
+  getKonnectorFolder (konnector, base = '/') {
+    base = base.charAt(base.length) === '/'
+      ? base.substr(0, base.length - 1)
+        : base
+
+    base = base.charAt(0) === '/'
+      ? base
+        : `/${base}`
+
+    const folderPath = `${base}/${konnector.name}`
+    return cozy.client.files.createDirectoryByPath(folderPath)
   }
 
-  addAccount (connectorId, values = {}) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts.push(values)
-    this.updateConnector(connector)
+  connectAccount (konnector, account, folder) {
+    return account.id
+      // TODO: replace by updateAccount
+      ? Promise.resolve(account)
+        : this.addAccount(konnector, account.values)
+  }
+
+  isInstalled (konnector) {
+    return konnector.state && konnector.state === KONNECTOR_STATE_READY
+  }
+
+  addAccount (konnector, auth) {
+    return accounts.create(cozy.client, konnector, auth)
+      .then(account => {
+        const installationPromise = this.isInstalled(konnector)
+          ? Promise.resolve(konnector)
+            : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT)
+
+        return installationPromise
+          .then(konnector => {
+            return konnectors.addAccount(cozy.client, konnector, account)
+          })
+      })
   }
 
   updateAccount (connectorId, accountIdx, values) {
@@ -89,33 +120,30 @@ export default class MyAccountsStore {
       .then(() => this.updateConnector(connector))
   }
 
-  fetchOrInstallConnector (slug) {
-    const connectorSpec = this.connectors.find(conn => conn.slug === slug)
-    return this.fetchConnector(connectorSpec)
-    .then(connector => {
-      if (connector === null) {
-        return this.installConnector(connectorSpec)
-      } else {
-        return connector
-      }
-    })
+  manifestToKonnector (manifest) {
+    return manifest
   }
 
-  // Fetch stack data for the given connector
-  fetchConnector (connector) {
-    return cozy.client.data.defineIndex('io.cozy.konnectors', ['slug'])
-      .then(index => cozy.client.data.query(index, {selector: {slug: connector.slug}}))
-      .then(list => {
-        if (list.length) {
-          return list[0]
-        } else {
-          return null
+  // get properties from installed konnector or remote manifest
+  fetchKonnectorInfos (slug) {
+    return this.getInstalledConnector(slug)
+      .then(konnector => {
+        if (!konnector) {
+          konnector = this.connectors.find(k => k.slug === slug)
         }
+
+        return konnectors.fetchManifest(cozy.client, konnector.repo)
+          .then(this.manifestToKonnector)
+          .catch(error => {
+            console.warn && console.warn(`Cannot fetch konnector's manifest (Error ${error.status})`)
+            return konnector
+          })
       })
-      .then(connector => {
-        if (connector) this.updateConnector(connector)
-        return connector
-      })
+      .then(konnector => this.updateConnector(konnector))
+  }
+
+  getInstalledConnector (slug) {
+    return konnectors.findBySlug(cozy.client, slug)
   }
 
   // Trigger the installation of the given connector
