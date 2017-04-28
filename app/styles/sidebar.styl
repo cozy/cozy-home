@@ -1,4 +1,4 @@
-[role=application]
+.con-wrapper
     @extend $sidebar
     @extend $navigation
 
@@ -22,20 +22,35 @@
     .con-cat-pinned
         background-position center top
 
+    // need this due to no css-modules usage in this app
+    aside
+        width   100%!important
 
+
+// related to categories submenu
 .con-nav-submenu
-    margin .5em 0 0 3em
+    list-style  none
+    margin      .5em 0 0 .5em
 
     .con-nav-submenu-link
-        padding 0.5em 1em
-        color   grey-08
-        margin  0
+        display         block
+        width           calc(100% - 2em)
+        height          100%
+        padding         0.5em 1em
+        margin          0
+        border-radius   4px 0 0 4px
+        font-size       em(14px)
+        color           grey-08
+        text-decoration none
+
+        &:hover:not(.active)
+            background-color grey-09
 
     .active
-        color            white
-        background-color grey-08
-        border-radius    4px 0 0 4px
+        color               white
+        border-right        1px solid grey-12
+        background-color    grey-12
 
 @media (max-width: (1023/basefont)rem)
-    .coz-nav-submenu
+    .con-nav-submenu
         display none
