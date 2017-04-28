@@ -61,6 +61,7 @@ export default class ConnectorManagement extends Component {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
       isInstalled: this.isInstalled(connector),
+      isWorking: false,
       selectedAccount: 0,
       fields: this.configureFields(fields, context.t, name),
       submitting: false,
@@ -69,15 +70,14 @@ export default class ConnectorManagement extends Component {
       error: null
     }
 
-    this.store
-      .fetchOrInstallConnector(props.params.account)
+    this.store.fetchKonnectorInfos(props.params.account)
+      .then(konnector => {
+        this.setState({
+          connector: konnector,
+          isWorking: false
+        })
+      })
       .catch(error => {
-        // Errors from stack, should be encapsulated by CozyClient calls in
-        // the near future
-        if (error.errors) {
-          error = error.errors[0].detail
-        }
-
         Notifier.error(t(error.message || error))
         this.gotoParent()
       })
@@ -89,11 +89,11 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
-    const { isConnected, isInstalled, selectedAccount } = this.state
+    const { isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    if (!isInstalled) {
-      return <ConnectorDialog slug={slug} color={color.css} enableDefaultIcon>
+    if (isWorking) {
+      return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
         {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
         <div class='installing'>
           <div class='installing-spinner' />

@@ -2,7 +2,11 @@
 /* global cozy */
 import { Component } from 'preact'
 
+import * as accounts from './accounts'
+import * as konnectors from './konnectors'
+
 const INSTALL_TIMEOUT = 120
+const KONNECTOR_STATE_READY = 'ready'
 
 export default class MyAccountsStore {
   constructor (connectors, folders, context) {
@@ -22,12 +26,15 @@ export default class MyAccountsStore {
   }
 
   updateConnector (connector) {
-    this.connectors = this.connectors.map(
-      c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
-    )
-    if (this.listener) {
-      this.listener(this.find(c => c.slug === connector.slug))
+    if (connector) {
+      this.connectors = this.connectors.map(
+        c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
+      )
+      if (this.listener) {
+        this.listener(this.find(c => c.slug === connector.slug))
+      }
     }
+    return this.connectors.find(k => k.slug === connector.slug)
   }
 
   getCategories () {
@@ -70,6 +77,10 @@ export default class MyAccountsStore {
     this.updateConnector(connector)
   }
 
+  isInstalled (konnector) {
+    return konnector.state && konnector.state === KONNECTOR_STATE_READY
+  }
+
   updateAccount (connectorId, accountIdx, values) {
     let connector = this.find(c => c.id === connectorId)
     connector.accounts[accountIdx] = values
@@ -89,33 +100,30 @@ export default class MyAccountsStore {
       .then(() => this.updateConnector(connector))
   }
 
-  fetchOrInstallConnector (slug) {
-    const connectorSpec = this.connectors.find(conn => conn.slug === slug)
-    return this.fetchConnector(connectorSpec)
-    .then(connector => {
-      if (connector === null) {
-        return this.installConnector(connectorSpec)
-      } else {
-        return connector
-      }
-    })
+  manifestToKonnector (manifest) {
+    return manifest
   }
 
-  // Fetch stack data for the given connector
-  fetchConnector (connector) {
-    return cozy.client.data.defineIndex('io.cozy.konnectors', ['slug'])
-      .then(index => cozy.client.data.query(index, {selector: {slug: connector.slug}}))
-      .then(list => {
-        if (list.length) {
-          return list[0]
-        } else {
-          return null
+  // get properties from installed konnector or remote manifest
+  fetchKonnectorInfos (slug) {
+    return this.getInstalledConnector(slug)
+      .then(konnector => {
+        if (!konnector) {
+          konnector = this.connectors.find(k => k.slug === slug)
         }
+
+        return konnectors.fetchManifest(cozy.client, konnector.repo)
+          .then(this.manifestToKonnector)
+          .catch(error => {
+            console.warn && console.warn(`Cannot fetch konnector's manifest (Error ${error.status})`)
+            return konnector
+          })
       })
-      .then(connector => {
-        if (connector) this.updateConnector(connector)
-        return connector
-      })
+      .then(konnector => this.updateConnector(konnector))
+  }
+
+  getInstalledConnector (slug) {
+    return konnectors.findBySlug(cozy.client, slug)
   }
 
   // Trigger the installation of the given connector
