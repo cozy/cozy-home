@@ -56,6 +56,7 @@
   "error occurred during import:": "Er is een fout opgetreden tijdens de laatste import.",
   "import server error": "Er is een server fout opgetreden tijdens het importeren.",
   "open selected folder": "Open de geselecteerde map",
+  "konnector default base folder": "Administration",
   "konnector description darty": "Importeer al jouw Darty rekeningen in jouw Cozy.",
   "konnector description malakoff_mederic": "Importeer jouw Malakoff Mederic declaraties in jouw Cozy.",
   "konnector description meetup": "Synchroniseer jouw Meetup kalender met jouw Cozy. Deze verbinder heeft de Kalender toepassing nodig.",

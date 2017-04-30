@@ -56,6 +56,7 @@
   "error occurred during import:": "前回のインポート中にエラーが発生しました:",
   "import server error": "インポート中にサーバーエラーが発生しました。",
   "open selected folder": "選択したフォルダーを開く",
+  "konnector default base folder": "Administration",
   "konnector description darty": "確定前の請求書をすべて Cozy にインポートします。",
   "konnector description malakoff_mederic": "Cozy にマラコフメディックの払い戻しをインポートします。",
   "konnector description meetup": "ミートアップカレンダーとお使いの Cozy を同期させましょう。 この konnector は、カレンダーアプリケーションが必要です。",

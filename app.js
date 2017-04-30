@@ -35382,6 +35382,7 @@
 		"error occurred during import:": "An error occurred during the last import:",
 		"import server error": "Server error occured while importing.",
 		"open selected folder": "Open selected folder",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "Import all your Darty bills in your Cozy.",
 		"konnector description malakoff_mederic": "Import your Malakoff Mederic reimbursements in your Cozy.",
 		"konnector description meetup": "Synchronize your Meetup calendar with your Cozy. This konnector requires the Calendar application.",
@@ -35626,6 +35627,7 @@
 		"error occurred during import:": "Une erreur est survenue lors de la dernière importation :",
 		"import server error": "L'import a rencontré une erreur serveur.",
 		"open selected folder": "Ouvrir le dossier sélectionné",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "Importez toutes vos factures Darty dans votre Cozy.",
 		"konnector description malakoff_mederic": "Importez vos remboursements Malakoff Mederic dans votre Cozy.",
 		"konnector description meetup": "Synchronise votre calendrier Meetup sur votre Cozy. Ce connecteur requiert l'application Calendrier.",
@@ -35682,7 +35684,7 @@
 		"konnector description uber": "Télécharge toutes vos factures depuis le site internet d'Uber. Pour pouvoir stocker les factures au format PDF, ce connecteur requiert que l'application Files soit installée sur votre Cozy.",
 		"konnector description podcast": "Téléchargez vos podcasts audios préférés depuis leurs flux RSS. Les importations peuvent prendre du temps.",
 		"konnector description materiel_net": "Télécharge vos factures Materiel.net. Pour pouvoir stocker les factures au format PDF, ce connecteur requiert que l'application Files soit installée sur votre Cozy.",
-		"konnector installation timeout error": "Konnector installation timed out.",
+		"konnector installation timeout error": "L'installation du connecteur a dépassé le temps imparti.",
 		"notification import error": "une erreur est survenue pendant l'importation des données",
 		"notification malakoff_mederic": "%{smart_count} nouveau remboursement importé |||| %{smart_count} nouveaux remboursements importés",
 		"notification prefix": "Konnector %{name} :",
@@ -35870,6 +35872,7 @@
 		"error occurred during import:": "前回のインポート中にエラーが発生しました:",
 		"import server error": "インポート中にサーバーエラーが発生しました。",
 		"open selected folder": "選択したフォルダーを開く",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "確定前の請求書をすべて Cozy にインポートします。",
 		"konnector description malakoff_mederic": "Cozy にマラコフメディックの払い戻しをインポートします。",
 		"konnector description meetup": "ミートアップカレンダーとお使いの Cozy を同期させましょう。 この konnector は、カレンダーアプリケーションが必要です。",
@@ -36114,6 +36117,7 @@
 		"error occurred during import:": "Er is een fout opgetreden tijdens de laatste import.",
 		"import server error": "Er is een server fout opgetreden tijdens het importeren.",
 		"open selected folder": "Open de geselecteerde map",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "Importeer al jouw Darty rekeningen in jouw Cozy.",
 		"konnector description malakoff_mederic": "Importeer jouw Malakoff Mederic declaraties in jouw Cozy.",
 		"konnector description meetup": "Synchroniseer jouw Meetup kalender met jouw Cozy. Deze verbinder heeft de Kalender toepassing nodig.",
@@ -36358,6 +36362,7 @@
 		"error occurred during import:": "An error occurred during the last import:",
 		"import server error": "Server error occured while importing.",
 		"open selected folder": "Open selected folder",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "Import all your Darty bills in your Cozy.",
 		"konnector description malakoff_mederic": "Import your Malakoff Mederic reimbursements in your Cozy.",
 		"konnector description meetup": "Synchronize your Meetup calendar with your Cozy. This konnector requires the Calendar application.",
@@ -36602,6 +36607,7 @@
 		"error occurred during import:": "An error occurred during the last import:",
 		"import server error": "Server error occured while importing.",
 		"open selected folder": "Open selected folder",
+		"konnector default base folder": "Administration",
 		"konnector description darty": "Import all your Darty bills in your Cozy.",
 		"konnector description malakoff_mederic": "Import your Malakoff Mederic reimbursements in your Cozy.",
 		"konnector description meetup": "Synchronize your Meetup calendar with your Cozy. This konnector requires the Calendar application.",
@@ -37167,7 +37173,7 @@
 	      var _this2 = this;
 	
 	      return accounts.create(__webpack_provided_cozy_dot_client, konnector, auth).then(function (account) {
-	        var installationPromise = _this2.isInstalled(konnector) ? Promise.resolve(konnector) : konnectors.install(__webpack_provided_cozy_dot_client, konnector.slug, konnector.repo, INSTALL_TIMEOUT);
+	        var installationPromise = _this2.isInstalled(konnector) ? Promise.resolve(konnector) : konnectors.install(__webpack_provided_cozy_dot_client, konnector.slug, konnector.repo, INSTALL_TIMEOUT * 1000);
 	
 	        return installationPromise.then(function (konnector) {
 	          return konnectors.addAccount(__webpack_provided_cozy_dot_client, konnector, account);
@@ -37241,48 +37247,16 @@
 	    value: function getInstalledConnector(slug) {
 	      return konnectors.findBySlug(__webpack_provided_cozy_dot_client, slug);
 	    }
-	
-	    // Trigger the installation of the given connector
-	    // and check that the installation is terminated
-	
-	  }, {
-	    key: 'installConnector',
-	    value: function installConnector(connector) {
-	      var _this6 = this;
-	
-	      return this.fetch('POST', '/konnectors/' + connector.slug + '?Source=' + encodeURIComponent(connector.repo)).then(function () {
-	        return new Promise(function (resolve, reject) {
-	          var idTimeout = setTimeout(function () {
-	            reject(new Error('konnector installation timeout error'));
-	          }, INSTALL_TIMEOUT * 1000);
-	
-	          // monitor the status of the connector
-	          var idInterval = setInterval(function () {
-	            _this6.fetchConnector(connector).then(function (connector) {
-	              if (connector.state === 'ready') {
-	                clearTimeout(idTimeout);
-	                clearInterval(idInterval);
-	                resolve(connector);
-	              }
-	            }).catch(function (err) {
-	              clearTimeout(idTimeout);
-	              clearInterval(idInterval);
-	              reject(err);
-	            });
-	          }, 1000);
-	        });
-	      });
-	    }
 	  }, {
 	    key: 'putConnector',
 	    value: function putConnector(connector) {
-	      var _this7 = this;
+	      var _this6 = this;
 	
 	      return this.fetch('PUT', 'konnectors/' + connector.id, connector).then(function (response) {
 	        return response.status === 200 ? response.text() : Promise.reject(response);
 	      }).then(function (body) {
 	        var connector = JSON.parse(body);
-	        _this7.updateConnector(connector);
+	        _this6.updateConnector(connector);
 	        return connector;
 	      });
 	    }
@@ -37302,19 +37276,19 @@
 	      var endTime = Number(new Date()) + timeout;
 	
 	      var checkCondition = function (resolve, reject) {
-	        var _this8 = this;
+	        var _this7 = this;
 	
 	        return this.fetch('GET', 'konnectors/' + connectorId).then(function (response) {
 	          return response.text();
 	        }).then(function (body) {
 	          var connector = JSON.parse(body);
 	          if (!connector.isImporting) {
-	            _this8.updateConnector(connector);
+	            _this7.updateConnector(connector);
 	            resolve(connector);
 	          } else if (Number(new Date()) < endTime) {
 	            setTimeout(checkCondition, interval, resolve, reject);
 	          } else {
-	            _this8.updateConnector(connector);
+	            _this7.updateConnector(connector);
 	            reject(new Error('polling timed out'));
 	          }
 	        });
@@ -37326,12 +37300,12 @@
 	  }, {
 	    key: 'refreshFolders',
 	    value: function refreshFolders() {
-	      var _this9 = this;
+	      var _this8 = this;
 	
 	      return this.fetch('GET', 'folders').then(function (response) {
 	        return response.text();
 	      }).then(function (body) {
-	        _this9.folders = JSON.parse(body);
+	        _this8.folders = JSON.parse(body);
 	        Promise.resolve();
 	      });
 	    }
@@ -37394,10 +37368,10 @@
 	  function Provider(props, context) {
 	    _classCallCheck(this, Provider);
 	
-	    var _this10 = _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).call(this, props, context));
+	    var _this9 = _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).call(this, props, context));
 	
-	    _this10.store = props.store;
-	    return _this10;
+	    _this9.store = props.store;
+	    return _this9;
 	  }
 	
 	  _createClass(Provider, [{
@@ -37476,7 +37450,7 @@
 	}
 	
 	function findBySlug(cozy, slug) {
-	  if (!slug) throw new Error('Missing `slug` paramater');
+	  if (!slug) throw new Error('Missing `slug` parameter');
 	
 	  return getSlugIndex(cozy).then(function (index) {
 	    return cozy.data.query(index, { selector: { slug: slug } });
