@@ -23,7 +23,7 @@ function getSlugIndex (cozy) {
 }
 
 export function findBySlug (cozy, slug) {
-  if (!slug) throw new Error('Missing `slug` paramater')
+  if (!slug) throw new Error('Missing `slug` parameter')
 
   return getSlugIndex(cozy)
     .then(index => cozy.data.query(index, {selector: {slug: slug}}))

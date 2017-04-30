@@ -92,7 +92,7 @@ export default class MyAccountsStore {
       .then(account => {
         const installationPromise = this.isInstalled(konnector)
           ? Promise.resolve(konnector)
-            : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT)
+            : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT * 1000)
 
         return installationPromise
           .then(konnector => {
@@ -144,34 +144,6 @@ export default class MyAccountsStore {
 
   getInstalledConnector (slug) {
     return konnectors.findBySlug(cozy.client, slug)
-  }
-
-  // Trigger the installation of the given connector
-  // and check that the installation is terminated
-  installConnector (connector) {
-    return this.fetch('POST', `/konnectors/${connector.slug}?Source=${encodeURIComponent(connector.repo)}`)
-      .then(() => new Promise((resolve, reject) => {
-        const idTimeout = setTimeout(() => {
-          reject(new Error('konnector installation timeout error'))
-        }, INSTALL_TIMEOUT * 1000)
-
-        // monitor the status of the connector
-        const idInterval = setInterval(() => {
-          this.fetchConnector(connector)
-            .then(connector => {
-              if (connector.state === 'ready') {
-                clearTimeout(idTimeout)
-                clearInterval(idInterval)
-                resolve(connector)
-              }
-            })
-            .catch(err => {
-              clearTimeout(idTimeout)
-              clearInterval(idInterval)
-              reject(err)
-            })
-        }, 1000)
-      }))
   }
 
   putConnector (connector) {
