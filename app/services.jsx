@@ -8,7 +8,7 @@ import MyAccountsStore, { Provider } from './lib/MyAccountsStore'
 
 import IntentService from './containers/IntentService'
 
-import './styles/index.styl'
+import './styles/services.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
