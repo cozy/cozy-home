@@ -52,6 +52,24 @@ export default class IntentService extends Component {
       })
   }
 
+  onTerminate () {
+    const { service } = this.state
+
+    const accountMock = {
+      _id: '1111aaaa11111aaaab'
+    }
+
+    service.terminate(accountMock)
+  }
+
+  onCancel () {
+    const { service } = this.state
+
+    service.cancel
+      ? service.cancel()
+        : service.terminate(null)
+  }
+
   render () {
     const { isFetching, error, konnector } = this.state
     const { t } = this.context
@@ -63,7 +81,21 @@ export default class IntentService extends Component {
           <p>{t('intent.service.error.cause', {error: error.message})}</p>
         </div>}
         { !isFetching && !error && konnector &&
-          <h1>{konnector.name}</h1>
+          <div class='coz-create-account'>
+            <h1>{konnector.name}</h1>
+            <div>
+              <button
+                class='coz-btn coz-btn--secondary'
+                onClick={() => this.onCancel()}>
+                {t('intent.service.cancel')}
+              </button>
+              <button
+                class='coz-btn cozy-btn--highlight'
+                onClick={() => this.onTerminate()}>
+                {t('intent.service.terminate')}
+              </button>
+            </div>
+          </div>
         }
       </div>)
   }

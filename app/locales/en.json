@@ -116,6 +116,8 @@
   "konnector installation timeout error": "Konnector installation timed out.",
   "intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
   "intent.service.error.cause": "Cause: %{error}",
+  "intent.service.cancel": "Cancel",
+  "intent.service.terminate": "Terminate",
   "notification import error": "an error occurred during import of data",
   "notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
   "notification prefix": "Konnector %{name}:",
