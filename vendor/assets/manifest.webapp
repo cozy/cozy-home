@@ -43,6 +43,18 @@
       "folder": "/",
       "index": "index.html",
       "public": false
+    },
+    "/service-create": {
+      "folder": "/",
+      "index": "index.html",
+      "public": true
     }
-  }
+  },
+  "intents": [
+    {
+      "action": "CREATE",
+      "type": ["io.cozy.accounts"],
+      "href": "/service-create"
+    }
+  ]
 }
