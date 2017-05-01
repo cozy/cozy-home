@@ -93,6 +93,17 @@ let plugins = [
     template: 'app/index.ejs',
     title: pkg.name,
     inject: false,
+    excludeChunks: ['services'],
+    minify: {
+      collapseWhitespace: true
+    }
+  }),
+  new HtmlWebpackPlugin({
+    template: 'app/services.ejs',
+    title: `${pkg.name} services`,
+    filename: 'services/index.html',
+    inject: false,
+    chunks: ['services'],
     minify: {
       collapseWhitespace: true
     }
@@ -107,10 +118,13 @@ let plugins = [
  */
 
 module.exports = merge(require('./config/webpack.config.base.js'), {
-  entry: './app',
+  entry: {
+    app: './app',
+    services: './app/services.jsx'
+  },
   output: {
     path: path.resolve('build'),
-    filename: optimize ? 'app.[hash].js' : 'app.js'
+    filename: optimize ? '[name].[hash].js' : '[name].js'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
