@@ -230,6 +230,10 @@ export default class MyAccountsStore {
           : data.then(Promise.reject.bind(Promise))
       })
   }
+
+  createIntentService (intent, window) {
+    return cozy.client.intents.createService(intent, window)
+  }
 }
 
 export class Provider extends Component {

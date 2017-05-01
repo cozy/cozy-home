@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <I18n context={context} locale={lang}>
-        <IntentService />
+        <IntentService window={window} />
       </I18n>
     </Provider>
   ), document.querySelector('[role=application]'))
