@@ -132,14 +132,14 @@ export default class MyAccountsStore {
           konnector = this.connectors.find(k => k.slug === slug)
         }
 
-        return konnectors.fetchManifest(cozy.client, konnector.repo)
+        return konnector ? konnectors.fetchManifest(cozy.client, konnector.repo)
           .then(this.manifestToKonnector)
           .catch(error => {
             console.warn && console.warn(`Cannot fetch konnector's manifest (Error ${error.status})`)
             return konnector
-          })
+          }) : null
       })
-      .then(konnector => this.updateConnector(konnector))
+      .then(konnector => konnector ? this.updateConnector(konnector) : null)
   }
 
   getInstalledConnector (slug) {
