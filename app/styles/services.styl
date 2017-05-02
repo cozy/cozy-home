@@ -2,12 +2,16 @@
 @import 'cozy-ui'
 
 @import './loading.styl'
+@import './dialog.styl'
+
+body > svg
+  display none
 
 .coz-service-layout
   display         flex
   flex-direction  column
   align-items     stretch
-  min-height      100vh
+  height      100vh
   width           100vw
 
 .coz-service-bar
@@ -44,4 +48,8 @@
 
 .coz-service-content
     flex    1
-    @extend $centerized
+    display flex
+    align-items center
+    justify-content center
+    max-height      calc(100vh - (32/basefont)em)
+    overflow-y      scroll
