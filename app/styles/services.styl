@@ -7,6 +7,15 @@
 body > svg
   display none
 
+.coz-service-loading
+.coz-service-error
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  flex-direction: column;
+
 .coz-service-layout
   display         flex
   flex-direction  column
@@ -49,7 +58,5 @@ body > svg
 .coz-service-content
     flex    1
     display flex
-    align-items center
-    justify-content center
     max-height      calc(100vh - (32/basefont)em)
     overflow-y      scroll

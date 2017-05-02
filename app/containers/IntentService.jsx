@@ -49,19 +49,31 @@ export default class IntentService extends Component {
       .catch(error => {
         this.setState({
           isFetching: false,
-          error: error
+          error: {
+            message: 'intent.service.initialization.error',
+            reason: error.message
+          }
         })
       })
   }
 
-  terminate () {
+  createAccount (auth) {
+    const { konnector } = this.state
+    this.store.addAccount(konnector, auth)
+      .then(account => this.terminate(account))
+      .catch(error => {
+        this.setState({
+          error: {
+            message: 'intent.service.account.creation.error',
+            reason: error.message
+          }
+        })
+      })
+  }
+
+  terminate (account) {
     const { service } = this.state
-
-    const accountMock = {
-      _id: '1111aaaa11111aaaab'
-    }
-
-    service.terminate(accountMock)
+    service.terminate(account)
   }
 
   cancel () {
@@ -78,10 +90,13 @@ export default class IntentService extends Component {
     const { t } = this.context
     return (
       <div class='coz-service'>
-        { isFetching && <Loading /> }
+        { isFetching &&
+          <div class='coz-service-loading'>
+            <Loading />
+          </div> }
         { error && <div class='coz-error coz-service-error'>
-          <h1>{t('intent.service.error')}</h1>
-          <p>{t('intent.service.error.cause', {error: error.message})}</p>
+          <p>{t(error.message)}</p>
+          <p>{t('intent.service.error.cause', {error: error.reason})}</p>
         </div>}
         { !isFetching && !error && konnector &&
           <div class='coz-service-layout'>
@@ -94,11 +109,10 @@ export default class IntentService extends Component {
             <CreateAccountService
               konnector={konnector}
               onCancel={() => this.cancel()}
-              onTerminate={account => this.terminate(account)}
+              onSubmit={auth => this.createAccount(auth)}
               {...this.context}
               />
-          </div>
-        }
+          </div>}
       </div>)
   }
 }
