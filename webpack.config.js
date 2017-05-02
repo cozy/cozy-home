@@ -4,7 +4,6 @@ const path = require('path')
 
 const autoprefixer = require('autoprefixer')
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require(path.resolve(__dirname, 'package.json'))
@@ -85,7 +84,7 @@ let loaders = [
  *   http://localhost:3000, proxified to the server app port
  */
 let plugins = [
-  new ExtractTextPlugin(optimize ? 'app.[hash].css' : 'app.css'),
+  extractor,
   new CopyPlugin([
     { from: 'vendor/assets', ignore: ['.gitkeep'] }
   ]),
