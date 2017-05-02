@@ -35161,6 +35161,10 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "an error occurred during import of data",
 		"notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
 		"notification prefix": "Konnector %{name}:",
@@ -35882,12 +35886,12 @@
 		"konnector description free mobile": "フリーモバイルからすべての電話料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
 		"konnector description maif": "Maif は、Cozy でいくつかのデータをダウンロードしていただくことができます(社会、自宅、請求、...)。",
 		"konnector customview maif": "これを行うには<ol><li>'接続' ボタンを使用して、Maif アカウントに接続します。</li><li>更新スケジュールとして '毎日' を選択します。</li></li>'インポートと保存' をクリックします。",
-		"konnector description bouygues": "Download all your phone bills from Bouygues Telecom. This konnector requires the Files application to store the bill PDF files.",
-		"konnector description bouygues box": "Download all your internet bills from Bouygues Telecom. This konnector requires the Files application to store the bill PDF files.",
-		"konnector description digiposte": "Download all your bills from the Digiposte service. This konnector requires the Files application to store the bill PDF files.",
-		"konnector description sfr_box": "Download all your internet bills from SFR or Red. This konnector requires the Files application to store the bill PDF files.",
-		"konnector description sfr_mobile": "Download all your mobile bills from SFR or Red. This konnector requires the Files application to store the bill PDF files.",
-		"konnector description github": "Download all your Github Bills. This konnector requires the Files application to store the bill PDF files.",
+		"konnector description bouygues": "Bouygues Telecom からすべての電話料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
+		"konnector description bouygues box": "Bouygues Telecom からすべてのインターネット料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
+		"konnector description digiposte": "Digiposte サービスからすべての請求書をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
+		"konnector description sfr_box": "SFR または Red からすべてのインターネット料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
+		"konnector description sfr_mobile": "SFR または Red からすべての電話料金をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
+		"konnector description github": "すべての Github の請求書をダウンロードします。 この konnector は、請求書 PDF ファイルを保存するために、ファイルアプリケーションが必要です。",
 		"konnector description github commits": "Save infos from all your Github Commits.",
 		"konnector description jawbone": "Download Move and Sleep Data from Jawbone CSV file.",
 		"konnector description rescuetime": "Download all your activities from Rescue Time",
@@ -37234,12 +37238,12 @@
 	          });
 	        }
 	
-	        return konnectors.fetchManifest(__webpack_provided_cozy_dot_client, konnector.repo).then(_this5.manifestToKonnector).catch(function (error) {
+	        return konnector ? konnectors.fetchManifest(__webpack_provided_cozy_dot_client, konnector.repo).then(_this5.manifestToKonnector).catch(function (error) {
 	          console.warn && console.warn('Cannot fetch konnector\'s manifest (Error ' + error.status + ')');
 	          return konnector;
-	        });
+	        }) : null;
 	      }).then(function (konnector) {
-	        return _this5.updateConnector(konnector);
+	        return konnector ? _this5.updateConnector(konnector) : null;
 	      });
 	    }
 	  }, {
@@ -37348,6 +37352,11 @@
 	        return response.status === 200 || response.status === 202 || response.status === 204 ? data : data.then(Promise.reject.bind(Promise));
 	      });
 	    })
+	  }, {
+	    key: 'createIntentService',
+	    value: function createIntentService(intent, window) {
+	      return __webpack_provided_cozy_dot_client.intents.createService(intent, window);
+	    }
 	  }]);
 	
 	  return MyAccountsStore;
@@ -51147,6 +51156,34 @@
 				}
 			},
 			"repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git"
+		},
+		{
+			"accounts": [],
+			"slug": "maif",
+			"name": "MAIF",
+			"vendorLink": "maif.fr",
+			"description": "konnector description maif",
+			"category": "health",
+			"color": {
+				"hex": "#007858",
+				"css": "#007858"
+			},
+			"fields": {
+				"login": {
+					"type": "text"
+				},
+				"password": {
+					"type": "password"
+				},
+				"folderPath": {
+					"type": "folder",
+					"advanced": true
+				}
+			},
+			"dataType": [
+				"bill"
+			],
+			"repo": "git://github.com/cozy/cozy-konnector-maif.git"
 		},
 		{
 			"accounts": [],
