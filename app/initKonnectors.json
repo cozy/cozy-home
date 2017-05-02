@@ -25,6 +25,18 @@
   },
   {
     "accounts":[],
+    "slug":"maif",
+    "name":"MAIF",
+    "vendorLink":"maif.fr",
+    "description":"konnector description maif",
+    "category":"health",
+    "color":{"hex":"#007858","css":"#007858"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "repo": "git://github.com/cozy/cozy-konnector-maif.git"
+  },
+  {
+    "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
