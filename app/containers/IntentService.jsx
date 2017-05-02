@@ -3,6 +3,7 @@ import { h, Component } from 'preact'
 
 import Loading from '../components/Loading'
 import ServiceBar from '../components/services/ServiceBar'
+import CreateAccountService from '../components/services/CreateAccountService'
 
 export default class IntentService extends Component {
   constructor (props, context) {
@@ -53,7 +54,7 @@ export default class IntentService extends Component {
       })
   }
 
-  onTerminate () {
+  terminate () {
     const { service } = this.state
 
     const accountMock = {
@@ -63,7 +64,7 @@ export default class IntentService extends Component {
     service.terminate(accountMock)
   }
 
-  onCancel () {
+  cancel () {
     const { service } = this.state
 
     service.cancel
@@ -87,23 +88,15 @@ export default class IntentService extends Component {
             <ServiceBar
               title={data.cozyAppName}
               iconPath={`../${data.cozyIconPath}`}
-              onCancel={() => this.onCancel()}
+              onCancel={() => this.cancel()}
+              {...this.context}
              />
-            <div class='coz-service-content'>
-              <h1>{konnector.name}</h1>
-              <div>
-                <button
-                  class='coz-btn coz-btn--secondary'
-                  onClick={() => this.onCancel()}>
-                  {t('intent.service.cancel')}
-                </button>
-                <button
-                  class='coz-btn cozy-btn--highlight'
-                  onClick={() => this.onTerminate()}>
-                  {t('intent.service.terminate')}
-                </button>
-              </div>
-            </div>
+            <CreateAccountService
+              konnector={konnector}
+              onCancel={() => this.cancel()}
+              onTerminate={account => this.terminate(account)}
+              {...this.context}
+              />
           </div>
         }
       </div>)
