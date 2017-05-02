@@ -2,6 +2,7 @@
 import { h, Component } from 'preact'
 
 import Loading from '../components/Loading'
+import ServiceBar from '../components/services/ServiceBar'
 
 export default class IntentService extends Component {
   constructor (props, context) {
@@ -71,6 +72,7 @@ export default class IntentService extends Component {
   }
 
   render () {
+    const { data } = this.props
     const { isFetching, error, konnector } = this.state
     const { t } = this.context
     return (
@@ -81,19 +83,26 @@ export default class IntentService extends Component {
           <p>{t('intent.service.error.cause', {error: error.message})}</p>
         </div>}
         { !isFetching && !error && konnector &&
-          <div class='coz-create-account'>
-            <h1>{konnector.name}</h1>
-            <div>
-              <button
-                class='coz-btn coz-btn--secondary'
-                onClick={() => this.onCancel()}>
-                {t('intent.service.cancel')}
-              </button>
-              <button
-                class='coz-btn cozy-btn--highlight'
-                onClick={() => this.onTerminate()}>
-                {t('intent.service.terminate')}
-              </button>
+          <div class='coz-service-layout'>
+            <ServiceBar
+              title={data.cozyAppName}
+              iconPath={`../${data.cozyIconPath}`}
+              onCancel={() => this.onCancel()}
+             />
+            <div class='coz-service-content'>
+              <h1>{konnector.name}</h1>
+              <div>
+                <button
+                  class='coz-btn coz-btn--secondary'
+                  onClick={() => this.onCancel()}>
+                  {t('intent.service.cancel')}
+                </button>
+                <button
+                  class='coz-btn cozy-btn--highlight'
+                  onClick={() => this.onTerminate()}>
+                  {t('intent.service.terminate')}
+                </button>
+              </div>
             </div>
           </div>
         }
