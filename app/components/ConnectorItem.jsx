@@ -5,6 +5,7 @@ import { translate } from '../plugins/preact-polyglot'
 
 const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundCSS = 'white', enableDefaultIcon = false, router }) => (
   <Link class='item-wrapper' to={`${router.location.pathname}/${slug}`}>
+    {backgroundCSS &&
     <header class='item-header' style={{background: backgroundCSS}}>
       {iconName &&
         <svg class='item-icon'>
@@ -12,6 +13,16 @@ const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundC
         </svg>
       }
     </header>
+    }
+    {!backgroundCSS &&
+    <header class='item-header'>
+      {iconName &&
+        <svg class='item-icon'>
+          <use xlinkHref={icon(iconName, enableDefaultIcon)} />
+        </svg>
+      }
+    </header>
+    }
     <p class='item-title'>{title}</p>
     {subtitle && <p class='item-subtitle'>{subtitle}</p>}
     {connected &&
