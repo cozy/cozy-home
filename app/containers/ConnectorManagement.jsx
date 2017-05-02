@@ -48,7 +48,7 @@ export default class ConnectorManagement extends Component {
     super(props, context)
     this.store = this.context.store
     const {t} = context
-    const connector = this.store.find(c => c.slug === props.params.account)
+    const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
       connector.id,
       refreshedConnector => this.setState({
@@ -70,7 +70,7 @@ export default class ConnectorManagement extends Component {
       error: null
     }
 
-    this.store.fetchKonnectorInfos(props.params.account)
+    this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
         this.setState({
           connector: konnector,

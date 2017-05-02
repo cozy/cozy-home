@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   />}
               />
               <Route
-                path=':useCase/:account'
+                path=':useCase/:connectorSlug'
                 component={(props) =>
                   <div class='multi-dialogs-wrapper'>
                     <UseCaseDialog
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 />}
             >
               <Route
-                path=':account'
+                path=':connectorSlug'
                 component={ConnectorManagement}
               />
             </Route>
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
               component={(props) =>
                 <PinnedList connectors={store.findConnected()} {...props} />}
             >
-              <Route path=':account' component={ConnectorManagement} />
+              <Route path=':connectorSlug' component={ConnectorManagement} />
             </Route>
           </Route>
         </Router>
