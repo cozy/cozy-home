@@ -35161,7 +35161,8 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
-		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.initialization.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.account.creation.error": "Unable to create account, an error occurred.",
 		"intent.service.error.cause": "Cause: %{error}",
 		"intent.service.cancel": "Cancel",
 		"intent.service.terminate": "Terminate",
@@ -39798,6 +39799,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _preact = __webpack_require__(195);
 	
 	var _statefulForm = __webpack_require__(372);
@@ -39818,106 +39821,146 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var AccountConnection = function AccountConnection(_ref) {
-	  var t = _ref.t,
-	      connector = _ref.connector,
-	      fields = _ref.fields,
-	      dirty = _ref.dirty,
-	      error = _ref.error,
-	      submit = _ref.submit,
-	      submitting = _ref.submitting;
-	  var name = connector.name,
-	      customView = connector.customView,
-	      description = connector.description;
-	  // If there is no field displayed, the form is dirty by default.
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	  dirty = dirty || Object.values(fields).every(function (field) {
-	    return field.type === 'hidden' || field.advanced;
-	  });
-	  return (0, _preact.h)(
-	    'div',
-	    { 'class': 'account-connection' },
-	    (0, _preact.h)(
-	      'div',
-	      { 'class': 'account-description' },
-	      (0, _preact.h)(
-	        'h3',
-	        null,
-	        t('my_accounts title description')
-	      ),
-	      (0, _preact.h)(
-	        'p',
-	        null,
-	        (0, _preact.h)(_reactMarkdown2.default, {
-	          source: t(description),
-	          renderers: { Link: function Link(props) {
-	              return (0, _preact.h)(
-	                'a',
-	                { href: props.href, target: '_blank' },
-	                props.children
-	              );
-	            } }
-	        })
-	      ),
-	      (0, _preact.h)(
-	        'h3',
-	        null,
-	        t('dataType title')
-	      ),
-	      (0, _preact.h)(
-	        'ul',
-	        { 'class': 'account-datas' },
-	        connector.dataType && connector.dataType.map(function (data) {
-	          return (0, _preact.h)(_DataItem2.default, {
-	            dataType: data,
-	            hex: connector.color.hex
-	          });
-	        })
-	      ),
-	      (0, _preact.h)(
-	        'p',
-	        null,
-	        ' ' + connector.name + ' ' + t('dataType disclaimer') + ' '
-	      )
-	    ),
-	    (0, _preact.h)(
-	      'div',
-	      { 'class': 'account-login' },
-	      (0, _preact.h)(
-	        'h3',
-	        null,
-	        t('my_accounts account config title', { name: name })
-	      ),
-	      (0, _preact.h)(
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /** @jsx h */
+	
+	
+	var AccountConnection = function (_Component) {
+	  _inherits(AccountConnection, _Component);
+	
+	  function AccountConnection(props, context) {
+	    _classCallCheck(this, AccountConnection);
+	
+	    var _this = _possibleConstructorReturn(this, (AccountConnection.__proto__ || Object.getPrototypeOf(AccountConnection)).call(this, props, context));
+	
+	    _this.state = {
+	      submitting: false
+	    };
+	
+	    _this.submit = function () {
+	      _this.setState({
+	        submitting: true
+	      });
+	
+	      _this.props.submit();
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(AccountConnection, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props = this.props,
+	          t = _props.t,
+	          connector = _props.connector,
+	          fields = _props.fields,
+	          error = _props.error;
+	      var dirty = this.props.dirty;
+	      var name = connector.name,
+	          customView = connector.customView,
+	          description = connector.description;
+	      var submitting = this.state.submitting;
+	      // If there is no field displayed, the form is dirty by default.
+	
+	      dirty = dirty || Object.values(fields).every(function (field) {
+	        return field.type === 'hidden' || field.advanced;
+	      });
+	      return (0, _preact.h)(
 	        'div',
-	        { 'class': 'account-form' + (error ? ' error' : '') },
-	        (0, _preact.h)(_AccountLoginForm2.default, {
-	          t: t,
-	          customView: customView,
-	          fields: fields
-	        }),
+	        { 'class': 'account-connection' },
 	        (0, _preact.h)(
 	          'div',
-	          { 'class': 'account-form-controls' },
+	          { 'class': 'account-description' },
 	          (0, _preact.h)(
-	            'button',
-	            {
-	              disabled: !dirty,
-	              'aria-busy': submitting ? 'true' : 'false',
-	              onClick: submit
-	            },
-	            t('my_accounts account config button')
+	            'h3',
+	            null,
+	            t('my_accounts title description')
 	          ),
-	          error === 'bad credentials' && (0, _preact.h)(
+	          (0, _preact.h)(
 	            'p',
-	            { 'class': 'errors' },
-	            t('my_accounts account config bad credentials')
+	            null,
+	            (0, _preact.h)(_reactMarkdown2.default, {
+	              source: t(description),
+	              renderers: { Link: function Link(props) {
+	                  return (0, _preact.h)(
+	                    'a',
+	                    { href: props.href, target: '_blank' },
+	                    props.children
+	                  );
+	                } }
+	            })
+	          ),
+	          (0, _preact.h)(
+	            'h3',
+	            null,
+	            t('dataType title')
+	          ),
+	          (0, _preact.h)(
+	            'ul',
+	            { 'class': 'account-datas' },
+	            connector.dataType && connector.dataType.map(function (data) {
+	              return (0, _preact.h)(_DataItem2.default, {
+	                dataType: data,
+	                hex: connector.color.hex
+	              });
+	            })
+	          ),
+	          (0, _preact.h)(
+	            'p',
+	            null,
+	            ' ' + connector.name + ' ' + t('dataType disclaimer') + ' '
+	          )
+	        ),
+	        (0, _preact.h)(
+	          'div',
+	          { 'class': 'account-login' },
+	          (0, _preact.h)(
+	            'h3',
+	            null,
+	            t('my_accounts account config title', { name: name })
+	          ),
+	          (0, _preact.h)(
+	            'div',
+	            { 'class': 'account-form' + (error ? ' error' : '') },
+	            (0, _preact.h)(_AccountLoginForm2.default, {
+	              t: t,
+	              customView: customView,
+	              fields: fields
+	            }),
+	            (0, _preact.h)(
+	              'div',
+	              { 'class': 'account-form-controls' },
+	              (0, _preact.h)(
+	                'button',
+	                {
+	                  disabled: !dirty,
+	                  'aria-busy': submitting ? 'true' : 'false',
+	                  onClick: function onClick() {
+	                    return _this2.submit();
+	                  }
+	                },
+	                t('my_accounts account config button')
+	              ),
+	              error === 'bad credentials' && (0, _preact.h)(
+	                'p',
+	                { 'class': 'errors' },
+	                t('my_accounts account config bad credentials')
+	              )
+	            )
 	          )
 	        )
-	      )
-	    )
-	  );
-	}; /** @jsx h */
+	      );
+	    }
+	  }]);
+	
+	  return AccountConnection;
+	}(_preact.Component);
+	
 	exports.default = (0, _statefulForm2.default)()(AccountConnection);
 
 /***/ },
@@ -51318,7 +51361,7 @@
 			"dataType": [
 				"bill"
 			],
-			"repo": "git://github.com/cozy/cozy-konnector-maif.git"
+			"repo": "git://github.com/cozy/cozy-konnector-trainline.git"
 		},
 		{
 			"accounts": [],
