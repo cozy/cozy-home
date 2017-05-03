@@ -1531,7 +1531,10 @@ input[type=password] {
   padding-top: 1.875em;
 }
 .con-content h1 {
-  margin: 0.5em 0 0.5em 1em;
+  margin: 0.5em 0;
+}
+.con-content [role=contentinfo] {
+  padding: 0 2em;
 }
 .con-cat-discovery {
   background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zODQgLTE5MikiPgogICAgPHBhdGggZmlsbD0iIzk1OTk5RCIgZD0iTTM5MS44NjM3ODEsMjAyLjY2MzI0OCBDMzkxLjkwODkwMSwyMDIuNjY1NTE4IDM5MS45NTQzMTYsMjAyLjY2NjY2NyAzOTIsMjAyLjY2NjY2NyBDMzkzLjQ3Mjc1OSwyMDIuNjY2NjY3IDM5NC42NjY2NjcsMjAxLjQ3Mjc1OSAzOTQuNjY2NjY3LDIwMCBDMzk0LjY2NjY2NywxOTkuOTU0MzE2IDM5NC42NjU1MTgsMTk5LjkwODkwMSAzOTQuNjYzMjQ4LDE5OS44NjM3ODEgTDM5NS44ODQ2NiwxOTYuNjg4MTEgQzM5Ni4wODA2MzMsMTk2LjE3ODU3OSAzOTUuODI1OTI5LDE5NS45MTc2MzMgMzk1LjMxMTg5LDE5Ni4xMTUzNCBMMzkyLjEzNjIxOSwxOTcuMzM2NzUyIEMzOTIuMDkxMDk5LDE5Ny4zMzQ0ODIgMzkyLjA0NTY4NCwxOTcuMzMzMzMzIDM5MiwxOTcuMzMzMzMzIEMzOTAuNTI3MjQxLDE5Ny4zMzMzMzMgMzg5LjMzMzMzMywxOTguNTI3MjQxIDM4OS4zMzMzMzMsMjAwIEMzODkuMzMzMzMzLDIwMC4wNDU2ODQgMzg5LjMzNDQ4MiwyMDAuMDkxMDk5IDM4OS4zMzY3NTIsMjAwLjEzNjIxOSBMMzg4LjExNTM0LDIwMy4zMTE4OSBDMzg3LjkxOTM2NywyMDMuODIxNDIxIDM4OC4xNzQwNzEsMjA0LjA4MjM2NyAzODguNjg4MTEsMjAzLjg4NDY2IEwzOTEuODYzNzgxLDIwMi42NjMyNDggWiBNMzkyLDIwOCBDMzg3LjU4MTcyMiwyMDggMzg0LDIwNC40MTgyNzggMzg0LDIwMCBDMzg0LDE5NS41ODE3MjIgMzg3LjU4MTcyMiwxOTIgMzkyLDE5MiBDMzk2LjQxODI3OCwxOTIgNDAwLDE5NS41ODE3MjIgNDAwLDIwMCBDNDAwLDIwNC40MTgyNzggMzk2LjQxODI3OCwyMDggMzkyLDIwOCBaIE0zOTIsMjAxLjMzMzMzMyBDMzkxLjI2MzYyLDIwMS4zMzMzMzMgMzkwLjY2NjY2NywyMDAuNzM2MzggMzkwLjY2NjY2NywyMDAgQzM5MC42NjY2NjcsMTk5LjI2MzYyIDM5MS4yNjM2MiwxOTguNjY2NjY3IDM5MiwxOTguNjY2NjY3IEMzOTIuNzM2MzgsMTk4LjY2NjY2NyAzOTMuMzMzMzMzLDE5OS4yNjM2MiAzOTMuMzMzMzMzLDIwMCBDMzkzLjMzMzMzMywyMDAuNzM2MzggMzkyLjczNjM4LDIwMS4zMzMzMzMgMzkyLDIwMS4zMzMzMzMgWiIvPgogIDwvZz4KPC9zdmc+Cg==") 1.5em center no-repeat;
@@ -1582,7 +1585,7 @@ input[type=password] {
       flex-wrap: wrap;
   -ms-flex-pack: start;
       justify-content: flex-start;
-  margin: 0 3em 2em;
+  margin: 0 -0.7em 2em;
 }
 .item-wrapper {
   -ms-flex: 1 1 calc(100% - 0.7em * 2);
@@ -2228,12 +2231,6 @@ input[type=password] {
 
   .con-nav-submenu {
     display: none;
-  }
-
-
-  .connector-list,
-  .use-cases-list {
-    margin: 0 1em 1em;
   }
 
 
