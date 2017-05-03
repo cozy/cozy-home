@@ -37187,9 +37187,14 @@
 	  }, {
 	    key: 'connectAccount',
 	    value: function connectAccount(konnector, account, folder) {
-	      return account.id
+	      var result = account.id
 	      // TODO: replace by updateAccount
 	      ? Promise.resolve(account) : this.addAccount(konnector, account.values);
+	      result.then(function (account) {
+	        // now try to run the connector one time
+	        return konnectors.run(__webpack_provided_cozy_dot_client, konnector.slug, account._id, folder._id);
+	      });
+	      return result;
 	    }
 	  }, {
 	    key: 'isInstalled',
@@ -37488,6 +37493,7 @@
 	exports.fetchManifest = fetchManifest;
 	exports.findBySlug = findBySlug;
 	exports.install = install;
+	exports.run = run;
 	/* konnector lib ready to be added to cozy-client-js */
 	var KONNECTORS_DOCTYPE = 'io.cozy.konnectors';
 	
@@ -37528,27 +37534,82 @@
 	  if (!source) throw new Error('Missing `source` parameter for konnector');
 	
 	  return cozy.fetchJSON('POST', '/konnectors/' + slug + '?Source=' + encodeURIComponent(source)).then(function (konnector) {
-	    return new Promise(function (resolve, reject) {
-	      var idTimeout = setTimeout(function () {
-	        reject(new Error('Konnector installation timed out'));
-	      }, timeout);
+	    return waitForKonnectorReady(cozy, konnector, timeout);
+	  });
+	}
 	
-	      // monitor the status of the connector
-	      // TODO: replace by a polling abstraction utility.
-	      var idInterval = setInterval(function () {
-	        cozy.data.find(KONNECTORS_DOCTYPE, konnector._id).then(function (konnector) {
-	          if (konnector.state === STATE_READY) {
-	            clearTimeout(idTimeout);
-	            clearInterval(idInterval);
-	            resolve(konnector);
-	          }
-	        }).catch(function (error) {
+	// monitor the status of the connector and resolve when the connector is ready
+	function waitForKonnectorReady(cozy, konnector, timeout) {
+	  return new Promise(function (resolve, reject) {
+	    var idTimeout = setTimeout(function () {
+	      reject(new Error('Konnector installation timed out'));
+	    }, timeout);
+	
+	    var idInterval = setInterval(function () {
+	      cozy.data.find(KONNECTORS_DOCTYPE, konnector._id).then(function (konnector) {
+	        if (konnector.state === STATE_READY) {
 	          clearTimeout(idTimeout);
 	          clearInterval(idInterval);
-	          reject(error);
-	        });
-	      }, 1000);
+	          resolve(konnector);
+	        }
+	      }).catch(function (error) {
+	        clearTimeout(idTimeout);
+	        clearInterval(idInterval);
+	        reject(error);
+	      });
+	    }, 1000);
+	  });
+	}
+	
+	function run(cozy, slug, accountId, folderId) {
+	  var timeout = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 120 * 1000;
+	
+	  if (!slug) throw new Error('Missing `slug` parameter for konnector');
+	  if (!accountId) throw new Error('Missing `accountId` parameter for konnector');
+	  if (!folderId) throw new Error('Missing `folderId` parameter for konnector');
+	
+	  return findBySlug(cozy, slug).then(function (konnector) {
+	    return cozy.fetchJSON('POST', '/jobs/queue/konnector', {
+	      data: {
+	        attributes: {
+	          options: {
+	            priority: 10,
+	            timeout: timeout,
+	            max_exec_count: 1
+	          }
+	        },
+	        arguments: {
+	          konnector: konnector._id,
+	          account: accountId,
+	          folderToSave: folderId
+	        }
+	      }
 	    });
+	  }).then(function (job) {
+	    return waitForJobFinished(cozy, job, timeout);
+	  });
+	}
+	
+	// monitor the status of the connector and resolve when the connector is ready
+	function waitForJobFinished(cozy, job, timeout) {
+	  return new Promise(function (resolve, reject) {
+	    var idTimeout = setTimeout(function () {
+	      reject(new Error('Job timed out'));
+	    }, timeout);
+	
+	    var idInterval = setInterval(function () {
+	      cozy.data.find(job._type, job._id).then(function (job) {
+	        if (job.state === STATE_READY) {
+	          clearTimeout(idTimeout);
+	          clearInterval(idInterval);
+	          resolve(job);
+	        }
+	      }).catch(function (error) {
+	        clearTimeout(idTimeout);
+	        clearInterval(idInterval);
+	        reject(error);
+	      });
+	    }, 1000);
 	  });
 	}
 
