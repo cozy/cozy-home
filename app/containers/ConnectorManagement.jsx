@@ -48,7 +48,7 @@ export default class ConnectorManagement extends Component {
     super(props, context)
     this.store = this.context.store
     const {t} = context
-    const connector = this.store.find(c => c.slug === props.params.account)
+    const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
       connector.id,
       refreshedConnector => this.setState({
@@ -61,7 +61,7 @@ export default class ConnectorManagement extends Component {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
       isInstalled: this.isInstalled(connector),
-      isWorking: false,
+      isWorking: true,
       selectedAccount: 0,
       fields: this.configureFields(fields, context.t, name),
       submitting: false,
@@ -70,11 +70,20 @@ export default class ConnectorManagement extends Component {
       error: null
     }
 
-    this.store.fetchKonnectorInfos(props.params.account)
+    this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
-        this.setState({
-          connector: konnector,
-          isWorking: false
+        this.store.fetchAccounts(props.params.connectorSlug, null)
+        .then(accounts => {
+          konnector.accounts = accounts
+          this.setState({
+            connector: konnector,
+            isConnected: konnector.accounts.length !== 0,
+            isWorking: false
+          })
+        })
+        .catch(error => {
+          Notifier.error(t(error.message || error))
+          this.gotoParent()
         })
       })
       .catch(error => {
@@ -97,7 +106,7 @@ export default class ConnectorManagement extends Component {
         {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
         <div class='installing'>
           <div class='installing-spinner' />
-          <div>{t('my_accounts installing')}</div>
+          <div>{t('my_accounts working')}</div>
         </div>
       </ConnectorDialog>
     } else {
