@@ -60,7 +60,7 @@ export default class IntentService extends Component {
   createAccount (auth) {
     const { konnector } = this.state
     this.store.addAccount(konnector, auth)
-      .then(account => this.terminate(account))
+      .then(konnector => this.terminate(konnector.accounts[konnector.accounts.length - 1]))
       .catch(error => {
         this.setState({
           error: {
