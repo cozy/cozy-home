@@ -23,7 +23,9 @@ class AccountConnection extends Component {
     }
   }
 
-  render ({ t, connector, fields, dirty, error, submit }) {
+  render () {
+    const { t, connector, fields, error } = this.props
+    let { dirty } = this.props
     const { name, customView, description } = connector
     const { submitting } = this.state
     // If there is no field displayed, the form is dirty by default.
