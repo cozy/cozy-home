@@ -4,7 +4,7 @@ const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 const STATE_READY = 'ready'
 
 export function addAccount (cozy, konnector, account) {
-  if(!konnector.accounts) konnector.accounts = []
+  if (!konnector.accounts) konnector.accounts = []
   konnector.accounts.push(account)
   return Promise.resolve(konnector)
 }

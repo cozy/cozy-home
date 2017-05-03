@@ -22,15 +22,13 @@ export function getAccountsByType (cozy, accountType, accountsIndex) {
   if (!accountType) throw new Error('Missing `accountType` parameter')
   if (accountsIndex) {
     return cozy.data.query(accountsIndex, {
-      selector: {'account_type': accountType},
-      limit: 5
+      selector: {'account_type': accountType}
     })
   } else {
     return indexAccountsByType(cozy)
     .then(index => {
       return cozy.data.query(index, {
-        selector: {'account_type': accountType},
-        limit: 5
+        selector: {'account_type': accountType}
       })
     })
   }
