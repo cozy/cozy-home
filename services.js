@@ -17637,7 +17637,7 @@
 		"my_accounts account delete success": "Account removed succesfully",
 		"my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
 		"my_accounts title description": "Description of this connector",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Your Cozy retrieves the following data:",
 		"dataType disclaimer": "won't access any data in your Cozy",
 		"dataType activity": "Your activities",
@@ -17886,7 +17886,7 @@
 		"my_accounts account delete success": "Compte supprimé",
 		"my_accounts account delete error": "Une erreur est survenue, vos identifiants n'ont pas pu être enregistrés. Pouvez-vous recommencer ?",
 		"my_accounts title description": "Description du connecteur",
-		"my_accounts installing": "Installation",
+		"my_accounts working": "Chargement",
 		"dataType title": "Votre Cozy récupère les données suivantes :",
 		"dataType disclaimer": "n’accédera à aucune donnée présente sur votre Cozy.",
 		"dataType activity": "Vos activités",
@@ -18135,7 +18135,7 @@
 		"my_accounts account delete success": "Account removed succesfully",
 		"my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
 		"my_accounts title description": "Description of this connector",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Your Cozy retrieves the following data:",
 		"dataType disclaimer": "won't access any data in your Cozy",
 		"dataType activity": "Your activities",
@@ -18384,7 +18384,7 @@
 		"my_accounts account delete success": "Account succesvol verwijderd",
 		"my_accounts account delete error": "Verontschuldigingen, onze server had een probleem, vind je het erg om opnieuw te beginnen?",
 		"my_accounts title description": "Beschrijving van deze verbinder",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Jouw Cozy heeft de volgende gegevens opgehaald:",
 		"dataType disclaimer": "zal geen gegevens raadplagen in jouw Cozy",
 		"dataType activity": "Jouw activiteiten",
@@ -18633,7 +18633,7 @@
 		"my_accounts account delete success": "Account removed succesfully",
 		"my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
 		"my_accounts title description": "Description of this connector",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Your Cozy retrieves the following data:",
 		"dataType disclaimer": "won't access any data in your Cozy",
 		"dataType activity": "Your activities",
@@ -18882,7 +18882,7 @@
 		"my_accounts account delete success": "Account removed succesfully",
 		"my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
 		"my_accounts title description": "Description of this connector",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Your Cozy retrieves the following data:",
 		"dataType disclaimer": "won't access any data in your Cozy",
 		"dataType activity": "Your activities",
@@ -19875,7 +19875,7 @@
 			"category": "isp",
 			"color": {
 				"hex": "#009DCC",
-				"css": "#009DCC"
+				"css": ""
 			},
 			"dataType": [
 				"bill"
@@ -19903,7 +19903,7 @@
 			"category": "telecom",
 			"color": {
 				"hex": "#009DCC",
-				"css": "#009DCC"
+				"css": ""
 			},
 			"dataType": [
 				"bill"
@@ -19931,7 +19931,7 @@
 			"category": "health",
 			"color": {
 				"hex": "#007858",
-				"css": "#007858"
+				"css": ""
 			},
 			"fields": {
 				"login": {
@@ -19959,7 +19959,7 @@
 			"category": "transport",
 			"color": {
 				"hex": "#48D5B5",
-				"css": "#48D5B5"
+				"css": ""
 			},
 			"fields": {
 				"login": {
@@ -19987,7 +19987,7 @@
 			"category": "isp",
 			"color": {
 				"hex": "#9E0017",
-				"css": "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
+				"css": ""
 			},
 			"fields": {
 				"login": {
@@ -20015,7 +20015,7 @@
 			"category": "telecom",
 			"color": {
 				"hex": "#9E0017",
-				"css": "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
+				"css": ""
 			},
 			"fields": {
 				"login": {

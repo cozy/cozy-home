@@ -208,7 +208,7 @@
   "my_accounts account delete success": "Compte supprimé",
   "my_accounts account delete error": "Une erreur est survenue, vos identifiants n'ont pas pu être enregistrés. Pouvez-vous recommencer ?",
   "my_accounts title description": "Description du connecteur",
-  "my_accounts installing": "Installation",
+  "my_accounts working": "Chargement",
 
   "dataType title": "Votre Cozy récupère les données suivantes :",
   "dataType disclaimer": "n’accédera à aucune donnée présente sur votre Cozy.",
