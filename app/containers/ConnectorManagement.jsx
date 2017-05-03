@@ -149,8 +149,16 @@ export default class ConnectorManagement extends Component {
   }
 
   addAccount () {
-    this.store.addAccount(this.state.connector.id, this.getDefaultValues())
-    this.selectAccount(this.state.connector.accounts.length - 1)
+    this.store.addAccount(this.state.connector, this.getDefaultValues())
+    .then(connector => {
+      this.setState({
+        connector
+      })
+      this.selectAccount(this.state.connector.accounts.length - 1)
+    })
+    .catch(() => {
+      Notifier.error('my_accounts account config error')
+    })
   }
 
   async connectAccount (values) {

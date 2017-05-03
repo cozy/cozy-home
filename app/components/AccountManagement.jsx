@@ -25,7 +25,7 @@ const AccountManagement = (props) => {
               </li>
             ))}
           </ul>
-          <a onClick={() => addAccount()}>{t('my_accounts add_account button')}</a>
+          <a className='add-button' onClick={() => addAccount()}>{t('my_accounts add_account button')}</a>
         </div>
         <div class='account-config'>
           <div>
