@@ -245,9 +245,9 @@
 	
 	var _CategoryList2 = _interopRequireDefault(_CategoryList);
 	
-	var _PinnedList = __webpack_require__(361);
+	var _ConnectedList = __webpack_require__(361);
 	
-	var _PinnedList2 = _interopRequireDefault(_PinnedList);
+	var _ConnectedList2 = _interopRequireDefault(_ConnectedList);
 	
 	var _ConnectorManagement = __webpack_require__(362);
 	
@@ -361,9 +361,9 @@
 	          (0, _preact.h)(
 	            _reactRouter.Route,
 	            {
-	              path: '/pinned',
+	              path: '/connected',
 	              component: function component(props) {
-	                return (0, _preact.h)(_PinnedList2.default, _extends({ connectors: store.findConnected() }, props));
+	                return (0, _preact.h)(_ConnectedList2.default, _extends({ connectors: store.findConnected() }, props));
 	              }
 	            },
 	            (0, _preact.h)(_reactRouter.Route, { path: ':connectorSlug', component: _ConnectorManagement2.default })
@@ -35204,7 +35204,7 @@
 		"my_accounts title": "My accounts",
 		"my_accounts category title": "Categories",
 		"my_accounts discovery title": "Discovery",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Coming soon!",
 		"none": "No schedule selected",
 		"every hour": "Every hour",
@@ -35487,7 +35487,7 @@
 		"my_accounts title": "My accounts",
 		"my_accounts category title": "Categories",
 		"my_accounts discovery title": "Discovery",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Coming soon!",
 		"none": "No schedule selected",
 		"every hour": "Every hour",
@@ -35736,7 +35736,7 @@
 		"my_accounts title": "Mes Comptes",
 		"my_accounts category title": "Catégories",
 		"my_accounts discovery title": "Découverte",
-		"my_accounts pinned title": "Épinglés",
+		"my_accounts connected title": "Connectés",
 		"my_accounts coming_soon": "À venir…",
 		"none": "Aucun",
 		"every hour": "Toutes les heures",
@@ -35985,7 +35985,7 @@
 		"my_accounts title": "My accounts",
 		"my_accounts category title": "Categories",
 		"my_accounts discovery title": "Discovery",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Coming soon!",
 		"none": "No schedule selected",
 		"every hour": "Every hour",
@@ -36234,7 +36234,7 @@
 		"my_accounts title": "Mijn accounts",
 		"my_accounts category title": "Categorieën",
 		"my_accounts discovery title": "Ontdekking",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Komt binnenkort!",
 		"none": "Geen schema geselecteerd",
 		"every hour": "Elk uur",
@@ -36483,7 +36483,7 @@
 		"my_accounts title": "My accounts",
 		"my_accounts category title": "Categories",
 		"my_accounts discovery title": "Discovery",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Coming soon!",
 		"none": "No schedule selected",
 		"every hour": "Every hour",
@@ -36732,7 +36732,7 @@
 		"my_accounts title": "My accounts",
 		"my_accounts category title": "Categories",
 		"my_accounts discovery title": "Discovery",
-		"my_accounts pinned title": "Pinned",
+		"my_accounts connected title": "Connected",
 		"my_accounts coming_soon": "Coming soon!",
 		"none": "No schedule selected",
 		"every hour": "Every hour",
@@ -37711,8 +37711,8 @@
 	          { className: 'coz-nav-item' },
 	          (0, _preact.h)(
 	            _reactRouter.Link,
-	            { to: '/pinned', className: 'coz-nav-link con-cat-pinned', activeClassName: 'active' },
-	            t('my_accounts pinned title')
+	            { to: '/connected', className: 'coz-nav-link con-cat-connected', activeClassName: 'active' },
+	            t('my_accounts connected title')
 	          )
 	        )
 	      )
@@ -39168,7 +39168,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PinnedList = function PinnedList(_ref) {
+	var ConnectedList = function ConnectedList(_ref) {
 	  var t = _ref.t,
 	      connectors = _ref.connectors,
 	      children = _ref.children;
@@ -39178,13 +39178,13 @@
 	    (0, _preact.h)(
 	      'h1',
 	      null,
-	      t('my_accounts pinned title')
+	      t('my_accounts connected title')
 	    ),
 	    (0, _preact.h)(_ConnectorList2.default, { connectors: connectors }),
 	    children
 	  );
 	}; /** @jsx h */
-	exports.default = (0, _preactPolyglot.translate)()(PinnedList);
+	exports.default = (0, _preactPolyglot.translate)()(ConnectedList);
 
 /***/ },
 /* 362 */
