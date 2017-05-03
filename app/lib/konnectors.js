@@ -37,13 +37,11 @@ export function install (cozy, slug, source, timeout = 120000) {
   if (!source) throw new Error('Missing `source` parameter for konnector')
 
   return cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`)
-    .then(konnector => {
-      return waitForReady(cozy, konnector, timeout)
-    })
+    .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForReady (cozy, konnector, timeout) {
+function waitForKonnectorReady (cozy, konnector, timeout) {
   return new Promise((resolve, reject) => {
     const idTimeout = setTimeout(() => {
       reject(new Error('Konnector installation timed out'))
@@ -92,7 +90,30 @@ export function run (cozy, slug, accountId, folderId, timeout = 120 * 1000) {
     })
     .then(() => konnector)
   })
-  .then(konnector => {
-    return waitForReady(cozy, konnector, timeout)
+  .then(job => waitForJobFinished(cozy, job, timeout))
+}
+
+// monitor the status of the connector and resolve when the connector is ready
+function waitForJobFinished (cozy, job, timeout) {
+  return new Promise((resolve, reject) => {
+    const idTimeout = setTimeout(() => {
+      reject(new Error('Job timed out'))
+    }, timeout)
+
+    const idInterval = setInterval(() => {
+      cozy.data.find(job._type, job._id)
+        .then(job => {
+          if (job.state === STATE_READY) {
+            clearTimeout(idTimeout)
+            clearInterval(idInterval)
+            resolve(job)
+          }
+        })
+        .catch(error => {
+          clearTimeout(idTimeout)
+          clearInterval(idInterval)
+          reject(error)
+        })
+    }, 1000)
   })
 }
