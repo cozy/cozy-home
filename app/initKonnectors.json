@@ -6,7 +6,7 @@
     "description":"konnector description bouygues box",
     "vendorLink":"https://www.bouyguestelecom.fr/",
     "category":"isp",
-    "color":{"hex":"#009DCC","css":""},
+    "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "repo": "git://github.com/cozy/cozy-konnector-bouyguesbox.git"
@@ -18,7 +18,7 @@
     "description":"konnector description bouygues",
     "vendorLink":"https://www.bouyguestelecom.fr/",
     "category":"telecom",
-    "color":{"hex":"#009DCC","css":""},
+    "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git"
@@ -30,7 +30,7 @@
     "vendorLink":"maif.fr",
     "description":"konnector description maif",
     "category":"health",
-    "color":{"hex":"#007858","css":""},
+    "color":{"hex":"#007858","css":"#007858"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "repo": "git://github.com/cozy/cozy-konnector-maif.git"
@@ -42,7 +42,7 @@
     "vendorLink":"www.trainline.fr",
     "description":"konnector description trainline",
     "category":"transport",
-    "color":{"hex":"#48D5B5","css":""},
+    "color":{"hex":"#48D5B5","css":"#48D5B5"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "repo": "git://github.com/cozy/cozy-konnector-trainline.git"
@@ -54,7 +54,7 @@
     "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
     "description":"konnector description sfrbox",
     "category":"isp",
-    "color":{"hex":"#9E0017","css":""},
+    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "repo": "git://github.com/cozy/cozy-konnector-sfrbox.git"
@@ -66,7 +66,7 @@
     "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
     "description":"konnector description sfrmobile",
     "category":"telecom",
-    "color":{"hex":"#9E0017","css":""},
+    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "repo": "git://github.com/cozy/cozy-konnector-sfrmobile.git"
