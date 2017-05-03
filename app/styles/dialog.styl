@@ -182,18 +182,27 @@ $alertdialog
             .account-list
                 width 25%
                 ul
-                    margin 2.4em 1em 0.5em 0
+                    margin 2.4em 1.5em 0.5em -3em
                 li
-                    padding       0.5em 1em
+                    padding       0
                     color         grey-08
                     font-weight   bold
                     text-overflow ellipsis
                     white-space   nowrap
                     overflow      hidden
+                    a
+                        display         block
+                        padding         .5em 0em .5em 1em
+                        width           calc(100% - 1em)
                     &.selected
                         background-color grey-10
                         a
                             color grey-08
+
+                .add-button
+                    display     block
+                    margin      0 1.5em 0 -.5em
+                    padding     .5em 0 .5em 1em
 
             .account-config
                 .account-field
