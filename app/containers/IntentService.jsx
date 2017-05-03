@@ -2,6 +2,8 @@
 import { h, Component } from 'preact'
 
 import Loading from '../components/Loading'
+import ServiceBar from '../components/services/ServiceBar'
+import CreateAccountService from '../components/services/CreateAccountService'
 
 export default class IntentService extends Component {
   constructor (props, context) {
@@ -47,22 +49,34 @@ export default class IntentService extends Component {
       .catch(error => {
         this.setState({
           isFetching: false,
-          error: error
+          error: {
+            message: 'intent.service.initialization.error',
+            reason: error.message
+          }
         })
       })
   }
 
-  onTerminate () {
-    const { service } = this.state
-
-    const accountMock = {
-      _id: '1111aaaa11111aaaab'
-    }
-
-    service.terminate(accountMock)
+  createAccount (auth) {
+    const { konnector } = this.state
+    this.store.addAccount(konnector, auth)
+      .then(konnector => this.terminate(konnector.accounts[konnector.accounts.length - 1]))
+      .catch(error => {
+        this.setState({
+          error: {
+            message: 'intent.service.account.creation.error',
+            reason: error.message
+          }
+        })
+      })
   }
 
-  onCancel () {
+  terminate (account) {
+    const { service } = this.state
+    service.terminate(account)
+  }
+
+  cancel () {
     const { service } = this.state
 
     service.cancel
@@ -71,32 +85,34 @@ export default class IntentService extends Component {
   }
 
   render () {
+    const { data } = this.props
     const { isFetching, error, konnector } = this.state
     const { t } = this.context
     return (
       <div class='coz-service'>
-        { isFetching && <Loading /> }
+        { isFetching &&
+          <div class='coz-service-loading'>
+            <Loading />
+          </div> }
         { error && <div class='coz-error coz-service-error'>
-          <h1>{t('intent.service.error')}</h1>
-          <p>{t('intent.service.error.cause', {error: error.message})}</p>
+          <p>{t(error.message)}</p>
+          <p>{t('intent.service.error.cause', {error: error.reason})}</p>
         </div>}
         { !isFetching && !error && konnector &&
-          <div class='coz-create-account'>
-            <h1>{konnector.name}</h1>
-            <div>
-              <button
-                class='coz-btn coz-btn--secondary'
-                onClick={() => this.onCancel()}>
-                {t('intent.service.cancel')}
-              </button>
-              <button
-                class='coz-btn cozy-btn--highlight'
-                onClick={() => this.onTerminate()}>
-                {t('intent.service.terminate')}
-              </button>
-            </div>
-          </div>
-        }
+          <div class='coz-service-layout'>
+            <ServiceBar
+              title={data.cozyAppName}
+              iconPath={`../${data.cozyIconPath}`}
+              onCancel={() => this.cancel()}
+              {...this.context}
+             />
+            <CreateAccountService
+              konnector={konnector}
+              onCancel={() => this.cancel()}
+              onSubmit={auth => this.createAccount(auth)}
+              {...this.context}
+              />
+          </div>}
       </div>)
   }
 }
