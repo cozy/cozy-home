@@ -325,7 +325,7 @@
 	              }
 	            }),
 	            (0, _preact.h)(_reactRouter.Route, {
-	              path: ':useCase/:account',
+	              path: ':useCase/:connectorSlug',
 	              component: function component(props) {
 	                return (0, _preact.h)(
 	                  'div',
@@ -354,7 +354,7 @@
 	              }
 	            },
 	            (0, _preact.h)(_reactRouter.Route, {
-	              path: ':account',
+	              path: ':connectorSlug',
 	              component: _ConnectorManagement2.default
 	            })
 	          ),
@@ -366,7 +366,7 @@
 	                return (0, _preact.h)(_PinnedList2.default, _extends({ connectors: store.findConnected() }, props));
 	              }
 	            },
-	            (0, _preact.h)(_reactRouter.Route, { path: ':account', component: _ConnectorManagement2.default })
+	            (0, _preact.h)(_reactRouter.Route, { path: ':connectorSlug', component: _ConnectorManagement2.default })
 	          )
 	        )
 	      )
@@ -35251,7 +35251,7 @@
 		"my_accounts account delete success": "Account removed succesfully",
 		"my_accounts account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
 		"my_accounts title description": "Description of this connector",
-		"my_accounts installing": "Installing",
+		"my_accounts working": "Loading",
 		"dataType title": "Your Cozy retrieves the following data:",
 		"dataType disclaimer": "won't access any data in your Cozy",
 		"dataType activity": "Your activities",
@@ -35444,6 +35444,10 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "an error occurred during import of data",
 		"notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
 		"notification prefix": "Konnector %{name}:",
@@ -35689,6 +35693,10 @@
 		"konnector description podcast": "Téléchargez vos podcasts audios préférés depuis leurs flux RSS. Les importations peuvent prendre du temps.",
 		"konnector description materiel_net": "Télécharge vos factures Materiel.net. Pour pouvoir stocker les factures au format PDF, ce connecteur requiert que l'application Files soit installée sur votre Cozy.",
 		"konnector installation timeout error": "L'installation du connecteur a dépassé le temps imparti.",
+		"intent.service.error": "L'initialisation du service a échoué.",
+		"intent.service.error.cause": "Raison : %{error}",
+		"intent.service.cancel": "Annuler",
+		"intent.service.terminate": "Terminer",
 		"notification import error": "une erreur est survenue pendant l'importation des données",
 		"notification malakoff_mederic": "%{smart_count} nouveau remboursement importé |||| %{smart_count} nouveaux remboursements importés",
 		"notification prefix": "Konnector %{name} :",
@@ -35934,6 +35942,10 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "an error occurred during import of data",
 		"notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
 		"notification prefix": "Konnector %{name}:",
@@ -36179,6 +36191,10 @@
 		"konnector description podcast": "Download jouw favoriete geluids podcasts van een RSS feed. Deze import kan even duren.",
 		"konnector description materiel_net": "Download jouw rekeningen van Materiel.net. Deze verbinder vereist de Bestanden toepassing om PDF facturen op te slaan.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "er is een fout opgetreden tijden het importeren van gegevens",
 		"notification malakoff_mederic": "%{smart_count} nieuwe declaratie geïmporteerd |||| %{smart_count} nieuwe declaraties geïmporteerd",
 		"notification prefix": "Verbinder %{name}:",
@@ -36424,6 +36440,10 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "an error occurred during import of data",
 		"notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
 		"notification prefix": "Konnector %{name}:",
@@ -36669,6 +36689,10 @@
 		"konnector description podcast": "Download your favourite audio podcasts from a RSS feed. This import can take a while.",
 		"konnector description materiel_net": "Import your Materiel.net bills. This konnector requires the Files application to store the bill PDF files.",
 		"konnector installation timeout error": "Konnector installation timed out.",
+		"intent.service.error": "Service failed to initialize. Sorry for the inconvenience.",
+		"intent.service.error.cause": "Cause: %{error}",
+		"intent.service.cancel": "Cancel",
+		"intent.service.terminate": "Terminate",
 		"notification import error": "an error occurred during import of data",
 		"notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
 		"notification prefix": "Konnector %{name}:",
@@ -37185,6 +37209,12 @@
 	      });
 	    }
 	  }, {
+	    key: 'fetchAccounts',
+	    value: function fetchAccounts(accountType, index) {
+	      if (!index && this.accountsIndex) index = this.accountsIndex;
+	      return accounts.getAccountsByType(__webpack_provided_cozy_dot_client, accountType, index);
+	    }
+	  }, {
 	    key: 'updateAccount',
 	    value: function updateAccount(connectorId, accountIdx, values) {
 	      var connector = this.find(function (c) {
@@ -37406,6 +37436,7 @@
 	  value: true
 	});
 	exports.create = create;
+	exports.getAccountsByType = getAccountsByType;
 	/* accounts lib ready to be added to cozy-client-js */
 	
 	var ACCOUNTS_DOCTYPE = 'io.cozy.accounts';
@@ -37415,13 +37446,34 @@
 	
 	  return cozy.data.create(ACCOUNTS_DOCTYPE, {
 	    name: name,
-	    account_type: konnector.vendorLink,
+	    account_type: konnector.slug,
 	    status: 'PENDING',
 	    auth: {
 	      login: auth.login,
 	      password: auth.password
 	    }
 	  });
+	}
+	
+	function indexAccountsByType(cozy) {
+	  return cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name']);
+	}
+	
+	function getAccountsByType(cozy, accountType, accountsIndex) {
+	  if (!accountType) throw new Error('Missing `accountType` parameter');
+	  if (accountsIndex) {
+	    return cozy.data.query(accountsIndex, {
+	      selector: { 'account_type': accountType },
+	      limit: 5
+	    });
+	  } else {
+	    return indexAccountsByType(cozy).then(function (index) {
+	      return cozy.data.query(index, {
+	        selector: { 'account_type': accountType },
+	        limit: 5
+	      });
+	    });
+	  }
 	}
 
 /***/ },
@@ -39222,7 +39274,7 @@
 	    var t = context.t;
 	
 	    var connector = _this.store.find(function (c) {
-	      return c.slug === props.params.account;
+	      return c.slug === props.params.connectorSlug;
 	    });
 	    _this.store.subscribeTo(connector.id, function (refreshedConnector) {
 	      return _this.setState({
@@ -39237,7 +39289,7 @@
 	      connector: _this.sanitize(connector),
 	      isConnected: connector.accounts.length !== 0,
 	      isInstalled: _this.isInstalled(connector),
-	      isWorking: false,
+	      isWorking: true,
 	      selectedAccount: 0,
 	      fields: _this.configureFields(fields, context.t, name),
 	      submitting: false,
@@ -39246,10 +39298,17 @@
 	      error: null
 	    };
 	
-	    _this.store.fetchKonnectorInfos(props.params.account).then(function (konnector) {
-	      _this.setState({
-	        connector: konnector,
-	        isWorking: false
+	    _this.store.fetchKonnectorInfos(props.params.connectorSlug).then(function (konnector) {
+	      _this.store.fetchAccounts(props.params.connectorSlug, null).then(function (accounts) {
+	        konnector.accounts = accounts;
+	        _this.setState({
+	          connector: konnector,
+	          isConnected: konnector.accounts.length !== 0,
+	          isWorking: false
+	        });
+	      }).catch(function (error) {
+	        _Notifier2.default.error(t(error.message || error));
+	        _this.gotoParent();
 	      });
 	    }).catch(function (error) {
 	      _Notifier2.default.error(t(error.message || error));
@@ -39293,7 +39352,7 @@
 	            (0, _preact.h)(
 	              'div',
 	              null,
-	              t('my_accounts installing')
+	              t('my_accounts working')
 	            )
 	          )
 	        );
