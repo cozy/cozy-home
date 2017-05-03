@@ -39365,7 +39365,7 @@
 	            customView: customView,
 	            lastImport: lastImport,
 	            accounts: accounts,
-	            values: accounts[selectedAccount] || {},
+	            values: accounts[selectedAccount].auth || {},
 	            selectAccount: function selectAccount(idx) {
 	              return _this2.selectAccount(idx);
 	            },
