@@ -118,7 +118,7 @@ export default class ConnectorManagement extends Component {
               customView={customView}
               lastImport={lastImport}
               accounts={accounts}
-              values={accounts[selectedAccount] || {}}
+              values={accounts[selectedAccount].auth || {}}
               selectAccount={idx => this.selectAccount(idx)}
               addAccount={() => this.addAccount()}
               synchronize={() => this.synchronize()}
