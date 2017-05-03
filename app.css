@@ -1785,21 +1785,31 @@ input[type=password] {
   width: 25%;
 }
 [role=dialog] [role=contentinfo] .dialog-content .account-list ul {
-  margin: 2.4em 1em 0.5em 0;
+  margin: 2.4em 1.5em 0.5em -3em;
 }
 [role=dialog] [role=contentinfo] .dialog-content .account-list li {
-  padding: 0.5em 1em;
+  padding: 0;
   color: #32363f;
   font-weight: bold;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
+[role=dialog] [role=contentinfo] .dialog-content .account-list li a {
+  display: block;
+  padding: 0.5em 0em 0.5em 1em;
+  width: calc(100% - 1em);
+}
 [role=dialog] [role=contentinfo] .dialog-content .account-list li.selected {
   background-color: #f5f6f7;
 }
 [role=dialog] [role=contentinfo] .dialog-content .account-list li.selected a {
   color: #32363f;
+}
+[role=dialog] [role=contentinfo] .dialog-content .account-list .add-button {
+  display: block;
+  margin: 0 1.5em 0 -0.5em;
+  padding: 0.5em 0 0.5em 1em;
 }
 [role=dialog] [role=contentinfo] .dialog-content .account-config .account-field {
   max-width: 80%;
