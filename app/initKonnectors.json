@@ -33,7 +33,7 @@
     "color":{"hex":"#007858","css":""},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "repo": "git://github.com/cozy/cozy-konnector-maif.git"
+    "repo": "git://github.com/cozy/cozy-konnector-trainline.git"
   },
   {
     "accounts":[],
