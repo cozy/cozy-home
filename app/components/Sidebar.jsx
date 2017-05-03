@@ -47,8 +47,8 @@ const Sidebar = ({ t, categories, router }) => {
             </ul>
           }
           <li className='coz-nav-item'>
-            <Link to='/pinned' className='coz-nav-link con-cat-pinned' activeClassName='active'>
-              {t('my_accounts pinned title')}
+            <Link to='/connected' className='coz-nav-link con-cat-connected' activeClassName='active'>
+              {t('my_accounts connected title')}
             </Link>
           </li>
         </ul>
