@@ -8,10 +8,10 @@ import Dialog from './Dialog'
 const getIcon = (iconName, enableDefaultIcon) => {
   let icon = ''
   try {
-    icon = require(`../assets/icons/${iconName}.svg`)
+    icon = require(`../assets/icons/white/${iconName}.svg`)
   } catch (e) {
     if (enableDefaultIcon) {
-      icon = require('../assets/icons/default_myaccount.svg')
+      icon = require('../assets/icons/white/default_myaccount.svg')
     }
   }
   return icon
