@@ -77,10 +77,16 @@ export default class MyAccountsStore {
   }
 
   connectAccount (konnector, account, folder) {
-    return account.id
+    const result = account.id
       // TODO: replace by updateAccount
       ? Promise.resolve(account)
         : this.addAccount(konnector, account.values)
+    result
+    .then(account => {
+      // now try to run the connector one time
+      return konnectors.run(cozy.client, konnector.slug, account._id, folder._id)
+    })
+    return result
   }
 
   isInstalled (konnector) {

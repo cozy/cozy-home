@@ -36,6 +36,10 @@
       "description": "Required to access folders",
       "type": "io.cozy.files",
       "verbs": ["GET", "POST", "PUT"]
+    },
+    "jobs": {
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.jobs"
     }
   },
   "routes": {
