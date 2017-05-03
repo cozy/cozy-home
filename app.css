@@ -1588,13 +1588,15 @@ input[type=password] {
   -ms-flex: 1 1 calc(100% - 0.7em * 2);
       flex: 1 1 calc(100% - 0.7em * 2);
   position: relative;
+  box-sizing: border-box;
   border-radius: 4px;
   background-color: #fff;
-  box-shadow: 0 0 1px 0 #000;
+  border: 1px solid rgba(0,0,0,0.15);
   margin: 0.7em;
   padding-bottom: 1em;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
   transition: 0.2s ease all;
 }
 .item-wrapper:hover {
@@ -1619,9 +1621,10 @@ input[type=password] {
 }
 .item-wrapper .item-title {
   padding: 0em 0.5em;
-  font-size: 1.25em;
   margin: 0.5em;
   color: #000;
+  font-size: 1.25em;
+  font-weight: 700;
 }
 .item-wrapper .item-subtitle {
   font-size: 0.875em;
