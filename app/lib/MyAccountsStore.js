@@ -101,6 +101,11 @@ export default class MyAccountsStore {
       })
   }
 
+  fetchAccounts (accountType, index) {
+    if (!index && this.accountsIndex) index = this.accountsIndex
+    return accounts.getAccountsByType(cozy.client, accountType, index)
+  }
+
   updateAccount (connectorId, accountIdx, values) {
     let connector = this.find(c => c.id === connectorId)
     connector.accounts[accountIdx] = values
