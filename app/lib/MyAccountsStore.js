@@ -82,32 +82,6 @@ export default class MyAccountsStore {
       ? Promise.resolve(account)
         : this.addAccount(konnector, account.values)
     result
-    // .then(account => {
-    //   // TODO waiting for the back to return the permission document after konnector installation
-    //   return cozy.client.fetchJSON('PATCH', `/permissions/${konnector.links.permissions}`, {
-    //     data: {
-    //       id: konnector.links.permissions,
-    //       type: 'io.cozy.permissions',
-    //       permissions: {
-    //         'add-this': {
-    //           type: 'io.cozy.files',
-    //           values: [folder._id]
-    //         }
-    //       }
-    //     }
-    //   })
-    //   .then(() => account)
-    // })
-    // .then(account => {
-    //   // TODO waiting for the back to allow folders to be referenced
-    //   return cozy.client.fetchJSON('POST', `/files/${folder._id}/relationships/referenced_by`, {
-    //     data: {
-    //       type: 'io.cozy.konnectors',
-    //       id: konnector._id
-    //     }
-    //   })
-    //   .then(() => account)
-    // })
     .then(account => {
       // now try to run the connector one time
       return konnectors.run(cozy.client, konnector.slug, account._id, folder._id)
