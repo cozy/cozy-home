@@ -226,11 +226,11 @@
 	
 	var _MyAccountsStore2 = _interopRequireDefault(_MyAccountsStore);
 	
-	var _IntentService = __webpack_require__(482);
+	var _IntentService = __webpack_require__(488);
 	
 	var _IntentService2 = _interopRequireDefault(_IntentService);
 	
-	__webpack_require__(484);
+	__webpack_require__(490);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -249,8 +249,8 @@
 	  });
 	
 	  // store
-	  window.initKonnectors = __webpack_require__(480);
-	  window.initFolders = __webpack_require__(481);
+	  window.initKonnectors = __webpack_require__(486);
+	  window.initFolders = __webpack_require__(487);
 	
 	  var store = new _MyAccountsStore2.default(window.initKonnectors, window.initFolders, context);
 	
@@ -19862,7 +19862,13 @@
 /* 477 */,
 /* 478 */,
 /* 479 */,
-/* 480 */
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -19875,7 +19881,7 @@
 			"category": "isp",
 			"color": {
 				"hex": "#009DCC",
-				"css": ""
+				"css": "#009DCC"
 			},
 			"dataType": [
 				"bill"
@@ -19903,7 +19909,7 @@
 			"category": "telecom",
 			"color": {
 				"hex": "#009DCC",
-				"css": ""
+				"css": "#009DCC"
 			},
 			"dataType": [
 				"bill"
@@ -19931,7 +19937,7 @@
 			"category": "health",
 			"color": {
 				"hex": "#007858",
-				"css": ""
+				"css": "#007858"
 			},
 			"fields": {
 				"login": {
@@ -19959,7 +19965,7 @@
 			"category": "transport",
 			"color": {
 				"hex": "#48D5B5",
-				"css": ""
+				"css": "#48D5B5"
 			},
 			"fields": {
 				"login": {
@@ -19987,7 +19993,7 @@
 			"category": "isp",
 			"color": {
 				"hex": "#9E0017",
-				"css": ""
+				"css": "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
 			},
 			"fields": {
 				"login": {
@@ -20015,7 +20021,7 @@
 			"category": "telecom",
 			"color": {
 				"hex": "#9E0017",
-				"css": ""
+				"css": "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
 			},
 			"fields": {
 				"login": {
@@ -20037,13 +20043,13 @@
 	];
 
 /***/ },
-/* 481 */
+/* 487 */
 /***/ function(module, exports) {
 
 	module.exports = [];
 
 /***/ },
-/* 482 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20056,7 +20062,7 @@
 	
 	var _preact = __webpack_require__(195);
 	
-	var _Loading = __webpack_require__(483);
+	var _Loading = __webpack_require__(489);
 	
 	var _Loading2 = _interopRequireDefault(_Loading);
 	
@@ -20212,7 +20218,7 @@
 	exports.default = IntentService;
 
 /***/ },
-/* 483 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20248,7 +20254,7 @@
 	exports.default = (0, _preactPolyglot.translate)()(Loading);
 
 /***/ },
-/* 484 */
+/* 490 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

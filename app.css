@@ -1611,6 +1611,7 @@ input[type=password] {
   position: relative;
   border-radius: 4px 4px 0px 0px;
   height: 9em;
+  background: #fff;
 }
 .item-wrapper .item-header .item-icon {
   position: relative;
@@ -1718,6 +1719,7 @@ input[type=password] {
   border: none;
   -ms-flex-preferred-size: 80rem;
       flex-basis: 80rem;
+  padding: 0;
   box-shadow: 0 6px 18px 0 rgba(0,0,0,0.22), 0 1px 3px 0 rgba(0,0,0,0.16);
 }
 [role=dialog] [role=contentinfo] .dialog-header {
