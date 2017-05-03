@@ -13,13 +13,15 @@ $item-margin = .7em
 .item-wrapper
     flex             1 1 'calc(100% - %s * 2)' % $item-margin
     position         relative
+    box-sizing       border-box
     border-radius    4px
     background-color white
-    box-shadow       0 0 1px 0 black
+    border           1px solid alpha(black, .15)
     margin           $item-margin
     padding-bottom   1em
     cursor           pointer
     text-decoration  none
+    text-align       center
     transition       .2s ease all
     &:hover
         box-shadow 0 4px 12px 0 alpha(black, .15)
@@ -39,10 +41,11 @@ $item-margin = .7em
             top           50%
             transform     translateY(-50%)
     .item-title
-        padding   0em .5em
-        font-size 20px
-        margin    .5em
-        color     black
+        padding     0em .5em
+        margin      .5em
+        color       black
+        font-size   em(20px)
+        font-weight 700
     .item-subtitle
         font-size 14px
         padding   0em 1em
