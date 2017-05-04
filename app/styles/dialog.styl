@@ -205,6 +205,32 @@ $alertdialog
             border-top-left-radius  inherit
             border-top-right-radius inherit
 
+// specific to use case dialog
+.use-case-dialog
+    [role=contentinfo]
+        flex-basis 75rem
+        > div
+            > h3
+                font-size 32px
+                margin    1em 0em .5em 1.5em
+
+            > p
+                margin-left   3em
+                margin-bottom 2em
+            .accounts-list
+                margin-bottom   5em
+                margin-left     .5em
+                justify-content center
+
+// specific to account dialog
+.connector-dialog
+    padding-top .5em
+    .dialog-header
+        svg
+            height 4em
+            width  100%
+            margin 1.5em 0em
+
 .account-form
     margin-bottom 1em
 
@@ -355,28 +381,3 @@ button
 
 .errors
     color pomegranate
-    // specific to use case dialog
-    &.use-case-dialog
-        [role=contentinfo]
-            flex-basis 75rem
-            > div
-                > h3
-                    font-size 32px
-                    margin    1em 0em .5em 1.5em
-
-                > p
-                    margin-left   3em
-                    margin-bottom 2em
-                .accounts-list
-                    margin-bottom   5em
-                    margin-left     .5em
-                    justify-content center
-
-    // specific to account dialog
-    &.connector-dialog
-        padding-top .5em
-        .dialog-header
-            svg
-                height 4em
-                width  100%
-                margin 1.5em 0em
