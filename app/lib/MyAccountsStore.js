@@ -99,12 +99,9 @@ export default class MyAccountsStore {
           }
         }
       })
-      .then(() => account)
+      .then(() => konnectors.run(cozy.client, konnector.slug, account._id, folder._id))
     })
-    .then(account => {
-      // now try to run the connector one time
-      return konnectors.run(cozy.client, konnector.slug, account._id, folder._id)
-    })
+
     return result
   }
 

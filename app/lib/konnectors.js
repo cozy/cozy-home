@@ -49,8 +49,8 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
 
     const idInterval = setInterval(() => {
       cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
-        .then(konnector => {
-          if (konnector.state === STATE_READY) {
+        .then(konnectorResult => {
+          if (konnectorResult.state === STATE_READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(konnector)
