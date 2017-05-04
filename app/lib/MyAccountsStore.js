@@ -83,9 +83,25 @@ export default class MyAccountsStore {
         : this.addAccount(konnector, account.values)
     result
     .then(account => {
-      // now try to run the connector one time
-      return konnectors.run(cozy.client, konnector.slug, account._id, folder._id)
+      return cozy.client.fetchJSON('PATCH', konnector.links.permissions, {
+        data: {
+          id: konnector.links.permissions,
+          type: 'io.cozy.permissions',
+          attributes: {
+            type: 'app',
+            source_id: konnector._id,
+            permissions: {
+              saveFolder: {
+                type: 'io.cozy.files',
+                values: [folder._id]
+              }
+            }
+          }
+        }
+      })
+      .then(() => konnectors.run(cozy.client, konnector.slug, account._id, folder._id))
     })
+
     return result
   }
 
@@ -101,8 +117,9 @@ export default class MyAccountsStore {
             : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT * 1000)
 
         return installationPromise
-          .then(konnector => {
-            return konnectors.addAccount(cozy.client, konnector, account)
+          .then(konnectorResult => {
+            konnector.links = konnectorResult.links
+            return konnectors.addAccount(cozy.client, konnectorResult, account)
           })
       })
   }
