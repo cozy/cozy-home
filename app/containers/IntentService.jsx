@@ -101,7 +101,8 @@ export default class IntentService extends Component {
         { !isFetching && !error && konnector &&
           <div class='coz-service-layout'>
             <ServiceBar
-              title={data.cozyAppName}
+              appEditor={data.cozyAppEditor}
+              appName={data.cozyAppName}
               iconPath={`../${data.cozyIconPath}`}
               onCancel={() => this.cancel()}
               {...this.context}
