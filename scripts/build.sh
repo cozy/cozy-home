@@ -2,7 +2,7 @@
 PATH="./node_modules/.bin:$PATH"
 
 export PATH="./node_modules/.bin:$PATH"
-export OPTIMIZE=true
+export NODE_ENV=production
 
 echo "Pull locales from Transifex"
 tx pull -a
