@@ -97,7 +97,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
-    const { isConnected, selectedAccount, isWorking } = this.state
+    const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
     if (isWorking) {
@@ -128,7 +128,7 @@ export default class ConnectorManagement extends Component {
               {...this.context} />
             : <AccountConnection
               connectUrl={prepareConnectURL(this.state.connector)}
-              onSubmit={values => this.connectAccount({values, folder: t('konnector default base folder')})}
+              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               {...this.state}
               {...this.context} />
           }
