@@ -40,6 +40,11 @@
     "jobs": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.jobs"
+    },
+    "permissions": {
+      "description": "Required to run the konnectors",
+      "verbs": ["ALL"],
+      "type": "io.cozy.permissions"
     }
   },
   "routes": {
