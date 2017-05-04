@@ -157,7 +157,7 @@ export default class ConnectorManagement extends Component {
       this.selectAccount(this.state.connector.accounts.length - 1)
     })
     .catch(() => {
-      Notifier.error('my_accounts account config error')
+      Notifier.error('data_connect account config error')
     })
   }
 

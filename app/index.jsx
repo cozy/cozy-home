@@ -5,7 +5,7 @@ import { h, render } from 'preact'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from './plugins/preact-polyglot'
-import MyAccountsStore, { Provider } from './lib/MyAccountsStore'
+import DataConnectStore, { Provider } from './lib/DataConnectStore'
 
 import App from './components/App'
 import DiscoveryList from './components/DiscoveryList'
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.initKonnectors = require('./initKonnectors.json')
   window.initFolders = require('./initFolders.json')
 
-  const store = new MyAccountsStore(window.initKonnectors, window.initFolders, context)
+  const store = new DataConnectStore(window.initKonnectors, window.initFolders, context)
   const categories = store.getCategories()
   const useCases = store.getUseCases()
 
