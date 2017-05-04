@@ -13,7 +13,7 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true }) => (
         iconName={c.slug}
         slug={c.slug}
         enableDefaultIcon
-        backgroundCSS={c.color.css}
+        backgroundCSS=''
       />
     )}
   </div>

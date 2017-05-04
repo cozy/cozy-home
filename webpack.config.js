@@ -10,7 +10,7 @@ const pkg = require(path.resolve(__dirname, 'package.json'))
 
 const merge = require('webpack-merge')
 const { production, extractor } = require('./config/webpack.vars')
-// use the `OPTIMIZE` env to switch from dev to production build
+// use the `NODE_ENV` env to switch from dev to production build
 const optimize = process.env.NODE_ENV === production
 
 /**
