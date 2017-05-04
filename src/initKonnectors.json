@@ -9,7 +9,7 @@
     "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "repo": "git://github.com/cozy/cozy-konnector-bouyguesbox.git"
+    "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git"
   },
   {
     "accounts":[],
@@ -21,7 +21,7 @@
     "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "repo": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git"
+    "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git"
   },
   {
     "accounts":[],
@@ -33,7 +33,7 @@
     "color":{"hex":"#007858","css":"#007858"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "repo": "git://github.com/cozy/cozy-konnector-trainline.git"
+    "source": "git://github.com/cozy/cozy-konnector-trainline.git"
   },
   {
     "accounts":[],
@@ -45,7 +45,7 @@
     "color":{"hex":"#48D5B5","css":"#48D5B5"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "repo": "git://github.com/cozy/cozy-konnector-trainline.git"
+    "source": "git://github.com/cozy/cozy-konnector-trainline.git"
   },
   {
     "accounts":[],
@@ -57,7 +57,7 @@
     "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "repo": "git://github.com/cozy/cozy-konnector-sfrbox.git"
+    "source": "git://github.com/cozy/cozy-konnector-sfrbox.git"
   },
   {
     "accounts":[],
@@ -69,6 +69,6 @@
     "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
-    "repo": "git://github.com/cozy/cozy-konnector-sfrmobile.git"
+    "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git"
   }
 ]
