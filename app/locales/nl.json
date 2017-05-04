@@ -158,7 +158,7 @@
   "data_connect title": "Data Connect",
   "data_connect category title": "Categories",
   "data_connect discovery title": "Discovery",
-  "data_connect pinned title": "Pinned",
+  "data_connect connected title": "Connected",
   "data_connect coming_soon": "Coming soon!",
 
   "none": "Geen schema geselecteerd",
