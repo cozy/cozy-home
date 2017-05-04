@@ -80,7 +80,7 @@ export default class DataConnectStore {
     const result = account.id
       // TODO: replace by updateAccount
       ? Promise.resolve(account)
-        : this.addAccount(konnector, account.values)
+        : this.addAccount(konnector, account.values, folder)
     result
     .then(account => {
       return cozy.client.fetchJSON('PATCH', konnector.links.permissions, {
@@ -93,7 +93,7 @@ export default class DataConnectStore {
             permissions: {
               saveFolder: {
                 type: 'io.cozy.files',
-                values: [folder._id]
+                values: [account.folderId]
               }
             }
           }
@@ -135,8 +135,8 @@ export default class DataConnectStore {
     return konnector.state && konnector.state === KONNECTOR_STATE_READY
   }
 
-  addAccount (konnector, auth) {
-    return accounts.create(cozy.client, konnector, auth)
+  addAccount (konnector, auth, folder) {
+    return accounts.create(cozy.client, konnector, auth, folder)
       .then(account => {
         const installationPromise = this.isInstalled(konnector)
           ? Promise.resolve(konnector)
