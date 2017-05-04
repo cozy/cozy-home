@@ -11,7 +11,7 @@ const getIcon = (iconName, enableDefaultIcon) => {
     icon = require(`../assets/icons/white/${iconName}.svg`)
   } catch (e) {
     if (enableDefaultIcon) {
-      icon = require('../assets/icons/white/default_myaccount.svg')
+      icon = require('../assets/icons/white/default.svg')
     }
   }
   return icon

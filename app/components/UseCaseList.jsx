@@ -25,6 +25,7 @@ const UseCaseList = ({ t, useCases, context }) => (
         slug={u.slug}
         enableDefaultIcon={false}
         backgroundCSS={getItemBackground(u, context)}
+        isUseCase
       />
     )}
   </div>

@@ -3,7 +3,7 @@ import { h } from 'preact'
 import { Link, withRouter } from 'react-router'
 import { translate } from '../plugins/preact-polyglot'
 
-const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundCSS, enableDefaultIcon = false, router }) => (
+const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) => (
   <Link class='item-wrapper' to={`${router.location.pathname}/${slug}`}>
     <header class='item-header' style={{background: backgroundCSS}}>
       {iconName &&
@@ -12,7 +12,7 @@ const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundC
         </svg>
       }
     </header>
-    <p class='item-title'>{title}</p>
+    <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
     {subtitle && <p class='item-subtitle'>{subtitle}</p>}
     {connected &&
       <svg class='item-connected'>
@@ -30,7 +30,7 @@ const icon = (iconName, enableDefaultIcon) => {
     icon = require(`../assets/icons/color/${iconName}.svg`)
   } catch (e) {
     if (enableDefaultIcon) {
-      icon = require('../assets/icons/color/default_myaccount.svg')
+      icon = require('../assets/icons/color/default.svg')
     }
   }
   return icon

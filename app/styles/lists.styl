@@ -38,11 +38,17 @@ $item-margin = .7em
             top           50%
             transform     translateY(-50%)
     .item-title
+    .use-case-title
         padding     0em .5em
         margin      .5em
         color       black
         font-size   em(20px)
         font-weight 700
+    .use-case-title
+        font-weight 500
+        font-size   em(18px)
+        text-align  left
+        margin-top  1em
     .item-subtitle
         font-size 14px
         padding   0em 1em
@@ -54,6 +60,12 @@ $item-margin = .7em
         height   24px
         bottom   1em
         right    1em
+
+.use-cases-list
+    .item-wrapper
+        box-shadow  0 2px 6px 0 alpha(black, .15)
+        border      none
+
 
 @media (min-width: 40em)
     .item-wrapper
