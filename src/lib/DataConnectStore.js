@@ -5,8 +5,7 @@ import { Component } from 'react'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 
-const INSTALL_TIMEOUT = 120
-const KONNECTOR_STATE_READY = 'ready'
+const INSTALL_TIMEOUT = 120 * 1000
 
 export default class DataConnectStore {
   constructor (connectors, folders, context) {
@@ -63,54 +62,61 @@ export default class DataConnectStore {
     return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug))
   }
 
-  getKonnectorFolder (konnector, base = '/') {
-    base = base.charAt(base.length) === '/'
-      ? base.substr(0, base.length - 1)
-        : base
+  // Account connection workflow, see
+  // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
+  connectAccount (konnector, account, folderPath) {
+    // return object to store all business object implied in the connection
+    const connection = {}
 
-    base = base.charAt(0) === '/'
-      ? base
-        : `/${base}`
-
-    const folderPath = `${base}/${konnector.name}`
+    // 1. Create folder, will be replaced by an intent or something else
     return cozy.client.files.createDirectoryByPath(folderPath)
-  }
-
-  connectAccount (konnector, account, folder) {
-    const result = account.id
-      // TODO: replace by updateAccount
-      ? Promise.resolve(account)
-        : this.addAccount(konnector, account.values, folder)
-    result
-    .then(account => {
-      return cozy.client.fetchJSON('PATCH', konnector.links.permissions, {
-        data: {
-          id: konnector.links.permissions,
-          type: 'io.cozy.permissions',
-          attributes: {
-            type: 'app',
-            source_id: konnector._id,
-            permissions: {
-              saveFolder: {
-                type: 'io.cozy.files',
-                values: [account.folderId]
+      // 2. Create account
+      .then(folder => {
+        connection.folder = folder
+        return accounts.create(cozy.client, konnector, account.auth, folder)
+      })
+      // 3. Konnector installation
+      .then(account => {
+        connection.account = account
+        return konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
+      })
+      // 4. Add account to konnector
+      .then(konnector => {
+        return konnectors.addAccount(cozy.client, konnector, connection.account)
+      })
+      // 5. Add permissions to folder for konnector
+      .then(konnector => {
+        connection.konnector = this.updateConnector(konnector)
+        return cozy.client.fetchJSON('PATCH', konnector.links.permissions, {
+          data: {
+            id: konnector.links.permissions,
+            type: 'io.cozy.permissions',
+            attributes: {
+              type: 'app',
+              source_id: konnector._id,
+              permissions: {
+                saveFolder: {
+                  type: 'io.cozy.files',
+                  values: [connection.folder._id]
+                }
               }
             }
           }
-        }
-      })
-      .then(account => {
-        // add a reference to the folder in the konnector
-        return cozy.client.fetchJSON('POST', `/files/${folder._id}/relationships/referenced_by`, {
-          data: {
-            type: 'io.cozy.konnectors',
-            id: konnector._id
-          }
         })
       })
-      .then(() => konnectors.run(cozy.client, konnector.slug, account._id, folder._id))
-      .then(() => {
-        // create a trigger to run the job every weeks (default value)
+      // 6. Reference konnector in folder
+      .then(permission => {
+        connection.permission = permission
+        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder_id)
+      })
+      // 7. Run a job for the konnector
+      .then(() => konnectors.run(
+        cozy.client,
+        connection.konnector,
+        connection.account))
+      // 8. Creates trigger
+      .then(job => {
+        connection.job = job
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -118,36 +124,15 @@ export default class DataConnectStore {
               arguments: '0 0 0 * * *',
               worker: 'konnector',
               worker_arguments: {
-                konnector: konnector._id,
-                account: account._id,
-                folderToSave: folder._id
+                konnector: connection.konnector._id,
+                account: connection.account._id,
+                folderToSave: connection.folder._id
               }
             }
           }
         })
       })
-    })
-
-    return result
-  }
-
-  isInstalled (konnector) {
-    return konnector.state && konnector.state === KONNECTOR_STATE_READY
-  }
-
-  addAccount (konnector, auth, folder) {
-    return accounts.create(cozy.client, konnector, auth, folder)
-      .then(account => {
-        const installationPromise = this.isInstalled(konnector)
-          ? Promise.resolve(konnector)
-            : konnectors.install(cozy.client, konnector.slug, konnector.repo, INSTALL_TIMEOUT * 1000)
-
-        return installationPromise
-          .then(konnectorResult => {
-            konnector.links = konnectorResult.links
-            return konnectors.addAccount(cozy.client, konnectorResult, account)
-          })
-      })
+      .then(() => connection)
   }
 
   fetchAccounts (accountType, index) {
