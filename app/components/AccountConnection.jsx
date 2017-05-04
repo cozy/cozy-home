@@ -33,7 +33,7 @@ class AccountConnection extends Component {
     return (
       <div class='account-connection'>
         <div class='account-description'>
-          <h3>{t('data_connect title description')}</h3>
+          <h3>{t('title description')}</h3>
           <p>
             <ReactMarkdown
               source={
@@ -54,7 +54,7 @@ class AccountConnection extends Component {
           <p>{` ${connector.name} ${t('dataType disclaimer')} `}</p>
         </div>
         <div class='account-login'>
-          <h3>{t('data_connect account config title', {name: name})}</h3>
+          <h3>{t('account config title', {name: name})}</h3>
           <div class={'account-form' + (error ? ' error' : '')}>
             <AccountLoginForm
               t={t}
@@ -67,10 +67,10 @@ class AccountConnection extends Component {
                 aria-busy={submitting ? 'true' : 'false'}
                 onClick={() => this.submit()}
               >
-                {t('data_connect account config button')}
+                {t('account config button')}
               </button>
               {error === 'bad credentials' &&
-                <p class='errors'>{t('data_connect account config bad credentials')}</p>
+                <p class='errors'>{t('account config bad credentials')}</p>
               }
             </div>
           </div>

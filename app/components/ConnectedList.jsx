@@ -5,7 +5,7 @@ import ConnectorList from './ConnectorList'
 
 const ConnectedList = ({ t, connectors, children }) => (
   <div class='content'>
-    <h1>{t('data_connect connected title')}</h1>
+    <h1>{t('connected title')}</h1>
     <ConnectorList connectors={connectors} />
     {children}
   </div>

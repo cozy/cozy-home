@@ -16,13 +16,13 @@ const Sidebar = ({ t, categories, router }) => {
         <ul className='coz-nav'>
           <li className='coz-nav-item'>
             <Link to='/discovery' className='coz-nav-link con-cat-discovery' activeClassName='active'>
-              {t('data_connect discovery title')}
+              {t('discovery title')}
             </Link>
           </li>
           <li className='coz-nav-item'>
             <Link to='/category/all'
               className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
-              {t('data_connect category title')}
+              {t('category title')}
             </Link>
           </li>
           {isCategoryView &&
@@ -48,7 +48,7 @@ const Sidebar = ({ t, categories, router }) => {
           }
           <li className='coz-nav-item'>
             <Link to='/connected' className='coz-nav-link con-cat-connected' activeClassName='active'>
-              {t('data_connect connected title')}
+              {t('connected title')}
             </Link>
           </li>
         </ul>

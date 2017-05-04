@@ -5,7 +5,7 @@ import UseCaseList from './UseCaseList'
 
 const DiscoveryList = ({ t, useCases, context, children }) => (
   <div class='content'>
-    <h1>{t('data_connect discovery title')}</h1>
+    <h1>{t('discovery title')}</h1>
     <UseCaseList useCases={useCases} context={context} />
     {children}
   </div>
