@@ -30,7 +30,7 @@ const icon = (iconName, enableDefaultIcon) => {
     icon = require(`../assets/icons/color/${iconName}.svg`)
   } catch (e) {
     if (enableDefaultIcon) {
-      icon = require('../assets/icons/color/default_myaccount.svg')
+      icon = require('../assets/icons/color/default.svg')
     }
   }
   return icon
