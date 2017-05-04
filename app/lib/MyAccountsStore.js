@@ -99,6 +99,15 @@ export default class MyAccountsStore {
           }
         }
       })
+      .then(account => {
+        // add a reference to the folder in the konnector
+        return cozy.client.fetchJSON('POST', `/files/${folder._id}/relationships/referenced_by`, {
+          data: {
+            type: 'io.cozy.konnectors',
+            id: konnector._id
+          }
+        })
+      })
       .then(() => konnectors.run(cozy.client, konnector.slug, account._id, folder._id))
       .then(() => {
         // create a trigger to run the job every weeks (default value)
