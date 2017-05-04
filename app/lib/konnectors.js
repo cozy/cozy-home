@@ -89,7 +89,7 @@ export function run (cozy, slug, accountId, folderId, timeout = 120 * 1000) {
       }
     })
   })
-  .then(job => waitForJobFinished(cozy, job, timeout))
+  //.then(job => waitForJobFinished(cozy, job, timeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready

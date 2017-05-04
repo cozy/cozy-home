@@ -100,6 +100,23 @@ export default class MyAccountsStore {
         }
       })
       .then(() => konnectors.run(cozy.client, konnector.slug, account._id, folder._id))
+      .then(() => {
+        // create a trigger to run the job every weeks (default value)
+        return cozy.client.fetchJSON('POST', '/jobs/triggers', {
+          data: {
+            attributes: {
+              type: '@cron',
+              arguments: '0 0 0 * * *',
+              worker: 'konnector',
+              worker_arguments: {
+                konnector: konnector._id,
+                account: account._id,
+                folderToSave: folder._id
+              }
+            }
+          }
+        })
+      })
     })
 
     return result

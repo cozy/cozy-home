@@ -34,12 +34,15 @@
     },
     "files": {
       "description": "Required to access folders",
-      "type": "io.cozy.files",
-      "verbs": ["GET", "POST", "PUT"]
+      "type": "io.cozy.files"
     },
     "jobs": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.jobs"
+    },
+    "triggers": {
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.triggers"
     },
     "permissions": {
       "description": "Required to run the konnectors",
