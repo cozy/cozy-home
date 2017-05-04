@@ -5,7 +5,7 @@
     "test": "npm run lint && jest",
     "lint": "sh scripts/lint.sh",
     "pretest": "tx pull -a || true",
-    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-my-accounts.git"
+    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-data-connect.git"
   },
   "dependencies": {
     "csswring": "^5.1.1",
