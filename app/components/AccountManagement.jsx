@@ -34,7 +34,7 @@ const AccountManagement = (props) => {
               {t('my_accounts activity desc')}
               {synching
                 ? t('my_accounts activity running')
-                : <TimeAgo datetime={lastImport} locale={locale} />
+                : lastImport && <TimeAgo datetime={lastImport} locale={locale} />
               }
             </p>
             <button class='flat' disabled={synching} onClick={() => synchronize()}>
