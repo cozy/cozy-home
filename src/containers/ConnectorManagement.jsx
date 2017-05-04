@@ -161,34 +161,35 @@ export default class ConnectorManagement extends Component {
     })
   }
 
-  async connectAccount (values) {
+  async connectAccount ({login, password, folderPath}) {
     const { t } = this.context
 
-    this.setState({ submitting: true })
-    // TODO: Replace this automatic folder computation by intent to pick file.
-    this.store.getKonnectorFolder(this.state.connector, values.folder)
-      .then(folder => {
-        if (this.state.connector.connectUrl) {
-          return this.connectAccountOAuth(values)
-        }
+    const account = {
+      auth: {
+        login: login,
+        password: password
+      }
+    }
 
-        return this.store.connectAccount(this.state.connector, values, folder)
-          .then(fetchedConnector => {
-            this.setState({ submitting: false })
-            if (fetchedConnector.importErrorMessage) {
-              this.setState({ error: fetchedConnector.importErrorMessage })
-            } else {
-              this.gotoParent()
-              if (values.folderPath) {
-                Notifier.info(t('account config success'), t('account config details') + values.folderPath)
-              } else {
-                Notifier.info(t('account config success'))
-              }
-            }
-          })
+    this.setState({ submitting: true })
+
+    this.store.connectAccount(this.state.connector, account, folderPath)
+      .then(connection => {
+        this.setState({ submitting: false })
+        if (connection.error) {
+          this.setState({ error: connection.error.message })
+        } else {
+          this.gotoParent()
+          if (folderPath) {
+            Notifier.info(t('account config success'), t('account config details') + folderPath)
+          } else {
+            Notifier.info(t('account config success'))
+          }
+        }
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
+        console.error(error)
         Notifier.error(t('account config error'))
       })
   }
