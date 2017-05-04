@@ -71,19 +71,16 @@ export default class ConnectorManagement extends Component {
 
     this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
-        this.store.fetchAccounts(props.params.connectorSlug, null)
-        .then(accounts => {
-          konnector.accounts = accounts
-          this.setState({
-            connector: konnector,
-            isConnected: konnector.accounts.length !== 0,
-            isWorking: false
+        return this.store
+          .fetchAccounts(props.params.connectorSlug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            this.setState({
+              connector: konnector,
+              isConnected: konnector.accounts.length !== 0,
+              isWorking: false
+            })
           })
-        })
-        .catch(error => {
-          Notifier.error(t(error.message || error))
-          this.gotoParent()
-        })
       })
       .catch(error => {
         Notifier.error(t(error.message || error))
