@@ -4,7 +4,7 @@ import 'babel-polyfill'
 import { h, render } from 'preact'
 
 import { I18n } from './plugins/preact-polyglot'
-import MyAccountsStore, { Provider } from './lib/MyAccountsStore'
+import DataConnectStore, { Provider } from './lib/DataConnectStore'
 
 import IntentService from './containers/IntentService'
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.initKonnectors = require('./initKonnectors.json')
   window.initFolders = require('./initFolders.json')
 
-  const store = new MyAccountsStore(window.initKonnectors, window.initFolders, context)
+  const store = new DataConnectStore(window.initKonnectors, window.initFolders, context)
 
   render((
     <Provider store={store}>

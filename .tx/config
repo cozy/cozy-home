@@ -1,13 +1,13 @@
 [main]
 host = https://www.transifex.com
 
-[myaccounts.client]
+[dataconnect.client]
 file_filter = app/locales/<lang>.json
 source_file = app/locales/en.json
 source_lang = en
 type = KEYVALUEJSON
 
-[myaccounts.context-cozy]
+[dataconnect.context-cozy]
 file_filter = app/contexts/cozy/locales/<lang>.json
 source_file = app/contexts/cozy/locales/en.json
 source_lang = en

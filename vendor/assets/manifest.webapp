@@ -1,9 +1,10 @@
 {
-  "name": "My Accounts",
-  "slug": "my-accounts",
-  "icon": "favicon-32x32.png",
+  "name": "Data Connect",
+  "slug": "data-connect",
+  "icon": "cozy_data_connect.svg",
   "description": "Configuration application for konnectors",
-  "source": "https://github.com/cozy/cozy-my-accounts.git@build",
+  "source": "https://github.com/cozy/cozy-data-connect.git@build",
+  "editor": "Cozy",
   "developer": {
     "name": "Cozy",
     "url": "https://cozy.io"

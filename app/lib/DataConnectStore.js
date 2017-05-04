@@ -8,7 +8,7 @@ import * as konnectors from './konnectors'
 const INSTALL_TIMEOUT = 120
 const KONNECTOR_STATE_READY = 'ready'
 
-export default class MyAccountsStore {
+export default class DataConnectStore {
   constructor (connectors, folders, context) {
     this.listener = null
     this.connectors = connectors

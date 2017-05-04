@@ -1,11 +1,11 @@
 
-[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-my-accounts.svg?branch=master)](https://travis-ci.org/cozy/cozy-my-accounts)
-[![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-my-accounts.svg)](https://github.com/cozy/cozy-my-accounts/releases)
-[![NPM Licence shield](https://img.shields.io/npm/l/cozy-my-accounts.svg)](https://github.com/cozy/cozy-my-accounts/blob/master/LICENSE)
+[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-data-connect.svg?branch=master)](https://travis-ci.org/cozy/cozy-data-connect)
+[![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-data-connect.svg)](https://github.com/cozy/cozy-data-connect/releases)
+[![NPM Licence shield](https://img.shields.io/npm/l/cozy-data-connect.svg)](https://github.com/cozy/cozy-data-connect/blob/master/LICENSE)
 
 
-[Cozy] My Accounts
-=======================
+[Cozy] Data Connect
+===================
 
 
 What's Cozy?
@@ -13,11 +13,11 @@ What's Cozy?
 
 ![Cozy Logo](https://cdn.rawgit.com/cozy/cozy-guidelines/master/templates/cozy_logo_small.svg)
 
-[Cozy] is a platform that brings all your web services in the same private space.  With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one's tracking you.
+[Cozy] is a platform that brings all your web services in the same private space. With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one's tracking you.
 
 
-What's MyAccounts (previously known as Konnectors)?
-------------------
+What is Data Connect (previously known as MyAccounts, previously known as Konnectors)?
+--------------------------------------------------------------------------------------
 
 A cozy client application to configure and run cozy konnectors
 
@@ -28,13 +28,13 @@ _:pushpin: Note:_ we recommend to use [Yarn] instead of NPM for package manageme
 
 ### Install and run in dev mode
 
-Hacking the My Accounts app requires you to [setup a dev environment][setup].
+Hacking the Data Connect app requires you to [setup a dev environment][setup].
 
 You can then clone the app repository and install dependencies:
 
 ```sh
-$ git clone https://github.com/cozy/cozy-my-accounts.git
-$ cd cozy-my-accounts
+$ git clone https://github.com/cozy/cozy-data-connect.git
+$ cd cozy-data-connect
 $ yarn install
 ```
 
@@ -53,7 +53,7 @@ yarn link
 then go back to your app project and replace the distributed cozy-ui module with the linked one:
 
 ```sh
-cd cozy-my-accounts
+cd cozy-data-connect
 yarn link cozy-ui
 ```
 
@@ -80,7 +80,7 @@ Feel free to read it and fix / update it if needed, all comments and feedback to
 
 ### Open a Pull-Request
 
-If you want to work on My Accounts and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about how to properly open pull-requests.
+If you want to work on Data Connect and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about how to properly open pull-requests.
 
 
 Community
@@ -97,7 +97,7 @@ As a _developer_, you must [configure the transifex client][tx-client], and clai
 
 ### Maintainer
 
-The lead maintainer for Cozy My Accounts is ?, send him/her a :beers: to say hello!
+The lead maintainer for Cozy Data Connect is ?, send him/her a :beers: to say hello!
 
 
 ### Get in touch
@@ -113,7 +113,7 @@ You can reach the Cozy Community by:
 License
 -------
 
-Cozy My Accounts is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
+Cozy Data Connect is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
 
 
 
@@ -130,7 +130,7 @@ Cozy My Accounts is developed by Cozy Cloud and distributed under the [AGPL v3 l
 [contribute]: CONTRIBUTING.md
 [tx]: https://www.transifex.com/cozy/
 [tx-signin]: https://www.transifex.com/signin/
-[tx-app]: https://www.transifex.com/cozy/cozy-my-accounts/dashboard/
+[tx-app]: https://www.transifex.com/cozy/cozy-data-connect/dashboard/
 [tx-client]: http://docs.transifex.com/client/
 [freenode]: http://webchat.freenode.net/?randomnick=1&channels=%23cozycloud&uio=d4
 [forum]: https://forum.cozy.io/
