@@ -106,7 +106,7 @@ export default class ConnectorManagement extends Component {
         {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
         <div class='installing'>
           <div class='installing-spinner' />
-          <div>{t('my_accounts working')}</div>
+          <div>{t('data_connect working')}</div>
         </div>
       </ConnectorDialog>
     } else {
@@ -180,16 +180,16 @@ export default class ConnectorManagement extends Component {
             } else {
               this.gotoParent()
               if (values.folderPath) {
-                Notifier.info(t('my_accounts account config success'), t('my_accounts account config details') + values.folderPath)
+                Notifier.info(t('data_connect account config success'), t('data_connect account config details') + values.folderPath)
               } else {
-                Notifier.info(t('my_accounts account config success'))
+                Notifier.info(t('data_connect account config success'))
               }
             }
           })
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
-        Notifier.error(t('my_accounts account config error'))
+        Notifier.error(t('data_connect account config error'))
       })
   }
 
@@ -204,7 +204,7 @@ export default class ConnectorManagement extends Component {
     const { t } = this.context
     this._updateAccount(idx, values)
       .then(() => {
-        Notifier.info(t('my_accounts account config success'))
+        Notifier.info(t('data_connect account config success'))
       })
   }
 
@@ -219,7 +219,7 @@ export default class ConnectorManagement extends Component {
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
-        Notifier.error(t('my_accounts account config error'))
+        Notifier.error(t('data_connect account config error'))
         return Promise.reject(error)
       })
   }
@@ -237,7 +237,7 @@ export default class ConnectorManagement extends Component {
       })
       .catch(error => { // eslint-disable-line
         this.setState({ synching: false })
-        Notifier.error(t('my_accounts account config error'))
+        Notifier.error(t('data_connect account config error'))
       })
   }
 
@@ -253,11 +253,11 @@ export default class ConnectorManagement extends Component {
         } else {
           this.selectAccount(0)
         }
-        Notifier.info(t('my_accounts account delete success'))
+        Notifier.info(t('data_connect account delete success'))
       })
       .catch(error => { // eslint-disable-line
         this.setState({ deleting: false })
-        Notifier.error(t('my_accounts account delete error'))
+        Notifier.error(t('data_connect account delete error'))
       })
   }
 
@@ -285,7 +285,7 @@ export default class ConnectorManagement extends Component {
       fields.calendar.default = connectorName
     }
     if (fields.folderPath && !fields.folderPath.default) {
-      fields.folderPath.default = '/' + t('my_accounts title') + '/' + connectorName
+      fields.folderPath.default = '/' + t('data_connect title') + '/' + connectorName
     }
     if (fields.folderPath && !fields.folderPath.options) {
       fields.folderPath.options = this.store.folders.map(f => f.path + '/' + f.name)

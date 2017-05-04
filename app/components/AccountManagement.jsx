@@ -20,41 +20,41 @@ const AccountManagement = (props) => {
                 <a onClick={() => selectAccount(key)}>
                   {account.login
                     ? account.login
-                    : t('my_accounts account index', {index: key + 1})}
+                    : t('data_connect account index', {index: key + 1})}
                 </a>
               </li>
             ))}
           </ul>
-          <a className='add-button' onClick={() => addAccount()}>{t('my_accounts add_account button')}</a>
+          <a className='add-button' onClick={() => addAccount()}>{t('data_connect add_account button')}</a>
         </div>
         <div class='account-config'>
           <div>
-            <h3>{t('my_accounts activity')}</h3>
+            <h3>{t('data_connect activity')}</h3>
             <p>
-              {t('my_accounts activity desc')}
+              {t('data_connect activity desc')}
               {synching
-                ? t('my_accounts activity running')
+                ? t('data_connect activity running')
                 : lastImport && <TimeAgo datetime={lastImport} locale={locale} />
               }
             </p>
             <button class='flat' disabled={synching} onClick={() => synchronize()}>
-              {t('my_accounts activity button')}
+              {t('data_connect activity button')}
             </button>
           </div>
           <AccountConfigForm {...props} />
           {isLoginFilled
           ? <div>
-            <h3>{t('my_accounts disconnect')}</h3>
+            <h3>{t('data_connect disconnect')}</h3>
             <p>
-              {t('my_accounts disconnect desc')}
+              {t('data_connect disconnect desc')}
             </p>
             <button class='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
-              {t('my_accounts disconnect button')}
+              {t('data_connect disconnect button')}
             </button>
           </div>
           : <div>
             <button class='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
-              {t('my_accounts delete button')}
+              {t('data_connect delete button')}
             </button>
           </div>}
 
@@ -62,14 +62,14 @@ const AccountManagement = (props) => {
       </div>
       <div class='account-management-controls'>
         <button class='cancel' onClick={cancel}>
-          {t('my_accounts account cancel button')}
+          {t('data_connect account cancel button')}
         </button>
         <button
           disabled={!dirty}
           aria-busy={submitting ? 'true' : 'false'}
           onClick={submit}
         >
-          {t('my_accounts account save button')}
+          {t('data_connect account save button')}
         </button>
       </div>
     </div>

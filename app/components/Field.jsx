@@ -69,7 +69,7 @@ export const PasswordField = translate()(
           <button
             type='button'
             tabindex='-1'
-            title={t('my_accounts account config show password')}
+            title={t('data_connect account config show password')}
             class='icon password-visibility'
             onClick={() => toggleVisibility()}
           >
