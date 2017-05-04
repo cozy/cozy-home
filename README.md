@@ -97,7 +97,7 @@ As a _developer_, you must [configure the transifex client][tx-client], and clai
 
 ### Maintainer
 
-The lead maintainer for Cozy’s Data Connect is ?, send him/her a :beers: to say hello!
+The lead maintainer for Cozy Data Connect is ?, send him/her a :beers: to say hello!
 
 
 ### Get in touch
@@ -113,7 +113,7 @@ You can reach the Cozy Community by:
 License
 -------
 
-Cozy My Accounts is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
+Cozy Data Connect is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
 
 
 
