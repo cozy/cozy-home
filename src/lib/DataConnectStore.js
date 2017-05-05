@@ -29,9 +29,6 @@ export default class DataConnectStore {
       this.connectors = this.connectors.map(
         c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
       )
-      if (this.listener) {
-        this.listener(this.find(c => c.slug === connector.slug))
-      }
     }
     return this.connectors.find(k => k.slug === connector.slug)
   }
