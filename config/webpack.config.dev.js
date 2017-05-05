@@ -1,6 +1,7 @@
 'use strict'
 
 const webpack = require('webpack')
+
 module.exports = {
   devtool: '#source-map',
   externals: ['cozy'],

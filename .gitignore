@@ -1,7 +1,10 @@
-# NPM packages folder.
+# NPM
 node_modules/
+npm-debug.log
+yarn-error.log
 
-# build files
+
+# Build
 build/
 
 
@@ -10,5 +13,38 @@ build/
 !**/locales/en.json
 
 
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+
+# Editors / IDEs
+.floo
+.flooignore
+
+
+# Mobile
+mobile/hooks
+mobile/platforms
+mobile/plugins
+mobile/www
+mobile/keys
+
+
+# fastlane
+mobile/fastlane/README.md
+mobile/fastlane/report.xml
+mobile/fastlane/Error*.png
+mobile/fastlane/Preview.html
+mobile/Preview.html
+
+
 # Default
+# /!\ KEEP THIS SECTION THE LAST ONE
 !.gitkeep

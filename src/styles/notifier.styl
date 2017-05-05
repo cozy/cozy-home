@@ -1,0 +1,52 @@
+// Onboarding notification styles
+// TODO: use the one in cozy-ui ?
+notification-width = (546/basefont)em
+.coz-notifier
+    z-index 100
+
+.coz-notification
+    display          block
+    position         absolute
+    top              (16/basefont)em
+    left             0
+    margin           0 (16/basefont)em
+    border-radius    (10/basefont)em
+    background-color emerald
+    box-shadow       0 (6/basefont)em (18/basefont)em 0 rgba(50, 54, 63, .23)
+    box-sizing       border-box
+    padding          1em
+    color            white
+
+    //                  When only a title is displayed
+    min-height          (96/basefont)em
+    padding-left        (96/basefont)em
+    background-image    embedurl('../assets/icons/icon-check.svg')
+    background-repeat   no-repeat
+    background-position (24/basefont)em center
+
+    transition                 top .5s
+    transition-timing-function ease-out
+    cursor                     pointer
+
+    .coz-notification-title
+        font-size(18px)
+        font-weight bold
+
+    .coz-notification-details
+        margin-top em(5px)
+        font-size(15px)
+
+.coz-notification--error
+    background-color pomegranate
+    background-image embedurl('../assets/icons/icon-warning.svg')
+
+.coz-notification--closing
+    top                        -25%
+    transition-timing-function ease-in
+
+@media all and (min-width notification-width)
+    .coz-notification
+        left        50%
+        max-width   notification-width
+        margin-left -(notification-width/2)
+        width       100%
