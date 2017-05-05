@@ -6,7 +6,7 @@ import statefulComponent from '../lib/statefulComponent'
 const Field = (props) => {
   let inputs
   if (props.children.length !== 0) {
-    inputs = props.children.map(
+    inputs = React.Children.toArray(props.children).map(
       child => cloneElement(child,
         Object.assign(props, {
           selected: props.value,
