@@ -2,11 +2,14 @@
 @import 'cozy-ui'
 
 :global
+    #svg-sprite-content
+        position absolute
+        width 0
+        height 0
+        visibility hidden
+
     @import './loading.styl'
     @import './dialog.styl'
-
-    body > svg
-      display none
 
     .coz-service-loading
     .coz-service-error
