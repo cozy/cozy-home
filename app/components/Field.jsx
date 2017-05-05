@@ -1,6 +1,6 @@
 import React, { cloneElement } from 'react'
 import classNames from 'classnames'
-import { translate } from '../plugins/preact-polyglot'
+import { translate } from '../plugins/i18n'
 import statefulComponent from '../lib/statefulComponent'
 
 const Field = (props) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router'
-import { translate } from '../plugins/preact-polyglot'
+import { translate } from '../plugins/i18n'
 
 const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) => (
   <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>

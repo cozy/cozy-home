@@ -3,7 +3,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { I18n } from './plugins/preact-polyglot'
+import { I18n } from './plugins/i18n'
 import DataConnectStore, { Provider } from './lib/DataConnectStore'
 
 import IntentService from './containers/IntentService'
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render((
     <Provider store={store}>
-      <I18n context={context} locale={lang}>
+      <I18n context={context} lang={lang}>
         <IntentService window={window} data={data} />
       </I18n>
     </Provider>

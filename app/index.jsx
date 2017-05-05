@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
-import { I18n } from './plugins/preact-polyglot'
+import { I18n } from './plugins/i18n'
 import DataConnectStore, { Provider } from './lib/DataConnectStore'
 
 import App from './components/App'
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render((
     <Provider store={store}>
-      <I18n context={context} locale={lang}>
+      <I18n context={context} lang={lang}>
         <Router history={hashHistory}>
           <Route
             component={(props) =>

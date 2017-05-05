@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from '../plugins/preact-polyglot'
+import { translate } from '../plugins/i18n'
 
 import ConnectorList from './ConnectorList'
 import Dialog from './Dialog'

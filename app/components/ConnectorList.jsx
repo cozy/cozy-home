@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from '../plugins/preact-polyglot'
+import { translate } from '../plugins/i18n'
 import ConnectorItem from './ConnectorItem'
 
 const ConnectorList = ({ t, connectors, showConnectedBadge = true }) => (
