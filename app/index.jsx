@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     token: data.cozyToken
   })
   cozy.bar.init({
+    appEditor: data.cozyAppEditor,
     appName: data.cozyAppName,
     iconPath: data.cozyIconPath,
     lang: data.cozyLocale,
