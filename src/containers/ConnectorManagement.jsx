@@ -148,6 +148,7 @@ export default class ConnectorManagement extends Component {
   }
 
   addAccount () {
+    const { t } = this.context
     this.store.addAccount(this.state.connector, this.getDefaultValues())
     .then(connector => {
       this.setState({
