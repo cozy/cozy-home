@@ -60,9 +60,8 @@ export default class IntentService extends Component {
     const { konnector } = this.state
     const account = {auth: auth}
 
-    this.store.getKonnectorFolder(konnector, baseFolder)
-      .then(folder => this.store.connectAccount(konnector, account, folder))
-      .then(konnector => this.terminate(konnector.accounts[konnector.accounts.length - 1]))
+    return this.store.connectAccount(konnector, account, baseFolder)
+      .then(connection => this.terminate(connection.account))
       .catch(error => {
         this.setState({
           error: {
@@ -70,6 +69,8 @@ export default class IntentService extends Component {
             reason: error.message
           }
         })
+
+        throw error
       })
   }
 
