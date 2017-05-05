@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 
 import Field, { DropdownField } from './Field'
 import AccountLoginForm from './AccountLoginForm'

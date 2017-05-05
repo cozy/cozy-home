@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 

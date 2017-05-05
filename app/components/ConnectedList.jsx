@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 import { translate } from '../plugins/preact-polyglot'
 import ConnectorList from './ConnectorList'
 

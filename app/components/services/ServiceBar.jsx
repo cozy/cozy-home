@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 
 const ServiceBar = ({appEditor, appName, iconPath, onCancel}) => (
   <header className='coz-service-bar'>

@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 import statefulForm from '../lib/statefulForm'
 
 import AccountLoginForm from './AccountLoginForm'

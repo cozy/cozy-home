@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 import { withRouter } from 'react-router'
 
 const Dialog = ({ router, className, headerStyle, headerIcon, children }) => {

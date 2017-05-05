@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 import TimeAgo from 'timeago-react'
 import statefulForm from '../lib/statefulForm'
 

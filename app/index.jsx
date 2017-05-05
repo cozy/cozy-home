@@ -1,7 +1,7 @@
 import 'babel-polyfill'
-/** @jsx h */
 /* global cozy */
-import { h, render } from 'preact'
+import React from 'react'
+import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from './plugins/preact-polyglot'

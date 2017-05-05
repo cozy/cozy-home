@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 export default function statefulForm (mapPropsToFormConfig) {
   return function wrapForm (WrappedForm) {

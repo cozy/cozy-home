@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, cloneElement } from 'preact'
+import React, { cloneElement } from 'react'
 import classNames from 'classnames'
 import { translate } from '../plugins/preact-polyglot'
 import statefulComponent from '../lib/statefulComponent'

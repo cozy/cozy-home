@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 const createStore = () => {
   let notifications = []

@@ -1,6 +1,6 @@
 /* global fetch */
 /* global cozy */
-import { Component } from 'preact'
+import { Component } from 'react'
 
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'

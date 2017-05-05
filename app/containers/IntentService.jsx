@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 import Loading from '../components/Loading'
 import ServiceBar from '../components/services/ServiceBar'

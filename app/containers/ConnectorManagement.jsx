@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 import ConnectorDialog from '../components/ConnectorDialog'
 import AccountConnection from '../components/AccountConnection'

@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 
 import Sidebar from './Sidebar'
 import Notifier from './Notifier'

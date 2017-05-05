@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'preact'
+import React from 'react'
 import { Link, withRouter } from 'react-router'
 import { translate } from '../plugins/preact-polyglot'
 
