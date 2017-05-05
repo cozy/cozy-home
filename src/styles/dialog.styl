@@ -1,84 +1,4 @@
-//Global styles for dialog
-$fullbleed
-    position fixed
-    bottom   0
-    top      0
-    left     0
-    right    0
-
-$content-center
-    display         flex
-    align-items     center
-    justify-content center
-
-
-$dialog
-    @extend    $fullbleed
-    overflow-x hidden
-    overflow-y auto
-    z-index    100
-
-
-    [role=separator]
-        z-index 1
-        @extend $fullbleed
-
-
-    .wrapper
-        @extend    $content-center
-        min-height 100vh
-        padding    3em 1em
-        box-sizing border-box
-
-
-    [role=contentinfo]
-        z-index    2
-        flex       0 1 (960/basefont)rem
-        position   relative
-        box-sizing border-box
-        display    flex
-
-        @media (max-width: (800/basefont)rem)
-            flex-direction column
-            height 90vh
-
-        background-color white
-        border           em(1px) solid grey-01
-        border-radius    em(5px)
-        box-shadow       0 1px 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
-
-
-$alertdialog
-    @extend $dialog
-
-    [role=contentinfo]
-        flex-basis (420/basefont)rem
-        padded     20px
-
-        flex-direction column
-
-        transform  translateY(calc((50vh + 55%) * -1))
-        transition transform 400ms ease-out
-
-
-    &[aria-busy=true] [role=contentinfo]
-        transform translateY(-50%)
-
-
-    .actions
-        display        flex
-        flex-direction row-reverse
-
-        li
-            flex 1
-
-            &:not(:first-child)
-                margin-right 10px
-
-        button
-        [role=button]
-            width 100%
-
+//Global styles for forms
 .account-connection
 .account-management
     display flex
@@ -153,15 +73,58 @@ $alertdialog
         max-width 80%
 
 .dialog-content
-    
     .account-description
         padding 0 2em 0 15%
 
     .account-login
         padding 0 15% 0 2em
 
+
+//Global styles for dialog
 [role=dialog]
-    @extend $dialog
+    position fixed
+    bottom   0
+    top      0
+    left     0
+    right    0
+    overflow-x hidden
+    overflow-y auto
+    z-index    100
+
+
+    [role=separator]
+        z-index 1
+        position fixed
+        bottom   0
+        top      0
+        left     0
+        right    0
+
+
+    .wrapper
+        display         flex
+        align-items     center
+        justify-content center
+        min-height 100vh
+        padding    3em 1em
+        box-sizing border-box
+
+
+    [role=contentinfo]
+        z-index    2
+        flex       0 1 (960/basefont)rem
+        position   relative
+        box-sizing border-box
+        display    flex
+
+        @media (max-width: (800/basefont)rem)
+            flex-direction column
+            height 90vh
+
+        background-color white
+        border           em(1px) solid grey-01
+        border-radius    em(5px)
+        box-shadow       0 1px 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
 
     [role=separator]
         cursor           pointer
