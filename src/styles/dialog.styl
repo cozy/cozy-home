@@ -1,5 +1,5 @@
-//Global styles for forms
-.account-connection
+// Global styles for forms
+.account-connection,
 .account-management
     display flex
 
@@ -14,7 +14,7 @@
         cursor          pointer
 
     p
-        margin 0.5em 0
+        margin .5em 0
 
 .account-connection
     > div
@@ -55,9 +55,9 @@
 .account-list
     width 25%
     ul
-        margin 2.4em 1em 0.5em 0
+        margin 2.4em 1em .5em 0
     li
-        padding       0.5em 1em
+        padding       .5em 1em
         color         grey-08
         font-weight   bold
         text-overflow ellipsis
@@ -80,7 +80,7 @@
         padding 0 15% 0 2em
 
 
-//Global styles for dialog
+// Global styles for dialog
 [role=dialog]
     position fixed
     bottom   0
@@ -124,7 +124,7 @@
         background-color white
         border           em(1px) solid grey-01
         border-radius    em(5px)
-        box-shadow       0 1px 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+        box-shadow       0 1px 3px rgba(0, 0, 0, .16), 0 3px 6px rgba(0, 0, 0, .23)
 
     [role=separator]
         cursor           pointer
@@ -148,16 +148,16 @@
             height           2.5em
             width            2px
             background-color white
-            margin           0em 1.5em
+            margin           0 1.5em
         &:after
-            transform rotate(-45deg);
+            transform rotate(-45deg)
         &:before
-            transform rotate(45deg);
+            transform rotate(45deg)
 
     [role=contentinfo]
         overflow       initial
         flex-direction column
-        border         none
+        border         0
         flex-basis     80rem
         padding        0
         box-shadow     0 6px 18px 0 alpha(black, .22), 0 1px 3px 0 alpha(black, .16)
@@ -175,7 +175,7 @@
         > div
             > h3
                 font-size 32px
-                margin    1em 0em .5em 1.5em
+                margin    1em 0 .5em 1.5em
 
             > p
                 margin-left   3em
@@ -192,7 +192,7 @@
         svg
             height 4em
             width  100%
-            margin 1.5em 0em
+            margin 1.5em 0
 
 .account-form
     margin-bottom 1em
@@ -207,7 +207,7 @@
 // TODO: move into cozy-ui ?
 .account-field
     position relative
-    margin   1em 0 0.5em
+    margin   1em 0 .5em
 
     // Managing input width with flex
     display         flex
@@ -220,7 +220,7 @@
 
     button.icon
         background none
-        padding    0em
+        padding    0
         width      1.3em
         height     1.3em
         display    block
@@ -244,7 +244,7 @@
     input[type=password]
     select
         display       inline-block
-        padding       0.75em 0.75em 0.9em
+        padding       .75em .75em .9em
         border-radius 4px
         box-sizing    border-box
         border        1px solid grey-03
@@ -286,7 +286,7 @@
 
     button
         width  50%
-        margin 0.4em
+        margin .4em
 
 
 [role=button]
@@ -295,11 +295,11 @@ button
     box-sizing        border-box
     border            0
     display           block
-    padding           0.9em 0.75em
+    padding           .9em .75em
     min-height        (40/basefont)em
     border-radius     4px
     background-color  dodger-blue
-    font-family       "Source Sans Pro", sans-serif
+    font-family       'Source Sans Pro', sans-serif
     text-align        center
     text-transform    uppercase
     color             white
@@ -310,15 +310,15 @@ button
         color            grey-08
 
     &.danger
-        background-color rgba(255, 93, 70, 0.1)
-        border           solid 1px rgba(255, 93, 71, 0.1)
-        color            #ff5d47
+        background-color rgba(255, 93, 70, .1)
+        border           solid 1px rgba(255, 93, 71, .1)
+        color            pomegranate
         margin           1em 0 3em
         width            80%
 
     &.flat
         background      none
-        padding         0em
+        padding         0
         min-height      0
         color           dodger-blue
         text-transform  uppercase

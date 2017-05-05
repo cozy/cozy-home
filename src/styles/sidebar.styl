@@ -1,19 +1,19 @@
-.con-wrapper
+.con-wrapper // @stylint ignore
     @extend $sidebar
     @extend $navigation
 
 .con-cat-discovery
-    background: embedurl("../assets/sprites/icon-compass.svg") em(24px) center no-repeat
+    background: embedurl('../assets/sprites/icon-compass.svg') em(24px) center no-repeat
     &.active
-        background-image: embedurl("../assets/sprites/icon-compass-active.svg")
+        background-image: embedurl('../assets/sprites/icon-compass-active.svg')
 .con-cat-categories
-    background: embedurl("../assets/sprites/icon-grid.svg") em(24px) center no-repeat
+    background: embedurl('../assets/sprites/icon-grid.svg') em(24px) center no-repeat
     &.active
-        background-image: embedurl("../assets/sprites/icon-grid-active.svg")
+        background-image: embedurl('../assets/sprites/icon-grid-active.svg')
 .con-cat-connected
-    background: embedurl("../assets/sprites/icon-pin.svg") em(24px) center no-repeat
+    background: embedurl('../assets/sprites/icon-pin.svg') em(24px) center no-repeat
     &.active
-        background-image: embedurl("../assets/sprites/icon-pin-active.svg")
+        background-image: embedurl('../assets/sprites/icon-pin-active.svg')
 
 
 @media (max-width: (1023/basefont)rem)
@@ -24,7 +24,7 @@
 
     // need this due to no css-modules usage in this app
     aside
-        width   100%!important
+        width   100%!important // @stylint ignore
 
 
 // related to categories submenu
@@ -36,7 +36,7 @@
         display         block
         width           calc(100% - 2em)
         height          100%
-        padding         0.5em 1em
+        padding         .5em 1em
         margin          0
         border-radius   4px 0 0 4px
         font-size       em(14px)
