@@ -6,7 +6,7 @@ import AccountConnection from '../AccountConnection'
 const CreateAccountService = (props) => {
   const { konnector, onSubmit } = props
   return (
-    <div class='coz-service-content'>
+    <div className='coz-service-content'>
       <AccountConnection
         connector={konnector}
         fields={konnector.fields}

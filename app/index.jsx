@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route
                 path=':useCase/:connectorSlug'
                 component={(props) =>
-                  <div class='multi-dialogs-wrapper'>
+                  <div className='multi-dialogs-wrapper'>
                     <UseCaseDialog
                       item={useCases.find(u => u.slug === props.params.useCase)}
                       connectors={store.findByUseCase(props.params.useCase)}

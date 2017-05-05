@@ -12,11 +12,11 @@ const AccountManagement = (props) => {
   const isLoginFilled = !!props.values.login
   return (
     <div>
-      <div class='account-management'>
-        <div class='account-list'>
+      <div className='account-management'>
+        <div className='account-list'>
           <ul>
             {accounts.map((account, key) => (
-              <li class={selectedAccount === key ? 'selected' : ''}>
+              <li className={selectedAccount === key ? 'selected' : ''}>
                 <a onClick={() => selectAccount(key)}>
                   {account.login
                     ? account.login
@@ -27,7 +27,7 @@ const AccountManagement = (props) => {
           </ul>
           <a className='add-button' onClick={() => addAccount()}>{t('add_account button')}</a>
         </div>
-        <div class='account-config'>
+        <div className='account-config'>
           <div>
             <h3>{t('activity')}</h3>
             <p>
@@ -37,7 +37,7 @@ const AccountManagement = (props) => {
                 : lastImport && <TimeAgo datetime={lastImport} locale={locale} />
               }
             </p>
-            <button class='flat' disabled={synching} onClick={() => synchronize()}>
+            <button className='flat' disabled={synching} onClick={() => synchronize()}>
               {t('activity button')}
             </button>
           </div>
@@ -48,20 +48,20 @@ const AccountManagement = (props) => {
             <p>
               {t('disconnect desc')}
             </p>
-            <button class='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
+            <button className='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
               {t('disconnect button')}
             </button>
           </div>
           : <div>
-            <button class='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
+            <button className='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
               {t('delete button')}
             </button>
           </div>}
 
         </div>
       </div>
-      <div class='account-management-controls'>
-        <button class='cancel' onClick={cancel}>
+      <div className='account-management-controls'>
+        <button className='cancel' onClick={cancel}>
           {t('account cancel button')}
         </button>
         <button

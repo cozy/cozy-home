@@ -15,7 +15,7 @@ const folderLink = (path, folders) => {
 }
 
 const AccountConfigForm = ({ t, customView, fields, dirty, error, submit, submitting }) => (
-  <div class={'account-form' + (error ? ' error' : '')}>
+  <div className={'account-form' + (error ? ' error' : '')}>
     {fields.folderPath &&
       <div>
         <h3>{t('location')}</h3>
@@ -51,7 +51,7 @@ const AccountConfigForm = ({ t, customView, fields, dirty, error, submit, submit
       fields={fields}
     />
     {error === 'bad credentials' &&
-      <p class='errors'>{t('account config bad credentials')}</p>
+      <p className='errors'>{t('account config bad credentials')}</p>
     }
   </div>
 )

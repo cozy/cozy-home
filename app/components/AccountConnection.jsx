@@ -31,8 +31,8 @@ class AccountConnection extends Component {
     // If there is no field displayed, the form is dirty by default.
     dirty = dirty || Object.values(fields).every(field => field.type === 'hidden' || field.advanced)
     return (
-      <div class='account-connection'>
-        <div class='account-description'>
+      <div className='account-connection'>
+        <div className='account-description'>
           <h3>{t('title description')}</h3>
           <p>
             <ReactMarkdown
@@ -43,7 +43,7 @@ class AccountConnection extends Component {
             />
           </p>
           <h3>{t('dataType title')}</h3>
-          <ul class='account-datas'>
+          <ul className='account-datas'>
             {connector.dataType && connector.dataType.map(data =>
               <DataItem
                 dataType={data}
@@ -53,15 +53,15 @@ class AccountConnection extends Component {
           </ul>
           <p>{` ${connector.name} ${t('dataType disclaimer')} `}</p>
         </div>
-        <div class='account-login'>
+        <div className='account-login'>
           <h3>{t('account config title', {name: name})}</h3>
-          <div class={'account-form' + (error ? ' error' : '')}>
+          <div className={'account-form' + (error ? ' error' : '')}>
             <AccountLoginForm
               t={t}
               customView={customView}
               fields={fields}
             />
-            <div class='account-form-controls'>
+            <div className='account-form-controls'>
               <button
                 disabled={!dirty}
                 aria-busy={submitting ? 'true' : 'false'}
@@ -70,7 +70,7 @@ class AccountConnection extends Component {
                 {t('account config button')}
               </button>
               {error === 'bad credentials' &&
-                <p class='errors'>{t('account config bad credentials')}</p>
+                <p className='errors'>{t('account config bad credentials')}</p>
               }
             </div>
           </div>

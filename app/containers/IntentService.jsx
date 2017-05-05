@@ -89,17 +89,17 @@ export default class IntentService extends Component {
     const { isFetching, error, konnector } = this.state
     const { t } = this.context
     return (
-      <div class='coz-service'>
+      <div className='coz-service'>
         { isFetching &&
-          <div class='coz-service-loading'>
+          <div className='coz-service-loading'>
             <Loading />
           </div> }
-        { error && <div class='coz-error coz-service-error'>
+        { error && <div className='coz-error coz-service-error'>
           <p>{t(error.message)}</p>
           <p>{t('intent.service.error.cause', {error: error.reason})}</p>
         </div>}
         { !isFetching && !error && konnector &&
-          <div class='coz-service-layout'>
+          <div className='coz-service-layout'>
             <ServiceBar
               appEditor={data.cozyAppEditor}
               appName={data.cozyAppName}

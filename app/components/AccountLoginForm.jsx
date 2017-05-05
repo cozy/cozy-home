@@ -4,9 +4,9 @@ import { h } from 'preact'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
 const AccountLoginForm = ({ t, customView, fields }) => (
-  <div class='account-form-login'>
+  <div className='account-form-login'>
     {customView &&
-      <div class='coz-custom-view'
+      <div className='coz-custom-view'
         dangerouslySetInnerHTML={{
           __html: customView.replace(/<%t (.*) %>/gi, (match, $1) => t($1))
         }} />

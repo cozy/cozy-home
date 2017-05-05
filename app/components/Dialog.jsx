@@ -9,19 +9,19 @@ const Dialog = ({ router, className, headerStyle, headerIcon, children }) => {
   }
 
   return (
-    <div role='dialog' class={className}>
+    <div role='dialog' className={className}>
       <div role='separator' onClick={gotoParent} />
-      <div class='wrapper'>
+      <div className='wrapper'>
         <div role='contentinfo'>
-          <header class='dialog-header' style={headerStyle}>
+          <header className='dialog-header' style={headerStyle}>
             {headerIcon &&
-              <svg class='item-icon'>
+              <svg className='item-icon'>
                 <use xlinkHref={headerIcon} />
               </svg>
             }
-            <div class='close-button' role='close' onClick={gotoParent} />
+            <div className='close-button' role='close' onClick={gotoParent} />
           </header>
-          <div class='dialog-content'>
+          <div className='dialog-content'>
             {children}
           </div>
         </div>

@@ -15,7 +15,7 @@ import { h, Component } from 'preact'
  *   }
  * }))(
  *   ({ on, toggle }) => (
- *     <button class={on ? 'on' : 'off'} onClick={toggle}>Go!</button>
+ *     <button className={on ? 'on' : 'off'} onClick={toggle}>Go!</button>
  *   )
  * )
  */

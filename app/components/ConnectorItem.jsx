@@ -4,18 +4,18 @@ import { Link, withRouter } from 'react-router'
 import { translate } from '../plugins/preact-polyglot'
 
 const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) => (
-  <Link class='item-wrapper' to={`${router.location.pathname}/${slug}`}>
-    <header class='item-header' style={{background: backgroundCSS}}>
+  <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
+    <header className='item-header' style={{background: backgroundCSS}}>
       {iconName &&
-        <svg class='item-icon'>
+        <svg className='item-icon'>
           <use xlinkHref={icon(iconName, enableDefaultIcon)} />
         </svg>
       }
     </header>
     <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
-    {subtitle && <p class='item-subtitle'>{subtitle}</p>}
+    {subtitle && <p className='item-subtitle'>{subtitle}</p>}
     {connected &&
-      <svg class='item-connected'>
+      <svg className='item-connected'>
         <use xlinkHref={require('../assets/sprites/icon-check.svg')} />
       </svg>
     }

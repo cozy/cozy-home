@@ -4,7 +4,7 @@ import { translate } from '../plugins/preact-polyglot'
 import ConnectorItem from './ConnectorItem'
 
 const ConnectorList = ({ t, connectors, showConnectedBadge = true }) => (
-  <div class='connector-list'>
+  <div className='connector-list'>
     {connectors.map(c =>
       <ConnectorItem
         title={c.name}

@@ -2,12 +2,12 @@
 import { h } from 'preact'
 
 const ServiceBar = ({appEditor, appName, iconPath, onCancel}) => (
-  <header class='coz-service-bar'>
-    <span class='coz-icon'>
+  <header className='coz-service-bar'>
+    <span className='coz-icon'>
       <img src={iconPath} />
     </span>
     <h1>{`${appEditor && appEditor} ${appName}`}</h1>
-    <span class='coz-btn coz-btn--close' role='close' onClick={() => onCancel()} />
+    <span className='coz-btn coz-btn--close' role='close' onClick={() => onCancel()} />
   </header>
 )
 

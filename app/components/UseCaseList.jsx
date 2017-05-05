@@ -18,7 +18,7 @@ const getItemBackground = (item, context) => {
 }
 
 const UseCaseList = ({ t, useCases, context }) => (
-  <div class='use-cases-list'>
+  <div className='use-cases-list'>
     {useCases.map(u =>
       <UseCaseItem
         title={t(`use-case ${u.slug} title`)}
