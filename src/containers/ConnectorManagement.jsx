@@ -170,7 +170,7 @@ export default class ConnectorManagement extends Component {
 
     this.setState({ submitting: true })
 
-    this.store.connectAccount(this.state.connector, account, folderPath)
+    return this.store.connectAccount(this.state.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
         if (connection.error) {
@@ -188,6 +188,8 @@ export default class ConnectorManagement extends Component {
         this.setState({ submitting: false })
         console.error(error)
         Notifier.error(t('account config error'))
+        this.gotoParent()
+        throw error
       })
   }
 

@@ -56,9 +56,12 @@ export default class IntentService extends Component {
       })
   }
 
-  createAccount (auth) {
+  createAccount (auth, baseFolder) {
     const { konnector } = this.state
-    this.store.addAccount(konnector, auth)
+    const account = {auth: auth}
+
+    this.store.getKonnectorFolder(konnector, baseFolder)
+      .then(folder => this.store.connectAccount(konnector, account, folder))
       .then(konnector => this.terminate(konnector.accounts[konnector.accounts.length - 1]))
       .catch(error => {
         this.setState({
@@ -109,7 +112,7 @@ export default class IntentService extends Component {
             <CreateAccountService
               konnector={konnector}
               onCancel={() => this.cancel()}
-              onSubmit={auth => this.createAccount(auth)}
+              onSubmit={auth => this.createAccount(auth, t('konnector default base folder'))}
               {...this.context}
               />
           </div>}

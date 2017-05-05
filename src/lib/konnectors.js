@@ -37,17 +37,17 @@ export function install (cozy, konnector, timeout = 120000) {
     if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
   })
 
-  const { _id, slug, source } = konnector
+  const { slug, source } = konnector
 
-  return (_id
-    ? cozy.data.find(KONNECTORS_DOCTYPE, _id)
-      .catch(error => {
-        console.debug('install error')
-        if (error.status !== '404') throw error
-        return null
-      })
-      : Promise.resolve(null))
-    .then(konnector => konnector || cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
+  return findBySlug(cozy, slug)
+    .catch(error => {
+      if (error.status !== '404') throw error
+      return null
+    })
+    .then(konnector => konnector
+      // Need JSONAPI format
+      ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
+        : cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
 }
 
