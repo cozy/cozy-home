@@ -1,12 +1,55 @@
 {
+  "name": "cozy-data-connect",
+  "version": "3.0.0",
+  "main": "src/index.jsx",
   "scripts": {
-    "build": "sh scripts/build.sh",
-    "watch": "NODE_ENV=development webpack --config webpack.config.js --watch --display-modules --display-chunks",
-    "test": "npm run lint && jest",
-    "lint": "sh scripts/lint.sh",
-    "pretest": "tx pull -a || true",
-    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-data-connect.git"
+    "build": "npm run build:browser",
+    "build:browser": "NODE_ENV=browser:production npm run commons:build",
+    "build:mobile": "NODE_ENV=mobile:production npm run commons:build",
+    "clean:browser": "rm -rf build/*",
+    "clean:mobile": "rm -rf mobile/www/*",
+    "commons:build": "webpack --config webpack.config.js --bail",
+    "commons:watch": "webpack --config webpack.config.js --watch --display-modules --display-chunks",
+    "commons:watch:standalone": "webpack-dev-server --config webpack.config.js --port 8282 --display-modules --display-chunks --inline --hot",
+    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-data-connect.git",
+    "tx": "tx pull --all || true",
+    "precommons:build": "npm-run-all lint tx",
+    "prebuild:browser": "npm run clean:browser",
+    "prebuild:mobile": "npm run clean:mobile",
+    "pretest": "npm run lint",
+    "prewatch:browser": "npm run clean:browser",
+    "prewatch:mobile": "npm run clean:mobile",
+    "lint": "npm-run-all --parallel 'lint:*'",
+    "lint:js": "standard 'src/**/*.js' 'src/**/*.jsx' 'test/**/*.js' 'mobile/src/**/*.js' 'mobile/src/**/*.jsx' 'mobile/test/**/*.js'",
+    "lint:styles": "stylint src/styles --config ./.stylintrc",
+    "test": "node --harmony_proxies node_modules/.bin/jest",
+    "watch": "npm run watch:browser",
+    "watch:browser": "NODE_ENV=browser:development npm run commons:watch",
+    "watch:mobile": "NODE_ENV=mobile:development npm run commons:watch",
+    "watch:browser:standalone": "NODE_ENV=browser:development npm run commons:watch:standalone",
+    "watch:mobile:standalone": "NODE_ENV=mobile:development npm run commons:watch:standalone",
+    "watch:standalone": "npm run watch:browser:standalone",
+    "android:run": "cd mobile ; cordova run android --device ; cd ..",
+    "android:run:emulator": "cd mobile ; cordova run android --emulator ; cd ..",
+    "android:release": "npm run build:mobile && cd mobile ; cordova build android --release ; cd ..",
+    "android:signed": "npm run android:release && cd mobile ; apksigner sign --ks keys/android/cozy-data-connect-release-key.jks --out build/android/cozy-data-connect.apk platforms/android/build/outputs/apk/android-release-unsigned.apk ; cd ..",
+    "android:publish": "npm run android:signed && cd mobile ; fastlane supply ; cd ..",
+    "ios:run": "cd mobile ; cordova run ios --device ; cd ..",
+    "ios:run:emulator": "cd mobile ; cordova run ios --emulator ; cd .."
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cozy/cozy-data-connect.git"
+  },
+  "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
+  "contributors": [
+    "CPatchane"
+  ],
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/cozy/cozy-data-connect/issues"
+  },
+  "homepage": "https://github.com/cozy/cozy-data-connect#readme",
   "dependencies": {
     "csswring": "^5.1.1",
     "date-fns": "^1.28.4",
@@ -56,5 +99,32 @@
     "svg-sprite-loader": "^0.3.0",
     "webpack": "^1.14.0",
     "webpack-merge": "^4.1.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "styl"
+    ],
+    "moduleNameMapper": {
+      "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
+      "styles": "identity-obj-proxy"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!cozy-ui)"
+    ],
+    "globals": {
+      "__ALLOW_HTTP__": false,
+      "__TARGET__": "browser",
+      "__SENTRY_TOKEN__": "token",
+      "cozy": {}
+    }
+  },
+  "standard": {
+    "env": [
+      "browser",
+      "jest"
+    ]
   }
 }
