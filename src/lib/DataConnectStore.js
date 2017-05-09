@@ -105,7 +105,7 @@ export default class DataConnectStore {
       // 6. Reference konnector in folder
       .then(permission => {
         connection.permission = permission
-        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder_id)
+        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder._id)
       })
       // 7. Run a job for the konnector
       .then(() => konnectors.run(
