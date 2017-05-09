@@ -19,7 +19,7 @@ class AccountConnection extends Component {
       })
 
       this.props.submit()
-        .catch(error => this.setState({submitting: false}))
+        .catch(error => this.setState({submitting: false, error: error.message}))
     }
   }
 
