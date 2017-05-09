@@ -32,11 +32,22 @@ export function findBySlug (cozy, slug) {
     .then(list => list.length ? list[0] : null)
 }
 
-export function install (cozy, slug, source, timeout = 120000) {
-  if (!slug) throw new Error('Missing `slug` paramater for konnector')
-  if (!source) throw new Error('Missing `source` parameter for konnector')
+export function install (cozy, konnector, timeout = 120000) {
+  ['slug', 'source'].forEach(property => {
+    if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
+  })
 
-  return cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`)
+  const { slug, source } = konnector
+
+  return findBySlug(cozy, slug)
+    .catch(error => {
+      if (error.status !== '404') throw error
+      return null
+    })
+    .then(konnector => konnector
+      // Need JSONAPI format
+      ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
+        : cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
 }
 
@@ -65,29 +76,28 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
   })
 }
 
-export function run (cozy, slug, accountId, folderId, timeout = 120 * 1000) {
-  if (!slug) throw new Error('Missing `slug` parameter for konnector')
-  if (!accountId) throw new Error('Missing `accountId` parameter for konnector')
-  if (!folderId) throw new Error('Missing `folderId` parameter for konnector')
+export function run (cozy, konnector, account, timeout = 120 * 1000) {
+  if (!konnector.attributes || !konnector.attributes.slug) {
+    throw new Error('Missing `attributes.slug` parameter for konnector')
+  }
+  if (!account._id) throw new Error('Missing `_id` parameter for account')
+  if (!account.folderId) throw new Error('Missing `folderId` parameter for account')
 
-  return findBySlug(cozy, slug)
-  .then(konnector => {
-    return cozy.fetchJSON('POST', '/jobs/queue/konnector', {
-      data: {
-        attributes: {
-          options: {
-            priority: 10,
-            timeout,
-            max_exec_count: 1
-          }
-        },
-        arguments: {
-          konnector: konnector._id,
-          account: accountId,
-          folderToSave: folderId
+  return cozy.fetchJSON('POST', '/jobs/queue/konnector', {
+    data: {
+      attributes: {
+        options: {
+          priority: 10,
+          timeout,
+          max_exec_count: 1
         }
+      },
+      arguments: {
+        konnector: konnector._id,
+        account: account._id,
+        folderToSave: account.folderId
       }
-    })
+    }
   })
   .then(job => waitForJobFinished(cozy, job, timeout))
 }

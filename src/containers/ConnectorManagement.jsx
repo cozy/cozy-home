@@ -71,19 +71,16 @@ export default class ConnectorManagement extends Component {
 
     this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
-        this.store.fetchAccounts(props.params.connectorSlug, null)
-        .then(accounts => {
-          konnector.accounts = accounts
-          this.setState({
-            connector: konnector,
-            isConnected: konnector.accounts.length !== 0,
-            isWorking: false
+        return this.store
+          .fetchAccounts(props.params.connectorSlug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            this.setState({
+              connector: konnector,
+              isConnected: konnector.accounts.length !== 0,
+              isWorking: false
+            })
           })
-        })
-        .catch(error => {
-          Notifier.error(t(error.message || error))
-          this.gotoParent()
-        })
       })
       .catch(error => {
         Notifier.error(t(error.message || error))
@@ -97,7 +94,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { slug, color, name, customView, accounts, lastImport } = this.state.connector
-    const { isConnected, selectedAccount, isWorking } = this.state
+    const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
     if (isWorking) {
@@ -128,7 +125,7 @@ export default class ConnectorManagement extends Component {
               {...this.context} />
             : <AccountConnection
               connectUrl={prepareConnectURL(this.state.connector)}
-              onSubmit={values => this.connectAccount({values, folder: t('konnector default base folder')})}
+              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               {...this.state}
               {...this.context} />
           }
@@ -161,35 +158,38 @@ export default class ConnectorManagement extends Component {
     })
   }
 
-  async connectAccount (values) {
+  async connectAccount ({login, password, folderPath}) {
     const { t } = this.context
 
-    this.setState({ submitting: true })
-    // TODO: Replace this automatic folder computation by intent to pick file.
-    this.store.getKonnectorFolder(this.state.connector, values.folder)
-      .then(folder => {
-        if (this.state.connector.connectUrl) {
-          return this.connectAccountOAuth(values)
-        }
+    const account = {
+      auth: {
+        login: login,
+        password: password
+      }
+    }
 
-        return this.store.connectAccount(this.state.connector, values, folder)
-          .then(fetchedConnector => {
-            this.setState({ submitting: false })
-            if (fetchedConnector.importErrorMessage) {
-              this.setState({ error: fetchedConnector.importErrorMessage })
-            } else {
-              this.gotoParent()
-              if (values.folderPath) {
-                Notifier.info(t('account config success'), t('account config details') + values.folderPath)
-              } else {
-                Notifier.info(t('account config success'))
-              }
-            }
-          })
+    this.setState({ submitting: true })
+
+    return this.store.connectAccount(this.state.connector, account, folderPath)
+      .then(connection => {
+        this.setState({ submitting: false })
+        if (connection.error) {
+          this.setState({ error: connection.error.message })
+        } else {
+          this.gotoParent()
+          if (folderPath) {
+            Notifier.info(t('account config success'), t('account config details') + folderPath)
+          } else {
+            Notifier.info(t('account config success'))
+          }
+        }
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
+        console.error(error)
         Notifier.error(t('account config error'))
+        this.gotoParent()
+        throw error
       })
   }
 

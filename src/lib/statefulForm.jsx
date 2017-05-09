@@ -111,7 +111,9 @@ export default function statefulForm (mapPropsToFormConfig) {
       }
 
       handleSubmit () {
-        if (this.props.onSubmit) this.props.onSubmit(this.getData())
+        if (this.props.onSubmit) {
+          return this.props.onSubmit(this.getData())
+        }
       }
 
       getData () {

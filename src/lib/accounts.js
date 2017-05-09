@@ -2,7 +2,7 @@
 
 const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
-export function create (cozy, konnector, auth, name = '') {
+export function create (cozy, konnector, auth, folder, name = '') {
   return cozy.data.create(ACCOUNTS_DOCTYPE, {
     name: name,
     account_type: konnector.slug,
@@ -10,7 +10,8 @@ export function create (cozy, konnector, auth, name = '') {
     auth: {
       login: auth.login,
       password: auth.password
-    }
+    },
+    folderId: folder._id
   })
 }
 

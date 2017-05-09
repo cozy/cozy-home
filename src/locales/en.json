@@ -56,7 +56,7 @@
   "error occurred during import:": "An error occurred during the last import:",
   "import server error": "Server error occured while importing.",
   "open selected folder": "Open selected folder",
-  "konnector default base folder": "Administration",
+  "konnector default base folder": "/Administration/%{name}",
   "konnector description darty": "Import all your Darty bills in your Cozy.",
   "konnector description malakoff_mederic": "Import your Malakoff Mederic reimbursements in your Cozy.",
   "konnector description meetup": "Synchronize your Meetup calendar with your Cozy. This konnector requires the Calendar application.",
