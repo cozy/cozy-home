@@ -76,6 +76,25 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
   })
 }
 
+function patchFolderPermission (cozy, konnector, folderId = null) {
+  const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
+  const saveFolder = folderId ? {type: 'io.cozy.files', values: [folderId]} : ''
+
+  return cozy.fetchJSON('PATCH', `/permissions/konnectors/${encodeURIComponent(slug)}`, {
+    data: {
+      attributes: {
+        permissions: {
+          saveFolder: saveFolder
+        }
+      }
+    }
+  })
+}
+
+export function addFolderPermission (cozy, konnector, folderId) {
+  return patchFolderPermission(cozy, konnector, folderId)
+}
+
 export function run (cozy, konnector, account, timeout = 120 * 1000) {
   if (!konnector.attributes || !konnector.attributes.slug) {
     throw new Error('Missing `attributes.slug` parameter for konnector')

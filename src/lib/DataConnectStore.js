@@ -85,22 +85,7 @@ export default class DataConnectStore {
       .then(konnector => {
         connection.konnector = konnector
         this.updateConnector(konnector)
-        return cozy.client.fetchJSON('PATCH', konnector.links.permissions, {
-          data: {
-            id: konnector.links.permissions,
-            type: 'io.cozy.permissions',
-            attributes: {
-              type: 'app',
-              source_id: konnector._id,
-              permissions: {
-                saveFolder: {
-                  type: 'io.cozy.files',
-                  values: [connection.folder._id]
-                }
-              }
-            }
-          }
-        })
+        return konnectors.addFolderPermission(cozy.client, konnector, connection.folder._id)
       })
       // 6. Reference konnector in folder
       .then(permission => {
