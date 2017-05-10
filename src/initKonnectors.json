@@ -25,6 +25,20 @@
   },
   {
     "accounts":[],
+    "oauth": true,
+    "slug":"orangevod",
+    "account_type": "orange",
+    "name":"Orange VOD",
+    "description":"konnector description orange_vod",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"isp",
+    "color":{"hex": "#FF6600", "css": "#FF6600"},
+    "dataType":["bill"],
+    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
+    "repo": "git://github.com/cozy/cozy-konnector-orangevod.git"
+  },
+  {
+    "accounts":[],
     "slug":"maif",
     "name":"MAIF",
     "vendorLink":"maif.fr",
