@@ -115,8 +115,6 @@ export default class ConnectorManagement extends Component {
               lastImport={lastImport}
               accounts={accounts}
               values={accounts[selectedAccount].auth || {}}
-              selectAccount={idx => this.selectAccount(idx)}
-              addAccount={() => this.addAccount()}
               synchronize={() => this.synchronize()}
               deleteAccount={idx => this.deleteAccount(idx)}
               cancel={() => this.gotoParent()}
@@ -142,20 +140,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  addAccount () {
-    const { t } = this.context
-    this.store.addAccount(this.state.connector, this.getDefaultValues())
-    .then(connector => {
-      this.setState({
-        connector
-      })
-      this.selectAccount(this.state.connector.accounts.length - 1)
-    })
-    .catch(() => {
-      Notifier.error(t('account config error'))
-    })
   }
 
   async connectAccount ({login, password, folderPath}) {

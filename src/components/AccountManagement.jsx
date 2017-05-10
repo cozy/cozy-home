@@ -5,27 +5,14 @@ import statefulForm from '../lib/statefulForm'
 import AccountConfigForm from './AccountConfigForm'
 
 const AccountManagement = (props) => {
-  const { t, locale, accounts, selectedAccount, lastImport, dirty, submit, cancel } = props
+  const { t, locale, selectedAccount, lastImport, dirty, submit, cancel } = props
   const { submitting, synching, deleting } = props
-  const { selectAccount, addAccount, synchronize, deleteAccount } = props
+  const { synchronize, deleteAccount } = props
   const isLoginFilled = !!props.values.login
   return (
     <div>
       <div className='account-management'>
-        <div className='account-list'>
-          <ul>
-            {accounts.map((account, key) => (
-              <li className={selectedAccount === key ? 'selected' : ''}>
-                <a onClick={() => selectAccount(key)}>
-                  {account.login
-                    ? account.login
-                    : t('account index', {index: key + 1})}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a className='add-button' onClick={() => addAccount()}>{t('add_account button')}</a>
-        </div>
+        <div className='account-list'>&nbsp;</div>
         <div className='account-config'>
           <div>
             <h3>{t('activity')}</h3>
