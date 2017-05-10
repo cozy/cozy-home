@@ -13,35 +13,6 @@ let AUTHORIZED_DATATYPE = [
 ]
 let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
-const prepareConnectURL = (connector) => {
-  let connectUrl = connector.connectUrl
-  if (!connectUrl) {
-    return
-  }
-
-  // Based on the current code borrowed from legacy konnectors, we check
-  // if the url contains a redirect_uri or redirect_url string, we assume that
-  // this string is positionned at the end of the connrectURL. In the future
-  // we should quickly use an additionnal parameter indicating if the url needs
-  // a redirect or not.
-  const hasRedirect = !!(['redirect_uri=', 'redirect_url='].find((redirect) => {
-    return connectUrl.indexOf(redirect) !== -1
-  }))
-
-  if (hasRedirect) {
-    // Use Router instead of document ? or injected location ? How ?
-    const l = document.location
-    // Use function parameter in the future
-    const accountIndex = 0
-
-    const redirectUrl = `${l.origin}${l.pathname}konnectors/` +
-      `${connector.id}/${accountIndex}/redirect`
-    connectUrl += encodeURIComponent(redirectUrl)
-  }
-
-  return connectUrl
-}
-
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
@@ -93,7 +64,7 @@ export default class ConnectorManagement extends Component {
   }
 
   render () {
-    const { slug, color, name, customView, accounts, lastImport } = this.state.connector
+    const { slug, color, name, accounts, lastImport } = this.state.connector
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
@@ -111,7 +82,6 @@ export default class ConnectorManagement extends Component {
           {isConnected
             ? <AccountManagement
               name={name}
-              customView={customView}
               lastImport={lastImport}
               accounts={accounts}
               values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
@@ -124,7 +94,6 @@ export default class ConnectorManagement extends Component {
               {...this.state}
               {...this.context} />
             : <AccountConnection
-              connectUrl={prepareConnectURL(this.state.connector)}
               onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               {...this.state}
               {...this.context} />
@@ -144,7 +113,7 @@ export default class ConnectorManagement extends Component {
     this.setState({ selectedAccount: idx })
   }
 
-  async connectAccount ({login, password, folderPath}) {
+  connectAccount ({login, password, folderPath}) {
     const { t } = this.context
 
     const account = {
@@ -155,6 +124,11 @@ export default class ConnectorManagement extends Component {
     }
 
     this.setState({ submitting: true })
+
+    // TODO if the connector is oauth, prepend a promise which polls the connector doctype and
+    // waits for the access_token to be fetched
+    // This should be added to the lib/accounts.js code
+    // Then the connector can be run as usual
 
     return this.store.connectAccount(this.state.connector, account, folderPath)
       .then(connection => {
@@ -177,11 +151,9 @@ export default class ConnectorManagement extends Component {
       })
   }
 
-  connectAccountOAuth (values) {
-    return this._updateAccount(0, values)
-      .then(() => {
-        window.open(prepareConnectURL(this.state.connector), 'width=800,height=800')
-      })
+  connectAccountOAuth (accountType) {
+    window.open(`http://cozy.tools:8080/accounts/${accountType}/start`, 'width=800,height=800')
+    return Promise.reject('test')
   }
 
   updateAccount (idx, values) {

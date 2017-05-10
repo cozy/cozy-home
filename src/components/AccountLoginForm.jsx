@@ -2,14 +2,8 @@ import React from 'react'
 
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, customView, fields }) => (
+const AccountLoginForm = ({ t, fields }) => (
   <div className='account-form-login'>
-    {customView &&
-      <div className='coz-custom-view'
-        dangerouslySetInnerHTML={{
-          __html: customView.replace(/<%t (.*) %>/gi, (match, $1) => t($1))
-        }} />
-    }
     {Object.keys(fields)
       .filter(name => !fields[name].advanced)
       .map(name => {
