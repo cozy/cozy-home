@@ -116,7 +116,7 @@ export default class ConnectorManagement extends Component {
               accounts={accounts}
               values={accounts[selectedAccount].auth || {}}
               synchronize={() => this.synchronize()}
-              deleteAccount={idx => this.deleteAccount(idx)}
+              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
               cancel={() => this.gotoParent()}
               onSubmit={values => this.updateAccount(selectedAccount, values)}
               {...this.state}
@@ -225,23 +225,24 @@ export default class ConnectorManagement extends Component {
       })
   }
 
-  deleteAccount (idx) {
-    const id = this.state.connector.id
+  deleteAccount (account) {
     const { t } = this.context
     this.setState({ deleting: true })
-    this.store.deleteAccount(id, idx)
+    this.store.deleteAccount(this.state.connector, account)
       .then(() => {
-        this.setState({ deleting: false })
-        if (this.state.connector.accounts.length === 0) {
-          this.gotoParent()
-        } else {
-          this.selectAccount(0)
-        }
+        this.setState({
+          deleting: false,
+          isConnected: false
+        })
+
+        this.gotoParent()
         Notifier.info(t('account delete success'))
       })
       .catch(error => { // eslint-disable-line
         this.setState({ deleting: false })
+        this.gotoParent()
         Notifier.error(t('account delete error'))
+        throw error
       })
   }
 

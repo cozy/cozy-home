@@ -32,6 +32,22 @@ export function findBySlug (cozy, slug) {
     .then(list => list.length ? list[0] : null)
 }
 
+export function unlinkFolder (cozy, konnector, folderId) {
+  return cozy.fetchJSON(
+    'DELETE',
+    `/data/io.cozy.konnectors/${encodeURIComponent(konnector._id)}/relationships/references`,
+    {
+      data: [
+        {
+          type: 'io.cozy.files',
+          id: folderId
+        }
+      ]
+    }
+  )
+  .then(() => deleteFolderPermission(cozy, konnector))
+}
+
 export function install (cozy, konnector, timeout = 120000) {
   ['slug', 'source'].forEach(property => {
     if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
@@ -78,7 +94,7 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
 
 function patchFolderPermission (cozy, konnector, folderId = null) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
-  const saveFolder = folderId ? {type: 'io.cozy.files', values: [folderId]} : ''
+  const saveFolder = folderId ? {type: 'io.cozy.files', values: [folderId]} : {}
 
   return cozy.fetchJSON('PATCH', `/permissions/konnectors/${encodeURIComponent(slug)}`, {
     data: {
@@ -95,9 +111,14 @@ export function addFolderPermission (cozy, konnector, folderId) {
   return patchFolderPermission(cozy, konnector, folderId)
 }
 
+export function deleteFolderPermission (cozy, konnector) {
+  return patchFolderPermission(cozy, konnector)
+}
+
 export function run (cozy, konnector, account, timeout = 120 * 1000) {
-  if (!konnector.attributes || !konnector.attributes.slug) {
-    throw new Error('Missing `attributes.slug` parameter for konnector')
+  const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
+  if (!slug) {
+    throw new Error('Missing `slug` parameter for konnector')
   }
   if (!account._id) throw new Error('Missing `_id` parameter for account')
   if (!account.folderId) throw new Error('Missing `folderId` parameter for account')

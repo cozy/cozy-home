@@ -135,11 +135,13 @@ export default class DataConnectStore {
       .then(() => this.startConnectorPoll(connector.id))
   }
 
-  deleteAccount (connectorId, accountIdx) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts.splice(accountIdx, 1)
-    return this.importConnector(connector)
-      .then(() => this.updateConnector(connector))
+  deleteAccount (konnector, account) {
+    konnector = this.connectors.find(c => c._id === konnector._id)
+    konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
+
+    return accounts._delete(cozy.client, account)
+      .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      .then(() => this.updateConnector(konnector))
   }
 
   manifestToKonnector (manifest) {

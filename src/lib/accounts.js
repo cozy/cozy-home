@@ -15,6 +15,10 @@ export function create (cozy, konnector, auth, folder, name = '') {
   })
 }
 
+export function _delete (cozy, account) {
+  return cozy.data.delete(ACCOUNTS_DOCTYPE, account)
+}
+
 function indexAccountsByType (cozy) {
   return cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
 }

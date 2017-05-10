@@ -34,12 +34,12 @@ const AccountManagement = (props) => {
             <p>
               {t('disconnect desc')}
             </p>
-            <button className='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
+            <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
               {t('disconnect button')}
             </button>
           </div>
           : <div>
-            <button className='danger' disabled={deleting} onClick={() => deleteAccount(selectedAccount)}>
+            <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
               {t('delete button')}
             </button>
           </div>}
