@@ -26,12 +26,12 @@
     "konnectors": {
       "description": "Required to get the list of konnectors",
       "type": "io.cozy.konnectors",
-      "verbs": ["GET", "POST", "PUT"]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "accounts": {
       "description": "Required to manage accounts associated to konnectors",
       "type": "io.cozy.accounts",
-      "verbs": ["GET", "POST", "PUT"]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "files": {
       "description": "Required to access folders",
