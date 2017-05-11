@@ -114,7 +114,7 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
         arguments: {
           konnector: konnector.slug,
           account: account._id,
-          folderToSave: account.folderId
+          folder_to_save: account.folderId
         }
       }
     }
