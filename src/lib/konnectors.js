@@ -1,7 +1,9 @@
 /* konnector lib ready to be added to cozy-client-js */
 const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
-const STATE_READY = 'ready'
+const KONNECTOR_STATE_READY = 'ready'
+const JOB_STATE_READY = 'ready'
+const JOB_STATE_ERRORED = 'errored'
 
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
@@ -61,7 +63,7 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
     const idInterval = setInterval(() => {
       cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
         .then(konnectorResult => {
-          if (konnectorResult.state === STATE_READY) {
+          if (konnectorResult.state === KONNECTOR_STATE_READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(konnector)
@@ -107,14 +109,13 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
       attributes: {
         options: {
           priority: 10,
-          timeout,
           max_exec_count: 1
+        },
+        arguments: {
+          konnector: konnector.slug,
+          account: account._id,
+          folder_to_save: account.folderId
         }
-      },
-      arguments: {
-        konnector: konnector._id,
-        account: account._id,
-        folderToSave: account.folderId
       }
     }
   })
@@ -129,9 +130,15 @@ function waitForJobFinished (cozy, job, timeout) {
     }, timeout)
 
     const idInterval = setInterval(() => {
-      cozy.data.find(job._type, job._id)
+      cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
-          if (job.state === STATE_READY) {
+          if (job.attributes.state === JOB_STATE_ERRORED) {
+            clearTimeout(idTimeout)
+            clearInterval(idInterval)
+            reject(job.attributes.error)
+          }
+
+          if (job.attributes.state === JOB_STATE_READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(job)
