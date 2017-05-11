@@ -2,7 +2,7 @@
 const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
 const KONNECTOR_STATE_READY = 'ready'
-const JOB_STATE_READY = 'ready'
+const JOB_STATE_READY = 'done'
 const JOB_STATE_ERRORED = 'errored'
 
 export function addAccount (cozy, konnector, account) {
@@ -112,7 +112,7 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
           max_exec_count: 1
         },
         arguments: {
-          konnector: konnector.slug,
+          konnector: konnector.attributes.slug,
           account: account._id,
           folder_to_save: account.folderId
         }
