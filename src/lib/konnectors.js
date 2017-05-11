@@ -2,7 +2,7 @@
 const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
 const KONNECTOR_STATE_READY = 'ready'
-const JOB_STATE_READY = 'ready'
+const JOB_STATE_READY = 'done'
 const JOB_STATE_ERRORED = 'errored'
 
 export function addAccount (cozy, konnector, account) {
