@@ -251,6 +251,13 @@
 
   "Loading": {
     "initial": "Loading connectors accounts..."
+  },
+
+  "Error": {
+    "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
+    "button": {
+      "reload": "Refresh now"
+    }
   }
 
 }

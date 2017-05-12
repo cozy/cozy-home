@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
+import ErrorComponent from '../components/ErrorComponent'
 
 class App extends Component {
   constructor (props, context) {
@@ -22,11 +23,24 @@ class App extends Component {
           isFetching: false
         })
       })
+      .catch(error => {
+        this.setState({
+          isFetching: false,
+          error
+        })
+      })
   }
 
   render () {
     const { children } = this.props
-    const { categories, isFetching } = this.state
+    const { categories, isFetching, error } = this.state
+    if (error) {
+      return (
+        <div className='con-initial-error'>
+          <ErrorComponent errorType='initial' />
+        </div>
+      )
+    }
     return (
       isFetching
         ? <div className='con-initial-loading'>
