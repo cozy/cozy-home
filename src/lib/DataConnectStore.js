@@ -59,6 +59,22 @@ export default class DataConnectStore {
     return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug))
   }
 
+  // Fetch all accounts and updates their matching connectors
+  fetchAllAccounts (index) {
+    if (!index && this.accountsIndex) index = this.accountsIndex
+    return accounts.getAllAccounts(cozy.client, index)
+      .then(accounts => {
+        let accObject = {}
+        accounts.forEach(a => {
+          if (!accObject[a.account_type]) accObject[a.account_type] = []
+          accObject[a.account_type].push(a)
+        })
+        this.connectors.forEach(c => {
+          c.accounts = accObject[c.slug] || []
+        })
+      })
+  }
+
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount (konnector, account, folderPath) {
