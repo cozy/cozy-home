@@ -7,7 +7,7 @@ import { Router, Route, Redirect, hashHistory } from 'react-router'
 import { I18n } from './plugins/i18n'
 import DataConnectStore, { Provider } from './lib/DataConnectStore'
 
-import App from './components/App'
+import App from './containers/App'
 import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
 import ConnectedList from './components/ConnectedList'
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.initFolders = require('./initFolders.json')
 
   const store = new DataConnectStore(window.initKonnectors, window.initFolders, context)
-  const categories = store.getCategories()
   const useCases = store.getUseCases()
 
   render((
@@ -48,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Router history={hashHistory}>
           <Route
             component={(props) =>
-              <App categories={categories} {...props}
+              <App {...props}
               />}
           >
             <Redirect from='/' to='/discovery' />
