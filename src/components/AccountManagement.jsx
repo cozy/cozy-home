@@ -5,7 +5,7 @@ import statefulForm from '../lib/statefulForm'
 import AccountConfigForm from './AccountConfigForm'
 
 const AccountManagement = (props) => {
-  const { t, locale, selectedAccount, lastImport, dirty, submit, cancel } = props
+  const { t, locale, accounts, selectedAccount, lastImport, dirty, submit, cancel } = props
   const { submitting, synching, deleting } = props
   const { synchronize, deleteAccount } = props
   const isLoginFilled = !!props.values.login
