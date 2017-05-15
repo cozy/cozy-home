@@ -247,6 +247,17 @@
   "setting orange optin error": "Technical error, can't set your choice for the geolocation service.",
   "checking orange optin error": "Technical error, can't check your choice about the geolocation service of Orange",
   "no orange geoloc optin": "No geopoint data, as you opt-out for Orange geolocation service.",
-  "frequency": "Synchronization frequency"
+  "frequency": "Synchronization frequency",
+
+  "Loading": {
+    "initial": "Loading connectors accounts..."
+  },
+
+  "Error": {
+    "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
+    "button": {
+      "reload": "Refresh now"
+    }
+  }
 
 }

@@ -38,3 +38,14 @@ export function getAccountsByType (cozy, accountType, accountsIndex) {
     })
   }
 }
+
+export function getAllAccounts (cozy, accountsIndex) {
+  const getIndex = accountsIndex
+    ? Promise.resolve(accountsIndex)
+    : indexAccountsByType(cozy)
+  return getIndex.then(index => {
+    return cozy.data.query(index, {
+      selector: {'account_type': {'$gt': null}}
+    })
+  })
+}
