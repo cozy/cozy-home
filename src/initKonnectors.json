@@ -70,5 +70,17 @@
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"edf",
+    "name":"EDF",
+    "description":"konnector description EDF",
+    "vendorLink":"https://www.edf.fr/",
+    "category":"energy",
+    "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://gitlab.cozycloud.cc/ptbrowne/connecteur-edf.git"
   }
 ]
