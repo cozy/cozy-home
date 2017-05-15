@@ -81,6 +81,6 @@
     "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "source": "git://gitlab.cozycloud.cc/ptbrowne/connecteur-edf.git#build"
+    "source": "git@github.com:ptbrowne/cozy-konnector-edf.git#build"
   }
 ]
