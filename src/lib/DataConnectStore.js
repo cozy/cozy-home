@@ -60,9 +60,8 @@ export default class DataConnectStore {
   }
 
   // Fetch all accounts and updates their matching connectors
-  fetchAllAccounts (index) {
-    if (!index && this.accountsIndex) index = this.accountsIndex
-    return accounts.getAllAccounts(cozy.client, index)
+  fetchAllAccounts () {
+    return accounts.getAllAccounts(cozy.client, this.accountsIndex)
       .then(accounts => {
         let accObject = {}
         accounts.forEach(a => {

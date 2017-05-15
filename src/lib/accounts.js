@@ -40,16 +40,12 @@ export function getAccountsByType (cozy, accountType, accountsIndex) {
 }
 
 export function getAllAccounts (cozy, accountsIndex) {
-  if (accountsIndex) {
-    return cozy.data.query(accountsIndex, {
+  const getIndex = accountsIndex
+    ? Promise.resolve(accountsIndex)
+    : indexAccountsByType(cozy)
+  return getIndex.then(index => {
+    return cozy.data.query(index, {
       selector: {'account_type': {'$gt': null}}
     })
-  } else {
-    return indexAccountsByType(cozy)
-    .then(index => {
-      return cozy.data.query(index, {
-        selector: {'account_type': {'$gt': null}}
-      })
-    })
-  }
+  })
 }
