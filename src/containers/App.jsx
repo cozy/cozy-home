@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
-import ErrorComponent from '../components/ErrorComponent'
+import Failure from '../components/Failure'
 
 class App extends Component {
   constructor (props, context) {
@@ -37,7 +37,7 @@ class App extends Component {
     if (error) {
       return (
         <div className='con-initial-error'>
-          <ErrorComponent errorType='initial' />
+          <Failure errorType='initial' />
         </div>
       )
     }

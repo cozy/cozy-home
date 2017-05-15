@@ -5,7 +5,7 @@ const reload = () => {
   window.location.reload()
 }
 
-const Oops = ({ t, errorType }) => (
+const Failure = ({ t, errorType }) => (
   <div className='con-error'>
     <h2>{ t(`Error.${errorType}`) }</h2>
     <p>
@@ -20,4 +20,4 @@ const Oops = ({ t, errorType }) => (
   </div>
 )
 
-export default translate()(Oops)
+export default translate()(Failure)
