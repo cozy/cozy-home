@@ -149,9 +149,16 @@ export default class CollectStore {
   }
 
   updateAccount (connectorId, accountIdx, values) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts[accountIdx] = values
-    return this.putConnector(connector)
+    let connector = this.findConnectorById(connectorId)
+    let previousAccount = Object.assign({}, connector.accounts[accountIdx])
+
+    connector.accounts[accountIdx].auth.password = values.password
+
+    return accounts.update(cozy.client, previousAccount, connector.accounts[accountIdx])
+  }
+
+  findConnectorById (connectorId) {
+    return this.connectors.find(c => !!c.accounts.find(a => a._id === connectorId))
   }
 
   synchronize (connectorId) {

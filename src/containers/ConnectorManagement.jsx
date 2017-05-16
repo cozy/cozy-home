@@ -62,6 +62,7 @@ export default class ConnectorManagement extends Component {
       })
     )
     const { name, fields } = connector
+
     this.state = {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
@@ -278,7 +279,7 @@ export default class ConnectorManagement extends Component {
   }
 
   _updateAccount (idx, values) {
-    const id = this.state.connector.id
+    const id = this.state.connector.accounts[idx]._id
     const { t } = this.context
     this.setState({ submitting: true })
     return this.store.updateAccount(id, idx, values)
