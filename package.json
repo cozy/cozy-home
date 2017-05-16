@@ -52,6 +52,7 @@
   "homepage": "https://github.com/cozy/cozy-data-connect#readme",
   "dependencies": {
     "date-fns": "^1.28.4",
+    "intro.js": "2.5.0",
     "node-polyglot": "2.0.0",
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0",
