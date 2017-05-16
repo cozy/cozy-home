@@ -1,7 +1,7 @@
 {
   "name": "cozy-data-connect",
   "version": "3.0.0",
-  "main": "src/main.jsx",
+  "main": "src/index.jsx",
   "scripts": {
     "build": "npm run build:browser",
     "build:browser": "NODE_ENV=browser:production npm run commons:build",
