@@ -7,10 +7,7 @@ export function create (cozy, konnector, auth, folder, name = '') {
     name: name,
     account_type: konnector.slug,
     status: 'PENDING',
-    auth: {
-      login: auth.login,
-      password: auth.password
-    },
+    auth: auth,
     folderId: folder._id
   })
 }
