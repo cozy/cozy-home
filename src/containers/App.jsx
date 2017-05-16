@@ -33,6 +33,16 @@ class App extends Component {
 
   render () {
     const { children } = this.props
+    // If this is an OAuth response
+    const queryParams = new URLSearchParams(window.location.search)
+    if (queryParams.get('account')) {
+      const accountKey = queryParams.get('account')
+      localStorage.setItem('oauth_terminating', JSON.stringify({
+        key: accountKey
+      }))
+      localStorage.removeItem('oauth_terminating')
+      window.close()
+    }
     const { categories, isFetching, error } = this.state
     if (error) {
       return (

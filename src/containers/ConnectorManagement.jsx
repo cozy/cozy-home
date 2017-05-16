@@ -68,6 +68,14 @@ export default class ConnectorManagement extends Component {
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
+    let accountValues = {}
+    // if oauth account
+    if (accounts[selectedAccount] && connector.oauth) {
+      accountValues = accounts[selectedAccount].oauth
+    } else if (accounts[selectedAccount]) {
+      accountValues = accounts[selectedAccount].auth
+    }
+
     if (isWorking) {
       return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
         {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
@@ -84,7 +92,7 @@ export default class ConnectorManagement extends Component {
               name={name}
               lastImport={lastImport}
               accounts={accounts}
-              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+              values={accountValues}
               selectAccount={idx => this.selectAccount(idx)}
               addAccount={() => this.addAccount()}
               synchronize={() => this.synchronize()}
@@ -127,11 +135,6 @@ export default class ConnectorManagement extends Component {
 
     this.setState({ submitting: true })
 
-    // TODO if the connector is oauth, prepend a promise which polls the connector doctype and
-    // waits for the access_token to be fetched
-    // This should be added to the lib/accounts.js code
-    // Then the connector can be run as usual
-
     return this.store.connectAccount(this.state.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
@@ -153,11 +156,39 @@ export default class ConnectorManagement extends Component {
       })
   }
 
+  terminateOAuth (storageEvent) {
+    const { t } = this.context
+    if (storageEvent.key !== 'oauth_terminating') return // ignore other keys
+    // get account id from localStorage event and remove the listener
+    // const accountID = JSON.parse(storageEvent.newValue).key
+    window.removeEventListener('storage', this.terminateOAuth.bind(this))
+
+    // update connector to get the new account
+    this.setState({isWorking: true})
+    this.store.fetchKonnectorInfos(this.props.params.connectorSlug)
+      .then(konnector => {
+        return this.store
+          .fetchAccounts(this.props.params.connectorSlug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            this.setState({
+              connector: konnector,
+              isConnected: konnector.accounts.length !== 0,
+              isWorking: false
+            })
+          })
+      })
+      .catch(error => {
+        Notifier.error(t(error.message || error))
+      })
+  }
+
   connectAccountOAuth (accountType) {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
     const newTab = window.open('', 'popup', 'width=800,height=800')
     newTab.location.href = `${cozyUrl}/accounts/${accountType}/start`
+    window.addEventListener('storage', this.terminateOAuth.bind(this))
   }
 
   updateAccount (idx, values) {
