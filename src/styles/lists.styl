@@ -66,15 +66,25 @@ $item-margin = .7em
         box-shadow  0 2px 6px 0 alpha(black, .15)
         border      0
 
-
 @media (min-width: 40em)
     .item-wrapper
         flex-grow  0
         flex-basis 'calc(50% - %s * 2)' % $item-margin
 
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(100% - %s * 2)' % $item-margin
+
 @media (min-width: 64em)
     .item-wrapper
         flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+    .use-case-dialog
+        min-width (64/2)em
+
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(50% - %s * 2)' % $item-margin
 
 @media (min-width: 80em)
     .item-wrapper
@@ -84,10 +94,21 @@ $item-margin = .7em
     .item-wrapper
         flex-basis 'calc(25% - %s * 2)' % $item-margin
 
+    .use-case-dialog
+        min-width (96*.6)em
+
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(33.33% - %s * 2)' % $item-margin
+
 @media (min-width: 112em)
     .item-wrapper
         flex-basis 'calc(20% - %s * 2)' % $item-margin
 
 @media (min-width: 128em)
     .item-wrapper
-        flex-basis 'calc(16.666% - %s * 2)' % $item-margin
+flex-basis 'calc(16.666% - %s * 2)' % $item-margin
+
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(25% - %s * 2)' % $item-margin
