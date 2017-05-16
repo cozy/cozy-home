@@ -164,7 +164,7 @@ export default class ConnectorManagement extends Component {
     window.removeEventListener('storage', this.terminateOAuth.bind(this))
 
     // update connector to get the new account
-    this.setState({isWorking: true})
+    this.setState({submitting: true})
     this.store.fetchKonnectorInfos(this.props.params.connectorSlug)
       .then(konnector => {
         return this.store
@@ -174,12 +174,13 @@ export default class ConnectorManagement extends Component {
             this.setState({
               connector: konnector,
               isConnected: konnector.accounts.length !== 0,
-              isWorking: false
+              submitting: false
             })
           })
       })
       .catch(error => {
         Notifier.error(t(error.message || error))
+        this.setState({ submitting: false })
       })
   }
 
