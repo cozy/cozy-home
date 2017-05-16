@@ -29,16 +29,6 @@ class AccountConnection extends Component {
     const { name, description } = connector
     const { submitting } = this.state
 
-    let button = <button disabled={!dirty} aria-busy={submitting ? 'true' : 'false'}
-      onClick={() => this.submit()}>
-      {t('account config button')}
-    </button>
-
-    if (connector.oauth) {
-      // TODO find properly the root cozy url (without data-account)
-      button = <a target='_blank' href='http://cozy.tools:8080/accounts/orange/start'>Submit</a>
-    }
-
     // If there is no field displayed, the form is dirty by default.
     dirty = dirty || Object.values(fields).every(field => field.type === 'hidden' || field.advanced)
     return (
@@ -72,7 +62,15 @@ class AccountConnection extends Component {
               fields={fields}
             />
             <div className='account-form-controls'>
-              {button}
+              <button
+                disabled={!dirty && !connector.oauth}
+                aria-busy={submitting ? 'true' : 'false'}
+                onClick={connector.oauth
+                  ? () => this.props.oauth(connector.slug)
+                  : () => this.submit()}
+              >
+                {t('account config button')}
+              </button>
               {error === 'bad credentials' &&
                 <p className='errors'>{t('account config bad credentials')}</p>
               }

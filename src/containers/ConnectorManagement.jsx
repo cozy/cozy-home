@@ -91,10 +91,12 @@ export default class ConnectorManagement extends Component {
               deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
               cancel={() => this.gotoParent()}
               onSubmit={values => this.updateAccount(selectedAccount, values)}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
               {...this.state}
               {...this.context} />
             : <AccountConnection
               onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
               {...this.state}
               {...this.context} />
           }
@@ -152,8 +154,10 @@ export default class ConnectorManagement extends Component {
   }
 
   connectAccountOAuth (accountType) {
-    window.open(`http://cozy.tools:8080/accounts/${accountType}/start`, 'width=800,height=800')
-    return Promise.reject('test')
+    const cozyUrl =
+      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
+    const newTab = window.open('', 'popup', 'width=800,height=800')
+    newTab.location.href = `${cozyUrl}/accounts/${accountType}/start`
   }
 
   updateAccount (idx, values) {
