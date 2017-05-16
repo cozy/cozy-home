@@ -53,6 +53,7 @@ module.exports = {
       template: path.resolve(__dirname, '../src/index.ejs'),
       title: pkg.name,
       inject: 'head',
+      excludeChunks: ['services'],
       minify: {
         collapseWhitespace: true
       }
