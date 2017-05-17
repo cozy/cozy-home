@@ -162,7 +162,7 @@ export default class ConnectorManagement extends Component {
 
   terminateOAuth (storageEvent) {
     const { t } = this.context
-    if (storageEvent.key !== 'oauth_terminating') return // ignore other keys
+    if (storageEvent.key !== 'oauth_terminating' || !storageEvent.newValue) return // ignore other keys
     // get account id from localStorage event and remove the listener
     const accountID = JSON.parse(storageEvent.newValue).key
     window.removeEventListener('storage', this.terminateOAuth.bind(this))
