@@ -134,6 +134,7 @@ export default class ConnectorManagement extends Component {
     this.setState({ submitting: true })
 
     return this.runConnection(account, folderPath)
+      .catch(error => this.setState({submitting: false, error: error.message}))
   }
 
   runConnection (account, folderPath) {
@@ -186,12 +187,13 @@ export default class ConnectorManagement extends Component {
                 selectedAccount: currentIdx,
                 submitting: false
               })
-            })
+            }).catch(
+              error => this.setState({submitting: false, error: error.message})
+            )
           })
       })
       .catch(error => {
-        Notifier.error(t(error.message || error))
-        this.setState({ submitting: false })
+        this.setState({submitting: false, error: error.message})
       })
   }
 
