@@ -194,14 +194,24 @@
   "activity desc": "Last synchronization: ",
   "activity running": "in progress...",
   "activity button": "Synchronize now",
-  "location": "Location",
-  "location desc": "You will find your files in the following folder in the Files application",
-  "location button": "Open this folder in Files",
-  "calendar": "Calendar",
-  "calendar desc": "You will find your events in the following calendar in the Calendar application",
-  "frequency": "Synchronization frequency",
-  "frequency desc": "Your files will be added to your Cozy at the following frequency",
-  "account": "Account",
+  "config": {
+    "location": {
+      "title": "Location",
+      "desc": "You will find your files in the following folder in the Files application",
+      "button": "Open this folder in Files"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "desc": "You will find your events in the following calendar in the Calendar application"
+    },
+    "frequency": {
+      "title": "Synchronization frequency",
+      "desc": "Your files will be added to your Cozy at the following frequency"
+    },
+    "account": {
+      "title": "Account"
+    }
+  },
   "disconnect": "Disconnection",
   "disconnect desc": "Your will be disconnected from this account, but imported data will be kept",
   "disconnect button": "Disconnect this account",
