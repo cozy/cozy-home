@@ -8,7 +8,7 @@ export function isTutorial () {
 export function display (t) {
   const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
   const isLandscape = window.innerWidth > window.innerHeight
-  const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '.coz-nav-section'
+  const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '[data-icon=icon-cube]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass = 'tooltip' + (isSmall ? 'Small' : '') + (isSmall && isLandscape ? 'Right' : 'Bottom')
   introJs()
