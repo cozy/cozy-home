@@ -1,5 +1,5 @@
 {
-  "name": "cozy-data-connect",
+  "name": "cozy-collect",
   "version": "3.0.0",
   "main": "src/index.jsx",
   "scripts": {
@@ -11,7 +11,7 @@
     "commons:build": "webpack --config webpack.config.js --bail",
     "commons:watch": "webpack --config webpack.config.js --watch --display-modules --display-chunks",
     "commons:watch:standalone": "webpack-dev-server --config webpack.config.js --port 8282 --display-modules --display-chunks --inline --hot",
-    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-data-connect.git",
+    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch build --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-collect.git",
     "tx": "tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
@@ -33,14 +33,14 @@
     "android:run": "cd mobile ; cordova run android --device ; cd ..",
     "android:run:emulator": "cd mobile ; cordova run android --emulator ; cd ..",
     "android:release": "npm run build:mobile && cd mobile ; cordova build android --release ; cd ..",
-    "android:signed": "npm run android:release && cd mobile ; apksigner sign --ks keys/android/cozy-data-connect-release-key.jks --out build/android/cozy-data-connect.apk platforms/android/build/outputs/apk/android-release-unsigned.apk ; cd ..",
+    "android:signed": "npm run android:release && cd mobile ; apksigner sign --ks keys/android/cozy-collect-release-key.jks --out build/android/cozy-collect.apk platforms/android/build/outputs/apk/android-release-unsigned.apk ; cd ..",
     "android:publish": "npm run android:signed && cd mobile ; fastlane supply ; cd ..",
     "ios:run": "cd mobile ; cordova run ios --device ; cd ..",
     "ios:run:emulator": "cd mobile ; cordova run ios --emulator ; cd .."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cozy/cozy-data-connect.git"
+    "url": "git+https://github.com/cozy/cozy-collect.git"
   },
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
   "contributors": [
@@ -48,9 +48,9 @@
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/cozy/cozy-data-connect/issues"
+    "url": "https://github.com/cozy/cozy-collect/issues"
   },
-  "homepage": "https://github.com/cozy/cozy-data-connect#readme",
+  "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
     "date-fns": "^1.28.4",
     "intro.js": "2.5.0",
