@@ -263,6 +263,19 @@
     "initial": "Loading connectors accounts..."
   },
 
+  "tutorial": {
+    "cozy_collect": {
+      "title": "Automate your data gathering",
+      "text": "They will be stored in your Cozy, you won't have to look for them anymore.",
+      "button": "Next"
+    },
+    "menu_apps": {
+      "title": "You Cozy is so much more than a simple data aggregator",
+      "text": "Open the Applications menu to discover all the features your Cozy has to offer.",
+      "button": "Discover my Apps"
+    }
+  },
+
   "Error": {
     "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
     "button": {
