@@ -17,23 +17,23 @@ const AccountConfigForm = ({ t, customView, fields, dirty, error, submit, submit
   <div className={'account-form' + (error ? ' error' : '')}>
     {fields.folderPath &&
       <div>
-        <h3>{t('location')}</h3>
-        <p>{t('location desc')}</p>
+        <h3>{t('config.location.title')}</h3>
+        <p>{t('config.location.desc')}</p>
         <DropdownField label={false} {...fields.folderPath} />
         <a href={folderLink(fields.folderPath.value, fields.folderPath.folders)} target='_blank'>
-          {t('location button')}
+          {t('config.location.button')}
         </a>
       </div>
     }
     {fields.calendar &&
       <div>
-        <h3>{t('calendar')}</h3>
-        <p>{t('calendar desc')}</p>
+        <h3>{t('config.calendar.title')}</h3>
+        <p>{t('config.calendar.desc')}</p>
         <Field label={false} {...fields.calendar} />
       </div>
     }
-    <h3>{t('frequency')}</h3>
-    <p>{t('frequency desc')}</p>
+    <h3>{t('config.frequency.title')}</h3>
+    <p>{t('config.frequency.desc')}</p>
     <Field label={false} {...fields.frequency}>
       <select className='account-field-dropdown'>
         <option value='none'>{t('none')}</option>
@@ -43,7 +43,7 @@ const AccountConfigForm = ({ t, customView, fields, dirty, error, submit, submit
         <option value='month'>{t('each month')}</option>
       </select>
     </Field>
-    <h3>{t('account')}</h3>
+    <h3>{t('config.account.title')}</h3>
     <AccountLoginForm
       t={t}
       customView={customView}
