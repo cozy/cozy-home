@@ -1,32 +1,26 @@
 import React from 'react'
 import { translate } from '../plugins/i18n'
-
 import ConnectorList from './ConnectorList'
-import Dialog from './Dialog'
+import Modal from 'cozy-ui/react/Modal'
+import ModalContent from 'cozy-ui/react/Modal/Content'
 
-// Fallback to get the item background image and avoid error if not found
-const getItemBackground = (item, context) => {
-  let background = 'rgb(0, 130, 230)'
-  if (item.figure && context) {
-    try {
-      let img = require(`../contexts/${context}/assets/img/${item.figure}`)
-      background = `center/100% url(${img})`
-    } catch (e) {
-      background = 'rgb(0, 130, 230)'
-    }
+const UseCaseDialog = ({ t, item, connectors, context, router }) => {
+  const gotoParent = () => {
+    let url = router.location.pathname
+    router.push(url.substring(0, url.lastIndexOf('/')))
   }
-  return background
-}
 
-const UseCaseDialog = ({ t, item, connectors, context }) => (
-  <Dialog
-    className='use-case-dialog'
-    headerStyle={{background: getItemBackground(item, context)}}
+  return (<Modal
+    title={t(`use-case ${item.slug} title`)}
+    secondaryAction={() => gotoParent()}
   >
-    <h3>{t(`use-case ${item.slug} title`)}</h3>
-    <p>{t(`use-case ${item.slug} description`)}</p>
-    <ConnectorList connectors={connectors} />
-  </Dialog>
-)
+    <ModalContent>
+      <p>{t(`use-case ${item.slug} description`)}</p>
+      <div className='use-case-dialog'>
+        <ConnectorList connectors={connectors} />
+      </div>
+    </ModalContent>
+  </Modal>)
+}
 
 export default translate()(UseCaseDialog)
