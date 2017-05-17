@@ -124,8 +124,6 @@ export default class ConnectorManagement extends Component {
   }
 
   connectAccount ({login, password, folderPath}) {
-    const { t } = this.context
-
     const account = {
       auth: {
         login: login,
@@ -135,6 +133,11 @@ export default class ConnectorManagement extends Component {
 
     this.setState({ submitting: true })
 
+    return this.runConnection(account, folderPath)
+  }
+
+  runConnection (account, folderPath) {
+    const { t } = this.context
     return this.store.connectAccount(this.state.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
@@ -160,7 +163,7 @@ export default class ConnectorManagement extends Component {
     const { t } = this.context
     if (storageEvent.key !== 'oauth_terminating') return // ignore other keys
     // get account id from localStorage event and remove the listener
-    // const accountID = JSON.parse(storageEvent.newValue).key
+    const accountID = JSON.parse(storageEvent.newValue).key
     window.removeEventListener('storage', this.terminateOAuth.bind(this))
 
     // update connector to get the new account
@@ -171,10 +174,18 @@ export default class ConnectorManagement extends Component {
           .fetchAccounts(this.props.params.connectorSlug, null)
           .then(accounts => {
             konnector.accounts = accounts
-            this.setState({
-              connector: konnector,
-              isConnected: konnector.accounts.length !== 0,
-              submitting: false
+            const currentIdx = accounts.findIndex(a => a._id === accountID)
+            const folderPath = t('konnector default base folder', konnector)
+            return this.runConnection(
+              {oauth: accounts[currentIdx].oauth},
+              folderPath
+            ).then(() => {
+              this.setState({
+                connector: konnector,
+                isConnected: konnector.accounts.length !== 0,
+                selectedAccount: currentIdx,
+                submitting: false
+              })
             })
           })
       })
