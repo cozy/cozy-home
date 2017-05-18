@@ -148,20 +148,25 @@ export default class CollectStore {
     return accounts.getAccountsByType(cozy.client, accountType, index)
   }
 
-  updateAccount (connectorId, accountIdx, values) {
-    let connector = this.findConnectorById(connectorId)
-    let previousAccount = Object.assign({}, connector.accounts[accountIdx])
+  /**
+   * updateAccount : updates an account in a connector in DB with new values
+   * @param {Object} connector The connector to update
+   * @param {integer} accountIdx The Index of the account to update in the accounts array of the connector
+   * @param {Object} values The new values of the updated account
+   * @returns {Object} The up to date connector
+   */
+  updateAccount (connector, accountIdx, values) {
+    // Save the previous state
+    const previousConnector = Object.assign({}, connector.accounts[accountIdx])
 
+    // Update account data
+    connector.accounts[accountIdx].auth.login = values.login
     connector.accounts[accountIdx].auth.password = values.password
 
-    return accounts.update(cozy.client, previousAccount, connector.accounts[accountIdx])
-    .then(newAccountData => {
-      updateConnector(newAccountData)
+    return accounts.update(cozy.client, previousConnector, connector)
+    .then(updatedConnector => {
+      updateConnector(updatedConnector)
     })
-  }
-
-  findConnectorById (connectorId) {
-    return this.connectors.find(c => !!c.accounts.find(a => a._id === connectorId))
   }
 
   synchronize (connectorId) {
