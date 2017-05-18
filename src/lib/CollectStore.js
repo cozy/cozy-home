@@ -156,8 +156,7 @@ export default class CollectStore {
 
     return accounts.update(cozy.client, previousAccount, connector.accounts[accountIdx])
     .then(newAccountData => {
-      // Updates the account with the serveur answer (mostly updates the _rev value)
-      connector.accounts[accountIdx] = newAccountData
+      updateConnector(newAccountData)
     })
   }
 
