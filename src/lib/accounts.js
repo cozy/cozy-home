@@ -12,6 +12,10 @@ export function create (cozy, konnector, auth, folder, name = '') {
   })
 }
 
+export function update (cozy, account, newAccount) {
+  return cozy.data.update(ACCOUNTS_DOCTYPE, account, newAccount)
+}
+
 export function _delete (cozy, account) {
   return cozy.data.delete(ACCOUNTS_DOCTYPE, account)
 }

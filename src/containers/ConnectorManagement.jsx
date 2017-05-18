@@ -183,7 +183,7 @@ export default class ConnectorManagement extends Component {
             const currentIdx = accounts.findIndex(a => a._id === accountID)
             const folderPath = t('konnector default base folder', konnector)
             return this.runConnection(
-              {oauth: accounts[currentIdx].oauth},
+              accounts[currentIdx],
               folderPath
             ).then(() => {
               this.setState({
