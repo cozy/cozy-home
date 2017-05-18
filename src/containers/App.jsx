@@ -38,7 +38,8 @@ class App extends Component {
     if (queryParams.get('account')) {
       const accountKey = queryParams.get('account')
       localStorage.setItem('oauth_terminating', JSON.stringify({
-        key: accountKey
+        key: accountKey,
+        origin: window.name
       }))
       localStorage.removeItem('oauth_terminating')
       window.close()
