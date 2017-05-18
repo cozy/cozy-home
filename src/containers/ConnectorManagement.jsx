@@ -17,6 +17,8 @@ export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    // methods binding
+    this.terminateOAuth = this.terminateOAuth.bind(this)
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
@@ -167,8 +169,8 @@ export default class ConnectorManagement extends Component {
     // if wrong connector oauth
     if (eventData.origin !== `${this.props.params.connectorSlug}_oauth`) return
     // get account id from localStorage event and remove the listener
-    window.removeEventListener('storage', this.terminateOAuth.bind(this))
     const accountID = eventData.key
+    window.removeEventListener('storage', this.terminateOAuth)
 
     // update connector to get the new account
     this.setState({submitting: true})
@@ -203,9 +205,19 @@ export default class ConnectorManagement extends Component {
   connectAccountOAuth (accountType) {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = window.open('', 'popup', 'width=800,height=800')
+    const newTab = window.open('', `${accountType}_oauth`, 'width=800,height=800')
     newTab.location.href = `${cozyUrl}/accounts/${accountType}/start`
-    window.addEventListener('storage', this.terminateOAuth.bind(this))
+    // listener for oauth window
+    const boundOAuthCb = this.terminateOAuth
+    window.addEventListener('storage', boundOAuthCb)
+    // polling to monitor oauth window closing
+    ;(function monitorOAuthClosing () {
+      if (newTab.closed) {
+        window.removeEventListener('storage', boundOAuthCb)
+      } else {
+        setTimeout(monitorOAuthClosing, 1000)
+      }
+    })()
   }
 
   updateAccount (idx, values) {
