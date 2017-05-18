@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import { I18n } from './plugins/i18n'
-import DataConnectStore, { Provider } from './lib/DataConnectStore'
+import CollectStore, { Provider } from './lib/CollectStore'
 
 import IntentService from './containers/IntentService'
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.initKonnectors = require('./initKonnectors.json')
   window.initFolders = require('./initFolders.json')
 
-  const store = new DataConnectStore(window.initKonnectors, window.initFolders, context)
+  const store = new CollectStore(window.initKonnectors, window.initFolders, context)
 
   render((
     <Provider store={store}>

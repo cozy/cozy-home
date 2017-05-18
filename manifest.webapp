@@ -1,9 +1,9 @@
 {
-  "name": "Data Connect",
-  "slug": "data-connect",
-  "icon": "cozy_data_connect.svg",
+  "name": "Collect",
+  "slug": "collect",
+  "icon": "cozy_collect.svg",
   "description": "Configuration application for konnectors",
-  "source": "https://github.com/cozy/cozy-data-connect.git@build",
+  "source": "https://github.com/cozy/cozy-collect.git@build",
   "editor": "Cozy",
   "developer": {
     "name": "Cozy",
