@@ -172,7 +172,7 @@ export default class ConnectorManagement extends Component {
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
-        Notifier.error(t(`error.${error}`))
+        Notifier.error(t(`error.${error.message || error}`))
         this.gotoParent()
       })
   }
