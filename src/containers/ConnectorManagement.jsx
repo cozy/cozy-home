@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import ConnectorDialog from '../components/ConnectorDialog'
+import Modal from 'cozy-ui/React/Modal'
 import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
@@ -96,8 +96,14 @@ export default class ConnectorManagement extends Component {
     return connector.state != null && connector.state === 'ready'
   }
 
+  closeModal () {
+    const { router } = this.context
+    const url = router.location.pathname
+    router.push(url.substring(0, url.lastIndexOf('/')))
+  }
+
   render () {
-    const { slug, color, name, accounts, lastImport } = this.state.connector
+    const { name, accounts, lastImport } = this.state.connector
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
@@ -110,16 +116,18 @@ export default class ConnectorManagement extends Component {
     }
 
     if (isWorking) {
-      return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
-        {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
-        <div className='installing'>
-          <div className='installing-spinner' />
-          <div>{t('working')}</div>
-        </div>
-      </ConnectorDialog>
+      return (
+        <Modal secondaryAction={() => this.closeModal()}>
+          {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
+          <div className='installing'>
+            <div className='installing-spinner' />
+            <div>{t('working')}</div>
+          </div>
+        </Modal>
+      )
     } else {
       return (
-        <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
+        <Modal secondaryAction={() => this.closeModal()}>
           {isConnected
             ? <AccountManagement
               name={name}
@@ -141,7 +149,7 @@ export default class ConnectorManagement extends Component {
               {...this.state}
               {...this.context} />
           }
-        </ConnectorDialog>
+        </Modal>
       )
     }
   }
