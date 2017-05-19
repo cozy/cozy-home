@@ -48,5 +48,6 @@ export function display (t) {
   })
   .oncomplete(() => {
     cozyBarMenuButton.click()
+    window.location.hash = '#/discovery'
   })
 }
