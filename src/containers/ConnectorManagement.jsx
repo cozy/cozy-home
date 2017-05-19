@@ -1,3 +1,5 @@
+/* global cozy */
+
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
@@ -270,12 +272,27 @@ export default class ConnectorManagement extends Component {
     })()
   }
 
-  updateAccount (connector, idx, values) {
+  async updateAccount (connector, idx, values) {
     const { t } = this.context
-    this._updateAccount(connector, idx, values)
-      .then(() => {
-        Notifier.info(t('account config success'))
-      })
+
+    const modifiedAccount = {
+      auth: {
+        login: values.login,
+        password: values.password
+      }
+    }
+    const folder = await cozy.client.files.statById(connector.accounts[idx].folderId, false, {limit: 1})
+    const folderPath = folder.attributes.path
+
+    return this.store.connectAccount(connector, modifiedAccount, folderPath)
+    .then(() => this._updateAccount(connector, idx, values))
+    .then(() => {
+      Notifier.info(t('account config success'))
+    })
+    .catch((error) => {
+      Notifier.error(t('account config error'))
+      return Promise.reject(error)
+    })
   }
 
   _updateAccount (connector, idx, values) {
