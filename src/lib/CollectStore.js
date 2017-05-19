@@ -157,15 +157,16 @@ export default class CollectStore {
    */
   updateAccount (connector, accountIdx, values) {
     // Save the previous state
-    const previousConnector = Object.assign({}, connector.accounts[accountIdx])
+    const previousConnector = Object.assign({}, connector)
 
     // Update account data
     connector.accounts[accountIdx].auth.login = values.login
     connector.accounts[accountIdx].auth.password = values.password
 
-    return accounts.update(cozy.client, previousConnector, connector)
-    .then(updatedConnector => {
-      updateConnector(updatedConnector)
+    return accounts.update(cozy.client, previousConnector.accounts[accountIdx], connector.accounts[accountIdx])
+    .then(updatedAccount => {
+      connector.accounts[accountIdx] = updatedAccount
+      this.updateConnector(connector)
     })
   }
 

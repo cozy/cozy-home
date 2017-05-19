@@ -138,7 +138,7 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(selectedAccount, values)}
+                onSubmit={values => this.updateAccount(connector, selectedAccount, values)}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
@@ -270,15 +270,15 @@ export default class ConnectorManagement extends Component {
     })()
   }
 
-  updateAccount (idx, values) {
+  updateAccount (connector, idx, values) {
     const { t } = this.context
-    this._updateAccount(idx, values)
+    this._updateAccount(connector, idx, values)
       .then(() => {
         Notifier.info(t('account config success'))
       })
   }
 
-  _updateAccount (idx, values) {
+  _updateAccount (connector, idx, values) {
     const { t } = this.context
     this.setState({ submitting: true })
     return this.store.updateAccount(connector, idx, values)
