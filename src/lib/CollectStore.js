@@ -168,6 +168,10 @@ export default class CollectStore {
       connector.accounts[accountIdx] = updatedAccount
       this.updateConnector(connector)
     })
+    .catch(() => {
+      // Restore previous values in case of error
+      connector.accounts[accountIdx].auth = previousConnector.accounts[accountIdx].auth
+    })
   }
 
   synchronize (connectorId) {
