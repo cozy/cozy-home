@@ -270,15 +270,15 @@ export default class ConnectorManagement extends Component {
     })()
   }
 
-  updateAccount (idx, values) {
+  updateAccount (connector, idx, values) {
     const { t } = this.context
-    this._updateAccount(idx, values)
+    this._updateAccount(connector, idx, values)
       .then(() => {
         Notifier.info(t('account config success'))
       })
   }
 
-  _updateAccount (idx, values) {
+  _updateAccount (connector, idx, values) {
     const { t } = this.context
     this.setState({ submitting: true })
     return this.store.updateAccount(connector, idx, values)
