@@ -147,7 +147,7 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
 function waitForJobFinished (cozy, job, timeout) {
   return new Promise((resolve, reject) => {
     const idTimeout = setTimeout(() => {
-      reject(new Error('Job timed out'))
+      reject(new Error('JOB_TIMEOUT'))
     }, timeout)
 
     const idInterval = setInterval(() => {
@@ -156,7 +156,7 @@ function waitForJobFinished (cozy, job, timeout) {
           if (job.attributes.state === JOB_STATE_ERRORED) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
-            reject(job.attributes.error)
+            reject(new Error(job.attributes.error))
           }
 
           if (job.attributes.state === JOB_STATE_READY) {

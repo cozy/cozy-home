@@ -172,10 +172,8 @@ export default class ConnectorManagement extends Component {
       })
       .catch(error => { // eslint-disable-line
         this.setState({ submitting: false })
-        console.error(error)
-        Notifier.error(t('account config error'))
+        Notifier.error(t(`error.${error.message || error}`))
         this.gotoParent()
-        throw error
       })
   }
 
