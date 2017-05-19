@@ -5,7 +5,7 @@
 
 
 [Cozy] Collect
-===================
+==============
 
 
 What's Cozy?
@@ -17,14 +17,14 @@ What's Cozy?
 
 
 What is Collect (previously known as MyAccounts, previously known as Konnectors)?
---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 A cozy client application to configure and run cozy konnectors
 
 Hack
 ----
 
-_:pushpin: Note:_ we recommend to use [Yarn] instead of NPM for package management. Don't hesitate to [install][install-yarn] and use it for your Cozy projects, it's now our main node packages tool for Cozy official apps.
+_:pushpin: Note:_ we recommend to use [Yarn] instead of NPM for package management. Don't hesitate to [install][yarn-install] and use it for your Cozy projects, it's now our main node packages tool for Cozy official apps.
 
 ### Install and run in dev mode
 
@@ -63,19 +63,12 @@ You can now run the watch task and your project will hot-reload each times a coz
 
 The Cozy datastore stores documents, which can be seen as JSON objects. A `doctype` is simply a declaration of the fields in a given JSON object, to store similar objects in an homogeneous fashion.
 
-Cozy ships a [built-in list of `doctypes`][doctypes] for representation of most of the common documents (Bills, Contacts, Events, ...).
+Cozy ships a [built-in list of `doctypes`][doctypes] for representation of most of the common documents (Bills, Contacts, Files, ...).
 
 Whenever your app needs to use a given `doctype`, you should:
 
 - Check if this is a standard `doctype` defined in Cozy itself. If this is the case, you should add a model declaration in your app containing at least the fields listed in the [main fields list for this `doctype`][doctypes]. Note that you can extend the Cozy-provided `doctype` with your own customs fields. This is typically what is done in [Konnectors] for the [Bill `doctype`][bill-doctype].
 - If no standards `doctypes` fit your needs, you should define your own `doctype` in your app. In this case, you do not have to put any field you want in your model, but you should crosscheck other cozy apps to try to homogeneize the names of your fields, so that your `doctype` data could be reused by other apps. This is typically the case for the [Konnector `doctype`][konnector-doctype] in [Konnectors].
-
-
-### Resources
-
-All documentation is located in the `/docs` app directory. It provides an exhaustive documentation about workflows (installation, development, pull-requests…), architecture, code consistency, data structures, dependencies, and more.
-
-Feel free to read it and fix / update it if needed, all comments and feedback to improve it are welcome!
 
 
 ### Open a Pull-Request
@@ -97,7 +90,7 @@ As a _developer_, you must [configure the transifex client][tx-client], and clai
 
 ### Maintainer
 
-The lead maintainer for Cozy Collect is ?, send him/her a :beers: to say hello!
+The lead maintainer for Cozy Collect is [Greg](https://github.com/gregorylegarec), send him/her a :beers: to say hello!
 
 
 ### Get in touch
@@ -122,10 +115,12 @@ Cozy Collect is developed by Cozy Cloud and distributed under the [AGPL v3 licen
 [yarn]: https://yarnpkg.com/
 [yarn-install]: https://yarnpkg.com/en/docs/install
 [cozy-ui]: https://github.com/cozy/cozy-ui
-[doctypes]: https://dev.cozy.io/#main-document-types
-[bill-doctype]: https://github.com/cozy-labs/konnectors/blob/master/server/models/bill.coffee
-[konnector-doctype]: https://github.com/cozy-labs/konnectors/blob/master/server/models/konnector.coffee
-[konnectors]: https://github.com/cozy-labs/konnectors
+[cozy-client-js]: https://github.com/cozy/cozy-client-js/
+[cozy-stack-docker]: https://github.com/cozy/cozy-stack/blob/master/docs/client-app-dev.md#with-docker
+[doctypes]: https://cozy.github.io/cozy-doctypes/
+[bill-doctype]: https://github.com/cozy/cozy-konnector-libs/blob/master/models/bill.js
+[konnector-doctype]: https://github.com/cozy/cozy-konnector-libs/blob/master/models/base_model.js
+[konnectors]: https://github.com/cozy/cozy-konnector-libs
 [agpl-3.0]: https://www.gnu.org/licenses/agpl-3.0.html
 [contribute]: CONTRIBUTING.md
 [tx]: https://www.transifex.com/cozy/
