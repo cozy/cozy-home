@@ -219,10 +219,23 @@
   "delete button": "Delete this account",
   "account delete success": "Account removed succesfully",
   "account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
-  "title description": "Description of this connector",
+  "account": {
+    "connection": {
+      "title": "Connect your %{name} account to your Cozy",
+      "description": "To automate the collection of your information, you have to connect your %{name} account.",
+      "data": {
+        "title": "Data collected in your Cozy:"
+      },
+      "login": {
+        "submit": "Connect",
+        "error": {
+          "bad_credentials": "Sorry, you entered an incorrect login or password"
+        }
+      }
+    }
+  },
   "working": "Loading",
 
-  "dataType title": "Your Cozy retrieves the following data:",
   "dataType disclaimer": "won't access any data in your Cozy",
   "dataType activity": "Your activities",
   "dataType heartbeat": "Your heartbeats",

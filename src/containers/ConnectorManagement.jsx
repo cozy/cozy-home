@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/React/Modal'
+import ModalContent from 'cozy-ui/React/Modal/Content'
 import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
@@ -103,52 +104,49 @@ export default class ConnectorManagement extends Component {
   }
 
   render () {
-    const { name, accounts, lastImport } = this.state.connector
+    const { name, accounts, customView, lastImport } = this.state.connector
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
-
-    let accountValues = {}
-    // if oauth account
-    if (accounts[selectedAccount] && connector.oauth) {
-      accountValues = accounts[selectedAccount].oauth
-    } else if (accounts[selectedAccount]) {
-      accountValues = accounts[selectedAccount].auth
-    }
 
     if (isWorking) {
       return (
         <Modal secondaryAction={() => this.closeModal()}>
-          {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
-          <div className='installing'>
-            <div className='installing-spinner' />
-            <div>{t('working')}</div>
-          </div>
+          <ModalContent>
+            {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
+            <div className='installing'>
+              <div className='installing-spinner' />
+              <div>{t('working')}</div>
+            </div>
+          </ModalContent>
         </Modal>
       )
     } else {
       return (
         <Modal secondaryAction={() => this.closeModal()}>
-          {isConnected
-            ? <AccountManagement
-              name={name}
-              lastImport={lastImport}
-              accounts={accounts}
-              values={accountValues}
-              selectAccount={idx => this.selectAccount(idx)}
-              addAccount={() => this.addAccount()}
-              synchronize={() => this.synchronize()}
-              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-              cancel={() => this.gotoParent()}
-              onSubmit={values => this.updateAccount(selectedAccount, values)}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-            : <AccountConnection
-              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-          }
+          <ModalContent>
+            {isConnected
+              ? <AccountManagement
+                name={name}
+                customView={customView}
+                lastImport={lastImport}
+                accounts={accounts}
+                values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+                selectAccount={idx => this.selectAccount(idx)}
+                addAccount={() => this.addAccount()}
+                synchronize={() => this.synchronize()}
+                deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
+                cancel={() => this.gotoParent()}
+                onSubmit={values => this.updateAccount(selectedAccount, values)}
+                onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                {...this.state}
+                {...this.context} />
+              : <AccountConnection
+                onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+                onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                {...this.state}
+                {...this.context} />
+            }
+          </ModalContent>
         </Modal>
       )
     }
