@@ -183,12 +183,10 @@
   "others category": "Others",
 
   "account config title": "Connect your %{name} account:",
-  "account config button": "Connect",
   "account cancel button": "Cancel",
   "account save button": "Save",
   "account config show password": "Display password",
   "account config success": "Account added successfully",
-  "account config bad credentials": "Sorry, you entered an incorrect login or password",
   "account config error": "Apologies, our server had an hiccup, do you mind starting again?",
   "account config details": "Find your datas in the Files app at this location: ",
   "account index": "Account #%{index}",
