@@ -1,0 +1,69 @@
+@import cozy-ui
+
+:local
+  .coz-field
+    position relative
+    margin   1em 0 .5em
+
+    // Managing input width with flex
+    display         flex
+    flex-direction  column
+
+    .password-visibility
+        position absolute
+        top      0
+        right    0
+
+    .icon
+        background none
+        padding    0
+        width      1.3em
+        height     1.3em
+        display    block
+
+        svg
+            width  1.3em
+            height 1.3em
+
+    label
+        display        block
+        text-transform uppercase
+        color          grey-05
+        font-size      .9em
+        padding        .55em 0
+
+    .error-label
+        display none
+        color   pomegranate
+
+    input[type=text]
+    input[type=password]
+    select
+        display       inline-block
+        padding       .75em .75em .9em
+        border-radius 4px
+        box-sizing    border-box
+        border        1px solid grey-03
+        background    grey-10
+        color         black
+        &::placeholder
+            color     grey-07
+            font-size 1.05em
+        &:focus
+            border     1px solid dodger-blue
+            background none
+        &:hover
+            border 1px solid grey-06
+        &.error
+            border     1px solid pomegranate
+            background none
+
+    select
+        -moz-appearance     none
+        -webkit-appearance  none
+        appearance          none
+        background-image    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px'><polyline points='14.764,4.966 8.053,11.677 1.342,4.966'/></svg>")
+        background-position right 8px center
+        background-repeat   no-repeat
+        &::-ms-expand
+            display none

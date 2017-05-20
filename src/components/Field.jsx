@@ -1,3 +1,5 @@
+import styles from '../styles/field.styl'
+
 import React, { cloneElement } from 'react'
 import classNames from 'classnames'
 import { translate } from '../plugins/i18n'
@@ -10,7 +12,7 @@ const Field = (props) => {
       child => cloneElement(child,
         Object.assign(props, {
           selected: props.value,
-          className: 'account-field-input'
+          className: styles['coz-field-input']
         })
       )
     )
@@ -20,7 +22,7 @@ const Field = (props) => {
       <input
         type={type}
         placeholder={placeholder}
-        className='account-field-input'
+        className={styles['coz-field-input']}
         value={value}
         onChange={onChange}
         onInput={onInput}
@@ -37,17 +39,24 @@ const Field = (props) => {
 export default Field
 
 export const FieldWrapper = ({ required, label, dirty, touched, errors, children }) => {
-  var classes = classNames('account-field', {
-    'account-field--required': required === true,
-    'account-field--error': errors.length !== 0,
-    'account-field--dirty': dirty === true || touched === true
-  })
+  const conditionals = {
+    'coz-field--required': required === true,
+    'coz-field--error': errors.length !== 0,
+    'coz-field--dirty': dirty === true || touched === true
+  }
+
+  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key =>{
+    return conditionals[key]
+  }))
+
+  const moduleClasses = classes.map(className => styles[className])
+
   return (
-    <div className={classes}>
+    <div className={classNames.apply(this, moduleClasses)}>
       {label && <label>{label}</label>}
       {children}
       {errors.length !== 0 && errors.map((err, i) => (
-        <small key={i} className='account-field-error'>{err}</small>
+        <small key={i} className={styles['coz-field-error']}>{err}</small>
       ))}
     </div>
   )
@@ -69,7 +78,7 @@ export const PasswordField = translate()(
             type='button'
             tabindex='-1'
             title={t('account config show password')}
-            className='icon password-visibility'
+            className={classNames(styles['icon'], styles['password-visibility'])}
             onClick={() => toggleVisibility()}
           >
             {visible
@@ -80,7 +89,7 @@ export const PasswordField = translate()(
           <input
             type={visible ? 'text' : 'password'}
             placeholder={placeholder}
-            className='account-field-input'
+            className={styles['coz-field-input']}
             value={value}
             onChange={onChange}
             onInput={onInput}
@@ -99,7 +108,7 @@ export const DropdownField = translate()((props) => {
   return (
     <FieldWrapper {...props}>
       <select
-        className='account-field-dropdown'
+        className={styles['coz-field-dropdown']}
         value={value}
         onChange={onChange}
         onInput={onInput}
@@ -123,7 +132,7 @@ export const CheckboxField = translate()((props) => {
     input = (
       <input
         type='checkbox'
-        className='account-field-input-checkbox'
+        className={styles['coz-field-input-checkbox']}
         value={value}
         checked='checked'
         onChange={onChange}
@@ -134,7 +143,7 @@ export const CheckboxField = translate()((props) => {
     input = (
       <input
         type='checkbox'
-        className='account-field-input-checkbox'
+        className={styles['coz-field-input-checkbox']}
         value={value}
         onChange={onChange}
         onInput={onInput}
@@ -142,16 +151,23 @@ export const CheckboxField = translate()((props) => {
       )
   }
 
-  var classes = classNames('account-field', {
-    'account-field--required': required === true,
-    'account-field--error': errors.length !== 0,
-    'account-field--dirty': dirty === true || touched === true
-  })
+  const conditionals = {
+    'coz-field--required': required === true,
+    'coz-field--error': errors.length !== 0,
+    'coz-field--dirty': dirty === true || touched === true
+  }
+
+  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key =>{
+    return conditionals[key]
+  }))
+
+  const moduleClasses = classes.map(className => styles[className])
+
   return (
-    <div className={classes}>
+    <div className={classNames.apply(this, moduleClasses)}>
       {label && <label>{input} {label}</label>}
       {errors.length !== 0 && errors.map((err, i) => (
-        <small key={i} className='account-field-error'>{err}</small>
+        <small key={i} className={styles['coz-field-error']}>{err}</small>
       ))}
     </div>
   )
