@@ -33,15 +33,17 @@ class AccountConnection extends Component {
           </div>
           <div className={styles['col-account-connection-data']}>
             <h4>{t('account.connection.data.title')}</h4>
-            <ul className='account-datas'>
-              {connector.dataType && connector.dataType.map(data =>
-                <DataItem
-                  dataType={data}
-                  hex={connector.color.hex}
-                />
-              )}
-            </ul>
-            <p>{` ${connector.name} ${t('dataType disclaimer')} `}</p>
+            {connector.dataType &&
+              <ul className={styles['col-account-connection-data-access']}>
+                {connector.dataType.map(data =>
+                  <DataItem
+                    dataType={data}
+                    hex={connector.color.hex}
+                  />
+                )}
+              </ul>}
+            {!connector.dataType &&
+              <p>{t('dataType.none', {name: connector.name})}</p>}
           </div>
         </div>
       </div>
