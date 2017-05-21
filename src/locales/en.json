@@ -4,6 +4,18 @@
   "error.JOB_TIMEOUT": "The connector execution was too long",
   "code": "Authorization code",
   "encrypted fields": "The passwords are still encrypted, no import can be done. Please log out of your Cozy, log in again and restart Konnectors",
+  "field": {
+    "password": {
+      "visibility": {
+        "hide": "Hide",
+        "show": "Show",
+        "title": {
+          "hide": "Hide password",
+          "show": "Show password"
+        }
+      }
+    }
+  },
   "internal error": "An error occured in your Cozy",
   "notification homes": "%{smart_count} home description imported |||| %{smart_count} home descriptions imported",
   "notification consumptionstatements": "%{smart_count} new consumption statement imported |||| %{smart_count} new consumption statements imported",
@@ -227,6 +239,9 @@
         "title": "Data collected in your Cozy"
       },
       "login": {
+        "password": {
+          "placeholder": "The password you use to connect to the service"
+        },
         "submit": "Connect",
         "error": {
           "bad_credentials": "Sorry, you entered an incorrect login or password"

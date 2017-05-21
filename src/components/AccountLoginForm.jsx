@@ -1,7 +1,7 @@
 import styles from '../styles/accountLoginForm'
 
 import React from 'react'
-
+import classNames from 'classnames'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
 const AccountLoginForm = ({ t, connector, customView, fields, error, dirty, submitting, onSubmit }) => (
@@ -16,7 +16,10 @@ const AccountLoginForm = ({ t, connector, customView, fields, error, dirty, subm
       .filter(name => !fields[name].advanced)
       .map(name => {
         if (fields[name].type === 'password') {
-          return <PasswordField label={t(name)} {...fields[name]} />
+          return <PasswordField
+            label={t(name)}
+            placeholder={t('account.connection.login.password.placeholder')}
+            {...fields[name]} />
         }
         if (fields[name].type === 'dropdown') {
           return <DropdownField label={t(name)} {...fields[name]} />
@@ -29,9 +32,9 @@ const AccountLoginForm = ({ t, connector, customView, fields, error, dirty, subm
         return <Field label={t(name)} {...fields[name]} />
       }
     )}
-    <div>
+    <div className={styles['coz-form-controls']}>
       <button
-        className='coz-button--primary'
+        className={classNames('coz-btn', 'coz-btn--regular', styles['col-btn--regular'])}
         disabled={!dirty && !connector.oauth}
         aria-busy={submitting ? 'true' : 'false'}
         onClick={onSubmit}

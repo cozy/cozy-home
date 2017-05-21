@@ -77,13 +77,13 @@ export const PasswordField = translate()(
           <button
             type='button'
             tabindex='-1'
-            title={t('account config show password')}
-            className={classNames(styles['icon'], styles['password-visibility'])}
+            title={visible ? t('field.password.visibility.title.hide') : t('field.password.visibility.title.show')}
+            className={styles['password-visibility']}
             onClick={() => toggleVisibility()}
           >
             {visible
-              ? <svg><use xlinkHref={require('../assets/sprites/icon-eye-closed.svg')} /></svg>
-              : <svg><use xlinkHref={require('../assets/sprites/icon-eye-open.svg')} /></svg>
+              ? t('field.password.visibility.hide')
+              : t('field.password.visibility.show')
             }
           </button>
           <input
