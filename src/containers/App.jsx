@@ -36,12 +36,12 @@ class App extends Component {
     // If this is an OAuth response
     const queryParams = new URLSearchParams(window.location.search)
     if (queryParams.get('account')) {
+      const opener = window.opener
       const accountKey = queryParams.get('account')
-      localStorage.setItem('oauth_terminating', JSON.stringify({
+      opener.postMessage({
         key: accountKey,
         origin: window.name
-      }))
-      localStorage.removeItem('oauth_terminating')
+      }, window.origin)
       window.close()
     }
     const { categories, isFetching, error } = this.state
