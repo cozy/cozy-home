@@ -13,6 +13,37 @@ let AUTHORIZED_DATATYPE = [
 ]
 let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
+// customized function to center a popup window
+// source https://stackoverflow.com/a/16861050
+function PopupCenter (url, title, w, h) {
+  // Fixes dual-screen position
+  var dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : screen.left
+    //                                  Most browsers      Firefox
+  var dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : screen.top
+
+  var width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+      ? document.documentElement.clientWidth : screen.width
+  var height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+      ? document.documentElement.clientHeight : screen.height
+
+  var left = ((width / 2) - (w / 2)) + dualScreenLeft
+  var top = ((height / 2) - (h / 2)) + dualScreenTop
+  var newWindow = window.open('', title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+  newWindow.location.href = url
+
+  // Puts focus on the newWindow
+  if (window.focus) {
+    newWindow.focus()
+  }
+  return newWindow
+}
+
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
@@ -205,8 +236,7 @@ export default class ConnectorManagement extends Component {
   connectAccountOAuth (accountType) {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = window.open('', `${accountType}_oauth`, 'width=800,height=800')
-    newTab.location.href = `${cozyUrl}/accounts/${accountType}/start`
+    const newTab = PopupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
     // listener for oauth window
     const boundOAuthCb = this.terminateOAuth
     window.addEventListener('storage', boundOAuthCb)
