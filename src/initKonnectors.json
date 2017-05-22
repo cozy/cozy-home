@@ -20,7 +20,7 @@
     "category":"telecom",
     "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
-    "fields":{"phoneNumber":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
   },
   {
