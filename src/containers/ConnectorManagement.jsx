@@ -285,12 +285,16 @@ export default class ConnectorManagement extends Component {
     const folder = await cozy.client.files.statById(connector.accounts[idx].folderId, false, {limit: 1})
     const folderPath = folder.attributes.path
 
-    return run(cozy.client, connector, modifiedAccount)
-    .then(() => this._updateAccount(connector, idx, values))
+    this.setState({ submitting: true })
+
+    return this._updateAccount(connector, idx, values)
+    .then(() => run(cozy.client, connector, modifiedAccount))
     .then(() => {
+      this.setState({ submitting: false })
       Notifier.info(t('account config success'))
     })
     .catch((error) => {
+      this.setState({ submitting: false })
       Notifier.error(t('account config error'))
       return Promise.reject(error)
     })
@@ -298,14 +302,11 @@ export default class ConnectorManagement extends Component {
 
   _updateAccount (connector, idx, values) {
     const { t } = this.context
-    this.setState({ submitting: true })
     return this.store.updateAccount(connector, idx, values)
       .then(fetchedConnector => {
-        this.setState({ submitting: false })
         return fetchedConnector
       })
       .catch(error => { // eslint-disable-line
-        this.setState({ submitting: false })
         Notifier.error(t('account config error'))
         return Promise.reject(error)
       })
