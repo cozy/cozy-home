@@ -38,6 +38,7 @@ class AccountConnection extends Component {
   render () {
     const { t, connector, fields } = this.props
     const { customView, description } = connector
+    const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -56,6 +57,12 @@ class AccountConnection extends Component {
                 }
                 renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
               />
+            </p>
+            <p className={styles['col-account-connection-security']}>
+              <svg>
+                <use xlinkHref={securityIcon} />
+              </svg>
+              {t('account.connection.security')}
             </p>
             <AccountLoginForm
               t={t}

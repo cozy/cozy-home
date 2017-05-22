@@ -235,6 +235,7 @@
     "connection": {
       "title": "Connect your %{name} account to your Cozy",
       "description": "To automate the collection of your information, you have to connect your %{name} account.",
+      "security": "You login and password will be stored in your Cozy. Nobody will access it!",
       "data": {
         "title": "Data collected in your Cozy"
       },
