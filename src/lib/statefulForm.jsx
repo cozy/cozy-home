@@ -9,7 +9,8 @@ export default function statefulForm (mapPropsToFormConfig) {
         this.state = {
           fields: this.configureFields(config),
           dirty: false,
-          submit: this.handleSubmit.bind(this)
+          submit: this.handleSubmit.bind(this),
+          oauth: props.onOAuth
         }
       }
 

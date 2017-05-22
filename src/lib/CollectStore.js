@@ -79,13 +79,23 @@ export default class CollectStore {
   connectAccount (konnector, account, folderPath) {
     // return object to store all business object implied in the connection
     const connection = {}
+    // detect oauth case
+    const isOAuth = !!account.oauth
 
     // 1. Create folder, will be replaced by an intent or something else
     return cozy.client.files.createDirectoryByPath(folderPath)
       // 2. Create account
       .then(folder => {
         connection.folder = folder
-        return accounts.create(cozy.client, konnector, account.auth, folder)
+        if (isOAuth) {
+          const newAttributes = {
+            folderId: folder._id,
+            status: 'PENDING'
+          }
+          return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
+        } else {
+          return accounts.create(cozy.client, konnector, account.auth, folder)
+        }
       })
       // 3. Konnector installation
       .then(account => {

@@ -8,7 +8,7 @@ const AccountManagement = (props) => {
   const { t, locale, accounts, selectedAccount, lastImport, dirty, submit, cancel } = props
   const { submitting, synching, deleting } = props
   const { synchronize, deleteAccount } = props
-  const isLoginFilled = !!props.values.login
+  const isLoginFilled = !!props.values.login || !!props.values.access_token
   return (
     <div>
       <div className='account-management'>

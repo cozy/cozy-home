@@ -6,28 +6,11 @@ import DataItem from './DataItem'
 import ReactMarkdown from 'react-markdown'
 
 class AccountConnection extends Component {
-  constructor (props, context) {
-    super(props, context)
-
-    this.state = {
-      submitting: false
-    }
-
-    this.submit = () => {
-      this.setState({
-        submitting: true
-      })
-
-      this.props.submit()
-        .catch(error => this.setState({submitting: false, error: error.message}))
-    }
-  }
-
   render () {
-    const { t, connector, fields, error } = this.props
+    const { t, connector, fields, error, submitting } = this.props
     let { dirty } = this.props
-    const { name, customView, description } = connector
-    const { submitting } = this.state
+    const { name, description } = connector
+
     // If there is no field displayed, the form is dirty by default.
     dirty = dirty || Object.values(fields).every(field => field.type === 'hidden' || field.advanced)
     return (
@@ -58,14 +41,15 @@ class AccountConnection extends Component {
           <div className={'account-form' + (error ? ' error' : '')}>
             <AccountLoginForm
               t={t}
-              customView={customView}
               fields={fields}
             />
             <div className='account-form-controls'>
               <button
-                disabled={!dirty}
+                disabled={!dirty && !connector.oauth}
                 aria-busy={submitting ? 'true' : 'false'}
-                onClick={() => this.submit()}
+                onClick={connector.oauth
+                  ? () => this.props.oauth(connector.slug)
+                  : () => this.props.submit()}
               >
                 {t('account config button')}
               </button>

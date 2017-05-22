@@ -13,39 +13,43 @@ let AUTHORIZED_DATATYPE = [
 ]
 let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
-const prepareConnectURL = (connector) => {
-  let connectUrl = connector.connectUrl
-  if (!connectUrl) {
-    return
+// customized function to center a popup window
+// source https://stackoverflow.com/a/16861050
+function PopupCenter (url, title, w, h) {
+  // Fixes dual-screen position
+  var dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : screen.left
+    //                                  Most browsers      Firefox
+  var dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : screen.top
+
+  var width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+      ? document.documentElement.clientWidth : screen.width
+  var height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+      ? document.documentElement.clientHeight : screen.height
+
+  var left = ((width / 2) - (w / 2)) + dualScreenLeft
+  var top = ((height / 2) - (h / 2)) + dualScreenTop
+  var newWindow = window.open('', title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+  newWindow.location.href = url
+
+  // Puts focus on the newWindow
+  if (window.focus) {
+    newWindow.focus()
   }
-
-  // Based on the current code borrowed from legacy konnectors, we check
-  // if the url contains a redirect_uri or redirect_url string, we assume that
-  // this string is positionned at the end of the connrectURL. In the future
-  // we should quickly use an additionnal parameter indicating if the url needs
-  // a redirect or not.
-  const hasRedirect = !!(['redirect_uri=', 'redirect_url='].find((redirect) => {
-    return connectUrl.indexOf(redirect) !== -1
-  }))
-
-  if (hasRedirect) {
-    // Use Router instead of document ? or injected location ? How ?
-    const l = document.location
-    // Use function parameter in the future
-    const accountIndex = 0
-
-    const redirectUrl = `${l.origin}${l.pathname}konnectors/` +
-      `${connector.id}/${accountIndex}/redirect`
-    connectUrl += encodeURIComponent(redirectUrl)
-  }
-
-  return connectUrl
+  return newWindow
 }
 
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    // methods binding
+    this.terminateOAuth = this.terminateOAuth.bind(this)
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
@@ -93,9 +97,17 @@ export default class ConnectorManagement extends Component {
   }
 
   render () {
-    const { slug, color, name, customView, accounts, lastImport } = this.state.connector
+    const { slug, color, name, accounts, lastImport } = this.state.connector
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
+
+    let accountValues = {}
+    // if oauth account
+    if (accounts[selectedAccount] && connector.oauth) {
+      accountValues = accounts[selectedAccount].oauth
+    } else if (accounts[selectedAccount]) {
+      accountValues = accounts[selectedAccount].auth
+    }
 
     if (isWorking) {
       return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
@@ -111,21 +123,21 @@ export default class ConnectorManagement extends Component {
           {isConnected
             ? <AccountManagement
               name={name}
-              customView={customView}
               lastImport={lastImport}
               accounts={accounts}
-              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+              values={accountValues}
               selectAccount={idx => this.selectAccount(idx)}
               addAccount={() => this.addAccount()}
               synchronize={() => this.synchronize()}
               deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
               cancel={() => this.gotoParent()}
               onSubmit={values => this.updateAccount(selectedAccount, values)}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
               {...this.state}
               {...this.context} />
             : <AccountConnection
-              connectUrl={prepareConnectURL(this.state.connector)}
               onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
               {...this.state}
               {...this.context} />
           }
@@ -144,9 +156,7 @@ export default class ConnectorManagement extends Component {
     this.setState({ selectedAccount: idx })
   }
 
-  async connectAccount ({login, password, folderPath}) {
-    const { t } = this.context
-
+  connectAccount ({login, password, folderPath}) {
     const account = {
       auth: {
         login: login,
@@ -156,6 +166,12 @@ export default class ConnectorManagement extends Component {
 
     this.setState({ submitting: true })
 
+    return this.runConnection(account, folderPath)
+      .catch(error => this.setState({submitting: false, error: error.message}))
+  }
+
+  runConnection (account, folderPath) {
+    const { t } = this.context
     return this.store.connectAccount(this.state.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
@@ -177,11 +193,60 @@ export default class ConnectorManagement extends Component {
       })
   }
 
-  connectAccountOAuth (values) {
-    return this._updateAccount(0, values)
-      .then(() => {
-        window.open(prepareConnectURL(this.state.connector), 'width=800,height=800')
+  terminateOAuth (messageEvent) {
+    const { t } = this.context
+    if (!messageEvent.data) return // data shouldn't be empty
+    // if wrong connector oauth window
+    if (messageEvent.data.origin !== `${this.props.params.connectorSlug}_oauth`) return
+    // get account id from the message event and remove the listener
+    const accountID = messageEvent.data.key
+    window.removeEventListener('message', this.terminateOAuth)
+
+    // update connector to get the new account
+    this.setState({submitting: true})
+    this.store.fetchKonnectorInfos(this.props.params.connectorSlug)
+      .then(konnector => {
+        return this.store
+          .fetchAccounts(this.props.params.connectorSlug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            const currentIdx = accounts.findIndex(a => a._id === accountID)
+            const folderPath = t('konnector default base folder', konnector)
+            return this.runConnection(
+              accounts[currentIdx],
+              folderPath
+            ).then(() => {
+              this.setState({
+                connector: konnector,
+                isConnected: konnector.accounts.length !== 0,
+                selectedAccount: currentIdx,
+                submitting: false
+              })
+            }).catch(
+              error => this.setState({submitting: false, error: error.message})
+            )
+          })
       })
+      .catch(error => {
+        this.setState({submitting: false, error: error.message})
+      })
+  }
+
+  connectAccountOAuth (accountType) {
+    const cozyUrl =
+      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
+    const newTab = PopupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    // listener for oauth window
+    const boundOAuthCb = this.terminateOAuth
+    window.addEventListener('message', boundOAuthCb)
+    // polling to monitor oauth window closing
+    ;(function monitorOAuthClosing () {
+      if (newTab.closed) {
+        window.removeEventListener('message', boundOAuthCb)
+      } else {
+        setTimeout(monitorOAuthClosing, 1000)
+      }
+    })()
   }
 
   updateAccount (idx, values) {

@@ -1,4 +1,5 @@
 import 'babel-polyfill'
+import 'url-search-params-polyfill'
 /* global cozy */
 import React from 'react'
 import { render } from 'react-dom'
