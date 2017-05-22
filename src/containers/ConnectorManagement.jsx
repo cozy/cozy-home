@@ -9,6 +9,7 @@ import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
+import { run }  from '../lib/konnectors'
 
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
@@ -275,16 +276,16 @@ export default class ConnectorManagement extends Component {
   async updateAccount (connector, idx, values) {
     const { t } = this.context
 
-    const modifiedAccount = {
+    const modifiedAccount = Object.assign({}, connector.accounts[idx], {
       auth: {
         login: values.login,
         password: values.password
       }
-    }
+    })
     const folder = await cozy.client.files.statById(connector.accounts[idx].folderId, false, {limit: 1})
     const folderPath = folder.attributes.path
 
-    return this.store.connectAccount(connector, modifiedAccount, folderPath)
+    return run(cozy.client, connector, modifiedAccount)
     .then(() => this._updateAccount(connector, idx, values))
     .then(() => {
       Notifier.info(t('account config success'))
