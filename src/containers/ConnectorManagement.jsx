@@ -291,7 +291,7 @@ export default class ConnectorManagement extends Component {
     .then(() => run(cozy.client, connector, modifiedAccount))
     .then(() => {
       this.setState({ submitting: false })
-      Notifier.info(t('account config success'))
+      Notifier.info(t('account update success'))
     })
     .catch((error) => {
       this.setState({ submitting: false })
