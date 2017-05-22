@@ -45,7 +45,7 @@ export const FieldWrapper = ({ required, label, dirty, touched, errors, children
     'coz-field--dirty': dirty === true || touched === true
   }
 
-  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key =>{
+  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key => {
     return conditionals[key]
   }))
 
@@ -157,7 +157,7 @@ export const CheckboxField = translate()((props) => {
     'coz-field--dirty': dirty === true || touched === true
   }
 
-  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key =>{
+  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key => {
     return conditionals[key]
   }))
 
