@@ -4,7 +4,7 @@ import React from 'react'
 import classNames from 'classnames'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, connector, customView, fields, error, dirty, submitting, onSubmit }) => (
+const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, onSubmit }) => (
   <div className={styles['account-form-login']}>
     {customView &&
       <div className='coz-custom-view'
@@ -35,7 +35,7 @@ const AccountLoginForm = ({ t, connector, customView, fields, error, dirty, subm
     <div className={styles['coz-form-controls']}>
       <button
         className={classNames('coz-btn', 'coz-btn--regular', styles['col-btn--regular'])}
-        disabled={!dirty && !connector.oauth}
+        disabled={(!dirty && !konnector.oauth) || submitting}
         aria-busy={submitting ? 'true' : 'false'}
         onClick={onSubmit}
       >

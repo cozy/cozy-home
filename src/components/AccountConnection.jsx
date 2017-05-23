@@ -66,6 +66,7 @@ class AccountConnection extends Component {
             </p>
             <AccountLoginForm
               t={t}
+              konnector={connector}
               customView={customView}
               fields={fields}
               dirty={dirty}
