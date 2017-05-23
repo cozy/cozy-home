@@ -62,6 +62,18 @@
   },
   {
     "accounts":[],
+    "slug":"freemobile",
+    "name":"Free Mobile",
+    "description":"konnector description free mobile",
+    "vendorLink":"https://mobile.free.fr/",
+    "category":"telecom",
+    "color":{"hex": "#CD1E25", "css": "#CD1E25"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
