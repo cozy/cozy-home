@@ -50,6 +50,18 @@
   },
   {
     "accounts":[],
+    "slug":"sosh",
+    "name":"Sosh",
+    "description":"konnector description sosh",
+    "vendorLink":"https://www.sosh.fr/",
+    "category":"telecom",
+    "color":{"hex": "#03A0AA", "css": "#03A0AA"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
