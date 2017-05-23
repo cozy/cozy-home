@@ -20,20 +20,6 @@
     "figure": "facture-fournisseur-internet-lg.jpg",
     "color": {"css": "#1FA8F1"},
     "important": true
-  },
-  {
-    "slug": "contacts",
-    "connectors": [],
-    "figure": "regroupement-contacts-lg.jpg",
-    "color": {"css": "#1FA8F1"},
-    "important": true
-  },
-  {
-    "slug": "agenda",
-    "connectors": [],
-    "figure": "regroupement-agendas-lg.jpg",
-    "color": {"css": "#1FA8F1"},
-    "important": true
   }]
 
 }
