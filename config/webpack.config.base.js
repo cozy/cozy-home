@@ -14,10 +14,11 @@ module.exports = {
     services: './src/services.jsx'
   },
   output: {
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: '/'
   },
   resolve: {
-    modules: ['node_modules', 'src'],
+    modulesDirectories: ['node_modules', 'src'],
     extensions: ['', '.js', '.json', '.css']
   },
   module: {

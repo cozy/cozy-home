@@ -30,10 +30,10 @@ class AccountConnection extends Component {
   // TODO: use a better helper
   getIcon (konnector) {
     try {
-      return require(`../assets/icons/konnectors/${konnector.slug}.svg`)
+      return require(`assets/icons/konnectors/${konnector.slug}.svg`)
     } catch (error) {
       console.warn(error.message)
-      return require('../assets/icons/konnectors/default.svg')
+      return require('assets/icons/konnectors/default.svg')
     }
   }
 
