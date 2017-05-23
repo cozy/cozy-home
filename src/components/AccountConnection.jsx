@@ -14,15 +14,15 @@ class AccountConnection extends Component {
     this.state = {
       submitting: false
     }
+  }
 
-    this.submit = () => {
-      this.setState({
-        submitting: true
-      })
+  submit () {
+    this.setState({
+      submitting: true
+    })
 
-      this.props.submit()
-        .catch(error => this.setState({submitting: false, error: error.message}))
-    }
+    this.props.submit()
+      .catch(error => this.setState({submitting: false, error: error.message}))
   }
 
   // TODO: use a better helper
@@ -68,6 +68,7 @@ class AccountConnection extends Component {
               t={t}
               customView={customView}
               fields={fields}
+              onSubmit={() => this.submit()}
             />
           </div>
           <div className={styles['col-account-connection-data']}>
