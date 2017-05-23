@@ -3,6 +3,7 @@
   "slug": "collect",
   "icon": "cozy_collect.svg",
   "description": "Configuration application for konnectors",
+  "category": "cozy",
   "source": "https://github.com/cozy/cozy-collect.git@build",
   "editor": "Cozy",
   "developer": {
