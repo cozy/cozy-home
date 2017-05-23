@@ -53,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
       injectScript: false
     }))
     piwikTracker.push(['enableHeartBeatTimer'])
-    history = piwikTracker.connectToHistory(history)
+    history = piwikTracker.connectToHistory(hashHistory)
   } catch (err) {}
 
   render((
     <Provider store={store}>
       <I18n context={context} lang={lang}>
-        <Router history={hashHistory}>
+        <Router history={history}>
           <Route
             component={(props) =>
               <App {...props}
