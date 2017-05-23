@@ -28,10 +28,10 @@ class AccountConnection extends Component {
   // TODO: use a better helper
   getIcon (konnector) {
     try {
-      return require(`../assets/icons/color/${konnector.slug}.svg`)
+      return require(`../assets/icons/konnectors/${konnector.slug}.svg`)
     } catch (error) {
       console.warn(error.message)
-      return require('../assets/icons/color/default.svg')
+      return require('../assets/icons/konnectors/default.svg')
     }
   }
 
@@ -42,9 +42,9 @@ class AccountConnection extends Component {
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
-          <svg>
-            <use xlinkHref={this.getIcon(connector)} />
-          </svg>
+          <img
+            className={styles['col-account-connection-icon']}
+            src={this.getIcon(connector)} />
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>

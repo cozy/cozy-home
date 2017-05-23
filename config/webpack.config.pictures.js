@@ -8,7 +8,7 @@ module.exports = {
     loaders: [
       {
         test: /\.svg$/,
-        include: /(sprites|icons)/,
+        include: /(sprite|icons(?!\/konnectors))/,
         loader: 'svg-sprite?' + JSON.stringify({
           name: '[name]_[hash]',
           spriteModule: path.join(__dirname, 'csp-proof-sprite')
@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         test: /\.(png|gif|jpe?g|svg)$/i,
-        exclude: /(sprites|icons)/,
+        exclude: /(sprites|icons(?!\/konnectors))/,
         loader: `file?path=img&name=[name]${production ? '.[hash]' : ''}.[ext]`
       }
     ]
