@@ -36,7 +36,7 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, fields } = this.props
+    const { t, connector, dirty, fields } = this.props
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -68,6 +68,7 @@ class AccountConnection extends Component {
               t={t}
               customView={customView}
               fields={fields}
+              dirty={dirty}
               onSubmit={() => this.submit()}
             />
           </div>
