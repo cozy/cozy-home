@@ -8,23 +8,10 @@ import DataItem from './DataItem'
 import ReactMarkdown from 'react-markdown'
 
 class AccountConnection extends Component {
-  constructor (props, context) {
-    super(props, context)
-
-    this.state = {
-      submitting: false
-    }
-  }
-
   submit () {
-    this.setState({
-      submitting: true
-    })
-
     return this.props.connector && this.props.connector.oauth
          ? this.props.onOAuth(this.props.connector.slug)
          : this.props.submit()
-          .catch(error => this.setState({submitting: false, error: error.message}))
   }
 
   // TODO: use a better helper
@@ -38,7 +25,7 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, dirty, fields } = this.props
+    const { t, connector, dirty, fields, submitting, credentialsError } = this.props
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -72,6 +59,8 @@ class AccountConnection extends Component {
               customView={customView}
               fields={fields}
               dirty={dirty}
+              submitting={submitting}
+              error={credentialsError}
               onSubmit={() => this.submit()}
             />
           </div>

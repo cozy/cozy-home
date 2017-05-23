@@ -38,10 +38,10 @@ const Field = (props) => {
 
 export default Field
 
-export const FieldWrapper = ({ required, label, dirty, touched, errors, children }) => {
+export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children }) => {
   const conditionals = {
     'coz-field--required': required === true,
-    'coz-field--error': errors.length !== 0,
+    'coz-field--error': (errors.length !== 0) || invalid,
     'coz-field--dirty': dirty === true || touched === true
   }
 

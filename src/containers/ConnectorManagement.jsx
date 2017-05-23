@@ -6,6 +6,8 @@ import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 
+import { ACCOUNT_ERRORS } from '../lib/accounts'
+
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
   'consumption', 'contact', 'contract', 'travelDate', 'event', 'bill',
@@ -161,6 +163,24 @@ export default class ConnectorManagement extends Component {
     this.setState({ selectedAccount: idx })
   }
 
+  handleError (error) {
+    const { t } = this.context
+
+    const stateUpdate = {
+      submitting: false
+    }
+
+    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
+      stateUpdate.credentialsError = error
+    } else {
+      stateUpdate.error = error
+      Notifier.error(t(`error.${error.message || error}`))
+      this.gotoParent()
+    }
+
+    this.setState(stateUpdate)
+  }
+
   connectAccount ({login, password, folderPath}) {
     const account = {
       auth: {
@@ -172,7 +192,7 @@ export default class ConnectorManagement extends Component {
     this.setState({ submitting: true })
 
     return this.runConnection(account, folderPath)
-      .catch(error => this.setState({submitting: false, error: error.message}))
+      .catch(error => this.handleError(error))
   }
 
   runConnection (account, folderPath) {
@@ -190,11 +210,6 @@ export default class ConnectorManagement extends Component {
             Notifier.info(t('account config success'))
           }
         }
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ submitting: false })
-        Notifier.error(t(`error.${error.message || error}`))
-        this.gotoParent()
       })
   }
 
