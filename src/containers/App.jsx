@@ -38,10 +38,11 @@ class App extends Component {
     if (queryParams.get('account')) {
       const opener = window.opener
       const accountKey = queryParams.get('account')
+      const targetOrigin = window.location.origin || `${window.location.protocol}//${window.location.hostname}${(window.location.port ? ':' + window.location.port : '')}`
       opener.postMessage({
         key: accountKey,
         origin: window.name
-      }, window.origin)
+      }, targetOrigin)
       window.close()
     }
     const { categories, isFetching, error } = this.state
