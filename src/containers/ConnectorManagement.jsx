@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import Modal from 'cozy-ui/React/Modal'
-import ModalContent from 'cozy-ui/React/Modal/Content'
+import Modal from 'cozy-ui/react/Modal'
+import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
