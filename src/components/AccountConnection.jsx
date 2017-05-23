@@ -21,8 +21,10 @@ class AccountConnection extends Component {
       submitting: true
     })
 
-    this.props.submit()
-      .catch(error => this.setState({submitting: false, error: error.message}))
+    return this.props.connector && this.props.connector.oauth
+         ? this.props.onOAuth(this.props.connector.slug)
+         : this.props.submit()
+          .catch(error => this.setState({submitting: false, error: error.message}))
   }
 
   // TODO: use a better helper
