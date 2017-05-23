@@ -16,13 +16,12 @@ let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
 // customized function to center a popup window
 // source https://stackoverflow.com/a/16861050
-function PopupCenter (url, title, w, h) {
+function popupCenter (url, title, w, h) {
+  /* global screen */
   // Fixes dual-screen position
-  var dualScreenLeft =
-    window.screenLeft !== undefined ? window.screenLeft : screen.left
-    //                                  Most browsers      Firefox
-  var dualScreenTop =
-    window.screenTop !== undefined ? window.screenTop : screen.top
+  //                      Most browsers      Firefox
+  var dualScreenLeft = window.screenLeft || screen.left
+  var dualScreenTop = window.screenTop || screen.top
 
   var width = window.innerWidth
     ? window.innerWidth
@@ -241,7 +240,7 @@ export default class ConnectorManagement extends Component {
   connectAccountOAuth (accountType) {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = PopupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
     // listener for oauth window
     const boundOAuthCb = this.terminateOAuth
     window.addEventListener('message', boundOAuthCb)
