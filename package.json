@@ -55,6 +55,7 @@
     "date-fns": "^1.28.4",
     "intro.js": "2.5.0",
     "node-polyglot": "2.0.0",
+    "piwik-react-router": "^0.8.2",
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0",
     "react-markdown": "^2.5.0",

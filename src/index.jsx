@@ -1,3 +1,5 @@
+/* global __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ */
+ /* global cozy Piwik */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 /* global cozy */
@@ -42,10 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const store = new CollectStore(window.initKonnectors, window.initFolders, context)
   const useCases = store.getUseCases()
 
+  let history = hashHistory
+  try {
+    var PiwikReactRouter = require('piwik-react-router')
+    const piwikTracker = (Piwik.getTracker(), PiwikReactRouter({
+      url: __PIWIK_TRACKER_URL__,
+      siteId: __PIWIK_SITEID__,
+      injectScript: false
+    }))
+    piwikTracker.push(['enableHeartBeatTimer'])
+    history = piwikTracker.connectToHistory(hashHistory)
+  } catch (err) {}
+
   render((
     <Provider store={store}>
       <I18n context={context} lang={lang}>
-        <Router history={hashHistory}>
+        <Router history={history}>
           <Route
             component={(props) =>
               <App {...props}
