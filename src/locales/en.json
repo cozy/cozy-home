@@ -1,6 +1,6 @@
 {
   "error.LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
-  "error.UNKNOWN_ERROR": "Something unexpected appened while running the connector",
+  "error.UNKNOWN_ERROR": "Something unexpected happened while running the connector",
   "error.JOB_TIMEOUT": "The connector execution was too long",
   "code": "Authorization code",
   "encrypted fields": "The passwords are still encrypted, no import can be done. Please log out of your Cozy, log in again and restart Konnectors",
