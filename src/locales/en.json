@@ -240,6 +240,11 @@
   "account delete success": "Account removed succesfully",
   "account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
   "account": {
+    "config": {
+      "account": {
+        "title": "Account"
+      }
+    },
     "connection": {
       "title": "Connect your %{name} account to your Cozy",
       "description": "To automate the collection of your information, you have to connect your %{name} account.",

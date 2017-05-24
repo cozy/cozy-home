@@ -4,6 +4,7 @@ import AccountLoginForm from './AccountLoginForm'
 
 const AccountConfigForm = ({ t, customView, fields, dirty, error, submit, submitting, connector }) => (
   <div className={'account-form' + (error ? ' error' : '')}>
+    <h4>{t('account.config.account.title')}</h4>
     <AccountLoginForm
       t={t}
       customView={customView}
