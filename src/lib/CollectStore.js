@@ -143,6 +143,16 @@ export default class CollectStore {
       .then(() => connection)
   }
 
+  /**
+   * runAccount Runs an account
+   * @param {object} connector A connector
+   * @param {object} account   the account to run, must belong to the connector
+   * @returns The run result or a resulting error
+   */
+  runAccount (connector, account) {
+    return konnectors.run(cozy.client, connector, account)
+  }
+
   fetchAccounts (accountType, index) {
     if (!index && this.accountsIndex) index = this.accountsIndex
     return accounts.getAccountsByType(cozy.client, accountType, index)
