@@ -17,6 +17,17 @@
     }
   },
   "internal error": "An error occured in your Cozy",
+  "konnector": {
+    "management": {
+      "data": {
+        "title": "Data collected in your Cozy"
+      },
+      "folder": {
+        "base": "/Administrative/%{name}"
+      },
+      "working": "Loading"
+    }
+  },
   "notification homes": "%{smart_count} home description imported |||| %{smart_count} home descriptions imported",
   "notification consumptionstatements": "%{smart_count} new consumption statement imported |||| %{smart_count} new consumption statements imported",
   "notification contracts": "%{smart_count} new contract imported |||| %{smart_count} new contracts imported",
@@ -70,7 +81,6 @@
   "error occurred during import:": "An error occurred during the last import:",
   "import server error": "Server error occured while importing.",
   "open selected folder": "Open selected folder",
-  "konnector default base folder": "/Administrative/%{name}",
   "konnector description darty": "Import all your Darty bills in your Cozy.",
   "konnector description malakoff_mederic": "Import your Malakoff Mederic reimbursements in your Cozy.",
   "konnector description meetup": "Synchronize your Meetup calendar with your Cozy. This konnector requires the Calendar application.",
@@ -237,9 +247,6 @@
       "title": "Connect your %{name} account to your Cozy",
       "description": "To automate the collection of your information, you have to connect your %{name} account.",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-      "data": {
-        "title": "Data collected in your Cozy"
-      },
       "login": {
         "password": {
           "placeholder": "The password you use to connect to the service"

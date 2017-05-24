@@ -130,7 +130,7 @@ export default class ConnectorManagement extends Component {
             /* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */
             <div className='installing'>
               <div className='installing-spinner' />
-              <div>{t('working')}</div>
+              <div>{t('konnector.management.working')}</div>
             </div>
           }
           { !isWorking &&
@@ -161,14 +161,14 @@ export default class ConnectorManagement extends Component {
                   }
                   { !isConnected &&
                     <AccountConnection
-                      onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+                      onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector.management.folder.base', connector)}))}
                       onOAuth={accountType => this.connectAccountOAuth(accountType)}
                       {...this.state}
                       {...this.context} />
                   }
                 </div>
                 <div className={styles['col-konnector-management-data']}>
-                  <h4>{t('account.connection.data.title')}</h4>
+                  <h4>{t('konnector.management.data.title')}</h4>
                   {connector.dataType &&
                     <ul className={styles['col-konnector-management-data-access']}>
                       {connector.dataType.map(data =>
