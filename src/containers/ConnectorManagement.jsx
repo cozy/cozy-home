@@ -110,48 +110,43 @@ export default class ConnectorManagement extends Component {
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    if (isWorking) {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
+    return (
+      <Modal secondaryAction={() => this.closeModal()}>
+        <ModalContent>
+          { isWorking &&
+            /* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */
             <div className='installing'>
               <div className='installing-spinner' />
               <div>{t('working')}</div>
             </div>
-          </ModalContent>
-        </Modal>
-      )
-    } else {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            {isConnected
-              ? <AccountManagement
-                name={name}
-                customView={customView}
-                lastImport={lastImport}
-                accounts={accounts}
-                values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
-                selectAccount={idx => this.selectAccount(idx)}
-                addAccount={() => this.addAccount()}
-                synchronize={() => this.synchronize()}
-                deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-                cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
-                {...this.state}
-                {...this.context} />
-              : <AccountConnection
-                onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
-                {...this.state}
-                {...this.context} />
-            }
-          </ModalContent>
-        </Modal>
-      )
-    }
+          }
+          { !isWorking && isConnected &&
+            <AccountManagement
+              name={name}
+              customView={customView}
+              lastImport={lastImport}
+              accounts={accounts}
+              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+              selectAccount={idx => this.selectAccount(idx)}
+              addAccount={() => this.addAccount()}
+              synchronize={() => this.synchronize()}
+              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
+              cancel={() => this.gotoParent()}
+              onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
+              {...this.state}
+              {...this.context} />
+          }
+          { !isWorking && !isConnected &&
+            <AccountConnection
+              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
+              {...this.state}
+              {...this.context} />
+          }
+        </ModalContent>
+      </Modal>
+    )
   }
 
   gotoParent () {
