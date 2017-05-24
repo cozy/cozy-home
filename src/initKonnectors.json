@@ -37,6 +37,18 @@
   },
   {
     "accounts":[],
+    "slug":"orange",
+    "name":"Orange",
+    "description":"konnector description orange",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"telecom",
+    "color":{"hex":"#FF6122","css":"#FF6122"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
+  },
+  {
+    "accounts":[],
     "oauth": true,
     "slug":"orangevod",
     "name":"Orange VOD",
