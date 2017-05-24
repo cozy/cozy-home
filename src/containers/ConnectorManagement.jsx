@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
@@ -9,8 +7,6 @@ import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
-
-import { run } from '../lib/konnectors'
 
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
@@ -309,7 +305,7 @@ export default class ConnectorManagement extends Component {
     this.setState({ submitting: true })
 
     return this._updateAccount(connector, account, values)
-    .then(() => run(cozy.client, connector, account))
+    .then(() => this.store.runAccount(connector, account))
     .then(() => {
       this.setState({ submitting: false })
       Notifier.info(t('account update success'))
