@@ -5,28 +5,14 @@ import statefulForm from '../lib/statefulForm'
 import AccountConfigForm from './AccountConfigForm'
 
 const AccountManagement = (props) => {
-  const { t, locale, accounts, selectedAccount, lastImport, dirty, submit, cancel } = props
-  const { submitting, synching, deleting } = props
-  const { synchronize, deleteAccount } = props
+  const { t, accounts, selectedAccount, dirty, submit, cancel } = props
+  const { submitting, deleting } = props
+  const { deleteAccount } = props
   const isLoginFilled = !!props.values.login || !!props.values.access_token
   return (
     <div>
       <div className='account-management'>
-        <div className='account-list'>&nbsp;</div>
         <div className='account-config'>
-          <div>
-            <h3>{t('activity')}</h3>
-            <p>
-              {t('activity desc')}
-              {synching
-                ? t('activity running')
-                : lastImport && <TimeAgo datetime={lastImport} locale={locale} />
-              }
-            </p>
-            <button className='flat' disabled={synching} onClick={() => synchronize()}>
-              {t('activity button')}
-            </button>
-          </div>
           <AccountConfigForm {...props} />
           {isLoginFilled
           ? <div>
