@@ -124,7 +124,6 @@ export default class ConnectorManagement extends Component {
       )
     } else {
       return (
-<<<<<<< e4245d19cca335e47e25febbf365d4b9a5a73fab
         <Modal secondaryAction={() => this.closeModal()}>
           <ModalContent>
             {isConnected
@@ -139,7 +138,7 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(connector, selectedAccount, values)}
+                onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
@@ -151,31 +150,6 @@ export default class ConnectorManagement extends Component {
             }
           </ModalContent>
         </Modal>
-=======
-        <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
-          {isConnected
-            ? <AccountManagement
-              name={name}
-              lastImport={lastImport}
-              accounts={accounts}
-              values={accountValues}
-              selectAccount={idx => this.selectAccount(idx)}
-              addAccount={() => this.addAccount()}
-              synchronize={() => this.synchronize()}
-              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-              cancel={() => this.gotoParent()}
-              onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-            : <AccountConnection
-              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-          }
-        </ConnectorDialog>
->>>>>>> fix: push the account instead of its index in the accounts array
       )
     }
   }
