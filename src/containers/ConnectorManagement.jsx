@@ -62,6 +62,7 @@ export default class ConnectorManagement extends Component {
       })
     )
     const { name, fields } = connector
+
     this.state = {
       connector: this.sanitize(connector),
       isConnected: connector.accounts.length !== 0,
@@ -137,7 +138,7 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(selectedAccount, values)}
+                onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
@@ -269,25 +270,34 @@ export default class ConnectorManagement extends Component {
     })()
   }
 
-  updateAccount (idx, values) {
+  async updateAccount (connector, account, values) {
     const { t } = this.context
-    this._updateAccount(idx, values)
-      .then(() => {
-        Notifier.info(t('account config success'))
-      })
+
+    account.auth.login = values.login
+    account.auth.password = values.password
+
+    this.setState({ submitting: true })
+
+    return this._updateAccount(connector, account, values)
+    .then(() => this.store.runAccount(connector, account))
+    .then(() => {
+      this.setState({ submitting: false })
+      Notifier.info(t('account update success'))
+    })
+    .catch((error) => {
+      this.setState({ submitting: false })
+      Notifier.error(t('account config error'))
+      return Promise.reject(error)
+    })
   }
 
-  _updateAccount (idx, values) {
-    const id = this.state.connector.id
+  _updateAccount (connector, account, values) {
     const { t } = this.context
-    this.setState({ submitting: true })
-    return this.store.updateAccount(id, idx, values)
+    return this.store.updateAccount(connector, account, values)
       .then(fetchedConnector => {
-        this.setState({ submitting: false })
         return fetchedConnector
       })
       .catch(error => { // eslint-disable-line
-        this.setState({ submitting: false })
         Notifier.error(t('account config error'))
         return Promise.reject(error)
       })

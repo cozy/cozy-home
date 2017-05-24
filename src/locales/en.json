@@ -201,6 +201,7 @@
   "account config success": "Account added successfully",
   "account config error": "Apologies, our server had an hiccup, do you mind starting again?",
   "account config details": "Find your datas in the Files app at this location: ",
+  "account update success": "Account updated successfully",
   "account index": "Account #%{index}",
   "add_account button": "Add account",
   "activity": "Activity",
