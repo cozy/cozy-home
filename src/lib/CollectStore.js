@@ -151,27 +151,44 @@ export default class CollectStore {
   /**
    * updateAccount : updates an account in a connector in DB with new values
    * @param {Object} connector The connector to update
-   * @param {integer} accountIdx The Index of the account to update in the accounts array of the connector
-   * @param {Object} values The new values of the updated account
+   * @param {Object} account   The account to update
+   * @param {Object} values    The new values of the updated account
    * @returns {Object} The up to date connector
    */
-  updateAccount (connector, accountIdx, values) {
+  updateAccount (connector, account, values) {
     // Save the previous state
-    const previousConnector = Object.assign({}, connector)
+    const previousAccount = Object.assign({}, account)
 
     // Update account data
-    connector.accounts[accountIdx].auth.login = values.login
-    connector.accounts[accountIdx].auth.password = values.password
+    account.auth.login = values.login
+    account.auth.password = values.password
 
-    return accounts.update(cozy.client, previousConnector.accounts[accountIdx], connector.accounts[accountIdx])
+    return accounts.update(cozy.client, previousAccount, account)
     .then(updatedAccount => {
-      connector.accounts[accountIdx] = updatedAccount
+      const accountIndex = this.findAccountIndexById(connector.accounts, account._id)
+      // Updates the _rev value of the account in the connector
+      connector.accounts[accountIndex] = updatedAccount
       this.updateConnector(connector)
     })
-    .catch(() => {
-      // Restore previous values in case of error
-      connector.accounts[accountIdx].auth = previousConnector.accounts[accountIdx].auth
+    .catch((error) => {
+      return Promise.reject(error)
     })
+  }
+
+  /**
+   * findAccountIndexById : returns the account index in an array of accounts, based on its id.
+   * @param {array}    accounts Array of accounts
+   * @param {string}   id       Id of the account we look for
+   * @return {integer} The position of the account with the looked for id in the array
+   */
+  findAccountIndexById (accounts, id) {
+    let foundIndex = -1
+    accounts.forEach((account, index) => {
+      if (account._id === id) {
+        foundIndex = index
+      }
+    })
+    return foundIndex
   }
 
   synchronize (connectorId) {
