@@ -15,19 +15,29 @@ const AccountManagement = (props) => {
     <div>
       <AccountConfigForm {...props} />
       { isLoginFilled &&
-        <div>
-          <h3>{t('disconnect')}</h3>
+        <div className={styles['account-management-disconnect']}>
+          <h4>{t('account.management.disconnect.title')}</h4>
           <p>
-            {t('disconnect desc')}
+            {t('account.management.disconnect.description')}
           </p>
-          <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
-            {t('disconnect button')}
-          </button>
+          <div className={styles['account-management-controls']}>
+            <button
+              className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+              disabled={deleting}
+              onClick={() => deleteAccount(accounts[selectedAccount])}
+            >
+              {t('account.management.disconnect.button')}
+            </button>
+          </div>
         </div>
       }
       { !isLoginFilled &&
-        <div>
-          <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
+        <div className={styles['account-management-controls']}>
+          <button
+            className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+            disabled={deleting}
+            onClick={() => deleteAccount(accounts[selectedAccount])}
+          >
             {t('delete button')}
           </button>
         </div>

@@ -236,9 +236,6 @@
       "title": "Account"
     }
   },
-  "disconnect": "Disconnection",
-  "disconnect desc": "Your will be disconnected from this account, but imported data will be kept",
-  "disconnect button": "Disconnect this account",
   "delete button": "Delete this account",
   "account delete success": "Account removed succesfully",
   "account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
@@ -255,6 +252,13 @@
         "error": {
           "bad_credentials": "Sorry, you entered an incorrect login or password"
         }
+      }
+    },
+    "management": {
+      "disconnect": {
+        "title": "Disconnection",
+        "description": "Your will be disconnected from this account, but imported data will be kept.",
+        "button": "Disconnect this account"
       }
     }
   },
