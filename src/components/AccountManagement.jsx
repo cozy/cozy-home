@@ -1,5 +1,4 @@
 import React from 'react'
-import TimeAgo from 'timeago-react'
 import statefulForm from '../lib/statefulForm'
 
 import AccountConfigForm from './AccountConfigForm'
