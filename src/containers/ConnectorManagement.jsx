@@ -1,9 +1,12 @@
+import styles from '../styles/konnectorManagement'
+
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
+import DataItem from '../components/DataItem'
 import Notifier from '../components/Notifier'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -44,6 +47,16 @@ function popupCenter (url, title, w, h) {
     newWindow.focus()
   }
   return newWindow
+}
+
+// TODO: use a better helper
+const getIcon = (konnector) => {
+  try {
+    return require(`assets/icons/konnectors/${konnector.slug}.svg`)
+  } catch (error) {
+    console.warn(error.message)
+    return require('assets/icons/konnectors/default.svg')
+  }
 }
 
 export default class ConnectorManagement extends Component {
@@ -120,29 +133,56 @@ export default class ConnectorManagement extends Component {
               <div>{t('working')}</div>
             </div>
           }
-          { !isWorking && isConnected &&
-            <AccountManagement
-              name={name}
-              customView={customView}
-              lastImport={lastImport}
-              accounts={accounts}
-              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
-              selectAccount={idx => this.selectAccount(idx)}
-              addAccount={() => this.addAccount()}
-              synchronize={() => this.synchronize()}
-              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-              cancel={() => this.gotoParent()}
-              onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-          }
-          { !isWorking && !isConnected &&
-            <AccountConnection
-              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
+          { !isWorking &&
+            <div className={styles['col-konnector-management']}>
+              <div className={styles['col-konnector-management-header']}>
+                <img
+                  className={styles['col-konnector-management-icon']}
+                  src={getIcon(connector)} />
+              </div>
+              <div className={styles['col-konnector-management-content']}>
+                <div className={styles['col-konnector-management-form']}>
+                  { isConnected &&
+                    <AccountManagement
+                      name={name}
+                      customView={customView}
+                      lastImport={lastImport}
+                      accounts={accounts}
+                      values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+                      selectAccount={idx => this.selectAccount(idx)}
+                      addAccount={() => this.addAccount()}
+                      synchronize={() => this.synchronize()}
+                      deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
+                      cancel={() => this.gotoParent()}
+                      onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
+                      onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                      {...this.state}
+                      {...this.context} />
+                  }
+                  { !isConnected &&
+                    <AccountConnection
+                      onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+                      onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                      {...this.state}
+                      {...this.context} />
+                  }
+                </div>
+                <div className={styles['col-konnector-management-data']}>
+                  <h4>{t('account.connection.data.title')}</h4>
+                  {connector.dataType &&
+                    <ul className={styles['col-konnector-management-data-access']}>
+                      {connector.dataType.map(data =>
+                        <DataItem
+                          dataType={data}
+                          hex={connector.color.hex}
+                        />
+                      )}
+                    </ul>}
+                  {!connector.dataType &&
+                    <p>{t('dataType.none', {name: connector.name})}</p>}
+                </div>
+              </div>
+            </div>
           }
         </ModalContent>
       </Modal>
