@@ -5,6 +5,10 @@
       "slug": "sfrmobile"
     }, {
       "slug": "bouyguestelecom"
+    }, {
+      "slug": "sosh"
+    }, {
+      "slug": "freemobile"
     }],
     "figure": "facture-telephonique-lg.jpg",
     "color": {"css": "#1FA8F1"},
