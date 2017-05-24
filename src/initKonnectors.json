@@ -13,6 +13,18 @@
   },
   {
     "accounts":[],
+    "slug":"free",
+    "name":"Free",
+    "description":"konnector description free",
+    "vendorLink":"https://www.free.fr/",
+    "category":"isp",
+    "color":{"hex":"#CD1E25","css":"#CD1E25"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-free.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"bouyguestelecom",
     "name":"Bouygues Telecom",
     "description":"konnector description bouygues",
