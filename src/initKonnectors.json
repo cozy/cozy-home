@@ -13,6 +13,18 @@
   },
   {
     "accounts":[],
+    "slug":"numericable",
+    "name":"Numéricable",
+    "description":"konnector description numericable",
+    "vendorLink":"https://www.numericable.fr/",
+    "category":"isp",
+    "color":{"hex":"#53BB0F","css":"#53BB0F"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"free",
     "name":"Free",
     "description":"konnector description free",
