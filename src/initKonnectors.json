@@ -62,6 +62,18 @@
   },
   {
     "accounts":[],
+    "slug":"virginmobile",
+    "name":"Free Mobile",
+    "description":"konnector description virgin_mobile",
+    "vendorLink":"https://www.virginmobile.fr/",
+    "category":"telecom",
+    "color":{"hex": "#D72938", "css": "#D72938"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-virgin-mobile.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"freemobile",
     "name":"Free Mobile",
     "description":"konnector description free mobile",
