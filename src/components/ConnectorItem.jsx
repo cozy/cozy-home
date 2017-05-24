@@ -6,9 +6,7 @@ const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundC
   <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
     <header className='item-header' style={{background: backgroundCSS}}>
       {iconName &&
-        <svg className='item-icon'>
-          <use xlinkHref={icon(iconName, enableDefaultIcon)} />
-        </svg>
+        <img className='item-icon' src={icon(iconName, enableDefaultIcon)} />
       }
     </header>
     <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
@@ -26,10 +24,10 @@ const ConnectorItem = ({ title, subtitle, connected, slug, iconName, backgroundC
 const icon = (iconName, enableDefaultIcon) => {
   let icon = ''
   try {
-    icon = require(`../assets/icons/color/${iconName}.svg`)
+    icon = require(`../assets/icons/konnectors/${iconName}.svg`)
   } catch (e) {
     if (enableDefaultIcon) {
-      icon = require('../assets/icons/color/default.svg')
+      icon = require('../assets/icons/konnectors/default.svg')
     }
   }
   return icon

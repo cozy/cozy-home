@@ -1,12 +1,14 @@
+import styles from '../styles/dataItem'
+
 import React from 'react'
 import { translate } from '../plugins/i18n'
 
 const DataItem = ({ t, dataType, hex }) => (
-  <li className='account-data'>
-    <svg className='account-dataIcon' style={{color: hex}}>
+  <li className={styles['col-data-item']}>
+    <svg className={styles['col-data-item-icon']} style={{color: hex}}>
       <use xlinkHref={require('../assets/sprites/icon-' + dataType + '.svg')} />
     </svg>
-    {t('dataType ' + dataType)}
+    {t(`dataType.${dataType}`)}
   </li>
 )
 

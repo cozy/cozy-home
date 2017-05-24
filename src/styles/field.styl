@@ -1,0 +1,68 @@
+@import cozy-ui
+
+text-button-color = #297ef1
+
+:local // @stylint ignore
+    .coz-field
+        position relative
+        margin   1em 0 .5em
+
+        // Managing input width with flex
+        display         flex
+        flex-direction  row
+        flex-wrap       wrap
+
+        label,
+        .password-visibility
+            display        block
+            text-transform uppercase
+            color          grey-05
+            font-size      .9em
+            padding        .55em 0
+            flex           1 0 auto
+
+        .password-visibility
+            width       auto
+            flex-grow   0
+            border      0
+            background  transparent
+            text-align  right
+            white-space nowrap
+            cursor      pointer
+            color       text-button-color
+            font-weight bold
+
+        .error-label
+            display none
+            color   pomegranate
+
+        input[type=text]
+        input[type=password]
+        select
+            display       inline-block
+            padding       .75em .75em .9em
+            border-radius 2px
+            box-sizing    border-box
+            background-color transparent
+            border        1px solid grey-03
+            color         black
+            flex          0 1 100%
+            &::placeholder
+                color     grey-05
+                font-size 1.05em
+            &:focus
+                border     1px solid dodger-blue
+            &:hover
+                border 1px solid grey-06
+            &.error
+                border     1px solid pomegranate
+
+        select
+            -moz-appearance     none
+            -webkit-appearance  none
+            appearance          none
+            background-image    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px'><polyline points='14.764,4.966 8.053,11.677 1.342,4.966'/></svg>")
+            background-position right 8px center
+            background-repeat   no-repeat
+            &::-ms-expand
+                display none

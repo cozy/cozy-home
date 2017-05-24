@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import ConnectorDialog from '../components/ConnectorDialog'
+import Modal from 'cozy-ui/react/Modal'
+import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from '../components/AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
@@ -15,13 +16,12 @@ let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
 // customized function to center a popup window
 // source https://stackoverflow.com/a/16861050
-function PopupCenter (url, title, w, h) {
+function popupCenter (url, title, w, h) {
+  /* global screen */
   // Fixes dual-screen position
-  var dualScreenLeft =
-    window.screenLeft !== undefined ? window.screenLeft : screen.left
-    //                                  Most browsers      Firefox
-  var dualScreenTop =
-    window.screenTop !== undefined ? window.screenTop : screen.top
+  //                      Most browsers      Firefox
+  var dualScreenLeft = window.screenLeft || screen.left
+  var dualScreenTop = window.screenTop || screen.top
 
   var width = window.innerWidth
     ? window.innerWidth
@@ -96,52 +96,57 @@ export default class ConnectorManagement extends Component {
     return connector.state != null && connector.state === 'ready'
   }
 
+  closeModal () {
+    const { router } = this.context
+    const url = router.location.pathname
+    router.push(url.substring(0, url.lastIndexOf('/')))
+  }
+
   render () {
-    const { slug, color, name, accounts, lastImport } = this.state.connector
+    const { name, accounts, customView, lastImport } = this.state.connector
     const { connector, isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    let accountValues = {}
-    // if oauth account
-    if (accounts[selectedAccount] && connector.oauth) {
-      accountValues = accounts[selectedAccount].oauth
-    } else if (accounts[selectedAccount]) {
-      accountValues = accounts[selectedAccount].auth
-    }
-
     if (isWorking) {
-      return <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
-        {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
-        <div className='installing'>
-          <div className='installing-spinner' />
-          <div>{t('working')}</div>
-        </div>
-      </ConnectorDialog>
+      return (
+        <Modal secondaryAction={() => this.closeModal()}>
+          <ModalContent>
+            {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
+            <div className='installing'>
+              <div className='installing-spinner' />
+              <div>{t('working')}</div>
+            </div>
+          </ModalContent>
+        </Modal>
+      )
     } else {
       return (
-        <ConnectorDialog slug={slug} color={color ? color.css : ''} enableDefaultIcon>
-          {isConnected
-            ? <AccountManagement
-              name={name}
-              lastImport={lastImport}
-              accounts={accounts}
-              values={accountValues}
-              selectAccount={idx => this.selectAccount(idx)}
-              addAccount={() => this.addAccount()}
-              synchronize={() => this.synchronize()}
-              deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-              cancel={() => this.gotoParent()}
-              onSubmit={values => this.updateAccount(selectedAccount, values)}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-            : <AccountConnection
-              onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-              onOAuth={accountType => this.connectAccountOAuth(accountType)}
-              {...this.state}
-              {...this.context} />
-          }
-        </ConnectorDialog>
+        <Modal secondaryAction={() => this.closeModal()}>
+          <ModalContent>
+            {isConnected
+              ? <AccountManagement
+                name={name}
+                customView={customView}
+                lastImport={lastImport}
+                accounts={accounts}
+                values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+                selectAccount={idx => this.selectAccount(idx)}
+                addAccount={() => this.addAccount()}
+                synchronize={() => this.synchronize()}
+                deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
+                cancel={() => this.gotoParent()}
+                onSubmit={values => this.updateAccount(selectedAccount, values)}
+                onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                {...this.state}
+                {...this.context} />
+              : <AccountConnection
+                onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+                onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                {...this.state}
+                {...this.context} />
+            }
+          </ModalContent>
+        </Modal>
       )
     }
   }
@@ -235,7 +240,7 @@ export default class ConnectorManagement extends Component {
   connectAccountOAuth (accountType) {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = PopupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
     // listener for oauth window
     const boundOAuthCb = this.terminateOAuth
     window.addEventListener('message', boundOAuthCb)
