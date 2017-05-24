@@ -19,6 +19,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
           return <PasswordField
             label={t(name)}
             placeholder={t('account.connection.login.password.placeholder')}
+            invalid={!!error}
             {...fields[name]} />
         }
         if (fields[name].type === 'dropdown') {
@@ -29,7 +30,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
           return <CheckboxField label={t(name)} {...fields[name]} />
         }
 
-        return <Field label={t(name)} {...fields[name]} />
+        return <Field label={t(name)} invalid={!!error} {...fields[name]} />
       }
     )}
     <div className={styles['coz-form-controls']}>
@@ -41,7 +42,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
       >
         {t('account.connection.login.submit')}
       </button>
-      {error === 'bad credentials' &&
+      {error &&
         <p className='errors'>{t('account.connection.login.error.bad_credentials')}</p>
       }
     </div>

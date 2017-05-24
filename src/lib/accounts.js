@@ -2,6 +2,10 @@
 
 const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
+export const ACCOUNT_ERRORS = {
+  LOGIN_FAILED: 'LOGIN_FAILED'
+}
+
 export function create (cozy, konnector, auth, folder, name = '') {
   return cozy.data.create(ACCOUNTS_DOCTYPE, {
     name: name,
