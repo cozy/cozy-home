@@ -9,7 +9,7 @@ import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
-import { run }  from '../lib/konnectors'
+import { run } from '../lib/konnectors'
 
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
@@ -141,7 +141,7 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(selectedAccount, values)}
+                onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
@@ -273,22 +273,16 @@ export default class ConnectorManagement extends Component {
     })()
   }
 
-  async updateAccount (connector, idx, values) {
+  async updateAccount (connector, account, values) {
     const { t } = this.context
 
-    const modifiedAccount = Object.assign({}, connector.accounts[idx], {
-      auth: {
-        login: values.login,
-        password: values.password
-      }
-    })
-    const folder = await cozy.client.files.statById(connector.accounts[idx].folderId, false, {limit: 1})
-    const folderPath = folder.attributes.path
+    account.auth.login = values.login
+    account.auth.password = values.password
 
     this.setState({ submitting: true })
 
-    return this._updateAccount(connector, idx, values)
-    .then(() => run(cozy.client, connector, modifiedAccount))
+    return this._updateAccount(connector, account, values)
+    .then(() => run(cozy.client, connector, account))
     .then(() => {
       this.setState({ submitting: false })
       Notifier.info(t('account update success'))
@@ -300,9 +294,9 @@ export default class ConnectorManagement extends Component {
     })
   }
 
-  _updateAccount (connector, idx, values) {
+  _updateAccount (connector, account, values) {
     const { t } = this.context
-    return this.store.updateAccount(connector, idx, values)
+    return this.store.updateAccount(connector, account, values)
       .then(fetchedConnector => {
         return fetchedConnector
       })
