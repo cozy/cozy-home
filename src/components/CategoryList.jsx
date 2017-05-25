@@ -5,7 +5,7 @@ import ConnectorList from './ConnectorList'
 const CategoryList = ({ t, category, connectors, children }) => (
   <div className='content'>
     <h1>{category === 'all' ? t('category title') : t(`${category} category`)}</h1>
-    <ConnectorList connectors={connectors} />
+    <ConnectorList connectors={connectors} showVoting />
     {children}
   </div>
 )

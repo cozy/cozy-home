@@ -252,6 +252,7 @@
     }
   },
   "working": "Loading",
+  "voting text": "You don't find the connector you were looking for? Please tell us!",
 
   "dataType": {
     "none": "%{name} won't access any data in your Cozy",
