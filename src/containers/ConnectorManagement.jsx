@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
-import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 
 let AUTHORIZED_DATATYPE = [
@@ -72,7 +71,7 @@ export default class ConnectorManagement extends Component {
   }
 
   render () {
-    const { name, accounts, customView, lastImport } = this.state.connector
+    const { accounts } = this.state.connector
     const { isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
@@ -92,27 +91,13 @@ export default class ConnectorManagement extends Component {
       return (
         <Modal secondaryAction={() => this.closeModal()}>
           <ModalContent>
-            {isConnected
-              ? <AccountManagement
-                name={name}
-                customView={customView}
-                lastImport={lastImport}
-                accounts={accounts}
-                values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
-                selectAccount={idx => this.selectAccount(idx)}
-                addAccount={() => this.addAccount()}
-                synchronize={() => this.synchronize()}
-                deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-                cancel={() => this.gotoParent()}
-                {...this.state}
-                {...this.context} />
-              : <AccountConnection
-                connector={this.state.connector}
-                onError={(error) => this.handleError(error)}
-                onSuccess={(account) => this.handleSuccess(account)}
-                {...this.state}
-                {...this.context} />
-            }
+            <AccountConnection
+              account={isConnected ? accounts[selectedAccount] : null}
+              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
+              onError={(error) => this.handleError(error)}
+              onSuccess={(account) => this.handleSuccess(account)}
+              {...this.state}
+              {...this.context} />
           </ModalContent>
         </Modal>
       )
