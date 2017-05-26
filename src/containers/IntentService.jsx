@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Loading from '../components/Loading'
 import ServiceBar from '../components/services/ServiceBar'
 import CreateAccountService from '../components/services/CreateAccountService'
+import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 export default class IntentService extends Component {
   constructor (props, context) {
@@ -10,6 +11,7 @@ export default class IntentService extends Component {
     this.store = context.store
 
     const {window} = props
+    this.terminateOAuth = this.terminateOAuth.bind(this)
 
     this.state = {
       isFetching: true
@@ -74,6 +76,64 @@ export default class IntentService extends Component {
       })
   }
 
+  connectAccountOAuth (accountType) {
+    const cozyUrl =
+      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    waitForClosedPopup(newTab, `${accountType}_oauth`)
+    .then(accountID => {
+      this.terminateOAuth(accountID)
+    })
+    .catch(error => {
+      this.setState({submitting: false, error: error.message})
+    })
+  }
+
+  terminateOAuth (accountID) {
+    const { t } = this.context
+    const { service } = this.state
+    const data = service.getData()
+
+    // update connector to get the new account
+    this.setState({submitting: true})
+    this.store.fetchKonnectorInfos(data.slug)
+      .then(konnector => {
+        return this.store
+          .fetchAccounts(data.slug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            const currentIdx = accounts.findIndex(a => a._id === accountID)
+            const folderPath = t('konnector default base folder', konnector)
+            this.setState({connector: konnector})
+            return this.runConnection(accounts[currentIdx], folderPath).then(() => {
+              this.setState({
+                connector: konnector,
+                isConnected: konnector.accounts.length !== 0,
+                selectedAccount: currentIdx,
+                submitting: false
+              })
+            }).catch(error => {
+              return this.setState({submitting: false, error: error.message})
+            })
+          })
+      })
+      .catch(error => {
+        this.setState({submitting: false, error: error.message})
+      })
+  }
+
+  runConnection (account, folderPath) {
+    return this.store.connectAccount(this.state.connector, account, folderPath)
+      .then(connection => {
+        this.setState({ submitting: false })
+        if (connection.error) {
+          this.setState({ error: connection.error.message })
+        } else {
+          this.terminate(account)
+        }
+      })
+  }
+
   terminate (account) {
     const { service } = this.state
     service.terminate(account)
@@ -114,6 +174,7 @@ export default class IntentService extends Component {
               konnector={konnector}
               onCancel={() => this.cancel()}
               onSubmit={auth => this.createAccount(auth, t('konnector default base folder'))}
+              onOAuth={accountType => this.connectAccountOAuth(accountType)}
               {...this.context}
               />
           </div>}
