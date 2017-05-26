@@ -17,12 +17,14 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly } = props
     inputs = (
       <input
         type={type}
         placeholder={placeholder}
         className={styles['coz-field-input']}
+        readonly={readOnly}
+        disabled={disabled || readOnly}
         value={value}
         onChange={onChange}
         onInput={onInput}
