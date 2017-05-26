@@ -132,7 +132,7 @@ export default class CollectStore {
               arguments: '0 0 0 * * *',
               worker: 'konnector',
               worker_arguments: {
-                konnector: connection.konnector._id,
+                konnector: connection.konnector.attributes.slug,
                 account: connection.account._id,
                 folderToSave: connection.folder._id
               }
