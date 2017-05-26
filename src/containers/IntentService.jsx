@@ -106,6 +106,7 @@ export default class IntentService extends Component {
             <CreateAccountService
               konnector={konnector}
               onCancel={() => this.cancel()}
+              onSuccess={account => this.terminate(account)}
               onError={error => this.handleError(error)}
               {...this.context}
               />

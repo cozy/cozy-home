@@ -83,12 +83,12 @@ class AccountConnection extends Component {
         if (connection.error) {
           this.setState({ error: connection.error.message })
         } else {
-          this.gotoParent()
           if (folderPath) {
             Notifier.info(t('account config success'), t('account config details') + folderPath)
           } else {
             Notifier.info(t('account config success'))
           }
+          this.props.onSuccess(account)
         }
       })
   }

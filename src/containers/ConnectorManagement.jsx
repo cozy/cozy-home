@@ -109,6 +109,7 @@ export default class ConnectorManagement extends Component {
               : <AccountConnection
                 connector={this.state.connector}
                 onError={(error) => this.handleError(error)}
+                onSuccess={(account) => this.handleSuccess(account)}
                 {...this.state}
                 {...this.context} />
             }
@@ -116,6 +117,10 @@ export default class ConnectorManagement extends Component {
         </Modal>
       )
     }
+  }
+
+  handleSuccess (account) {
+    this.goToParent()
   }
 
   handleError (error) {
