@@ -1,57 +1,57 @@
+import styles from '../styles/accountManagement'
+
 import React from 'react'
-import TimeAgo from 'timeago-react'
 import statefulForm from '../lib/statefulForm'
+import classNames from 'classnames'
 
 import AccountConfigForm from './AccountConfigForm'
 
 const AccountManagement = (props) => {
-  const { t, locale, accounts, selectedAccount, lastImport, dirty, submit, cancel } = props
-  const { submitting, synching, deleting } = props
-  const { synchronize, deleteAccount } = props
+  const { t, accounts, selectedAccount, dirty, submit, cancel } = props
+  const { submitting, deleting } = props
+  const { deleteAccount } = props
   const isLoginFilled = !!props.values.login || !!props.values.access_token
   return (
     <div>
-      <div className='account-management'>
-        <div className='account-list'>&nbsp;</div>
-        <div className='account-config'>
-          <div>
-            <h3>{t('activity')}</h3>
-            <p>
-              {t('activity desc')}
-              {synching
-                ? t('activity running')
-                : lastImport && <TimeAgo datetime={lastImport} locale={locale} />
-              }
-            </p>
-            <button className='flat' disabled={synching} onClick={() => synchronize()}>
-              {t('activity button')}
+      <AccountConfigForm {...props} />
+      { isLoginFilled &&
+        <div className={styles['account-management-disconnect']}>
+          <h4>{t('account.management.disconnect.title')}</h4>
+          <p>
+            {t('account.management.disconnect.description')}
+          </p>
+          <div className={styles['account-management-controls']}>
+            <button
+              className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+              disabled={deleting}
+              onClick={() => deleteAccount(accounts[selectedAccount])}
+            >
+              {t('account.management.disconnect.button')}
             </button>
           </div>
-          <AccountConfigForm {...props} />
-          {isLoginFilled
-          ? <div>
-            <h3>{t('disconnect')}</h3>
-            <p>
-              {t('disconnect desc')}
-            </p>
-            <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
-              {t('disconnect button')}
-            </button>
-          </div>
-          : <div>
-            <button className='danger' disabled={deleting} onClick={() => deleteAccount(accounts[selectedAccount])}>
-              {t('delete button')}
-            </button>
-          </div>}
-
         </div>
-      </div>
-      <div className='account-management-controls'>
-        <button className='cancel' onClick={cancel}>
+      }
+      { !isLoginFilled &&
+        <div className={styles['account-management-controls']}>
+          <button
+            className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+            disabled={deleting}
+            onClick={() => deleteAccount(accounts[selectedAccount])}
+          >
+            {t('delete button')}
+          </button>
+        </div>
+      }
+      <div className={styles['account-management-controls']}>
+        <button
+          className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+          onClick={cancel}
+        >
           {t('account cancel button')}
         </button>
         <button
-          disabled={!dirty}
+          className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+          disabled={!dirty || submitting}
           aria-busy={submitting ? 'true' : 'false'}
           onClick={submit}
         >
