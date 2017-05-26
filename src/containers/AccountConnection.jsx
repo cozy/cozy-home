@@ -6,6 +6,7 @@ import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
 import ReactMarkdown from 'react-markdown'
 import Notifier from '../components/Notifier'
+import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
@@ -27,6 +28,52 @@ class AccountConnection extends Component {
 
     return this.runConnection(account, folderPath)
       .catch(error => this.handleError(error))
+  }
+
+  connectAccountOAuth (accountType) {
+    const cozyUrl =
+      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    waitForClosedPopup(newTab, `${accountType}_oauth`)
+    .then(accountID => {
+      this.terminateOAuth(accountID)
+    })
+    .catch(error => {
+      this.setState({submitting: false, error: error.message})
+    })
+  }
+
+  terminateOAuth (accountID) {
+    const { t } = this.context
+    const { service } = this.state
+    const data = service.getData()
+
+    // update connector to get the new account
+    this.setState({submitting: true})
+    this.store.fetchKonnectorInfos(data.slug)
+      .then(konnector => {
+        return this.store
+          .fetchAccounts(data.slug, null)
+          .then(accounts => {
+            konnector.accounts = accounts
+            const currentIdx = accounts.findIndex(a => a._id === accountID)
+            const folderPath = t('konnector default base folder', konnector)
+            this.setState({connector: konnector})
+            return this.runConnection(accounts[currentIdx], folderPath).then(() => {
+              this.setState({
+                connector: konnector,
+                isConnected: konnector.accounts.length !== 0,
+                selectedAccount: currentIdx,
+                submitting: false
+              })
+            }).catch(error => {
+              return this.setState({submitting: false, error: error.message})
+            })
+          })
+      })
+      .catch(error => {
+        this.setState({submitting: false, error: error.message})
+      })
   }
 
   runConnection (account, folderPath) {
@@ -64,7 +111,7 @@ class AccountConnection extends Component {
 
   submit (values) {
     return this.props.connector && this.props.connector.oauth
-         ? this.props.onOAuth(this.props.connector.slug)
+         ? this.connectAccountOAuth(this.props.connector.slug)
          : this.connectAccount(values)
   }
 

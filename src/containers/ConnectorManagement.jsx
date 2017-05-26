@@ -5,7 +5,6 @@ import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
-import {popupCenter} from '../lib/popup'
 
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
@@ -19,8 +18,6 @@ export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
-    // methods binding
-    this.terminateOAuth = this.terminateOAuth.bind(this)
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
@@ -107,11 +104,9 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
               : <AccountConnection
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 onError={(error) => this.handleError(error)}
                 {...this.state}
                 {...this.context} />
@@ -137,62 +132,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  terminateOAuth (messageEvent) {
-    const { t } = this.context
-    if (!messageEvent.data) return // data shouldn't be empty
-    // if wrong connector oauth window
-    if (messageEvent.data.origin !== `${this.props.params.connectorSlug}_oauth`) return
-    // get account id from the message event and remove the listener
-    const accountID = messageEvent.data.key
-    window.removeEventListener('message', this.terminateOAuth)
-
-    // update connector to get the new account
-    this.setState({submitting: true})
-    this.store.fetchKonnectorInfos(this.props.params.connectorSlug)
-      .then(konnector => {
-        return this.store
-          .fetchAccounts(this.props.params.connectorSlug, null)
-          .then(accounts => {
-            konnector.accounts = accounts
-            const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const folderPath = t('konnector default base folder', konnector)
-            return this.runConnection(
-              accounts[currentIdx],
-              folderPath
-            ).then(() => {
-              this.setState({
-                connector: konnector,
-                isConnected: konnector.accounts.length !== 0,
-                selectedAccount: currentIdx,
-                submitting: false
-              })
-            }).catch(
-              error => this.setState({submitting: false, error: error.message})
-            )
-          })
-      })
-      .catch(error => {
-        this.setState({submitting: false, error: error.message})
-      })
-  }
-
-  connectAccountOAuth (accountType) {
-    const cozyUrl =
-      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
-    // listener for oauth window
-    const boundOAuthCb = this.terminateOAuth
-    window.addEventListener('message', boundOAuthCb)
-    // polling to monitor oauth window closing
-    ;(function monitorOAuthClosing () {
-      if (newTab.closed) {
-        window.removeEventListener('message', boundOAuthCb)
-      } else {
-        setTimeout(monitorOAuthClosing, 1000)
-      }
-    })()
   }
 
   async updateAccount (connector, account, values) {
