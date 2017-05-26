@@ -33,7 +33,13 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
             return <CheckboxField label={t(name)} {...fields[name]} />
           }
 
-          return <Field label={t(name)} invalid={!!error} {...fields[name]} />
+          const readOnly = name === 'login' && isUpdate
+
+          return <Field
+            label={t(name)}
+            readOnly={readOnly}
+            invalid={!!error}
+            {...fields[name]} />
         }
       )}
       <div className={styles['coz-form-controls']}>
