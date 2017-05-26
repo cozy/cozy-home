@@ -2,6 +2,7 @@ import styles from '../styles/accountLoginForm'
 
 import React from 'react'
 import classNames from 'classnames'
+import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
 const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, onSubmit }) => (
@@ -49,4 +50,4 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
   </div>
 )
 
-export default AccountLoginForm
+export default statefulForm()(AccountLoginForm)

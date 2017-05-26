@@ -7,8 +7,6 @@ import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 import {popupCenter} from '../lib/popup'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
-
 let AUTHORIZED_DATATYPE = [
   'activity', 'heartbeat', 'calendar', 'commit',
   'consumption', 'contact', 'contract', 'travelDate', 'event', 'bill',
@@ -78,7 +76,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { name, accounts, customView, lastImport } = this.state.connector
-    const { connector, isConnected, selectedAccount, isWorking } = this.state
+    const { isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
     if (isWorking) {
@@ -109,13 +107,12 @@ export default class ConnectorManagement extends Component {
                 synchronize={() => this.synchronize()}
                 deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
                 cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(connector, accounts[selectedAccount], values)}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
                 {...this.state}
                 {...this.context} />
               : <AccountConnection
-                onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
                 onOAuth={accountType => this.connectAccountOAuth(accountType)}
+                onError={(error) => this.handleError(error)}
                 {...this.state}
                 {...this.context} />
             }
@@ -123,6 +120,13 @@ export default class ConnectorManagement extends Component {
         </Modal>
       )
     }
+  }
+
+  handleError (error) {
+    const { t } = this.context
+
+    Notifier.error(t(`${error.message || error}`))
+    this.gotoParent()
   }
 
   gotoParent () {
@@ -133,56 +137,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  handleError (error) {
-    const { t } = this.context
-
-    const stateUpdate = {
-      submitting: false
-    }
-
-    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
-      stateUpdate.credentialsError = error
-    } else {
-      stateUpdate.error = error
-      Notifier.error(t(`error.${error.message || error}`))
-      this.gotoParent()
-    }
-
-    this.setState(stateUpdate)
-  }
-
-  connectAccount ({login, password, folderPath}) {
-    const account = {
-      auth: {
-        login: login,
-        password: password
-      }
-    }
-
-    this.setState({ submitting: true })
-
-    return this.runConnection(account, folderPath)
-      .catch(error => this.handleError(error))
-  }
-
-  runConnection (account, folderPath) {
-    const { t } = this.context
-    return this.store.connectAccount(this.state.connector, account, folderPath)
-      .then(connection => {
-        this.setState({ submitting: false })
-        if (connection.error) {
-          this.setState({ error: connection.error.message })
-        } else {
-          this.gotoParent()
-          if (folderPath) {
-            Notifier.info(t('account config success'), t('account config details') + folderPath)
-          } else {
-            Notifier.info(t('account config success'))
-          }
-        }
-      })
   }
 
   terminateOAuth (messageEvent) {

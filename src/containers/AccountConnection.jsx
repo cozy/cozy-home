@@ -1,17 +1,71 @@
 import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
-import statefulForm from '../lib/statefulForm'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
 import ReactMarkdown from 'react-markdown'
+import Notifier from '../components/Notifier'
+
+import { ACCOUNT_ERRORS } from '../lib/accounts'
 
 class AccountConnection extends Component {
-  submit () {
+  constructor (props, context) {
+    super(props, context)
+    this.store = this.context.store
+  }
+
+  connectAccount ({login, password, folderPath}) {
+    const account = {
+      auth: {
+        login: login,
+        password: password
+      }
+    }
+
+    this.setState({ submitting: true })
+
+    return this.runConnection(account, folderPath)
+      .catch(error => this.handleError(error))
+  }
+
+  runConnection (account, folderPath) {
+    const { t } = this.context
+    return this.store.connectAccount(this.props.connector, account, folderPath)
+      .then(connection => {
+        this.setState({ submitting: false })
+        if (connection.error) {
+          this.setState({ error: connection.error.message })
+        } else {
+          this.gotoParent()
+          if (folderPath) {
+            Notifier.info(t('account config success'), t('account config details') + folderPath)
+          } else {
+            Notifier.info(t('account config success'))
+          }
+        }
+      })
+  }
+
+  handleError (error) {
+    const stateUpdate = {
+      submitting: false
+    }
+
+    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
+      stateUpdate.credentialsError = error
+    } else {
+      stateUpdate.error = error
+      this.props.onError(error)
+    }
+
+    this.setState(stateUpdate)
+  }
+
+  submit (values) {
     return this.props.connector && this.props.connector.oauth
          ? this.props.onOAuth(this.props.connector.slug)
-         : this.props.submit()
+         : this.connectAccount(values)
   }
 
   // TODO: use a better helper
@@ -25,7 +79,8 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, dirty, fields, submitting, credentialsError } = this.props
+    const { t, connector, dirty, fields, credentialsError } = this.props
+    const { submitting } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -61,7 +116,7 @@ class AccountConnection extends Component {
               dirty={dirty}
               submitting={submitting}
               error={credentialsError}
-              onSubmit={() => this.submit()}
+              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
             />
           </div>
           <div className={styles['col-account-connection-data']}>
@@ -84,4 +139,4 @@ class AccountConnection extends Component {
   }
 }
 
-export default statefulForm()(AccountConnection)
+export default AccountConnection

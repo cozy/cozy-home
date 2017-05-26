@@ -64,16 +64,7 @@ export default class IntentService extends Component {
 
     return this.store.connectAccount(konnector, account, baseFolder)
       .then(connection => this.terminate(connection.account))
-      .catch(error => {
-        this.setState({
-          error: {
-            message: 'intent.service.account.creation.error',
-            reason: error.message
-          }
-        })
-
-        throw error
-      })
+      .catch(error => this.handleError(error))
   }
 
   connectAccountOAuth (accountType) {
@@ -147,6 +138,17 @@ export default class IntentService extends Component {
         : service.terminate(null)
   }
 
+  handleError (error) {
+    this.setState({
+      error: {
+        message: 'intent.service.account.creation.error',
+        reason: error.message
+      }
+    })
+
+    throw error
+  }
+
   render () {
     const { data } = this.props
     const { isFetching, error, konnector } = this.state
@@ -175,6 +177,7 @@ export default class IntentService extends Component {
               onCancel={() => this.cancel()}
               onSubmit={auth => this.createAccount(auth, t('konnector default base folder'))}
               onOAuth={accountType => this.connectAccountOAuth(accountType)}
+              onError={error => this.handleError(error)}
               {...this.context}
               />
           </div>}
