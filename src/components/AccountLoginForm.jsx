@@ -2,9 +2,10 @@ import styles from '../styles/accountLoginForm'
 
 import React from 'react'
 import classNames from 'classnames'
+import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, onSubmit }) => (
+const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, submit }) => (
   <div className={styles['account-form-login']}>
     {customView &&
       <div className='coz-custom-view'
@@ -38,7 +39,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
         className={classNames('coz-btn', 'coz-btn--regular', styles['col-btn--regular'])}
         disabled={(!dirty && !konnector.oauth) || submitting}
         aria-busy={submitting ? 'true' : 'false'}
-        onClick={onSubmit}
+        onClick={submit}
       >
         {t('account.connection.login.submit')}
       </button>
@@ -49,4 +50,4 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
   </div>
 )
 
-export default AccountLoginForm
+export default statefulForm()(AccountLoginForm)
