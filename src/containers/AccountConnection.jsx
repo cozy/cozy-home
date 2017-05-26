@@ -45,15 +45,14 @@ class AccountConnection extends Component {
 
   terminateOAuth (accountID) {
     const { t } = this.context
-    const { service } = this.state
-    const data = service.getData()
+    const { slug } = this.props.connector
 
     // update connector to get the new account
     this.setState({submitting: true})
-    this.store.fetchKonnectorInfos(data.slug)
+    this.store.fetchKonnectorInfos(slug)
       .then(konnector => {
         return this.store
-          .fetchAccounts(data.slug, null)
+          .fetchAccounts(slug, null)
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)

@@ -107,6 +107,7 @@ export default class ConnectorManagement extends Component {
                 {...this.state}
                 {...this.context} />
               : <AccountConnection
+                connector={this.state.connector}
                 onError={(error) => this.handleError(error)}
                 {...this.state}
                 {...this.context} />
