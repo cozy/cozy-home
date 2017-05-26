@@ -234,7 +234,14 @@
   "account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
   "account": {
     "connection": {
+      "account": {
+        "title": "Account"
+      },
       "title": "Connect your %{name} account to your Cozy",
+      "update": {
+        "cancel": "Cancel",
+        "save": "Save"
+      },
       "description": "To automate the collection of your information, you have to connect your %{name} account.",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
       "data": {

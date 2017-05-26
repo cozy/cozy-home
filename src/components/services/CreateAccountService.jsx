@@ -1,16 +1,15 @@
 import React from 'react'
 
-import AccountConnection from '../AccountConnection'
+import AccountConnection from '../../containers/AccountConnection'
 
 const CreateAccountService = (props) => {
-  const { konnector, onSubmit, onOAuth } = props
+  const { konnector, onSubmit } = props
   return (
     <div className='coz-service-content'>
       <AccountConnection
         connector={konnector}
         fields={konnector.fields}
         onSubmit={onSubmit}
-        onOAuth={onOAuth}
         {...props}
         />
     </div>
