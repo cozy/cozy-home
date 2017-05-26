@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
-import AccountConnection from '../components/AccountConnection'
+import AccountConnection from './AccountConnection'
 import AccountManagement from '../components/AccountManagement'
 import Notifier from '../components/Notifier'
 import {popupCenter} from '../lib/popup'

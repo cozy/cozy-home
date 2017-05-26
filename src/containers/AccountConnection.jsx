@@ -3,8 +3,8 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 import statefulForm from '../lib/statefulForm'
 
-import AccountLoginForm from './AccountLoginForm'
-import DataItem from './DataItem'
+import AccountLoginForm from '../components/AccountLoginForm'
+import DataItem from '../components/DataItem'
 import ReactMarkdown from 'react-markdown'
 
 class AccountConnection extends Component {
