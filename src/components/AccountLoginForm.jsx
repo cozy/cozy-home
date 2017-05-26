@@ -53,10 +53,12 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
         >
           {t(isUpdate ? 'account.connection.update.save' : 'account.connection.login.submit')}
         </button>
-        {error &&
-          <p className='errors'>{t('account.connection.login.error.bad_credentials')}</p>
-        }
       </div>
+      {error &&
+        <p className='errors'>
+          {t('account.connection.login.error.bad_credentials')}
+        </p>
+      }
     </div>
   )
 }

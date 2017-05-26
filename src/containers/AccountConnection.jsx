@@ -158,8 +158,8 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, account, connector, dirty, fields, credentialsError } = this.props
-    const { submitting } = this.state
+    const { t, account, connector, dirty, fields } = this.props
+    const { submitting, credentialsError } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
