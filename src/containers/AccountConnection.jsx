@@ -17,14 +17,21 @@ class AccountConnection extends Component {
   }
 
   connectAccount ({login, password, folderPath}) {
-    const account = {
+    const { connector } = this.props
+    let { account } = this.props
+
+    this.setState({ submitting: true })
+
+    if (account) {
+      return this.updateAccount(connector, account, {login: login, password: password})
+    }
+
+    account = {
       auth: {
         login: login,
         password: password
       }
     }
-
-    this.setState({ submitting: true })
 
     return this.runConnection(account, folderPath)
       .catch(error => this.handleError(error))
@@ -91,6 +98,23 @@ class AccountConnection extends Component {
           this.props.onSuccess(account)
         }
       })
+  }
+
+  async updateAccount (connector, account, values) {
+    const { t } = this.context
+    account.auth.login = values.login
+    account.auth.password = values.password
+
+    this.setState({ submitting: true })
+
+    return this.store.updateAccount(connector, account, values)
+    .then(() => this.store.runAccount(connector, account))
+    .then(() => {
+      this.setState({ submitting: false })
+      Notifier.info(t('account update success'))
+      this.props.onSuccess(account)
+    })
+    .catch(error => this.handleError(error))
   }
 
   handleError (error) {

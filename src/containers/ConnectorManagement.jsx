@@ -117,39 +117,6 @@ export default class ConnectorManagement extends Component {
     this.setState({ selectedAccount: idx })
   }
 
-  async updateAccount (connector, account, values) {
-    const { t } = this.context
-
-    account.auth.login = values.login
-    account.auth.password = values.password
-
-    this.setState({ submitting: true })
-
-    return this._updateAccount(connector, account, values)
-    .then(() => this.store.runAccount(connector, account))
-    .then(() => {
-      this.setState({ submitting: false })
-      Notifier.info(t('account update success'))
-    })
-    .catch((error) => {
-      this.setState({ submitting: false })
-      Notifier.error(t('account config error'))
-      return Promise.reject(error)
-    })
-  }
-
-  _updateAccount (connector, account, values) {
-    const { t } = this.context
-    return this.store.updateAccount(connector, account, values)
-      .then(fetchedConnector => {
-        return fetchedConnector
-      })
-      .catch(error => { // eslint-disable-line
-        Notifier.error(t('account config error'))
-        return Promise.reject(error)
-      })
-  }
-
   synchronize () {
     const id = this.state.connector.id
     const { t } = this.context
