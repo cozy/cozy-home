@@ -68,7 +68,7 @@
     "vendorLink":"https://www.orange.fr/",
     "category":"isp",
     "color":{"hex": "#FF6600", "css": "#FF6600"},
-    "dataType":["bill"],
+    "dataType":["videostream"],
     "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build"
   },

@@ -275,7 +275,8 @@
     "sleepTime": "Your sleep time",
     "courseMaterial": "Your course materials",
     "temperature": "Your temperature data",
-    "tweet": "Your tweets"
+    "tweet": "Your tweets",
+    "videostream": "Your videos"
   },
   "konnector description orange_vod": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included). You will be able to use these data in different apps in your Cozy, for example 'My Movies Music' (available soon on the Cozy Store).",
   "konnector customview orange_vod": "<ul><li>Once connected, a demand to extract your data will be sent to Orange information system.</li><li>These data will be available within 15 days.</li><li>You data will be updated automatically, every 15 days.</li></ul>",
