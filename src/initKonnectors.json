@@ -99,8 +99,8 @@
   {
     "accounts":[],
     "slug":"virginmobile",
-    "name":"Free Mobile",
-    "description":"konnector description virgin_mobile",
+    "name":"Virgin Mobile",
+    "description":"konnector description virgin mobile",
     "vendorLink":"https://www.virginmobile.fr/",
     "category":"telecom",
     "color":{"hex": "#D72938", "css": "#D72938"},

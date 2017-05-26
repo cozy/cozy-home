@@ -2,7 +2,9 @@ import React from 'react'
 import { translate } from '../plugins/i18n'
 import ConnectorItem from './ConnectorItem'
 
-const ConnectorList = ({ t, connectors, showConnectedBadge = true }) => (
+const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
+
+const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = false }) => (
   <div className='connector-list'>
     {connectors.map(c =>
       <ConnectorItem
@@ -15,6 +17,18 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true }) => (
         backgroundCSS=''
       />
     )}
+    {showVoting &&
+      <a
+        className='item-wrapper con-voting-item'
+        href={VOTING_LINK}
+        target='_blank'
+      >
+        <header className='item-header'>
+          <img className='item-icon' src={require('../assets/icons/konnectors/icon-voting.svg')} />
+        </header>
+        <p class='item-title item-voting-text'>{t('voting text')}</p>
+      </a>
+    }
   </div>
 )
 
