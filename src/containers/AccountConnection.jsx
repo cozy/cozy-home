@@ -114,6 +114,10 @@ class AccountConnection extends Component {
          : this.connectAccount(values)
   }
 
+  cancel () {
+    this.props.onCancel()
+  }
+
   // TODO: use a better helper
   getIcon (konnector) {
     try {
@@ -169,6 +173,7 @@ class AccountConnection extends Component {
               values={account ? account.auth : {}}
               error={credentialsError}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+              onCancel={() => this.cancel()}
             />
           </div>
           <div className={styles['col-account-connection-data']}>
