@@ -38,6 +38,10 @@ class AccountConnection extends Component {
   }
 
   connectAccountOAuth (accountType) {
+    this.setState({
+      submitting: true
+    })
+
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
@@ -54,8 +58,6 @@ class AccountConnection extends Component {
     const { t } = this.context
     const { slug } = this.props.connector
 
-    // update connector to get the new account
-    this.setState({submitting: true})
     this.store.fetchKonnectorInfos(slug)
       .then(konnector => {
         return this.store
@@ -63,45 +65,38 @@ class AccountConnection extends Component {
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const folderPath = t('konnector default base folder', konnector)
+            const account = accounts[currentIdx]
+            account.folderPath = account.folderPath || t('konnector default base folder', konnector)
             this.setState({connector: konnector})
-            return this.runConnection(accounts[currentIdx], folderPath).then(() => {
-              this.setState({
-                connector: konnector,
-                isConnected: konnector.accounts.length !== 0,
-                selectedAccount: currentIdx,
-                submitting: false
+            this.handleSuccess(accounts[currentIdx])
+            return this.runConnection(accounts[currentIdx], account.folderPath)
+              .then(() => {
+                this.setState({
+                  connector: konnector,
+                  isConnected: konnector.accounts.length !== 0,
+                  selectedAccount: currentIdx,
+                  submitting: false
+                })
+                this.handleSuccess(accounts[currentIdx])
               })
-            }).catch(error => {
-              return this.setState({submitting: false, error: error.message})
-            })
           })
-      })
-      .catch(error => {
-        this.setState({submitting: false, error: error.message})
+          .catch(error => this.handleError(error))
       })
   }
 
   runConnection (account, folderPath) {
-    const { t } = this.context
     return this.store.connectAccount(this.props.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
         if (connection.error) {
-          this.setState({ error: connection.error.message })
+          this.handleError(connection.error)
         } else {
-          if (folderPath) {
-            Notifier.info(t('account config success'), t('account config details') + folderPath)
-          } else {
-            Notifier.info(t('account config success'))
-          }
-          this.props.onSuccess(account)
+          this.handleSuccess(account, this.props.isUpdate)
         }
       })
   }
 
   async updateAccount (connector, account, values) {
-    const { t } = this.context
     account.auth.login = values.login
     account.auth.password = values.password
 
@@ -109,12 +104,22 @@ class AccountConnection extends Component {
 
     return this.store.updateAccount(connector, account, values)
     .then(() => this.store.runAccount(connector, account))
-    .then(() => {
-      this.setState({ submitting: false })
-      Notifier.info(t('account update success'))
-      this.props.onSuccess(account)
-    })
+    .then(() => this.handleSuccess(account, true))
     .catch(error => this.handleError(error))
+  }
+
+  handleSuccess (account, isUpdate) {
+    const { t } = this.context
+    this.setState({ submitting: false })
+
+    if (isUpdate) {
+      Notifier.info(t('account update success'))
+    } else if (account.folderPath) {
+      Notifier.info(t('account config success'), t('account config details') + account.folderPath)
+    } else {
+      Notifier.info(t('account config success'))
+    }
+    this.props.onSuccess(account)
   }
 
   handleError (error) {

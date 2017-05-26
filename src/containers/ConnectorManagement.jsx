@@ -97,7 +97,7 @@ export default class ConnectorManagement extends Component {
   }
 
   handleSuccess (account) {
-    this.goToParent()
+    this.gotoParent()
   }
 
   handleError (error) {
