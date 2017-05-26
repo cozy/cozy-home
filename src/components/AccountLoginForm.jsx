@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, values, submit, onCancel }) => {
+const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, deleting, values, submit, onDelete, onCancel }) => {
   const isUpdate = !!values.login || !!values.access_token
   return (
     <div className={styles['account-form-login']}>
@@ -36,6 +36,20 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
           return <Field label={t(name)} invalid={!!error} {...fields[name]} />
         }
       )}
+      {isUpdate &&
+        <div className={styles['col-account-form-delete']}>
+          <h4>{t('disconnect')}</h4>
+          <p>
+            {t('disconnect desc')}
+          </p>
+          <button
+            className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+            disabled={deleting}
+            onClick={onDelete}>
+            {t('disconnect button')}
+          </button>
+        </div>
+      }
       <div className={styles['coz-form-controls']}>
         {isUpdate &&
           <button

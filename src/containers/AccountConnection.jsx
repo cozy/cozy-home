@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
 import ReactMarkdown from 'react-markdown'
-import Notifier from '../components/Notifier'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -34,6 +33,7 @@ class AccountConnection extends Component {
     }
 
     return this.runConnection(account, folderPath)
+      .then(() => this.handleCreateSuccess(account))
       .catch(error => this.handleError(error))
   }
 
@@ -68,7 +68,7 @@ class AccountConnection extends Component {
             const account = accounts[currentIdx]
             account.folderPath = account.folderPath || t('konnector default base folder', konnector)
             this.setState({connector: konnector})
-            this.handleSuccess(accounts[currentIdx])
+            this.handleCreateSuccess(accounts[currentIdx])
             return this.runConnection(accounts[currentIdx], account.folderPath)
               .then(() => {
                 this.setState({
@@ -77,7 +77,7 @@ class AccountConnection extends Component {
                   selectedAccount: currentIdx,
                   submitting: false
                 })
-                this.handleSuccess(accounts[currentIdx])
+                this.handleCreateSuccess(accounts[currentIdx])
               })
           })
           .catch(error => this.handleError(error))
@@ -89,9 +89,7 @@ class AccountConnection extends Component {
       .then(connection => {
         this.setState({ submitting: false })
         if (connection.error) {
-          this.handleError(connection.error)
-        } else {
-          this.handleSuccess(account, this.props.isUpdate)
+          return Promise.reject(connection.error)
         }
       })
   }
@@ -104,27 +102,45 @@ class AccountConnection extends Component {
 
     return this.store.updateAccount(connector, account, values)
     .then(() => this.store.runAccount(connector, account))
-    .then(() => this.handleSuccess(account, true))
+    .then(() => this.handleUpdateSuccess(account))
     .catch(error => this.handleError(error))
   }
 
-  handleSuccess (account, isUpdate) {
-    const { t } = this.context
-    this.setState({ submitting: false })
+  deleteAccount () {
+    const { account } = this.props
+    this.setState({ deleting: true })
+    this.store.deleteAccount(this.props.connector, account)
+      .then(() => this.handleSuccess(account, [{message: 'account delete success'}]))
+      .catch(error => this.handleError(error))
+  }
 
-    if (isUpdate) {
-      Notifier.info(t('account update success'))
-    } else if (account.folderPath) {
-      Notifier.info(t('account config success'), t('account config details') + account.folderPath)
-    } else {
-      Notifier.info(t('account config success'))
+  handleCreateSuccess (account) {
+    const messages = [{message: 'account config success'}]
+
+    if (account.folderPath) {
+      messages.push({message: 'account config details', params: {folder: account.folderPath}})
     }
-    this.props.onSuccess(account)
+
+    this.handleSuccess(account, messages)
+  }
+
+  handleUpdateSuccess (account) {
+    this.handleSuccess(account, [{message: 'account update success'}])
+  }
+
+  handleSuccess (account, messages = []) {
+    this.setState({
+      submitting: false,
+      deleting: false
+    })
+
+    this.props.onSuccess(account, messages)
   }
 
   handleError (error) {
     const stateUpdate = {
-      submitting: false
+      submitting: false,
+      deleting: false
     }
 
     if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
@@ -159,7 +175,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, account, connector, dirty, fields } = this.props
-    const { submitting, credentialsError } = this.state
+    const { submitting, deleting, credentialsError } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -199,8 +215,10 @@ class AccountConnection extends Component {
               fields={fields}
               dirty={dirty}
               submitting={submitting}
+              deleting={deleting}
               values={account ? account.auth : {}}
               error={credentialsError}
+              onDelete={() => this.deleteAccount()}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               onCancel={() => this.cancel()}
             />

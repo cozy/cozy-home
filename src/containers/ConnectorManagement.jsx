@@ -86,7 +86,7 @@ export default class ConnectorManagement extends Component {
             : <AccountConnection
               account={isConnected ? accounts[selectedAccount] : null}
               onError={(error) => this.handleError(error)}
-              onSuccess={(account) => this.handleSuccess(account)}
+              onSuccess={(account, messages) => this.handleSuccess(account, messages)}
               onCancel={() => this.gotoParent()}
               {...this.state}
               {...this.context} />
@@ -96,7 +96,13 @@ export default class ConnectorManagement extends Component {
     )
   }
 
-  handleSuccess (account) {
+  handleSuccess (account, messages) {
+    const { t } = this.context
+
+    Notifier.info.apply(Notifier, messages.map(item => {
+      return t(item.message, item.params)
+    }))
+
     this.gotoParent()
   }
 
