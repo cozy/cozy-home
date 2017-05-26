@@ -75,33 +75,24 @@ export default class ConnectorManagement extends Component {
     const { isConnected, selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    if (isWorking) {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
-            <div className='installing'>
+    return (
+      <Modal secondaryAction={() => this.closeModal()}>
+        <ModalContent>
+          { isWorking
+            ? <div className='installing'>
               <div className='installing-spinner' />
               <div>{t('working')}</div>
             </div>
-          </ModalContent>
-        </Modal>
-      )
-    } else {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            <AccountConnection
+            : <AccountConnection
               account={isConnected ? accounts[selectedAccount] : null}
-              values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
               onError={(error) => this.handleError(error)}
               onSuccess={(account) => this.handleSuccess(account)}
               {...this.state}
               {...this.context} />
-          </ModalContent>
-        </Modal>
-      )
-    }
+          }
+        </ModalContent>
+      </Modal>
+    )
   }
 
   handleSuccess (account) {

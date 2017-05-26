@@ -125,7 +125,7 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, dirty, fields, credentialsError } = this.props
+    const { t, account, connector, dirty, fields, credentialsError } = this.props
     const { submitting } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
@@ -138,22 +138,27 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            <h3>{t('account.connection.title', { name: connector.name })}</h3>
-            <p>{t('account.connection.description', { name: connector.name })}</p>
-            <p>
-              <ReactMarkdown
-                source={
-                  t(description)
-                }
-                renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
-              />
-            </p>
-            <p className={styles['col-account-connection-security']}>
-              <svg>
-                <use xlinkHref={securityIcon} />
-              </svg>
-              {t('account.connection.security')}
-            </p>
+            { account
+              ? <h4>{t('account.connection.account.title')}</h4>
+              : <div>
+                <h3>{t('account.connection.title', { name: connector.name })}</h3>
+                <p>{t('account.connection.description', { name: connector.name })}</p>
+                <p>
+                  <ReactMarkdown
+                    source={
+                      t(description)
+                    }
+                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                  />
+                </p>
+                <p className={styles['col-account-connection-security']}>
+                  <svg>
+                    <use xlinkHref={securityIcon} />
+                  </svg>
+                  {t('account.connection.security')}
+                </p>
+              </div>
+            }
             <AccountLoginForm
               t={t}
               konnector={connector}
@@ -161,6 +166,7 @@ class AccountConnection extends Component {
               fields={fields}
               dirty={dirty}
               submitting={submitting}
+              values={account ? account.auth : {}}
               error={credentialsError}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
             />
