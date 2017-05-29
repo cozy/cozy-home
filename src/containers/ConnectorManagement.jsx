@@ -72,7 +72,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { accounts } = this.state.connector
-    const { isConnected, selectedAccount, isWorking } = this.state
+    const { isConnected, selectedAccount, isWorking, jobInBackground } = this.state
     const { t } = this.context
 
     return (
@@ -87,7 +87,10 @@ export default class ConnectorManagement extends Component {
               account={isConnected ? accounts[selectedAccount] : null}
               onError={(error) => this.handleError(error)}
               onSuccess={(account, messages) => this.handleSuccess(account, messages)}
+              onTimeout={(account) => this.handleTimeout()}
               onCancel={() => this.gotoParent()}
+              jobInBackground={jobInBackground}
+              accountConfig={() => this.accountConfig()}
               {...this.state}
               {...this.context} />
           }
@@ -104,6 +107,14 @@ export default class ConnectorManagement extends Component {
     }))
 
     this.gotoParent()
+  }
+
+  handleTimeout () {
+    this.setState({ jobInBackground: true })
+  }
+
+  accountConfig () {
+    this.setState({ jobInBackground: false })
   }
 
   handleError (error) {

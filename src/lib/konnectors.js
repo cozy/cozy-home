@@ -123,7 +123,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, timeout = 120 * 1000) {
+export function run (cozy, konnector, account, timeoutToSuccess = 20 * 1000) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -146,15 +146,17 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
       }
     }
   })
-  .then(job => waitForJobFinished(cozy, job, timeout))
+  .then(job => waitForJobFinished(cozy, job, timeoutToSuccess))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, timeout) {
+function waitForJobFinished (cozy, job, timeoutToSuccess) {
   return new Promise((resolve, reject) => {
     const idTimeout = setTimeout(() => {
-      reject(new Error('JOB_TIMEOUT'))
-    }, timeout)
+      clearInterval(idInterval)
+      resolve(job)
+      return
+    }, timeoutToSuccess)
 
     const idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
