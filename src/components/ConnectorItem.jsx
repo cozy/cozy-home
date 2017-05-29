@@ -16,15 +16,11 @@ const ConnectorItem = ({ title, subtitle, connected, errored, slug, iconName, ba
 )
 
 const stateIcon = (errored, connected) => {
-  if (errored) {
-    return <svg className='item-errored'>
-      <use xlinkHref={require('../assets/sprites/icon-warning.svg')} />
-    </svg>
-  } else if (connected) {
-    return <svg className='item-connected'>
-      <use xlinkHref={require('../assets/sprites/icon-check.svg')} />
-    </svg>
-  } else return ''
+  if (!errored && !connected) return ''
+  return <svg className='item-status-icon'>
+    {errored && <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
+    {(!errored && connected) && <use xlinkHref={require('../assets/sprites/icon-check.svg')} /> }
+  </svg>
 }
 
 // Fallback to get the item icon and avoid error if not found
