@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, deleting, values, submit, onDelete, onCancel }) => {
+const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel }) => {
   const isUpdate = !!values.login || !!values.access_token
   return (
     <div className={styles['account-form-login']}>
@@ -68,7 +68,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
         }
         <button
           className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-          disabled={(!dirty && !konnector.oauth) || submitting}
+          disabled={(!dirty && !konnector.oauth && !forceEnabled) || submitting}
           aria-busy={submitting ? 'true' : 'false'}
           onClick={submit}
         >

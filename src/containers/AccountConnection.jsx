@@ -228,6 +228,7 @@ class AccountConnection extends Component {
               deleting={deleting}
               values={account ? account.auth : {}}
               error={credentialsError}
+              forceEnabled={!!error}
               onDelete={() => this.deleteAccount()}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               onCancel={() => this.cancel()}
