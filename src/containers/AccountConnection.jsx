@@ -191,7 +191,6 @@ class AccountConnection extends Component {
               ? <h4>{t('account.connection.account.title')}</h4>
               : <div>
                 <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                <p>{t('account.connection.description', { name: connector.name })}</p>
                 <p>
                   <ReactMarkdown
                     source={
