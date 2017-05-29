@@ -51,6 +51,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
           <button
             className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
             disabled={deleting}
+            aria-busy={deleting}
             onClick={onDelete}>
             {t('disconnect button')}
           </button>
