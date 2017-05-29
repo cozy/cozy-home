@@ -1,5 +1,6 @@
 /* konnector lib ready to be added to cozy-client-js */
 const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
+const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 const KONNECTOR_STATE_READY = 'ready'
 const JOB_STATE_READY = 'done'
@@ -48,6 +49,11 @@ export function unlinkFolder (cozy, konnector, folderId) {
     }
   )
   .then(() => deleteFolderPermission(cozy, konnector))
+}
+
+export function getAllErrors (cozy) {
+  return cozy.data.defineIndex(KONNECTORS_RESULT_DOCTYPE, ['state'])
+  .then(index => cozy.data.query(index, {selector: {state: 'errored'}}))
 }
 
 export function install (cozy, konnector, timeout = 120000) {
