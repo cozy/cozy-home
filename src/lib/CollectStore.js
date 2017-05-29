@@ -138,6 +138,10 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
+        if (!connection.konnector || !connection.konnector.slug) {
+          console.error(connection.konnector, 'No konnector slug available to register the new konnector trigger')
+          return Promise.reject(new Error('Unexpected error while trying to setup next run of the konnector'))
+        }
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -145,7 +149,7 @@ export default class CollectStore {
               arguments: '0 0 0 * * *',
               worker: 'konnector',
               worker_arguments: {
-                konnector: connection.konnector.attributes.slug,
+                konnector: connection.konnector.slug,
                 account: connection.account._id,
                 folderToSave: connection.folder._id
               }
