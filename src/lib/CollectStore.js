@@ -63,9 +63,22 @@ export default class CollectStore {
   fetchAllAccounts () {
     return accounts.getAllAccounts(cozy.client, this.accountsIndex)
       .then(accounts => {
+        return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
+      })
+      .then((result) => {
+        const [accounts, errors] = result
+        const errorIndex = errors.reduce((memo, error) => {
+          memo[error.account] = error
+          return memo
+        }, {})
+
         let accObject = {}
         accounts.forEach(a => {
           if (!accObject[a.account_type]) accObject[a.account_type] = []
+          if (errorIndex[a._id]) {
+            a.isInError = true
+            accObject[a.account_type].isInError = true
+          }
           accObject[a.account_type].push(a)
         })
         this.connectors.forEach(c => {
