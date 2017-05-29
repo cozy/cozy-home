@@ -147,7 +147,6 @@ class AccountConnection extends Component {
       stateUpdate.credentialsError = error
     } else {
       stateUpdate.error = error
-      this.props.onError(error)
     }
 
     this.setState(stateUpdate)
@@ -175,7 +174,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, account, connector, dirty, fields } = this.props
-    const { submitting, deleting, credentialsError } = this.state
+    const { submitting, deleting, error, credentialsError } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -187,17 +186,37 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { account
-              ? <h4>{t('account.connection.account.title')}</h4>
-              : <div>
-                <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                <p className={styles['col-account-connection-security']}>
-                  <svg>
-                    <use xlinkHref={securityIcon} />
-                  </svg>
-                  {t('account.connection.security')}
+            { error
+              ? <div className='coz-error'>
+                <h4>{t('account.connection.error.title')}</h4>
+                <p>
+                  <ReactMarkdown
+                    source={t('account.connection.error.description', {name: connector.name, forum: t('account.connection.error.forum')})}
+                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                  />
                 </p>
               </div>
+
+              : account
+                ? <h4>{t('account.connection.account.title')}</h4>
+                : <div>
+                  <h3>{t('account.connection.title', { name: connector.name })}</h3>
+                  <p>{t('account.connection.description', { name: connector.name })}</p>
+                  <p>
+                    <ReactMarkdown
+                      source={
+                        t(description)
+                      }
+                      renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                    />
+                  </p>
+                  <p className={styles['col-account-connection-security']}>
+                    <svg>
+                      <use xlinkHref={securityIcon} />
+                    </svg>
+                    {t('account.connection.security')}
+                  </p>
+                </div>
             }
             <AccountLoginForm
               t={t}
