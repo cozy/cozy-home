@@ -191,14 +191,6 @@ class AccountConnection extends Component {
               ? <h4>{t('account.connection.account.title')}</h4>
               : <div>
                 <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                <p>
-                  <ReactMarkdown
-                    source={
-                      t(description)
-                    }
-                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
-                  />
-                </p>
                 <p className={styles['col-account-connection-security']}>
                   <svg>
                     <use xlinkHref={securityIcon} />
@@ -223,6 +215,19 @@ class AccountConnection extends Component {
             />
           </div>
           <div className={styles['col-account-connection-data']}>
+            { description &&
+              <div>
+                <h4>{t('account.connection.data.service.description')}</h4>
+                <p>
+                  <ReactMarkdown
+                    source={
+                      t(description)
+                    }
+                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                  />
+                </p>
+              </div>
+            }
             <h4>{t('account.connection.data.title')}</h4>
             {connector.dataType &&
               <ul className={styles['col-account-connection-data-access']}>

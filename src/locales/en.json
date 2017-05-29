@@ -244,7 +244,10 @@
       },
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
       "data": {
-        "title": "Collected data:"
+        "title": "Collected data:",
+        "service": {
+          "description": "Service description:"
+        }
       },
       "login": {
         "password": {
