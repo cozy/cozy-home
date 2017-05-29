@@ -210,6 +210,7 @@ export default class CollectStore {
       // Updates the _rev value of the account in the connector
       connector.accounts[accountIndex] = updatedAccount
       this.updateConnector(connector)
+      return updatedAccount
     })
     .catch((error) => {
       return Promise.reject(error)

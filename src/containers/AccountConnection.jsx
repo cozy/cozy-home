@@ -93,6 +93,12 @@ class AccountConnection extends Component {
     return this.store.connectAccount(this.props.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
+        if (connection.account) {
+          this.setState({
+            account: connection.account
+          })
+        }
+
         if (connection.error) {
           return Promise.reject(connection.error)
         }
