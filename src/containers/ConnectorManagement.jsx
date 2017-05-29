@@ -85,7 +85,7 @@ export default class ConnectorManagement extends Component {
               <div>{t('working')}</div>
             </div>
             : <AccountConnection
-              account={isConnected ? accounts[selectedAccount] : null}
+              existingAccount={isConnected ? accounts[selectedAccount] : null}
               onError={(error) => this.handleError(error)}
               onSuccess={(account, messages) => this.handleSuccess(account, messages)}
               onCancel={() => this.gotoParent()}
