@@ -11,7 +11,7 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = 
         title={c.name}
         subtitle={t(c.category + ' category')}
         connected={showConnectedBadge && c.accounts.length !== 0}
-        errored={!!c.accounts.isInError}
+        errored={!!c.accounts.isErrored}
         iconName={c.slug}
         slug={c.slug}
         enableDefaultIcon

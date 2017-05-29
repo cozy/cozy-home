@@ -76,8 +76,8 @@ export default class CollectStore {
         accounts.forEach(a => {
           if (!accObject[a.account_type]) accObject[a.account_type] = []
           if (errorIndex[a._id]) {
-            a.isInError = true
-            accObject[a.account_type].isInError = true
+            a.isErrored = true
+            accObject[a.account_type].isErrored = true
           }
           accObject[a.account_type].push(a)
         })
