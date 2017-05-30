@@ -9,6 +9,10 @@
       "slug": "sosh"
     }, {
       "slug": "freemobile"
+    }, {
+      "slug": "orange"
+    }, {
+      "slug": "virginmobile"
     }],
     "figure": "facture-telephonique-lg.jpg",
     "color": {"css": "#1FA8F1"},
@@ -20,6 +24,10 @@
       "slug": "bouyguesbox"
     }, {
       "slug": "sfrbox"
+    }, {
+      "slug": "numericable"
+    }, {
+      "slug": "free"
     }],
     "figure": "facture-fournisseur-internet-lg.jpg",
     "color": {"css": "#1FA8F1"},
