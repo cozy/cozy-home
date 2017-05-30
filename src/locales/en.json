@@ -235,7 +235,9 @@
     "courseMaterial": "Your course materials",
     "temperature": "Your temperature data",
     "tweet": "Your tweets",
-    "videostream": "Your videos"
+    "videostream": "Your videos",
+    "phonecommunicationlog": "Your phone communications log",
+    "geopoint": "Your geolocations"
   },
   "konnector customview orange_vod": "<ul><li>Once connected, a demand to extract your data will be sent to Orange information system.</li><li>These data will be available within 15 days.</li><li>You data will be updated automatically, every 15 days.</li></ul>",
   "not fixe token": "To get these data, you have to sing-in with your email.",

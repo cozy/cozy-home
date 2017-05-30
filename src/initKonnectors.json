@@ -56,6 +56,17 @@
   },
   {
     "accounts":[],
+    "slug":"orange_mobile",
+    "name":"Orange Mobile",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"telecom",
+    "color":{"hex":"#FF6122","css":"#FF6122"},
+    "dataType":["bill", "geopoint", "phonecommunicationlog"],
+    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build"
+  },
+  {
+    "accounts":[],
     "oauth": true,
     "slug":"orangevod",
     "name":"Orange VOD",
