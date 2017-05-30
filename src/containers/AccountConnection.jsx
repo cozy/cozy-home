@@ -90,7 +90,13 @@ class AccountConnection extends Component {
         this.setState({ submitting: false })
         if (connection.error) {
           return Promise.reject(connection.error)
+        } else {
+          this.props.connector.accounts.isErrored = false
         }
+      })
+      .catch(error => {
+        this.props.connector.accounts.isErrored = true
+        return Promise.reject(error)
       })
   }
 
