@@ -68,8 +68,8 @@
   {
     "accounts":[],
     "oauth": true,
-    "slug":"orangevod",
-    "name":"Orange VOD",
+    "slug":"orange_livebox",
+    "name":"Orange Livebox",
     "vendorLink":"https://www.orange.fr/",
     "category":"isp",
     "color":{"hex": "#FF6600", "css": "#FF6600"},
