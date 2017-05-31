@@ -208,13 +208,13 @@ class AccountConnection extends Component {
                   className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
                   onClick={accountConfig}
                 >
-                  {t('account.connected.buttonAccountConfig')}
+                  {t('account.connected.button.config')}
                 </button></p>
                 <p><button
                   className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
                   onClick={() => this.cancel()}
                 >
-                  {t('account.connected.buttonBackToServicesList')}
+                  {t('account.connected.button.back')}
                 </button></p>
               </div>
             : <div className={styles['col-account-connection-form']}>
