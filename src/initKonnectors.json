@@ -124,6 +124,17 @@
   },
   {
     "accounts":[],
+    "slug":"materiel_net",
+    "name":"Materiel.net",
+    "vendorLink":"https://www.materiel.net/",
+    "category":"shopping",
+    "color":{"hex":"#48D5B5","css":"#48D5B5"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
