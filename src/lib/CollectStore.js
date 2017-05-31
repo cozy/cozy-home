@@ -24,13 +24,29 @@ export default class CollectStore {
     this.listener = null
   }
 
+  sanitizeKonnector (konnector) {
+    const sanitized = Object.assign({}, konnector)
+
+    // disallow empty category
+    if (sanitized.category === '') {
+      delete sanitized.category
+    }
+
+    return sanitized
+  }
+
+  // Merge source into target
+  mergeKonnectors (source, target) {
+    return Object.assign({}, target, this.sanitizeKonnector(source))
+  }
+
   updateConnector (connector) {
     if (!connector) throw new Error('Missing mandatory connector parameter')
     const slug = connector.slug || connector.attributes.slug
     if (!slug) throw new Error('Missing mandatory slug property in konnector')
 
     const current = this.connectors.find(connector => connector.slug === slug)
-    const updatedConnector = Object.assign({}, current, connector)
+    const updatedConnector = this.mergeKonnectors(connector, current)
 
     this.connectors = this.connectors.map(connector => {
       return connector === current
