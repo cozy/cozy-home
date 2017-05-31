@@ -18,6 +18,12 @@ class AccountConnection extends Component {
     }
   }
 
+  componentWillReceiveProps ({ existingAccount }) {
+    this.setState({
+      account: existingAccount
+    })
+  }
+
   connectAccount ({login, password, folderPath}) {
     const { connector } = this.props
     let { account } = this.state
