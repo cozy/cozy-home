@@ -54,6 +54,7 @@
   "dependencies": {
     "date-fns": "^1.28.4",
     "intro.js": "2.5.0",
+    "ismobilejs": "^0.4.1",
     "node-polyglot": "2.0.0",
     "piwik-react-router": "^0.8.2",
     "preact": "^8.1.0",

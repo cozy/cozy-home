@@ -1,4 +1,5 @@
 import { introJs } from 'intro.js'
+import isMobile from 'ismobilejs'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial () {
@@ -11,7 +12,7 @@ export function display (t) {
   const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '[data-icon=icon-cube]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass = 'tooltip' + (isSmall ? 'Small' : '') + (isSmall && isLandscape ? 'Right' : 'Bottom')
-  introJs()
+  const tutorial = introJs()
   .setOptions({
     overlayOpacity: 0.7,
     showBullets: false,
@@ -50,4 +51,14 @@ export function display (t) {
     cozyBarMenuButton.click()
     window.location.hash = '#/discovery'
   })
+  if (isMobile.phone) {
+    const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
+    const clickAction = (e) => {
+      e.stopPropagation()
+      tutorial.nextStep()
+    }
+    for (const elem of document.querySelectorAll(clickZone)) {
+      elem.onclick = clickAction
+    }
+  }
 }
