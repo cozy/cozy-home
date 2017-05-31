@@ -126,7 +126,7 @@ class AccountConnection extends Component {
   }
 
   handleUpdateSuccess (account, job) {
-    if (job && job.attributes && job && job.attributes.state === 'queued') {
+    if (job && job.attributes && job.attributes.state === 'queued') {
       this.handleTimeout()
     } else {
       this.handleSuccess(account, [{message: 'account update success'}])
