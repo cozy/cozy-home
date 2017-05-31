@@ -1,8 +1,6 @@
-/* global __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
- /* global cozy Piwik */
+/* global cozy */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
-/* global cozy */
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
@@ -62,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const useCases = store.getUseCases()
 
   let history = hashHistory
+
+  /* global Piwik __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
   try {
     var PiwikReactRouter = require('piwik-react-router')
     const piwikTracker = (Piwik.getTracker(), PiwikReactRouter({
