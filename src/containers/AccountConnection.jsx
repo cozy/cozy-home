@@ -94,7 +94,7 @@ class AccountConnection extends Component {
       })
   }
 
-  async updateAccount (connector, account, values) {
+  updateAccount (connector, account, values) {
     account.auth.login = values.login
     account.auth.password = values.password
 

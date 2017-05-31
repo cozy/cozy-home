@@ -25,12 +25,13 @@ export default class CollectStore {
   }
 
   updateConnector (connector) {
-    if (connector) {
+    const slug = connector.slug || connector.attributes.slug
+    if (slug) {
       this.connectors = this.connectors.map(
-        c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
+        c => c.slug === slug ? Object.assign({}, c, connector) : c
       )
     }
-    return this.connectors.find(k => k.slug === connector.slug)
+    return this.connectors.find(k => k.slug === slug)
   }
 
   getCategories () {
@@ -138,10 +139,7 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
-        if (!connection.konnector || !connection.konnector.slug) {
-          console.error(connection.konnector, 'No konnector slug available to register the new konnector trigger')
-          return Promise.reject(new Error('Unexpected error while trying to setup next run of the konnector'))
-        }
+        const slug = connection.konnector.slug || connection.konnector.attributes.slug
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -149,7 +147,7 @@ export default class CollectStore {
               arguments: '0 0 0 * * *',
               worker: 'konnector',
               worker_arguments: {
-                konnector: connection.konnector.slug,
+                konnector: slug,
                 account: connection.account._id,
                 folderToSave: connection.folder._id
               }
@@ -157,7 +155,18 @@ export default class CollectStore {
           }
         })
       })
-      .then(() => connection)
+      .catch(error => {
+        connection.error = error
+      })
+      .then(() => {
+        this.updateKonnectorError(connection.konnector, connection.error)
+        return connection
+      })
+  }
+
+  updateKonnectorError (konnector, error = null) {
+    konnector.accounts.isErrored = !!error
+    this.updateConnector(konnector)
   }
 
   /**
@@ -168,6 +177,11 @@ export default class CollectStore {
    */
   runAccount (connector, account) {
     return konnectors.run(cozy.client, connector, account)
+    .then(() => this.updateKonnectorError(connector))
+    .catch(error => {
+      this.updateKonnectorError(connector, error)
+      throw error
+    })
   }
 
   fetchAccounts (accountType, index) {

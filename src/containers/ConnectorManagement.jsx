@@ -47,8 +47,9 @@ export default class ConnectorManagement extends Component {
           .fetchAccounts(props.params.connectorSlug, null)
           .then(accounts => {
             konnector.accounts = accounts
+            // do not loose previous connector attributes
             this.setState({
-              connector: konnector,
+              connector: Object.assign(konnector, this.state.connector),
               isConnected: konnector.accounts.length !== 0,
               isWorking: false
             })
