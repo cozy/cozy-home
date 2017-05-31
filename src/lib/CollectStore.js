@@ -176,18 +176,11 @@ export default class CollectStore {
    * @returns The run result or a resulting error
    */
   runAccount (connector, account) {
-    const connection = {}
     return konnectors.run(cozy.client, connector, account)
+    .then(() => this.updateKonnectorError(connector))
     .catch(error => {
-      connection.error = error
-    })
-    .then(() => {
-      this.updateKonnectorError(connector, connection.error)
-      return connection
-    })
-    .then(() => {
-      if (connection.error) return Promise.reject(connection.error)
-      else return Promise.resolve()
+      this.updateKonnectorError(connector, error)
+      throw error
     })
   }
 
