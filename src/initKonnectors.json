@@ -67,7 +67,7 @@
   },
   {
     "accounts":[],
-    "slug":"orange_mobile",
+    "slug":"orangemobile",
     "name":"Orange Mobile",
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
@@ -79,7 +79,7 @@
   {
     "accounts":[],
     "oauth": true,
-    "slug":"orange_livebox",
+    "slug":"orangelivebox",
     "name":"Orange Livebox",
     "vendorLink":"https://www.orange.fr/",
     "category":"isp",
