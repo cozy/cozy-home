@@ -230,7 +230,7 @@ class AccountConnection extends Component {
               fields={fields}
               submitting={submitting}
               deleting={deleting}
-              values={existingAccount ? existingAccount.auth : {}}
+              values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
               error={credentialsError}
               forceEnabled={!!error}
               onDelete={() => this.deleteAccount()}
