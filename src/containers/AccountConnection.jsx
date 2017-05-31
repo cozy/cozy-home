@@ -204,7 +204,6 @@ class AccountConnection extends Component {
                   <br />
                   <span className={styles['bills-folder']}>{account.folderId}</span>
                 </p>
-                <p><a href={`/apps/files/#folders/${account.folderId}`} className={styles['link-to-folder']}>{t('account.connected.textLinkToBillsFolder')}</a></p>
                 <p><button
                   className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
                   onClick={accountConfig}
