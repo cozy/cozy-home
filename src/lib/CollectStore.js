@@ -25,13 +25,20 @@ export default class CollectStore {
   }
 
   updateConnector (connector) {
+    if (!connector) throw new Error('Missing mandatory connector parameter')
     const slug = connector.slug || connector.attributes.slug
-    if (slug) {
-      this.connectors = this.connectors.map(
-        c => c.slug === slug ? Object.assign({}, c, connector) : c
-      )
-    }
-    return this.connectors.find(k => k.slug === slug)
+    if (!slug) throw new Error('Missing mandatory slug property in konnector')
+
+    const current = this.connectors.find(connector => connector.slug === slug)
+    const updatedConnector = Object.assign({}, current, connector)
+
+    this.connectors = this.connectors.map(connector => {
+      return connector === current
+        ? updatedConnector
+          : connector
+    })
+
+    return updatedConnector
   }
 
   getCategories () {
