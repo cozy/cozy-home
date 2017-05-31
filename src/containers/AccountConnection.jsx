@@ -212,7 +212,7 @@ class AccountConnection extends Component {
               </div>
 
               : existingAccount
-                ? <h4>{t('account.connection.account.title')}</h4>
+                ? !connector.oauth && <h4>{t('account.connection.account.title')}</h4>
                 : <div>
                   <h3>{t('account.connection.title', { name: connector.name })}</h3>
                   <p className={styles['col-account-connection-security']}>
@@ -225,7 +225,7 @@ class AccountConnection extends Component {
             }
             <AccountLoginForm
               t={t}
-              konnector={connector}
+              isOAuth={connector.oauth}
               customView={customView}
               fields={fields}
               submitting={submitting}

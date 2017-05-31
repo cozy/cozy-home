@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel }) => {
+const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel }) => {
   const isUpdate = !!values.login || !!values.access_token
   return (
     <div className={styles['account-form-login']}>
@@ -58,7 +58,7 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
         </div>
       }
       <div className={styles['coz-form-controls']}>
-        {isUpdate &&
+        { isUpdate && !isOAuth &&
           <button
             className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
             onClick={onCancel}
@@ -66,14 +66,16 @@ const AccountLoginForm = ({ t, konnector, customView, fields, error, dirty, subm
             {t('account.connection.update.cancel')}
           </button>
         }
-        <button
-          className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-          disabled={submitting || (!dirty && !konnector.oauth && !forceEnabled)}
-          aria-busy={submitting ? 'true' : 'false'}
-          onClick={submit}
-        >
-          {t(isUpdate ? 'account.connection.update.save' : 'account.connection.login.submit')}
-        </button>
+        { !(isUpdate && isOAuth) &&
+          <button
+            className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+            disabled={submitting || (!dirty && !forceEnabled)}
+            aria-busy={submitting ? 'true' : 'false'}
+            onClick={submit}
+          >
+            {t(isUpdate ? 'account.connection.update.save' : 'account.connection.login.submit')}
+          </button>
+        }
       </div>
       {error &&
         <p className='errors'>
