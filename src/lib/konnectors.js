@@ -157,7 +157,6 @@ function waitForJobFinished (cozy, job, successTimeout) {
     const idTimeout = setTimeout(() => {
       clearInterval(idInterval)
       resolve(job)
-      return
     }, successTimeout)
 
     idInterval = setInterval(() => {
