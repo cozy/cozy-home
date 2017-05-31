@@ -1,6 +1,7 @@
 import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
+import classNames from 'classnames'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
@@ -102,7 +103,7 @@ class AccountConnection extends Component {
 
     return this.store.updateAccount(connector, account, values)
     .then(() => this.store.runAccount(connector, account))
-    .then(() => this.handleUpdateSuccess(account))
+    .then((job) => this.handleUpdateSuccess(account, job))
     .catch(error => this.handleError(error))
   }
 
@@ -124,8 +125,12 @@ class AccountConnection extends Component {
     this.handleSuccess(account, messages)
   }
 
-  handleUpdateSuccess (account) {
-    this.handleSuccess(account, [{message: 'account update success'}])
+  handleUpdateSuccess (account, job) {
+    if (job && job.attributes && job.attributes.state === 'queued') {
+      this.handleTimeout()
+    } else {
+      this.handleSuccess(account, [{message: 'account update success'}])
+    }
   }
 
   handleSuccess (account, messages = []) {
@@ -135,6 +140,10 @@ class AccountConnection extends Component {
     })
 
     this.props.onSuccess(account, messages)
+  }
+
+  handleTimeout () {
+    this.props.onTimeout()
   }
 
   handleError (error) {
@@ -174,7 +183,7 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, account, connector, dirty, fields } = this.props
+    const { t, account, connector, dirty, fields, jobInBackground, accountConfig } = this.props
     const { submitting, deleting, credentialsError } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
@@ -186,34 +195,66 @@ class AccountConnection extends Component {
             src={this.getIcon(connector)} />
         </div>
         <div className={styles['col-account-connection-content']}>
-          <div className={styles['col-account-connection-form']}>
-            { account
-              ? <h4>{t('account.connection.account.title')}</h4>
-              : <div>
-                <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                <p className={styles['col-account-connection-security']}>
-                  <svg>
-                    <use xlinkHref={securityIcon} />
-                  </svg>
-                  {t('account.connection.security')}
+          { jobInBackground
+            ? <div className={styles['col-account-connection-form', 'col-account-timeout']}>
+                <h3>{t('account.connected.title', { name: connector.name })}</h3>
+                <p>{t('account.connected.description', { name: connector.name })}</p>
+                <p>
+                  {t('account.connected.ongoingSync', { name: connector.name })}
+                  <br />
+                  <span className={styles['bills-folder']}>{account.folderId}</span>
                 </p>
+                <p><button
+                  className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+                  onClick={accountConfig}
+                >
+                  {t('account.connected.button.config')}
+                </button></p>
+                <p><button
+                  className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+                  onClick={() => this.cancel()}
+                >
+                  {t('account.connected.button.back')}
+                </button></p>
               </div>
-            }
-            <AccountLoginForm
-              t={t}
-              konnector={connector}
-              customView={customView}
-              fields={fields}
-              dirty={dirty}
-              submitting={submitting}
-              deleting={deleting}
-              values={account ? account.auth : {}}
-              error={credentialsError}
-              onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-              onCancel={() => this.cancel()}
-            />
-          </div>
+            : <div className={styles['col-account-connection-form']}>
+              { account
+                ? <h4>{t('account.connection.account.title')}</h4>
+                : <div>
+                  <h3>{t('account.connection.title', { name: connector.name })}</h3>
+                  <p>
+                    <ReactMarkdown
+                      source={
+                        t(description)
+                      }
+                      renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                    />
+                  </p>
+                  <p className={styles['col-account-connection-security']}>
+                    <svg>
+                      <use xlinkHref={securityIcon} />
+                    </svg>
+                    {t('account.connection.security')}
+                  </p>
+                </div>
+              }
+              <AccountLoginForm
+                t={t}
+                konnector={connector}
+                customView={customView}
+                fields={fields}
+                dirty={dirty}
+                submitting={submitting}
+                deleting={deleting}
+                values={account ? account.auth : {}}
+                error={credentialsError}
+                onDelete={() => this.deleteAccount()}
+                onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+                onCancel={() => this.cancel()}
+                jobInBackground={jobInBackground}
+              />
+            </div>
+          }
           <div className={styles['col-account-connection-data']}>
             { description &&
               <div>

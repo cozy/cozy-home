@@ -138,10 +138,17 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
+
         if (!connection.konnector || !connection.konnector.slug) {
           console.error(connection.konnector, 'No konnector slug available to register the new konnector trigger')
           return Promise.reject(new Error('Unexpected error while trying to setup next run of the konnector'))
         }
+
+        if (job.attributes.state === 'queued') {
+          // TimeOut : the job seems to run nicely but to take time
+          this.jobTimeout()
+        }
+
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -158,6 +165,10 @@ export default class CollectStore {
         })
       })
       .then(() => connection)
+  }
+
+  jobTimeout () {
+    console.log('jobTimeout')
   }
 
   /**
