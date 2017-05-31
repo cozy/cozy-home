@@ -12,6 +12,17 @@
   },
   {
     "accounts":[],
+    "slug":"harmonie",
+    "name":"Harmonie Mutuelle",
+    "vendorLink":"https://www.harmonie-mutuelle.fr/",
+    "category":"insurance",
+    "color":{"hex":"#f59331", "css":"#f59331"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"numericable",
     "name":"Numéricable",
     "vendorLink":"https://www.numericable.fr/",
