@@ -44,7 +44,7 @@ class AccountConnection extends Component {
 
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
       this.terminateOAuth(accountID)
