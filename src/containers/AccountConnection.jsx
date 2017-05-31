@@ -215,14 +215,6 @@ class AccountConnection extends Component {
                 ? <h4>{t('account.connection.account.title')}</h4>
                 : <div>
                   <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                  <p>
-                    <ReactMarkdown
-                      source={
-                        t(description)
-                      }
-                      renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
-                    />
-                  </p>
                   <p className={styles['col-account-connection-security']}>
                     <svg>
                       <use xlinkHref={securityIcon} />
