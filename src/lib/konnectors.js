@@ -152,13 +152,15 @@ export function run (cozy, konnector, account, successTimeout = 20 * 1000) {
 // monitor the status of the connector and resolve when the connector is ready
 function waitForJobFinished (cozy, job, successTimeout) {
   return new Promise((resolve, reject) => {
+    let idInterval
+
     const idTimeout = setTimeout(() => {
       clearInterval(idInterval)
       resolve(job)
       return
     }, successTimeout)
 
-    const idInterval = setInterval(() => {
+    idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
           if (job.attributes.state === JOB_STATE_ERRORED) {
