@@ -67,6 +67,7 @@
   },
   {
     "accounts":[],
+    "oauth": true,
     "slug":"orangemobile",
     "name":"Orange Mobile",
     "vendorLink":"https://www.orange.fr/",
