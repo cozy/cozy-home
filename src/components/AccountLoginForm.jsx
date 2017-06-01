@@ -69,7 +69,7 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
         { !(isUpdate && isOAuth) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-            disabled={submitting || (!dirty && !forceEnabled)}
+            disabled={submitting || (!dirty && !isOAuth && !forceEnabled)}
             aria-busy={submitting ? 'true' : 'false'}
             onClick={submit}
           >
