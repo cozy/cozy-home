@@ -187,6 +187,11 @@
       "account": {
         "title": "Account"
       },
+      "error": {
+        "title": "An error occurred",
+        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/c/support).",
+        "forum": "forum"
+      },
       "title": "Connect your %{name} account to your Cozy",
       "update": {
         "cancel": "Cancel",

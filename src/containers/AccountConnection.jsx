@@ -13,13 +13,20 @@ class AccountConnection extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    this.state = {
+      account: this.props.existingAccount
+    }
+  }
+
+  componentWillReceiveProps ({ existingAccount }) {
+    this.setState({
+      account: existingAccount
+    })
   }
 
   connectAccount ({login, password, folderPath}) {
     const { connector } = this.props
-    let { account } = this.props
-
-    this.setState({ submitting: true })
+    let { account } = this.state
 
     if (account) {
       return this.updateAccount(connector, account, {login: login, password: password})
@@ -31,6 +38,8 @@ class AccountConnection extends Component {
         password: password
       }
     }
+
+    this.setState({account: account})
 
     return this.runConnection(account, folderPath)
       .then(() => this.handleCreateSuccess(account))
@@ -47,7 +56,7 @@ class AccountConnection extends Component {
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
-      this.terminateOAuth(accountID)
+      return this.terminateOAuth(accountID)
     })
     .catch(error => {
       this.setState({submitting: false, error: error.message})
@@ -66,8 +75,8 @@ class AccountConnection extends Component {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
             const account = accounts[currentIdx]
+            this.setState({account: account})
             account.folderPath = account.folderPath || t('konnector default base folder', konnector)
-            this.setState({connector: konnector})
             this.handleCreateSuccess(accounts[currentIdx])
             return this.runConnection(accounts[currentIdx], account.folderPath)
               .then(() => {
@@ -85,9 +94,17 @@ class AccountConnection extends Component {
   }
 
   runConnection (account, folderPath) {
+    this.setState({ submitting: true })
+
     return this.store.connectAccount(this.props.connector, account, folderPath)
       .then(connection => {
         this.setState({ submitting: false })
+        if (connection.account) {
+          this.setState({
+            account: connection.account
+          })
+        }
+
         if (connection.error) {
           return Promise.reject(connection.error)
         }
@@ -101,13 +118,16 @@ class AccountConnection extends Component {
     this.setState({ submitting: true })
 
     return this.store.updateAccount(connector, account, values)
-    .then(() => this.store.runAccount(connector, account))
+    .then(account => {
+      this.setState({ account: account })
+      return this.store.runAccount(connector, account)
+    })
     .then(() => this.handleUpdateSuccess(account))
     .catch(error => this.handleError(error))
   }
 
   deleteAccount () {
-    const { account } = this.props
+    const { account } = this.state
     this.setState({ deleting: true })
     this.store.deleteAccount(this.props.connector, account)
       .then(() => this.handleSuccess(account, [{message: 'account delete success'}]))
@@ -147,7 +167,6 @@ class AccountConnection extends Component {
       stateUpdate.credentialsError = error
     } else {
       stateUpdate.error = error
-      this.props.onError(error)
     }
 
     this.setState(stateUpdate)
@@ -174,8 +193,8 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, account, connector, dirty, fields } = this.props
-    const { submitting, deleting, credentialsError } = this.state
+    const { t, existingAccount, connector, fields } = this.props
+    const { submitting, deleting, error, credentialsError } = this.state
     const { customView, description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -187,28 +206,39 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { account
-              ? <h4>{t('account.connection.account.title')}</h4>
-              : <div>
-                <h3>{t('account.connection.title', { name: connector.name })}</h3>
-                <p className={styles['col-account-connection-security']}>
-                  <svg>
-                    <use xlinkHref={securityIcon} />
-                  </svg>
-                  {t('account.connection.security')}
+            { error
+              ? <div className='coz-error'>
+                <h4>{t('account.connection.error.title')}</h4>
+                <p>
+                  <ReactMarkdown
+                    source={t('account.connection.error.description', {name: connector.name, forum: t('account.connection.error.forum')})}
+                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
+                  />
                 </p>
               </div>
+
+              : existingAccount
+                ? !connector.oauth && <h4>{t('account.connection.account.title')}</h4>
+                : <div>
+                  <h3>{t('account.connection.title', { name: connector.name })}</h3>
+                  <p className={styles['col-account-connection-security']}>
+                    <svg>
+                      <use xlinkHref={securityIcon} />
+                    </svg>
+                    {t('account.connection.security')}
+                  </p>
+                </div>
             }
             <AccountLoginForm
               t={t}
-              konnector={connector}
+              isOAuth={connector.oauth}
               customView={customView}
               fields={fields}
-              dirty={dirty}
               submitting={submitting}
               deleting={deleting}
-              values={account ? account.auth : {}}
+              values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
               error={credentialsError}
+              forceEnabled={!!error}
               onDelete={() => this.deleteAccount()}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
               onCancel={() => this.cancel()}
