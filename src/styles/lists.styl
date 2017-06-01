@@ -4,7 +4,11 @@
     justify-content  flex-start
     margin           0 -.7em 2em
 
-$item-margin = .7em
+// We differenciate the "real" margin from the "used" margin. The "used" margin
+// allow to use a little higher value for flex-basis calculation. Firefox
+// and Chrome are behaving well but IE11 need it.
+$item-real-margin = .7em
+$item-margin = .8em
 
 .item-wrapper
     flex             1 1 'calc(100% - %s * 2)' % $item-margin
@@ -13,7 +17,7 @@ $item-margin = .7em
     border-radius    4px
     background-color white
     border           1px solid alpha(black, .15)
-    margin           $item-margin
+    margin           $item-real-margin
     padding-bottom   1em
     cursor           pointer
     text-decoration  none
