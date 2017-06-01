@@ -15,7 +15,6 @@ const UseCaseDialog = ({ t, item, connectors, context, router }) => {
     secondaryAction={() => gotoParent()}
   >
     <ModalContent>
-      <p>{t(`use-case ${item.slug} description`)}</p>
       <div className='use-case-dialog'>
         <ConnectorList connectors={connectors} />
       </div>
