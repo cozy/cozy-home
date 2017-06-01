@@ -7,6 +7,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
 const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel }) => {
   const isUpdate = !!values.login || !!values.access_token
+  const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
       {customView &&
@@ -69,7 +70,7 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
         { !(isUpdate && isOAuth) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-            disabled={submitting || (!dirty && !forceEnabled)}
+            disabled={submitting || !submitEnabled}
             aria-busy={submitting ? 'true' : 'false'}
             onClick={submit}
           >
