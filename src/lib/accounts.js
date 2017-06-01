@@ -24,8 +24,11 @@ export function _delete (cozy, account) {
   return cozy.data.delete(ACCOUNTS_DOCTYPE, account)
 }
 
+let cachedAccountsIndex
 function indexAccountsByType (cozy) {
-  return cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
+  return cachedAccountsIndex
+    ? Promise.resolve(cachedAccountsIndex)
+    : cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
 }
 
 export function getAccountsByType (cozy, accountType, accountsIndex) {
