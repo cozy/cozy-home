@@ -142,6 +142,7 @@
   "energy category": "Energy",
   "host_provider category": "Host",
   "productivity category": "Productivity",
+  "shopping category": "Shopping",
   "others category": "Others",
 
   "account config title": "Connect your %{name} account:",
