@@ -1,6 +1,15 @@
 @import 'cozy-ui'
 
 :local // @stylint ignore
+    .col-account-connection
+        @media (max-width: (930/basefont)rem)
+            .col-account-connection-data
+                display none
+
+            .col-account-connection-header,
+            .col-account-connection-content
+                width   100%
+
     .col-account-connection-header svg
         max-height (48/basefont)em
 
