@@ -22,7 +22,24 @@ import './styles/index.styl'
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
+const handleOAuthResponse = () => {
+  /* global URLSearchParams */
+  const queryParams = new URLSearchParams(window.location.search)
+  if (queryParams.get('account')) {
+    const opener = window.opener
+    const accountKey = queryParams.get('account')
+    const targetOrigin = window.location.origin || `${window.location.protocol}//${window.location.hostname}${(window.location.port ? ':' + window.location.port : '')}`
+    opener.postMessage({
+      key: accountKey,
+      origin: window.name
+    }, targetOrigin)
+    window.close()
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  handleOAuthResponse()
+
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   cozy.client.init({
