@@ -32,6 +32,10 @@ export default class CollectStore {
       delete sanitized.category
     }
 
+    // disallow updating name and slug
+    delete sanitized.name
+    delete sanitized.slug
+
     return sanitized
   }
 
