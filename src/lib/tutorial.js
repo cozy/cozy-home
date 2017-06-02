@@ -54,8 +54,10 @@ export function display (t) {
   if (isMobile.phone) {
     const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
     const clickAction = (e) => {
-      e.stopPropagation()
-      tutorial.nextStep()
+      if (e.srcElement.tagName !== 'A') {
+        e.stopPropagation()
+        tutorial.nextStep()
+      }
     }
     for (const elem of document.querySelectorAll(clickZone)) {
       elem.onclick = clickAction
