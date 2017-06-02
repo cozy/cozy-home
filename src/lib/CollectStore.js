@@ -20,10 +20,6 @@ export default class CollectStore {
     return this.find(c => c.id === connectorId)
   }
 
-  unsubscribe () {
-    this.listener = null
-  }
-
   sanitizeKonnector (konnector) {
     const sanitized = Object.assign({}, konnector)
 
@@ -260,12 +256,6 @@ export default class CollectStore {
     return foundIndex
   }
 
-  synchronize (connectorId) {
-    let connector = this.find(c => c.id === connectorId)
-    return this.importConnector(connector)
-      .then(() => this.startConnectorPoll(connector.id))
-  }
-
   deleteAccount (konnector, account) {
     konnector = this.connectors.find(c => c._id === konnector._id)
     konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
@@ -299,91 +289,6 @@ export default class CollectStore {
 
   getInstalledConnector (slug) {
     return konnectors.findBySlug(cozy.client, slug)
-  }
-
-  putConnector (connector) {
-    return this.fetch('PUT', `konnectors/${connector.id}`, connector)
-      .then(response => {
-        return response.status === 200
-          ? response.text()
-          : Promise.reject(response)
-      })
-      .then((body) => {
-        let connector = JSON.parse(body)
-        this.updateConnector(connector)
-        return connector
-      })
-  }
-
-  importConnector (connector) {
-    return this.fetch('POST', `konnectors/${connector.id}/import`, connector)
-      .then(response => {
-        return response.status === 200
-          ? response
-          : Promise.reject(response)
-      })
-  }
-
-  startConnectorPoll (connectorId, timeout = 30000, interval = 500) {
-    let endTime = Number(new Date()) + timeout
-
-    let checkCondition = function (resolve, reject) {
-      return this.fetch('GET', `konnectors/${connectorId}`)
-        .then(response => response.text()).then(body => {
-          let connector = JSON.parse(body)
-          if (!connector.isImporting) {
-            this.updateConnector(connector)
-            resolve(connector)
-          } else if (Number(new Date()) < endTime) {
-            setTimeout(checkCondition, interval, resolve, reject)
-          } else {
-            this.updateConnector(connector)
-            reject(new Error('polling timed out'))
-          }
-        })
-    }.bind(this)
-    return new Promise((resolve, reject) => {
-      setTimeout(checkCondition, 500, resolve, reject)
-    })
-  }
-
-  refreshFolders () {
-    return this.fetch('GET', 'folders')
-      .then(response => response.text()).then(body => {
-        this.folders = JSON.parse(body)
-        Promise.resolve()
-      })
-  }
-
-  fetch (method, url, body) {
-    const STACK_DOMAIN = '//' + document.querySelector('[role=application]').dataset.cozyDomain
-    const STACK_TOKEN = document.querySelector('[role=application]').dataset.cozyToken
-    let params = {
-      method: method,
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${STACK_TOKEN}`
-      }
-    }
-    if (body) {
-      params.body = JSON.stringify(body)
-    }
-    return fetch(`${STACK_DOMAIN}${url}`, params)
-      .then(response => {
-        let data
-        const contentType = response.headers.get('content-type')
-        if (contentType && contentType.indexOf('json') >= 0) {
-          data = response.json()
-        } else {
-          data = response.text()
-        }
-
-        return (response.status === 200 || response.status === 202 || response.status === 204)
-          ? data
-          : data.then(Promise.reject.bind(Promise))
-      })
   }
 
   createIntentService (intent, window) {
