@@ -124,23 +124,6 @@ export default class ConnectorManagement extends Component {
     this.setState({ selectedAccount: idx })
   }
 
-  synchronize () {
-    const id = this.state.connector.id
-    const { t } = this.context
-    this.setState({ synching: true })
-    this.store.synchronize(id)
-      .then(fetchedConnector => {
-        this.setState({ synching: false })
-        if (fetchedConnector.importErrorMessage) {
-          this.setState({ error: fetchedConnector.importErrorMessage })
-        }
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ synching: false })
-        Notifier.error(t('account config error'))
-      })
-  }
-
   deleteAccount (account) {
     const { t } = this.context
     this.setState({ deleting: true })
@@ -160,14 +143,6 @@ export default class ConnectorManagement extends Component {
         Notifier.error(t('account delete error'))
         throw error
       })
-  }
-
-  getDefaultValues () {
-    let defaults = {}
-    Object.keys(this.state.fields).map(k => {
-      defaults[k] = this.state.fields[k].default || ''
-    })
-    return defaults
   }
 
   sanitize (connector) {
