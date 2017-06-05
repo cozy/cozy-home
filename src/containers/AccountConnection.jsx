@@ -268,7 +268,7 @@ class AccountConnection extends Component {
                   />
                 )}
               </ul>}
-            {!connector.dataType &&
+            {!(connector.dataType && connector.dataType.length) &&
               <p>{t('dataType.none', {name: connector.name})}</p>}
           </div>
         </div>
