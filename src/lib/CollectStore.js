@@ -99,9 +99,9 @@ export default class CollectStore {
         let accObject = {}
         accounts.forEach(a => {
           if (!accObject[a.account_type]) accObject[a.account_type] = []
-          if (errorIndex[a._id]) {
-            a.isErrored = true
-            accObject[a.account_type].isErrored = true
+          if (errorIndex[a._id] && errorIndex[a._id].error) {
+            a.error = errorIndex[a._id].error
+            accObject[a.account_type].error = errorIndex[a._id].error
           }
           accObject[a.account_type].push(a)
         })
@@ -188,7 +188,7 @@ export default class CollectStore {
   }
 
   updateKonnectorError (konnector, error = null) {
-    konnector.accounts.isErrored = !!error
+    konnector.accounts.error = error
     this.updateConnector(konnector)
   }
 
