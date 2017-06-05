@@ -17,7 +17,7 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill } = props
     inputs = (
       <input
         type={type}
@@ -29,6 +29,7 @@ const Field = (props) => {
         name={name}
         onChange={onChange}
         onInput={onInput}
+        autocomplete={noAutoFill ? 'new-password' : 'on'}
       />
     )
   }
@@ -74,7 +75,7 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill } = props
       return (
         <FieldWrapper {...props}>
           <button
@@ -97,6 +98,7 @@ export const PasswordField = translate()(
             name={name}
             onChange={onChange}
             onInput={onInput}
+            autocomplete={noAutoFill ? 'new-password' : 'on'}
           />
         </FieldWrapper>
       )
