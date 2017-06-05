@@ -26,7 +26,7 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
               name={inputName}
               placeholder={t('account.connection.login.password.placeholder')}
               invalid={!!error}
-              noPasswordSave
+              noAutoFill
               {...fields[name]} />
           }
           if (fields[name].type === 'dropdown') {
@@ -44,7 +44,7 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
             name={inputName}
             readOnly={readOnly}
             invalid={!!error}
-            noPasswordSave
+            noAutoFill
             {...fields[name]} />
         }
       )}
