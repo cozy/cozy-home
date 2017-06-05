@@ -131,20 +131,13 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
   if (!account._id) throw new Error('Missing `_id` parameter for account')
   if (!account.folderId) throw new Error('Missing `folderId` parameter for account')
 
-  return cozy.fetchJSON('POST', '/jobs/queue/konnector', {
-    data: {
-      attributes: {
-        options: {
-          priority: 10,
-          max_exec_count: 1
-        },
-        arguments: {
-          konnector: slug,
-          account: account._id,
-          folder_to_save: account.folderId
-        }
-      }
-    }
+  return cozy.jobs.create('konnector', {
+    konnector: slug,
+    account: account._id,
+    folder_to_save: account.folderId
+  }, {
+    priority: 10,
+    max_exec_count: 1
   })
   .then(job => waitForJobFinished(cozy, job, timeout))
 }
