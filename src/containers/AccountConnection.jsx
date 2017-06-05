@@ -231,6 +231,7 @@ class AccountConnection extends Component {
             }
             <AccountLoginForm
               t={t}
+              connectorSlug={connector.slug}
               isOAuth={connector.oauth}
               customView={customView}
               fields={fields}
