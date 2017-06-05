@@ -24,19 +24,17 @@ class AccountConnection extends Component {
     })
   }
 
-  connectAccount ({login, password, folderPath}) {
+  connectAccount (auth) {
+    const { folderPath } = auth
     const { connector } = this.props
     let { account } = this.state
 
     if (account) {
-      return this.updateAccount(connector, account, {login: login, password: password})
+      return this.updateAccount(connector, account, auth)
     }
 
     account = {
-      auth: {
-        login: login,
-        password: password
-      }
+      auth
     }
 
     this.setState({account: account})
@@ -112,8 +110,7 @@ class AccountConnection extends Component {
   }
 
   updateAccount (connector, account, values) {
-    account.auth.login = values.login
-    account.auth.password = values.password
+    Object.assign(account.auth, values)
 
     this.setState({ submitting: true })
 
