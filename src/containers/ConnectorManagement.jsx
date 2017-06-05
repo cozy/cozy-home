@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
+import AccountSuccessTimeout from './AccountSuccessTimeout'
 import Notifier from '../components/Notifier'
 
 let AUTHORIZED_DATATYPE = [
@@ -83,16 +84,21 @@ export default class ConnectorManagement extends Component {
               <div className='installing-spinner' />
               <div>{t('working')}</div>
             </div>
-            : <AccountConnection
-              account={isConnected ? accounts[selectedAccount] : null}
-              onError={(error) => this.handleError(error)}
-              onSuccess={(account, messages) => this.handleSuccess(account, messages)}
-              onTimeout={(account) => this.handleTimeout()}
-              onCancel={() => this.gotoParent()}
-              jobInBackground={jobInBackground}
-              accountConfig={() => this.accountConfig()}
-              {...this.state}
-              {...this.context} />
+            : jobInBackground
+              ? <AccountSuccessTimeout
+                account={isConnected ? accounts[selectedAccount] : null}
+                onCancel={() => this.gotoParent()}
+                accountConfig={() => this.accountConfig()}
+                {...this.state}
+                {...this.context} />
+              : <AccountConnection
+                account={isConnected ? accounts[selectedAccount] : null}
+                onError={(error) => this.handleError(error)}
+                onSuccess={(account, messages) => this.handleSuccess(account, messages)}
+                onTimeout={(account) => this.handleTimeout()}
+                onCancel={() => this.gotoParent()}
+                {...this.state}
+                {...this.context} />
           }
         </ModalContent>
       </Modal>
@@ -121,6 +127,7 @@ export default class ConnectorManagement extends Component {
     const { t } = this.context
 
     Notifier.error(t(`${error.message || error}`))
+    this.setState({ jobInBackground: false })
     this.gotoParent()
   }
 

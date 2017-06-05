@@ -144,11 +144,6 @@ export default class CollectStore {
           return Promise.reject(new Error('Unexpected error while trying to setup next run of the konnector'))
         }
 
-        if (job.attributes.state === 'queued') {
-          // TimeOut : the job seems to run nicely but to take time
-          this.jobTimeout()
-        }
-
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -165,10 +160,6 @@ export default class CollectStore {
         })
       })
       .then(() => connection)
-  }
-
-  jobTimeout () {
-    console.log('jobTimeout')
   }
 
   /**
@@ -188,6 +179,7 @@ export default class CollectStore {
 
   /**
    * updateAccount : updates an account in a connector in DB with new values
+   *                 then runs the account to test it
    * @param {Object} connector The connector to update
    * @param {Object} account   The account to update
    * @param {Object} values    The new values of the updated account
@@ -206,7 +198,18 @@ export default class CollectStore {
       const accountIndex = this.findAccountIndexById(connector.accounts, account._id)
       // Updates the _rev value of the account in the connector
       connector.accounts[accountIndex] = updatedAccount
-      this.updateConnector(connector)
+      return this.updateConnector(connector)
+    })
+    .then((connector) => konnectors.run(cozy.client, connector, account))
+    .then((job) => {
+      console.log(job)
+      if (job && job.attributes && job.attributes.state === 'queued') {
+        console.log('successTimeout')
+      } else {
+        console.log('normal end')
+      }
+
+      return connector
     })
     .catch((error) => {
       return Promise.reject(error)

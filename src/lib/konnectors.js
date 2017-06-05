@@ -153,8 +153,9 @@ export function run (cozy, konnector, account, successTimeout = 20 * 1000) {
 function waitForJobFinished (cozy, job, successTimeout) {
   return new Promise((resolve, reject) => {
     let idInterval
+    let idTimeout
 
-    const idTimeout = setTimeout(() => {
+    idTimeout = setTimeout(() => {
       clearInterval(idInterval)
       resolve(job)
     }, successTimeout)
