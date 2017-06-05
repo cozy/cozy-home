@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel }) => {
+const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
   const isUpdate = !!values.login || !!values.access_token
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -19,9 +19,11 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
       {Object.keys(fields)
         .filter(name => !fields[name].advanced)
         .map(name => {
+          const inputName = `${name}_${connectorSlug}`
           if (fields[name].type === 'password') {
             return <PasswordField
               label={t(name)}
+              name={inputName}
               placeholder={t('account.connection.login.password.placeholder')}
               invalid={!!error}
               {...fields[name]} />
@@ -38,6 +40,7 @@ const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submit
 
           return <Field
             label={t(name)}
+            name={inputName}
             readOnly={readOnly}
             invalid={!!error}
             {...fields[name]} />

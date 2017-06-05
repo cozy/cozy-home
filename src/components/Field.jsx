@@ -17,7 +17,7 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name } = props
     inputs = (
       <input
         type={type}
@@ -26,6 +26,7 @@ const Field = (props) => {
         readonly={readOnly}
         disabled={disabled || readOnly}
         value={value}
+        name={name}
         onChange={onChange}
         onInput={onInput}
       />
@@ -73,7 +74,7 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name } = props
       return (
         <FieldWrapper {...props}>
           <button
@@ -93,6 +94,7 @@ export const PasswordField = translate()(
             placeholder={placeholder}
             className={styles['coz-field-input']}
             value={value}
+            name={name}
             onChange={onChange}
             onInput={onInput}
           />
