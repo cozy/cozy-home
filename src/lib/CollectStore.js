@@ -200,17 +200,6 @@ export default class CollectStore {
       connector.accounts[accountIndex] = updatedAccount
       return this.updateConnector(connector)
     })
-    .then((connector) => konnectors.run(cozy.client, connector, account))
-    .then((job) => {
-      console.log(job)
-      if (job && job.attributes && job.attributes.state === 'queued') {
-        console.log('successTimeout')
-      } else {
-        console.log('normal end')
-      }
-
-      return connector
-    })
     .catch((error) => {
       return Promise.reject(error)
     })
