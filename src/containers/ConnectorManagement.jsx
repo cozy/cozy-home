@@ -30,7 +30,7 @@ export default class ConnectorManagement extends Component {
 
     this.state = {
       connector: this.sanitize(connector),
-      isConnected: connector.accounts.length !== 0,
+      isConnected: connector.accounts.length !== 0 && !connector.accounts.error,
       isInstalled: this.isInstalled(connector),
       isWorking: true,
       selectedAccount: 0,
@@ -46,12 +46,14 @@ export default class ConnectorManagement extends Component {
         return this.store
           .fetchAccounts(props.params.connectorSlug, null)
           .then(accounts => {
+            const error = konnector.accounts.error
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
               connector: Object.assign(konnector, this.state.connector),
-              isConnected: konnector.accounts.length !== 0,
-              isWorking: false
+              isConnected: konnector.accounts.length !== 0 && !error,
+              isWorking: false,
+              error
             })
           })
       })
@@ -73,7 +75,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { accounts } = this.state.connector
-    const { isConnected, selectedAccount, isWorking } = this.state
+    const { selectedAccount, isWorking } = this.state
     const { t } = this.context
 
     return (
@@ -85,7 +87,7 @@ export default class ConnectorManagement extends Component {
               <div>{t('working')}</div>
             </div>
             : <AccountConnection
-              existingAccount={isConnected ? accounts[selectedAccount] : null}
+              existingAccount={accounts.length ? accounts[selectedAccount] : null}
               onError={(error) => this.handleError(error)}
               onSuccess={(account, messages) => this.handleSuccess(account, messages)}
               onCancel={() => this.gotoParent()}

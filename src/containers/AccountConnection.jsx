@@ -16,6 +16,8 @@ class AccountConnection extends Component {
     this.state = {
       account: this.props.existingAccount
     }
+
+    if (this.props.error) this.handleError({message: this.props.error})
   }
 
   componentWillReceiveProps ({ existingAccount }) {
