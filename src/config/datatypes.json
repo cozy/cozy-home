@@ -1,0 +1,22 @@
+[
+  "activity",
+  "appointment",
+  "bill",
+  "bloodPressure",
+  "calendar",
+  "commit",
+  "consumption",
+  "contact",
+  "contract",
+  "courseMaterial",
+  "event",
+  "heartbeat",
+  "podcast",
+  "refund",
+  "sleepTime",
+  "stepsNumber",
+  "temperature",
+  "travelDate",
+  "tweet",
+  "weight"
+]

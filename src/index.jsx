@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  window.initKonnectors = require('./initKonnectors.json')
-  window.initFolders = require('./initFolders.json')
+  window.initKonnectors = require('../config/konnectors.json')
+  window.initFolders = require('../config/folders.json')
 
   const store = new CollectStore(window.initKonnectors, window.initFolders, context)
   const useCases = store.getUseCases()

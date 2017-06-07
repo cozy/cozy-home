@@ -5,13 +5,8 @@ import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
-let AUTHORIZED_DATATYPE = [
-  'activity', 'heartbeat', 'calendar', 'commit',
-  'consumption', 'contact', 'contract', 'travelDate', 'event', 'bill',
-  'stepsNumber', 'podcast', 'weight', 'bloodPressure', 'appointment',
-  'refund', 'sleepTime', 'courseMaterial', 'temperature', 'tweet'
-]
-let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
+const AUTHORIZED_DATATYPE = require('../../config/datatypes')
+const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
