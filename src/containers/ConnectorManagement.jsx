@@ -97,9 +97,11 @@ export default class ConnectorManagement extends Component {
   handleSuccess (account, messages) {
     const { t } = this.context
 
-    Notifier.info.apply(Notifier, messages.map(item => {
-      return t(item.message, item.params)
-    }))
+    Notifier.info([
+      messages.map(item => {
+        return t(item.message, item.params)
+      }).join('.\n')
+    ])
 
     this.gotoParent()
   }
