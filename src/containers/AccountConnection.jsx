@@ -76,7 +76,7 @@ class AccountConnection extends Component {
             const currentIdx = accounts.findIndex(a => a._id === accountID)
             const account = accounts[currentIdx]
             this.setState({account: account})
-            account.folderPath = account.folderPath || t('konnector default base folder', konnector)
+            account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
             return this.runConnection(accounts[currentIdx], account.folderPath)
               .then(() => {
                 this.setState({
@@ -130,15 +130,15 @@ class AccountConnection extends Component {
     const { account } = this.state
     this.setState({ deleting: true })
     this.store.deleteAccount(this.props.connector, account)
-      .then(() => this.handleSuccess(account, [{message: 'account delete success'}]))
+      .then(() => this.handleSuccess(account, [{message: 'account.message.success.delete'}]))
       .catch(error => this.handleError(error))
   }
 
   handleCreateSuccess (account) {
-    const messages = [{message: 'account config success'}]
+    const messages = [{message: 'account.message.success.config'}]
 
     if (account.folderPath) {
-      messages.push({message: 'account config details', params: {folder: account.folderPath}})
+      messages.push({message: 'account.message.details', params: {folder: account.folderPath}})
     }
 
     this.handleSuccess(account, messages)
@@ -208,24 +208,24 @@ class AccountConnection extends Component {
           <div className={styles['col-account-connection-form']}>
             { error
               ? <div className='coz-error'>
-                <h4>{t('account.connection.error.title')}</h4>
+                <h4>{t('account.message.error.global.title')}</h4>
                 <p>
                   <ReactMarkdown
-                    source={t('account.connection.error.description', {name: connector.name, forum: t('account.connection.error.forum')})}
+                    source={t('account.message.error.global.description', {name: connector.name, forum: t('account.message.forum')})}
                     renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
                   />
                 </p>
               </div>
 
               : existingAccount
-                ? !connector.oauth && <h4>{t('account.connection.account.title')}</h4>
+                ? !connector.oauth && <h4>{t('account.form.title')}</h4>
                 : <div>
-                  <h3>{t('account.connection.title', { name: connector.name })}</h3>
+                  <h3>{t('account.config.title', { name: connector.name })}</h3>
                   <p className={styles['col-account-connection-security']}>
                     <svg>
                       <use xlinkHref={securityIcon} />
                     </svg>
-                    {t('account.connection.security')}
+                    {t('account.config.security')}
                   </p>
                 </div>
             }
@@ -240,14 +240,14 @@ class AccountConnection extends Component {
               error={credentialsError}
               forceEnabled={!!error}
               onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
+              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
               onCancel={() => this.cancel()}
             />
           </div>
           <div className={styles['col-account-connection-data']}>
             { description &&
               <div>
-                <h4>{t('account.connection.data.service.description')}</h4>
+                <h4>{t('account.config.data.service.description')}</h4>
                 <p>
                   <ReactMarkdown
                     source={
@@ -258,7 +258,7 @@ class AccountConnection extends Component {
                 </p>
               </div>
             }
-            <h4>{t('account.connection.data.title')}</h4>
+            <h4>{t('account.config.data.title')}</h4>
             {connector.dataType &&
               <ul className={styles['col-account-connection-data-access']}>
                 {connector.dataType.map(data =>

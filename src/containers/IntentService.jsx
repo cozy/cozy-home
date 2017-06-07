@@ -49,7 +49,7 @@ export default class IntentService extends Component {
         this.setState({
           isFetching: false,
           error: {
-            message: 'intent.service.initialization.error',
+            message: 'intent.service.error.initialization',
             reason: error.message
           }
         })
@@ -72,7 +72,7 @@ export default class IntentService extends Component {
   handleError (error) {
     this.setState({
       error: {
-        message: 'intent.service.account.creation.error',
+        message: 'intent.service.error.creation',
         reason: error.message
       }
     })

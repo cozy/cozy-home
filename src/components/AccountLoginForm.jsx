@@ -16,25 +16,25 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           const inputName = `${name}_${connectorSlug}`
           if (fields[name].type === 'password') {
             return <PasswordField
-              label={t(name)}
+              label={t(`account.form.label.${name}`)}
               name={inputName}
-              placeholder={t('account.connection.login.password.placeholder')}
+              placeholder={t('account.form.placeholder.password')}
               invalid={!!error}
               noAutoFill
               {...fields[name]} />
           }
           if (fields[name].type === 'dropdown') {
-            return <DropdownField label={t(name)} {...fields[name]} />
+            return <DropdownField label={t(`account.form.label.${name}`)} {...fields[name]} />
           }
 
           if (fields[name].type === 'checkbox') {
-            return <CheckboxField label={t(name)} {...fields[name]} />
+            return <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />
           }
 
           const readOnly = name === 'login' && isUpdate
 
           return <Field
-            label={t(name)}
+            label={t(`account.form.label.${name}`)}
             name={inputName}
             readOnly={readOnly}
             invalid={!!error}
@@ -44,16 +44,16 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
       )}
       {isUpdate &&
         <div className={styles['col-account-form-delete']}>
-          <h4>{t('disconnect')}</h4>
+          <h4>{t('account.disconnect.title')}</h4>
           <p>
-            {t('disconnect desc')}
+            {t('account.disconnect.description')}
           </p>
           <button
             className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
             disabled={deleting}
             aria-busy={deleting}
             onClick={onDelete}>
-            {t('disconnect button')}
+            {t('account.form.button.disconnect')}
           </button>
         </div>
       }
@@ -63,7 +63,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
             onClick={onCancel}
           >
-            {t('account.connection.update.cancel')}
+            {t('account.form.button.cancel')}
           </button>
         }
         { !(isUpdate && isOAuth) &&
@@ -73,13 +73,13 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             aria-busy={submitting ? 'true' : 'false'}
             onClick={submit}
           >
-            {t(isUpdate ? 'account.connection.update.save' : 'account.connection.login.submit')}
+            {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
         }
       </div>
       {error &&
         <p className='errors'>
-          {t('account.connection.login.error.bad_credentials')}
+          {t('account.message.error.bad_credentials')}
         </p>
       }
     </div>
