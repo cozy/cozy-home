@@ -84,7 +84,7 @@ export default class ConnectorManagement extends Component {
           { isWorking
             ? <div className='installing'>
               <div className='installing-spinner' />
-              <div>{t('working')}</div>
+              <div>{t('loading.working')}</div>
             </div>
             : <AccountConnection
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
@@ -137,12 +137,12 @@ export default class ConnectorManagement extends Component {
         })
 
         this.gotoParent()
-        Notifier.info(t('account delete success'))
+        Notifier.info(t('account.message.success.delete'))
       })
       .catch(error => { // eslint-disable-line
         this.setState({ deleting: false })
         this.gotoParent()
-        Notifier.error(t('account delete error'))
+        Notifier.error(t('account.message.error.delete'))
         throw error
       })
   }
@@ -161,9 +161,6 @@ export default class ConnectorManagement extends Component {
   configureFields (fields, t, connectorName) {
     if (fields.calendar && !fields.calendar.default) {
       fields.calendar.default = connectorName
-    }
-    if (fields.folderPath && !fields.folderPath.default) {
-      fields.folderPath.default = '/' + t('title') + '/' + connectorName
     }
     if (fields.folderPath && !fields.folderPath.options) {
       fields.folderPath.options = this.store.folders.map(f => f.path + '/' + f.name)

@@ -9,7 +9,7 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = 
     {connectors.map(c =>
       <ConnectorItem
         title={c.name}
-        subtitle={t(c.category + ' category')}
+        subtitle={t(`category.${c.category}`)}
         connected={showConnectedBadge && c.accounts.length !== 0}
         errored={!!c.accounts.error}
         iconName={c.slug}
@@ -27,7 +27,7 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = 
         <header className='item-header'>
           <img className='item-icon' src={require('../assets/icons/konnectors/icon-voting.svg')} />
         </header>
-        <p class='item-title item-voting-text'>{t('voting text')}</p>
+        <p class='item-title item-voting-text'>{t('connector.voting')}</p>
       </a>
     }
   </div>

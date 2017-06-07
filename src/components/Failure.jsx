@@ -7,14 +7,14 @@ const reload = () => {
 
 const Failure = ({ t, errorType }) => (
   <div className='con-error'>
-    <h2>{ t(`Error.${errorType}`) }</h2>
+    <h2>{ t(`error.${errorType}`) }</h2>
     <p>
       <button
         role='button'
         className='coz-btn coz-btn--regular'
         onClick={reload}
       >
-        { t('Error.button.reload') }
+        { t('error.button.reload') }
       </button>
     </p>
   </div>

@@ -1,9 +1,87 @@
 {
-  "error.LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
-  "error.UNKNOWN_ERROR": "Something unexpected happened while running the connector",
-  "error.JOB_TIMEOUT": "The connector execution was too long",
-  "code": "Authorization code",
-  "encrypted fields": "The passwords are still encrypted, no import can be done. Please log out of your Cozy, log in again and restart Konnectors",
+  "account": {
+    "config": {
+      "default_folder": "/Administrative/%{name}",
+      "title": "Connect your %{name} account to your Cozy",
+      "show password": "Display password",
+      "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
+      "data": {
+        "title": "Collected data:",
+        "service": {
+          "description": "Service description:"
+        }
+      }
+    },
+    "disconnect": {
+      "title": "Disconnection",
+      "description": "Your will be disconnected from this account, but imported data will be kept"
+    },
+    "form": {
+      "title": "Account",
+      "label": {
+        "firstname": "Firstname",
+        "lastname": "Lastname",
+        "login": "Login",
+        "password": "Password",
+        "email": "Email",
+        "bank_identifier": "Bank identifier (optional)",
+        "accessToken": "Access token",
+        "accessTokenSecret": "Access token secret",
+        "consumerKey": "Consumer Key",
+        "consumerSecret": "Consumer Secret",
+        "apikey": "Api key",
+        "phoneNumber": "Phone number",
+        "folderPath": "Folder path",
+        "authCode": "Auth code",
+        "accountName": "Account name",
+        "loginUrl": "Login URL",
+        "token": "Token",
+        "refreshToken": "Refresh Token"
+      },
+      "placeholder": {
+        "password": "The password you use to connect to the service"
+      },
+      "button": {
+        "connect": "Connect",
+        "cancel": "Cancel",
+        "save": "Save",
+        "disconnect": "Disconnect this account",
+        "delete": "Delete this account",
+        "synchronize": "Synchronize now"
+      }
+    },
+    "message": {
+      "success": {
+        "config": "Account added successfully",
+        "update": "Account updated successfully",
+        "delete": "Account removed succesfully"
+      },
+      "error": {
+        "global": {
+          "title": "An error occured",
+          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/c/support)."
+        },
+        "server": "Apologies, our server had an hiccup, do you mind starting again?",
+        "bad_credentials": "Sorry, you entered an incorrect login or password",
+        "delete": "Apologies, our server had an hiccup, do you mind starting again?"
+      },
+      "details": "Find your datas in the Files app at this location: ",
+      "forum": "forum"
+    }
+  },
+
+  "intent": {
+    "service": {
+      "error": {
+        "initialization": "Service failed to initialize. Sorry for the inconvenience.",
+        "creation": "Unable to create account, an error occurred.",
+        "cause": "Cause: %{error}"
+      },
+      "cancel": "Cancel",
+      "terminate": "Terminate"
+    }
+  },
+
   "field": {
     "password": {
       "visibility": {
@@ -16,203 +94,27 @@
       }
     }
   },
-  "internal error": "An error occured in your Cozy",
-  "notification homes": "%{smart_count} home description imported |||| %{smart_count} home descriptions imported",
-  "notification consumptionstatements": "%{smart_count} new consumption statement imported |||| %{smart_count} new consumption statements imported",
-  "notification contracts": "%{smart_count} new contract imported |||| %{smart_count} new contracts imported",
-  "notification clients": "%{smart_count} new client's information imported |||| %{smart_count} new clients' information imported",
-  "notification paymenttermss": "%{smart_count} new payment term imported |||| %{smart_count} new payment terms imported",
-  "redirectPath": "Path of the redirect URL",
-  "token not found": "The token could not be retrieved",
-  "key not found": "Key not found",
-  "request error": "A request to the website failed, please see read the logs.",
-  "parsing error": "The result could not be parsed.",
-  "file error": "The file could not be created/modified/deleted",
-  "no bills retrieved": "No bills retrieved",
-  "last import:": "Last import:",
-  "save and import": "Import and save",
-  "auto import": "Automatic import",
-  "imported data:": "Imported data:",
-  "importing...": "importing...",
-  "no import performed": "No import performed",
-  "import already running": "Import is already running.",
-  "firstname": "Firstname",
-  "lastname": "Lastname",
-  "login": "Login",
-  "password": "Password",
-  "email": "Email",
-  "bank_identifier": "Bank identifier (optional)",
-  "accessToken": "Access token",
-  "accessTokenSecret": "Access token secret",
-  "consumerKey": "Consumer Key",
-  "consumerSecret": "Consumer Secret",
-  "apikey": "Api key",
-  "phoneNumber": "Phone number",
-  "folderPath": "Folder path",
-  "select starting date": "Select a starting date",
-  "start import from": "From",
-  "authCode": "Auth code",
-  "accountName": "Account name",
-  "date format": "LLL",
-  "add an account": "Add an account",
-  "remove last account": "Remove last account",
-  "vendorLink": "Website from which the data are imported: ",
-  "loginUrl": "Login URL",
-  "token": "Token",
-  "refreshToken": "Refresh Token",
-  "home headline": "With Konnectors you can retrieve many data and save them into your Cozy.\nFrom your phone bills to your connected scale, or your tweets. Configure the connectors you are interested in:",
-  "home config step 1": "Select a connector in the menu on the left",
-  "home config step 2": "Follow the instructions to configure it",
-  "home config step 3": "Your data are retrieved and saved into your Cozy",
-  "home more info": "More information:",
-  "home help step 1": "You must manually trigger the import, except if you enable the auto-import.",
-  "error occurred during import.": "An error occurred during the last import.",
-  "error occurred during import:": "An error occurred during the last import:",
-  "import server error": "Server error occured while importing.",
-  "open selected folder": "Open selected folder",
-  "konnector default base folder": "/Administrative/%{name}",
-  "konnector facebook_events connect": "Connect",
-  "konnector installation timeout error": "Konnector installation timed out.",
-  "intent.service.initialization.error": "Service failed to initialize. Sorry for the inconvenience.",
-  "intent.service.account.creation.error": "Unable to create account, an error occurred.",
-  "intent.service.error.cause": "Cause: %{error}",
-  "intent.service.cancel": "Cancel",
-  "intent.service.terminate": "Terminate",
-  "notification import error": "an error occurred during import of data",
-  "notification malakoff_mederic": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
-  "notification prefix": "Konnector %{name}:",
-  "notification commits": "%{smart_count} new commit imported |||| %{smart_count} new commits imported",
-  "notification bills": "%{smart_count} new invoice imported |||| %{smart_count} new invoices imported",
-  "notification tweets": "%{smart_count} new tweet imported |||| %{smart_count} new tweets imported",
-  "notification contacts created": "%{smart_count} new contact created |||| %{smart_count} new contacts created",
-  "notification contacts updated": "%{smart_count} contact updated|||| %{smart_count} contacts updated",
-  "notification events created": "%{smart_count} new event imported |||| %{smart_count} new events imported",
-  "notification events updated": "%{smart_count} event updated |||| %{smart_count} events updated",
-  "notification measures": "%{smart_count} new measure imported |||| %{smart_count} new measures imported",
-  "notification rescuetime": "%{smart_count} new activity imported |||| %{smart_count} new activities imported",
-  "notification birthdays creation": "%{smart_count} new birthday created |||| %{smart_count} new birthdays created",
-  "notification ameli": "%{smart_count} new reimbursement imported |||| %{smart_count} new reimbursements imported",
-  "notification podcast": "%{smart_count} new podcast imported |||| %{smart_count} new podcasts imported",
-  "notification isen": "%{smart_count} new course material imported |||| %{smart_count} new course materials imported",
-  "notification isen event changed": "Careful, the intervention %{description} will take place on %{newDate} instead of %{oldDate}",
-  "notification isen date format": "MM/DD [at] HH:mm a",
-  "notification isen event deleted": "Careful, the intervention %{description} that should have taken place on %{date} has been canceled",
-  "konnector birthdays birthday": "Birthday of",
-  "konnector voyages_sncf reference": "Reference",
-  "konnector voyages_sncf ticket choice": "Ticket choice",
-  "konnector voyages_sncf outward": "Outward",
-  "konnector voyages_sncf inward": "Inward",
-  "konnector voyages_sncf class": "Class",
-  "konnector voyages_sncf car": "car",
-  "konnector voyages_sncf place": "place",
-  "konnector ovh connect first": "You need to login to your OVH account first.",
-  "konnector danger zone": "Danger zone",
-  "konnector delete credentials": "Delete this configuration",
-  "konnector deleted": "The konnector configuration was successfully deleted.",
-  "konnector deletion error": "An error occured while deleting this konnector configuration.",
-  "oauth connect": "Connect",
-  "calendar": "Calendar in which events will be imported",
-  "url": "Target URL",
-  "tag": "Tag",
 
-  "title": "Data Connect",
-  "category title": "Categories",
-  "discovery title": "Discovery",
-  "connected title": "Connected",
-  "coming_soon": "Coming soon!",
-
-  "none": "No schedule selected",
-  "every hour": "Every hour",
-  "every day": "Every day",
-  "every week": "Every week",
-  "each month": "Each month",
-
-  "all category": "All",
-  "health category": "Health",
-  "insurance category": "Insurance",
-  "transport category": "Transportation",
-  "social category": "Social",
-  "isp category": "ISP",
-  "telecom category": "Telecom",
-  "energy category": "Energy",
-  "host_provider category": "Host",
-  "productivity category": "Productivity",
-  "shopping category": "Shopping",
-  "others category": "Others",
-
-  "account config title": "Connect your %{name} account:",
-  "account cancel button": "Cancel",
-  "account save button": "Save",
-  "account config show password": "Display password",
-  "account config success": "Account added successfully",
-  "account config error": "Apologies, our server had an hiccup, do you mind starting again?",
-  "account config details": "Find your datas in the Files app at this location: ",
-  "account update success": "Account updated successfully",
-  "account index": "Account #%{index}",
-  "add_account button": "Add account",
-  "activity": "Activity",
-  "activity desc": "Last synchronization: ",
-  "activity running": "in progress...",
-  "activity button": "Synchronize now",
-  "config": {
-    "location": {
-      "title": "Location",
-      "desc": "You will find your files in the following folder in the Files application",
-      "button": "Open this folder in Files"
-    },
-    "calendar": {
-      "title": "Calendar",
-      "desc": "You will find your events in the following calendar in the Calendar application"
-    },
-    "frequency": {
-      "title": "Synchronization frequency",
-      "desc": "Your files will be added to your Cozy at the following frequency"
-    },
-    "account": {
-      "title": "Account"
-    }
+  "nav": {
+    "category": "Categories",
+    "discovery": "Discovery",
+    "connected": "Connected"
   },
-  "disconnect": "Disconnection",
-  "disconnect desc": "Your will be disconnected from this account, but imported data will be kept",
-  "disconnect button": "Disconnect this account",
-  "delete button": "Delete this account",
-  "account delete success": "Account removed succesfully",
-  "account delete error": "Apologies, our server had an hiccup, do you mind starting again?",
-  "account": {
-    "connection": {
-      "account": {
-        "title": "Account"
-      },
-      "error": {
-        "title": "An error occurred",
-        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/c/support).",
-        "forum": "forum"
-      },
-      "title": "Connect your %{name} account to your Cozy",
-      "update": {
-        "cancel": "Cancel",
-        "save": "Save"
-      },
-      "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-      "data": {
-        "title": "Collected data:",
-        "service": {
-          "description": "Service description:"
-        }
-      },
-      "login": {
-        "password": {
-          "placeholder": "The password you use to connect to the service"
-        },
-        "submit": "Connect",
-        "error": {
-          "bad_credentials": "Sorry, you entered an incorrect login or password"
-        }
-      }
-    }
+
+  "category": {
+    "all": "All",
+    "health": "Health",
+    "insurance": "Insurance",
+    "transport": "Transportation",
+    "social": "Social",
+    "isp": "ISP",
+    "telecom": "Telecom",
+    "energy": "Energy",
+    "host_provider": "Host",
+    "productivity": "Productivity",
+    "shopping": "Shopping",
+    "others": "Others"
   },
-  "working": "Loading",
-  "voting text": "You don't find the connector you were looking for? Please tell us!",
 
   "dataType": {
     "none": "%{name} won't access any data in your Cozy",
@@ -240,20 +142,20 @@
     "phonecommunicationlog": "Your phone communications log",
     "geopoint": "Your geolocations"
   },
-  "not fixe token": "To get these data, you have to sing-in with your email.",
-  "notification videostreams": "%{smart_count} new film and video watching log imported |||| %{smart_count} new video and film watching logs imported",
 
-  "notification geopoints": "%{smart_count} new geolocation point imported |||| %{smart_count} new geolocation points imported",
-  "notification phonecommunicationlogs": "%{smart_count} new call and sms log imported |||| %{smart_count} new call and sms logs import",
-  "orangeGeolocOptin": "Yes, I agree that Orange geolocalise regularly my mobile phone in the scope of the MesInfos pilote",
-  "orangeGeolocOptinPreviousState": "orangeGeolocOptinPreviousState",
-  "setting orange optin error": "Technical error, can't set your choice for the geolocation service.",
-  "checking orange optin error": "Technical error, can't check your choice about the geolocation service of Orange",
-  "no orange geoloc optin": "No geopoint data, as you opt-out for Orange geolocation service.",
-  "frequency": "Synchronization frequency",
+  "loading": {
+    "initial": "Loading connectors accounts...",
+    "working": "Loading"
+  },
 
-  "Loading": {
-    "initial": "Loading connectors accounts..."
+  "error": {
+    "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
+    "LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
+    "UNKNOWN_ERROR": "Something unexpected happened while running the connector",
+    "JOB_TIMEOUT": "The connector execution was too long",
+    "button": {
+      "reload": "Refresh now"
+    }
   },
 
   "tutorial": {
@@ -269,11 +171,7 @@
     }
   },
 
-  "Error": {
-    "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
-    "button": {
-      "reload": "Refresh now"
-    }
+  "connector": {
+    "voting": "You don't find the connector you were looking for? Please tell us!"
   }
-
 }

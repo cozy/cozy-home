@@ -9,7 +9,7 @@ export const Loading = ({ t, loadingType, noMargin }) => {
         : 'coz-loading'
       }
     >
-      {loadingType && <p>{t(`Loading.${loadingType}`)}</p>}
+      {loadingType && <p>{t(`loading.${loadingType}`)}</p>}
     </div>
   )
 }

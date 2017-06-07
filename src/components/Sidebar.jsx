@@ -6,7 +6,7 @@ const Sidebar = ({ t, categories, router }) => {
   let isCategoryView = router.location.pathname.match(/^\/category/) !== null
   const i18nCategories =
     categories.filter(c => c !== 'others')
-      .map(c => ({ slug: c, label: t(`${c} category`) }))
+      .map(c => ({ slug: c, label: t(`category.${c}`) }))
       .sort((a, b) => a.label.localeCompare(b.label))
 
   return (
@@ -15,20 +15,20 @@ const Sidebar = ({ t, categories, router }) => {
         <ul className='coz-nav'>
           <li className='coz-nav-item'>
             <Link to='/discovery' className='coz-nav-link con-cat-discovery' activeClassName='active'>
-              {t('discovery title')}
+              {t('nav.discovery')}
             </Link>
           </li>
           <li className='coz-nav-item'>
             <Link to='/category/all'
               className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
-              {t('category title')}
+              {t('nav.category')}
             </Link>
           </li>
           {isCategoryView &&
             <ul className='con-nav-submenu'>
               <li>
                 <Link to='/category/all' className='con-nav-submenu-link' activeClassName='active'>
-                  {t('all category')}
+                  {t('category.all')}
                 </Link>
               </li>
               {i18nCategories.map(category => (
@@ -40,14 +40,14 @@ const Sidebar = ({ t, categories, router }) => {
               ))}
               <li>
                 <Link to='/category/others' className='con-nav-submenu-link' activeClassName='active'>
-                  {t('others category')}
+                  {t('category.others')}
                 </Link>
               </li>
             </ul>
           }
           <li className='coz-nav-item'>
             <Link to='/connected' className='coz-nav-link con-cat-connected' activeClassName='active'>
-              {t('connected title')}
+              {t('nav.connected')}
             </Link>
           </li>
         </ul>
