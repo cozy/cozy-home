@@ -14,6 +14,7 @@ export function display (t) {
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass = 'tooltip' + (isSmall ? 'Small' : '') + (isSmall && isLandscape ? 'Right' : 'Bottom')
   const shouldTrackTutorial = shouldEnableTracking()
+  const trackerInstance = getTracker()
   const pageURLsForTracking = [
     'tutorial/automate',
     'tutorial/apps'
@@ -45,8 +46,7 @@ export function display (t) {
     ]
   })
   .onafterchange((targetElement) => {
-    if (shouldTrackTutorial) {
-      let trackerInstance = getTracker()
+    if (shouldTrackTutorial && trackerInstance) {
       let stepIndex
       let steps =  tutorial._options.steps
       for (let i = 0, l = steps.length; i < l; ++i) {
