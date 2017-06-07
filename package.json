@@ -53,6 +53,7 @@
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
     "date-fns": "^1.28.4",
+    "expose-loader": "^0.7.3",
     "intro.js": "2.5.0",
     "ismobilejs": "^0.4.1",
     "node-polyglot": "2.0.0",

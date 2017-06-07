@@ -5,7 +5,7 @@ import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
-const AUTHORIZED_DATATYPE = require('../../config/datatypes')
+const AUTHORIZED_DATATYPE = require('config/datatypes')
 const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
 export default class ConnectorManagement extends Component {
