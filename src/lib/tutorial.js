@@ -48,7 +48,7 @@ export function display (t) {
   .onafterchange((targetElement) => {
     if (shouldTrackTutorial && trackerInstance) {
       let stepIndex
-      let steps =  tutorial._options.steps
+      let steps = tutorial._options.steps
       for (let i = 0, l = steps.length; i < l; ++i) {
         if (steps[i].element === targetElement) {
           stepIndex = i
