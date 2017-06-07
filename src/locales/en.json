@@ -176,6 +176,9 @@
   },
 
   "connector": {
-    "voting": "You don't find the connector you were looking for? Please tell us!"
+    "voting": "You don't find the connector you were looking for? Please tell us!",
+    "orange": {
+      "delay_message": "Once connected, a demand to extract your data will be sent to Orange information system. These data will be available within 15 days. You data will be updated automatically, every 15 days."
+    }
   }
 }

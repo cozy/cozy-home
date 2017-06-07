@@ -141,11 +141,26 @@ class AccountConnection extends Component {
       messages.push({message: 'account.message.details', params: {folder: account.folderPath}})
     }
 
+    if (this.props.connector.additionnalSuccessMessage) {
+      messages.push(
+        {
+          message: this.props.connector.additionnalSuccessMessage.message || ''
+        }
+      )
+    }
     this.handleSuccess(account, messages)
   }
 
   handleUpdateSuccess (account) {
-    this.handleSuccess(account, [{message: 'account update success'}])
+    const messages = [{message: 'account update success'}]
+    if (this.props.connector.additionnalSuccessMessage) {
+      messages.push(
+        {
+          message: this.props.connector.additionnalSuccessMessage.message || ''
+        }
+      )
+    }
+    this.handleSuccess(account, messages)
   }
 
   handleSuccess (account, messages = []) {
