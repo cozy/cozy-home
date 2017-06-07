@@ -54,7 +54,7 @@ class AccountConnection extends Component {
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
-    waitForClosedPopup(newTab, `${accountType}_oauth`)
+    return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
       return this.terminateOAuth(accountID)
     })
@@ -67,7 +67,7 @@ class AccountConnection extends Component {
     const { t } = this.context
     const { slug } = this.props.connector
 
-    this.store.fetchKonnectorInfos(slug)
+    return this.store.fetchKonnectorInfos(slug)
       .then(konnector => {
         return this.store
           .fetchAccounts(slug, null)
@@ -77,7 +77,6 @@ class AccountConnection extends Component {
             const account = accounts[currentIdx]
             this.setState({account: account})
             account.folderPath = account.folderPath || t('konnector default base folder', konnector)
-            this.handleCreateSuccess(accounts[currentIdx])
             return this.runConnection(accounts[currentIdx], account.folderPath)
               .then(() => {
                 this.setState({
@@ -107,6 +106,8 @@ class AccountConnection extends Component {
 
         if (connection.error) {
           return Promise.reject(connection.error)
+        } else {
+          return Promise.resolve()
         }
       })
   }
