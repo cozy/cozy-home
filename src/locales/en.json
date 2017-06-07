@@ -71,11 +71,6 @@
   "import server error": "Server error occured while importing.",
   "open selected folder": "Open selected folder",
   "konnector default base folder": "/Administrative/%{name}",
-  "konnector customview maif": "To do that<ol><li>use the 'connect' button to connect on your Maif account,</li><li>select 'every day' as update schedule,</li></li>click on 'Import and Save'.",
-  "konnector customview googlecontacts 4": "Initialize or reset this account",
-  "konnector customview googlecontacts 1": "1. Press \"connect your google account\" button to connect to your Google account and authorize your Cozy to access to it. Google will provide you with a complex string. Once you get it copy it in your clipboard, we will use it in second step.",
-  "konnector customview googlecontacts 2": "Connect your Google account",
-  "konnector customview googlecontacts 3": "2. Paste this string in the Auth code field. Then press 'Import and save' button to start the sync. Account name will be automatically updated.",
   "konnector facebook_events connect": "Connect",
   "konnector installation timeout error": "Konnector installation timed out.",
   "intent.service.initialization.error": "Service failed to initialize. Sorry for the inconvenience.",
@@ -245,11 +240,9 @@
     "phonecommunicationlog": "Your phone communications log",
     "geopoint": "Your geolocations"
   },
-  "konnector customview orange_vod": "<ul><li>Once connected, a demand to extract your data will be sent to Orange information system.</li><li>These data will be available within 15 days.</li><li>You data will be updated automatically, every 15 days.</li></ul>",
   "not fixe token": "To get these data, you have to sing-in with your email.",
   "notification videostreams": "%{smart_count} new film and video watching log imported |||| %{smart_count} new video and film watching logs imported",
 
-  "konnector customview orange_mobile": "<span style='font-size: 90%;'><p style='margin: 0;'>By clicking on 'Agree', you give your consent to collect your phone's position, every 30 minutes. Information gathered will on be</p><ul><li>- date and time of this location ;</li><li>- location data of the closest radio antenna at the time of collect.</li></ul><p style='margin-top: 0;'>Data gathered by Orange with your consent will only be accessible on your Cozy.</p></span><span style='font-size: 80%;'><p style='margin: 0;'>They will be added to location data found in call minutes that include your number, your correspondant number, the time and duration of the call and the location of the closest radio antenna of your phone a the time of the call.</p><ul><li>Once connected, a demand of data extraction will be sent to Orange IT.</li><li>These data will be available within 15 days.</li><li>Following this, your data will be automatically updated in your Cozy every 2 weeks.</li></ul></span>",
   "notification geopoints": "%{smart_count} new geolocation point imported |||| %{smart_count} new geolocation points imported",
   "notification phonecommunicationlogs": "%{smart_count} new call and sms log imported |||| %{smart_count} new call and sms logs import",
   "orangeGeolocOptin": "Yes, I agree that Orange geolocalise regularly my mobile phone in the scope of the MesInfos pilote",

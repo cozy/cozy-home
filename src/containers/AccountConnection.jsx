@@ -195,7 +195,7 @@ class AccountConnection extends Component {
   render () {
     const { t, existingAccount, connector, fields } = this.props
     const { submitting, deleting, error, credentialsError } = this.state
-    const { customView, description } = connector
+    const { description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
       <div className={styles['col-account-connection']}>
@@ -233,7 +233,6 @@ class AccountConnection extends Component {
               t={t}
               connectorSlug={connector.slug}
               isOAuth={connector.oauth}
-              customView={customView}
               fields={fields}
               submitting={submitting}
               deleting={deleting}

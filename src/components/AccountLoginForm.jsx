@@ -5,17 +5,11 @@ import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
-const AccountLoginForm = ({ t, isOAuth, customView, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
   const isUpdate = !!values.login || !!values.access_token
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
-      {customView &&
-        <div className='coz-custom-view'
-          dangerouslySetInnerHTML={{
-            __html: customView.replace(/<%t (.*) %>/gi, (match, $1) => t($1))
-          }} />
-      }
       {Object.keys(fields)
         .filter(name => !fields[name].advanced)
         .map(name => {
