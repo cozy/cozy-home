@@ -1,5 +1,6 @@
 import { introJs } from 'intro.js'
 import isMobile from 'ismobilejs'
+import { shouldEnableTracking, getTracker } from './tracker'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial () {
@@ -12,8 +13,13 @@ export function display (t) {
   const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '[data-icon=icon-cube]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass = 'tooltip' + (isSmall ? 'Small' : '') + (isSmall && isLandscape ? 'Right' : 'Bottom')
+  const shouldTrackTutorial = shouldEnableTracking()
+  const pageURLsForTracking = [
+    'tutorial/automate',
+    'tutorial/apps'
+  ]
   const tutorial = introJs()
-  .setOptions({
+  tutorial.setOptions({
     overlayOpacity: 0.7,
     showBullets: false,
     hidePrev: true,
@@ -38,9 +44,27 @@ export function display (t) {
       }
     ]
   })
-  .start()
   .onafterchange((targetElement) => {
+    if (shouldTrackTutorial) {
+      let trackerInstance = getTracker()
+      let stepIndex
+      let steps =  tutorial._options.steps
+      for (let i = 0, l = steps.length; i < l; ++i) {
+        if (steps[i].element === targetElement) {
+          stepIndex = i
+          break
+        }
+      }
+
+      const trackingURL = pageURLsForTracking[stepIndex]
+      trackerInstance.push(['setCustomUrl', trackingURL])
+      trackerInstance.push(['trackPageView'])
+    }
+
+    // The intro.js button for the last step is hidden, so we need to show it when we arrive on it
     const doneButton = document.querySelectorAll('.introjs-donebutton')[0]
+    if (!doneButton) return // step 1, no done button yet
+
     if (targetElement.className === cozyBarMenuButton.className) {
       doneButton.classList.remove('introjs-skipbutton')
     } else {
@@ -51,6 +75,7 @@ export function display (t) {
     cozyBarMenuButton.click()
     window.location.hash = '#/discovery'
   })
+  .start()
   if (isMobile.phone) {
     const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
     const clickAction = (e) => {

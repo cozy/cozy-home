@@ -7,6 +7,7 @@ import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from './plugins/i18n'
 import CollectStore, { Provider } from './lib/CollectStore'
+import { shouldEnableTracking, getTracker } from './lib/tracker'
 
 import App from './containers/App'
 import DiscoveryList from './components/DiscoveryList'
@@ -61,23 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let history = hashHistory
 
-  /* global Piwik __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
-  try {
-    var PiwikReactRouter = require('piwik-react-router')
-    const piwikTracker = (Piwik.getTracker(), PiwikReactRouter({
-      url: __PIWIK_TRACKER_URL__,
-      siteId: __PIWIK_SITEID__,
-      injectScript: false
-    }))
-    piwikTracker.push(['enableHeartBeatTimer'])
-    let userId = data.cozyDomain
-    let indexOfPort = userId.indexOf(':')
-    if (indexOfPort >= 0) userId = userId.substring(0, indexOfPort)
-    piwikTracker.push(['setUserId', userId])
-    piwikTracker.push(['setCustomDimension', __PIWIK_DIMENSION_ID_APP__, data.cozyAppName])
-
-    history = piwikTracker.connectToHistory(hashHistory)
-  } catch (err) {}
+  if (shouldEnableTracking() && getTracker()) {
+    let trackerInstance = getTracker()
+    history = trackerInstance.connectToHistory(hashHistory)
+    trackerInstance.track(hashHistory.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
+  }
 
   render((
     <Provider store={store}>
