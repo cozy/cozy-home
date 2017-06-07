@@ -6,7 +6,7 @@ import statefulForm from '../lib/statefulForm'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 
 const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
-  const isUpdate = !!values.login || !!values.access_token
+  const isUpdate = Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
@@ -31,7 +31,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             return <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />
           }
 
-          const readOnly = name === 'login' && isUpdate
+          const readOnly = (name === 'login' || name === 'email') && isUpdate
 
           return <Field
             label={t(`account.form.label.${name}`)}
