@@ -107,7 +107,7 @@ class AccountConnection extends Component {
         if (connection.error) {
           return Promise.reject(connection.error)
         } else {
-          return Promise.resolve()
+          return Promise.resolve(connection.account)
         }
       })
   }
