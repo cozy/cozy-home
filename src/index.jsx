@@ -7,7 +7,7 @@ import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from './plugins/i18n'
 import CollectStore, { Provider } from './lib/CollectStore'
-import { shouldEnableTracking, getTracker } from './lib/tracker'
+import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
 import DiscoveryList from './components/DiscoveryList'

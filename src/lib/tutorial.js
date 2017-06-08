@@ -1,6 +1,6 @@
 import { introJs } from 'intro.js'
 import isMobile from 'ismobilejs'
-import { shouldEnableTracking, getTracker } from './tracker'
+import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial () {
