@@ -212,6 +212,7 @@ class AccountConnection extends Component {
     const { submitting, deleting, error, credentialsError } = this.state
     const { description } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
+    const hasDataTypes = !!(connector.dataType && connector.dataType.length)
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -283,7 +284,7 @@ class AccountConnection extends Component {
               </div>
             }
             <h4>{t('account.config.data.title')}</h4>
-            {connector.dataType &&
+            {hasDataTypes &&
               <ul className={styles['col-account-connection-data-access']}>
                 {connector.dataType.map(data =>
                   <DataItem
@@ -292,7 +293,7 @@ class AccountConnection extends Component {
                   />
                 )}
               </ul>}
-            {!(connector.dataType && connector.dataType.length) &&
+            {!hasDataTypes &&
               <p>{t('dataType.none', {name: connector.name})}</p>}
           </div>
         </div>
