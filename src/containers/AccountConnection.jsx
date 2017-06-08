@@ -210,7 +210,7 @@ class AccountConnection extends Component {
   render () {
     const { t, existingAccount, connector, fields } = this.props
     const { submitting, deleting, error, credentialsError } = this.state
-    const { description } = connector
+    const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     const hasDataTypes = !!(connector.dataType && connector.dataType.length)
     return (
@@ -236,7 +236,7 @@ class AccountConnection extends Component {
                 ? !connector.oauth && <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
-                  {description && description.connector &&
+                  {hasDescriptions && hasDescriptions.connector &&
                     <p>
                       <ReactMarkdownWrapper
                         source={
@@ -271,7 +271,7 @@ class AccountConnection extends Component {
             />
           </div>
           <div className={styles['col-account-connection-data']}>
-            { description && description.service &&
+            { hasDescriptions && hasDescriptions.service &&
               <div>
                 <h4>{t('account.config.data.service.description')}</h4>
                 <p>

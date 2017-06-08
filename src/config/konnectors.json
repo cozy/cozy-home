@@ -77,11 +77,11 @@
     "category":"telecom",
     "color":{"hex":"#FF6122","css":"#FF6122"},
     "dataType":["bill", "geopoint", "phonecommunicationlog"],
-    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}, "agreement": {"type": "checkbox", "description": true}},
+    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}, "agreement": {"type": "checkbox", "hasDescription": true}},
     "additionnalSuccessMessage": {
       "message": "connector.orange.message.delay"
     },
-    "description": {
+    "hasDescriptions": {
       "service": true,
       "connector": true
     },
@@ -100,7 +100,7 @@
     "additionnalSuccessMessage": {
       "message": "connector.orange.message.delay"
     },
-    "description": {
+    "hasDescriptions": {
       "service": true
     },
     "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build"

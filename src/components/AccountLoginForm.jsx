@@ -15,7 +15,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
         .filter(name => !fields[name].advanced)
         .map(name => {
           const inputName = `${name}_${connectorSlug}`
-          const description = fields[name].description
+          const description = fields[name].hasDescription
             ? <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />
             : ''
           switch (fields[name].type) {
