@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -225,9 +225,8 @@ class AccountConnection extends Component {
               ? <div className='coz-error'>
                 <h4>{t('account.message.error.global.title')}</h4>
                 <p>
-                  <ReactMarkdown
+                  <ReactMarkdownWrapper
                     source={t('account.message.error.global.description', {name: connector.name, forum: t('account.message.forum')})}
-                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
                   />
                 </p>
               </div>
@@ -264,11 +263,10 @@ class AccountConnection extends Component {
               <div>
                 <h4>{t('account.config.data.service.description')}</h4>
                 <p>
-                  <ReactMarkdown
+                  <ReactMarkdownWrapper
                     source={
                       t(description)
                     }
-                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
                   />
                 </p>
               </div>
