@@ -35,6 +35,8 @@ export default class CollectStore {
     delete sanitized.additionnalSuccessMessage
     // description only from collect json config
     delete sanitized.description
+    // fields settings only from collect json config
+    delete sanitized.fields
 
     return sanitized
   }
