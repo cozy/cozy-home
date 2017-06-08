@@ -263,6 +263,7 @@ export default class CollectStore {
     return accounts._delete(cozy.client, account)
       .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
       .then(() => this.updateConnector(konnector))
+      .then(() => this.updateKonnectorError(konnector))
   }
 
   manifestToKonnector (manifest) {

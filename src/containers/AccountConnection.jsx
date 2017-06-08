@@ -151,7 +151,9 @@ class AccountConnection extends Component {
   handleSuccess (account, messages = []) {
     this.setState({
       submitting: false,
-      deleting: false
+      deleting: false,
+      error: undefined,
+      credentialsError: undefined
     })
 
     this.props.onSuccess(account, messages)
