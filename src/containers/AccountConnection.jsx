@@ -235,12 +235,23 @@ class AccountConnection extends Component {
                 ? !connector.oauth && <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
-                  <p className={styles['col-account-connection-security']}>
-                    <svg>
-                      <use xlinkHref={securityIcon} />
-                    </svg>
-                    {t('account.config.security')}
-                  </p>
+                  {description && description.connector &&
+                    <p>
+                      <ReactMarkdownWrapper
+                        source={
+                          t(`connector.${connector.slug}.description.connector`)
+                        }
+                      />
+                    </p>
+                  }
+                  {!connector.oauth &&
+                    <p className={styles['col-account-connection-security']}>
+                      <svg>
+                        <use xlinkHref={securityIcon} />
+                      </svg>
+                      {t('account.config.security')}
+                    </p>
+                  }
                 </div>
             }
             <AccountLoginForm
@@ -259,13 +270,13 @@ class AccountConnection extends Component {
             />
           </div>
           <div className={styles['col-account-connection-data']}>
-            { description &&
+            { description && description.service &&
               <div>
                 <h4>{t('account.config.data.service.description')}</h4>
                 <p>
                   <ReactMarkdownWrapper
                     source={
-                      t(description)
+                      t(`connector.${connector.slug}.description.service`)
                     }
                   />
                 </p>
