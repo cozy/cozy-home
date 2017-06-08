@@ -11,6 +11,11 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
+      {error &&
+        <p className='errors'>
+          {t('account.message.error.bad_credentials')}
+        </p>
+      }
       {Object.keys(fields)
         .filter(name => !fields[name].advanced)
         .map(name => {
@@ -90,11 +95,6 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           </button>
         }
       </div>
-      {error &&
-        <p className='errors'>
-          {t('account.message.error.bad_credentials')}
-        </p>
-      }
     </div>
   )
 }
