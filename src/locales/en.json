@@ -25,7 +25,7 @@
         "password": "Password",
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
-        "accessToken": "Access token",
+        "access_token": "Access token",
         "accessTokenSecret": "Access token secret",
         "consumerKey": "Consumer Key",
         "consumerSecret": "Consumer Secret",
@@ -36,6 +36,7 @@
         "accountName": "Account name",
         "loginUrl": "Login URL",
         "token": "Token",
+        "agreement": "I agree",
         "refreshToken": "Refresh Token"
       },
       "placeholder": {
@@ -178,7 +179,23 @@
   "connector": {
     "voting": "You don't find the connector you were looking for? Please tell us!",
     "orange": {
-      "delay_message": "Once connected, a demand to extract your data will be sent to Orange information system. These data will be available within 15 days. You data will be updated automatically, every 15 days."
+      "message": {
+        "delay": "Once connected, a demand to extract your data will be sent to Orange information system. These data will be available within 15 days. You data will be updated automatically, every 15 days."
+      }
+    },
+    "orangemobile": {
+      "description": {
+        "connector": "In the context of 'MesInfos', Orange allows you to localize your phone regularly.\n\n**Data collection needs your express agreement**\n\nThis agreement may be revoked at any time by this data connector.\n\nBy clicking on \"Agree\", you give your consent to collect your phone's position, every 30 minutes. Information gathered will on be : \n<ul><li>Date and time of this location.</li><li>Location data of the closest radio antenna at the time of collect.</li></ul>Collected data by Orange after you agreement will be available only in your Cozy that you have been assigned in context of  « Mes Infos ». They will be added to location data already stored in call logs.",
+        "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the call logs from your phone. Thus call logs include your phone number, your corresponding's phone number, date and time of this call and location data of the closest radio antenna at the time of collect.\n\nYou will be able to use these data in different apps in your Cozy, for example \"Mapping My Life\" (available soon on the Cozy Store).",
+        "field": {
+          "agreement": "Do you agree that Orange localizes regularly your phone in context of  « Mes Infos » ?"
+        }
+      }
+    },
+    "orangelivebox": {
+      "description": {
+        "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included).\n\nYou will be able to use these data in different apps in your Cozy, for example \"My Movies Music\" (available soon on the Cozy Store)."
+      }
     }
   }
 }

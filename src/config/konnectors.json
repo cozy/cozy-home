@@ -64,7 +64,7 @@
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "additionnalSuccessMessage": {
-      "message": "connector.orange.delay_message"
+      "message": "connector.orange.message.delay"
     },
     "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
   },
@@ -77,9 +77,13 @@
     "category":"telecom",
     "color":{"hex":"#FF6122","css":"#FF6122"},
     "dataType":["bill", "geopoint", "phonecommunicationlog"],
-    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
+    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}, "agreement": {"type": "checkbox", "description": true}},
     "additionnalSuccessMessage": {
-      "message": "connector.orange.delay_message"
+      "message": "connector.orange.message.delay"
+    },
+    "description": {
+      "service": true,
+      "connector": true
     },
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build"
   },
@@ -94,7 +98,10 @@
     "dataType":["videostream"],
     "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
     "additionnalSuccessMessage": {
-      "message": "connector.orange.delay_message"
+      "message": "connector.orange.message.delay"
+    },
+    "description": {
+      "service": true
     },
     "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build"
   },
