@@ -1,6 +1,7 @@
 import React from 'react'
 import { translate } from '../plugins/i18n'
 import ConnectorItem from './ConnectorItem'
+import { popupCenter } from '../lib/popup'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 
@@ -21,8 +22,7 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = 
     {showVoting &&
       <a
         className='item-wrapper con-voting-item'
-        href={VOTING_LINK}
-        target='_blank'
+        onClick={() => popupCenter(VOTING_LINK, 'connectorVoting', 700, 650)}
       >
         <header className='item-header'>
           <img className='item-icon' src={require('../assets/icons/konnectors/icon-voting.svg')} />
