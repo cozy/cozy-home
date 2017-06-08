@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import DataItem from '../components/DataItem'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -141,11 +141,26 @@ class AccountConnection extends Component {
       messages.push({message: 'account.message.details', params: {folder: account.folderPath}})
     }
 
+    if (this.props.connector.additionnalSuccessMessage) {
+      messages.push(
+        {
+          message: this.props.connector.additionnalSuccessMessage.message || ''
+        }
+      )
+    }
     this.handleSuccess(account, messages)
   }
 
   handleUpdateSuccess (account) {
-    this.handleSuccess(account, [{message: 'account update success'}])
+    const messages = [{message: 'account update success'}]
+    if (this.props.connector.additionnalSuccessMessage) {
+      messages.push(
+        {
+          message: this.props.connector.additionnalSuccessMessage.message || ''
+        }
+      )
+    }
+    this.handleSuccess(account, messages)
   }
 
   handleSuccess (account, messages = []) {
@@ -195,8 +210,9 @@ class AccountConnection extends Component {
   render () {
     const { t, existingAccount, connector, fields } = this.props
     const { submitting, deleting, error, credentialsError } = this.state
-    const { description } = connector
+    const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
+    const hasDataTypes = !!(connector.dataType && connector.dataType.length)
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -210,9 +226,8 @@ class AccountConnection extends Component {
               ? <div className='coz-error'>
                 <h4>{t('account.message.error.global.title')}</h4>
                 <p>
-                  <ReactMarkdown
+                  <ReactMarkdownWrapper
                     source={t('account.message.error.global.description', {name: connector.name, forum: t('account.message.forum')})}
-                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
                   />
                 </p>
               </div>
@@ -221,12 +236,23 @@ class AccountConnection extends Component {
                 ? !connector.oauth && <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
-                  <p className={styles['col-account-connection-security']}>
-                    <svg>
-                      <use xlinkHref={securityIcon} />
-                    </svg>
-                    {t('account.config.security')}
-                  </p>
+                  {hasDescriptions && hasDescriptions.connector &&
+                    <p>
+                      <ReactMarkdownWrapper
+                        source={
+                          t(`connector.${connector.slug}.description.connector`)
+                        }
+                      />
+                    </p>
+                  }
+                  {!connector.oauth &&
+                    <p className={styles['col-account-connection-security']}>
+                      <svg>
+                        <use xlinkHref={securityIcon} />
+                      </svg>
+                      {t('account.config.security')}
+                    </p>
+                  }
                 </div>
             }
             <AccountLoginForm
@@ -245,21 +271,20 @@ class AccountConnection extends Component {
             />
           </div>
           <div className={styles['col-account-connection-data']}>
-            { description &&
+            { hasDescriptions && hasDescriptions.service &&
               <div>
                 <h4>{t('account.config.data.service.description')}</h4>
                 <p>
-                  <ReactMarkdown
+                  <ReactMarkdownWrapper
                     source={
-                      t(description)
+                      t(`connector.${connector.slug}.description.service`)
                     }
-                    renderers={{Link: props => <a href={props.href} target='_blank'>{props.children}</a>}}
                   />
                 </p>
               </div>
             }
             <h4>{t('account.config.data.title')}</h4>
-            {connector.dataType &&
+            {hasDataTypes &&
               <ul className={styles['col-account-connection-data-access']}>
                 {connector.dataType.map(data =>
                   <DataItem
@@ -268,7 +293,7 @@ class AccountConnection extends Component {
                   />
                 )}
               </ul>}
-            {!connector.dataType &&
+            {!hasDataTypes &&
               <p>{t('dataType.none', {name: connector.name})}</p>}
           </div>
         </div>

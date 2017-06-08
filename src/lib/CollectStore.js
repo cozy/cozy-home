@@ -31,6 +31,12 @@ export default class CollectStore {
     // disallow updating name and slug
     delete sanitized.name
     delete sanitized.slug
+    // custom message only from collect json config
+    delete sanitized.additionnalSuccessMessage
+    // hasDescriptions only from collect json config
+    delete sanitized.hasDescriptions
+    // fields settings only from collect json config
+    delete sanitized.fields
 
     return sanitized
   }
