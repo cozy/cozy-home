@@ -3,7 +3,7 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
-import DataItem from '../components/DataItem'
+import AccountConnectionData from '../components/AccountConnectionData'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
@@ -212,9 +212,8 @@ class AccountConnection extends Component {
   render () {
     const { t, existingAccount, connector, fields } = this.props
     const { submitting, deleting, error, credentialsError } = this.state
-    const { hasDescriptions } = connector
+    const {hasDescriptions} = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
-    const hasDataTypes = !!(connector.dataType && connector.dataType.length)
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -272,32 +271,10 @@ class AccountConnection extends Component {
               onCancel={() => this.cancel()}
             />
           </div>
-          <div className={styles['col-account-connection-data']}>
-            { hasDescriptions && hasDescriptions.service &&
-              <div>
-                <h4>{t('account.config.data.service.description')}</h4>
-                <p>
-                  <ReactMarkdownWrapper
-                    source={
-                      t(`connector.${connector.slug}.description.service`)
-                    }
-                  />
-                </p>
-              </div>
-            }
-            <h4>{t('account.config.data.title')}</h4>
-            {hasDataTypes &&
-              <ul className={styles['col-account-connection-data-access']}>
-                {connector.dataType.map(data =>
-                  <DataItem
-                    dataType={data}
-                    hex={connector.color.hex}
-                  />
-                )}
-              </ul>}
-            {!hasDataTypes &&
-              <p>{t('dataType.none', {name: connector.name})}</p>}
-          </div>
+          <AccountConnectionData
+            t={t}
+            connector={connector}
+          />
         </div>
       </div>
     )
