@@ -3,7 +3,6 @@
     "config": {
       "default_folder": "/Administrative/%{name}",
       "title": "Connect your %{name} account to your Cozy",
-      "show password": "Display password",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
       "data": {
         "title": "Collected data:",
