@@ -13,8 +13,8 @@ export function display (t) {
   const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '[data-icon=icon-cube]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass = 'tooltip' + (isSmall ? 'Small' : '') + (isSmall && isLandscape ? 'Right' : 'Bottom')
-  const shouldTrackTutorial = shouldEnableTracking()
   const trackerInstance = getTracker()
+  const shouldTrackTutorial = shouldEnableTracking() && trackerInstance
   const pageURLsForTracking = [
     'tutorial/automate',
     'tutorial/apps',
@@ -47,7 +47,7 @@ export function display (t) {
     ]
   })
   .onafterchange((targetElement) => {
-    if (shouldTrackTutorial && trackerInstance) {
+    if (shouldTrackTutorial) {
       let stepIndex
       let steps = tutorial._options.steps
       for (let i = 0, l = steps.length; i < l; ++i) {
@@ -73,7 +73,7 @@ export function display (t) {
     }
   })
   .oncomplete(() => {
-    if (shouldTrackTutorial && trackerInstance) {
+    if (shouldTrackTutorial) {
       trackerInstance.push(['setCustomUrl', pageURLsForTracking[pageURLsForTracking.length - 1]])
       trackerInstance.push(['trackPageView'])
     }
