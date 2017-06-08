@@ -17,7 +17,8 @@ export function display (t) {
   const trackerInstance = getTracker()
   const pageURLsForTracking = [
     'tutorial/automate',
-    'tutorial/apps'
+    'tutorial/apps',
+    'tutorial/complete'
   ]
   const tutorial = introJs()
   tutorial.setOptions({
@@ -72,6 +73,11 @@ export function display (t) {
     }
   })
   .oncomplete(() => {
+    if (shouldTrackTutorial && trackerInstance) {
+      trackerInstance.push(['setCustomUrl', pageURLsForTracking[pageURLsForTracking.length - 1]])
+      trackerInstance.push(['trackPageView'])
+    }
+
     cozyBarMenuButton.click()
     window.location.hash = '#/discovery'
   })
