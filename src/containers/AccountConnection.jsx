@@ -180,7 +180,9 @@ class AccountConnection extends Component {
       deleting: false
     }
 
-    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
+    if (error.message === 'successTimeout') {
+      this.props.onSuccessTimeout()
+    } else if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
       stateUpdate.credentialsError = error
     } else {
       stateUpdate.error = error
@@ -212,7 +214,7 @@ class AccountConnection extends Component {
   render () {
     const { t, existingAccount, connector, fields } = this.props
     const { submitting, deleting, error, credentialsError } = this.state
-    const {hasDescriptions} = connector
+    const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
       <div className={styles['col-account-connection']}>

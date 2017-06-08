@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
 import AccountConnection from './AccountConnection'
+import AccountSuccessTimeout from './AccountSuccessTimeout'
 import Notifier from '../components/Notifier'
 
 const AUTHORIZED_DATATYPE = require('config/datatypes')
@@ -33,6 +34,7 @@ export default class ConnectorManagement extends Component {
       submitting: false,
       synching: false,
       deleting: false,
+      hadSuccessTimeout: false,
       error: null
     }
 
@@ -42,6 +44,7 @@ export default class ConnectorManagement extends Component {
           .fetchAccounts(props.params.connectorSlug, null)
           .then(accounts => {
             const error = konnector.accounts.error
+
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
@@ -70,13 +73,21 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { accounts } = this.state.connector
-    const { selectedAccount, isWorking } = this.state
+    const { selectedAccount, isWorking, hadSuccessTimeout } = this.state
     const { t } = this.context
 
     return (
       <Modal secondaryAction={() => this.closeModal()}>
         <ModalContent>
-          { isWorking
+          {hadSuccessTimeout
+          ? <AccountSuccessTimeout
+            account={accounts[selectedAccount]}
+            onCancel={() => this.gotoParent()}
+            onConfigAccount={() => this.configAccount()}
+            {...this.state}
+            {...this.context}
+            />
+          : isWorking
             ? <div className='installing'>
               <div className='installing-spinner' />
               <div>{t('loading.working')}</div>
@@ -86,6 +97,7 @@ export default class ConnectorManagement extends Component {
               onError={(error) => this.handleError(error)}
               onSuccess={(account, messages) => this.handleSuccess(account, messages)}
               onCancel={() => this.gotoParent()}
+              onSuccessTimeout={() => this.handleSuccessTimeout()}
               {...this.state}
               {...this.context} />
           }
@@ -110,7 +122,16 @@ export default class ConnectorManagement extends Component {
     const { t } = this.context
 
     Notifier.error(t(`${error.message || error}`))
+    this.setState({ hadSuccessTimeout: false })
     this.gotoParent()
+  }
+
+  handleSuccessTimeout () {
+    this.setState({ hadSuccessTimeout: true })
+  }
+
+  configAccount () {
+    this.setState({ hadSuccessTimeout: false })
   }
 
   gotoParent () {

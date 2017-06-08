@@ -21,7 +21,8 @@
 
     .col-account-connection-header,
     .col-account-connection-form,
-    .col-account-connection-data
+    .col-account-connection-data,
+    .col-account-connection-successTimeout
         margin 0 (16/basefont)em
 
     .col-account-connection-icon
@@ -32,7 +33,8 @@
         line-height 1.5em
         margin      .667em 0
 
-    .col-account-connection-form
+    .col-account-connection-form,
+    .col-account-connection-successTimeout
         flex 1 0 (460/basefont)em
         max-width (460/basefont)em
 
@@ -40,6 +42,10 @@
         font-size   (20/basefont)em
         line-height 1.5em
         margin      1em 0
+
+    .col-account-connection-successTimeout
+        button
+            width 100%
 
     .col-account-connection-data-access
         padding-left 0
@@ -55,3 +61,8 @@
 
             .col-account-connection-form
                 flex    1 0
+
+    .bills-folder
+        padding .5em 1em
+        display block
+        background grey-01
