@@ -98,7 +98,7 @@
     "category":"insurance",
     "color":{"hex":"#007858","css":"#007858"},
     "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
-    "dataType":["bill"],
+    "dataType":["profile", "contract", "home", "family", "sinister"],
     "source": "git://github.com/cozy/cozy-konnector-maif.git#build"
   },
   {
@@ -185,7 +185,7 @@
     "vendorLink":"https://www.edf.fr/",
     "category":"energy",
     "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
-    "dataType":["bill", "contract", "consumption"],
+    "dataType":["bill", "contract", "consumption", "profile", "home"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-edf.git#build"
   }

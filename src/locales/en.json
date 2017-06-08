@@ -140,7 +140,11 @@
     "tweet": "Your tweets",
     "videostream": "Your videos",
     "phonecommunicationlog": "Your phone communications log",
-    "geopoint": "Your geolocations"
+    "geopoint": "Your geolocations",
+    "family": "Your family informations",
+    "home": "Your home informations",
+    "profile": "Your client profile",
+    "sinister": "Your sinisters"
   },
 
   "loading": {

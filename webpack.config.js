@@ -11,7 +11,8 @@ const common = merge(
   require('./config/webpack.config.pictures'),
   require('./config/webpack.config.vendors'),
   require('./config/webpack.config.manifest'),
-  require(`./config/webpack.target.${target}`)
+  require(`./config/webpack.target.${target}`),
+  require('./config/webpack.config.cozy-collect')
 )
 
 if (production) {
