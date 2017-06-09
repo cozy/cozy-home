@@ -1,6 +1,7 @@
 import styles from '../styles/accountConnection'
 
 import React from 'react'
+import { translate } from '../plugins/i18n'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import DataItem from '../components/DataItem'
 
@@ -38,4 +39,4 @@ const AccountConnectionData = ({ t, connector }) => {
   )
 }
 
-export default AccountConnectionData
+export default translate()(AccountConnectionData)

@@ -3,6 +3,7 @@ import styles from '../styles/accountLoginForm'
 import React from 'react'
 import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
+import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
@@ -99,4 +100,4 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
   )
 }
 
-export default statefulForm()(AccountLoginForm)
+export default statefulForm()(translate()(AccountLoginForm))

@@ -259,7 +259,6 @@ class AccountConnection extends Component {
                 </div>
             }
             <AccountLoginForm
-              t={t}
               connectorSlug={connector.slug}
               isOAuth={connector.oauth}
               fields={fields}
@@ -274,7 +273,6 @@ class AccountConnection extends Component {
             />
           </div>
           <AccountConnectionData
-            t={t}
             connector={connector}
           />
         </div>
