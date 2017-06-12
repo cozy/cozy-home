@@ -4,7 +4,11 @@
     justify-content  flex-start
     margin           0 -.7em 2em
 
-$item-margin = .7em
+// We differenciate the "real" margin from the "used" margin. The "used" margin
+// allow to use a little higher value for flex-basis calculation. Firefox
+// and Chrome are behaving well but IE11 need it.
+$item-real-margin = .7em
+$item-margin = .8em
 
 .item-wrapper
     flex             1 1 'calc(100% - %s * 2)' % $item-margin
@@ -13,7 +17,7 @@ $item-margin = .7em
     border-radius    4px
     background-color white
     border           1px solid alpha(black, .15)
-    margin           $item-margin
+    margin           $item-real-margin
     padding-bottom   1em
     cursor           pointer
     text-decoration  none
@@ -54,31 +58,38 @@ $item-margin = .7em
         padding   0 1em
         margin    0 .5em
         color     grey-06
-    .item-connected
+    .item-status-icon
         position absolute
         width    24px
         height   24px
         bottom   1em
         right    1em
 
+.con-voting-item
+    border      2px dashed alpha(black, .15)
+    &:hover
+        box-shadow  none
+    .item-title
+        font-size   1em
+        font-weight 500
+
 .use-cases-list
     .item-wrapper
         box-shadow  0 2px 6px 0 alpha(black, .15)
         border      0
+
+// Dedicated for IE 11 which seems not to take the default 100% into account.
+@media (min-width: 1em)
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(100% - %s * 2)' % $item-margin
 
 @media (min-width: 40em)
     .item-wrapper
         flex-grow  0
         flex-basis 'calc(50% - %s * 2)' % $item-margin
 
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(100% - %s * 2)' % $item-margin
-
-@media (min-width: 64em)
-    .item-wrapper
-        flex-basis 'calc(50% - %s * 2)' % $item-margin
-
+@media (min-width: 43em)
     .use-case-dialog
         min-width 32em
 
@@ -86,20 +97,40 @@ $item-margin = .7em
         .item-wrapper
             flex-basis 'calc(50% - %s * 2)' % $item-margin
 
+@media (min-width: 60em)
+    .use-case-dialog
+        min-width 48em
+
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(33.33% - %s * 2)' % $item-margin
+
+@media (min-width: 64em)
+    .item-wrapper
+        flex-basis 'calc(50% - %s * 2)' % $item-margin
+
 @media (min-width: 80em)
     .item-wrapper
         flex-basis 'calc(33.333% - %s * 2)' % $item-margin
-
-@media (min-width: 96em)
-    .item-wrapper
-        flex-basis 'calc(25% - %s * 2)' % $item-margin
 
     .use-case-dialog
         min-width 64em
 
     .use-case-dialog
         .item-wrapper
-            flex-basis 'calc(33.33% - %s * 2)' % $item-margin
+            flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+@media (min-width: 96em)
+    .item-wrapper
+        flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+@media (min-width: 108em)
+    .use-case-dialog
+        min-width 88em
+
+    .use-case-dialog
+        .item-wrapper
+            flex-basis 'calc(20% - %s * 2)' % $item-margin
 
 @media (min-width: 112em)
     .item-wrapper
@@ -108,7 +139,3 @@ $item-margin = .7em
 @media (min-width: 128em)
     .item-wrapper
         flex-basis 'calc(16.666% - %s * 2)' % $item-margin
-
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(25% - %s * 2)' % $item-margin

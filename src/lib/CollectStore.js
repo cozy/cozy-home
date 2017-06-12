@@ -20,17 +20,47 @@ export default class CollectStore {
     return this.find(c => c.id === connectorId)
   }
 
-  unsubscribe () {
-    this.listener = null
+  sanitizeKonnector (konnector) {
+    const sanitized = Object.assign({}, konnector)
+
+    // disallow empty category
+    if (sanitized.category === '') {
+      delete sanitized.category
+    }
+
+    // disallow updating name and slug
+    delete sanitized.name
+    delete sanitized.slug
+    // custom message only from collect json config
+    delete sanitized.additionnalSuccessMessage
+    // hasDescriptions only from collect json config
+    delete sanitized.hasDescriptions
+    // fields settings only from collect json config
+    delete sanitized.fields
+
+    return sanitized
+  }
+
+  // Merge source into target
+  mergeKonnectors (source, target) {
+    return Object.assign({}, target, this.sanitizeKonnector(source))
   }
 
   updateConnector (connector) {
-    if (connector) {
-      this.connectors = this.connectors.map(
-        c => c.slug === connector.slug ? Object.assign({}, c, connector) : c
-      )
-    }
-    return this.connectors.find(k => k.slug === connector.slug)
+    if (!connector) throw new Error('Missing mandatory connector parameter')
+    const slug = connector.slug || connector.attributes.slug
+    if (!slug) throw new Error('Missing mandatory slug property in konnector')
+
+    const current = this.connectors.find(connector => connector.slug === slug)
+    const updatedConnector = this.mergeKonnectors(connector, current)
+
+    this.connectors = this.connectors.map(connector => {
+      return connector === current
+        ? updatedConnector
+          : connector
+    })
+
+    return updatedConnector
   }
 
   getCategories () {
@@ -63,9 +93,22 @@ export default class CollectStore {
   fetchAllAccounts () {
     return accounts.getAllAccounts(cozy.client, this.accountsIndex)
       .then(accounts => {
+        return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
+      })
+      .then((result) => {
+        const [accounts, errors] = result
+        const errorIndex = errors.reduce((memo, error) => {
+          memo[error.account] = error
+          return memo
+        }, {})
+
         let accObject = {}
         accounts.forEach(a => {
           if (!accObject[a.account_type]) accObject[a.account_type] = []
+          if (errorIndex[a._id] && errorIndex[a._id].error) {
+            a.error = errorIndex[a._id].error
+            accObject[a.account_type].error = errorIndex[a._id].error
+          }
           accObject[a.account_type].push(a)
         })
         this.connectors.forEach(c => {
@@ -125,6 +168,7 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
+        const slug = connection.konnector.slug || connection.konnector.attributes.slug
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
@@ -132,7 +176,7 @@ export default class CollectStore {
               arguments: '0 0 0 * * *',
               worker: 'konnector',
               worker_arguments: {
-                konnector: connection.konnector._id,
+                konnector: slug,
                 account: connection.account._id,
                 folderToSave: connection.folder._id
               }
@@ -140,7 +184,33 @@ export default class CollectStore {
           }
         })
       })
-      .then(() => connection)
+      .catch(error => {
+        connection.error = error
+      })
+      .then(() => {
+        this.updateKonnectorError(connection.konnector, connection.error)
+        return connection
+      })
+  }
+
+  updateKonnectorError (konnector, error = null) {
+    konnector.accounts.error = error
+    this.updateConnector(konnector)
+  }
+
+  /**
+   * runAccount Runs an account
+   * @param {object} connector A connector
+   * @param {object} account   the account to run, must belong to the connector
+   * @returns The run result or a resulting error
+   */
+  runAccount (connector, account) {
+    return konnectors.run(cozy.client, connector, account)
+    .then(() => this.updateKonnectorError(connector))
+    .catch(error => {
+      this.updateKonnectorError(connector, error)
+      throw error
+    })
   }
 
   fetchAccounts (accountType, index) {
@@ -148,16 +218,48 @@ export default class CollectStore {
     return accounts.getAccountsByType(cozy.client, accountType, index)
   }
 
-  updateAccount (connectorId, accountIdx, values) {
-    let connector = this.find(c => c.id === connectorId)
-    connector.accounts[accountIdx] = values
-    return this.putConnector(connector)
+  /**
+   * updateAccount : updates an account in a connector in DB with new values
+   * @param {Object} connector The connector to update
+   * @param {Object} account   The account to update
+   * @param {Object} values    The new values of the updated account
+   * @returns {Object} The up to date connector
+   */
+  updateAccount (connector, account, values) {
+    // Save the previous state
+    const previousAccount = Object.assign({}, account)
+
+    // Update account data
+    account.auth.login = values.login
+    account.auth.password = values.password
+
+    return accounts.update(cozy.client, previousAccount, account)
+    .then(updatedAccount => {
+      const accountIndex = this.findAccountIndexById(connector.accounts, account._id)
+      // Updates the _rev value of the account in the connector
+      connector.accounts[accountIndex] = updatedAccount
+      this.updateConnector(connector)
+      return updatedAccount
+    })
+    .catch((error) => {
+      return Promise.reject(error)
+    })
   }
 
-  synchronize (connectorId) {
-    let connector = this.find(c => c.id === connectorId)
-    return this.importConnector(connector)
-      .then(() => this.startConnectorPoll(connector.id))
+  /**
+   * findAccountIndexById : returns the account index in an array of accounts, based on its id.
+   * @param {array}    accounts Array of accounts
+   * @param {string}   id       Id of the account we look for
+   * @return {integer} The position of the account with the looked for id in the array
+   */
+  findAccountIndexById (accounts, id) {
+    let foundIndex = -1
+    accounts.forEach((account, index) => {
+      if (account._id === id) {
+        foundIndex = index
+      }
+    })
+    return foundIndex
   }
 
   deleteAccount (konnector, account) {
@@ -167,6 +269,7 @@ export default class CollectStore {
     return accounts._delete(cozy.client, account)
       .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
       .then(() => this.updateConnector(konnector))
+      .then(() => this.updateKonnectorError(konnector))
   }
 
   manifestToKonnector (manifest) {
@@ -193,91 +296,6 @@ export default class CollectStore {
 
   getInstalledConnector (slug) {
     return konnectors.findBySlug(cozy.client, slug)
-  }
-
-  putConnector (connector) {
-    return this.fetch('PUT', `konnectors/${connector.id}`, connector)
-      .then(response => {
-        return response.status === 200
-          ? response.text()
-          : Promise.reject(response)
-      })
-      .then((body) => {
-        let connector = JSON.parse(body)
-        this.updateConnector(connector)
-        return connector
-      })
-  }
-
-  importConnector (connector) {
-    return this.fetch('POST', `konnectors/${connector.id}/import`, connector)
-      .then(response => {
-        return response.status === 200
-          ? response
-          : Promise.reject(response)
-      })
-  }
-
-  startConnectorPoll (connectorId, timeout = 30000, interval = 500) {
-    let endTime = Number(new Date()) + timeout
-
-    let checkCondition = function (resolve, reject) {
-      return this.fetch('GET', `konnectors/${connectorId}`)
-        .then(response => response.text()).then(body => {
-          let connector = JSON.parse(body)
-          if (!connector.isImporting) {
-            this.updateConnector(connector)
-            resolve(connector)
-          } else if (Number(new Date()) < endTime) {
-            setTimeout(checkCondition, interval, resolve, reject)
-          } else {
-            this.updateConnector(connector)
-            reject(new Error('polling timed out'))
-          }
-        })
-    }.bind(this)
-    return new Promise((resolve, reject) => {
-      setTimeout(checkCondition, 500, resolve, reject)
-    })
-  }
-
-  refreshFolders () {
-    return this.fetch('GET', 'folders')
-      .then(response => response.text()).then(body => {
-        this.folders = JSON.parse(body)
-        Promise.resolve()
-      })
-  }
-
-  fetch (method, url, body) {
-    const STACK_DOMAIN = '//' + document.querySelector('[role=application]').dataset.cozyDomain
-    const STACK_TOKEN = document.querySelector('[role=application]').dataset.cozyToken
-    let params = {
-      method: method,
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${STACK_TOKEN}`
-      }
-    }
-    if (body) {
-      params.body = JSON.stringify(body)
-    }
-    return fetch(`${STACK_DOMAIN}${url}`, params)
-      .then(response => {
-        let data
-        const contentType = response.headers.get('content-type')
-        if (contentType && contentType.indexOf('json') >= 0) {
-          data = response.json()
-        } else {
-          data = response.text()
-        }
-
-        return (response.status === 200 || response.status === 202 || response.status === 204)
-          ? data
-          : data.then(Promise.reject.bind(Promise))
-      })
   }
 
   createIntentService (intent, window) {

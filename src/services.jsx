@@ -1,5 +1,7 @@
+/* global cozy, initKonnectors, initFolders */
+
 import 'babel-polyfill'
-/* global cozy */
+
 import React from 'react'
 import { render } from 'react-dom'
 
@@ -22,10 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  window.initKonnectors = require('./initKonnectors.json')
-  window.initFolders = require('./initFolders.json')
-
-  const store = new CollectStore(window.initKonnectors, window.initFolders, context)
+  const store = new CollectStore(initKonnectors, initFolders, context)
 
   render((
     <Provider store={store}>

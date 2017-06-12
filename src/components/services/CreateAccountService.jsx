@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AccountConnection from '../AccountConnection'
+import AccountConnection from '../../containers/AccountConnection'
 
 const CreateAccountService = (props) => {
   const { konnector, onSubmit } = props

@@ -1,14 +1,13 @@
-/* global __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
- /* global cozy Piwik */
+/* global cozy, initKonnectors, initFolders */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
-/* global cozy */
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from './plugins/i18n'
 import CollectStore, { Provider } from './lib/CollectStore'
+import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
 import DiscoveryList from './components/DiscoveryList'
@@ -22,7 +21,24 @@ import './styles/index.styl'
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
+const handleOAuthResponse = () => {
+  /* global URLSearchParams */
+  const queryParams = new URLSearchParams(window.location.search)
+  if (queryParams.get('account')) {
+    const opener = window.opener
+    const accountKey = queryParams.get('account')
+    const targetOrigin = window.location.origin || `${window.location.protocol}//${window.location.hostname}${(window.location.port ? ':' + window.location.port : '')}`
+    opener.postMessage({
+      key: accountKey,
+      origin: window.name
+    }, targetOrigin)
+    window.close()
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  handleOAuthResponse()
+
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   cozy.client.init({
@@ -38,29 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  window.initKonnectors = require('./initKonnectors.json')
-  window.initFolders = require('./initFolders.json')
-
-  const store = new CollectStore(window.initKonnectors, window.initFolders, context)
+  const store = new CollectStore(initKonnectors, initFolders, context)
   const useCases = store.getUseCases()
 
   let history = hashHistory
-  try {
-    var PiwikReactRouter = require('piwik-react-router')
-    const piwikTracker = (Piwik.getTracker(), PiwikReactRouter({
-      url: __PIWIK_TRACKER_URL__,
-      siteId: __PIWIK_SITEID__,
-      injectScript: false
-    }))
-    piwikTracker.push(['enableHeartBeatTimer'])
-    let userId = data.cozyDomain
-    let indexOfPort = userId.indexOf(':')
-    if (indexOfPort >= 0) userId = userId.substring(0, indexOfPort)
-    piwikTracker.push(['setUserId', userId])
-    piwikTracker.push(['setCustomDimension', __PIWIK_DIMENSION_ID_APP__, data.cozyAppName])
 
-    history = piwikTracker.connectToHistory(hashHistory)
-  } catch (err) {}
+  if (shouldEnableTracking() && getTracker()) {
+    let trackerInstance = getTracker()
+    history = trackerInstance.connectToHistory(hashHistory)
+    trackerInstance.track(hashHistory.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
+  }
 
   render((
     <Provider store={store}>

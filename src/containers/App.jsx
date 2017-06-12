@@ -33,18 +33,6 @@ class App extends Component {
 
   render () {
     const { children } = this.props
-    // If this is an OAuth response
-    const queryParams = new URLSearchParams(window.location.search)
-    if (queryParams.get('account')) {
-      const opener = window.opener
-      const accountKey = queryParams.get('account')
-      const targetOrigin = window.location.origin || `${window.location.protocol}//${window.location.hostname}${(window.location.port ? ':' + window.location.port : '')}`
-      opener.postMessage({
-        key: accountKey,
-        origin: window.name
-      }, targetOrigin)
-      window.close()
-    }
     const { categories, isFetching, error } = this.state
     if (error) {
       return (

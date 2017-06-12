@@ -16,7 +16,7 @@ class DiscoveryList extends Component {
     const { t, useCases, context, children } = this.props
     return (
       <div className='content'>
-        <h1>{t('discovery title')}</h1>
+        <h1>{t('nav.discovery')}</h1>
         <UseCaseList useCases={useCases} context={context} />
         {children}
       </div>

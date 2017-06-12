@@ -2,56 +2,16 @@ import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
 import ModalContent from 'cozy-ui/react/Modal/Content'
-import AccountConnection from '../components/AccountConnection'
-import AccountManagement from '../components/AccountManagement'
+import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
-
-let AUTHORIZED_DATATYPE = [
-  'activity', 'heartbeat', 'calendar', 'commit',
-  'consumption', 'contact', 'contract', 'travelDate', 'event', 'bill',
-  'stepsNumber', 'podcast', 'weight', 'bloodPressure', 'appointment',
-  'refund', 'sleepTime', 'courseMaterial', 'temperature', 'tweet'
-]
-let isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
-
-// customized function to center a popup window
-// source https://stackoverflow.com/a/16861050
-function popupCenter (url, title, w, h) {
-  /* global screen */
-  // Fixes dual-screen position
-  //                      Most browsers      Firefox
-  var dualScreenLeft = window.screenLeft || screen.left
-  var dualScreenTop = window.screenTop || screen.top
-
-  var width = window.innerWidth
-    ? window.innerWidth
-    : document.documentElement.clientWidth
-      ? document.documentElement.clientWidth : screen.width
-  var height = window.innerHeight
-    ? window.innerHeight
-    : document.documentElement.clientHeight
-      ? document.documentElement.clientHeight : screen.height
-
-  var left = ((width / 2) - (w / 2)) + dualScreenLeft
-  var top = ((height / 2) - (h / 2)) + dualScreenTop
-  var newWindow = window.open('', title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
-  newWindow.location.href = url
-
-  // Puts focus on the newWindow
-  if (window.focus) {
-    newWindow.focus()
-  }
-  return newWindow
-}
+const AUTHORIZED_DATATYPE = require('config/datatypes')
+const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
-    // methods binding
-    this.terminateOAuth = this.terminateOAuth.bind(this)
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
     this.store.subscribeTo(
@@ -62,9 +22,10 @@ export default class ConnectorManagement extends Component {
       })
     )
     const { name, fields } = connector
+
     this.state = {
       connector: this.sanitize(connector),
-      isConnected: connector.accounts.length !== 0,
+      isConnected: connector.accounts.length !== 0 && !connector.accounts.error,
       isInstalled: this.isInstalled(connector),
       isWorking: true,
       selectedAccount: 0,
@@ -80,11 +41,14 @@ export default class ConnectorManagement extends Component {
         return this.store
           .fetchAccounts(props.params.connectorSlug, null)
           .then(accounts => {
+            const error = konnector.accounts.error
             konnector.accounts = accounts
+            // do not loose previous connector attributes
             this.setState({
-              connector: konnector,
-              isConnected: konnector.accounts.length !== 0,
-              isWorking: false
+              connector: Object.assign(konnector, this.state.connector),
+              isConnected: konnector.accounts.length !== 0 && !error,
+              isWorking: false,
+              error
             })
           })
       })
@@ -105,52 +69,48 @@ export default class ConnectorManagement extends Component {
   }
 
   render () {
-    const { name, accounts, customView, lastImport } = this.state.connector
-    const { connector, isConnected, selectedAccount, isWorking } = this.state
+    const { accounts } = this.state.connector
+    const { selectedAccount, isWorking } = this.state
     const { t } = this.context
 
-    if (isWorking) {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            {/* @TODO temporary component, prefer the use of a clean spinner comp when UI is updated */}
-            <div className='installing'>
+    return (
+      <Modal secondaryAction={() => this.closeModal()}>
+        <ModalContent>
+          { isWorking
+            ? <div className='installing'>
               <div className='installing-spinner' />
-              <div>{t('working')}</div>
+              <div>{t('loading.working')}</div>
             </div>
-          </ModalContent>
-        </Modal>
-      )
-    } else {
-      return (
-        <Modal secondaryAction={() => this.closeModal()}>
-          <ModalContent>
-            {isConnected
-              ? <AccountManagement
-                name={name}
-                customView={customView}
-                lastImport={lastImport}
-                accounts={accounts}
-                values={accounts[selectedAccount] ? accounts[selectedAccount].auth : {}}
-                selectAccount={idx => this.selectAccount(idx)}
-                addAccount={() => this.addAccount()}
-                synchronize={() => this.synchronize()}
-                deleteAccount={idx => this.deleteAccount(accounts[selectedAccount])}
-                cancel={() => this.gotoParent()}
-                onSubmit={values => this.updateAccount(selectedAccount, values)}
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
-                {...this.state}
-                {...this.context} />
-              : <AccountConnection
-                onSubmit={values => this.connectAccount(Object.assign(values, {folderPath: t('konnector default base folder', connector)}))}
-                onOAuth={accountType => this.connectAccountOAuth(accountType)}
-                {...this.state}
-                {...this.context} />
-            }
-          </ModalContent>
-        </Modal>
-      )
-    }
+            : <AccountConnection
+              existingAccount={accounts.length ? accounts[selectedAccount] : null}
+              onError={(error) => this.handleError(error)}
+              onSuccess={(account, messages) => this.handleSuccess(account, messages)}
+              onCancel={() => this.gotoParent()}
+              {...this.state}
+              {...this.context} />
+          }
+        </ModalContent>
+      </Modal>
+    )
+  }
+
+  handleSuccess (account, messages) {
+    const { t } = this.context
+
+    Notifier.info([
+      messages.map(item => {
+        return t(item.message, item.params)
+      }).join('.\n')
+    ])
+
+    this.gotoParent()
+  }
+
+  handleError (error) {
+    const { t } = this.context
+
+    Notifier.error(t(`${error.message || error}`))
+    this.gotoParent()
   }
 
   gotoParent () {
@@ -161,153 +121,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  handleError (error) {
-    const { t } = this.context
-
-    const stateUpdate = {
-      submitting: false
-    }
-
-    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
-      stateUpdate.credentialsError = error
-    } else {
-      stateUpdate.error = error
-      Notifier.error(t(`error.${error.message || error}`))
-      this.gotoParent()
-    }
-
-    this.setState(stateUpdate)
-  }
-
-  connectAccount ({login, password, folderPath}) {
-    const account = {
-      auth: {
-        login: login,
-        password: password
-      }
-    }
-
-    this.setState({ submitting: true })
-
-    return this.runConnection(account, folderPath)
-      .catch(error => this.handleError(error))
-  }
-
-  runConnection (account, folderPath) {
-    const { t } = this.context
-    return this.store.connectAccount(this.state.connector, account, folderPath)
-      .then(connection => {
-        this.setState({ submitting: false })
-        if (connection.error) {
-          this.setState({ error: connection.error.message })
-        } else {
-          this.gotoParent()
-          if (folderPath) {
-            Notifier.info(t('account config success'), t('account config details') + folderPath)
-          } else {
-            Notifier.info(t('account config success'))
-          }
-        }
-      })
-  }
-
-  terminateOAuth (messageEvent) {
-    const { t } = this.context
-    if (!messageEvent.data) return // data shouldn't be empty
-    // if wrong connector oauth window
-    if (messageEvent.data.origin !== `${this.props.params.connectorSlug}_oauth`) return
-    // get account id from the message event and remove the listener
-    const accountID = messageEvent.data.key
-    window.removeEventListener('message', this.terminateOAuth)
-
-    // update connector to get the new account
-    this.setState({submitting: true})
-    this.store.fetchKonnectorInfos(this.props.params.connectorSlug)
-      .then(konnector => {
-        return this.store
-          .fetchAccounts(this.props.params.connectorSlug, null)
-          .then(accounts => {
-            konnector.accounts = accounts
-            const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const folderPath = t('konnector default base folder', konnector)
-            return this.runConnection(
-              accounts[currentIdx],
-              folderPath
-            ).then(() => {
-              this.setState({
-                connector: konnector,
-                isConnected: konnector.accounts.length !== 0,
-                selectedAccount: currentIdx,
-                submitting: false
-              })
-            }).catch(
-              error => this.setState({submitting: false, error: error.message})
-            )
-          })
-      })
-      .catch(error => {
-        this.setState({submitting: false, error: error.message})
-      })
-  }
-
-  connectAccountOAuth (accountType) {
-    const cozyUrl =
-      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start`, `${accountType}_oauth`, 800, 800)
-    // listener for oauth window
-    const boundOAuthCb = this.terminateOAuth
-    window.addEventListener('message', boundOAuthCb)
-    // polling to monitor oauth window closing
-    ;(function monitorOAuthClosing () {
-      if (newTab.closed) {
-        window.removeEventListener('message', boundOAuthCb)
-      } else {
-        setTimeout(monitorOAuthClosing, 1000)
-      }
-    })()
-  }
-
-  updateAccount (idx, values) {
-    const { t } = this.context
-    this._updateAccount(idx, values)
-      .then(() => {
-        Notifier.info(t('account config success'))
-      })
-  }
-
-  _updateAccount (idx, values) {
-    const id = this.state.connector.id
-    const { t } = this.context
-    this.setState({ submitting: true })
-    return this.store.updateAccount(id, idx, values)
-      .then(fetchedConnector => {
-        this.setState({ submitting: false })
-        return fetchedConnector
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ submitting: false })
-        Notifier.error(t('account config error'))
-        return Promise.reject(error)
-      })
-  }
-
-  synchronize () {
-    const id = this.state.connector.id
-    const { t } = this.context
-    this.setState({ synching: true })
-    this.store.synchronize(id)
-      .then(fetchedConnector => {
-        this.setState({ synching: false })
-        if (fetchedConnector.importErrorMessage) {
-          this.setState({ error: fetchedConnector.importErrorMessage })
-        }
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ synching: false })
-        Notifier.error(t('account config error'))
-      })
   }
 
   deleteAccount (account) {
@@ -321,22 +134,14 @@ export default class ConnectorManagement extends Component {
         })
 
         this.gotoParent()
-        Notifier.info(t('account delete success'))
+        Notifier.info(t('account.message.success.delete'))
       })
       .catch(error => { // eslint-disable-line
         this.setState({ deleting: false })
         this.gotoParent()
-        Notifier.error(t('account delete error'))
+        Notifier.error(t('account.message.error.delete'))
         throw error
       })
-  }
-
-  getDefaultValues () {
-    let defaults = {}
-    Object.keys(this.state.fields).map(k => {
-      defaults[k] = this.state.fields[k].default || ''
-    })
-    return defaults
   }
 
   sanitize (connector) {
@@ -353,9 +158,6 @@ export default class ConnectorManagement extends Component {
   configureFields (fields, t, connectorName) {
     if (fields.calendar && !fields.calendar.default) {
       fields.calendar.default = connectorName
-    }
-    if (fields.folderPath && !fields.folderPath.default) {
-      fields.folderPath.default = '/' + t('title') + '/' + connectorName
     }
     if (fields.folderPath && !fields.folderPath.options) {
       fields.folderPath.options = this.store.folders.map(f => f.path + '/' + f.name)

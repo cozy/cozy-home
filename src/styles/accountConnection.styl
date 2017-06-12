@@ -6,8 +6,8 @@
 
     .col-account-connection-content
         display   flex
-        flex-wrap wrap
-        width     (872/basefont)em
+        flex-wrap nowrap
+        width     (800/basefont)em
 
     p
         font-size   (16/basefont)em
@@ -33,7 +33,8 @@
         margin      .667em 0
 
     .col-account-connection-form
-        width (460/basefont)em
+        flex 1 0 (460/basefont)em
+        max-width (460/basefont)em
 
     h4
         font-size   (20/basefont)em
@@ -42,3 +43,15 @@
 
     .col-account-connection-data-access
         padding-left 0
+
+    .col-account-connection
+        @media (max-width: (930/basefont)rem)
+            .col-account-connection-data
+                display none
+
+            .col-account-connection-header,
+            .col-account-connection-content
+                width   100%
+
+            .col-account-connection-form
+                flex    1 0
