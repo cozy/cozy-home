@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import AccountConnectionData from '../components/AccountConnectionData'
+import AccountSuccessForm from '../components/AccountSuccessForm'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
@@ -14,7 +15,8 @@ class AccountConnection extends Component {
     super(props, context)
     this.store = this.context.store
     this.state = {
-      account: this.props.existingAccount
+      account: this.props.existingAccount,
+      isSuccessTimedOut: false
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
@@ -180,8 +182,8 @@ class AccountConnection extends Component {
       deleting: false
     }
 
-    if (error.message === 'successTimeout') {
-      this.props.onSuccessTimeout()
+    if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
+      stateUpdate.isSuccessTimedOut = true
     } else if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
       stateUpdate.credentialsError = error
     } else {
@@ -201,6 +203,10 @@ class AccountConnection extends Component {
     this.props.onCancel()
   }
 
+  goToConfig () {
+    this.setState({ isSuccessTimedOut: false })
+  }
+
   // TODO: use a better helper
   getIcon (konnector) {
     try {
@@ -213,7 +219,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, existingAccount, connector, fields } = this.props
-    const { submitting, deleting, error, credentialsError } = this.state
+    const { submitting, deleting, error, credentialsError, isSuccessTimedOut } = this.state
     const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -235,7 +241,7 @@ class AccountConnection extends Component {
                 </p>
               </div>
 
-              : existingAccount
+              : existingAccount && !isSuccessTimedOut
                 ? !connector.oauth && <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
@@ -258,19 +264,27 @@ class AccountConnection extends Component {
                   }
                 </div>
             }
-            <AccountLoginForm
-              connectorSlug={connector.slug}
-              isOAuth={connector.oauth}
-              fields={fields}
-              submitting={submitting}
-              deleting={deleting}
-              values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
-              error={credentialsError}
-              forceEnabled={!!error}
-              onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
-              onCancel={() => this.cancel()}
-            />
+            {isSuccessTimedOut
+              ? <AccountSuccessForm
+                account={existingAccount}
+                connector={connector}
+                onAccountConfig={() => this.goToConfig()}
+                onCancel={() => this.cancel()}
+              />
+              : <AccountLoginForm
+                connectorSlug={connector.slug}
+                isOAuth={connector.oauth}
+                fields={fields}
+                submitting={submitting}
+                deleting={deleting}
+                values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
+                error={credentialsError}
+                forceEnabled={!!error}
+                onDelete={() => this.deleteAccount()}
+                onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
+                onCancel={() => this.cancel()}
+              />
+            }
           </div>
           <AccountConnectionData
             connector={connector}
