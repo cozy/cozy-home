@@ -111,7 +111,6 @@ export default class ConnectorManagement extends Component {
     const { t } = this.context
 
     Notifier.error(t(`${error.message || error}`))
-    this.setState({ hadSuccessTimeout: false })
     this.gotoParent()
   }
 

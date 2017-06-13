@@ -183,6 +183,8 @@ class AccountConnection extends Component {
 
     if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
       stateUpdate.isSuccessTimedOut = true
+      stateUpdate.error = null
+      stateUpdate.credentialsError = null
     } else if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
       stateUpdate.credentialsError = error
     } else {
@@ -240,8 +242,9 @@ class AccountConnection extends Component {
                 </p>
               </div>
 
-              : existingAccount && !isSuccessTimedOut
-                ? !connector.oauth && <h4>{t('account.form.title')}</h4>
+              : existingAccount || isSuccessTimedOut
+                ? (!connector.oauth && !isSuccessTimedOut) &&
+                  <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
                   {hasDescriptions && hasDescriptions.connector &&
@@ -264,7 +267,7 @@ class AccountConnection extends Component {
                 </div>
             }
             {isSuccessTimedOut
-              ? <div className={styles['col-account-connection-successTimeout']}>
+              ? <div>
                 <h3>
                   {t('account.connected.title', { name: connector.name })}
                 </h3>
@@ -275,7 +278,7 @@ class AccountConnection extends Component {
                   {t('account.connected.ongoingSync', { name: connector.name })}
                   <br />
                   <span className={styles['bills-folder']}>
-                    {existingAccount.folderId}
+                    {this.state.account.folderId}
                   </span>
                 </p>
                 <AccountLoginForm

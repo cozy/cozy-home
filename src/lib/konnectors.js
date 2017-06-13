@@ -6,6 +6,8 @@ const KONNECTOR_STATE_READY = 'ready'
 const JOB_STATE_READY = 'done'
 const JOB_STATE_ERRORED = 'errored'
 
+import { ACCOUNT_ERRORS } from './accounts'
+
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
   konnector.accounts.push(account)
@@ -150,7 +152,7 @@ function waitForJobFinished (cozy, job, successTimeout) {
 
     idTimeout = setTimeout(() => {
       clearInterval(idInterval)
-      reject(new Error('successTimeout'))
+      reject(new Error(ACCOUNT_ERRORS.SUCCESS_TIMEDOUT))
     }, successTimeout)
 
     idInterval = setInterval(() => {

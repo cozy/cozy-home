@@ -7,7 +7,7 @@ import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccessTimedOut }) => {
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccessTimedOut, onAccountConfig }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -61,7 +61,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           }
         }
       )}
-      {isUpdate &&
+      { isUpdate &&
         <div className={styles['col-account-form-delete']}>
           <h4>{t('account.disconnect.title')}</h4>
           <p>
@@ -85,7 +85,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t('account.form.button.cancel')}
           </button>
         }
-        { !(isUpdate && isOAuth) &&
+        { (!(isUpdate && isOAuth) && !isSuccessTimedOut) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
@@ -96,18 +96,22 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           </button>
         }
         {isSuccessTimedOut &&
-          <p><button
-            className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
-            onClick={onAccountConfig}
+          <div
+            className={styles['buttons-successTimedout']}
           >
-            {t('account.connected.button.config')}
-          </button></p>
-          <p><button
-            className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-            onClick={onCancel}
-          >
-            {t('account.connected.button.back')}
-          </button></p>
+            <p><button
+              className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+              onClick={onAccountConfig}
+            >
+              {t('account.connected.button.config')}
+            </button></p>
+            <p><button
+              className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+              onClick={onCancel}
+            >
+              {t('account.connected.button.back')}
+            </button></p>
+          </div>
         }
       </div>
     </div>
