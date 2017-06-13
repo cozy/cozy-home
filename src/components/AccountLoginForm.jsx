@@ -3,11 +3,12 @@ import styles from '../styles/accountLoginForm'
 import React from 'react'
 import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
+import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
-  const isUpdate = Object.keys(values).length > 0
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccessTimedOut, onAccountConfig }) => {
+  const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
@@ -16,7 +17,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           {t('account.message.error.bad_credentials')}
         </p>
       }
-      {Object.keys(fields)
+      {!!fields && Object.keys(fields)
         .filter(name => !fields[name].advanced)
         .map(name => {
           const inputName = `${name}_${connectorSlug}`
@@ -60,7 +61,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           }
         }
       )}
-      {isUpdate &&
+      { isUpdate &&
         <div className={styles['col-account-form-delete']}>
           <h4>{t('account.disconnect.title')}</h4>
           <p>
@@ -84,7 +85,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t('account.form.button.cancel')}
           </button>
         }
-        { !(isUpdate && isOAuth) &&
+        { (!(isUpdate && isOAuth) && !isSuccessTimedOut) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
@@ -94,9 +95,27 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
         }
+        {isSuccessTimedOut &&
+          <div
+            className={styles['buttons-successTimedout']}
+          >
+            <p><button
+              className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+              onClick={onAccountConfig}
+            >
+              {t('account.connected.button.config')}
+            </button></p>
+            <p><button
+              className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+              onClick={onCancel}
+            >
+              {t('account.connected.button.back')}
+            </button></p>
+          </div>
+        }
       </div>
     </div>
   )
 }
 
-export default statefulForm()(AccountLoginForm)
+export default statefulForm()(translate()(AccountLoginForm))

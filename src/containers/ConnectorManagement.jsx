@@ -42,6 +42,7 @@ export default class ConnectorManagement extends Component {
           .fetchAccounts(props.params.connectorSlug, null)
           .then(accounts => {
             const error = konnector.accounts.error
+
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
@@ -76,7 +77,7 @@ export default class ConnectorManagement extends Component {
     return (
       <Modal secondaryAction={() => this.closeModal()}>
         <ModalContent>
-          { isWorking
+          {isWorking
             ? <div className='installing'>
               <div className='installing-spinner' />
               <div>{t('loading.working')}</div>

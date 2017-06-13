@@ -3,7 +3,7 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
-import DataItem from '../components/DataItem'
+import AccountConnectionData from '../components/AccountConnectionData'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
@@ -14,7 +14,8 @@ class AccountConnection extends Component {
     super(props, context)
     this.store = this.context.store
     this.state = {
-      account: this.props.existingAccount
+      account: this.props.existingAccount,
+      isSuccessTimedOut: false
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
@@ -180,7 +181,11 @@ class AccountConnection extends Component {
       deleting: false
     }
 
-    if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
+    if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
+      stateUpdate.isSuccessTimedOut = true
+      stateUpdate.error = null
+      stateUpdate.credentialsError = null
+    } else if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
       stateUpdate.credentialsError = error
     } else {
       stateUpdate.error = error
@@ -199,6 +204,10 @@ class AccountConnection extends Component {
     this.props.onCancel()
   }
 
+  goToConfig () {
+    this.setState({ isSuccessTimedOut: false })
+  }
+
   // TODO: use a better helper
   getIcon (konnector) {
     try {
@@ -211,10 +220,9 @@ class AccountConnection extends Component {
 
   render () {
     const { t, existingAccount, connector, fields } = this.props
-    const { submitting, deleting, error, credentialsError } = this.state
+    const { submitting, deleting, error, credentialsError, isSuccessTimedOut } = this.state
     const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
-    const hasDataTypes = !!(connector.dataType && connector.dataType.length)
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -234,8 +242,9 @@ class AccountConnection extends Component {
                 </p>
               </div>
 
-              : existingAccount
-                ? !connector.oauth && <h4>{t('account.form.title')}</h4>
+              : existingAccount || isSuccessTimedOut
+                ? (!connector.oauth && !isSuccessTimedOut) &&
+                  <h4>{t('account.form.title')}</h4>
                 : <div>
                   <h3>{t('account.config.title', { name: connector.name })}</h3>
                   {hasDescriptions && hasDescriptions.connector &&
@@ -257,47 +266,45 @@ class AccountConnection extends Component {
                   }
                 </div>
             }
-            <AccountLoginForm
-              t={t}
-              connectorSlug={connector.slug}
-              isOAuth={connector.oauth}
-              fields={fields}
-              submitting={submitting}
-              deleting={deleting}
-              values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
-              error={credentialsError}
-              forceEnabled={!!error}
-              onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
-              onCancel={() => this.cancel()}
-            />
-          </div>
-          <div className={styles['col-account-connection-data']}>
-            { hasDescriptions && hasDescriptions.service &&
-              <div>
-                <h4>{t('account.config.data.service.description')}</h4>
+            {isSuccessTimedOut
+              ? <div>
+                <h3>
+                  {t('account.connected.title', { name: connector.name })}
+                </h3>
                 <p>
-                  <ReactMarkdownWrapper
-                    source={
-                      t(`connector.${connector.slug}.description.service`)
-                    }
-                  />
+                  {t('account.connected.description', { name: connector.name })}
                 </p>
+                <p>
+                  {t('account.connected.ongoingSync', { name: connector.name })}
+                  <br />
+                  <span className={styles['bills-folder']}>
+                    {this.state.account.folderId}
+                  </span>
+                </p>
+                <AccountLoginForm
+                  onAccountConfig={() => this.goToConfig()}
+                  onCancel={() => this.cancel()}
+                  isSuccessTimedOut
+                />
               </div>
+              : <AccountLoginForm
+                connectorSlug={connector.slug}
+                isOAuth={connector.oauth}
+                fields={fields}
+                submitting={submitting}
+                deleting={deleting}
+                values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
+                error={credentialsError}
+                forceEnabled={!!error}
+                onDelete={() => this.deleteAccount()}
+                onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
+                onCancel={() => this.cancel()}
+              />
             }
-            <h4>{t('account.config.data.title')}</h4>
-            {hasDataTypes &&
-              <ul className={styles['col-account-connection-data-access']}>
-                {connector.dataType.map(data =>
-                  <DataItem
-                    dataType={data}
-                    hex={connector.color.hex}
-                  />
-                )}
-              </ul>}
-            {!hasDataTypes &&
-              <p>{t('dataType.none', {name: connector.name})}</p>}
           </div>
+          <AccountConnectionData
+            connector={connector}
+          />
         </div>
       </div>
     )
