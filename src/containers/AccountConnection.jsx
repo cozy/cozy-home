@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import AccountConnectionData from '../components/AccountConnectionData'
-import AccountSuccessForm from '../components/AccountSuccessForm'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
@@ -265,12 +264,26 @@ class AccountConnection extends Component {
                 </div>
             }
             {isSuccessTimedOut
-              ? <AccountSuccessForm
-                account={existingAccount}
-                connector={connector}
-                onAccountConfig={() => this.goToConfig()}
-                onCancel={() => this.cancel()}
-              />
+              ? <div className={styles['col-account-connection-successTimeout']}>
+                <h3>
+                  {t('account.connected.title', { name: connector.name })}
+                </h3>
+                <p>
+                  {t('account.connected.description', { name: connector.name })}
+                </p>
+                <p>
+                  {t('account.connected.ongoingSync', { name: connector.name })}
+                  <br />
+                  <span className={styles['bills-folder']}>
+                    {existingAccount.folderId}
+                  </span>
+                </p>
+                <AccountLoginForm
+                  onAccountConfig={() => this.goToConfig()}
+                  onCancel={() => this.cancel()}
+                  isSuccessTimedOut
+                />
+              </div>
               : <AccountLoginForm
                 connectorSlug={connector.slug}
                 isOAuth={connector.oauth}

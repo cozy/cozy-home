@@ -95,6 +95,20 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
         }
+        {isSuccessTimedOut &&
+          <p><button
+            className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+            onClick={onAccountConfig}
+          >
+            {t('account.connected.button.config')}
+          </button></p>
+          <p><button
+            className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+            onClick={onCancel}
+          >
+            {t('account.connected.button.back')}
+          </button></p>
+        }
       </div>
     </div>
   )
