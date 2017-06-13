@@ -76,7 +76,7 @@
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
     "color":{"hex":"#FF6122","css":"#FF6122"},
-    "dataType":["bill", "geopoint", "phonecommunicationlog"],
+    "dataType":["geopoint", "phonecommunicationlog"],
     "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}, "agreement": {"type": "checkbox", "hasDescription": true}},
     "additionnalSuccessMessage": {
       "message": "connector.orange.message.delay"
