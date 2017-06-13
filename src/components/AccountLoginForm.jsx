@@ -7,8 +7,8 @@ import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug }) => {
-  const isUpdate = Object.keys(values).length > 0
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccessTimedOut }) => {
+  const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
     <div className={styles['account-form-login']}>
@@ -17,7 +17,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           {t('account.message.error.bad_credentials')}
         </p>
       }
-      {Object.keys(fields)
+      {!!fields && Object.keys(fields)
         .filter(name => !fields[name].advanced)
         .map(name => {
           const inputName = `${name}_${connectorSlug}`

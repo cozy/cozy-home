@@ -68,6 +68,8 @@ export default function statefulForm (mapPropsToFormConfig) {
       }
 
       configureFields (config) {
+        if (!config || !config.fields) return {}
+
         let fields = {}
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
