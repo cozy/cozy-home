@@ -141,18 +141,22 @@ export function run (cozy, konnector, account, successTimeout = 20 * 1000) {
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, successTimeout))
+  .then(job => waitForJobFinished(cozy, job, successTimeout, account))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, successTimeout) {
+function waitForJobFinished (cozy, job, successTimeout, account) {
   return new Promise((resolve, reject) => {
     let idTimeout
     let idInterval
 
     idTimeout = setTimeout(() => {
       clearInterval(idInterval)
-      reject(new Error(ACCOUNT_ERRORS.SUCCESS_TIMEDOUT))
+      // specific to time out event
+      reject({
+        message: ACCOUNT_ERRORS.SUCCESS_TIMEDOUT,
+        account
+      })
     }, successTimeout)
 
     idInterval = setInterval(() => {
