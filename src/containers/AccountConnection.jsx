@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import AccountLoginForm from '../components/AccountLoginForm'
 import AccountConnectionData from '../components/AccountConnectionData'
-import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
+import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -241,17 +241,14 @@ class AccountConnection extends Component {
               : existingAccount || isSuccessTimedOut
                 ? (!connector.oauth && !isSuccessTimedOut) &&
                   <h4>{t('account.form.title')}</h4>
-                : <div>
-                  <h3>{t('account.config.title', { name: connector.name })}</h3>
-                  {hasDescriptions && hasDescriptions.connector &&
-                    <p>
-                      <ReactMarkdownWrapper
-                        source={
-                          t(`connector.${connector.slug}.description.connector`)
-                        }
-                      />
-                    </p>
+                : <DescriptionContent
+                  title={t('account.config.title', { name: connector.name })}
+                  messages={
+                    (hasDescriptions && hasDescriptions.connector)
+                    ? [t(`connector.${connector.slug}.description.connector`)]
+                    : []
                   }
+                >
                   {!connector.oauth &&
                     <p className={styles['col-account-connection-security']}>
                       <svg>
@@ -260,23 +257,24 @@ class AccountConnection extends Component {
                       {t('account.config.security')}
                     </p>
                   }
-                </div>
+                </DescriptionContent>
             }
             {isSuccessTimedOut
               ? <div>
-                <h3>
-                  {t('account.connected.title', { name: connector.name })}
-                </h3>
-                <p>
-                  {t('account.connected.description', { name: connector.name })}
-                </p>
-                <p>
-                  {t('account.connected.ongoingSync', { name: connector.name })}
-                  <br />
-                  <span className={styles['bills-folder']}>
-                    {this.state.account.folderId}
-                  </span>
-                </p>
+                <DescriptionContent
+                  title={t('account.connected.title', { name: connector.name })}
+                  messages={[t('account.connected.description', { name: connector.name })]}
+                >
+                  {connector.dataType && connector.dataType.includes('bill') &&
+                    <p>
+                      {t('account.message.syncing.bill', { name: connector.name })}
+                      <br />
+                      <span className={styles['bills-folder']}>
+                        {this.state.account.folderId}
+                      </span>
+                    </p>
+                  }
+                </DescriptionContent>
                 <AccountLoginForm
                   onAccountConfig={() => this.goToConfig()}
                   onCancel={() => this.cancel()}
