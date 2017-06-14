@@ -97,7 +97,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
         }
         {isSuccess &&
           <div
-            className={styles['buttons-successTimedout']}
+            className={styles['col-account-form-success-buttons']}
           >
             <p><button
               className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
