@@ -84,7 +84,7 @@ export default class ConnectorManagement extends Component {
             </div>
             : <AccountConnection
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
-              onSuccess={(account, messages) => this.handleSuccess(account, messages)}
+              alertSuccess={(messages) => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
               {...this.state}
               {...this.context} />
@@ -94,7 +94,7 @@ export default class ConnectorManagement extends Component {
     )
   }
 
-  handleSuccess (account, messages) {
+  alertSuccess (messages) {
     const { t } = this.context
 
     Notifier.info([
@@ -114,27 +114,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  deleteAccount (account) {
-    const { t } = this.context
-    this.setState({ deleting: true })
-    this.store.deleteAccount(this.state.connector, account)
-      .then(() => {
-        this.setState({
-          deleting: false,
-          isConnected: false
-        })
-
-        this.gotoParent()
-        Notifier.info(t('account.message.success.delete'))
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ deleting: false })
-        this.gotoParent()
-        Notifier.error(t('account.message.error.delete'))
-        throw error
-      })
   }
 
   sanitize (connector) {

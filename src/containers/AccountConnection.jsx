@@ -9,13 +9,19 @@ import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
+const SUCCESS_TYPES = {
+  UPDATE: 'update',
+  CONNECT: 'connect',
+  TIMEDOUT: 'timedout'
+}
+
 class AccountConnection extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
     this.state = {
       account: this.props.existingAccount,
-      isSuccessTimedOut: false
+      success: null
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
@@ -43,7 +49,7 @@ class AccountConnection extends Component {
     this.setState({account: account})
 
     return this.runConnection(account, folderPath)
-      .then(() => this.handleCreateSuccess(account))
+      .then(() => this.handleCreateSuccess())
       .catch(error => this.handleError(error))
   }
 
@@ -86,7 +92,7 @@ class AccountConnection extends Component {
                   selectedAccount: currentIdx,
                   submitting: false
                 })
-                this.handleCreateSuccess(accounts[currentIdx])
+                this.handleCreateSuccess()
               })
           })
           .catch(error => this.handleError(error))
@@ -123,7 +129,7 @@ class AccountConnection extends Component {
       this.setState({ account: account })
       return this.store.runAccount(connector, account)
     })
-    .then(() => this.handleUpdateSuccess(account))
+    .then(() => this.handleUpdateSuccess())
     .catch(error => this.handleError(error))
   }
 
@@ -131,54 +137,59 @@ class AccountConnection extends Component {
     const { account } = this.state
     this.setState({ deleting: true })
     this.store.deleteAccount(this.props.connector, account)
-      .then(() => this.handleSuccess(account, [{message: 'account.message.success.delete'}]))
+      .then(() => this.handleDeleteSuccess())
       .catch(error => this.handleError(error))
   }
 
-  handleCreateSuccess (account) {
-    const messages = [{message: 'account.message.success.config'}]
-
-    if (account.folderPath) {
-      messages.push({message: 'account.message.details', params: {folder: account.folderPath}})
-    }
-
-    if (this.props.connector.additionnalSuccessMessage) {
-      messages.push(
-        {
-          message: this.props.connector.additionnalSuccessMessage.message || ''
-        }
-      )
-    }
-    this.handleSuccess(account, messages)
-  }
-
-  handleUpdateSuccess (account) {
-    const messages = [{message: 'account update success'}]
-    if (this.props.connector.additionnalSuccessMessage) {
-      messages.push(
-        {
-          message: this.props.connector.additionnalSuccessMessage.message || ''
-        }
-      )
-    }
-    this.handleSuccess(account, messages)
-  }
-
-  handleSuccess (account, messages = []) {
+  handleDeleteSuccess () {
     this.setState({
       submitting: false,
       deleting: false,
-      error: undefined,
-      credentialsError: undefined
+      error: null,
+      success: null // exception for the delete success which uses alerts
     })
 
-    this.props.onSuccess(account, messages)
+    this.props.alertSuccess([{message: 'account.message.success.delete'}])
+  }
+
+  handleCreateSuccess () {
+    const { t } = this.context
+    const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
+    this.handleSuccess(SUCCESS_TYPES.CREATE, messages)
+  }
+
+  handleSuccessTimedOut () {
+    const { t } = this.context
+    const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
+    this.handleSuccess(SUCCESS_TYPES.TIMEDOUT, messages)
+  }
+
+  handleUpdateSuccess () {
+    const { t } = this.context
+    const messages = [t('account.message.success.update', {name: this.props.connector.name})]
+    this.handleSuccess(SUCCESS_TYPES.UPDATE, messages)
+  }
+
+  handleSuccess (type, messages = []) {
+    const { t } = this.context
+    if (this.props.connector.additionnalSuccessMessage && this.props.connector.additionnalSuccessMessage.message) {
+      messages.push(t(this.props.connector.additionnalSuccessMessage.message))
+    }
+    this.setState({
+      submitting: false,
+      deleting: false,
+      error: null,
+      success: {
+        type,
+        messages
+      }
+    })
   }
 
   handleError (error) {
     // timed out exception
     if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
-      this.handleSuccessTimedOut(this.state.account)
+      this.handleSuccessTimedOut()
       return
     }
 
@@ -186,7 +197,7 @@ class AccountConnection extends Component {
       submitting: false,
       deleting: false,
       error: error,
-      isSuccess: false
+      success: null
     })
   }
 
@@ -201,7 +212,7 @@ class AccountConnection extends Component {
   }
 
   goToConfig () {
-    this.setState({ isSuccessTimedOut: false })
+    this.setState({ success: null })
   }
 
   // TODO: use a better helper
@@ -216,7 +227,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, existingAccount, connector, fields } = this.props
-    const { submitting, deleting, error, isSuccessTimedOut } = this.state
+    const { submitting, deleting, error, success } = this.state
     const hasGlobalError = error && error.message && ![
       ACCOUNT_ERRORS.LOGIN_FAILED
     ].includes(error.message)
@@ -238,8 +249,8 @@ class AccountConnection extends Component {
                 messages={[t('account.message.error.global.description', {name: connector.name})]}
               />
 
-              : existingAccount || isSuccessTimedOut
-                ? (!connector.oauth && !isSuccessTimedOut) &&
+              : existingAccount || success
+                ? (!connector.oauth && !success) &&
                   <h4>{t('account.form.title')}</h4>
                 : <DescriptionContent
                   title={t('account.config.title', { name: connector.name })}
@@ -259,13 +270,13 @@ class AccountConnection extends Component {
                   }
                 </DescriptionContent>
             }
-            {isSuccessTimedOut
+            {success
               ? <div>
                 <DescriptionContent
-                  title={t('account.connected.title', { name: connector.name })}
-                  messages={[t('account.connected.description', { name: connector.name })]}
+                  title={t(`account.success.title.${success.type}`, { name: connector.name })}
+                  messages={success.messages}
                 >
-                  {connector.dataType && connector.dataType.includes('bill') &&
+                  {Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
                     <p>
                       {t('account.message.syncing.bill', { name: connector.name })}
                       <br />
@@ -278,7 +289,7 @@ class AccountConnection extends Component {
                 <AccountLoginForm
                   onAccountConfig={() => this.goToConfig()}
                   onCancel={() => this.cancel()}
-                  isSuccessTimedOut
+                  isSuccess={!!success}
                 />
               </div>
               : <AccountLoginForm

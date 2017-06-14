@@ -50,11 +50,13 @@
         "synchronize": "Synchronize now"
       }
     },
-    "connected": {
-      "title": "Your %{name} account is connected!",
-      "description": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities opens to you.",
-      "ongoingSync": "Your bills are syncing and will be available in the following path:",
-      "textLinkToBillsFolder": "Open the folder into Cozy Drive",
+    "success": {
+      "title": {
+        "connect": "Your %{name} account is connected!",
+        "timedout": "Your %{name} account is connected!",
+        "update": "Your %{name} account is updated!"
+      },
+      "folderLintText": "Open the folder into Cozy Drive",
       "button": {
         "config": "Access my account configuration",
         "back": "Back to the list of services"
@@ -62,21 +64,25 @@
     },
     "message": {
       "success": {
-        "config": "Account added successfully",
-        "update": "Account updated successfully",
-        "delete": "Account removed succesfully"
+        "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities opens to you.",
+        "update": "Your %{name} account has been updated successfully.",
+        "delete": "Account removed succesfully."
+      },
+      "syncing": {
+        "bill": "Your bills are syncing and will be available in the following path:"
+      },
+      "synced": {
+        "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {
         "global": {
           "title": "An error occured",
-          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/)."
+          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [forum](https://forum.cozy.io/)."
         },
         "server": "Apologies, our server had an hiccup, do you mind starting again?",
         "bad_credentials": "Sorry, you entered an incorrect login or password.",
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
-      },
-      "details": "Find your datas in the Files app at this location: ",
-      "forum": "forum"
+      }
     }
   },
 
