@@ -281,7 +281,7 @@ class AccountConnection extends Component {
                       {t('account.message.syncing.bill', { name: connector.name })}
                       <br />
                       <span className={styles['col-account-success-highlighted-data']}>
-                        {this.state.account.folderId}
+                        {this.state.account.auth.folderPath}
                       </span>
                     </p>
                   }
