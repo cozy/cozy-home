@@ -69,7 +69,7 @@
       "error": {
         "global": {
           "title": "An error occured",
-          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/c/support)."
+          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [%{forum}](https://forum.cozy.io/)."
         },
         "server": "Apologies, our server had an hiccup, do you mind starting again?",
         "bad_credentials": "Sorry, you entered an incorrect login or password.",
