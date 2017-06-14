@@ -53,7 +53,7 @@
     "connected": {
       "title": "Your %{name} account is connected!",
       "description": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities opens to you.",
-      "ongoingSync": "Your bills are syncing and will be aviable in the following path:",
+      "ongoingSync": "Your bills are syncing and will be available in the following path:",
       "textLinkToBillsFolder": "Open the folder into Cozy Drive",
       "button": {
         "config": "Access my account configuration",
