@@ -176,22 +176,18 @@ class AccountConnection extends Component {
   }
 
   handleError (error) {
-    const stateUpdate = {
-      submitting: false,
-      deleting: false
-    }
-
+    // timed out exception
     if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
-      stateUpdate.isSuccessTimedOut = true
-      stateUpdate.error = null
-      stateUpdate.credentialsError = null
-    } else if (error.message === ACCOUNT_ERRORS.LOGIN_FAILED) {
-      stateUpdate.credentialsError = error
-    } else {
-      stateUpdate.error = error
+      this.handleSuccessTimedOut(this.state.account)
+      return
     }
 
-    this.setState(stateUpdate)
+    this.setState({
+      submitting: false,
+      deleting: false,
+      error: error,
+      isSuccess: false
+    })
   }
 
   submit (values) {
@@ -220,7 +216,10 @@ class AccountConnection extends Component {
 
   render () {
     const { t, existingAccount, connector, fields } = this.props
-    const { submitting, deleting, error, credentialsError, isSuccessTimedOut } = this.state
+    const { submitting, deleting, error, isSuccessTimedOut } = this.state
+    const hasGlobalError = error && error.message && ![
+      ACCOUNT_ERRORS.LOGIN_FAILED
+    ].includes(error.message)
     const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
@@ -232,15 +231,12 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { error
-              ? <div className='coz-error'>
-                <h4>{t('account.message.error.global.title')}</h4>
-                <p>
-                  <ReactMarkdownWrapper
-                    source={t('account.message.error.global.description', {name: connector.name, forum: t('account.message.forum')})}
-                  />
-                </p>
-              </div>
+            { hasGlobalError
+              ? <DescriptionContent
+                cssClassesObject={{'coz-error': true}}
+                title={t('account.message.error.global.title')}
+                messages={[t('account.message.error.global.description', {name: connector.name})]}
+              />
 
               : existingAccount || isSuccessTimedOut
                 ? (!connector.oauth && !isSuccessTimedOut) &&
@@ -294,7 +290,7 @@ class AccountConnection extends Component {
                 submitting={submitting}
                 deleting={deleting}
                 values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
-                error={credentialsError}
+                error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
                 forceEnabled={!!error}
                 onDelete={() => this.deleteAccount()}
                 onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
