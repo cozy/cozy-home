@@ -21,6 +21,7 @@ class AccountConnection extends Component {
     this.store = this.context.store
     this.state = {
       account: this.props.existingAccount,
+      editing: !!this.props.existingAccount,
       success: null
     }
 
@@ -214,7 +215,7 @@ class AccountConnection extends Component {
   }
 
   goToConfig () {
-    this.setState({ success: null })
+    this.setState({ success: null, editing: true })
   }
 
   // TODO: use a better helper
@@ -228,8 +229,8 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, existingAccount, connector, fields } = this.props
-    const { submitting, deleting, error, success } = this.state
+    const { t, connector, fields } = this.props
+    const { submitting, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message && ![
       ACCOUNT_ERRORS.LOGIN_FAILED
     ].includes(error.message)
@@ -251,7 +252,7 @@ class AccountConnection extends Component {
                 messages={[t('account.message.error.global.description', {name: connector.name})]}
               />
 
-              : existingAccount || success
+              : account || success
                 ? (!connector.oauth && !success) &&
                   <h4>{t('account.form.title')}</h4>
                 : <DescriptionContent
@@ -300,7 +301,7 @@ class AccountConnection extends Component {
                 fields={fields}
                 submitting={submitting}
                 deleting={deleting}
-                values={existingAccount ? existingAccount.auth || existingAccount.oauth : {}}
+                values={editing && account ? account.auth || account.oauth : {}}
                 error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
                 forceEnabled={!!error}
                 onDelete={() => this.deleteAccount()}
