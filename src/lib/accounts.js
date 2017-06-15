@@ -4,7 +4,7 @@ const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 export const ACCOUNT_ERRORS = {
   LOGIN_FAILED: 'LOGIN_FAILED',
-  SUCCESS_TIMEDOUT: 'SUCCESS_TIMEDOUT'
+  SUCCESS_TIMEOUT: 'SUCCESS_TIMEOUT'
 }
 
 export function create (cozy, konnector, auth, folder, name = '') {

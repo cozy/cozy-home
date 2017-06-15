@@ -7,7 +7,7 @@ import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccessTimedOut, onAccountConfig }) => {
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -85,7 +85,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t('account.form.button.cancel')}
           </button>
         }
-        { (!(isUpdate && isOAuth) && !isSuccessTimedOut) &&
+        { (!(isUpdate && isOAuth) && !isSuccess) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
@@ -95,21 +95,21 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
         }
-        {isSuccessTimedOut &&
+        {isSuccess &&
           <div
-            className={styles['buttons-successTimedout']}
+            className={styles['col-account-form-success-buttons']}
           >
             <p><button
               className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
               onClick={onAccountConfig}
             >
-              {t('account.connected.button.config')}
+              {t('account.success.button.config')}
             </button></p>
             <p><button
               className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
               onClick={onCancel}
             >
-              {t('account.connected.button.back')}
+              {t('account.success.button.back')}
             </button></p>
           </div>
         }
