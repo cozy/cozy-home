@@ -280,7 +280,7 @@ export default class CollectStore {
   }
 
   deleteAccount (konnector, account) {
-    konnector = this.connectors.find(c => c._id === konnector._id)
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
     konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
 
     return accounts._delete(cozy.client, account)
