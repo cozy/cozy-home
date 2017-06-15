@@ -156,7 +156,7 @@ class AccountConnection extends Component {
   handleCreateSuccess () {
     const { t } = this.context
     const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.CREATE, messages)
+    this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
   }
 
   handleSuccessTimeOut () {
