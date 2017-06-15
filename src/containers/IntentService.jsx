@@ -12,7 +12,8 @@ export default class IntentService extends Component {
     const {window} = props
 
     this.state = {
-      isFetching: true
+      isFetching: true,
+      successTimeout: 60 * 60 * 1000 // default timeout is 1 hour, more than server side
     }
 
     // Maybe the logic about getting the intent from location.search should be
@@ -29,6 +30,12 @@ export default class IntentService extends Component {
 
         if (!data || !data.slug) {
           throw new Error('Unexpected data from intent')
+        }
+
+        if (data && data.timeout === true) {
+          this.setState({
+            successTimeout: 20 * 1000
+          })
         }
 
         return this.store.fetchKonnectorInfos(data.slug)

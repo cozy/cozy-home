@@ -37,10 +37,10 @@ class AccountConnection extends Component {
   connectAccount (auth) {
     const { folderPath } = auth
     const { connector } = this.props
-    let { account } = this.state
+    let { account, successTimeout } = this.state
 
     if (account) {
-      return this.updateAccount(connector, account, auth)
+      return this.updateAccount(connector, account, auth, successTimeout)
     }
 
     account = {
@@ -104,8 +104,9 @@ class AccountConnection extends Component {
 
   runConnection (account, folderPath) {
     this.setState({ submitting: true })
+    const { successTimeout } = this.state
 
-    return this.store.connectAccount(this.props.connector, account, folderPath)
+    return this.store.connectAccount(this.props.connector, account, folderPath, successTimeout)
       .then(connection => {
         this.setState({ submitting: false })
         if (connection.account) {
@@ -122,7 +123,7 @@ class AccountConnection extends Component {
       })
   }
 
-  updateAccount (connector, account, values) {
+  updateAccount (connector, account, values, successTimeout) {
     Object.assign(account.auth, values)
 
     this.setState({ submitting: true })
@@ -130,7 +131,7 @@ class AccountConnection extends Component {
     return this.store.updateAccount(connector, account, values)
     .then(account => {
       this.setState({ account: account })
-      return this.store.runAccount(connector, account)
+      return this.store.runAccount(connector, account, successTimeout)
     })
     .then(() => this.handleUpdateSuccess())
     .catch(error => this.handleError(error))
