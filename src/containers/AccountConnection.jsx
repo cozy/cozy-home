@@ -51,11 +51,7 @@ class AccountConnection extends Component {
 
     return this.runConnection(account, folderPath)
       .then(connection => {
-        if (connection.isSuccessTimedOut) {
-          this.handleSuccessTimeOut()
-        } else {
-          this.handleCreateSuccess()
-        }
+        this.handleConnectionSuccess(connection.isSuccessTimedOut)
       })
       .catch(error => this.handleError(error))
   }
@@ -99,11 +95,7 @@ class AccountConnection extends Component {
                   selectedAccount: currentIdx,
                   submitting: false
                 })
-                if (connection.isSuccessTimedOut) {
-                  this.handleSuccessTimeOut()
-                } else {
-                  this.handleCreateSuccess()
-                }
+                this.handleConnectionSuccess(connection.isSuccessTimedOut)
               })
           })
           .catch(error => this.handleError(error))
@@ -163,16 +155,14 @@ class AccountConnection extends Component {
     this.props.alertSuccess([{message: 'account.message.success.delete'}])
   }
 
-  handleCreateSuccess () {
+  handleConnectionSuccess (isSuccessTimedOut) {
     const { t } = this.context
     const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
-  }
-
-  handleSuccessTimeOut () {
-    const { t } = this.context
-    const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
+    if (isSuccessTimedOut) {
+      return this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
+    } else {
+      return this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
+    }
   }
 
   handleUpdateSuccess () {
