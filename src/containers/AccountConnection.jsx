@@ -250,10 +250,10 @@ class AccountConnection extends Component {
                 messages={[t('account.message.error.global.description', {name: connector.name})]}
               />
 
-              : account || success
-                ? (!connector.oauth && !success) &&
+              : account && editing && !success
+                ? !connector.oauth &&
                   <h4>{t('account.form.title')}</h4>
-                : <DescriptionContent
+                : !success && <DescriptionContent
                   title={t('account.config.title', { name: connector.name })}
                   messages={
                     (hasDescriptions && hasDescriptions.connector)
