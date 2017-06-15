@@ -32,7 +32,7 @@ export default class IntentService extends Component {
           throw new Error('Unexpected data from intent')
         }
 
-        if (data && data.timeout === true) {
+        if (data && data.JobSuccessTimeout === true) {
           this.setState({
             successTimeout: 20 * 1000
           })
