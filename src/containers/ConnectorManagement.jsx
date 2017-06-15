@@ -39,7 +39,7 @@ export default class ConnectorManagement extends Component {
     this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
         return this.store
-          .fetchAccounts(props.params.connectorSlug, null)
+          .fetchAccounts(props.params.connectorSlug)
           .then(accounts => {
             const error = konnector.accounts.error
 

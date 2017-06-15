@@ -78,7 +78,7 @@ class AccountConnection extends Component {
     return this.store.fetchKonnectorInfos(slug)
       .then(konnector => {
         return this.store
-          .fetchAccounts(slug, null)
+          .fetchAccounts(slug)
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
