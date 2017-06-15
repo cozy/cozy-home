@@ -50,7 +50,13 @@ class AccountConnection extends Component {
     this.setState({account: account})
 
     return this.runConnection(account, folderPath)
-      .then(() => this.handleCreateSuccess())
+      .then(connection => {
+        if (connection.isSuccessTimedOut) {
+          this.handleSuccessTimeOut()
+        } else {
+          this.handleCreateSuccess()
+        }
+      })
       .catch(error => this.handleError(error))
   }
 
@@ -86,14 +92,18 @@ class AccountConnection extends Component {
             this.setState({account: account})
             account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
             return this.runConnection(accounts[currentIdx], account.folderPath)
-              .then(() => {
+              .then(connection => {
                 this.setState({
                   connector: konnector,
                   isConnected: konnector.accounts.length !== 0,
                   selectedAccount: currentIdx,
                   submitting: false
                 })
-                this.handleCreateSuccess()
+                if (connection.isSuccessTimedOut) {
+                  this.handleSuccessTimeOut()
+                } else {
+                  this.handleCreateSuccess()
+                }
               })
           })
           .catch(error => this.handleError(error))
@@ -115,7 +125,7 @@ class AccountConnection extends Component {
         if (connection.error) {
           return Promise.reject(connection.error)
         } else {
-          return Promise.resolve(connection.account)
+          return Promise.resolve(connection)
         }
       })
   }
