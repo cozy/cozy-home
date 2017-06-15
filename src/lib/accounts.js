@@ -1,6 +1,6 @@
 /* accounts lib ready to be added to cozy-client-js */
 
-const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
+export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 export const ACCOUNT_ERRORS = {
   LOGIN_FAILED: 'LOGIN_FAILED',
