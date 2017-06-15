@@ -53,7 +53,7 @@
     "success": {
       "title": {
         "connect": "Your %{name} account is connected!",
-        "timedout": "Your %{name} account is connected!",
+        "timeout": "Your %{name} account is connected!",
         "update": "Your %{name} account is updated!"
       },
       "folderLintText": "Open the folder into Cozy Drive",

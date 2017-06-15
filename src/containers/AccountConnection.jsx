@@ -12,7 +12,7 @@ import { ACCOUNT_ERRORS } from '../lib/accounts'
 const SUCCESS_TYPES = {
   UPDATE: 'update',
   CONNECT: 'connect',
-  TIMEDOUT: 'timedout'
+  TIMEOUT: 'timeout'
 }
 
 class AccountConnection extends Component {
@@ -159,10 +159,10 @@ class AccountConnection extends Component {
     this.handleSuccess(SUCCESS_TYPES.CREATE, messages)
   }
 
-  handleSuccessTimedOut () {
+  handleSuccessTimeOut () {
     const { t } = this.context
     const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.TIMEDOUT, messages)
+    this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
   }
 
   handleUpdateSuccess () {
@@ -189,10 +189,10 @@ class AccountConnection extends Component {
 
   handleError (error) {
     // timed out exception
-    if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEDOUT) {
+    if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEOUT) {
       // only timed out "error" has an account property
       this.setState({account: error.account})
-      this.handleSuccessTimedOut()
+      this.handleSuccessTimeOut()
       return
     }
 

@@ -154,7 +154,7 @@ function waitForJobFinished (cozy, job, successTimeout, account) {
       clearInterval(idInterval)
       // specific to time out event
       reject({
-        message: ACCOUNT_ERRORS.SUCCESS_TIMEDOUT,
+        message: ACCOUNT_ERRORS.SUCCESS_TIMEOUT,
         account
       })
     }, successTimeout)
