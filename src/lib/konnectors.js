@@ -127,7 +127,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, successTimeout = 20 * 1000) {
+export function run (cozy, konnector, account, successTimeout = 60 * 60 * 1000) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
