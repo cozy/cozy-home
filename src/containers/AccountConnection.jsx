@@ -231,9 +231,7 @@ class AccountConnection extends Component {
   render () {
     const { t, connector, fields } = this.props
     const { submitting, deleting, error, success, account, editing } = this.state
-    const hasGlobalError = error && error.message && ![
-      ACCOUNT_ERRORS.LOGIN_FAILED
-    ].includes(error.message)
+    const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
     return (
