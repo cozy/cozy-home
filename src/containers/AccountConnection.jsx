@@ -289,7 +289,7 @@ class AccountConnection extends Component {
                 >
                   {Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
                     <p>
-                      {t('account.message.syncing.bill', { name: connector.name })}
+                      {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
                       <br />
                       <span className={styles['col-account-success-highlighted-data']}>
                         {this.state.account.auth.folderPath}
