@@ -160,7 +160,7 @@ function waitForJobFinished (cozy, job, successTimeout, account) {
     idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
-          if (job.attributes.state === JOB_STATE.READY) {
+          if (job.attributes.state === JOB_STATE.ERRORED) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             reject(new Error(job.attributes.error))
