@@ -289,6 +289,17 @@ export default class CollectStore {
       .then(() => this.updateKonnectorError(konnector))
   }
 
+  deleteAccounts (konnector) {
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
+    return Promise.all(konnector.accounts.map(account => {
+      return accounts._delete(cozy.client, account)
+        .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
+        .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      }))
+      .then(() => this.updateConnector(konnector))
+      .then(() => this.updateKonnectorError(konnector))
+  }
+
   manifestToKonnector (manifest) {
     return manifest
   }
