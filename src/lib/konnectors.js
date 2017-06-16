@@ -127,7 +127,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, successTimeout = 60 * 60 * 1000) {
+export function run (cozy, konnector, account, disableSuccessTimeout = false, successTimeout = 20 * 1000) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -143,37 +143,48 @@ export function run (cozy, konnector, account, successTimeout = 60 * 60 * 1000) 
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, successTimeout, account))
+  .then(job => waitForJobFinished(cozy, job, account, disableSuccessTimeout, successTimeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, successTimeout, account) {
+function waitForJobFinished (cozy, job, account, disableSuccessTimeout, successTimeout) {
   return new Promise((resolve, reject) => {
     let idTimeout
     let idInterval
 
-    idTimeout = setTimeout(() => {
-      clearInterval(idInterval)
-      resolve(job)
-    }, successTimeout)
+    if (!disableSuccessTimeout) {
+      idTimeout = setTimeout(() => {
+        clearInterval(idInterval)
+        resolve(job)
+      }, successTimeout)
+    }
 
     idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
           if (job.attributes.state === JOB_STATE.ERRORED) {
-            clearTimeout(idTimeout)
+            if (idTimeout) {
+              clearTimeout(idTimeout)
+            }
+
             clearInterval(idInterval)
             reject(new Error(job.attributes.error))
           }
 
           if (job.attributes.state === JOB_STATE.READY) {
-            clearTimeout(idTimeout)
+            if (idTimeout) {
+              clearTimeout(idTimeout)
+            }
+
             clearInterval(idInterval)
             resolve(job)
           }
         })
         .catch(error => {
-          clearTimeout(idTimeout)
+          if (idTimeout) {
+            clearTimeout(idTimeout)
+          }
+
           clearInterval(idInterval)
           reject(error)
         })

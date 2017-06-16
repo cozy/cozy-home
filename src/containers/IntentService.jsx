@@ -12,8 +12,7 @@ export default class IntentService extends Component {
     const {window} = props
 
     this.state = {
-      isFetching: true,
-      successTimeout: 60 * 60 * 1000 // default timeout is 1 hour, more than server side
+      isFetching: true
     }
 
     // Maybe the logic about getting the intent from location.search should be
@@ -22,20 +21,15 @@ export default class IntentService extends Component {
 
     this.store.createIntentService(intent, window)
       .then(service => {
-        this.setState({
-          service: service
-        })
-
         const data = service.getData()
+
+        this.setState({
+          service: service,
+          disableSuccessTimeout: !!data.disableSuccessTimeout
+        })
 
         if (!data || !data.slug) {
           throw new Error('Unexpected data from intent')
-        }
-
-        if (data && data.JobSuccessTimeout === true) {
-          this.setState({
-            successTimeout: 20 * 1000
-          })
         }
 
         return this.store.fetchKonnectorInfos(data.slug)
@@ -89,7 +83,7 @@ export default class IntentService extends Component {
 
   render () {
     const { data } = this.props
-    const { isFetching, error, konnector } = this.state
+    const { isFetching, error, konnector, disableSuccessTimeout } = this.state
     const { t } = this.context
     return (
       <div className='coz-service'>
@@ -115,6 +109,7 @@ export default class IntentService extends Component {
               onCancel={() => this.cancel()}
               onSuccess={account => this.terminate(account)}
               onError={error => this.handleError(error)}
+              disableSuccessTimeout={disableSuccessTimeout}
               {...this.context}
               />
           </div>}
