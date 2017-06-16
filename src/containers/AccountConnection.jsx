@@ -176,6 +176,10 @@ class AccountConnection extends Component {
     if (this.props.connector.additionnalSuccessMessage && this.props.connector.additionnalSuccessMessage.message) {
       messages.push(t(this.props.connector.additionnalSuccessMessage.message))
     }
+
+    // when service usage
+    if (this.props.onSuccess) return this.props.onSuccess(this.state.account)
+
     this.setState({
       submitting: false,
       deleting: false,
@@ -188,6 +192,8 @@ class AccountConnection extends Component {
   }
 
   handleError (error) {
+    // when service usage
+    if (this.props.onError) return this.props.onError(error)
 
     this.setState({
       submitting: false,
