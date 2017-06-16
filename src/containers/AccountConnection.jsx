@@ -50,7 +50,9 @@ class AccountConnection extends Component {
     this.setState({account: account})
 
     return this.runConnection(account, folderPath)
-      .then(() => this.handleCreateSuccess())
+      .then(connection => {
+        this.handleConnectionSuccess(connection.successTimeout)
+      })
       .catch(error => this.handleError(error))
   }
 
@@ -86,14 +88,14 @@ class AccountConnection extends Component {
             this.setState({account: account})
             account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
             return this.runConnection(accounts[currentIdx], account.folderPath)
-              .then(() => {
+              .then(connection => {
                 this.setState({
                   connector: konnector,
                   isConnected: konnector.accounts.length !== 0,
                   selectedAccount: currentIdx,
                   submitting: false
                 })
-                this.handleCreateSuccess()
+                this.handleConnectionSuccess(connection.successTimeout)
               })
           })
           .catch(error => this.handleError(error))
@@ -115,7 +117,7 @@ class AccountConnection extends Component {
         if (connection.error) {
           return Promise.reject(connection.error)
         } else {
-          return Promise.resolve(connection.account)
+          return Promise.resolve(connection)
         }
       })
   }
@@ -153,16 +155,14 @@ class AccountConnection extends Component {
     this.props.alertSuccess([{message: 'account.message.success.delete'}])
   }
 
-  handleCreateSuccess () {
+  handleConnectionSuccess (successTimeout) {
     const { t } = this.context
     const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
-  }
-
-  handleSuccessTimeOut () {
-    const { t } = this.context
-    const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
-    this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
+    if (successTimeout) {
+      return this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
+    } else {
+      return this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
+    }
   }
 
   handleUpdateSuccess () {
@@ -250,10 +250,10 @@ class AccountConnection extends Component {
                 messages={[t('account.message.error.global.description', {name: connector.name})]}
               />
 
-              : account || success
-                ? (!connector.oauth && !success) &&
+              : account && editing && !success
+                ? !connector.oauth &&
                   <h4>{t('account.form.title')}</h4>
-                : <DescriptionContent
+                : !success && <DescriptionContent
                   title={t('account.config.title', { name: connector.name })}
                   messages={
                     (hasDescriptions && hasDescriptions.connector)
@@ -279,7 +279,7 @@ class AccountConnection extends Component {
                 >
                   {Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
                     <p>
-                      {t('account.message.syncing.bill', { name: connector.name })}
+                      {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
                       <br />
                       <span className={styles['col-account-success-highlighted-data']}>
                         {this.state.account.auth.folderPath}

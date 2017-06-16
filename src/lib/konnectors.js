@@ -3,10 +3,12 @@ const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 const KONNECTOR_STATE_READY = 'ready'
-const JOB_STATE_READY = 'done'
-const JOB_STATE_ERRORED = 'errored'
 
-import { ACCOUNT_ERRORS } from './accounts'
+export const JOB_STATE = {
+  READY: 'ready',
+  ERRORED: 'errored',
+  DONE: 'done'
+}
 
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
@@ -152,23 +154,19 @@ function waitForJobFinished (cozy, job, successTimeout, account) {
 
     idTimeout = setTimeout(() => {
       clearInterval(idInterval)
-      // specific to time out event
-      reject({
-        message: ACCOUNT_ERRORS.SUCCESS_TIMEOUT,
-        account
-      })
+      resolve(job)
     }, successTimeout)
 
     idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
-          if (job.attributes.state === JOB_STATE_ERRORED) {
+          if (job.attributes.state === JOB_STATE.READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             reject(new Error(job.attributes.error))
           }
 
-          if (job.attributes.state === JOB_STATE_READY) {
+          if (job.attributes.state === JOB_STATE.READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(job)
