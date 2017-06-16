@@ -64,7 +64,7 @@
     },
     "message": {
       "success": {
-        "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities opens to you.",
+        "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities open to you.",
         "update": "Your %{name} account has been updated successfully.",
         "delete": "Account removed succesfully."
       },
