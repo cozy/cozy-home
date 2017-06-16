@@ -188,13 +188,6 @@ class AccountConnection extends Component {
   }
 
   handleError (error) {
-    // timed out exception
-    if (error.message === ACCOUNT_ERRORS.SUCCESS_TIMEOUT) {
-      // only timed out "error" has an account property
-      this.setState({account: error.account})
-      this.handleSuccessTimeOut()
-      return
-    }
 
     this.setState({
       submitting: false,
