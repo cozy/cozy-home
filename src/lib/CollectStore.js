@@ -91,7 +91,7 @@ export default class CollectStore {
 
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return accounts.getAllAccounts(cozy.client, this.accountsIndex)
+    return accounts.getAllAccounts(cozy.client)
       .then(accounts => {
         return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
       })
@@ -217,9 +217,8 @@ export default class CollectStore {
     })
   }
 
-  fetchAccounts (accountType, index) {
-    if (!index && this.accountsIndex) index = this.accountsIndex
-    return accounts.getAccountsByType(cozy.client, accountType, index)
+  fetchAccounts (accountType) {
+    return accounts.getAccountsByType(cozy.client, accountType)
   }
 
   /**

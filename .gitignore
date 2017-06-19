@@ -44,6 +44,8 @@ mobile/fastlane/Error*.png
 mobile/fastlane/Preview.html
 mobile/Preview.html
 
+# Coverage
+coverage/
 
 # Default
 # /!\ KEEP THIS SECTION THE LAST ONE
