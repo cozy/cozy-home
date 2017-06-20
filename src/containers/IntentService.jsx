@@ -44,6 +44,10 @@ export default class IntentService extends Component {
           konnector: konnector
         })
 
+        this.state.service.setSize({
+          maxWidth: '931px'
+        })
+
         return konnector
       })
       .catch(error => {
