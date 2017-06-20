@@ -184,7 +184,7 @@ export default class CollectStore {
               worker_arguments: {
                 konnector: slug,
                 account: connection.account._id,
-                folderToSave: connection.folder._id
+                folder_to_save: connection.folder._id
               }
             }
           }
