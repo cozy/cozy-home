@@ -7,10 +7,18 @@ import * as konnectors from './konnectors'
 
 const INSTALL_TIMEOUT = 120 * 1000
 
+const sortByName = (a, b) => {
+  const nameA = a.name.toUpperCase()
+  const nameB = b.name.toUpperCase()
+  if (nameA < nameB) return -1
+  if (nameA > nameB) return 1
+  return 0 // if equal
+}
+
 export default class CollectStore {
   constructor (connectors, folders, context) {
     this.listener = null
-    this.connectors = connectors
+    this.connectors = connectors.sort(sortByName)
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
   }
