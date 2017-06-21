@@ -280,11 +280,21 @@ export default class CollectStore {
   }
 
   deleteAccount (konnector, account) {
-    konnector = this.connectors.find(c => c._id === konnector._id)
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
     konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
 
     return accounts._delete(cozy.client, account)
       .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      .then(() => this.updateConnector(konnector))
+      .then(() => this.updateKonnectorError(konnector))
+  }
+
+  deleteAccounts (konnector) {
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
+    return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
+        .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
+        .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      ))
       .then(() => this.updateConnector(konnector))
       .then(() => this.updateKonnectorError(konnector))
   }
