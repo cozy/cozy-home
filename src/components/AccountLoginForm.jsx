@@ -94,7 +94,7 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
-            {submitting && !disableSuccessTimeout && <FixedProgress interval='100' duration='22000' />}
+            {submitting && !disableSuccessTimeout && <FixedProgress interval='100' duration='32000' />}
           </button>
         }
         {isSuccess &&
