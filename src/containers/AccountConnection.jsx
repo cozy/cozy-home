@@ -297,6 +297,7 @@ class AccountConnection extends Component {
                 isOAuth={connector.oauth}
                 fields={fields}
                 submitting={submitting}
+                disableSuccessTimeout={this.props.disableSuccessTimeout}
                 deleting={deleting}
                 values={editing && account ? account.auth || account.oauth : {}}
                 error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
