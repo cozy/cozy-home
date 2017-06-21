@@ -6,8 +6,9 @@ import statefulForm from '../lib/statefulForm'
 import { translate } from '../plugins/i18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
+import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig }) => {
+const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -89,10 +90,11 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
-            aria-busy={submitting ? 'true' : 'false'}
+            aria-busy={submitting && disableSuccessTimeout ? 'true' : 'false'}
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
+            {submitting && !disableSuccessTimeout && <FixedProgress interval='100' duration='32000' />}
           </button>
         }
         {isSuccess &&
