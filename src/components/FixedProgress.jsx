@@ -12,9 +12,12 @@ export default class Notification extends Component {
     }
   }
   componentDidMount () {
+    const { duration } = this.props
     const idInterval = setInterval(() => {
+      const progress = this.state.progress + parseInt(INTERVAL, 10)
+      if (progress >= duration) clearInterval(idInterval)
       this.setState({
-        progress: this.state.progress + parseInt(INTERVAL, 10)
+        progress: progress
       })
     }, INTERVAL)
 
