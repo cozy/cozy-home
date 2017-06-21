@@ -66,9 +66,7 @@ export default class ConnectorManagement extends Component {
   }
 
   closeModal () {
-    const { router } = this.context
-    const url = router.location.pathname
-    router.push(url.substring(0, url.lastIndexOf('/')))
+    this.gotoParent()
   }
 
   render () {
