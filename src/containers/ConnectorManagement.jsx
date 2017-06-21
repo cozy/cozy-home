@@ -10,6 +10,8 @@ import Notifier from '../components/Notifier'
 const AUTHORIZED_DATATYPE = require('config/datatypes')
 const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
+import stylesLoginForm from '../styles/accountLoginForm'
+
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
@@ -107,9 +109,23 @@ export default class ConnectorManagement extends Component {
   }
 
   gotoParent () {
+    this.clearLoginFormInputs()
+
     const router = this.context.router
     let url = router.location.pathname
     router.push(url.substring(0, url.lastIndexOf('/')))
+  }
+
+  /*
+   * Empies Login Form values to prevent the browser (aka firefox) to propose to save the credentials
+   */
+  clearLoginFormInputs() {
+    const formElements = document.querySelectorAll(`.${stylesLoginForm['account-form-login']} input`)
+    formElements.forEach(input => {
+      if (input.type === "text" || input.type === "password") {
+        input.value = ""
+      }
+    })
   }
 
   selectAccount (idx) {
