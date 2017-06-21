@@ -1,4 +1,7 @@
+@require 'cozy-ui'
+
 progress
+    flex          1 0 auto
     width         100%
     margin        1em 0
     color         dodger-blue
@@ -12,11 +15,11 @@ progress
 
     // chrome and safari
     &::-webkit-progress-bar
-        background    pale-grey
+        background    #eee
         border-radius 20px
 
     &::-webkit-progress-value
-        background    dodger-blue
+        background      dodger-blue
         border-radius 20px
 
     // firefox
