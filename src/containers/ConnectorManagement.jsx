@@ -1,3 +1,5 @@
+import styles from '../styles/connectorManagement.styl'
+
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
@@ -78,8 +80,8 @@ export default class ConnectorManagement extends Component {
       <Modal secondaryAction={() => this.closeModal()}>
         <ModalContent>
           {isWorking
-            ? <div className='installing'>
-              <div className='installing-spinner' />
+            ? <div className={styles['installing']}>
+              <div className={styles['installing-spinner']} />
               <div>{t('loading.working')}</div>
             </div>
             : <AccountConnection
