@@ -11,7 +11,7 @@ export default class Notification extends Component {
   }
   componentDidMount () {
     const {interval} = this.props
-    const id = window.setInterval(() => {
+    const id = setInterval(() => {
       this.setState({
         progress: this.state.progress + parseInt(interval, 10)
       })
@@ -22,13 +22,12 @@ export default class Notification extends Component {
   }
 
   componentWillUnmount () {
-    window.clearInterval(this.state.idInterval)
+    clearInterval(this.state.idInterval)
   }
 
   render () {
     const { duration } = this.props
     const { progress } = this.state
-    console.log(progress, 'progress')
 
     return <progress defaultValue={progress} max={duration} />
   }
