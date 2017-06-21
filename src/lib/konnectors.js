@@ -17,9 +17,9 @@ export function addAccount (cozy, konnector, account) {
 }
 
 export function fetchManifest (cozy, source) {
-  return source ?
-    cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`) :
-    Promise.reject(new Error('Source konnector is unavailable'))
+  return source
+    ? cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
+    : Promise.reject(new Error('Source konnector is unavailable'))
 }
 
 let cachedSlugIndex
@@ -42,7 +42,7 @@ export function findBySlug (cozy, slug) {
 }
 
 export function unlinkFolder (cozy, konnector, folderId) {
-  return !konnector._id ?
+  return !konnector._id
     /**
      * In case of a konnector set in the app and not in the platform,
      * there's no available `_id`. So we should returns an error, but here
@@ -50,8 +50,8 @@ export function unlinkFolder (cozy, konnector, folderId) {
      * not `reject`, because of what the next steps of deleting accounts will
      * fail.
      */
-    Promise.resolve(new Error("konnector doesn't have available id")) :
-    cozy.fetchJSON(
+    ? Promise.resolve(new Error("konnector doesn't have available id"))
+    : cozy.fetchJSON(
       'DELETE',
       `/data/io.cozy.konnectors/${encodeURIComponent(konnector._id)}/relationships/references`,
       {

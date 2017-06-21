@@ -137,7 +137,8 @@ class AccountConnection extends Component {
   }
 
   deleteAccount () {
-    const { account } = this.state
+    // FIXME: disable unused account constant, see below
+    // const { account } = this.state
     this.setState({ deleting: true })
     // FIXME: We're supposed to remove only the current account
     // but still we doesn't support the multi-account, we choose to remove all
