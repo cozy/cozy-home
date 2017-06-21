@@ -81,7 +81,7 @@ export default class ConnectorManagement extends Component {
         <ModalContent>
           {isWorking
             ? <div className={styles['installing']}>
-                <div className={styles['installing-spinner']} />
+              <div className={styles['installing-spinner']} />
               <div>{t('loading.working')}</div>
             </div>
             : <AccountConnection
