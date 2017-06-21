@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/fixedProgress'
 
+const INTERVAL = 40
+
 export default class Notification extends Component {
   constructor (props, context) {
     super(props, context)
@@ -10,14 +12,17 @@ export default class Notification extends Component {
     }
   }
   componentDidMount () {
-    const {interval} = this.props
-    const id = setInterval(() => {
+    const { duration } = this.props
+    const idInterval = setInterval(() => {
+      const progress = this.state.progress + INTERVAL
+      if (progress >= duration) clearInterval(idInterval)
       this.setState({
-        progress: this.state.progress + parseInt(interval, 10)
+        progress: progress
       })
-    }, interval)
+    }, INTERVAL)
+
     this.setState({
-      idInterval: id
+      idInterval: idInterval
     })
   }
 
