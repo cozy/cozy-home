@@ -94,7 +94,10 @@ export default class CollectStore {
 
   findByUseCase (slug) {
     let useCase = this.useCases.find(u => u.slug === slug)
-    return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug)).sort(sortByName)
+    return useCase.connectors
+      .map(c1 => this.find(c2 => c1.slug === c2.slug))
+      .filter(item => item !== undefined)
+      .sort(sortByName)
   }
 
   // Fetch all accounts and updates their matching connectors
