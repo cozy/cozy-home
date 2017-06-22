@@ -8,7 +8,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -114,7 +114,9 @@ const AccountLoginForm = ({ t, isOAuth, fields, error, dirty, submitting, forceE
             </button></p>
           </div>
         }
-        { submitting && !disableSuccessTimeout && <FixedProgress duration='32000' />}
+        { submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) &&
+          <FixedProgress duration='32000' />
+        }
       </div>
     </div>
   )
