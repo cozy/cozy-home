@@ -37,7 +37,8 @@ export default class ConnectorManagement extends Component {
       submitting: false,
       synching: false,
       deleting: false,
-      error: null
+      error: null,
+      isClosing: false
     }
 
     this.store.fetchKonnectorInfos(props.params.connectorSlug)
@@ -84,6 +85,7 @@ export default class ConnectorManagement extends Component {
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
               alertSuccess={(messages) => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
+              isUnloading={this.state.isClosing}
               {...this.state}
               {...this.context} />
           }
@@ -105,23 +107,15 @@ export default class ConnectorManagement extends Component {
   }
 
   gotoParent () {
-    this.clearLoginFormInputs()
+    this.setState({isClosing: true})
 
-    const router = this.context.router
-    let url = router.location.pathname
-    router.push(url.substring(0, url.lastIndexOf('/')))
-  }
-
-  /*
-   * Empies Login Form values to prevent the browser (aka firefox) to propose to save the credentials
-   */
-  clearLoginFormInputs() {
-    const formElements = document.querySelectorAll(`.${stylesLoginForm['account-form-login']} input`)
-    formElements.forEach(input => {
-      if (input.type === "text" || input.type === "password") {
-        input.value = ""
-      }
-    })
+    // The setTimeout allows React to perform setState related actions
+    setTimeout(() => {
+      const router = this.context.router
+      let url = router.location.pathname
+      router.push(url.substring(0, url.lastIndexOf('/')))
+      console.log(document.querySelector(`.${stylesLoginForm['account-form-login']} input`).value)
+    }, 0)
   }
 
   selectAccount (idx) {
