@@ -8,7 +8,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -27,6 +27,10 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             : ''
           switch (fields[name].type) {
             case 'password':
+              if (isUnloading) {
+                fields[name]['value'] = ''
+              }
+
               return <div>
                 {description}
                 <PasswordField
@@ -49,6 +53,9 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
               </div>
             default:
               const readOnly = name === 'login' && isUpdate
+              if (isUnloading) {
+                fields[name]['value'] = ''
+              }
               return <div>
                 {description}
                 <Field

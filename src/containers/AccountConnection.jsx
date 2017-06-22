@@ -237,7 +237,7 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, fields } = this.props
+    const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const { hasDescriptions } = connector
@@ -299,6 +299,7 @@ class AccountConnection extends Component {
                   onAccountConfig={() => this.goToConfig()}
                   onCancel={() => this.cancel()}
                   isSuccess={!!success}
+                  isUnloading={isUnloading}
                 />
               </div>
               : <AccountLoginForm
@@ -315,6 +316,7 @@ class AccountConnection extends Component {
                 onDelete={() => this.deleteAccount()}
                 onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
                 onCancel={() => this.cancel()}
+                isUnloading={isUnloading}
               />
             }
           </div>
