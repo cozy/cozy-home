@@ -152,6 +152,6 @@
     "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
     "dataType":["bill", "contract", "consumption", "profile", "home"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "source": "git://github.com/cozy/cozy-konnector-edf.git#build"
+    "source": "git://gitlab.cozycloud.cc/christophe/cozy-konnector-edf.git#build"
   }
 ]
