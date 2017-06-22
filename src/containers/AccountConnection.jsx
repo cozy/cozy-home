@@ -58,7 +58,8 @@ class AccountConnection extends Component {
 
   connectAccountOAuth (accountType) {
     this.setState({
-      submitting: true
+      submitting: true,
+      oAuthTerminated: false
     })
 
     const cozyUrl =
@@ -76,6 +77,10 @@ class AccountConnection extends Component {
   terminateOAuth (accountID) {
     const { t } = this.context
     const { slug } = this.props.connector
+
+    this.setState({
+      oAuthTerminated: true
+    })
 
     return this.store.fetchKonnectorInfos(slug)
       .then(konnector => {
@@ -233,7 +238,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, connector, fields } = this.props
-    const { submitting, deleting, error, success, account, editing } = this.state
+    const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const { hasDescriptions } = connector
     const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
@@ -299,6 +304,7 @@ class AccountConnection extends Component {
               : <AccountLoginForm
                 connectorSlug={connector.slug}
                 isOAuth={connector.oauth}
+                oAuthTerminated={oAuthTerminated}
                 fields={fields}
                 submitting={submitting}
                 disableSuccessTimeout={this.props.disableSuccessTimeout}
