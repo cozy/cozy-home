@@ -67,17 +67,13 @@ export default class ConnectorManagement extends Component {
     return connector.state != null && connector.state === 'ready'
   }
 
-  closeModal () {
-    this.gotoParent()
-  }
-
   render () {
     const { accounts } = this.state.connector
     const { selectedAccount, isWorking } = this.state
     const { t } = this.context
 
     return (
-      <Modal secondaryAction={() => this.closeModal()}>
+      <Modal secondaryAction={() => this.gotoParent()}>
         <ModalContent>
           {isWorking
             ? <div className={styles['installing']}>
