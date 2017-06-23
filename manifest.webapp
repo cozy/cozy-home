@@ -24,6 +24,11 @@
       "type": "io.cozy.apps",
       "verbs": ["GET", "POST", "PUT"]
     },
+    "settings": {
+      "description": "Required by the cozy-bar display Claudy and to know which applications are coming soon",
+      "type": "io.cozy.settings",
+      "verbs": ["GET"]
+    },
     "konnectors": {
       "description": "Required to get the list of konnectors",
       "type": "io.cozy.konnectors",
