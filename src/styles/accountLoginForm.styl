@@ -4,11 +4,13 @@
     .coz-form-controls
         margin (32/basefont)em 0 (8/basefont)em
         display flex
+        flex-wrap wrap
 
     .coz-form-controls,
     .col-account-form-delete
         .coz-btn
-            flex 1
+            // Used to position progress bar
+            flex 1 0 auto
 
             &:first-of-type
                 margin-left 0
@@ -24,3 +26,9 @@
 
     .col-account-form-delete .coz-btn
         width 100%
+
+    .col-account-form-success-buttons
+        width 100%
+
+        button
+            width 100%

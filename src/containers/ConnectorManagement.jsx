@@ -1,3 +1,5 @@
+import styles from '../styles/connectorManagement.styl'
+
 import React, { Component } from 'react'
 
 import Modal from 'cozy-ui/react/Modal'
@@ -39,9 +41,10 @@ export default class ConnectorManagement extends Component {
     this.store.fetchKonnectorInfos(props.params.connectorSlug)
       .then(konnector => {
         return this.store
-          .fetchAccounts(props.params.connectorSlug, null)
+          .fetchAccounts(props.params.connectorSlug)
           .then(accounts => {
             const error = konnector.accounts.error
+
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
@@ -76,15 +79,14 @@ export default class ConnectorManagement extends Component {
     return (
       <Modal secondaryAction={() => this.closeModal()}>
         <ModalContent>
-          { isWorking
-            ? <div className='installing'>
-              <div className='installing-spinner' />
+          {isWorking
+            ? <div className={styles['installing']}>
+              <div className={styles['installing-spinner']} />
               <div>{t('loading.working')}</div>
             </div>
             : <AccountConnection
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
-              onError={(error) => this.handleError(error)}
-              onSuccess={(account, messages) => this.handleSuccess(account, messages)}
+              alertSuccess={(messages) => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
               {...this.state}
               {...this.context} />
@@ -94,7 +96,7 @@ export default class ConnectorManagement extends Component {
     )
   }
 
-  handleSuccess (account, messages) {
+  alertSuccess (messages) {
     const { t } = this.context
 
     Notifier.info([
@@ -106,13 +108,6 @@ export default class ConnectorManagement extends Component {
     this.gotoParent()
   }
 
-  handleError (error) {
-    const { t } = this.context
-
-    Notifier.error(t(`${error.message || error}`))
-    this.gotoParent()
-  }
-
   gotoParent () {
     const router = this.context.router
     let url = router.location.pathname
@@ -121,27 +116,6 @@ export default class ConnectorManagement extends Component {
 
   selectAccount (idx) {
     this.setState({ selectedAccount: idx })
-  }
-
-  deleteAccount (account) {
-    const { t } = this.context
-    this.setState({ deleting: true })
-    this.store.deleteAccount(this.state.connector, account)
-      .then(() => {
-        this.setState({
-          deleting: false,
-          isConnected: false
-        })
-
-        this.gotoParent()
-        Notifier.info(t('account.message.success.delete'))
-      })
-      .catch(error => { // eslint-disable-line
-        this.setState({ deleting: false })
-        this.gotoParent()
-        Notifier.error(t('account.message.error.delete'))
-        throw error
-      })
   }
 
   sanitize (connector) {

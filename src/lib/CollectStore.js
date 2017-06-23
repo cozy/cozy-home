@@ -7,10 +7,18 @@ import * as konnectors from './konnectors'
 
 const INSTALL_TIMEOUT = 120 * 1000
 
+const sortByName = (a, b) => {
+  const nameA = a.name.toUpperCase()
+  const nameB = b.name.toUpperCase()
+  if (nameA < nameB) return -1
+  if (nameA > nameB) return 1
+  return 0 // if equal
+}
+
 export default class CollectStore {
   constructor (connectors, folders, context) {
     this.listener = null
-    this.connectors = connectors
+    this.connectors = connectors.sort(sortByName)
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
   }
@@ -86,12 +94,15 @@ export default class CollectStore {
 
   findByUseCase (slug) {
     let useCase = this.useCases.find(u => u.slug === slug)
-    return useCase.connectors.map(c1 => this.find(c2 => c1.slug === c2.slug))
+    return useCase.connectors
+      .map(c1 => this.find(c2 => c1.slug === c2.slug))
+      .filter(item => item !== undefined)
+      .sort(sortByName)
   }
 
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return accounts.getAllAccounts(cozy.client, this.accountsIndex)
+    return accounts.getAllAccounts(cozy.client)
       .then(accounts => {
         return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
       })
@@ -119,7 +130,7 @@ export default class CollectStore {
 
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
-  connectAccount (konnector, account, folderPath) {
+  connectAccount (konnector, account, folderPath, disableSuccessTimeout) {
     // return object to store all business object implied in the connection
     const connection = {}
     // detect oauth case
@@ -164,21 +175,27 @@ export default class CollectStore {
       .then(() => konnectors.run(
         cozy.client,
         connection.konnector,
-        connection.account))
+        connection.account,
+        disableSuccessTimeout
+      ))
       // 8. Creates trigger
       .then(job => {
         connection.job = job
+        if (
+          job.attributes.state !== konnectors.JOB_STATE.ERRORED &&
+          job.attributes.state !== konnectors.JOB_STATE.DONE
+        ) connection.successTimeout = true
         const slug = connection.konnector.slug || connection.konnector.attributes.slug
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
               type: '@cron',
-              arguments: '0 0 0 * * *',
+              arguments: `0 0 0 * * ${(new Date()).getDay()}`,
               worker: 'konnector',
               worker_arguments: {
                 konnector: slug,
                 account: connection.account._id,
-                folderToSave: connection.folder._id
+                folder_to_save: connection.folder._id
               }
             }
           }
@@ -200,12 +217,13 @@ export default class CollectStore {
 
   /**
    * runAccount Runs an account
-   * @param {object} connector A connector
-   * @param {object} account   the account to run, must belong to the connector
+   * @param {object}  connector            A connector
+   * @param {object}  account              the account to run, must belong to the connector
+   * @param {Boolean} disableSuccessTimeout Boolean to set a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
-  runAccount (connector, account) {
-    return konnectors.run(cozy.client, connector, account)
+  runAccount (connector, account, disableSuccessTimeout) {
+    return konnectors.run(cozy.client, connector, account, disableSuccessTimeout)
     .then(() => this.updateKonnectorError(connector))
     .catch(error => {
       this.updateKonnectorError(connector, error)
@@ -213,9 +231,8 @@ export default class CollectStore {
     })
   }
 
-  fetchAccounts (accountType, index) {
-    if (!index && this.accountsIndex) index = this.accountsIndex
-    return accounts.getAccountsByType(cozy.client, accountType, index)
+  fetchAccounts (accountType) {
+    return accounts.getAccountsByType(cozy.client, accountType)
   }
 
   /**
@@ -263,11 +280,21 @@ export default class CollectStore {
   }
 
   deleteAccount (konnector, account) {
-    konnector = this.connectors.find(c => c._id === konnector._id)
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
     konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
 
     return accounts._delete(cozy.client, account)
       .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      .then(() => this.updateConnector(konnector))
+      .then(() => this.updateKonnectorError(konnector))
+  }
+
+  deleteAccounts (konnector) {
+    konnector = this.connectors.find(c => c.slug === konnector.slug)
+    return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
+        .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
+        .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+      ))
       .then(() => this.updateConnector(konnector))
       .then(() => this.updateKonnectorError(konnector))
   }

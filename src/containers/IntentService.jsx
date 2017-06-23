@@ -21,11 +21,20 @@ export default class IntentService extends Component {
 
     this.store.createIntentService(intent, window)
       .then(service => {
-        this.setState({
-          service: service
-        })
-
         const data = service.getData()
+
+        if (typeof service.resizeClient === 'function') {
+          service.resizeClient({
+            maxWidth: 931
+          })
+        } else {
+          console.warn && console.warn('Cannot resize client\'s iframe, cozy-client-js needs to be updated')
+        }
+
+        this.setState({
+          service: service,
+          disableSuccessTimeout: !!data.disableSuccessTimeout
+        })
 
         if (!data || !data.slug) {
           throw new Error('Unexpected data from intent')
@@ -82,7 +91,7 @@ export default class IntentService extends Component {
 
   render () {
     const { data } = this.props
-    const { isFetching, error, konnector } = this.state
+    const { isFetching, error, konnector, disableSuccessTimeout } = this.state
     const { t } = this.context
     return (
       <div className='coz-service'>
@@ -108,6 +117,7 @@ export default class IntentService extends Component {
               onCancel={() => this.cancel()}
               onSuccess={account => this.terminate(account)}
               onError={error => this.handleError(error)}
+              disableSuccessTimeout={disableSuccessTimeout}
               {...this.context}
               />
           </div>}

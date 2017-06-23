@@ -3,8 +3,12 @@ const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 const KONNECTOR_STATE_READY = 'ready'
-const JOB_STATE_READY = 'done'
-const JOB_STATE_ERRORED = 'errored'
+
+export const JOB_STATE = {
+  READY: 'ready',
+  ERRORED: 'errored',
+  DONE: 'done'
+}
 
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
@@ -13,7 +17,9 @@ export function addAccount (cozy, konnector, account) {
 }
 
 export function fetchManifest (cozy, source) {
-  return cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
+  return source
+    ? cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
+    : Promise.reject(new Error('Source konnector is unavailable'))
 }
 
 let cachedSlugIndex
@@ -36,19 +42,28 @@ export function findBySlug (cozy, slug) {
 }
 
 export function unlinkFolder (cozy, konnector, folderId) {
-  return cozy.fetchJSON(
-    'DELETE',
-    `/data/io.cozy.konnectors/${encodeURIComponent(konnector._id)}/relationships/references`,
-    {
-      data: [
-        {
-          type: 'io.cozy.files',
-          id: folderId
-        }
-      ]
-    }
-  )
-  .then(() => deleteFolderPermission(cozy, konnector))
+  return !konnector._id
+    /**
+     * In case of a konnector set in the app and not in the platform,
+     * there's no available `_id`. So we should returns an error, but here
+     * it's just a warning, that doesn't implies anything, so we `resolve` and
+     * not `reject`, because of what the next steps of deleting accounts will
+     * fail.
+     */
+    ? Promise.resolve(new Error("konnector doesn't have available id"))
+    : cozy.fetchJSON(
+      'DELETE',
+      `/data/io.cozy.konnectors/${encodeURIComponent(konnector._id)}/relationships/references`,
+      {
+        data: [
+          {
+            type: 'io.cozy.files',
+            id: folderId
+          }
+        ]
+      }
+    )
+    .then(() => deleteFolderPermission(cozy, konnector))
 }
 
 export function getAllErrors (cozy) {
@@ -125,7 +140,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, timeout = 120 * 1000) {
+export function run (cozy, konnector, account, disableSuccessTimeout = false, successTimeout = 30 * 1000) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -141,33 +156,48 @@ export function run (cozy, konnector, account, timeout = 120 * 1000) {
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, timeout))
+  .then(job => waitForJobFinished(cozy, job, account, disableSuccessTimeout, successTimeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, timeout) {
+function waitForJobFinished (cozy, job, account, disableSuccessTimeout, successTimeout) {
   return new Promise((resolve, reject) => {
-    const idTimeout = setTimeout(() => {
-      reject(new Error('JOB_TIMEOUT'))
-    }, timeout)
+    let idTimeout
+    let idInterval
 
-    const idInterval = setInterval(() => {
+    if (!disableSuccessTimeout) {
+      idTimeout = setTimeout(() => {
+        clearInterval(idInterval)
+        resolve(job)
+      }, successTimeout)
+    }
+
+    idInterval = setInterval(() => {
       cozy.fetchJSON('GET', `/jobs/${job._id}`)
         .then(job => {
-          if (job.attributes.state === JOB_STATE_ERRORED) {
-            clearTimeout(idTimeout)
+          if (job.attributes.state === JOB_STATE.ERRORED) {
+            if (idTimeout) {
+              clearTimeout(idTimeout)
+            }
+
             clearInterval(idInterval)
             reject(new Error(job.attributes.error))
           }
 
-          if (job.attributes.state === JOB_STATE_READY) {
-            clearTimeout(idTimeout)
+          if (job.attributes.state === JOB_STATE.READY) {
+            if (idTimeout) {
+              clearTimeout(idTimeout)
+            }
+
             clearInterval(idInterval)
             resolve(job)
           }
         })
         .catch(error => {
-          clearTimeout(idTimeout)
+          if (idTimeout) {
+            clearTimeout(idTimeout)
+          }
+
           clearInterval(idInterval)
           reject(error)
         })
