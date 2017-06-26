@@ -279,45 +279,45 @@ class AccountConnection extends Component {
                   }
                 </DescriptionContent>
             }
-            {success
+            { success
               ? <div>
-                <DescriptionContent
-                  title={t(`account.success.title.${success.type}`, { name: connector.name })}
-                  messages={success.messages}
-                >
-                  {Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
-                    <p>
-                      {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
-                      <br />
-                      <span className={styles['col-account-success-highlighted-data']}>
-                        {this.state.account.auth.folderPath}
-                      </span>
-                    </p>
-                  }
-                </DescriptionContent>
-                <AccountLoginForm
-                  onAccountConfig={() => this.goToConfig()}
+                  <DescriptionContent
+                    title={t(`account.success.title.${success.type}`, { name: connector.name })}
+                    messages={success.messages}
+                  >
+                    { Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
+                      <p>
+                        {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
+                        <br />
+                        <span className={styles['col-account-success-highlighted-data']}>
+                          {this.state.account.auth.folderPath}
+                        </span>
+                      </p>
+                    }
+                  </DescriptionContent>
+                  <AccountLoginForm
+                    onAccountConfig={() => this.goToConfig()}
+                    onCancel={() => this.cancel()}
+                    isSuccess={!!success}
+                    isUnloading={isUnloading}
+                  />
+                </div>
+              : <AccountLoginForm
+                  connectorSlug={connector.slug}
+                  isOAuth={connector.oauth}
+                  oAuthTerminated={oAuthTerminated}
+                  fields={fields}
+                  submitting={submitting}
+                  disableSuccessTimeout={this.props.disableSuccessTimeout}
+                  deleting={deleting}
+                  values={editing && account ? account.auth || account.oauth : {}}
+                  error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
+                  forceEnabled={!!error}
+                  onDelete={() => this.deleteAccount()}
+                  onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
                   onCancel={() => this.cancel()}
-                  isSuccess={!!success}
                   isUnloading={isUnloading}
                 />
-              </div>
-              : <AccountLoginForm
-                connectorSlug={connector.slug}
-                isOAuth={connector.oauth}
-                oAuthTerminated={oAuthTerminated}
-                fields={fields}
-                submitting={submitting}
-                disableSuccessTimeout={this.props.disableSuccessTimeout}
-                deleting={deleting}
-                values={editing && account ? account.auth || account.oauth : {}}
-                error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
-                forceEnabled={!!error}
-                onDelete={() => this.deleteAccount()}
-                onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
-                onCancel={() => this.cancel()}
-                isUnloading={isUnloading}
-              />
             }
           </div>
           <AccountConnectionData
