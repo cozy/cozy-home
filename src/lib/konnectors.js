@@ -76,9 +76,7 @@ export function install (cozy, konnector, timeout = 120000) {
     if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
   })
 
-  let { slug, source } = konnector
-
-  if (source.substr(0, 3) !== 'git') source = atob(source)
+  const { slug, source } = konnector
 
   return findBySlug(cozy, slug)
     .catch(error => {
