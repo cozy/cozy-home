@@ -203,6 +203,6 @@
     "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
     "dataType":["bill", "contract", "consumption", "profile", "home"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "source": "Z2l0Oi8vZ2l0bGFiLmNvenljbG91ZC5jYy9sYWJzL2Nvenkta29ubmVjdG9yLWVkZi5naXQjYnVpbGQ="
+    "source": "git+ssh://gitlab.cozycloud.cc/labs/cozy-konnector-edf.git"
   }
 ]
