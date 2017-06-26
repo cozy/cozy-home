@@ -1,6 +1,6 @@
 /* konnector lib ready to be added to cozy-client-js */
-const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
-const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
+export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
+export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 const KONNECTOR_STATE_READY = 'ready'
 

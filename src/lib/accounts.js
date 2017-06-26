@@ -1,5 +1,7 @@
 /* accounts lib ready to be added to cozy-client-js */
 
+import { KONNECTORS_RESULT_DOCTYPE } from './konnectors'
+
 export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 export const ACCOUNT_ERRORS = {
@@ -36,14 +38,28 @@ function indexAccountsByType (cozy) {
       })
 }
 
+function getLastSync (cozy, account) {
+  return cozy.data.defineIndex(KONNECTORS_RESULT_DOCTYPE, ['account'])
+  .then(index => cozy.data.query(index, {
+    selector: {'account': account._id}
+  }))
+  // FIXME: nosupport for multiple accounts right now
+  .then(results => results[0].last_success)
+  .then(lastSync => /^0001/.test(lastSync) ? null : new Date(lastSync))
+}
+
 export function getAccountsByType (cozy, accountType) {
   if (!accountType) throw new Error('Missing `accountType` parameter')
   return indexAccountsByType(cozy)
-  .then(index => {
-    return cozy.data.query(index, {
-      selector: {'account_type': accountType}
+  .then(index => cozy.data.query(index, {
+    selector: {'account_type': accountType}
+  }))
+  .then((accounts = []) => Promise.all(accounts.map(account => getLastSync(cozy, account)
+    .then(lastSync => {
+      account.lastSync = lastSync
+      return account
     })
-  })
+  )))
 }
 
 export function getAllAccounts (cozy) {
