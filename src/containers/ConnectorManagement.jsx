@@ -70,7 +70,7 @@ export default class ConnectorManagement extends Component {
 
   render () {
     const { accounts } = this.state.connector
-    const { selectedAccount, isWorking } = this.state
+    const { selectedAccount, isWorking, isClosing } = this.state
     const { t } = this.context
 
     return (
@@ -85,7 +85,7 @@ export default class ConnectorManagement extends Component {
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
               alertSuccess={(messages) => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
-              isUnloading={this.state.isClosing}
+              isUnloading={isClosing}
               {...this.state}
               {...this.context} />
           }
