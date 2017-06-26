@@ -114,7 +114,6 @@ export default class ConnectorManagement extends Component {
       const router = this.context.router
       let url = router.location.pathname
       router.push(url.substring(0, url.lastIndexOf('/')))
-      console.log(document.querySelector(`.${stylesLoginForm['account-form-login']} input`).value)
     }, 0)
   }
 
