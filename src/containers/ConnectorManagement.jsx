@@ -10,8 +10,6 @@ import Notifier from '../components/Notifier'
 const AUTHORIZED_DATATYPE = require('config/datatypes')
 const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
 
-import stylesLoginForm from '../styles/accountLoginForm'
-
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
     super(props, context)
