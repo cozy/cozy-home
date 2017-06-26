@@ -27,10 +27,6 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             : ''
           switch (fields[name].type) {
             case 'password':
-              if (isUnloading) {
-                fields[name]['value'] = ''
-              }
-
               return <div>
                 {description}
                 <PasswordField
@@ -39,7 +35,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]} />
+                  {...fields[name]}
+                  value={isUnloading ? '' : fields[name].value} />
               </div>
             case 'dropdown':
               return <div>
@@ -53,9 +50,6 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
               </div>
             default:
               const readOnly = name === 'login' && isUpdate
-              if (isUnloading) {
-                fields[name]['value'] = ''
-              }
               return <div>
                 {description}
                 <Field
@@ -64,7 +58,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   readOnly={readOnly}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]} />
+                  {...fields[name]}
+                  value={isUnloading ? '' : fields[name].value} />
               </div>
           }
         }
