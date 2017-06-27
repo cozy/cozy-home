@@ -2,7 +2,8 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 
-import AccountLoginForm from '../components/AccountLoginForm'
+import ConnectorAccount from '../components/ConnectorAccount'
+import ConnectorSuccess from '../components/ConnectorSuccess'
 import AccountConnectionData from '../components/AccountConnectionData'
 import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
@@ -240,8 +241,7 @@ class AccountConnection extends Component {
     const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-    const { hasDescriptions } = connector
-    const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
+
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -251,75 +251,40 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { hasGlobalError
-              ? <DescriptionContent
-                cssClassesObject={{'coz-error': true}}
-                title={t('account.message.error.global.title')}
-                messages={[t('account.message.error.global.description', {name: connector.name})]}
-              />
+            { hasGlobalError && <DescriptionContent
+              cssClassesObject={{'coz-error': true}}
+              title={t('account.message.error.global.title')}
+              messages={[t('account.message.error.global.description', {name: connector.name})]}
+            /> }
 
-              : account && editing && !success
-                ? !connector.oauth &&
-                  <h4>{t('account.form.title')}</h4>
-                : !success && <DescriptionContent
-                  title={t('account.config.title', { name: connector.name })}
-                  messages={
-                    (hasDescriptions && hasDescriptions.connector)
-                    ? [t(`connector.${connector.slug}.description.connector`)]
-                    : []
-                  }
-                >
-                  {!connector.oauth &&
-                    <p className={styles['col-account-connection-security']}>
-                      <svg>
-                        <use xlinkHref={securityIcon} />
-                      </svg>
-                      {t('account.config.security')}
-                    </p>
-                  }
-                </DescriptionContent>
-            }
-            { success
-              ? <div>
-                  <DescriptionContent
-                    title={t(`account.success.title.${success.type}`, { name: connector.name })}
-                    messages={success.messages}
-                  >
-                    { Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
-                      <p>
-                        {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
-                        <br />
-                        <span className={styles['col-account-success-highlighted-data']}>
-                          {this.state.account.auth.folderPath}
-                        </span>
-                      </p>
-                    }
-                  </DescriptionContent>
-                  <AccountLoginForm
-                    onAccountConfig={() => this.goToConfig()}
-                    onCancel={() => this.cancel()}
-                    isSuccess={!!success}
-                    isUnloading={isUnloading}
-                  />
-                </div>
-              : <AccountLoginForm
-                  connectorSlug={connector.slug}
-                  isOAuth={connector.oauth}
-                  oAuthTerminated={oAuthTerminated}
-                  fields={fields}
-                  submitting={submitting}
-                  disableSuccessTimeout={this.props.disableSuccessTimeout}
-                  deleting={deleting}
-                  values={editing && account ? account.auth || account.oauth : {}}
-                  error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
-                  forceEnabled={!!error}
-                  onDelete={() => this.deleteAccount()}
-                  onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
-                  onCancel={() => this.cancel()}
-                  isUnloading={isUnloading}
-                />
-            }
+            <ConnectorAccount
+              connector={connector}
+              account={account}
+              fields={fields}
+              success={success}
+              editing={editing}
+              disableSuccessTimeout={this.props.disableSuccessTimeout}
+              oAuthTerminated={oAuthTerminated}
+              isUnloading={isUnloading}
+              submitting={submitting}
+              deleting={deleting}
+              error={error}
+              onDelete={() => this.deleteAccount()}
+              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
+              onCancel={() => this.cancel()}
+            /> }
+
+            { success && <ConnectorSuccess
+              success={success}
+              connector={connector}
+              isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
+              folderPath={this.state.account.auth.folderPath}
+              onAccountConfig={() => this.goToConfig()}
+              onCancel={() => this.cancel()}
+              isUnloading={isUnloading}
+            /> }
           </div>
+
           <AccountConnectionData
             connector={connector}
           />
