@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import ConnectorAccount from '../components/ConnectorAccount'
 import ConnectorSuccess from '../components/ConnectorSuccess'
+import ConnectorSync from '../components/ConnectorSync'
 import AccountConnectionData from '../components/AccountConnectionData'
 import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
@@ -256,6 +257,10 @@ class AccountConnection extends Component {
               title={t('account.message.error.global.title')}
               messages={[t('account.message.error.global.description', {name: connector.name})]}
             /> }
+
+            <ConnectorSync
+              date={account && account.lastSync}
+            />
 
             <ConnectorAccount
               connector={connector}
