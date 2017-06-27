@@ -35,8 +35,10 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]}
-                  value={isUnloading ? '' : fields[name].value} />
+                  {...Object.assign({}, fields[name], {
+                    value: isUnloading ? '' : fields[name].value
+                  })}
+                />
               </div>
             case 'dropdown':
               return <div>
@@ -58,8 +60,10 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   readOnly={readOnly}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]}
-                  value={isUnloading ? '' : fields[name].value} />
+                  {...Object.assign({}, fields[name], {
+                    value: isUnloading ? '' : fields[name].value
+                  })}
+                />
               </div>
           }
         }
