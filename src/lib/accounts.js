@@ -44,8 +44,8 @@ function getLastSync (cozy, account) {
     selector: {'account': account._id}
   }))
   // FIXME: nosupport for multiple accounts right now
-  .then(results => results[0].last_success)
-  .then(lastSync => /^0001/.test(lastSync) ? null : new Date(lastSync))
+  .then(results => results[0] && results[0].last_success)
+  .then(lastSync => !lastSync || /^0001/.test(lastSync) ? null : new Date(lastSync))
 }
 
 export function getAccountsByType (cozy, accountType) {
