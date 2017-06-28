@@ -4,7 +4,6 @@ import React from 'react'
 import { translate } from '../plugins/i18n'
 
 import DescriptionContent from './DescriptionContent'
-import AccountLoginForm from './AccountLoginForm'
 
 export const KonnectorSuccess = ({ t, success, connector, isTimeout, folderPath, onAccountConfig, onCancel }) => {
   return (
@@ -21,12 +20,23 @@ export const KonnectorSuccess = ({ t, success, connector, isTimeout, folderPath,
           </p>
         }
       </DescriptionContent>
-      // FIXME: Why the hell do we use an AccountLoginForm for redirect?
-      <AccountLoginForm
-        onAccountConfig={onAccountConfig}
-        onCancel={onCancel}
-        isSuccess={!!success}
-      />
+
+      <div className={styles['coz-form-controls']}>
+        <div className={styles['col-account-form-success-buttons']}>
+          <p><button
+            className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
+            onClick={onAccountConfig}
+          >
+            {t('account.success.button.config')}
+          </button></p>
+          <p><button
+            className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
+            onClick={onCancel}
+          >
+            {t('account.success.button.back')}
+          </button></p>
+        </div>
+      </div>
     </div>
   )
 }
