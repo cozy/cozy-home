@@ -8,7 +8,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
@@ -35,7 +35,10 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]} />
+                  {...Object.assign({}, fields[name], {
+                    value: isUnloading ? '' : fields[name].value
+                  })}
+                />
               </div>
             case 'dropdown':
               return <div>
@@ -57,7 +60,10 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   readOnly={readOnly}
                   invalid={!!error}
                   noAutoFill
-                  {...fields[name]} />
+                  {...Object.assign({}, fields[name], {
+                    value: isUnloading ? '' : fields[name].value
+                  })}
+                />
               </div>
           }
         }
