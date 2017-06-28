@@ -6,7 +6,7 @@ import { translate } from '../plugins/i18n'
 import DescriptionContent from './DescriptionContent'
 import AccountLoginForm from './AccountLoginForm'
 
-export const ConnectorSuccess = ({ t, success, connector, isTimeout, folderPath, onAccountConfig, onCancel }) => {
+export const KonnectorSuccess = ({ t, success, connector, isTimeout, folderPath, onAccountConfig, onCancel }) => {
   return (
     <div>
       <DescriptionContent
@@ -31,4 +31,4 @@ export const ConnectorSuccess = ({ t, success, connector, isTimeout, folderPath,
   )
 }
 
-export default translate()(ConnectorSuccess)
+export default translate()(KonnectorSuccess)

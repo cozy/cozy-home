@@ -3,7 +3,7 @@ import { translate } from '../plugins/i18n'
 
 import DescriptionContent from './DescriptionContent'
 
-export const ConnectorSync = ({ t, f, date }) => {
+export const KonnectorSync = ({ t, f, date }) => {
   return (
     <div>
       { date && <DescriptionContent
@@ -14,4 +14,4 @@ export const ConnectorSync = ({ t, f, date }) => {
   )
 }
 
-export default translate()(ConnectorSync)
+export default translate()(KonnectorSync)

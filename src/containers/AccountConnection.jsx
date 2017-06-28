@@ -2,9 +2,9 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 
-import ConnectorAccount from '../components/ConnectorAccount'
-import ConnectorSuccess from '../components/ConnectorSuccess'
-import ConnectorSync from '../components/ConnectorSync'
+import KonnectorAccount from '../components/KonnectorAccount'
+import KonnectorSuccess from '../components/KonnectorSuccess'
+import KonnectorSync from '../components/KonnectorSync'
 import AccountConnectionData from '../components/AccountConnectionData'
 import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
@@ -258,11 +258,11 @@ class AccountConnection extends Component {
               messages={[t('account.message.error.global.description', {name: connector.name})]}
             /> }
 
-            <ConnectorSync
+            <KonnectorSync
               date={account && account.lastSync}
             />
 
-            <ConnectorAccount
+            <KonnectorAccount
               connector={connector}
               account={account}
               fields={fields}
@@ -279,7 +279,7 @@ class AccountConnection extends Component {
               onCancel={() => this.cancel()}
             /> }
 
-            { success && <ConnectorSuccess
+            { success && <KonnectorSuccess
               success={success}
               connector={connector}
               isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
