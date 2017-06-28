@@ -5,6 +5,9 @@ import { Component } from 'react'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 
+const AUTHORIZED_CATEGORIES = require('config/categories')
+const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
+
 const INSTALL_TIMEOUT = 120 * 1000
 
 const sortByName = (a, b) => {
@@ -18,14 +21,21 @@ const sortByName = (a, b) => {
 export default class CollectStore {
   constructor (connectors, folders, context) {
     this.listener = null
-    this.connectors = connectors.sort(sortByName)
+    this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
+    this.categories = require('../config/categories')
   }
 
   subscribeTo (connectorId, listener) {
     this.listener = listener
     return this.find(c => c.id === connectorId)
+  }
+
+  sanitizeCategories (connectors) {
+    return connectors.map(c => Object.assign({}, c, {
+      category: isValidCategory(c.category) ? c.category : 'others'
+    }))
   }
 
   sanitizeKonnector (konnector) {
@@ -69,10 +79,6 @@ export default class CollectStore {
     })
 
     return updatedConnector
-  }
-
-  getCategories () {
-    return this.connectors.map(a => a.category).filter((cat, idx, all) => all.indexOf(cat) === idx)
   }
 
   getUseCases () {

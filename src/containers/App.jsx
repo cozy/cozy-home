@@ -19,7 +19,7 @@ class App extends Component {
     this.store.fetchAllAccounts()
       .then(() => {
         this.setState({
-          categories: this.store.getCategories(),
+          categories: this.store.categories,
           isFetching: false
         })
       })
