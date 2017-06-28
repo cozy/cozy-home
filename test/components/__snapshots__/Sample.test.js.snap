@@ -1,5 +1,0 @@
-exports[`test Hello world 1`] = `
-<p>
-  Hello world
-</p>
-`;
