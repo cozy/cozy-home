@@ -5,7 +5,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { mockT } from '../jestLib/I18n'
+import { tMock } from '../jestLib/I18n'
 import { Loading } from '../../src/components/Loading'
 
 describe('Loading component', () => {
@@ -15,21 +15,21 @@ describe('Loading component', () => {
 
   it('should be displayed with initial text if loadingType is initial', () => {
     const component = shallow(
-      <Loading t={mockT} loadingType='initial' />
+      <Loading t={tMock} loadingType='initial' />
     ).node
     expect(component).toMatchSnapshot()
   })
 
   it('should be displayed with working text if loadingType is working', () => {
     const component = shallow(
-      <Loading t={mockT} loadingType='working' />
+      <Loading t={tMock} loadingType='working' />
     ).node
     expect(component).toMatchSnapshot()
   })
 
   it('should be displayed with --no-margin class if noMargin is true', () => {
     const component = shallow(
-      <Loading t={mockT} noMargin />
+      <Loading t={tMock} noMargin />
     ).node
     expect(component).toMatchSnapshot()
   })

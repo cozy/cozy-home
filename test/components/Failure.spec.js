@@ -5,7 +5,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { mockT } from '../jestLib/I18n'
+import { tMock } from '../jestLib/I18n'
 import { Failure } from '../../src/components/Failure'
 
 describe('Failure component', () => {
@@ -15,7 +15,7 @@ describe('Failure component', () => {
 
   it('should be displayed with initial text if errorType is initial', () => {
     const component = shallow(
-      <Failure t={mockT} errorType='initial' />
+      <Failure t={tMock} errorType='initial' />
     ).node
     expect(component).toMatchSnapshot()
   })
@@ -23,7 +23,7 @@ describe('Failure component', () => {
   it('should correctly call the reload funtion on button click', () => {
     window.location.reload = jest.fn()
     const component = shallow(
-      <Failure t={mockT} errorType='initial' />
+      <Failure t={tMock} errorType='initial' />
     )
     component.find('button').simulate('click')
     expect(window.location.reload.mock.calls.length).toBe(1)

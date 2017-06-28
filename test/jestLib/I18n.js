@@ -10,6 +10,6 @@ const I18nComponent = new I18n({
 
 const context = I18nComponent.getChildContext()
 
-export const mockT = context.t
+export const tMock = context.t
 
-export const mockF = context.f
+export const fMock = context.f
