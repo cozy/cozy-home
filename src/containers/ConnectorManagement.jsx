@@ -8,7 +8,7 @@ import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
 const AUTHORIZED_DATATYPE = require('config/datatypes')
-const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
+const isValidType = (type) => AUTHORIZED_DATATYPE.includes(type)
 
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
