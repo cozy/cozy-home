@@ -1,6 +1,7 @@
-import styles from '../styles/accountConnection'
+import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
+import classNames from 'classnames'
 import { translate } from '../plugins/i18n'
 
 import DescriptionContent from './DescriptionContent'

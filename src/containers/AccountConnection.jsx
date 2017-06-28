@@ -262,11 +262,10 @@ class AccountConnection extends Component {
               date={account && account.lastSync}
             /> }
 
-            <KonnectorAccount
+            { !success && <KonnectorAccount
               connector={connector}
               account={account}
               fields={fields}
-              success={success}
               editing={editing}
               disableSuccessTimeout={this.props.disableSuccessTimeout}
               oAuthTerminated={oAuthTerminated}
