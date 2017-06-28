@@ -1,0 +1,17 @@
+@import cozy-ui
+
+:local // @stylint ignore
+    .account-forceConnection
+        button
+            border none
+            background transparent
+            color blue
+            text-decoration underline
+            text-transform uppercase
+
+        .submitting::after
+            content ''
+            margin  0 0 0 .5em
+            width   em(16px)
+            height  em(16px)
+            @extend $icon-spinner-blue
