@@ -72,6 +72,9 @@
         "bill": "Your bills are syncing and will be available in the following path:"
       },
       "synced": {
+        "title": "Your data synchronization",
+        "last_sync": "Last synchronization: %{date}",
+        "date_format": "MMMM Mo[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {

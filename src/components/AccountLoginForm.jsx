@@ -102,24 +102,6 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
         }
-        {isSuccess &&
-          <div
-            className={styles['col-account-form-success-buttons']}
-          >
-            <p><button
-              className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
-              onClick={onAccountConfig}
-            >
-              {t('account.success.button.config')}
-            </button></p>
-            <p><button
-              className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-              onClick={onCancel}
-            >
-              {t('account.success.button.back')}
-            </button></p>
-          </div>
-        }
         { submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) &&
           <FixedProgress duration='32000' />
         }

@@ -49,7 +49,7 @@ export default class ConnectorManagement extends Component {
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
-              connector: Object.assign(konnector, this.state.connector),
+              connector: Object.assign({}, this.state.connector, konnector),
               isConnected: konnector.accounts.length !== 0 && !error,
               isWorking: false,
               error
