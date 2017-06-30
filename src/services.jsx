@@ -5,7 +5,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { I18n } from './plugins/i18n'
+import { I18n } from 'cozy-ui/react/I18n'
 import CollectStore, { Provider } from './lib/CollectStore'
 
 import IntentService from './containers/IntentService'
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render((
     <Provider store={store}>
-      <I18n context={context} lang={lang}>
+      <I18n lang={lang} dictRequire={(lang) => require(`./locales/${lang}`)}>
         <IntentService window={window} data={data} />
       </I18n>
     </Provider>
