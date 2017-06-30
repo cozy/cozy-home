@@ -2,8 +2,7 @@ import styles from '../styles/connectorManagement.styl'
 
 import React, { Component } from 'react'
 
-import Modal from 'cozy-ui/react/Modal'
-import ModalContent from 'cozy-ui/react/Modal/Content'
+import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
