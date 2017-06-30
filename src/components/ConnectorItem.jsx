@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 const ConnectorItem = ({ title, subtitle, connected, errored, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) => (
   <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>

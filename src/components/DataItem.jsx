@@ -1,7 +1,7 @@
 import styles from '../styles/dataItem'
 
 import React from 'react'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 export const DataItem = ({ t, dataType, hex }) => (
   <li className={styles['col-data-item']}>
