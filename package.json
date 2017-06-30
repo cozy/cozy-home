@@ -52,7 +52,7 @@
   },
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
-    "date-fns": "^1.28.4",
+    "date-fns": "^1.28.5",
     "expose-loader": "^0.7.3",
     "intro.js": "2.5.0",
     "ismobilejs": "^0.4.1",
