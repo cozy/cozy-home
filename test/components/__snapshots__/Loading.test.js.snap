@@ -1,0 +1,22 @@
+exports[`Loading component should be displayed with --no-margin class if noMargin is true 1`] = `
+<div
+  className="coz-loading--no-margin" />
+`;
+
+exports[`Loading component should be displayed with initial text if loadingType is initial 1`] = `
+<div
+  className="coz-loading">
+  <p>
+    Loading connectors accounts...
+  </p>
+</div>
+`;
+
+exports[`Loading component should be displayed with working text if loadingType is working 1`] = `
+<div
+  className="coz-loading">
+  <p>
+    Loading
+  </p>
+</div>
+`;

@@ -1,0 +1,31 @@
+exports[`ReactMarkdown options should correctly return an anchor HTML element 1`] = `
+<a
+  href="https://testlink.mock"
+  target="_blank">
+  example link test for test
+</a>
+`;
+
+exports[`ReactMarkdownWrapper component should be displayed correctly if source provided 1`] = `
+<ReactMarkdown
+  containerTagName="div"
+  parserOptions={Object {}}
+  renderers={
+    Object {
+      "Link": [Function],
+    }
+  }
+  source="**test** using \`markdown\`" />
+`;
+
+exports[`ReactMarkdownWrapper component should be displayed correctly if source with link 1`] = `
+<ReactMarkdown
+  containerTagName="div"
+  parserOptions={Object {}}
+  renderers={
+    Object {
+      "Link": [Function],
+    }
+  }
+  source="**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)" />
+`;

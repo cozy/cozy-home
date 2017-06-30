@@ -5,7 +5,7 @@ const reload = () => {
   window.location.reload()
 }
 
-const Failure = ({ t, errorType }) => (
+export const Failure = ({ t, errorType }) => (
   <div className='con-error'>
     <h2>{ t(`error.${errorType}`) }</h2>
     <p>
