@@ -41,16 +41,18 @@ const initPolyglot = (context, lang) => {
 }
 
 const initFormat = lang => {
-  const locales = {
+  let locales = {
     en: require('date-fns/locale/en')
   }
+
   if (lang && lang !== 'en') {
     try {
-      locales[lang] = require(`date-fns/locale/${lang}`)
+      locales[lang] = require(`date-fns/locale/${lang}/index`)
     } catch (e) {
       console.warn(`The "${lang}" locale isn't supported by date-fns`)
     }
   }
+
   return (date, formatStr) => format(date, formatStr, { locale: locales[lang] })
 }
 
