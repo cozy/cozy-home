@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 export const Sidebar = ({ t, categories, router }) => {
   let isCategoryView = router.location.pathname.match(/^\/category/) !== null

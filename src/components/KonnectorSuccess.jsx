@@ -2,7 +2,7 @@ import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
 import classNames from 'classnames'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from './DescriptionContent'
 

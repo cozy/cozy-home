@@ -5,7 +5,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
-import { I18n } from './plugins/i18n'
+import { I18n } from 'cozy-ui/react/I18n'
 import CollectStore, { Provider } from './lib/CollectStore'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render((
     <Provider store={store}>
-      <I18n context={context} lang={lang}>
+      <I18n lang={lang} dictRequire={(lang) => require(`./locales/${lang}`)}>
         <Router history={history}>
           <Route
             component={(props) =>
