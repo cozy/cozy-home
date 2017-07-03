@@ -20,7 +20,7 @@ describe('Failure component', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should correctly call the reload funtion on button click', () => {
+  it('should correctly call the reload function on button click', () => {
     window.location.reload = jest.fn()
     const component = shallow(
       <Failure t={tMock} errorType='initial' />
