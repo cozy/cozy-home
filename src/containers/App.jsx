@@ -16,7 +16,7 @@ class App extends Component {
       isFetching: true
     }
 
-    this.store.fetchAllAccounts()
+    Promise.all([this.store.fetchAllAccounts(), this.store.fetchDriveUrl()])
       .then(() => {
         this.setState({
           categories: this.store.categories,
