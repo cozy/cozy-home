@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
 
-const ConnectorItem = ({ title, subtitle, connected, errored, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) => (
-  <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
-    <header className='item-header' style={{background: backgroundCSS}}>
-      {iconName &&
-        <img className='item-icon' src={icon(iconName, enableDefaultIcon)} />
-      }
-    </header>
-    <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
-    {subtitle && <p className='item-subtitle'>{subtitle}</p>}
-    {stateIcon(errored, connected)}
-  </Link>
-)
+class ConnectorItem extends Component {
+  render ({ title, subtitle, connected, errored, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) {
+    return (
+      <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
+        <header className='item-header' style={{background: backgroundCSS}}>
+          {iconName &&
+            <img className='item-icon' src={icon(iconName, enableDefaultIcon)} />
+          }
+        </header>
+        <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
+        {subtitle && <p className='item-subtitle'>{subtitle}</p>}
+        {stateIcon(errored, connected)}
+      </Link>
+    )
+  }
+}
 
 const stateIcon = (errored, connected) => {
   if (!errored && !connected) return ''
