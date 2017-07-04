@@ -27,11 +27,6 @@ export default class CollectStore {
     this.categories = require('../config/categories')
   }
 
-  subscribeTo (connectorId, listener) {
-    this.listener = listener
-    return this.find(c => c.id === connectorId)
-  }
-
   sanitizeCategories (connectors) {
     return connectors.map(c => Object.assign({}, c, {
       category: isValidCategory(c.category) ? c.category : 'others'
