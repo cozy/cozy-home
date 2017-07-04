@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import UseCaseItem from './ConnectorItem'
+import KonnectorItem from './KonnectorItem'
 
 // Fallback to get the item background image and avoid error if not found
 const getItemBackground = (item, context) => {
@@ -19,7 +19,7 @@ const getItemBackground = (item, context) => {
 const UseCaseList = ({ t, useCases, context }) => (
   <div className='use-cases-list'>
     {useCases.map(u =>
-      <UseCaseItem
+      <KonnectorItem
         title={t(`use-case ${u.slug} title`)}
         slug={u.slug}
         enableDefaultIcon={false}

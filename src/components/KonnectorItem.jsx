@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
 
-class ConnectorItem extends Component {
+class KonnectorItem extends Component {
   render ({ title, subtitle, connected, errored, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) {
     return (
       <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
@@ -41,4 +41,4 @@ const icon = (iconName, enableDefaultIcon) => {
   return icon
 }
 
-export default translate()(withRouter(ConnectorItem))
+export default translate()(withRouter(KonnectorItem))

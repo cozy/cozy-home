@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import ConnectorItem from './ConnectorItem'
+import KonnectorItem from './KonnectorItem'
 import { popupCenter } from '../lib/popup'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
@@ -8,7 +8,7 @@ const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = false }) => (
   <div className='connector-list'>
     {connectors.map(c =>
-      <ConnectorItem
+      <KonnectorItem
         title={c.name}
         subtitle={t(`category.${c.category}`)}
         connected={showConnectedBadge && c.accounts.length !== 0}
