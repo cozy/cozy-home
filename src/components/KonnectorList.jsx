@@ -5,7 +5,7 @@ import { popupCenter } from '../lib/popup'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 
-const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = false }) => (
+const KonnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = false }) => (
   <div className='connector-list'>
     {connectors.map(c =>
       <KonnectorItem
@@ -33,4 +33,4 @@ const ConnectorList = ({ t, connectors, showConnectedBadge = true, showVoting = 
   </div>
 )
 
-export default translate()(ConnectorList)
+export default translate()(KonnectorList)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import ConnectorList from './ConnectorList'
+import KonnectorList from './KonnectorList'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 
 const UseCaseDialog = ({ t, item, connectors, context, router }) => {
@@ -15,7 +15,7 @@ const UseCaseDialog = ({ t, item, connectors, context, router }) => {
   >
     <ModalContent>
       <div className='use-case-dialog'>
-        <ConnectorList connectors={connectors} />
+        <KonnectorList connectors={connectors} />
       </div>
     </ModalContent>
   </Modal>)
