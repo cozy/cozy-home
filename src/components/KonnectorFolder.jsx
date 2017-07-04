@@ -15,7 +15,11 @@ export const KonnectorFolder = ({ t, account, driveUrl, connector }) => {
       >
         <p>
           <span className={styles['col-account-folder-highlighted-data']}>{account.auth.folderPath}</span>
-          <a className={styles['col-account-folder-link']} href={`${driveUrl}${account.folderId}`}>{t(`account.folder.link.${linkType}`, {name: connector.name})}</a>
+          {driveUrl
+            ? <a className={styles['col-account-folder-link']} href={`${driveUrl}${account.folderId}`}>{t(`account.folder.link.${linkType}`, {name: connector.name})}</a>
+            : ''
+          }
+
         </p>
       </DescriptionContent>
     </div>

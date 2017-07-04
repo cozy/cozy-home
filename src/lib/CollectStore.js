@@ -118,6 +118,10 @@ export default class CollectStore {
         this.driveUrl = `${driveapp.links.related}/#/files/`
       }
     })
+    .catch(err => {
+      console.warn(err)
+      return false
+    })
   }
 
   // Fetch all accounts and updates their matching connectors
