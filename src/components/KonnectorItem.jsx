@@ -3,16 +3,17 @@ import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
 
 class KonnectorItem extends Component {
-  render ({ title, subtitle, connected, errored, slug, iconName, backgroundCSS, enableDefaultIcon = false, isUseCase, router }) {
+  render ({ konnector, router }) {
+    const { category, name, slug } = konnector
+    const errored = konnector.accounts.error
+    const connected = !!konnector.accounts.length
     return (
       <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
-        <header className='item-header' style={{background: backgroundCSS}}>
-          {iconName &&
-            <img className='item-icon' src={icon(iconName, enableDefaultIcon)} />
-          }
+        <header className='item-header'>
+          <img className='item-icon' src={icon(slug)} />
         </header>
-        <p className={isUseCase ? 'use-case-title' : 'item-title'}>{title}</p>
-        {subtitle && <p className='item-subtitle'>{subtitle}</p>}
+        <p className='item-title'>{name}</p>
+        {category && <p className='item-subtitle'>{category}</p>}
         {stateIcon(errored, connected)}
       </Link>
     )
@@ -29,14 +30,12 @@ const stateIcon = (errored, connected) => {
 
 // Fallback to get the item icon and avoid error if not found
 // with a possible default icon
-const icon = (iconName, enableDefaultIcon) => {
+const icon = (slug) => {
   let icon = ''
   try {
-    icon = require(`../assets/icons/konnectors/${iconName}.svg`)
+    icon = require(`../assets/icons/konnectors/${slug}.svg`)
   } catch (e) {
-    if (enableDefaultIcon) {
-      icon = require('../assets/icons/konnectors/default.svg')
-    }
+    icon = require('../assets/icons/konnectors/default.svg')
   }
   return icon
 }
