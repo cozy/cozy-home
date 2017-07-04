@@ -65,9 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
     trackerInstance.track(hashHistory.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
   }
 
+  const dictRequire = (lang, context) => context
+    ? require(`./contexts/${context}/locales/${lang}`)
+    : require(`./locales/${lang}`)
+
   render((
     <Provider store={store}>
-      <I18n lang={lang} dictRequire={(lang) => require(`./locales/${lang}`)}>
+      <I18n lang={lang} dictRequire={dictRequire} context={context}>
         <Router history={history}>
           <Route
             component={(props) =>
