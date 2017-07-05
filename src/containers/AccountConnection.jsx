@@ -294,8 +294,6 @@ class AccountConnection extends Component {
               onDelete={() => this.deleteAccount()}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
               onCancel={() => this.cancel()}
-              onForceConnection={() => this.forceConnection()}
-              hasGlobalError={hasGlobalError}
             /> }
 
             { success && <KonnectorSuccess
@@ -306,8 +304,6 @@ class AccountConnection extends Component {
               onAccountConfig={() => this.goToConfig()}
               onCancel={() => this.cancel()}
               isUnloading={isUnloading}
-              onForceConnection={() => this.forceConnection()}
-              hasGlobalError={hasGlobalError}
             /> }
           </div>
 

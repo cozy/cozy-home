@@ -8,7 +8,7 @@ import DescriptionContent from './DescriptionContent'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
-export const KonnectorAccount = ({ t, connector, account, fields, editing, disableSuccessTimeout, oAuthTerminated, isUnloading, submitting, deleting, error, onDelete, onSubmit, onCancel, onForceConnection, hasGlobalError }) => {
+export const KonnectorAccount = ({ t, connector, account, fields, editing, disableSuccessTimeout, oAuthTerminated, isUnloading, submitting, deleting, error, onDelete, onSubmit, onCancel }) => {
   const { hasDescriptions } = connector
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
 
@@ -45,8 +45,6 @@ export const KonnectorAccount = ({ t, connector, account, fields, editing, disab
         onDelete={onDelete}
         onSubmit={onSubmit}
         onCancel={onCancel}
-        onForceConnection={onForceConnection}
-        hasGlobalError={hasGlobalError}
       />
     </div>
   )
