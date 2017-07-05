@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import KonnectorAccount from '../components/KonnectorAccount'
 import KonnectorSuccess from '../components/KonnectorSuccess'
 import KonnectorSync from '../components/KonnectorSync'
+import KonnectorFolder from '../components/KonnectorFolder'
 import AccountConnectionData from '../components/AccountConnectionData'
 import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
@@ -260,6 +261,12 @@ class AccountConnection extends Component {
 
             { !success && <KonnectorSync
               date={account && account.lastSync}
+            /> }
+
+            {!success && account && account.auth && <KonnectorFolder
+              connector={connector}
+              account={account}
+              driveUrl={this.store.driveUrl}
             /> }
 
             { !success && <KonnectorAccount

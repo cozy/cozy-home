@@ -50,6 +50,13 @@
         "synchronize": "Synchronize now"
       }
     },
+    "folder": {
+      "title": "Folder",
+      "link" : {
+        "default": "Open the %{name} folder",
+        "bill": "Open the %{name} bills folder"
+      }
+    },
     "success": {
       "title": {
         "connect": "Your %{name} account is connected!",
@@ -63,6 +70,10 @@
       }
     },
     "message": {
+      "folder": {
+        "title": "Folder",
+        "link": "Open folder on cozy drive"
+      },
       "success": {
         "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities open to you. This may also take several minutes to complete",
         "update": "Your %{name} account has been updated successfully.",

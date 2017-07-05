@@ -25,6 +25,7 @@ export default class CollectStore {
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
+    this.driveUrl = null
   }
 
   subscribeTo (connectorId, listener) {
@@ -106,32 +107,49 @@ export default class CollectStore {
       .sort(sortByName)
   }
 
+  // Get the drive application url using the list of application
+  // FIXME this works only because we need the application list permission for the cozy-bar
+  // and this also supposes that the drive application has the 'drive' slug
+  fetchDriveUrl () {
+    return cozy.client.fetchJSON('GET', '/apps/')
+    .then(body => {
+      const driveapp = body.find(item => item.attributes.slug === 'drive')
+      if (driveapp && driveapp.links) {
+        this.driveUrl = `${driveapp.links.related}/#/files/`
+      }
+    })
+    .catch(err => {
+      console.warn(err)
+      return false
+    })
+  }
+
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return accounts.getAllAccounts(cozy.client)
-      .then(accounts => {
-        return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
-      })
-      .then((result) => {
-        const [accounts, errors] = result
-        const errorIndex = errors.reduce((memo, error) => {
-          memo[error.account] = error
-          return memo
-        }, {})
+    return Promise.all([
+      accounts.getAllAccounts(cozy.client),
+      konnectors.getAllErrors(cozy.client)
+    ])
+    .then((result) => {
+      const [accounts, errors] = result
+      const errorIndex = errors.reduce((memo, error) => {
+        memo[error.account] = error
+        return memo
+      }, {})
 
-        let accObject = {}
-        accounts.forEach(a => {
-          if (!accObject[a.account_type]) accObject[a.account_type] = []
-          if (errorIndex[a._id] && errorIndex[a._id].error) {
-            a.error = errorIndex[a._id].error
-            accObject[a.account_type].error = errorIndex[a._id].error
-          }
-          accObject[a.account_type].push(a)
-        })
-        this.connectors.forEach(c => {
-          c.accounts = accObject[c.slug] || []
-        })
+      let accObject = {}
+      accounts.forEach(a => {
+        if (!accObject[a.account_type]) accObject[a.account_type] = []
+        if (errorIndex[a._id] && errorIndex[a._id].error) {
+          a.error = errorIndex[a._id].error
+          accObject[a.account_type].error = errorIndex[a._id].error
+        }
+        accObject[a.account_type].push(a)
       })
+      this.connectors.forEach(c => {
+        c.accounts = accObject[c.slug] || []
+      })
+    })
   }
 
   // Account connection workflow, see
