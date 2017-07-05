@@ -9,8 +9,8 @@ const getItemBackground = (figure, context) => {
     try {
       let img = require(`../contexts/${context}/assets/img/${figure}`)
       background = `center/100% url(${img})`
-    } catch (e) {
-      background = 'rgb(0, 130, 230)'
+    } catch (error) {
+      console.warn && console.warn(`${figure} not found: ${error.message}`)
     }
   }
   return background
