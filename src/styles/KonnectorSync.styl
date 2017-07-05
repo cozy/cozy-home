@@ -1,14 +1,16 @@
 @import cozy-ui
 
+text-button-color = #297ef1
+
 :local // @stylint ignore
     .account-forceConnection
         button
-            border 0
-            background transparent
-            color blue
-            padding 0
-            text-decoration underline
-            text-transform uppercase
+            border      0
+            background  transparent
+            color       text-button-color
+            font-weight bold
+            margin      0
+            padding     0
 
         .submitting::after
             content ''
