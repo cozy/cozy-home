@@ -263,7 +263,7 @@ class AccountConnection extends Component {
               date={account && account.lastSync}
             /> }
 
-            {!success && account && account.auth && <KonnectorFolder
+            { editing && !success && <KonnectorFolder
               connector={connector}
               account={account}
               driveUrl={this.store.driveUrl}
