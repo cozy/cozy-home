@@ -52,10 +52,7 @@
     },
     "folder": {
       "title": "Folder",
-      "link" : {
-        "default": "Open the %{name} folder",
-        "bill": "Open the %{name} bills folder"
-      }
+      "link" : "Open the folder in Cozy Drive"
     },
     "success": {
       "title": {
