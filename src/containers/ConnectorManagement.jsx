@@ -15,13 +15,6 @@ export default class ConnectorManagement extends Component {
     this.store = this.context.store
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
-    this.store.subscribeTo(
-      connector.id,
-      refreshedConnector => this.setState({
-        connector: refreshedConnector,
-        isInstalled: this.isInstalled(refreshedConnector)
-      })
-    )
     const { name, fields } = connector
 
     this.state = {
