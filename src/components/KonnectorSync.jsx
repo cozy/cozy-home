@@ -15,7 +15,7 @@ export const KonnectorSync = ({ t, f, date, editing, submitting, onForceConnecti
       /> }
       <div className={styles['account-forceConnection']}>
         <button
-          className={submitting ? classNames('coz-btn', styles['submitting']) : classNames('coz-btn') }
+          className={submitting ? classNames('coz-btn', styles['submitting']) : classNames('coz-btn')}
           disabled={submitting}
           aria-busy={submitting}
           onClick={onForceConnection}
