@@ -50,6 +50,7 @@ function getLastSync (cozy, account) {
 
 export function getAccountsByType (cozy, accountType) {
   if (!accountType) throw new Error('Missing `accountType` parameter')
+
   return indexAccountsByType(cozy)
   .then(index => cozy.data.query(index, {
     selector: {'account_type': accountType}

@@ -267,6 +267,7 @@ class AccountConnection extends Component {
             /> }
 
             { editing && !success && !error && <KonnectorSync
+              frequency={account && account.auth.frequency}
               date={account && account.lastSync}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
