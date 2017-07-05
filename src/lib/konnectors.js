@@ -4,6 +4,11 @@ export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 const KONNECTOR_STATE_READY = 'ready'
 
+export const KONNECTOR_RESULT_STATE = {
+  ERRORED: 'errored',
+  CONNECTED: 'done'
+}
+
 export const JOB_STATE = {
   READY: 'ready',
   ERRORED: 'errored',
@@ -66,9 +71,26 @@ export function unlinkFolder (cozy, konnector, folderId) {
     .then(() => deleteFolderPermission(cozy, konnector))
 }
 
-export function getAllErrors (cozy) {
-  return cozy.data.defineIndex(KONNECTORS_RESULT_DOCTYPE, ['state'])
-  .then(index => cozy.data.query(index, {selector: {state: 'errored'}}))
+export function fetchResult (cozy, konnector) {
+  return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, konnector.slug)
+}
+
+export function findAllResults (cozy) {
+  return cozy.fetchJSON('GET', `/data/${KONNECTORS_RESULT_DOCTYPE}/_all_docs?include_docs=true`)
+    .then(result => {
+      return result.rows
+        ? result.rows
+          // filter documents only
+          .filter(row => !row.doc.language)
+          .map(row => row.doc)
+        : []
+    })
+    .catch(error => {
+      // the _all_docs endpoint returns a 404 error if no document with the given
+      // doctype exists.
+      if (error.status === 404) return []
+      throw error
+    })
 }
 
 export function install (cozy, konnector, timeout = 120000) {
