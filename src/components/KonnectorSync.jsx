@@ -5,14 +5,14 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from './DescriptionContent'
 
-export const KonnectorSync = ({ t, f, date, error, editing, submitting, onForceConnection }) => {
+export const KonnectorSync = ({ t, f, date, editing, submitting, onForceConnection }) => {
   return (
     <div>
       { date && <DescriptionContent
         title={t('account.message.synced.title')}
         messages={[t('account.message.synced.last_sync', { date: f(date, t('account.message.synced.date_format')) })]}
       /> }
-      { !editing && !error && <div className={styles['account-forceConnection']}>
+      { !editing && <div className={styles['account-forceConnection']}>
         <button
           className={submitting ? styles['submitting'] : ''}
           disabled={submitting}
