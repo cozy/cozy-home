@@ -8,8 +8,6 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-import AccountForceConnection from './AccountForceConnection'
-
 const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading, onForceConnection, hasGlobalError }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
@@ -70,12 +68,6 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           }
         }
       )}
-      { values.password && !hasGlobalError &&
-        <AccountForceConnection
-          submitting={submitting}
-          onForceConnection={onForceConnection}
-          />
-      }
       { isUpdate &&
         <div className={styles['col-account-form-delete']}>
           <h4>{t('account.disconnect.title')}</h4>
