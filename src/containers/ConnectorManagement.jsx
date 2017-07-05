@@ -38,8 +38,12 @@ export default class ConnectorManagement extends Component {
       isClosing: false
     }
 
-    this.store.fetchKonnectorInfos(props.params.connectorSlug)
-      .then(konnector => {
+    Promise.all([
+      this.store.fetchKonnectorInfos(props.params.connectorSlug),
+      this.store.fetchDriveUrl()
+    ])
+      .then(result => {
+        const [konnector] = result
         return this.store
           .fetchAccounts(props.params.connectorSlug)
           .then(accounts => {
