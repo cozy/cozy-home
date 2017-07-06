@@ -17,12 +17,12 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill, giveFocus = false } = props
     inputs = (
       <input
         type={type}
         placeholder={placeholder}
-        className={styles['coz-field-input']}
+        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input']) : styles['coz-field-input']}
         readonly={readOnly}
         disabled={disabled || readOnly}
         value={value}
@@ -75,7 +75,7 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill, giveFocus = false } = props
       return (
         <FieldWrapper {...props}>
           <button
@@ -93,7 +93,7 @@ export const PasswordField = translate()(
           <input
             type={visible ? 'text' : 'password'}
             placeholder={placeholder}
-            className={styles['coz-field-input']}
+            className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input']) : styles['coz-field-input']}
             value={value}
             name={name}
             onChange={onChange}
@@ -107,14 +107,14 @@ export const PasswordField = translate()(
 )
 
 export const DropdownField = translate()((props) => {
-  const { value, options, onChange, onInput } = props
+  const { value, options, onChange, onInput, giveFocus = false } = props
   let valueInOptions = options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
 
   return (
     <FieldWrapper {...props}>
       <select
-        className={styles['coz-field-dropdown']}
+        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-dropdown']) : styles['coz-field-dropdown']}
         value={value}
         onChange={onChange}
         onInput={onInput}
@@ -131,14 +131,14 @@ export const DropdownField = translate()((props) => {
 })
 
 export const CheckboxField = translate()((props) => {
-  const { value, onChange, onInput, required, label, dirty, touched, errors } = props
+  const { value, onChange, onInput, required, label, dirty, touched, errors, giveFocus = false } = props
   let input
 
   if (value) {
     input = (
       <input
         type='checkbox'
-        className={styles['coz-field-input-checkbox']}
+        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input-checkbox']) : styles['coz-field-input-checkbox']}
         value={value}
         checked='checked'
         onChange={onChange}
@@ -149,7 +149,7 @@ export const CheckboxField = translate()((props) => {
     input = (
       <input
         type='checkbox'
-        className={styles['coz-field-input-checkbox']}
+        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input-checkbox']) : styles['coz-field-input-checkbox']}
         value={value}
         onChange={onChange}
         onInput={onInput}

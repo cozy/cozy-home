@@ -48,9 +48,13 @@ class AccountConnection extends Component {
       account: existingAccount
     })
   }
-
+  
   componentWillUnmount () {
     this.store.removeConnectionStatusListener(this.props.connector, this.connectionListener)
+  }
+
+  componentDidMount () {
+    document.querySelector('.coz-giveFocus').focus()
   }
 
   connectAccount (auth) {
