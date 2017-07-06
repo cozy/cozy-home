@@ -239,6 +239,13 @@ class AccountConnection extends Component {
     }
   }
 
+  forceConnection () {
+    this.setState({submitting: true})
+    this.store.runAccount(this.props.connector, this.state.account)
+    .then(() => this.setState({submitting: false}))
+    .catch(error => this.handleError(error))
+  }
+
   render () {
     const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
@@ -259,8 +266,10 @@ class AccountConnection extends Component {
               messages={[t('account.message.error.global.description', {name: connector.name})]}
             /> }
 
-            { editing && !success && <KonnectorSync
+            { editing && !success && !error && <KonnectorSync
               date={account && account.lastSync}
+              submitting={submitting}
+              onForceConnection={() => this.forceConnection()}
             /> }
 
             { editing && !success && <KonnectorFolder

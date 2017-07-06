@@ -94,7 +94,8 @@
         "bad_credentials": "Sorry, you entered an incorrect login or password.",
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
-    }
+    },
+    "forceConnection": "Synchronize now"
   },
 
   "intent": {

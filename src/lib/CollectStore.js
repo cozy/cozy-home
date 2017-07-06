@@ -238,7 +238,7 @@ export default class CollectStore {
    * runAccount Runs an account
    * @param {object}  connector            A connector
    * @param {object}  account              the account to run, must belong to the connector
-   * @param {Boolean} disableSuccessTimeout Boolean to set a success timeout in the run method. Used by example by the onboarding
+   * @param {Boolean} disableSuccessTimeout Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
   runAccount (connector, account, disableSuccessTimeout) {
