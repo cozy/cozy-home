@@ -41,6 +41,14 @@ export default class CollectStore {
     this.driveUrl = null
   }
 
+  // Populate the store
+  fetchInitialData () {
+    return Promise.all([
+      this.fetchAllAccounts(),
+      this.fetchKonnectorResults()
+    ])
+  }
+
   updateKonnectorResult (konnectorResult) {
     const slug = konnectorResult._id
     const konnector = this.getKonnectorBySlug(slug)
@@ -149,23 +157,27 @@ export default class CollectStore {
     })
   }
 
+  fetchKonnectorResults () {
+    return konnectors
+      .findAllResults(cozy.client)
+      .then(konnectorResults => {
+        konnectorResults.forEach((konnectorResult) => {
+          this.konnectorResults.set(konnectorResult._id, konnectorResult)
+        })
+        return konnectorResults
+      })
+  }
+
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return Promise.all([
-      accounts.getAllAccounts(cozy.client),
-      konnectors.findAllResults(cozy.client)
-    ])
-    .then((result) => {
-      const [accounts, konnectorResults] = result
-
-      konnectorResults.forEach((konnectorResult) => {
-        this.konnectorResults.set(konnectorResult._id, konnectorResult)
+    return accounts
+      .getAllAccounts(cozy.client)
+      .then(accounts => {
+        this.connectors.forEach(konnector => {
+          konnector.accounts = accounts.filter(account => account.account_type === konnector.slug)
+        })
+        return accounts
       })
-
-      this.connectors.forEach(konnector => {
-        konnector.accounts = accounts.filter(account => account.account_type === konnector.slug)
-      })
-    })
   }
 
   // Account connection workflow, see

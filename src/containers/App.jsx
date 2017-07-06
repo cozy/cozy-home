@@ -16,7 +16,7 @@ class App extends Component {
       isFetching: true
     }
 
-    this.store.fetchAllAccounts()
+    this.store.fetchInitialData()
       .then(() => {
         this.setState({
           categories: this.store.categories,
