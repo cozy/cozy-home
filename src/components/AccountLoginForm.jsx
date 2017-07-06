@@ -12,7 +12,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   return (
-    <div className={styles['account-form-login']}>
+    <form className={styles['account-form-login']}>
       {error &&
         <p className='errors'>
           {t('account.message.error.bad_credentials')}
@@ -106,7 +106,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           <FixedProgress duration='32000' />
         }
       </div>
-    </div>
+    </form>
   )
 }
 
