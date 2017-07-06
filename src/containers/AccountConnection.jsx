@@ -266,7 +266,7 @@ class AccountConnection extends Component {
               messages={[t('account.message.error.global.description', {name: connector.name})]}
             /> }
 
-            { editing && !success && <KonnectorSync
+            { editing && !success && !error && <KonnectorSync
               date={account && account.lastSync}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
