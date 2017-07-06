@@ -81,6 +81,12 @@
       },
       "synced": {
         "title": "Your data synchronization",
+        "cron": "Your data will be synchronized",
+        "cron_hour": "each hour",
+        "cron_day": "once a day",
+        "cron_week": "once a week",
+        "cron_month": "once a month",
+        "cron_undefined": "manually",
         "last_sync": "Last synchronization: %{date}",
         "date_format": "MMMM Mo[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
