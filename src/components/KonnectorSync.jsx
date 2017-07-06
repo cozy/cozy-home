@@ -6,7 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from './DescriptionContent'
 
-export const KonnectorSync = ({ t, f, date, editing, submitting, onForceConnection }) => {
+export const KonnectorSync = ({ t, f, date, submitting, onForceConnection }) => {
   return (
     <div>
       { date && <DescriptionContent

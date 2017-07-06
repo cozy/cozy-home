@@ -268,7 +268,6 @@ class AccountConnection extends Component {
 
             { editing && !success && <KonnectorSync
               date={account && account.lastSync}
-              editing={editing}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
             /> }
