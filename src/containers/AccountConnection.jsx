@@ -59,7 +59,7 @@ class AccountConnection extends Component {
       .catch(error => this.handleError(error))
   }
 
-  connectAccountOAuth (accountType) {
+  connectAccountOAuth (accountType, values) {
     this.setState({
       submitting: true,
       oAuthTerminated: false
@@ -70,14 +70,14 @@ class AccountConnection extends Component {
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
-      return this.terminateOAuth(accountID)
+      return this.terminateOAuth(accountID, values.folderPath)
     })
     .catch(error => {
       this.setState({submitting: false, error: error.message})
     })
   }
 
-  terminateOAuth (accountID) {
+  terminateOAuth (accountID, folderPath) {
     const { t } = this.context
     const { slug } = this.props.connector
 
@@ -95,7 +95,7 @@ class AccountConnection extends Component {
             const account = accounts[currentIdx]
             this.setState({account: account})
             account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
-            return this.runConnection(accounts[currentIdx], account.folderPath)
+            return this.runConnection(accounts[currentIdx], folderPath)
               .then(connection => {
                 this.setState({
                   connector: konnector,
@@ -217,7 +217,7 @@ class AccountConnection extends Component {
 
   submit (values) {
     return this.props.connector && this.props.connector.oauth
-         ? this.connectAccountOAuth(this.props.connector.slug)
+         ? this.connectAccountOAuth(this.props.connector.slug, values)
          : this.connectAccount(values)
   }
 
