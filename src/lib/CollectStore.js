@@ -4,6 +4,7 @@ import { Component } from 'react'
 
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
+import * as jobs from './jobs'
 
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
@@ -34,6 +35,9 @@ export default class CollectStore {
     // Listeners on connection statuses
     this.connectionStatusListeners = new Map()
 
+    // Store all the currently running jobs related to konnectors
+    this.runningJobs = new Map()
+
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
@@ -42,10 +46,11 @@ export default class CollectStore {
   }
 
   // Populate the store
-  fetchInitialData () {
+  fetchInitialData (domain) {
     return Promise.all([
       this.fetchAllAccounts(),
-      this.fetchKonnectorResults()
+      this.fetchKonnectorResults(),
+      this.fetchKonnectorRunningJobs(domain)
     ])
   }
 
@@ -54,6 +59,24 @@ export default class CollectStore {
     const konnector = this.getKonnectorBySlug(slug)
     this.konnectorResults.set(slug, konnectorResult)
     this.triggerConnectionStatusUpdate(konnector)
+  }
+
+  updateRunningJob (job) {
+    if (job.state !== jobs.JOB_STATE.RUNNING) {
+      return this.deleteRunningJob(job)
+    }
+
+    const slug = job.konnector
+    const konnector = this.getKonnectorBySlug(slug)
+    this.runningJobs.set(slug, job)
+    this.triggerConnectionStatusUpdate(konnector)
+  }
+
+  deleteRunningJob (job) {
+    const slug = job.konnector
+    const konnector = this.getKonnectorBySlug(slug)
+    const deleted = this.runningJobs.delete(slug)
+    if (deleted) this.triggerConnectionStatusUpdate(konnector)
   }
 
   sanitizeCategories (connectors) {
@@ -96,6 +119,10 @@ export default class CollectStore {
         listener(this.getConnectionStatus(konnector))
       })
     }
+  }
+
+  getKonnectorBySlug (slug) {
+    return this.connectors.find(connector => connector.slug === slug)
   }
 
   updateConnector (connector) {
@@ -178,6 +205,20 @@ export default class CollectStore {
         })
         return accounts
       })
+  }
+
+  fetchKonnectorRunningJobs (domain) {
+    return jobs.find(cozy.client, {
+      state: jobs.JOB_STATE.RUNNING,
+      worker: 'konnector',
+      domain: domain
+    })
+    .then(jobs => {
+      jobs.forEach(job => {
+        this.updateRunningJob(job)
+      })
+      return jobs
+    })
   }
 
   // Account connection workflow, see
@@ -373,7 +414,15 @@ export default class CollectStore {
   getConnectionStatus (konnector) {
     if (!this.konnectorHasAccount(konnector)) return
 
-    const konnectorResult = this.konnectorResults.get(konnector.slug)
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const runningJob = this.runningJobs.get(slug)
+
+    if (runningJob) {
+      return CONNECTION_STATUS.RUNNING
+    }
+
+    const konnectorResult = this.konnectorResults.get(slug)
 
     if (konnectorResult) {
       switch (konnectorResult.state) {

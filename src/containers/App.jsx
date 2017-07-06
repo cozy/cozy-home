@@ -16,7 +16,7 @@ class App extends Component {
       isFetching: true
     }
 
-    this.store.fetchInitialData()
+    this.store.fetchInitialData(props.domain)
       .then(() => {
         this.setState({
           categories: this.store.categories,

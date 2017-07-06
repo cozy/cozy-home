@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Router history={history}>
           <Route
             component={(props) =>
-              <App {...props}
+              <App domain={data.cozyDomain} {...props}
               />}
           >
             <Redirect from='/' to='/discovery' />
