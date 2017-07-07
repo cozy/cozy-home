@@ -298,6 +298,8 @@ class AccountConnection extends Component {
             { success && <KonnectorSuccess
               success={success}
               connector={connector}
+              account={account}
+              driveUrl={this.store.driveUrl}
               isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
               folderPath={this.state.account.auth.folderPath}
               onAccountConfig={() => this.goToConfig()}
