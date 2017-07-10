@@ -9,11 +9,13 @@ import DescriptionContent from './DescriptionContent'
 export const KonnectorSync = ({ t, f, frequency, date, submitting, onForceConnection }) => {
   return (
     <div>
-      { date && <DescriptionContent
+      { <DescriptionContent
         title={t('account.message.synced.title')}
         messages={[
           `${t('account.message.synced.cron')} ${t(`account.message.synced.cron_${frequency}`)}.`,
-          t('account.message.synced.last_sync', { date: f(date, t('account.message.synced.date_format')) })
+          date
+          ? t('account.message.synced.last_sync', { date: f(date, t('account.message.synced.date_format')) })
+          : ''
         ]}
       /> }
       <div className={styles['account-forceConnection']}>
