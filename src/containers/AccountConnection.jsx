@@ -266,7 +266,7 @@ class AccountConnection extends Component {
               messages={[t('account.message.error.global.description', {name: connector.name})]}
             /> }
 
-            { editing && !success && !error && <KonnectorSync
+            { editing && !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
               date={account && account.lastSync}
               submitting={submitting}
@@ -301,7 +301,7 @@ class AccountConnection extends Component {
               folderId={account.folderId}
               driveUrl={this.store.driveUrl}
               isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
-              folderPath={account.auth.folderPath}
+              folderPath={account && account.auth && account.auth.folderPath}
               onAccountConfig={() => this.goToConfig()}
               onCancel={() => this.cancel()}
               isUnloading={isUnloading}
