@@ -47,6 +47,9 @@ mobile/Preview.html
 # Coverage
 coverage/
 
+# transifex
+.transifexrc
+
 # Default
 # /!\ KEEP THIS SECTION THE LAST ONE
 !.gitkeep
