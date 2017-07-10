@@ -14,7 +14,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
   let hasFocused = !giveFocus
 
   return (
-    <form className={styles['account-form-login']} >
+    <form className={styles['account-form-login']} action='#' onSubmit={(e) => e.preventDefault()}>
       {error &&
         <p className='errors'>
           {t('account.message.error.bad_credentials')}
@@ -96,6 +96,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             {t('account.disconnect.description')}
           </p>
           <button
+            type='button'
             className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
             disabled={deleting}
             aria-busy={deleting}
@@ -107,6 +108,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
       <div className={styles['coz-form-controls']}>
         { isUpdate && !isOAuth &&
           <button
+            type='cancel'
             className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
             onClick={onCancel}
           >
@@ -115,6 +117,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
         }
         { (!(isUpdate && isOAuth) && !isSuccess) &&
           <button
+            type='submit'
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
             aria-busy={submitting && disableSuccessTimeout ? 'true' : 'false'}
