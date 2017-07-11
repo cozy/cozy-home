@@ -164,5 +164,16 @@
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"uber",
+    "name":"Uber",
+    "vendorLink":"https://uber.com",
+    "category":"transport",
+    "color":{"hex":"#000203","css":"#000203"},
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "dataType":["bill"],
+    "source": "git://github.com/cozy/cozy-konnector-uber.git#build"
   }
 ]
