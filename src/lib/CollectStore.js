@@ -43,6 +43,8 @@ export default class CollectStore {
     this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
     this.driveUrl = null
+
+    this.initializeRealtime()
   }
 
   // Populate the store
@@ -52,6 +54,19 @@ export default class CollectStore {
       this.fetchKonnectorResults(),
       this.fetchKonnectorRunningJobs(domain)
     ])
+  }
+
+  initializeRealtime () {
+    jobs.subscribeAll(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(job => this.updateRunningJob(job))
+          .onUpdate(job => this.updateRunningJob(job))
+          .onDelete(job => this.deleteRunningJob(job))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime : ${error.message}`)
+      })
   }
 
   updateKonnectorResult (konnectorResult) {

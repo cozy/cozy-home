@@ -1,4 +1,6 @@
 /* jobs lib ready to be added to cozy-client-js */
+import * as realtime from './realtime'
+
 export const JOBS_DOCTYPE = 'io.cozy.jobs'
 
 export const JOB_STATE = {
@@ -19,4 +21,8 @@ export function find (cozy, query) {
       return jobs.map(decode)
     })
   )
+}
+
+export function subscribeAll (cozy) {
+  return realtime.subscribeAll(cozy, JOBS_DOCTYPE, decode)
 }
