@@ -65,7 +65,17 @@ export default class CollectStore {
           .onDelete(job => this.deleteRunningJob(job))
       })
       .catch(error => {
-        console.warn && console.warn(`Cannot initialize realtime : ${error.message}`)
+        console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
+      })
+
+    konnectors.subscribeAllResults(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(result => this.updateKonnectorResult(result))
+          .onUpdate(result => this.updateKonnectorResult(result))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
   }
 

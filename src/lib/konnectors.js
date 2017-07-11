@@ -1,4 +1,6 @@
 /* konnector lib ready to be added to cozy-client-js */
+import * as realtime from './realtime'
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
@@ -91,6 +93,10 @@ export function findAllResults (cozy) {
       if (error.status === 404) return []
       throw error
     })
+}
+
+export function subscribeAllResults (cozy) {
+  return realtime.subscribeAll(cozy, KONNECTORS_RESULT_DOCTYPE)
 }
 
 export function install (cozy, konnector, timeout = 120000) {
