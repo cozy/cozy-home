@@ -108,7 +108,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
       <div className={styles['coz-form-controls']}>
         { isUpdate && !isOAuth &&
           <button
-            type='cancel'
+            type='button'
             className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
             onClick={onCancel}
           >
