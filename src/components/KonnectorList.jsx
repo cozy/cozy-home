@@ -10,7 +10,6 @@ const KonnectorList = ({ t, connectors, showVoting = false }) => (
     {connectors.map(konnector =>
       <KonnectorItem
         konnector={konnector}
-        connected={konnector.accounts.length !== 0}
         enableDefaultIcon
       />
     )}
