@@ -1,5 +1,6 @@
 /* konnector lib ready to be added to cozy-client-js */
 import * as realtime from './realtime'
+import * as jobs from './jobs'
 
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
@@ -182,51 +183,39 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, account, disableSuccessTimeout, successTimeout))
+  .then(job => waitForJobFinished(cozy, job, disableSuccessTimeout, successTimeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, account, disableSuccessTimeout, successTimeout) {
+function waitForJobFinished (cozy, job, disableSuccessTimeout, successTimeout) {
   return new Promise((resolve, reject) => {
-    let idTimeout
-    let idInterval
+    jobs.subscribe(cozy, job)
+      .then(subscription => {
+        let idTimeout
 
-    if (!disableSuccessTimeout) {
-      idTimeout = setTimeout(() => {
-        clearInterval(idInterval)
-        resolve(job)
-      }, successTimeout)
-    }
+        if (!disableSuccessTimeout) {
+          idTimeout = setTimeout(() => {
+            resolve(job)
+            subscription.unsubscribe()
+          }, successTimeout)
+        }
 
-    idInterval = setInterval(() => {
-      cozy.fetchJSON('GET', `/jobs/${job._id}`)
-        .then(job => {
-          if (job.attributes.state === JOB_STATE.ERRORED) {
-            if (idTimeout) {
-              clearTimeout(idTimeout)
-            }
-
-            clearInterval(idInterval)
-            reject(new Error(job.attributes.error))
+        subscription.onUpdate(job => {
+          if (job.state === JOB_STATE.ERRORED) {
+            clearTimeout(idTimeout)
+            subscription.unsubscribe()
+            reject(new Error(job.error))
           }
 
-          if (job.attributes.state === JOB_STATE.READY) {
-            if (idTimeout) {
-              clearTimeout(idTimeout)
-            }
-
-            clearInterval(idInterval)
+          if (job.state === JOB_STATE.DONE) {
+            clearTimeout(idTimeout)
+            subscription.unsubscribe()
             resolve(job)
           }
         })
-        .catch(error => {
-          if (idTimeout) {
-            clearTimeout(idTimeout)
-          }
-
-          clearInterval(idInterval)
-          reject(error)
-        })
-    }, 1000)
+      })
+      .catch(error => {
+        reject(error)
+      })
   })
 }

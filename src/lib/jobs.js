@@ -23,6 +23,10 @@ export function find (cozy, query) {
   )
 }
 
+export function subscribe (cozy, job) {
+  return realtime.subscribe(cozy, JOBS_DOCTYPE, job, decode)
+}
+
 export function subscribeAll (cozy) {
   return realtime.subscribeAll(cozy, JOBS_DOCTYPE, decode)
 }
