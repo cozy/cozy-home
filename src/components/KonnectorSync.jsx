@@ -14,14 +14,14 @@ export const KonnectorSync = ({ t, f, frequency, date, submitting, onForceConnec
   const lastSyncMessage =
     submitting && t('account.message.synced.syncing') ||
       date && getDateLabel({date, t, f}) ||
-       ''
+       null
   return (
     <div>
       { <DescriptionContent
         title={t('account.message.synced.title')}
         messages={[
           `${t('account.message.synced.cron')} ${t(`account.message.synced.cron_${frequency}`)}.`,
-          t('account.message.synced.last_sync', { date: lastSyncMessage })
+          lastSyncMessage ? t('account.message.synced.last_sync', { date: lastSyncMessage }) : ''
         ]}
       /> }
       <div className={styles['account-forceConnection']}>
