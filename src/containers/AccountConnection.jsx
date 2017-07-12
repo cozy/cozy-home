@@ -34,7 +34,9 @@ class AccountConnection extends Component {
 
     this.connectionListener = status => {
       this.setState({
-        submitting: this.store.isConnectionStatusRunning(this.props.connector)
+        submitting: this.store.isConnectionStatusRunning(this.props.connector),
+        // dirty hack waiting for better account management in store
+        lastSync: Date.now()
       })
     }
 
@@ -266,7 +268,7 @@ class AccountConnection extends Component {
     const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-
+    const lastSync = this.state.lastSync || account && account.lastSync
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -284,7 +286,7 @@ class AccountConnection extends Component {
 
             { editing && !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
-              date={account && account.lastSync}
+              date={lastSync}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
             /> }
