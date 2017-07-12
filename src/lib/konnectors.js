@@ -5,7 +5,10 @@ import * as jobs from './jobs'
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
-const KONNECTOR_STATE_READY = 'ready'
+export const KONNECTOR_STATE = {
+  READY: 'ready',
+  ERRORED: 'errored'
+}
 
 export const KONNECTOR_RESULT_STATE = {
   ERRORED: 'errored',
@@ -78,8 +81,16 @@ export function fetchResult (cozy, konnector) {
   return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, konnector.slug)
 }
 
+export function findAll (cozy) {
+  return findAllDocuments(cozy, KONNECTORS_DOCTYPE)
+}
+
 export function findAllResults (cozy) {
-  return cozy.fetchJSON('GET', `/data/${KONNECTORS_RESULT_DOCTYPE}/_all_docs?include_docs=true`)
+  return findAllDocuments(cozy, KONNECTORS_RESULT_DOCTYPE)
+}
+
+function findAllDocuments (cozy, doctype) {
+  return cozy.fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`)
     .then(result => {
       return result.rows
         ? result.rows
@@ -94,6 +105,10 @@ export function findAllResults (cozy) {
       if (error.status === 404) return []
       throw error
     })
+}
+
+export function subscribeAll (cozy) {
+  return realtime.subscribeAll(cozy, KONNECTORS_DOCTYPE)
 }
 
 export function subscribeAllResults (cozy) {
@@ -129,7 +144,7 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
     const idInterval = setInterval(() => {
       cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
         .then(konnectorResult => {
-          if (konnectorResult.state === KONNECTOR_STATE_READY) {
+          if (konnectorResult.state === KONNECTOR_STATE.READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(konnector)

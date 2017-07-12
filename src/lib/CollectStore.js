@@ -38,6 +38,9 @@ export default class CollectStore {
     // Store all the currently running jobs related to konnectors
     this.runningJobs = new Map()
 
+    // Installing/installed konnectors
+    this.installedKonnectors = new Map()
+
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
@@ -51,6 +54,7 @@ export default class CollectStore {
   fetchInitialData (domain) {
     return Promise.all([
       this.fetchAllAccounts(),
+      this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
       this.fetchKonnectorRunningJobs(domain)
     ])
@@ -68,6 +72,16 @@ export default class CollectStore {
         console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
 
+    konnectors.subscribeAll(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(konnector => this.updateInstalledKonnector(konnector))
+          .onUpdate(konnector => this.updateInstalledKonnector(konnector))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime for konnectors: ${error.message}`)
+      })
+
     konnectors.subscribeAllResults(cozy.client)
       .then(subscription => {
         subscription
@@ -77,6 +91,12 @@ export default class CollectStore {
       .catch(error => {
         console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
+  }
+
+  updateInstalledKonnector (konnector) {
+    const slug = konnector.slug || konnector.attributes.slug
+    this.installedKonnectors.set(slug, konnector)
+    this.triggerConnectionStatusUpdate(this.getKonnectorBySlug(slug))
   }
 
   updateKonnectorResult (konnectorResult) {
@@ -207,6 +227,16 @@ export default class CollectStore {
       console.warn(err)
       return false
     })
+  }
+
+  fetchInstalledKonnectors () {
+    return konnectors
+      .findAll(cozy.client)
+      .then(konnectors => {
+        konnectors.forEach(konnector => {
+          this.installedKonnectors.set(konnector.slug, konnector)
+        })
+      })
   }
 
   fetchKonnectorResults () {
@@ -437,9 +467,20 @@ export default class CollectStore {
 
   // Selector to get KonnectorStatus
   getConnectionStatus (konnector) {
-    if (!this.konnectorHasAccount(konnector)) return
-
     const slug = konnector.slug || konnector.attributes.slug
+
+    const installedKonnector = this.installedKonnectors.get(slug)
+    if (installedKonnector) {
+      switch (installedKonnector.state) {
+        case konnectors.KONNECTOR_STATE.ERRORED:
+          return CONNECTION_STATUS.ERRORED
+        case konnectors.KONNECTOR_STATE.READY:
+          // ignore
+          break
+        default:
+          return CONNECTION_STATUS.RUNNING
+      }
+    }
 
     const runningJob = this.runningJobs.get(slug)
 
@@ -448,6 +489,17 @@ export default class CollectStore {
     }
 
     const konnectorResult = this.konnectorResults.get(slug)
+
+    const betweenInstallationAndFirstResult = !konnectorResult &&
+      installedKonnector && installedKonnector.state === konnectors.KONNECTOR_STATE.READY
+
+    if (betweenInstallationAndFirstResult) {
+      return CONNECTION_STATUS.RUNNING
+    }
+
+    if (!this.konnectorHasAccount(this.getKonnectorBySlug(slug))) {
+      return null
+    }
 
     if (konnectorResult) {
       switch (konnectorResult.state) {
