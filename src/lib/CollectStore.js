@@ -462,6 +462,10 @@ export default class CollectStore {
     return null
   }
 
+  isConnectionStatusRunning (konnector) {
+    return this.getConnectionStatus(konnector) === CONNECTION_STATUS.RUNNING
+  }
+
   // listen for update on connection (will be useful for realtime)
   addConnectionStatusListener (konnector, listener) {
     const slug = konnector.slug || konnector.attributes.slug

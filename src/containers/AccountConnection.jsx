@@ -22,19 +22,33 @@ class AccountConnection extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    const konnector = props.connector
     this.state = {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
-      success: null
+      success: null,
+      submitting: this.store.isConnectionStatusRunning(konnector)
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
+
+    this.connectionListener = status => {
+      this.setState({
+        submitting: this.store.isConnectionStatusRunning(this.props.connector)
+      })
+    }
+
+    this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
   componentWillReceiveProps ({ existingAccount }) {
     this.setState({
       account: existingAccount
     })
+  }
+
+  componentWillUnmount () {
+    this.store.removeConnectionStatusListener(this.props.connector, this.connectionListener)
   }
 
   connectAccount (auth) {
