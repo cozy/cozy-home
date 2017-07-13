@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 export const Loading = ({ t, loadingType, noMargin }) => {
   return (

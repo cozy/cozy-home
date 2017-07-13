@@ -1,6 +1,10 @@
 {
-  "use-case phone-bills title": "Retrieve my phone bills",
-  "use-case fai-bills title": "Retrieve my ISP bills",
-  "use-case contacts title": "Gather my contacts",
-  "use-case agenda title": "Gather my events"
+  "useCase": {
+    "phone-bills": {
+      "title": "Retrieve my phone bills"
+    },
+    "fai-bills": {
+      "title": "Retrieve my ISP bills"
+    }
+  }
 }

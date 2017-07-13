@@ -23,8 +23,11 @@ const statefulComponent = (initialState, eventHandlers) => {
     return class StatefulComponent extends Component {
       constructor (props) {
         super(props)
-        this.state = initialState
         this.handlers = eventHandlers(this.setState.bind(this))
+      }
+
+      componentDidMount () {
+        this.state = initialState
       }
 
       render () {

@@ -50,6 +50,10 @@
         "synchronize": "Synchronize now"
       }
     },
+    "folder": {
+      "title": "Folder",
+      "link" : "Open the folder in Cozy Drive"
+    },
     "success": {
       "title": {
         "connect": "Your %{name} account is connected!",
@@ -63,6 +67,10 @@
       }
     },
     "message": {
+      "folder": {
+        "title": "Folder",
+        "link": "Open folder on cozy drive"
+      },
       "success": {
         "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities open to you. This may also take several minutes to complete",
         "update": "Your %{name} account has been updated successfully.",
@@ -72,6 +80,15 @@
         "bill": "Your bills are syncing and will be available in the following path:"
       },
       "synced": {
+        "title": "Your data synchronization",
+        "cron": "Your data will be synchronized",
+        "cron_hour": "each hour",
+        "cron_day": "once a day",
+        "cron_week": "once a week",
+        "cron_month": "once a month",
+        "cron_undefined": "manually",
+        "last_sync": "Last synchronization: %{date}",
+        "date_format": "MMMM Mo[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {
@@ -83,7 +100,8 @@
         "bad_credentials": "Sorry, you entered an incorrect login or password.",
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
-    }
+    },
+    "forceConnection": "Synchronize now"
   },
 
   "intent": {

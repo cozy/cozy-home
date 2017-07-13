@@ -2,7 +2,10 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 
-import AccountLoginForm from '../components/AccountLoginForm'
+import KonnectorAccount from '../components/KonnectorAccount'
+import KonnectorSuccess from '../components/KonnectorSuccess'
+import KonnectorSync from '../components/KonnectorSync'
+import KonnectorFolder from '../components/KonnectorFolder'
 import AccountConnectionData from '../components/AccountConnectionData'
 import DescriptionContent from '../components/DescriptionContent'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
@@ -56,7 +59,7 @@ class AccountConnection extends Component {
       .catch(error => this.handleError(error))
   }
 
-  connectAccountOAuth (accountType) {
+  connectAccountOAuth (accountType, values) {
     this.setState({
       submitting: true,
       oAuthTerminated: false
@@ -67,14 +70,14 @@ class AccountConnection extends Component {
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
-      return this.terminateOAuth(accountID)
+      return this.terminateOAuth(accountID, values.folderPath)
     })
     .catch(error => {
       this.setState({submitting: false, error: error.message})
     })
   }
 
-  terminateOAuth (accountID) {
+  terminateOAuth (accountID, folderPath) {
     const { t } = this.context
     const { slug } = this.props.connector
 
@@ -92,7 +95,7 @@ class AccountConnection extends Component {
             const account = accounts[currentIdx]
             this.setState({account: account})
             account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
-            return this.runConnection(accounts[currentIdx], account.folderPath)
+            return this.runConnection(accounts[currentIdx], folderPath)
               .then(connection => {
                 this.setState({
                   connector: konnector,
@@ -201,6 +204,8 @@ class AccountConnection extends Component {
   }
 
   handleError (error) {
+    console.error(error)
+
     // when service usage
     if (this.props.onError) return this.props.onError(error)
 
@@ -214,7 +219,7 @@ class AccountConnection extends Component {
 
   submit (values) {
     return this.props.connector && this.props.connector.oauth
-         ? this.connectAccountOAuth(this.props.connector.slug)
+         ? this.connectAccountOAuth(this.props.connector.slug, values)
          : this.connectAccount(values)
   }
 
@@ -236,12 +241,18 @@ class AccountConnection extends Component {
     }
   }
 
+  forceConnection () {
+    this.setState({submitting: true})
+    this.store.runAccount(this.props.connector, this.state.account)
+    .then(() => this.setState({submitting: false}))
+    .catch(error => this.handleError(error))
+  }
+
   render () {
-    const { t, connector, fields } = this.props
+    const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-    const { hasDescriptions } = connector
-    const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
+
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -251,73 +262,54 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { hasGlobalError
-              ? <DescriptionContent
-                cssClassesObject={{'coz-error': true}}
-                title={t('account.message.error.global.title')}
-                messages={[t('account.message.error.global.description', {name: connector.name})]}
-              />
+            { hasGlobalError && <DescriptionContent
+              cssClassesObject={{'coz-error': true}}
+              title={t('account.message.error.global.title')}
+              messages={[t('account.message.error.global.description', {name: connector.name})]}
+            /> }
 
-              : account && editing && !success
-                ? !connector.oauth &&
-                  <h4>{t('account.form.title')}</h4>
-                : !success && <DescriptionContent
-                  title={t('account.config.title', { name: connector.name })}
-                  messages={
-                    (hasDescriptions && hasDescriptions.connector)
-                    ? [t(`connector.${connector.slug}.description.connector`)]
-                    : []
-                  }
-                >
-                  {!connector.oauth &&
-                    <p className={styles['col-account-connection-security']}>
-                      <svg>
-                        <use xlinkHref={securityIcon} />
-                      </svg>
-                      {t('account.config.security')}
-                    </p>
-                  }
-                </DescriptionContent>
-            }
-            {success
-              ? <div>
-                <DescriptionContent
-                  title={t(`account.success.title.${success.type}`, { name: connector.name })}
-                  messages={success.messages}
-                >
-                  {Array.isArray(connector.dataType) && connector.dataType.includes('bill') &&
-                    <p>
-                      {t(`account.message.${success.type === SUCCESS_TYPES.TIMEOUT ? 'syncing' : 'synced'}.bill`, { name: connector.name })}
-                      <br />
-                      <span className={styles['col-account-success-highlighted-data']}>
-                        {this.state.account.auth.folderPath}
-                      </span>
-                    </p>
-                  }
-                </DescriptionContent>
-                <AccountLoginForm
-                  onAccountConfig={() => this.goToConfig()}
-                  onCancel={() => this.cancel()}
-                  isSuccess={!!success}
-                />
-              </div>
-              : <AccountLoginForm
-                connectorSlug={connector.slug}
-                isOAuth={connector.oauth}
-                oAuthTerminated={oAuthTerminated}
-                fields={fields}
-                submitting={submitting}
-                disableSuccessTimeout={this.props.disableSuccessTimeout}
-                deleting={deleting}
-                values={editing && account ? account.auth || account.oauth : {}}
-                error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
-                forceEnabled={!!error}
-                onDelete={() => this.deleteAccount()}
-                onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
-                onCancel={() => this.cancel()}
-              />
-            }
+            { editing && !success && <KonnectorSync
+              frequency={account && account.auth && account.auth.frequency}
+              date={account && account.lastSync}
+              submitting={submitting}
+              onForceConnection={() => this.forceConnection()}
+            /> }
+
+            { editing && !success && <KonnectorFolder
+              connector={connector}
+              account={account}
+              driveUrl={this.store.driveUrl}
+            /> }
+
+            { !success && <KonnectorAccount
+              connector={connector}
+              account={account}
+              fields={fields}
+              editing={editing}
+              disableSuccessTimeout={this.props.disableSuccessTimeout}
+              oAuthTerminated={oAuthTerminated}
+              isUnloading={isUnloading}
+              submitting={submitting}
+              deleting={deleting}
+              error={error}
+              onDelete={() => this.deleteAccount()}
+              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
+              onCancel={() => this.cancel()}
+            /> }
+
+            { success && <KonnectorSuccess
+              success={success}
+              connector={connector}
+              folderId={account.folderId}
+              driveUrl={this.store.driveUrl}
+              isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
+              folderPath={account && account.auth && account.auth.folderPath}
+              onAccountConfig={() => this.goToConfig()}
+              onCancel={() => this.cancel()}
+              isUnloading={isUnloading}
+            /> }
           </div>
+
           <AccountConnectionData
             connector={connector}
           />

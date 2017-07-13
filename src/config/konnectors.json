@@ -1,6 +1,17 @@
 [
   {
     "accounts":[],
+    "slug":"digiposte",
+    "name":"Digiposte",
+    "vendorLink":"https://secure.digiposte.fr",
+    "category":"other",
+    "color":{"hex":"#FBC32C","css":"linear-gradient(90deg, #EF0001 0%, #FBC32C 100%)"},
+    "dataType":["bill"],
+    "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"bouyguesbox",
     "name":"Bouygues Box",
     "vendorLink":"https://www.bouyguestelecom.fr/",
@@ -153,5 +164,16 @@
     "dataType":["bill", "contract", "consumption", "profile", "home"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"sncf",
+    "name":"Voyage-Sncf",
+    "vendorLink":"https://www.voyages-sncf.com/",
+    "category":"transport",
+    "color":{"hex":"#0088CE","css":"#0088CE"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
   }
 ]

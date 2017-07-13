@@ -1,0 +1,20 @@
+@import cozy-ui
+
+text-button-color_bis = #297ef1
+
+:local // @stylint ignore
+    .account-forceConnection
+        button
+            border      0
+            background  transparent
+            color       text-button-color_bis
+            font-weight bold
+            margin      0
+            padding     0
+
+        .submitting::after
+            content ''
+            margin  0 0 0 .5em
+            width   em(16px)
+            height  em(16px)
+            @extend $icon-spinner-blue

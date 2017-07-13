@@ -1,11 +1,11 @@
 import React from 'react'
-import { translate } from '../plugins/i18n'
-import ConnectorList from './ConnectorList'
+import { translate } from 'cozy-ui/react/I18n'
+import KonnectorList from './KonnectorList'
 
 const ConnectedList = ({ t, connectors, children }) => (
   <div className='content'>
     <h1>{t('nav.connected')}</h1>
-    <ConnectorList connectors={connectors} />
+    <KonnectorList connectors={connectors} />
     {children}
   </div>
 )

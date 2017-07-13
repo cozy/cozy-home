@@ -2,13 +2,12 @@ import styles from '../styles/connectorManagement.styl'
 
 import React, { Component } from 'react'
 
-import Modal from 'cozy-ui/react/Modal'
-import ModalContent from 'cozy-ui/react/Modal/Content'
+import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
 const AUTHORIZED_DATATYPE = require('config/datatypes')
-const isValidType = (type) => AUTHORIZED_DATATYPE.indexOf(type) !== -1
+const isValidType = (type) => AUTHORIZED_DATATYPE.includes(type)
 
 export default class ConnectorManagement extends Component {
   constructor (props, context) {
@@ -16,13 +15,6 @@ export default class ConnectorManagement extends Component {
     this.store = this.context.store
     const {t} = context
     const connector = this.store.find(c => c.slug === props.params.connectorSlug)
-    this.store.subscribeTo(
-      connector.id,
-      refreshedConnector => this.setState({
-        connector: refreshedConnector,
-        isInstalled: this.isInstalled(refreshedConnector)
-      })
-    )
     const { name, fields } = connector
 
     this.state = {
@@ -35,11 +27,16 @@ export default class ConnectorManagement extends Component {
       submitting: false,
       synching: false,
       deleting: false,
-      error: null
+      error: null,
+      isClosing: false
     }
 
-    this.store.fetchKonnectorInfos(props.params.connectorSlug)
-      .then(konnector => {
+    Promise.all([
+      this.store.fetchKonnectorInfos(props.params.connectorSlug),
+      this.store.fetchDriveUrl()
+    ])
+      .then(result => {
+        const [konnector] = result
         return this.store
           .fetchAccounts(props.params.connectorSlug)
           .then(accounts => {
@@ -48,7 +45,7 @@ export default class ConnectorManagement extends Component {
             konnector.accounts = accounts
             // do not loose previous connector attributes
             this.setState({
-              connector: Object.assign(konnector, this.state.connector),
+              connector: Object.assign({}, this.state.connector, konnector),
               isConnected: konnector.accounts.length !== 0 && !error,
               isWorking: false,
               error
@@ -65,19 +62,13 @@ export default class ConnectorManagement extends Component {
     return connector.state != null && connector.state === 'ready'
   }
 
-  closeModal () {
-    const { router } = this.context
-    const url = router.location.pathname
-    router.push(url.substring(0, url.lastIndexOf('/')))
-  }
-
   render () {
     const { accounts } = this.state.connector
-    const { selectedAccount, isWorking } = this.state
+    const { selectedAccount, isWorking, isClosing } = this.state
     const { t } = this.context
 
     return (
-      <Modal secondaryAction={() => this.closeModal()}>
+      <Modal secondaryAction={() => this.gotoParent()}>
         <ModalContent>
           {isWorking
             ? <div className={styles['installing']}>
@@ -88,6 +79,7 @@ export default class ConnectorManagement extends Component {
               existingAccount={accounts.length ? accounts[selectedAccount] : null}
               alertSuccess={(messages) => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
+              isUnloading={isClosing}
               {...this.state}
               {...this.context} />
           }
@@ -109,9 +101,14 @@ export default class ConnectorManagement extends Component {
   }
 
   gotoParent () {
-    const router = this.context.router
-    let url = router.location.pathname
-    router.push(url.substring(0, url.lastIndexOf('/')))
+    this.setState({isClosing: true})
+
+    // The setTimeout allows React to perform setState related actions
+    setTimeout(() => {
+      const router = this.context.router
+      let url = router.location.pathname
+      router.push(url.substring(0, url.lastIndexOf('/')))
+    }, 0)
   }
 
   selectAccount (idx) {

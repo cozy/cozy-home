@@ -1,11 +1,11 @@
 import React from 'react'
-import { translate } from '../plugins/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 const reload = () => {
   window.location.reload()
 }
 
-const Failure = ({ t, errorType }) => (
+export const Failure = ({ t, errorType }) => (
   <div className='con-error'>
     <h2>{ t(`error.${errorType}`) }</h2>
     <p>

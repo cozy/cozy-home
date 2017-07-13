@@ -1,0 +1,41 @@
+exports[`DescriptionContent component should be displayed correctly with just title and children 1`] = `
+<div
+  className="">
+  <h4
+    className="col-account-description-title">
+    A title mock
+  </h4>
+  Test description component children
+</div>
+`;
+
+exports[`DescriptionContent component should be displayed correctly with two messages 1`] = `
+<div
+  className="">
+  <h4
+    className="col-account-description-title">
+    A title mock
+  </h4>
+  <p
+    className="col-account-description-message">
+    <Unknown
+      source="**First** message \`here\`" />
+  </p>
+  <p
+    className="col-account-description-message">
+    <Unknown
+      source="second message with [link](https://examplelink.mock)" />
+  </p>
+  Test description component children
+</div>
+`;
+
+exports[`DescriptionContent component should handle css from props via cssClassesObject 1`] = `
+<div
+  className="col-mock-class">
+  <h4
+    className="col-account-description-title">
+    A title mock
+  </h4>
+</div>
+`;

@@ -5,6 +5,9 @@ import { Component } from 'react'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 
+const AUTHORIZED_CATEGORIES = require('config/categories')
+const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
+
 const INSTALL_TIMEOUT = 120 * 1000
 
 const sortByName = (a, b) => {
@@ -18,14 +21,17 @@ const sortByName = (a, b) => {
 export default class CollectStore {
   constructor (connectors, folders, context) {
     this.listener = null
-    this.connectors = connectors.sort(sortByName)
+    this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
+    this.categories = require('../config/categories')
+    this.driveUrl = null
   }
 
-  subscribeTo (connectorId, listener) {
-    this.listener = listener
-    return this.find(c => c.id === connectorId)
+  sanitizeCategories (connectors) {
+    return connectors.map(c => Object.assign({}, c, {
+      category: isValidCategory(c.category) ? c.category : 'others'
+    }))
   }
 
   sanitizeKonnector (konnector) {
@@ -71,10 +77,6 @@ export default class CollectStore {
     return updatedConnector
   }
 
-  getCategories () {
-    return this.connectors.map(a => a.category).filter((cat, idx, all) => all.indexOf(cat) === idx)
-  }
-
   getUseCases () {
     return this.useCases
   }
@@ -100,32 +102,49 @@ export default class CollectStore {
       .sort(sortByName)
   }
 
+  // Get the drive application url using the list of application
+  // FIXME this works only because we need the application list permission for the cozy-bar
+  // and this also supposes that the drive application has the 'drive' slug
+  fetchDriveUrl () {
+    return cozy.client.fetchJSON('GET', '/apps/')
+    .then(body => {
+      const driveapp = body.find(item => item.attributes.slug === 'drive')
+      if (driveapp && driveapp.links) {
+        this.driveUrl = `${driveapp.links.related}/#/files/`
+      }
+    })
+    .catch(err => {
+      console.warn(err)
+      return false
+    })
+  }
+
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return accounts.getAllAccounts(cozy.client)
-      .then(accounts => {
-        return Promise.all([accounts, konnectors.getAllErrors(cozy.client)])
-      })
-      .then((result) => {
-        const [accounts, errors] = result
-        const errorIndex = errors.reduce((memo, error) => {
-          memo[error.account] = error
-          return memo
-        }, {})
+    return Promise.all([
+      accounts.getAllAccounts(cozy.client),
+      konnectors.getAllErrors(cozy.client)
+    ])
+    .then((result) => {
+      const [accounts, errors] = result
+      const errorIndex = errors.reduce((memo, error) => {
+        memo[error.account] = error
+        return memo
+      }, {})
 
-        let accObject = {}
-        accounts.forEach(a => {
-          if (!accObject[a.account_type]) accObject[a.account_type] = []
-          if (errorIndex[a._id] && errorIndex[a._id].error) {
-            a.error = errorIndex[a._id].error
-            accObject[a.account_type].error = errorIndex[a._id].error
-          }
-          accObject[a.account_type].push(a)
-        })
-        this.connectors.forEach(c => {
-          c.accounts = accObject[c.slug] || []
-        })
+      let accObject = {}
+      accounts.forEach(a => {
+        if (!accObject[a.account_type]) accObject[a.account_type] = []
+        if (errorIndex[a._id] && errorIndex[a._id].error) {
+          a.error = errorIndex[a._id].error
+          accObject[a.account_type].error = errorIndex[a._id].error
+        }
+        accObject[a.account_type].push(a)
       })
+      this.connectors.forEach(c => {
+        c.accounts = accObject[c.slug] || []
+      })
+    })
   }
 
   // Account connection workflow, see
@@ -181,10 +200,10 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
-        if (
-          job.attributes.state !== konnectors.JOB_STATE.ERRORED &&
-          job.attributes.state !== konnectors.JOB_STATE.DONE
-        ) connection.successTimeout = true
+
+        const state = job.state || job.attributes.state
+        connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
+
         const slug = connection.konnector.slug || connection.konnector.attributes.slug
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
@@ -219,7 +238,7 @@ export default class CollectStore {
    * runAccount Runs an account
    * @param {object}  connector            A connector
    * @param {object}  account              the account to run, must belong to the connector
-   * @param {Boolean} disableSuccessTimeout Boolean to set a success timeout in the run method. Used by example by the onboarding
+   * @param {Boolean} disableSuccessTimeout Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
   runAccount (connector, account, disableSuccessTimeout) {
