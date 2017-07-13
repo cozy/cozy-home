@@ -22,19 +22,35 @@ class AccountConnection extends Component {
   constructor (props, context) {
     super(props, context)
     this.store = this.context.store
+    const konnector = props.connector
     this.state = {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
-      success: null
+      success: null,
+      submitting: this.store.isConnectionStatusRunning(konnector)
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
+
+    this.connectionListener = status => {
+      this.setState({
+        submitting: this.store.isConnectionStatusRunning(this.props.connector),
+        // dirty hack waiting for better account management in store
+        lastSync: Date.now()
+      })
+    }
+
+    this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
   componentWillReceiveProps ({ existingAccount }) {
     this.setState({
       account: existingAccount
     })
+  }
+
+  componentWillUnmount () {
+    this.store.removeConnectionStatusListener(this.props.connector, this.connectionListener)
   }
 
   connectAccount (auth) {
@@ -252,7 +268,7 @@ class AccountConnection extends Component {
     const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-
+    const lastSync = this.state.lastSync || account && account.lastSync
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -270,7 +286,7 @@ class AccountConnection extends Component {
 
             { editing && !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
-              date={account && account.lastSync}
+              date={lastSync}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
             /> }

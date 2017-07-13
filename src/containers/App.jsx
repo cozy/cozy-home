@@ -16,7 +16,7 @@ class App extends Component {
       isFetching: true
     }
 
-    this.store.fetchAllAccounts()
+    this.store.fetchInitialData(props.domain)
       .then(() => {
         this.setState({
           categories: this.store.categories,
@@ -24,6 +24,7 @@ class App extends Component {
         })
       })
       .catch(error => {
+        console.error(error)
         this.setState({
           isFetching: false,
           error
