@@ -200,11 +200,10 @@ export default class CollectStore {
       // 8. Creates trigger
       .then(job => {
         connection.job = job
+
         const state = job.state || job.attributes.state
-        if (
-          state !== konnectors.JOB_STATE.ERRORED &&
-          state !== konnectors.JOB_STATE.DONE
-        ) connection.successTimeout = true
+        connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
+
         const slug = connection.konnector.slug || connection.konnector.attributes.slug
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
