@@ -33,7 +33,7 @@ function subscribeWhenReady (doctype, socket) {
 }
 
 function getWebsocketProtocol () {
-  return window.location.protocol === 'https' ? 'wss' : 'ws'
+  return window.location.protocol === 'http:' ? 'ws' : 'wss'
 }
 
 function getCozySocket (cozy) {
