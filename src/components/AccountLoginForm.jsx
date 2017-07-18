@@ -8,7 +8,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading, giveFocus = true }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, inputToFocus, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading, giveFocus = true }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   let hasFocused = !giveFocus
@@ -39,31 +39,46 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   name={inputName}
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
-                  giveFocus={!hasFocused}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
                   })}
                 />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
               break
             case 'dropdown':
               fieldReact = <div>
                 {description}
                 <DropdownField
                   label={t(`account.form.label.${name}`)}
-                  giveFocus={!hasFocused}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   {...fields[name]} />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
               break
             case 'checkbox':
               fieldReact = <div>
                 {description}
                 <CheckboxField
                   label={t(`account.form.label.${name}`)}
-                  giveFocus={!hasFocused}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   {...fields[name]} />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
               break
             default:
               fieldReact = <div>
@@ -71,19 +86,20 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                 <Field
                   label={t(`account.form.label.${name}`)}
                   name={inputName}
-                  giveFocus={!hasFocused && !readOnly}
                   readOnly={readOnly}
                   invalid={!!error}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
                   })}
                 />
               </div>
-          }
 
-          if (!hasFocused && !readOnly) {
-            hasFocused = true
+              if (!hasFocused && !readOnly) {
+                hasFocused = true
+              }
           }
 
           return fieldReact

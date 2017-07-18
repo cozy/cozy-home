@@ -17,12 +17,12 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill, giveFocus = false } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill, inputToFocus, hasFocused } = props
     inputs = (
       <input
         type={type}
         placeholder={placeholder}
-        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input']) : styles['coz-field-input']}
+        className={styles['coz-field-input']}
         readonly={readOnly}
         disabled={disabled || readOnly}
         value={value}
@@ -30,6 +30,11 @@ const Field = (props) => {
         onChange={onChange}
         onInput={onInput}
         autocomplete={noAutoFill ? 'new-password' : 'on'}
+        ref={(input) => {
+          if (!hasFocused && !readOnly) {
+            inputToFocus(input)
+          }
+        }}
       />
     )
   }
@@ -42,7 +47,7 @@ const Field = (props) => {
 
 export default Field
 
-export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children }) => {
+export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children, inputToFocus, hasFocused }) => {
   const conditionals = {
     'coz-field--required': required === true,
     'coz-field--error': (errors.length !== 0) || invalid,
@@ -75,7 +80,7 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill, giveFocus = false } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill, inputToFocus, hasFocused } = props
       return (
         <FieldWrapper {...props}>
           <button
@@ -93,12 +98,17 @@ export const PasswordField = translate()(
           <input
             type={visible ? 'text' : 'password'}
             placeholder={placeholder}
-            className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input']) : styles['coz-field-input']}
+            className={styles['coz-field-input']}
             value={value}
             name={name}
             onChange={onChange}
             onInput={onInput}
             autocomplete={noAutoFill ? 'new-password' : 'on'}
+            ref={(input) => {
+              if (!hasFocused) {
+                inputToFocus(input)
+              }
+            }}
           />
         </FieldWrapper>
       )
@@ -107,17 +117,22 @@ export const PasswordField = translate()(
 )
 
 export const DropdownField = translate()((props) => {
-  const { value, options, onChange, onInput, giveFocus = false } = props
+  const { value, options, onChange, onInput, inputToFocus, hasFocused } = props
   let valueInOptions = options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
 
   return (
     <FieldWrapper {...props}>
       <select
-        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-dropdown']) : styles['coz-field-dropdown']}
+        className={styles['coz-field-dropdown']}
         value={value}
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
@@ -131,28 +146,38 @@ export const DropdownField = translate()((props) => {
 })
 
 export const CheckboxField = translate()((props) => {
-  const { value, onChange, onInput, required, label, dirty, touched, errors, giveFocus = false } = props
+  const { value, onChange, onInput, required, label, dirty, touched, errors, inputToFocus, hasFocused } = props
   let input
 
   if (value) {
     input = (
       <input
         type='checkbox'
-        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input-checkbox']) : styles['coz-field-input-checkbox']}
+        className={styles['coz-field-input-checkbox']}
         value={value}
         checked='checked'
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       />
       )
   } else {
     input = (
       <input
         type='checkbox'
-        className={giveFocus ? classNames('coz-giveFocus', styles['coz-field-input-checkbox']) : styles['coz-field-input-checkbox']}
+        className={styles['coz-field-input-checkbox']}
         value={value}
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       />
       )
   }
