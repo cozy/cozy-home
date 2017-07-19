@@ -17,7 +17,7 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill } = props
+    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill, inputToFocus, hasFocused } = props
     inputs = (
       <input
         type={type}
@@ -30,6 +30,11 @@ const Field = (props) => {
         onChange={onChange}
         onInput={onInput}
         autocomplete={noAutoFill ? 'new-password' : 'on'}
+        ref={(input) => {
+          if (!hasFocused && !readOnly) {
+            inputToFocus(input)
+          }
+        }}
       />
     )
   }
@@ -42,7 +47,7 @@ const Field = (props) => {
 
 export default Field
 
-export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children }) => {
+export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children, inputToFocus, hasFocused }) => {
   const conditionals = {
     'coz-field--required': required === true,
     'coz-field--error': (errors.length !== 0) || invalid,
@@ -75,7 +80,7 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill, inputToFocus, hasFocused } = props
       return (
         <FieldWrapper {...props}>
           <button
@@ -99,6 +104,11 @@ export const PasswordField = translate()(
             onChange={onChange}
             onInput={onInput}
             autocomplete={noAutoFill ? 'new-password' : 'on'}
+            ref={(input) => {
+              if (!hasFocused) {
+                inputToFocus(input)
+              }
+            }}
           />
         </FieldWrapper>
       )
@@ -107,7 +117,7 @@ export const PasswordField = translate()(
 )
 
 export const DropdownField = translate()((props) => {
-  const { value, options, onChange, onInput } = props
+  const { value, options, onChange, onInput, inputToFocus, hasFocused } = props
   let valueInOptions = options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
 
@@ -118,6 +128,11 @@ export const DropdownField = translate()((props) => {
         value={value}
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
@@ -131,7 +146,7 @@ export const DropdownField = translate()((props) => {
 })
 
 export const CheckboxField = translate()((props) => {
-  const { value, onChange, onInput, required, label, dirty, touched, errors } = props
+  const { value, onChange, onInput, required, label, dirty, touched, errors, inputToFocus, hasFocused } = props
   let input
 
   if (value) {
@@ -143,6 +158,11 @@ export const CheckboxField = translate()((props) => {
         checked='checked'
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       />
       )
   } else {
@@ -153,6 +173,11 @@ export const CheckboxField = translate()((props) => {
         value={value}
         onChange={onChange}
         onInput={onInput}
+        ref={(input) => {
+          if (!hasFocused) {
+            inputToFocus(input)
+          }
+        }}
       />
       )
   }

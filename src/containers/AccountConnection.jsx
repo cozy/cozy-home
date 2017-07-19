@@ -27,7 +27,8 @@ class AccountConnection extends Component {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       success: null,
-      submitting: this.store.isConnectionStatusRunning(konnector)
+      submitting: this.store.isConnectionStatusRunning(konnector),
+      inputToFocus: null
     }
 
     if (this.props.error) this.handleError({message: this.props.error})
@@ -51,6 +52,13 @@ class AccountConnection extends Component {
 
   componentWillUnmount () {
     this.store.removeConnectionStatusListener(this.props.connector, this.connectionListener)
+  }
+
+  componentDidMount () {
+    const inputToFocus = this.state.inputToFocus
+    if (inputToFocus && inputToFocus.focus) {
+      inputToFocus.focus()
+    }
   }
 
   connectAccount (auth) {
@@ -266,7 +274,7 @@ class AccountConnection extends Component {
 
   render () {
     const { t, connector, fields, isUnloading } = this.props
-    const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
+    const { submitting, oAuthTerminated, deleting, error, success, account, editing, inputToFocus } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const lastSync = this.state.lastSync || account && account.lastSync
     return (
@@ -301,6 +309,11 @@ class AccountConnection extends Component {
               connector={connector}
               account={account}
               fields={fields}
+              inputToFocus={el => {
+                if (!inputToFocus) {
+                  this.setState({inputToFocus: el})
+                }
+              }}
               editing={editing}
               disableSuccessTimeout={this.props.disableSuccessTimeout}
               oAuthTerminated={oAuthTerminated}

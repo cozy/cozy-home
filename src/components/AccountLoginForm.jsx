@@ -8,11 +8,13 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, inputToFocus, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading, giveFocus = true }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
+  let hasFocused = !giveFocus
+
   return (
-    <div className={styles['account-form-login']}>
+    <form className={styles['account-form-login']} action='#' onSubmit={(e) => e.preventDefault()}>
       {error &&
         <p className='errors'>
           {t('account.message.error.bad_credentials')}
@@ -25,47 +27,82 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           const description = fields[name].hasDescription
             ? <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />
             : ''
+          const readOnly = name === 'login' && isUpdate
+
+          let fieldReact
           switch (fields[name].type) {
             case 'password':
-              return <div>
+              fieldReact = <div>
                 {description}
                 <PasswordField
                   label={t(`account.form.label.${name}`)}
                   name={inputName}
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
                   })}
                 />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
+              break
             case 'dropdown':
-              return <div>
+              fieldReact = <div>
                 {description}
-                <DropdownField label={t(`account.form.label.${name}`)} {...fields[name]} />
+                <DropdownField
+                  label={t(`account.form.label.${name}`)}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
+                  {...fields[name]} />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
+              break
             case 'checkbox':
-              return <div>
+              fieldReact = <div>
                 {description}
-                <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />
+                <CheckboxField
+                  label={t(`account.form.label.${name}`)}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
+                  {...fields[name]} />
               </div>
+
+              if (!hasFocused) {
+                hasFocused = true
+              }
+              break
             default:
-              const readOnly = name === 'login' && isUpdate
-              return <div>
+              fieldReact = <div>
                 {description}
                 <Field
                   label={t(`account.form.label.${name}`)}
                   name={inputName}
                   readOnly={readOnly}
                   invalid={!!error}
+                  inputToFocus={inputToFocus}
+                  hasFocused={hasFocused}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
                   })}
                 />
               </div>
+
+              if (!hasFocused && !readOnly) {
+                hasFocused = true
+              }
           }
+
+          return fieldReact
         }
       )}
       { isUpdate &&
@@ -75,6 +112,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             {t('account.disconnect.description')}
           </p>
           <button
+            type='button'
             className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
             disabled={deleting}
             aria-busy={deleting}
@@ -86,6 +124,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
       <div className={styles['coz-form-controls']}>
         { isUpdate && !isOAuth &&
           <button
+            type='button'
             className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
             onClick={onCancel}
           >
@@ -94,6 +133,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
         }
         { (!(isUpdate && isOAuth) && !isSuccess) &&
           <button
+            type='submit'
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
             aria-busy={submitting && disableSuccessTimeout ? 'true' : 'false'}
@@ -106,7 +146,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           <FixedProgress duration='32000' />
         }
       </div>
-    </div>
+    </form>
   )
 }
 
