@@ -8,9 +8,10 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, onAccountConfig, disableSuccessTimeout, isUnloading }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
+  let alreadyFocused = false
   return (
     <div className={styles['account-form-login']}>
       {error &&
@@ -20,11 +21,17 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
       }
       {!!fields && Object.keys(fields)
         .filter(name => !fields[name].advanced)
-        .map(name => {
+        .map((name, idx) => {
+          const readOnly = name === 'login' && isUpdate
+          const giveFocus = !alreadyFocused && !readOnly
+          if (giveFocus) alreadyFocused = giveFocus
           const inputName = `${name}_${connectorSlug}`
           const description = fields[name].hasDescription
             ? <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />
             : ''
+          const onEnterKey = () => {
+            if ((!(isUpdate && isOAuth) && !isSuccess) && !submitting && submitEnabled) submit()
+          }
           switch (fields[name].type) {
             case 'password':
               return <div>
@@ -34,6 +41,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   name={inputName}
                   placeholder={t('account.form.placeholder.password')}
                   invalid={!!error}
+                  giveFocus={giveFocus}
+                  onEnterKey={onEnterKey}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
@@ -51,7 +60,6 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                 <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />
               </div>
             default:
-              const readOnly = name === 'login' && isUpdate
               return <div>
                 {description}
                 <Field
@@ -59,6 +67,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   name={inputName}
                   readOnly={readOnly}
                   invalid={!!error}
+                  giveFocus={giveFocus && !readOnly}
+                  onEnterKey={onEnterKey}
                   noAutoFill
                   {...Object.assign({}, fields[name], {
                     value: isUnloading ? '' : fields[name].value
