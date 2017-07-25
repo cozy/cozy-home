@@ -220,7 +220,7 @@ export default class CollectStore {
     .then(body => {
       const driveapp = body.find(item => item.attributes.slug === 'drive')
       if (driveapp && driveapp.links) {
-        this.driveUrl = `${driveapp.links.related}/#/files/`
+        this.driveUrl = `${driveapp.links.related}#/files/`
       }
     })
     .catch(err => {
