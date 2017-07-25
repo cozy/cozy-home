@@ -10,7 +10,7 @@ const UseCaseDialog = ({ t, item, connectors, context, router }) => {
   }
 
   return (<Modal
-    title={t(`use-case ${item.slug} title`)}
+    title={t(`useCase.${item.slug}.title`)}
     secondaryAction={() => gotoParent()}
   >
     <ModalContent>
