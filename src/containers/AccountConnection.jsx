@@ -100,9 +100,16 @@ class AccountConnection extends Component {
       oAuthTerminated: false
     })
 
+    // TODO: Quick and Dirty account type <=> scope link.
+    const scopesBySlug = {
+      orangemobile: 'M',
+      orangelivebox: 'I',
+      maif: 'openid+profile+offline_access'
+    }
+
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=${scopesBySlug[accountType]}&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
       return this.terminateOAuth(accountID, values)
