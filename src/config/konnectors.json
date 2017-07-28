@@ -1,6 +1,17 @@
 [
   {
     "accounts":[],
+    "slug":"redmobile",
+    "name":"SFR RED mobile",
+    "vendorLink":"https://www.red-by-sfr.fr/",
+    "category":"telecom",
+    "color":{"hex":"#00E791","css":"#00E791"},
+    "dataType":["bill"],
+    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"digiposte",
     "name":"Digiposte",
     "vendorLink":"https://secure.digiposte.fr",
