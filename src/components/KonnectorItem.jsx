@@ -45,7 +45,7 @@ class KonnectorItem extends Component {
     this.store.removeConnectionStatusListener(this.props.konnector, this.connectionListener)
   }
 
-  render ({ konnector, jobs, router }) {
+  render ({ t, konnector, jobs, router }) {
     const { status } = this.state
     const { category, name, slug } = konnector
     return (
@@ -54,7 +54,7 @@ class KonnectorItem extends Component {
           <img className='item-icon' src={icon(slug)} />
         </header>
         <p className='item-title'>{name}</p>
-        {category && <p className='item-subtitle'>{category}</p>}
+        {category && <p className='item-subtitle'>{t(`category.${category}`)}</p>}
         {status && stateIcon(status)}
       </Link>
     )
