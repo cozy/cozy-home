@@ -1,5 +1,4 @@
 import { introJs } from 'intro.js'
-import isMobile from 'ismobilejs'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
@@ -82,16 +81,14 @@ export function display (t) {
     window.location.hash = '#/discovery'
   })
   .start()
-  if (isMobile.phone) {
-    const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
-    const clickAction = (e) => {
-      if (e.srcElement.tagName !== 'A') {
-        e.stopPropagation()
-        tutorial.nextStep()
-      }
+  const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
+  const clickAction = (e) => {
+    if (e.srcElement.tagName !== 'A') {
+      e.stopPropagation()
+      tutorial.nextStep()
     }
-    for (const elem of document.querySelectorAll(clickZone)) {
-      elem.onclick = clickAction
-    }
+  }
+  for (const elem of document.querySelectorAll(clickZone)) {
+    elem.onclick = clickAction
   }
 }
