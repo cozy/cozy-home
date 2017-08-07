@@ -7,7 +7,12 @@
     "category":"insurance",
     "color":{"hex":"#0062AE","css":"#0062AE"},
     "dataType":["bill"],
-    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
+    "fields":{
+      "login":{"type":"text"},
+      "password":{"type":"password"},
+      "bank_identifier": {"type": "text"},
+      "folderPath":{"type":"folder","advanced":true}
+    },
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
