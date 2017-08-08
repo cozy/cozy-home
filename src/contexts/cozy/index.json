@@ -4,6 +4,8 @@
     "connectors": [{
       "slug": "sfrmobile"
     }, {
+      "slug": "redmobile"
+    }, {
       "slug": "bouyguestelecom"
     }, {
       "slug": "sosh"
