@@ -34,6 +34,17 @@
     "figure": "facture-fournisseur-internet-lg.jpg",
     "color": {"css": "#1FA8F1"},
     "important": true
+  },
+  {
+    "slug": "transportation-bills",
+    "connectors": [{
+      "slug": "trainline"
+    }, {
+      "slug": "sncf"
+    }],
+    "figure": "regroupement-agendas-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
   }]
 
 }
