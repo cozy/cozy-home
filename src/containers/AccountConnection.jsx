@@ -234,6 +234,10 @@ class AccountConnection extends Component {
   }
 
   submit (values) {
+    this.setState({
+      error: null
+    })
+
     return this.props.connector && this.props.connector.oauth
          ? this.connectAccountOAuth(this.props.connector.slug, values)
          : this.connectAccount(values)
