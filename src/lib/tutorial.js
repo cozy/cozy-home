@@ -83,7 +83,7 @@ export function display (t) {
   .start()
   const clickZone = '.introjs-disableInteraction, .introjs-overlay, .introjs-tooltiptext, .introjs-tooltipbuttons'
   const clickAction = (e) => {
-    if (e.srcElement.tagName !== 'A') {
+    if (e.target.tagName !== 'A') {
       e.stopPropagation()
       tutorial.nextStep()
     }
