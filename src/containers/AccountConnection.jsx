@@ -45,6 +45,23 @@ class AccountConnection extends Component {
     this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
+  getFolderPathIfNecessary (connector, account) {
+    const { t } = this.context
+    const folderField = connector && connector.fields && connector.fields.folderPath
+    if (!folderField) return null
+    const auth = account && account.auth
+    if (!folderField.default && auth && !auth.folderPath) {
+      return t('account.config.default_folder', connector)
+    }
+    if (folderField.default) {
+      return folderField.default
+    }
+    if (auth && auth.folderPath) {
+      return account.folderPath
+    }
+    return null
+  }
+
   componentWillReceiveProps ({ existingAccount }) {
     this.setState({
       account: existingAccount
@@ -275,6 +292,7 @@ class AccountConnection extends Component {
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const lastSync = this.state.lastSync || account && account.lastSync
+    const folderPath = this.getFolderPathIfNecessary(connector, account)
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -315,7 +333,7 @@ class AccountConnection extends Component {
               deleting={deleting}
               error={error}
               onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath: t('account.config.default_folder', connector)}))}
+              onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
               onCancel={() => this.cancel()}
             /> }
 
@@ -325,7 +343,7 @@ class AccountConnection extends Component {
               folderId={account.folderId}
               driveUrl={this.store.driveUrl}
               isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
-              folderPath={account && account.auth && account.auth.folderPath}
+              folderPath={folderPath}
               onAccountConfig={() => this.goToConfig()}
               onCancel={() => this.cancel()}
               isUnloading={isUnloading}
