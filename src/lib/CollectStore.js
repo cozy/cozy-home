@@ -462,7 +462,9 @@ export default class CollectStore {
   }
 
   konnectorHasAccount (konnector) {
-    return !!konnector.accounts.length
+    const slug = konnector.slug || konnector.attributes.slug
+    const legacyKonnector = this.getKonnectorBySlug(slug)
+    return legacyKonnector && !!legacyKonnector.accounts.length
   }
 
   // Selector to get KonnectorStatus
@@ -497,7 +499,7 @@ export default class CollectStore {
       return CONNECTION_STATUS.RUNNING
     }
 
-    if (!this.konnectorHasAccount(this.getKonnectorBySlug(slug))) {
+    if (!this.konnectorHasAccount(konnector)) {
       return null
     }
 
