@@ -536,6 +536,21 @@ export default class CollectStore {
       this.connectionStatusListeners.set(slug, listeners.filter(l => l._id !== listener._id))
     }
   }
+
+  getConnectionError (konnector) {
+    const noAccount = !this.konnectorHasAccount(konnector)
+    if (noAccount) return null
+
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const konnectorResult = this.konnectorResults.get(slug)
+
+    if (konnectorResult && konnectorResult.error) {
+      return new Error(konnectorResult.error)
+    }
+
+    return null
+  }
 }
 
 export class Provider extends Component {
