@@ -113,7 +113,6 @@ class AccountConnection extends Component {
   }
 
   terminateOAuth (accountID, folderPath) {
-    const { t } = this.context
     const { slug } = this.props.connector
 
     this.setState({
@@ -129,7 +128,7 @@ class AccountConnection extends Component {
             const currentIdx = accounts.findIndex(a => a._id === accountID)
             const account = accounts[currentIdx]
             this.setState({account: account})
-            account.folderPath = account.folderPath || t('account.config.default_folder', konnector)
+            if (folderPath) account.folderPath = folderPath
             return this.runConnection(accounts[currentIdx], folderPath)
               .then(connection => {
                 this.setState({
@@ -315,7 +314,7 @@ class AccountConnection extends Component {
               onForceConnection={() => this.forceConnection()}
             /> }
 
-            { editing && !success && <KonnectorFolder
+            { editing && !success && folderPath && <KonnectorFolder
               connector={connector}
               account={account}
               driveUrl={this.store.driveUrl}

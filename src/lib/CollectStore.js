@@ -284,8 +284,16 @@ export default class CollectStore {
     // detect oauth case
     const isOAuth = !!account.oauth
 
+    function createDirectoryIfNecessary (folderPath) {
+      if (folderPath) {
+        return cozy.client.files.createDirectoryByPath(folderPath)
+      } else {
+        return Promise.resolve({_id: null})
+      }
+    }
+
     // 1. Create folder, will be replaced by an intent or something else
-    return cozy.client.files.createDirectoryByPath(folderPath)
+    return createDirectoryIfNecessary(folderPath)
       // 2. Create account
       .then(folder => {
         connection.folder = folder
@@ -308,14 +316,16 @@ export default class CollectStore {
       .then(konnector => {
         return konnectors.addAccount(cozy.client, konnector, connection.account)
       })
-      // 5. Add permissions to folder for konnector
+      // 5. Add permissions to folder for konnector if folder created
       .then(konnector => {
         connection.konnector = konnector
         this.updateConnector(konnector)
+        if (!connection.folder._id) return Promise.resolve()
         return konnectors.addFolderPermission(cozy.client, konnector, connection.folder._id)
       })
       // 6. Reference konnector in folder
       .then(permission => {
+        if (!permission) return Promise.resolve()
         connection.permission = permission
         return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder._id)
       })
