@@ -27,7 +27,8 @@ class AccountConnection extends Component {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       success: null,
-      submitting: this.store.isConnectionStatusRunning(konnector)
+      submitting: this.store.isConnectionStatusRunning(konnector),
+      error: this.store.getConnectionError(konnector)
     }
 
     if (this.props.error) this.handleError({message: this.props.error})

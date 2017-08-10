@@ -462,7 +462,9 @@ export default class CollectStore {
   }
 
   konnectorHasAccount (konnector) {
-    return !!konnector.accounts.length
+    const slug = konnector.slug || konnector.attributes.slug
+    const legacyKonnector = this.getKonnectorBySlug(slug)
+    return legacyKonnector && !!legacyKonnector.accounts.length
   }
 
   // Selector to get KonnectorStatus
@@ -497,7 +499,7 @@ export default class CollectStore {
       return CONNECTION_STATUS.RUNNING
     }
 
-    if (!this.konnectorHasAccount(this.getKonnectorBySlug(slug))) {
+    if (!this.konnectorHasAccount(konnector)) {
       return null
     }
 
@@ -533,6 +535,21 @@ export default class CollectStore {
     if (listeners && listeners.includes(listener)) {
       this.connectionStatusListeners.set(slug, listeners.filter(l => l._id !== listener._id))
     }
+  }
+
+  getConnectionError (konnector) {
+    const noAccount = !this.konnectorHasAccount(konnector)
+    if (noAccount) return null
+
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const konnectorResult = this.konnectorResults.get(slug)
+
+    if (konnectorResult && konnectorResult.error) {
+      return new Error(konnectorResult.error)
+    }
+
+    return null
   }
 }
 
