@@ -78,7 +78,8 @@ export function unlinkFolder (cozy, konnector, folderId) {
 }
 
 export function fetchResult (cozy, konnector) {
-  return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, konnector.slug)
+  const slug = konnector.slug || konnector.attributes.slug
+  return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, slug)
 }
 
 export function findAll (cozy) {
