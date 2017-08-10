@@ -11,6 +11,10 @@ function decode (job) {
   return { ...job, ...JSON.parse(window.atob(job.message.Data)) }
 }
 
+export function findById (cozy, id) {
+  return cozy.fetchJSON('GET', `/jobs/${id}`)
+}
+
 export function find (cozy, query) {
   return cozy.data.defineIndex(JOBS_DOCTYPE, Object.keys(query))
     // TODO: cache the index

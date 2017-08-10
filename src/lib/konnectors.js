@@ -210,8 +210,15 @@ function waitForJobFinished (cozy, job, disableSuccessTimeout, successTimeout) {
 
         if (!disableSuccessTimeout) {
           idTimeout = setTimeout(() => {
-            resolve(job)
             subscription.unsubscribe()
+            // Ensure that job is not errored in case of realtime issues.
+            jobs.findById(cozy, job._id)
+              .then(job => {
+                if (job.attributes.state === JOB_STATE.ERRORED) {
+                  return reject(new Error(job.attributes.error))
+                }
+                resolve(job)
+              })
           }, successTimeout)
         }
 
