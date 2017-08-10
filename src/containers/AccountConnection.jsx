@@ -36,6 +36,7 @@ class AccountConnection extends Component {
     this.connectionListener = status => {
       this.setState({
         submitting: this.store.isConnectionStatusRunning(this.props.connector),
+        error: this.store.getConnectionError(this.props.connector),
         // dirty hack waiting for better account management in store
         lastSync: Date.now()
       })
