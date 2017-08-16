@@ -288,7 +288,7 @@ export default class CollectStore {
       if (folderPath) {
         return cozy.client.files.createDirectoryByPath(folderPath)
       } else {
-        return Promise.resolve({_id: null})
+        return Promise.resolve(null)
       }
     }
 
@@ -296,15 +296,16 @@ export default class CollectStore {
     return createDirectoryIfNecessary(folderPath)
       // 2. Create account
       .then(folder => {
-        connection.folder = folder
+        const folderID = folder ? folder._id : null
+        connection.folderID = folderID
         if (isOAuth) {
           const newAttributes = {
-            folderId: folder._id,
+            folderId: folderID,
             status: 'PENDING'
           }
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
-          return accounts.create(cozy.client, konnector, account.auth, folder)
+          return accounts.create(cozy.client, konnector, account.auth, folderID)
         }
       })
       // 3. Konnector installation
@@ -320,14 +321,14 @@ export default class CollectStore {
       .then(konnector => {
         connection.konnector = konnector
         this.updateConnector(konnector)
-        if (!connection.folder._id) return Promise.resolve()
-        return konnectors.addFolderPermission(cozy.client, konnector, connection.folder._id)
+        if (!connection.folderID) return Promise.resolve()
+        return konnectors.addFolderPermission(cozy.client, konnector, connection.folderID)
       })
       // 6. Reference konnector in folder
       .then(permission => {
         if (!permission) return Promise.resolve()
         connection.permission = permission
-        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder._id)
+        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folderID)
       })
       // 7. Run a job for the konnector
       .then(() => konnectors.run(
@@ -353,7 +354,7 @@ export default class CollectStore {
               worker_arguments: {
                 konnector: slug,
                 account: connection.account._id,
-                folder_to_save: connection.folder._id
+                folder_to_save: connection.folderID
               }
             }
           }

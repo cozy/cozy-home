@@ -88,7 +88,7 @@ beforeEach(() => {
 
 describe('accounts library', () => {
   it('should handle account creation', () => {
-    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock, 'mock')
+    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock._id, 'mock')
       .then(account => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
         expect(cozyMock.data.create.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
@@ -103,7 +103,7 @@ describe('accounts library', () => {
   })
 
   it('should handle account creation without name', () => {
-    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock)
+    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock._id)
       .then(account => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
         expect(cozyMock.data.create.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
