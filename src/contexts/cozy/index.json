@@ -4,6 +4,8 @@
     "connectors": [{
       "slug": "sfrmobile"
     }, {
+      "slug": "redmobile"
+    }, {
       "slug": "bouyguestelecom"
     }, {
       "slug": "sosh"
@@ -30,6 +32,17 @@
       "slug": "free"
     }],
     "figure": "facture-fournisseur-internet-lg.jpg",
+    "color": {"css": "#1FA8F1"},
+    "important": true
+  },
+  {
+    "slug": "transportation-bills",
+    "connectors": [{
+      "slug": "trainline"
+    }, {
+      "slug": "sncf"
+    }],
+    "figure": "regroupement-transportation-lg.jpg",
     "color": {"css": "#1FA8F1"},
     "important": true
   }]

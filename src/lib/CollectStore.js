@@ -4,9 +4,16 @@ import { Component } from 'react'
 
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
+import * as jobs from './jobs'
 
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
+
+export const CONNECTION_STATUS = {
+  ERRORED: 'errored',
+  RUNNING: 'running',
+  CONNECTED: 'connected'
+}
 
 const INSTALL_TIMEOUT = 120 * 1000
 
@@ -21,11 +28,100 @@ const sortByName = (a, b) => {
 export default class CollectStore {
   constructor (connectors, folders, context) {
     this.listener = null
+
+    // Store all existing konnectorResults (one per konnector/account)
+    // to be able to determine account connection state.
+    this.konnectorResults = new Map()
+    // Listeners on connection statuses
+    this.connectionStatusListeners = new Map()
+
+    // Store all the currently running jobs related to konnectors
+    this.runningJobs = new Map()
+
+    // Installing/installed konnectors
+    this.installedKonnectors = new Map()
+
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
     this.driveUrl = null
+
+    this.initializeRealtime()
+  }
+
+  // Populate the store
+  fetchInitialData (domain) {
+    return Promise.all([
+      this.fetchAllAccounts(),
+      this.fetchInstalledKonnectors(),
+      this.fetchKonnectorResults(),
+      this.fetchKonnectorRunningJobs(domain)
+    ])
+  }
+
+  initializeRealtime () {
+    jobs.subscribeAll(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(job => this.updateRunningJob(job))
+          .onUpdate(job => this.updateRunningJob(job))
+          .onDelete(job => this.deleteRunningJob(job))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
+      })
+
+    konnectors.subscribeAll(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(konnector => this.updateInstalledKonnector(konnector))
+          .onUpdate(konnector => this.updateInstalledKonnector(konnector))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime for konnectors: ${error.message}`)
+      })
+
+    konnectors.subscribeAllResults(cozy.client)
+      .then(subscription => {
+        subscription
+          .onCreate(result => this.updateKonnectorResult(result))
+          .onUpdate(result => this.updateKonnectorResult(result))
+      })
+      .catch(error => {
+        console.warn && console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
+      })
+  }
+
+  updateInstalledKonnector (konnector) {
+    const slug = konnector.slug || konnector.attributes.slug
+    this.installedKonnectors.set(slug, konnector)
+    this.triggerConnectionStatusUpdate(this.getKonnectorBySlug(slug))
+  }
+
+  updateKonnectorResult (konnectorResult) {
+    const slug = konnectorResult._id
+    const konnector = this.getKonnectorBySlug(slug)
+    this.konnectorResults.set(slug, konnectorResult)
+    this.triggerConnectionStatusUpdate(konnector)
+  }
+
+  updateRunningJob (job) {
+    if (job.state !== jobs.JOB_STATE.RUNNING) {
+      return this.deleteRunningJob(job)
+    }
+
+    const slug = job.konnector
+    const konnector = this.getKonnectorBySlug(slug)
+    this.runningJobs.set(slug, job)
+    this.triggerConnectionStatusUpdate(konnector)
+  }
+
+  deleteRunningJob (job) {
+    const slug = job.konnector
+    const konnector = this.getKonnectorBySlug(slug)
+    const deleted = this.runningJobs.delete(slug)
+    if (deleted) this.triggerConnectionStatusUpdate(konnector)
   }
 
   sanitizeCategories (connectors) {
@@ -58,6 +154,20 @@ export default class CollectStore {
   // Merge source into target
   mergeKonnectors (source, target) {
     return Object.assign({}, target, this.sanitizeKonnector(source))
+  }
+
+  triggerConnectionStatusUpdate (konnector) {
+    const slug = konnector.slug || konnector.attributes.slug
+    const listeners = this.connectionStatusListeners.get(slug)
+    if (listeners) {
+      listeners.forEach(listener => {
+        listener(this.getConnectionStatus(konnector))
+      })
+    }
+  }
+
+  getKonnectorBySlug (slug) {
+    return this.connectors.find(connector => connector.slug === slug)
   }
 
   updateConnector (connector) {
@@ -110,7 +220,7 @@ export default class CollectStore {
     .then(body => {
       const driveapp = body.find(item => item.attributes.slug === 'drive')
       if (driveapp && driveapp.links) {
-        this.driveUrl = `${driveapp.links.related}/#/files/`
+        this.driveUrl = `${driveapp.links.related}#/files/`
       }
     })
     .catch(err => {
@@ -119,31 +229,50 @@ export default class CollectStore {
     })
   }
 
+  fetchInstalledKonnectors () {
+    return konnectors
+      .findAll(cozy.client)
+      .then(konnectors => {
+        konnectors.forEach(konnector => {
+          this.installedKonnectors.set(konnector.slug, konnector)
+        })
+      })
+  }
+
+  fetchKonnectorResults () {
+    return konnectors
+      .findAllResults(cozy.client)
+      .then(konnectorResults => {
+        konnectorResults.forEach((konnectorResult) => {
+          this.konnectorResults.set(konnectorResult._id, konnectorResult)
+        })
+        return konnectorResults
+      })
+  }
+
   // Fetch all accounts and updates their matching connectors
   fetchAllAccounts () {
-    return Promise.all([
-      accounts.getAllAccounts(cozy.client),
-      konnectors.getAllErrors(cozy.client)
-    ])
-    .then((result) => {
-      const [accounts, errors] = result
-      const errorIndex = errors.reduce((memo, error) => {
-        memo[error.account] = error
-        return memo
-      }, {})
+    return accounts
+      .getAllAccounts(cozy.client)
+      .then(accounts => {
+        this.connectors.forEach(konnector => {
+          konnector.accounts = accounts.filter(account => account.account_type === konnector.slug)
+        })
+        return accounts
+      })
+  }
 
-      let accObject = {}
-      accounts.forEach(a => {
-        if (!accObject[a.account_type]) accObject[a.account_type] = []
-        if (errorIndex[a._id] && errorIndex[a._id].error) {
-          a.error = errorIndex[a._id].error
-          accObject[a.account_type].error = errorIndex[a._id].error
-        }
-        accObject[a.account_type].push(a)
+  fetchKonnectorRunningJobs (domain) {
+    return jobs.find(cozy.client, {
+      state: jobs.JOB_STATE.RUNNING,
+      worker: 'konnector',
+      domain: domain
+    })
+    .then(jobs => {
+      jobs.forEach(job => {
+        this.updateRunningJob(job)
       })
-      this.connectors.forEach(c => {
-        c.accounts = accObject[c.slug] || []
-      })
+      return jobs
     })
   }
 
@@ -223,15 +352,14 @@ export default class CollectStore {
       .catch(error => {
         connection.error = error
       })
-      .then(() => {
-        this.updateKonnectorError(connection.konnector, connection.error)
+      .then(() => konnectors.fetchResult(cozy.client, connection.konnector))
+      .then(konnectorResult => {
+        connection.konnectorResult = konnectorResult
+        this.updateKonnectorResult(konnectorResult)
+        this.updateConnector(connection.konnector)
+
         return connection
       })
-  }
-
-  updateKonnectorError (konnector, error = null) {
-    konnector.accounts.error = error
-    this.updateConnector(konnector)
   }
 
   /**
@@ -243,11 +371,6 @@ export default class CollectStore {
    */
   runAccount (connector, account, disableSuccessTimeout) {
     return konnectors.run(cozy.client, connector, account, disableSuccessTimeout)
-    .then(() => this.updateKonnectorError(connector))
-    .catch(error => {
-      this.updateKonnectorError(connector, error)
-      throw error
-    })
   }
 
   fetchAccounts (accountType) {
@@ -298,16 +421,6 @@ export default class CollectStore {
     return foundIndex
   }
 
-  deleteAccount (konnector, account) {
-    konnector = this.connectors.find(c => c.slug === konnector.slug)
-    konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
-
-    return accounts._delete(cozy.client, account)
-      .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
-      .then(() => this.updateConnector(konnector))
-      .then(() => this.updateKonnectorError(konnector))
-  }
-
   deleteAccounts (konnector) {
     konnector = this.connectors.find(c => c.slug === konnector.slug)
     return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
@@ -315,7 +428,7 @@ export default class CollectStore {
         .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
       ))
       .then(() => this.updateConnector(konnector))
-      .then(() => this.updateKonnectorError(konnector))
+      .then(konnector => this.triggerConnectionStatusUpdate(konnector))
   }
 
   manifestToKonnector (manifest) {
@@ -346,6 +459,97 @@ export default class CollectStore {
 
   createIntentService (intent, window) {
     return cozy.client.intents.createService(intent, window)
+  }
+
+  konnectorHasAccount (konnector) {
+    const slug = konnector.slug || konnector.attributes.slug
+    const legacyKonnector = this.getKonnectorBySlug(slug)
+    return legacyKonnector && !!legacyKonnector.accounts.length
+  }
+
+  // Selector to get KonnectorStatus
+  getConnectionStatus (konnector) {
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const installedKonnector = this.installedKonnectors.get(slug)
+    if (installedKonnector) {
+      switch (installedKonnector.state) {
+        case konnectors.KONNECTOR_STATE.ERRORED:
+          return CONNECTION_STATUS.ERRORED
+        case konnectors.KONNECTOR_STATE.READY:
+          // ignore
+          break
+        default:
+          return CONNECTION_STATUS.RUNNING
+      }
+    }
+
+    const runningJob = this.runningJobs.get(slug)
+
+    if (runningJob) {
+      return CONNECTION_STATUS.RUNNING
+    }
+
+    const konnectorResult = this.konnectorResults.get(slug)
+
+    const betweenInstallationAndFirstResult = !konnectorResult &&
+      installedKonnector && installedKonnector.state === konnectors.KONNECTOR_STATE.READY
+
+    if (betweenInstallationAndFirstResult) {
+      return CONNECTION_STATUS.RUNNING
+    }
+
+    if (!this.konnectorHasAccount(konnector)) {
+      return null
+    }
+
+    if (konnectorResult) {
+      switch (konnectorResult.state) {
+        case konnectors.KONNECTOR_RESULT_STATE.ERRORED:
+          return CONNECTION_STATUS.ERRORED
+        case konnectors.KONNECTOR_RESULT_STATE.CONNECTED:
+          return CONNECTION_STATUS.CONNECTED
+        default: break
+      }
+    }
+
+    return null
+  }
+
+  isConnectionStatusRunning (konnector) {
+    return this.getConnectionStatus(konnector) === CONNECTION_STATUS.RUNNING
+  }
+
+  // listen for update on connection (will be useful for realtime)
+  addConnectionStatusListener (konnector, listener) {
+    const slug = konnector.slug || konnector.attributes.slug
+    const listeners = this.connectionStatusListeners.get(slug) || []
+    this.connectionStatusListeners.set(slug, listeners.concat([listener]))
+  }
+
+  removeConnectionStatusListener (konnector, listener) {
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const listeners = this.connectionStatusListeners.get(slug)
+
+    if (listeners && listeners.includes(listener)) {
+      this.connectionStatusListeners.set(slug, listeners.filter(l => l._id !== listener._id))
+    }
+  }
+
+  getConnectionError (konnector) {
+    const noAccount = !this.konnectorHasAccount(konnector)
+    if (noAccount) return null
+
+    const slug = konnector.slug || konnector.attributes.slug
+
+    const konnectorResult = this.konnectorResults.get(slug)
+
+    if (konnectorResult && konnectorResult.error) {
+      return new Error(konnectorResult.error)
+    }
+
+    return null
   }
 }
 

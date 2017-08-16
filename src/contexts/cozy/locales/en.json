@@ -5,6 +5,9 @@
     },
     "fai-bills": {
       "title": "Retrieve my ISP bills"
+    },
+    "transportation-bills": {
+      "title": "Retrieve my transportation bills"
     }
   }
 }

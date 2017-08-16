@@ -16,7 +16,7 @@ export const KonnectorAccount = ({ t, connector, account, fields, editing, disab
     <div>
       { !error && editing && !connector.oauth && <h4>{t('account.form.title')}</h4> }
 
-      { !error && !editing && <DescriptionContent
+      { !editing && <DescriptionContent
         title={t('account.config.title', { name: connector.name })}
         messages={hasDescriptions && hasDescriptions.connector
           ? [t(`connector.${connector.slug}.description.connector`)]

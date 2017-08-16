@@ -1,8 +1,19 @@
 /* konnector lib ready to be added to cozy-client-js */
+import * as realtime from './realtime'
+import * as jobs from './jobs'
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
-const KONNECTOR_STATE_READY = 'ready'
+export const KONNECTOR_STATE = {
+  READY: 'ready',
+  ERRORED: 'errored'
+}
+
+export const KONNECTOR_RESULT_STATE = {
+  ERRORED: 'errored',
+  CONNECTED: 'done'
+}
 
 export const JOB_STATE = {
   READY: 'ready',
@@ -66,9 +77,43 @@ export function unlinkFolder (cozy, konnector, folderId) {
     .then(() => deleteFolderPermission(cozy, konnector))
 }
 
-export function getAllErrors (cozy) {
-  return cozy.data.defineIndex(KONNECTORS_RESULT_DOCTYPE, ['state'])
-  .then(index => cozy.data.query(index, {selector: {state: 'errored'}}))
+export function fetchResult (cozy, konnector) {
+  const slug = konnector.slug || konnector.attributes.slug
+  return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, slug)
+}
+
+export function findAll (cozy) {
+  return findAllDocuments(cozy, KONNECTORS_DOCTYPE)
+}
+
+export function findAllResults (cozy) {
+  return findAllDocuments(cozy, KONNECTORS_RESULT_DOCTYPE)
+}
+
+function findAllDocuments (cozy, doctype) {
+  return cozy.fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`)
+    .then(result => {
+      return result.rows
+        ? result.rows
+          // filter documents only
+          .filter(row => !row.doc.language)
+          .map(row => row.doc)
+        : []
+    })
+    .catch(error => {
+      // the _all_docs endpoint returns a 404 error if no document with the given
+      // doctype exists.
+      if (error.status === 404) return []
+      throw error
+    })
+}
+
+export function subscribeAll (cozy) {
+  return realtime.subscribeAll(cozy, KONNECTORS_DOCTYPE)
+}
+
+export function subscribeAllResults (cozy) {
+  return realtime.subscribeAll(cozy, KONNECTORS_RESULT_DOCTYPE)
 }
 
 export function install (cozy, konnector, timeout = 120000) {
@@ -100,7 +145,7 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
     const idInterval = setInterval(() => {
       cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
         .then(konnectorResult => {
-          if (konnectorResult.state === KONNECTOR_STATE_READY) {
+          if (konnectorResult.state === KONNECTOR_STATE.READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(konnector)
@@ -154,51 +199,46 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, account, disableSuccessTimeout, successTimeout))
+  .then(job => waitForJobFinished(cozy, job, disableSuccessTimeout, successTimeout))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, account, disableSuccessTimeout, successTimeout) {
+function waitForJobFinished (cozy, job, disableSuccessTimeout, successTimeout) {
   return new Promise((resolve, reject) => {
-    let idTimeout
-    let idInterval
+    jobs.subscribe(cozy, job)
+      .then(subscription => {
+        let idTimeout
 
-    if (!disableSuccessTimeout) {
-      idTimeout = setTimeout(() => {
-        clearInterval(idInterval)
-        resolve(job)
-      }, successTimeout)
-    }
+        if (!disableSuccessTimeout) {
+          idTimeout = setTimeout(() => {
+            subscription.unsubscribe()
+            // Ensure that job is not errored in case of realtime issues.
+            jobs.findById(cozy, job._id)
+              .then(job => {
+                if (job.attributes.state === JOB_STATE.ERRORED) {
+                  return reject(new Error(job.attributes.error))
+                }
+                resolve(job)
+              })
+          }, successTimeout)
+        }
 
-    idInterval = setInterval(() => {
-      cozy.fetchJSON('GET', `/jobs/${job._id}`)
-        .then(job => {
-          if (job.attributes.state === JOB_STATE.ERRORED) {
-            if (idTimeout) {
-              clearTimeout(idTimeout)
-            }
-
-            clearInterval(idInterval)
-            reject(new Error(job.attributes.error))
+        subscription.onUpdate(job => {
+          if (job.state === JOB_STATE.ERRORED) {
+            clearTimeout(idTimeout)
+            subscription.unsubscribe()
+            reject(new Error(job.error))
           }
 
-          if (job.attributes.state === JOB_STATE.READY) {
-            if (idTimeout) {
-              clearTimeout(idTimeout)
-            }
-
-            clearInterval(idInterval)
+          if (job.state === JOB_STATE.DONE) {
+            clearTimeout(idTimeout)
+            subscription.unsubscribe()
             resolve(job)
           }
         })
-        .catch(error => {
-          if (idTimeout) {
-            clearTimeout(idTimeout)
-          }
-
-          clearInterval(idInterval)
-          reject(error)
-        })
-    }, 1000)
+      })
+      .catch(error => {
+        reject(error)
+      })
   })
 }

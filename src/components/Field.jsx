@@ -1,6 +1,6 @@
 import styles from '../styles/field.styl'
 
-import React, { cloneElement } from 'react'
+import React, { Component, cloneElement } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import statefulComponent from '../lib/statefulComponent'
@@ -33,8 +33,9 @@ const Field = (props) => {
       />
     )
   }
+  const { giveFocus } = props
   return props.type === 'hidden' ? inputs : (
-    <FieldWrapper {...props}>
+    <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
       {inputs}
     </FieldWrapper>
   )
@@ -42,28 +43,41 @@ const Field = (props) => {
 
 export default Field
 
-export const FieldWrapper = ({ required, label, dirty, touched, invalid, errors, children }) => {
-  const conditionals = {
-    'coz-field--required': required === true,
-    'coz-field--error': (errors.length !== 0) || invalid,
-    'coz-field--dirty': dirty === true || touched === true
+export class FieldWrapper extends Component {
+  componentDidMount () {
+    if (this.props.giveFocus) this.wrapper.querySelector('input').focus()
+    if (typeof this.props.onEnterKey === 'function') {
+      this.wrapper.addEventListener('keyup', (e) => {
+        const key = e.which || e.keyCode
+        if (key === 13) this.props.onEnterKey()
+      })
+    }
   }
 
-  const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key => {
-    return conditionals[key]
-  }))
+  render () {
+    const { required, label, dirty, touched, invalid, errors, children } = this.props
+    const conditionals = {
+      'coz-field--required': required === true,
+      'coz-field--error': (errors.length !== 0) || invalid,
+      'coz-field--dirty': dirty === true || touched === true
+    }
 
-  const moduleClasses = classes.map(className => styles[className])
+    const classes = ['coz-field'].concat(Object.keys(conditionals).filter(key => {
+      return conditionals[key]
+    }))
 
-  return (
-    <div className={classNames.apply(this, moduleClasses)}>
-      {label && <label>{label}</label>}
-      {children}
-      {errors.length !== 0 && errors.map((err, i) => (
-        <small key={i} className={styles['coz-field-error']}>{err}</small>
-      ))}
-    </div>
-  )
+    const moduleClasses = classes.map(className => styles[className])
+
+    return (
+      <div className={classNames.apply(this, moduleClasses)} ref={(el) => { this.wrapper = el }}>
+        {label && <label>{label}</label>}
+        {children}
+        {errors.length !== 0 && errors.map((err, i) => (
+          <small key={i} className={styles['coz-field-error']}>{err}</small>
+        ))}
+      </div>
+    )
+  }
 }
 
 export const PasswordField = translate()(
@@ -75,9 +89,9 @@ export const PasswordField = translate()(
     }
   }))(
     props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, noAutoFill } = props
+      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, giveFocus, noAutoFill } = props
       return (
-        <FieldWrapper {...props}>
+        <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
           <button
             type='button'
             tabindex='-1'
