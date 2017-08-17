@@ -9,13 +9,13 @@ export const ACCOUNT_ERRORS = {
   SUCCESS_TIMEOUT: 'SUCCESS_TIMEOUT'
 }
 
-export function create (cozy, konnector, auth, folder, name = '') {
+export function create (cozy, konnector, auth, folderID, name = '') {
   return cozy.data.create(ACCOUNTS_DOCTYPE, {
     name: name,
     account_type: konnector.slug,
     status: 'PENDING',
     auth: auth,
-    folderId: folder._id
+    folderId: folderID
   })
 }
 

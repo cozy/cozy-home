@@ -100,7 +100,7 @@
     "vendorLink":"maif.fr",
     "category":"insurance",
     "color":{"hex":"#007858","css":"#007858"},
-    "fields":{"access_token":{"type":"hidden"},"folderPath":{"type":"folder","advanced":true}},
+    "fields":{"access_token":{"type":"hidden"}},
     "dataType":["profile", "contract", "home", "family", "sinister"],
     "source": "git://github.com/cozy/cozy-konnector-maif.git#build"
   },
