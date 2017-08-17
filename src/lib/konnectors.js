@@ -189,7 +189,6 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
     throw new Error('Missing `slug` parameter for konnector')
   }
   if (!account._id) throw new Error('Missing `_id` parameter for account')
-  if (!account.folderId) throw new Error('Missing `folderId` parameter for account')
 
   return cozy.jobs.create('konnector', {
     konnector: slug,
