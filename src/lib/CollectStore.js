@@ -495,6 +495,10 @@ export default class CollectStore {
       }
     }
 
+    const legacyKonnector = this.getKonnectorBySlug(slug)
+    const hasAccount = legacyKonnector.accounts && legacyKonnector.accounts.length
+    if (!hasAccount) return null
+
     const runningJob = this.runningJobs.get(slug)
 
     if (runningJob) {
@@ -502,13 +506,6 @@ export default class CollectStore {
     }
 
     const konnectorResult = this.konnectorResults.get(slug)
-
-    const betweenInstallationAndFirstResult = !konnectorResult &&
-      installedKonnector && installedKonnector.state === konnectors.KONNECTOR_STATE.READY
-
-    if (betweenInstallationAndFirstResult) {
-      return CONNECTION_STATUS.RUNNING
-    }
 
     if (!this.konnectorHasAccount(konnector)) {
       return null
