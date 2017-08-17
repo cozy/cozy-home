@@ -507,13 +507,6 @@ export default class CollectStore {
 
     const konnectorResult = this.konnectorResults.get(slug)
 
-    const betweenInstallationAndFirstResult = !konnectorResult &&
-      installedKonnector && installedKonnector.state === konnectors.KONNECTOR_STATE.READY
-
-    if (betweenInstallationAndFirstResult) {
-      return CONNECTION_STATUS.RUNNING
-    }
-
     if (!this.konnectorHasAccount(konnector)) {
       return null
     }
