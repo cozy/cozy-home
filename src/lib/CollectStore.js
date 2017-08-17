@@ -284,19 +284,28 @@ export default class CollectStore {
     // detect oauth case
     const isOAuth = !!account.oauth
 
+    function createDirectoryIfNecessary (folderPath) {
+      if (folderPath) {
+        return cozy.client.files.createDirectoryByPath(folderPath)
+      } else {
+        return Promise.resolve(null)
+      }
+    }
+
     // 1. Create folder, will be replaced by an intent or something else
-    return cozy.client.files.createDirectoryByPath(folderPath)
+    return createDirectoryIfNecessary(folderPath)
       // 2. Create account
       .then(folder => {
-        connection.folder = folder
+        const folderID = folder ? folder._id : null
+        connection.folderID = folderID
         if (isOAuth) {
           const newAttributes = {
-            folderId: folder._id,
+            folderId: folderID,
             status: 'PENDING'
           }
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
-          return accounts.create(cozy.client, konnector, account.auth, folder)
+          return accounts.create(cozy.client, konnector, account.auth, folderID)
         }
       })
       // 3. Konnector installation
@@ -308,16 +317,18 @@ export default class CollectStore {
       .then(konnector => {
         return konnectors.addAccount(cozy.client, konnector, connection.account)
       })
-      // 5. Add permissions to folder for konnector
+      // 5. Add permissions to folder for konnector if folder created
       .then(konnector => {
         connection.konnector = konnector
         this.updateConnector(konnector)
-        return konnectors.addFolderPermission(cozy.client, konnector, connection.folder._id)
+        if (!connection.folderID) return Promise.resolve()
+        return konnectors.addFolderPermission(cozy.client, konnector, connection.folderID)
       })
       // 6. Reference konnector in folder
       .then(permission => {
+        if (!permission) return Promise.resolve()
         connection.permission = permission
-        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folder._id)
+        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folderID)
       })
       // 7. Run a job for the konnector
       .then(() => konnectors.run(
@@ -343,7 +354,7 @@ export default class CollectStore {
               worker_arguments: {
                 konnector: slug,
                 account: connection.account._id,
-                folder_to_save: connection.folder._id
+                folder_to_save: connection.folderID
               }
             }
           }
