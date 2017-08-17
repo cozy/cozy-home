@@ -495,6 +495,10 @@ export default class CollectStore {
       }
     }
 
+    const legacyKonnector = this.getKonnectorBySlug(slug)
+    const hasAccount = legacyKonnector.accounts && legacyKonnector.accounts.length
+    if (!hasAccount) return null
+
     const runningJob = this.runningJobs.get(slug)
 
     if (runningJob) {
