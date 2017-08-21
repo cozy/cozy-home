@@ -94,22 +94,15 @@ class AccountConnection extends Component {
       .catch(error => this.handleError(error))
   }
 
-  connectAccountOAuth (accountType, values) {
+  connectAccountOAuth (accountType, values, scope) {
     this.setState({
       submitting: true,
       oAuthTerminated: false
     })
 
-    // TODO: Quick and Dirty account type <=> scope link.
-    const scopesBySlug = {
-      orangemobile: 'M',
-      orangelivebox: 'I',
-      maif: 'openid+profile+offline_access'
-    }
-
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=${scopesBySlug[accountType]}&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
       return this.terminateOAuth(accountID, values)
@@ -265,7 +258,7 @@ class AccountConnection extends Component {
     })
 
     return this.props.connector && this.props.connector.oauth
-         ? this.connectAccountOAuth(this.props.connector.slug, values)
+         ? this.connectAccountOAuth(this.props.connector.slug, values, this.props.connector.oauth_scope)
          : this.connectAccount(values)
   }
 
