@@ -289,7 +289,7 @@ class AccountConnection extends Component {
     const { t, connector, fields, isUnloading } = this.props
     const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-    const lastSync = this.state.lastSync || account && account.lastSync
+    const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
     return (
       <div className={styles['col-account-connection']}>
