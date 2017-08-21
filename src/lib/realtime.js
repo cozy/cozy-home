@@ -109,11 +109,20 @@ function getCozySocket (cozy) {
     const onSocketClose = async (event) => {
       if (!event.wasClean) {
         console.warn && console.warn(`WebSocket closed unexpectedly with code ${event.code} and ${event.reason ? `reason: '${event.reason}'` : 'no reason'}. Reconnecting.`)
-        socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
+        try {
+          socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
+        } catch (error) {
+          console.error && console.error(`Unable to reconnect to realtime. Error: ${error.message}`)
+        }
       }
     }
 
-    socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
+    try {
+      socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
+    } catch (error) {
+      reject(error)
+    }
+
     resolve(cozySocket)
   })
 }
