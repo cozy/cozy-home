@@ -106,7 +106,14 @@ function getCozySocket (cozy) {
       }
     }
 
-    socket = await connectWebSocket(cozy, onSocketMessage)
+    const onSocketClose = async (event) => {
+      if (!event.wasClean) {
+        console.warn && console.warn(`WebSocket closed unexpectedly with code ${event.code} and ${event.reason ? `reason: '${event.reason}'` : 'no reason'}. Reconnecting.`)
+        socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
+      }
+    }
+
+    socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
     resolve(cozySocket)
   })
 }
