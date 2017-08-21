@@ -36,11 +36,36 @@ function getWebsocketProtocol () {
   return window.location.protocol === 'http:' ? 'ws' : 'wss'
 }
 
-function getCozySocket (cozy) {
+async function connectWebSocket (cozy, onmessage, onclose) {
   return new Promise((resolve, reject) => {
+    const protocol = getWebsocketProtocol()
+    const socket = new WebSocket(`${protocol}:${cozy._url}/realtime/`, 'io.cozy.websocket')
+
+    socket.onmessage = onmessage
+    socket.onclose = onclose
+
+    socket.onopen = (event) => {
+      try {
+        socket.send(JSON.stringify({
+          method: 'AUTH',
+          payload: cozy._token.token
+        }))
+      } catch (error) {
+        return reject(error)
+      }
+
+      resolve(socket)
+    }
+  })
+}
+
+function getCozySocket (cozy) {
+  return new Promise(async (resolve, reject) => {
     if (cozySocket) return resolve(cozySocket)
 
     const listeners = {}
+
+    let socket
 
     cozySocket = {
       subscribe: (doctype, event, listener) => {
@@ -60,29 +85,7 @@ function getCozySocket (cozy) {
       }
     }
 
-    let socket
-
-    try {
-      const protocol = getWebsocketProtocol()
-      socket = new WebSocket(`${protocol}:${cozy._url}/realtime/`, 'io.cozy.websocket')
-    } catch (error) {
-      return reject(error)
-    }
-
-    socket.onopen = (event) => {
-      try {
-        socket.send(JSON.stringify({
-          method: 'AUTH',
-          payload: cozy._token.token
-        }))
-      } catch (error) {
-        return reject(error)
-      }
-
-      resolve(cozySocket)
-    }
-
-    socket.onmessage = (event) => {
+    const onSocketMessage = (event) => {
       const data = JSON.parse(event.data)
       const eventType = data.event.toLowerCase()
       const payload = data.payload
@@ -102,6 +105,9 @@ function getCozySocket (cozy) {
         })
       }
     }
+
+    socket = await connectWebSocket(cozy, onSocketMessage)
+    resolve(cozySocket)
   })
 }
 
