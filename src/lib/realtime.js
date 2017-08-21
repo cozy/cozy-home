@@ -56,9 +56,6 @@ async function connectWebSocket (cozy, onmessage, onclose) {
     const protocol = getWebsocketProtocol()
     const socket = new WebSocket(`${protocol}:${cozy._url}/realtime/`, 'io.cozy.websocket')
 
-    socket.onmessage = onmessage
-    socket.onclose = onclose
-
     socket.onopen = (event) => {
       try {
         socket.send(JSON.stringify({
@@ -68,6 +65,9 @@ async function connectWebSocket (cozy, onmessage, onclose) {
       } catch (error) {
         return reject(error)
       }
+
+      socket.onmessage = onmessage
+      socket.onclose = onclose
 
       resolve(keepAlive(socket, KEEPALIVE.INTERVAL, `{"method":"${KEEPALIVE.METHOD_NAME}"}`))
     }
