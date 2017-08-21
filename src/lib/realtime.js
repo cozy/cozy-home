@@ -66,8 +66,14 @@ async function connectWebSocket (cozy, onmessage, onclose) {
         return reject(error)
       }
 
+      const windowUnloadHandler = () => socket.close()
+      window.addEventListener('beforeunload', windowUnloadHandler)
+
       socket.onmessage = onmessage
-      socket.onclose = onclose
+      socket.onclose = (event) => {
+        window.removeEventListener('beforeunload', windowUnloadHandler)
+        if (typeof onclose === 'function') onclose(event)
+      }
 
       resolve(keepAlive(socket, KEEPALIVE.INTERVAL, `{"method":"${KEEPALIVE.METHOD_NAME}"}`))
     }
