@@ -55,6 +55,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                 <DropdownField label={t(`account.form.label.${name}`)} {...fields[name]} />
               </div>
             case 'checkbox':
+              // force boolean type here since it's just a checkbox
+              fields[name].value = !!fields[name].value
               return <div>
                 {description}
                 <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />

@@ -133,9 +133,11 @@ class AccountConnection extends Component {
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const account = Object.assign({}, accounts[currentIdx], accountValues)
+            // get all properties except folderPath in newValues
+            const {folderPath, ...newValues} = accountValues
+            const account = Object.assign({}, accounts[currentIdx], {auth: newValues})
             this.setState({account: account})
-            return this.runConnection(accounts[currentIdx], accountValues.folderPath)
+            return this.runConnection(account, folderPath)
               .then(connection => {
                 this.setState({
                   connector: konnector,
