@@ -41,8 +41,7 @@ const accountMock = {
     password: 'khf79NEBDX'
   },
   folderId: '4d1039c9a419779f70d1dee5f200992a',
-  name: '',
-  status: 'PENDING'
+  name: ''
 }
 
 const accountMock2 = {
@@ -55,8 +54,7 @@ const accountMock2 = {
     password: 'khf79dzeNEBDX'
   },
   folderId: '4d1039c9a419779f70d1dee5f2009b8f',
-  name: '',
-  status: 'PENDING'
+  name: ''
 }
 
 const indexMock = {
@@ -95,7 +93,6 @@ describe('accounts library', () => {
         expect(cozyMock.data.create.mock.calls[0][1]).toEqual({
           name: 'mock',
           account_type: konnectorMock.slug,
-          status: 'PENDING',
           auth: accountMock.auth,
           folderId: folderMock._id
         })
@@ -110,7 +107,6 @@ describe('accounts library', () => {
         expect(cozyMock.data.create.mock.calls[0][1]).toEqual({
           name: '',
           account_type: konnectorMock.slug,
-          status: 'PENDING',
           auth: accountMock.auth,
           folderId: folderMock._id
         })

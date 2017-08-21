@@ -13,7 +13,6 @@ export function create (cozy, konnector, auth, folderID, name = '') {
   return cozy.data.create(ACCOUNTS_DOCTYPE, {
     name: name,
     account_type: konnector.slug,
-    status: 'PENDING',
     auth: auth,
     folderId: folderID
   })
