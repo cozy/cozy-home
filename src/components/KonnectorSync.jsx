@@ -12,8 +12,8 @@ function getDateLabel ({date, t, f}) {
 
 export const KonnectorSync = ({ t, f, frequency, date, submitting, onForceConnection }) => {
   const lastSyncMessage =
-    submitting && t('account.message.synced.syncing') ||
-      date && getDateLabel({date, t, f}) ||
+    (submitting && t('account.message.synced.syncing')) ||
+      (date && getDateLabel({date, t, f})) ||
        null
   return (
     <div>
