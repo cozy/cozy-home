@@ -105,14 +105,14 @@ class AccountConnection extends Component {
     const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
-      return this.terminateOAuth(accountID, values.folderPath)
+      return this.terminateOAuth(accountID, values)
     })
     .catch(error => {
       this.setState({submitting: false, error: error.message})
     })
   }
 
-  terminateOAuth (accountID, folderPath) {
+  terminateOAuth (accountID, accountValues) {
     const { slug } = this.props.connector
 
     this.setState({
@@ -126,9 +126,9 @@ class AccountConnection extends Component {
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const account = accounts[currentIdx]
+            const account = Object.assign({}, accounts[currentIdx], accountValues)
             this.setState({account: account})
-            return this.runConnection(accounts[currentIdx], folderPath)
+            return this.runConnection(accounts[currentIdx], accountValues.folderPath)
               .then(connection => {
                 this.setState({
                   connector: konnector,
