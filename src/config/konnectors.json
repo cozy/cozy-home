@@ -33,7 +33,7 @@
     "vendorLink":"https://secure.digiposte.fr",
     "category":"other",
     "color":{"hex":"#FBC32C","css":"linear-gradient(90deg, #EF0001 0%, #FBC32C 100%)"},
-    "dataType":["bill"],
+    "dataType":["bill", "document"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
   },
