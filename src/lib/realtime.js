@@ -10,6 +10,11 @@ const WEBSOCKET_STATE = {
   OPEN: 1
 }
 
+const KEEPALIVE = {
+  INTERVAL: 30000,
+  METHOD_NAME: 'ping'
+}
+
 // Send a subscribe message for the given doctype trough the given websocket, but
 // only if it is in a ready state. If not, retry a few milliseconds later.
 function subscribeWhenReady (doctype, socket) {
@@ -36,6 +41,16 @@ function getWebsocketProtocol () {
   return window.location.protocol === 'http:' ? 'ws' : 'wss'
 }
 
+function keepAlive (socket, interval, message) {
+  const keepAliveInterval = setInterval(() => {
+    if (socket.readyState === WEBSOCKET_STATE.OPEN) {
+      socket.send(message)
+    } else {
+      clearInterval(keepAliveInterval)
+    }
+  }, interval)
+}
+
 async function connectWebSocket (cozy, onmessage, onclose) {
   return new Promise((resolve, reject) => {
     const protocol = getWebsocketProtocol()
@@ -54,7 +69,7 @@ async function connectWebSocket (cozy, onmessage, onclose) {
         return reject(error)
       }
 
-      resolve(socket)
+      resolve(keepAlive(socket, KEEPALIVE.INTERVAL, `{"method":"${KEEPALIVE.METHOD_NAME}"}`))
     }
   })
 }
@@ -91,11 +106,15 @@ function getCozySocket (cozy) {
       const payload = data.payload
 
       if (eventType === 'error') {
+        const isPingError = data.payload && data.payload.source && data.payload.source.method === KEEPALIVE.METHOD_NAME
+        if (isPingError) return
+
         const realtimeError = new Error(payload.title)
         const errorFields = ['status', 'code', 'source']
         errorFields.forEach(property => {
           realtimeError[property] = payload[property]
         })
+
         throw realtimeError
       }
 
