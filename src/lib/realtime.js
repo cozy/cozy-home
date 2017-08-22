@@ -49,6 +49,8 @@ function keepAlive (socket, interval, message) {
       clearInterval(keepAliveInterval)
     }
   }, interval)
+
+  return socket
 }
 
 async function connectWebSocket (cozy, onmessage, onclose) {
@@ -87,24 +89,6 @@ function getCozySocket (cozy) {
     const listeners = {}
 
     let socket
-
-    cozySocket = {
-      subscribe: (doctype, event, listener) => {
-        if (typeof listener !== 'function') throw new Error('Realtime event listener must be a function')
-
-        if (!listeners[doctype]) {
-          listeners[doctype] = {}
-          subscribeWhenReady(doctype, socket)
-        }
-
-        listeners[doctype][event] = (listeners[doctype][event] || []).concat([listener])
-      },
-      unsubscribe: (doctype, event, listener) => {
-        if (listeners[doctype] && listeners[doctype][event] && listeners[doctype][event].includes(listener)) {
-          listeners[doctype][event] = listeners[doctype][event].filter(l => l !== listener)
-        }
-      }
-    }
 
     const onSocketMessage = (event) => {
       const data = JSON.parse(event.data)
@@ -146,6 +130,24 @@ function getCozySocket (cozy) {
       socket = await connectWebSocket(cozy, onSocketMessage, onSocketClose)
     } catch (error) {
       reject(error)
+    }
+
+    cozySocket = {
+      subscribe: (doctype, event, listener) => {
+        if (typeof listener !== 'function') throw new Error('Realtime event listener must be a function')
+
+        if (!listeners[doctype]) {
+          listeners[doctype] = {}
+          subscribeWhenReady(doctype, socket)
+        }
+
+        listeners[doctype][event] = (listeners[doctype][event] || []).concat([listener])
+      },
+      unsubscribe: (doctype, event, listener) => {
+        if (listeners[doctype] && listeners[doctype][event] && listeners[doctype][event].includes(listener)) {
+          listeners[doctype][event] = listeners[doctype][event].filter(l => l !== listener)
+        }
+      }
     }
 
     resolve(cozySocket)
