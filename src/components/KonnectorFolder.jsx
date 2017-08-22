@@ -7,7 +7,7 @@ import DescriptionContent from './DescriptionContent'
 export const KonnectorFolder = ({ t, account, driveUrl, connector }) => {
   return (
     <div>
-      {account.auth && <DescriptionContent
+      {account && account.auth && <DescriptionContent
         title={t('account.folder.title')}
         >
         <p>
