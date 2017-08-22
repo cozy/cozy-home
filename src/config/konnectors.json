@@ -213,5 +213,81 @@
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/cozy/cozy-konnector-uber.git#build"
+  },
+  {
+    "accounts":[],
+    "slug":"orange",
+    "name":"Orange",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"telecom",
+    "color":{"hex":"#FF6122","css":"#FF6122"},
+    "dataType":["bill"],
+    "fields":{
+      "login": {
+        "type":"text"
+      },
+      "password": {
+        "type":"password"
+       },
+       "folderPath": {
+          "type":"folder",
+          "advanced":true
+        }
+    },
+    "additionnalSuccessMessage": {
+      "message": "connector.orange.message.delay"
+    },
+    "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
+  },
+  {
+    "accounts":[],
+    "oauth": true,
+    "slug":"orangemobile",
+    "name":"Orange Mobile",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"telecom",
+    "color":{
+      "hex":"#FF6122",
+      "css":"#FF6122"
+    },
+    "dataType":["geopoint", "phonecommunicationlog"],
+    "fields":{
+        "access_token":{"type":"hidden"},
+        "folderPath":{"type":"folder","advanced":true},
+        "agreement": {"type": "checkbox", "hasDescription": true}},
+    "additionnalSuccessMessage": {
+      "message": "connector.orange.message.delay"
+    },
+    "hasDescriptions": {
+      "service": true,
+      "connector": true
+    },
+    "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build"
+  },
+  {
+    "accounts":[],
+    "oauth": true,
+    "slug":"orangelivebox",
+    "name":"Orange Livebox",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"isp",
+    "color":{"hex": "#FF6122", "css": "#FF6122"},
+    "dataType":["videostream"],
+    "fields": {
+      "access_token": {
+        "type":"hidden"
+      },
+      "folderPath":{
+        "type": "folder",
+        "advanced":true
+      }
+    },
+    "additionnalSuccessMessage": {
+      "message": "connector.orange.message.delay"
+    },
+    "hasDescriptions": {
+      "service": true
+    },
+    "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build"
   }
 ]
