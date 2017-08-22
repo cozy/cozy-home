@@ -84,7 +84,7 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(100% - %s * 2)' % $item-margin
 
-@media (min-width: 40em)
+@media (min-width: 38em)
     .item-wrapper
         flex-grow  0
         flex-basis 'calc(50% - %s * 2)' % $item-margin
@@ -97,6 +97,10 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(50% - %s * 2)' % $item-margin
 
+@media (min-width: 50em)
+    .item-wrapper
+        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+
 @media (min-width: 60em)
     .use-case-dialog
         min-width 48em
@@ -105,13 +109,9 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(33.33% - %s * 2)' % $item-margin
 
-@media (min-width: 64em)
-    .item-wrapper
-        flex-basis 'calc(50% - %s * 2)' % $item-margin
-
 @media (min-width: 80em)
     .item-wrapper
-        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+        flex-basis 'calc(25% - %s * 2)' % $item-margin
 
     .use-case-dialog
         min-width 64em
