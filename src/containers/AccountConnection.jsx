@@ -94,7 +94,7 @@ class AccountConnection extends Component {
       .catch(error => this.handleError(error))
   }
 
-  connectAccountOAuth (accountType, values) {
+  connectAccountOAuth (accountType, values, scope) {
     this.setState({
       submitting: true,
       oAuthTerminated: false
@@ -102,17 +102,17 @@ class AccountConnection extends Component {
 
     const cozyUrl =
       `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=openid+profile+offline_access&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
+    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
     .then(accountID => {
-      return this.terminateOAuth(accountID, values.folderPath)
+      return this.terminateOAuth(accountID, values)
     })
     .catch(error => {
       this.setState({submitting: false, error: error.message})
     })
   }
 
-  terminateOAuth (accountID, folderPath) {
+  terminateOAuth (accountID, accountValues) {
     const { slug } = this.props.connector
 
     this.setState({
@@ -126,9 +126,11 @@ class AccountConnection extends Component {
           .then(accounts => {
             konnector.accounts = accounts
             const currentIdx = accounts.findIndex(a => a._id === accountID)
-            const account = accounts[currentIdx]
+            // get all properties except folderPath in newValues
+            const {folderPath, ...newValues} = accountValues
+            const account = Object.assign({}, accounts[currentIdx], {auth: newValues})
             this.setState({account: account})
-            return this.runConnection(accounts[currentIdx], folderPath)
+            return this.runConnection(account, folderPath)
               .then(connection => {
                 this.setState({
                   connector: konnector,
@@ -256,7 +258,7 @@ class AccountConnection extends Component {
     })
 
     return this.props.connector && this.props.connector.oauth
-         ? this.connectAccountOAuth(this.props.connector.slug, values)
+         ? this.connectAccountOAuth(this.props.connector.slug, values, this.props.connector.oauth_scope)
          : this.connectAccount(values)
   }
 

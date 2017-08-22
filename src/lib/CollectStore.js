@@ -300,8 +300,7 @@ export default class CollectStore {
         connection.folderID = folderID
         if (isOAuth) {
           const newAttributes = {
-            folderId: folderID,
-            status: 'PENDING'
+            folderId: folderID
           }
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
