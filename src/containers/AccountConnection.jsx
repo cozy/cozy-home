@@ -49,17 +49,13 @@ class AccountConnection extends Component {
     const { t } = this.context
     const folderField = connector && connector.fields && connector.fields.folderPath
     if (!folderField) return null
+
     const auth = account && account.auth
-    if (!folderField.default && auth && !auth.folderPath) {
-      return t('account.config.default_folder', connector)
-    }
-    if (folderField.default) {
-      return folderField.default
-    }
     if (auth && auth.folderPath) {
-      return account.folderPath
+      return auth.folderPath
     }
-    return null
+
+    return folderField.default || t('account.config.default_folder', connector)
   }
 
   componentWillReceiveProps ({ existingAccount }) {
