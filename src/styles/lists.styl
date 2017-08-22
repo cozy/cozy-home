@@ -30,13 +30,13 @@ $item-margin = .8em
     .item-header
         position      relative
         border-radius 4px 4px 0 0
-        height        9em
+        height        7em
         background    white
         .item-icon
             position      relative
             display       block
             border-radius 4px 4px 0 0
-            width         14em
+            width         10em
             height        4em
             margin        0 auto
             top           50%
@@ -123,6 +123,11 @@ $item-margin = .8em
 @media (min-width: 96em)
     .item-wrapper
         flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+        .item-header
+            height  9em
+            .item-icon
+                width   14em
 
 @media (min-width: 108em)
     .use-case-dialog
