@@ -4,7 +4,7 @@ In this document we'll gather all information and parameters needed to get the c
 
 ## Some definitions and context
 
-* __Konnector:__ It means a script available that can be used to connect a service account to the Cozy. We says that the konnector is 'installed' if it's registered in the Cozy database. If a konnector is not installed by default in the Cozy, it will be just before its very first usage/connection.
+* __Konnector:__ It means a script available that can be used to connect a service account to the Cozy. We say that the konnector is 'installed' if it's registered in the Cozy database. If a konnector is not installed by default in the Cozy, it will be just before its very first usage/connection.
 
 * __Account:__ A document created from the login informations provided by the user in the konnector form or by an OAuth connection. In this account will be stored all informations related to the connected service account but also the frequency or the directory ID if the konnector needs a director to store some files.
 
