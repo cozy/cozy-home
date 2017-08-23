@@ -30,14 +30,14 @@ $item-margin = .8em
     .item-header
         position      relative
         border-radius 4px 4px 0 0
-        height        9em
+        height        6em
         background    white
         .item-icon
             position      relative
             display       block
             border-radius 4px 4px 0 0
-            width         14em
-            height        4em
+            width         10em
+            height        3em
             margin        0 auto
             top           50%
             transform     translateY(-50%)
@@ -84,7 +84,7 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(100% - %s * 2)' % $item-margin
 
-@media (min-width: 40em)
+@media (min-width: 38em)
     .item-wrapper
         flex-grow  0
         flex-basis 'calc(50% - %s * 2)' % $item-margin
@@ -97,6 +97,10 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(50% - %s * 2)' % $item-margin
 
+@media (min-width: 50em)
+    .item-wrapper
+        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+
 @media (min-width: 60em)
     .use-case-dialog
         min-width 48em
@@ -105,13 +109,9 @@ $item-margin = .8em
         .item-wrapper
             flex-basis 'calc(33.33% - %s * 2)' % $item-margin
 
-@media (min-width: 64em)
-    .item-wrapper
-        flex-basis 'calc(50% - %s * 2)' % $item-margin
-
 @media (min-width: 80em)
     .item-wrapper
-        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
+        flex-basis 'calc(25% - %s * 2)' % $item-margin
 
     .use-case-dialog
         min-width 64em
@@ -123,6 +123,12 @@ $item-margin = .8em
 @media (min-width: 96em)
     .item-wrapper
         flex-basis 'calc(25% - %s * 2)' % $item-margin
+
+        .item-header
+            height  9em
+            .item-icon
+                width   14em
+                height  4em
 
 @media (min-width: 108em)
     .use-case-dialog
