@@ -1,4 +1,3 @@
-/* global fetch */
 /* global cozy */
 import { Component } from 'react'
 
