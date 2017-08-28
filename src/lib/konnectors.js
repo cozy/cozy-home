@@ -152,6 +152,7 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
           }
         })
         .catch(error => {
+          if (error.status === 404) return // keep waiting
           clearTimeout(idTimeout)
           clearInterval(idInterval)
           reject(error)
