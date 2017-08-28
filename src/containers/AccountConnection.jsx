@@ -298,26 +298,33 @@ class AccountConnection extends Component {
         </div>
         <div className={styles['col-account-connection-content']}>
           <div className={styles['col-account-connection-form']}>
-            { hasGlobalError && <DescriptionContent
+
+            { // Check for initial config
+              editing
+              ? 'Edit config'
+              : 'Initial config'
+            }
+
+            {/* hasGlobalError && <DescriptionContent
               cssClassesObject={{'coz-error': true}}
               title={t('account.message.error.global.title')}
               messages={[t('account.message.error.global.description', {name: connector.name})]}
-            /> }
+            /> */}
 
-            { editing && !success && <KonnectorSync
+            {/* editing && !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
               date={lastSync}
               submitting={submitting}
               onForceConnection={() => this.forceConnection()}
-            /> }
+            /> */}
 
-            { editing && !success && folderPath && <KonnectorFolder
+            {/* editing && !success && folderPath && <KonnectorFolder
               connector={connector}
               account={account}
               driveUrl={this.store.driveUrl}
-            /> }
+            /> */}
 
-            { !success && <KonnectorAccount
+            {/* !success && <KonnectorAccount
               connector={connector}
               account={account}
               fields={fields}
@@ -331,9 +338,9 @@ class AccountConnection extends Component {
               onDelete={() => this.deleteAccount()}
               onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
               onCancel={() => this.cancel()}
-            /> }
+            /> */}
 
-            { success && <KonnectorSuccess
+            {/* success && <KonnectorSuccess
               success={success}
               connector={connector}
               folderId={account.folderId}
@@ -343,7 +350,8 @@ class AccountConnection extends Component {
               onAccountConfig={() => this.goToConfig()}
               onCancel={() => this.cancel()}
               isUnloading={isUnloading}
-            /> }
+            /> */}
+
           </div>
 
           <AccountConnectionData
