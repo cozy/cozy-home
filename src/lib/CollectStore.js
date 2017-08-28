@@ -312,15 +312,15 @@ export default class CollectStore {
         return konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
       })
       // 4. Add account to konnector
-      .then(konnector => {
-        return konnectors.addAccount(cozy.client, konnector, connection.account)
+      .then(installedkonnector => {
+        return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
       })
       // 5. Add permissions to folder for konnector if folder created
-      .then(konnector => {
-        connection.konnector = konnector
-        this.updateConnector(konnector)
+      .then(completeKonnector => {
+        connection.konnector = completeKonnector
+        this.updateConnector(completeKonnector)
         if (!connection.folderID) return Promise.resolve()
-        return konnectors.addFolderPermission(cozy.client, konnector, connection.folderID)
+        return konnectors.addFolderPermission(cozy.client, completeKonnector, connection.folderID)
       })
       // 6. Reference konnector in folder
       .then(permission => {
