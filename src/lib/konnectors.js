@@ -78,6 +78,7 @@ export function unlinkFolder (cozy, konnector, folderId) {
 }
 
 export function fetchResult (cozy, konnector) {
+  if (!konnector) return Promise.reject(new Error('No konnector'))
   const slug = konnector.slug || konnector.attributes.slug
   return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, slug)
 }
