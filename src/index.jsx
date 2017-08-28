@@ -2,11 +2,12 @@
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 import React from 'react'
+import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from 'cozy-ui/react/I18n'
-import CollectStore, { Provider } from './lib/CollectStore'
+import CollectStore from './lib/CollectStore'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
