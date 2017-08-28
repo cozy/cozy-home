@@ -106,7 +106,7 @@ export default class CollectStore {
   }
 
   updateRunningJob (job) {
-    if (job.state !== jobs.JOB_STATE.RUNNING) {
+    if (job.state === jobs.JOB_STATE.DONE || job.state === jobs.JOB_STATE.ERRORED) {
       return this.deleteRunningJob(job)
     }
 
