@@ -7,10 +7,10 @@ import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import { I18n } from 'cozy-ui/react/I18n'
-import CollectStore from './lib/CollectStore'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
+import configureStore from './store/configureStore'
 import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
 import ConnectedList from './components/ConnectedList'
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = new CollectStore(initKonnectors, initFolders, context)
+  const store = configureStore(initKonnectors, initFolders, context)
   const useCases = store.getUseCases()
 
   let history = hashHistory
