@@ -2,12 +2,10 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 
-import KonnectorAccount from '../components/KonnectorAccount'
-import KonnectorSuccess from '../components/KonnectorSuccess'
-import KonnectorSync from '../components/KonnectorSync'
-import KonnectorFolder from '../components/KonnectorFolder'
-import AccountConnectionData from '../components/AccountConnectionData'
-import DescriptionContent from '../components/DescriptionContent'
+import KonnectorInstall from '../components/KonnectorInstall'
+import KonnectorEdit from '../components/KonnectorEdit'
+// import KonnectorSync from '../components/KonnectorSync'
+// import KonnectorFolder from '../components/KonnectorFolder'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -284,11 +282,16 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, fields, isUnloading } = this.props
-    const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
+    const { connector, disableSuccessTimeout, fields, isUnloading } = this.props
+    const { account, deleting, editing, error, oAuthTerminated, submitting, success } = this.state
+    const { driveUrl } = this.store
+    // const { t, connector, fields, isUnloading } = this.props
+    // const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-    const lastSync = this.state.lastSync || (account && account.lastSync)
+    // const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
+    const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
+
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -296,14 +299,31 @@ class AccountConnection extends Component {
             className={styles['col-account-connection-icon']}
             src={this.getIcon(connector)} />
         </div>
-        <div className={styles['col-account-connection-content']}>
-          <div className={styles['col-account-connection-form']}>
 
-            { // Check for initial config
-              editing
-              ? 'Edit config'
-              : 'Initial config'
-            }
+        { // Properly loed the edit view orthe initial config view
+          editing
+          ? <KonnectorEdit />
+          : <KonnectorInstall
+            account={account}
+            connector={connector}
+            deleting={deleting}
+            disableSuccessTimeout={disableSuccessTimeout}
+            driveUrl={driveUrl}
+            error={error}
+            fields={fields}
+            folderPath={folderPath}
+            hasGlobalError={hasGlobalError}
+            isTimeout={isTimeout}
+            isUnloading={isUnloading}
+            oAuthTerminated={oAuthTerminated}
+            onAccountConfig={() => this.goToConfig()}
+            onCancel={() => this.cancel()}
+            onDelete={() => this.deleteAccount()}
+            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
+            submitting={submitting}
+            success={success}
+            />
+        }
 
             {/* hasGlobalError && <DescriptionContent
               cssClassesObject={{'coz-error': true}}
@@ -351,13 +371,6 @@ class AccountConnection extends Component {
               onCancel={() => this.cancel()}
               isUnloading={isUnloading}
             /> */}
-
-          </div>
-
-          <AccountConnectionData
-            connector={connector}
-          />
-        </div>
       </div>
     )
   }
