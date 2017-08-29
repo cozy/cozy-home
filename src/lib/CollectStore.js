@@ -434,7 +434,10 @@ export default class CollectStore {
     konnector = this.connectors.find(c => c.slug === konnector.slug)
     return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
         .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
-        .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+        .then(() => {
+          if (!account.folderId) return
+          return konnectors.unlinkFolder(cozy.client, konnector, account.folderId)
+        })
       ))
       .then(() => this.updateConnector(konnector))
       .then(konnector => this.triggerConnectionStatusUpdate(konnector))
