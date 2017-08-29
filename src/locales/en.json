@@ -9,6 +9,11 @@
         "service": {
           "description": "Service description:"
         }
+      },
+      "tabs": {
+        "sync": "synchronization",
+        "account": "account",
+        "data": "collected data"
       }
     },
     "disconnect": {
