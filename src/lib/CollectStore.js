@@ -35,7 +35,7 @@ export default class CollectStore {
     this.connectionStatusListeners = new Map()
 
     // Store all the currently running jobs related to konnectors
-    this.runningJobs = new Map()
+    this.unfinishedJob = new Map()
 
     // Installing/installed konnectors
     this.installedKonnectors = new Map()
@@ -63,8 +63,8 @@ export default class CollectStore {
     jobs.subscribeAll(cozy.client)
       .then(subscription => {
         subscription
-          .onCreate(job => this.updateRunningJob(job))
-          .onUpdate(job => this.updateRunningJob(job))
+          .onCreate(job => this.updateUnfinishedJob(job))
+          .onUpdate(job => this.updateUnfinishedJob(job))
           .onDelete(job => this.deleteRunningJob(job))
       })
       .catch(error => {
@@ -105,21 +105,21 @@ export default class CollectStore {
     this.triggerConnectionStatusUpdate(konnector)
   }
 
-  updateRunningJob (job) {
-    if (job.state !== jobs.JOB_STATE.RUNNING) {
+  updateUnfinishedJob (job) {
+    if (job.state === jobs.JOB_STATE.DONE || job.state === jobs.JOB_STATE.ERRORED) {
       return this.deleteRunningJob(job)
     }
 
     const slug = job.konnector
     const konnector = this.getKonnectorBySlug(slug)
-    this.runningJobs.set(slug, job)
+    this.unfinishedJob.set(slug, job)
     this.triggerConnectionStatusUpdate(konnector)
   }
 
   deleteRunningJob (job) {
     const slug = job.konnector
     const konnector = this.getKonnectorBySlug(slug)
-    const deleted = this.runningJobs.delete(slug)
+    const deleted = this.unfinishedJob.delete(slug)
     if (deleted) this.triggerConnectionStatusUpdate(konnector)
   }
 
@@ -269,7 +269,7 @@ export default class CollectStore {
     })
     .then(jobs => {
       jobs.forEach(job => {
-        this.updateRunningJob(job)
+        this.updateUnfinishedJob(job)
       })
       return jobs
     })
@@ -312,15 +312,15 @@ export default class CollectStore {
         return konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
       })
       // 4. Add account to konnector
-      .then(konnector => {
-        return konnectors.addAccount(cozy.client, konnector, connection.account)
+      .then(installedkonnector => {
+        return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
       })
       // 5. Add permissions to folder for konnector if folder created
-      .then(konnector => {
-        connection.konnector = konnector
-        this.updateConnector(konnector)
+      .then(completeKonnector => {
+        connection.konnector = completeKonnector
+        this.updateConnector(completeKonnector)
         if (!connection.folderID) return Promise.resolve()
-        return konnectors.addFolderPermission(cozy.client, konnector, connection.folderID)
+        return konnectors.addFolderPermission(cozy.client, completeKonnector, connection.folderID)
       })
       // 6. Reference konnector in folder
       .then(permission => {
@@ -497,7 +497,7 @@ export default class CollectStore {
     const hasAccount = legacyKonnector.accounts && legacyKonnector.accounts.length
     if (!hasAccount) return null
 
-    const runningJob = this.runningJobs.get(slug)
+    const runningJob = this.unfinishedJob.get(slug)
 
     if (runningJob) {
       return CONNECTION_STATUS.RUNNING
