@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
+
+import { initializeRegistry } from '../ducks/registry'
 
 class App extends Component {
   constructor (props, context) {
@@ -15,6 +18,7 @@ class App extends Component {
       categories: [],
       isFetching: true
     }
+    props.initialize(props.initKonnectors)
 
     this.store.fetchInitialData(props.domain)
       .then(() => {
@@ -60,4 +64,9 @@ class App extends Component {
   }
 }
 
-export default App
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  initialize: (initKonnectors) =>
+    dispatch(initializeRegistry(initKonnectors))
+})
+
+export default connect(null, mapDispatchToProps)(App)
