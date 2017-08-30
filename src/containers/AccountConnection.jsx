@@ -4,8 +4,6 @@ import React, { Component } from 'react'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-// import KonnectorSync from '../components/KonnectorSync'
-// import KonnectorFolder from '../components/KonnectorFolder'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -288,7 +286,7 @@ class AccountConnection extends Component {
     // const { t, connector, fields, isUnloading } = this.props
     // const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-    // const lastSync = this.state.lastSync || (account && account.lastSync)
+    const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
     const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
 
@@ -302,7 +300,24 @@ class AccountConnection extends Component {
 
         { // Properly loed the edit view orthe initial config view
           editing
-          ? <KonnectorEdit />
+          ? <KonnectorEdit
+            account={account}
+            connector={connector}
+            deleting={deleting}
+            disableSuccessTimeout
+            driveUrl={driveUrl}
+            error={error}
+            fields={fields}
+            folderPath={folderPath}
+            isUnloading={isUnloading}
+            lastSync={lastSync}
+            oAuthTerminated={oAuthTerminated}
+            onCancel={() => this.cancel()}
+            onDelete={() => this.deleteAccount()}
+            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
+            submitting={submitting}
+            success={success}
+            />
           : <KonnectorInstall
             account={account}
             connector={connector}

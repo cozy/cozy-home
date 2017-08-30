@@ -4,7 +4,12 @@ import styles from '../styles/accountConnection'
 
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 
-export const KonnectorEdit = ({ t }) => {
+import AccountConnectionData from './AccountConnectionData'
+import KonnectorAccount from './KonnectorAccount'
+import KonnectorFolder from './KonnectorFolder'
+import KonnectorSync from './KonnectorSync'
+
+export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onSubmit, submitting, success }) => {
   return (
     <div className={styles['col-account-connection-content']}>
       <Tabs initialActiveTab='sync'>
@@ -24,15 +29,41 @@ export const KonnectorEdit = ({ t }) => {
         <TabPanels>
 
           <TabPanel name='sync'>
-            SYNCHRONIZATION
+            { !success && <KonnectorSync
+              frequency={account && account.auth && account.auth.frequency}
+              date={lastSync}
+              submitting={submitting}
+              onForceConnection={() => this.forceConnection()}
+            /> }
+            { !success && folderPath && <KonnectorFolder
+              connector={connector}
+              account={account}
+              driveUrl={driveUrl}
+            /> }
           </TabPanel>
 
           <TabPanel name='account'>
-            ACCOUNT
+            { !success && <KonnectorAccount
+              account={account}
+              connector={connector}
+              deleting={deleting}
+              editing
+              disableSuccessTimeout={disableSuccessTimeout}
+              error={error}
+              fields={fields}
+              isUnloading={isUnloading}
+              oAuthTerminated={oAuthTerminated}
+              onCancel={onCancel}
+              onDelete={onDelete}
+              onSubmit={onSubmit}
+              submitting={submitting}
+            /> }
           </TabPanel>
 
           <TabPanel name='data'>
-            DATA
+            <AccountConnectionData
+              connector={connector}
+            />
           </TabPanel>
 
         </TabPanels>
