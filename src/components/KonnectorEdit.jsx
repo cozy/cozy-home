@@ -5,9 +5,12 @@ import styles from '../styles/accountConnection'
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 
 import AccountConnectionData from './AccountConnectionData'
-import KonnectorAccount from './KonnectorAccount'
+import AccountLoginForm from './AccountLoginForm'
+import AccountLogout from './AccountLogout'
 import KonnectorFolder from './KonnectorFolder'
 import KonnectorSync from './KonnectorSync'
+
+import { ACCOUNT_ERRORS } from '../lib/accounts'
 
 export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onSubmit, submitting, success }) => {
   return (
@@ -43,20 +46,26 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
           </TabPanel>
 
           <TabPanel name='account'>
-            { !success && <KonnectorAccount
-              account={account}
-              connector={connector}
-              deleting={deleting}
-              editing
+            { !error && !connector.oauth && <h4>{t('account.form.title')}</h4> }
+
+            { !success && <AccountLoginForm
+              connectorSlug={connector.slug}
               disableSuccessTimeout={disableSuccessTimeout}
-              error={error}
+              error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
               fields={fields}
+              forceEnabled={!!error}
+              isOAuth={connector.oauth}
               isUnloading={isUnloading}
               oAuthTerminated={oAuthTerminated}
               onCancel={onCancel}
-              onDelete={onDelete}
               onSubmit={onSubmit}
               submitting={submitting}
+              values={account ? account.auth || account.oauth : {}}
+            /> }
+
+            { !success && <AccountLogout
+              deleting={deleting}
+              onDelete={onDelete}
             /> }
           </TabPanel>
 

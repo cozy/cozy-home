@@ -3,11 +3,16 @@ import { translate } from 'cozy-ui/react/I18n'
 import styles from '../styles/accountConnection'
 
 import AccountConnectionData from './AccountConnectionData'
+import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
-import KonnectorAccount from './KonnectorAccount'
 import KonnectorSuccess from './KonnectorSuccess'
 
+import { ACCOUNT_ERRORS } from '../lib/accounts'
+
 export const KonnectorInstall = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, hasGlobalError, isTimeout, isUnloading, oAuthTerminated, onAccountConfig, onCancel, onDelete, onSubmit, submitting, success }) => {
+  const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
+  const { hasDescriptions } = connector
+
   return (
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
@@ -18,18 +23,30 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
           messages={[t('account.message.error.global.description', {name: connector.name})]}
         /> }
 
-        { !success && <KonnectorAccount
-          account={account}
-          connector={connector}
+        <DescriptionContent
+          title={t('account.config.title', { name: connector.name })}
+          messages={hasDescriptions && hasDescriptions.connector
+            ? [t(`connector.${connector.slug}.description.connector`)]
+            : []}
+        >
+          { !connector.oauth && <p className={styles['col-account-connection-security']}>
+            <svg>
+              <use xlinkHref={securityIcon} />
+            </svg>
+            {t('account.config.security')}
+          </p> }
+        </DescriptionContent>
+
+        { !success && <AccountLoginForm
+          connectorSlug={connector.slug}
           disableSuccessTimeout={disableSuccessTimeout}
-          deleting={deleting}
-          editing={false}
-          error={error}
+          error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
           fields={fields}
+          forceEnabled={!!error}
+          isOAuth={connector.oauth}
           isUnloading={isUnloading}
           oAuthTerminated={oAuthTerminated}
           onCancel={onCancel}
-          onDelete={onDelete}
           onSubmit={onSubmit}
           submitting={submitting}
         /> }
