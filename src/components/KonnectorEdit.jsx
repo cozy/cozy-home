@@ -57,7 +57,6 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
               isOAuth={connector.oauth}
               isUnloading={isUnloading}
               oAuthTerminated={oAuthTerminated}
-              onCancel={onCancel}
               onSubmit={onSubmit}
               submitting={submitting}
               values={account ? account.auth || account.oauth : {}}

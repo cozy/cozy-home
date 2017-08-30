@@ -46,7 +46,6 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
           isOAuth={connector.oauth}
           isUnloading={isUnloading}
           oAuthTerminated={oAuthTerminated}
-          onCancel={onCancel}
           onSubmit={onSubmit}
           submitting={submitting}
         /> }
