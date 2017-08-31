@@ -343,17 +343,23 @@ export default class CollectStore {
         connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
 
         const slug = connection.konnector.slug || connection.konnector.attributes.slug
+
+        const workerArguments = {
+          konnector: slug,
+          account: connection.account._id
+        }
+
+        if (connection.folderID) {
+          workerArguments['folder_to_save'] = connection.folderID
+        }
+
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
               type: '@cron',
               arguments: `0 0 0 * * ${(new Date()).getDay()}`,
               worker: 'konnector',
-              worker_arguments: {
-                konnector: slug,
-                account: connection.account._id,
-                folder_to_save: connection.folderID
-              }
+              worker_arguments: workerArguments
             }
           }
         })

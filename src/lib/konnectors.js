@@ -192,11 +192,16 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
   }
   if (!account._id) throw new Error('Missing `_id` parameter for account')
 
-  return cozy.jobs.create('konnector', {
+  const jobAttributes = {
     konnector: slug,
-    account: account._id,
-    folder_to_save: account.folderId
-  }, {
+    account: account._id
+  }
+
+  if (account.folderId) {
+    jobAttributes['folder_to_save'] = account.folderId
+  }
+
+  return cozy.jobs.create('konnector', jobAttributes, {
     priority: 10,
     max_exec_count: 1
   })
