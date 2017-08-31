@@ -358,10 +358,7 @@ export default class CollectStore {
           }
         })
       })
-      .then(() => konnectors.fetchResult(cozy.client, connection.konnector))
-      .then(konnectorResult => {
-        connection.konnectorResult = konnectorResult
-        this.updateKonnectorResult(konnectorResult)
+      .then(() => {
         this.updateConnector(connection.konnector)
         return connection
       })
