@@ -6,8 +6,6 @@ import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
-
 const SUCCESS_TYPES = {
   UPDATE: 'update',
   CONNECT: 'connect',
@@ -285,7 +283,6 @@ class AccountConnection extends Component {
     const { driveUrl } = this.store
     // const { t, connector, fields, isUnloading } = this.props
     // const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
-    const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
     const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
     const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
@@ -327,7 +324,6 @@ class AccountConnection extends Component {
             error={error}
             fields={fields}
             folderPath={folderPath}
-            hasGlobalError={hasGlobalError}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
@@ -339,12 +335,6 @@ class AccountConnection extends Component {
             success={success}
             />
         }
-
-            {/* hasGlobalError && <DescriptionContent
-              cssClassesObject={{'coz-error': true}}
-              title={t('account.message.error.global.title')}
-              messages={[t('account.message.error.global.description', {name: connector.name})]}
-            /> */}
 
             {/* editing && !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}

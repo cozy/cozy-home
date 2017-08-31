@@ -9,7 +9,7 @@ import KonnectorSuccess from './KonnectorSuccess'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
-export const KonnectorInstall = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, hasGlobalError, isTimeout, isUnloading, oAuthTerminated, onAccountConfig, onCancel, onDelete, onSubmit, submitting, success }) => {
+export const KonnectorInstall = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isTimeout, isUnloading, oAuthTerminated, onAccountConfig, onCancel, onDelete, onSubmit, submitting, success }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions } = connector
 
@@ -17,7 +17,7 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
 
-        { hasGlobalError && <DescriptionContent
+        { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && <DescriptionContent
           cssClassesObject={{'coz-error': true}}
           title={t('account.message.error.global.title')}
           messages={[t('account.message.error.global.description', {name: connector.name})]}

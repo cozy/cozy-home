@@ -7,22 +7,36 @@ import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import AccountLogout from './AccountLogout'
+import DescriptionContent from './DescriptionContent'
 import KonnectorFolder from './KonnectorFolder'
 import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
 export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onSubmit, submitting, success }) => {
+  const warningIcon = <svg className='item-status-icon'>
+    <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
+  </svg>
+
   return (
     <div className={styles['col-account-connection-content']}>
+
+      { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && <DescriptionContent
+        cssClassesObject={{'coz-error': true}}
+        title={t('account.message.error.global.title')}
+        messages={[t('account.message.error.global.description', {name: connector.name})]}
+      /> }
+
       <Tabs initialActiveTab='sync'>
 
         <TabList>
           <Tab name='sync'>
             {t('account.config.tabs.sync')}
+            { error && warningIcon}
           </Tab>
           <Tab name='account'>
             {t('account.config.tabs.account')}
+            { error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED && warningIcon }
           </Tab>
           <Tab name='data'>
             {t('account.config.tabs.data')}
