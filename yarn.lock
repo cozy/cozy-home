@@ -1505,9 +1505,9 @@ cozy-bar@^3.0.1:
   dependencies:
     node-polyglot "^2.2.2"
 
-cozy-client-js@^0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.7.tgz#bff9edaf6118a9c7a0d47b77197ab5faa14ab4cb"
+cozy-client-js@^0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.16.tgz#4d909efa31d11d30ad35a349065694e38b3d5a21"
 
 cozy-ui@^3.0.0-beta39:
   version "3.0.0-beta39"

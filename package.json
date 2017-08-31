@@ -80,7 +80,7 @@
     "browser-sync-webpack-plugin": "1.1.3",
     "copy-webpack-plugin": "4.0.0",
     "cozy-bar": "^3.0.1",
-    "cozy-client-js": "^0.3.7",
+    "cozy-client-js": "^0.3.16",
     "cozy-ui": "^3.0.0-beta39",
     "css-loader": "0.25.0",
     "css-mqpacker": "5.0.1",
