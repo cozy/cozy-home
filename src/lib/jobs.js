@@ -4,6 +4,8 @@ import * as realtime from './realtime'
 export const JOBS_DOCTYPE = 'io.cozy.jobs'
 
 export const JOB_STATE = {
+  DONE: 'done',
+  ERRORED: 'errored',
   RUNNING: 'running'
 }
 
