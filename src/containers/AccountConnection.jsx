@@ -281,8 +281,6 @@ class AccountConnection extends Component {
     const { connector, disableSuccessTimeout, fields, isUnloading } = this.props
     const { account, deleting, editing, error, oAuthTerminated, submitting, success } = this.state
     const { driveUrl } = this.store
-    // const { t, connector, fields, isUnloading } = this.props
-    // const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
     const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
     const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
@@ -336,46 +334,6 @@ class AccountConnection extends Component {
             />
         }
 
-            {/* editing && !success && <KonnectorSync
-              frequency={account && account.auth && account.auth.frequency}
-              date={lastSync}
-              submitting={submitting}
-              onForceConnection={() => this.forceConnection()}
-            /> */}
-
-            {/* editing && !success && folderPath && <KonnectorFolder
-              connector={connector}
-              account={account}
-              driveUrl={this.store.driveUrl}
-            /> */}
-
-            {/* !success && <KonnectorAccount
-              connector={connector}
-              account={account}
-              fields={fields}
-              editing={editing}
-              disableSuccessTimeout={this.props.disableSuccessTimeout}
-              oAuthTerminated={oAuthTerminated}
-              isUnloading={isUnloading}
-              submitting={submitting}
-              deleting={deleting}
-              error={error}
-              onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
-              onCancel={() => this.cancel()}
-            /> */}
-
-            {/* success && <KonnectorSuccess
-              success={success}
-              connector={connector}
-              folderId={account.folderId}
-              driveUrl={this.store.driveUrl}
-              isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
-              folderPath={folderPath}
-              onAccountConfig={() => this.goToConfig()}
-              onCancel={() => this.cancel()}
-              isUnloading={isUnloading}
-            /> */}
       </div>
     )
   }
