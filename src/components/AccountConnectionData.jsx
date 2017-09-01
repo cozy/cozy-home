@@ -1,4 +1,4 @@
-import styles from '../styles/accountConnection'
+import styles from '../styles/accountConnectionData'
 
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'

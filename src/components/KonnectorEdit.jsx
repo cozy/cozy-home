@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import styles from '../styles/accountConnection'
+import styles from '../styles/konnectorEdit'
 
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 
@@ -19,7 +19,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
   </svg>
 
   return (
-    <div className={styles['col-account-connection-content']}>
+    <div className={styles['col-account-edit-content']}>
 
       { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && <DescriptionContent
         cssClassesObject={{'coz-error': true}}
@@ -27,7 +27,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
         messages={[t('account.message.error.global.description', {name: connector.name})]}
       /> }
 
-      <Tabs initialActiveTab='sync'>
+      <Tabs initialActiveTab='sync' className={styles['col-account-edit-tabs']}>
 
         <TabList>
           <Tab name='sync'>
@@ -45,7 +45,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
 
         <TabPanels>
 
-          <TabPanel name='sync'>
+          <TabPanel name='sync' className={styles['col-account-edit-tabpanel']}>
             { !success && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
               date={lastSync}
@@ -59,7 +59,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
             /> }
           </TabPanel>
 
-          <TabPanel name='account'>
+          <TabPanel name='account' className={styles['col-account-edit-tabpanel']}>
             { !error && !connector.oauth && <h4>{t('account.form.title')}</h4> }
 
             { !success && <AccountLoginForm
@@ -82,7 +82,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
             /> }
           </TabPanel>
 
-          <TabPanel name='data'>
+          <TabPanel name='data' className={styles['col-account-edit-tabpanel']}>
             <AccountConnectionData
               connector={connector}
             />
