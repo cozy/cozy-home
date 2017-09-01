@@ -295,15 +295,15 @@ export default class CollectStore {
     return createDirectoryIfNecessary(folderPath)
       // 2. Create account
       .then(folder => {
-        const folderID = folder ? folder._id : null
-        connection.folderID = folderID
+        const folderId = folder ? folder._id : null
+        connection.folderId = folderId
         if (isOAuth) {
           const newAttributes = {
-            folderId: folderID
+            folderId: folderId
           }
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
-          return accounts.create(cozy.client, konnector, account.auth, folderID)
+          return accounts.create(cozy.client, konnector, account.auth, folderId)
         }
       })
       // 3. Konnector installation
