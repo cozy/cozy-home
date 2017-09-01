@@ -298,9 +298,12 @@ export default class CollectStore {
         const folderId = folder ? folder._id : null
         connection.folderId = folderId
         if (isOAuth) {
-          const newAttributes = {
-            folderId: folderId
+          const newAttributes = {}
+
+          if (folderId) {
+            newAttributes.folderId = folderId
           }
+
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
           return accounts.create(cozy.client, konnector, account.auth, folderId)
