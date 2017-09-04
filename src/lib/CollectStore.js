@@ -1,4 +1,3 @@
-/* global fetch */
 /* global cozy */
 import { Component } from 'react'
 
@@ -36,7 +35,7 @@ export default class CollectStore {
     this.connectionStatusListeners = new Map()
 
     // Store all the currently running jobs related to konnectors
-    this.runningJobs = new Map()
+    this.unfinishedJob = new Map()
 
     // Installing/installed konnectors
     this.installedKonnectors = new Map()
@@ -64,8 +63,8 @@ export default class CollectStore {
     jobs.subscribeAll(cozy.client)
       .then(subscription => {
         subscription
-          .onCreate(job => this.updateRunningJob(job))
-          .onUpdate(job => this.updateRunningJob(job))
+          .onCreate(job => this.updateUnfinishedJob(job))
+          .onUpdate(job => this.updateUnfinishedJob(job))
           .onDelete(job => this.deleteRunningJob(job))
       })
       .catch(error => {
@@ -106,21 +105,21 @@ export default class CollectStore {
     this.triggerConnectionStatusUpdate(konnector)
   }
 
-  updateRunningJob (job) {
-    if (job.state !== jobs.JOB_STATE.RUNNING) {
+  updateUnfinishedJob (job) {
+    if (job.state === jobs.JOB_STATE.DONE || job.state === jobs.JOB_STATE.ERRORED) {
       return this.deleteRunningJob(job)
     }
 
     const slug = job.konnector
     const konnector = this.getKonnectorBySlug(slug)
-    this.runningJobs.set(slug, job)
+    this.unfinishedJob.set(slug, job)
     this.triggerConnectionStatusUpdate(konnector)
   }
 
   deleteRunningJob (job) {
     const slug = job.konnector
     const konnector = this.getKonnectorBySlug(slug)
-    const deleted = this.runningJobs.delete(slug)
+    const deleted = this.unfinishedJob.delete(slug)
     if (deleted) this.triggerConnectionStatusUpdate(konnector)
   }
 
@@ -270,7 +269,7 @@ export default class CollectStore {
     })
     .then(jobs => {
       jobs.forEach(job => {
-        this.updateRunningJob(job)
+        this.updateUnfinishedJob(job)
       })
       return jobs
     })
@@ -296,15 +295,18 @@ export default class CollectStore {
     return createDirectoryIfNecessary(folderPath)
       // 2. Create account
       .then(folder => {
-        const folderID = folder ? folder._id : null
-        connection.folderID = folderID
+        const folderId = folder ? folder._id : null
+        connection.folderId = folderId
         if (isOAuth) {
-          const newAttributes = {
-            folderId: folderID
+          const newAttributes = {}
+
+          if (folderId) {
+            newAttributes.folderId = folderId
           }
+
           return accounts.update(cozy.client, account, Object.assign({}, account, newAttributes))
         } else {
-          return accounts.create(cozy.client, konnector, account.auth, folderID)
+          return accounts.create(cozy.client, konnector, account.auth, folderId)
         }
       })
       // 3. Konnector installation
@@ -313,15 +315,15 @@ export default class CollectStore {
         return konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
       })
       // 4. Add account to konnector
-      .then(konnector => {
-        return konnectors.addAccount(cozy.client, konnector, connection.account)
+      .then(installedkonnector => {
+        return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
       })
       // 5. Add permissions to folder for konnector if folder created
-      .then(konnector => {
-        connection.konnector = konnector
-        this.updateConnector(konnector)
+      .then(completeKonnector => {
+        connection.konnector = completeKonnector
+        this.updateConnector(completeKonnector)
         if (!connection.folderID) return Promise.resolve()
-        return konnectors.addFolderPermission(cozy.client, konnector, connection.folderID)
+        return konnectors.addFolderPermission(cozy.client, completeKonnector, connection.folderID)
       })
       // 6. Reference konnector in folder
       .then(permission => {
@@ -344,30 +346,33 @@ export default class CollectStore {
         connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
 
         const slug = connection.konnector.slug || connection.konnector.attributes.slug
+
+        const workerArguments = {
+          konnector: slug,
+          account: connection.account._id
+        }
+
+        if (connection.folderID) {
+          workerArguments['folder_to_save'] = connection.folderID
+        }
+
         return cozy.client.fetchJSON('POST', '/jobs/triggers', {
           data: {
             attributes: {
               type: '@cron',
               arguments: `0 0 0 * * ${(new Date()).getDay()}`,
               worker: 'konnector',
-              worker_arguments: {
-                konnector: slug,
-                account: connection.account._id,
-                folder_to_save: connection.folderID
-              }
+              worker_arguments: workerArguments
             }
           }
         })
       })
+      .then(() => {
+        this.updateConnector(connection.konnector)
+        return connection
+      })
       .catch(error => {
         connection.error = error
-      })
-      .then(() => konnectors.fetchResult(cozy.client, connection.konnector))
-      .then(konnectorResult => {
-        connection.konnectorResult = konnectorResult
-        this.updateKonnectorResult(konnectorResult)
-        this.updateConnector(connection.konnector)
-
         return connection
       })
   }
@@ -435,7 +440,10 @@ export default class CollectStore {
     konnector = this.connectors.find(c => c.slug === konnector.slug)
     return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
         .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
-        .then(() => konnectors.unlinkFolder(cozy.client, konnector, account.folderId))
+        .then(() => {
+          if (!account.folderId) return
+          return konnectors.unlinkFolder(cozy.client, konnector, account.folderId)
+        })
       ))
       .then(() => this.updateConnector(konnector))
       .then(konnector => this.triggerConnectionStatusUpdate(konnector))
@@ -498,7 +506,7 @@ export default class CollectStore {
     const hasAccount = legacyKonnector.accounts && legacyKonnector.accounts.length
     if (!hasAccount) return null
 
-    const runningJob = this.runningJobs.get(slug)
+    const runningJob = this.unfinishedJob.get(slug)
 
     if (runningJob) {
       return CONNECTION_STATUS.RUNNING

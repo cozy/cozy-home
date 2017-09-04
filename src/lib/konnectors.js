@@ -78,6 +78,7 @@ export function unlinkFolder (cozy, konnector, folderId) {
 }
 
 export function fetchResult (cozy, konnector) {
+  if (!konnector) return Promise.reject(new Error('No konnector'))
   const slug = konnector.slug || konnector.attributes.slug
   return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, slug)
 }
@@ -144,14 +145,15 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
 
     const idInterval = setInterval(() => {
       cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
-        .then(konnectorResult => {
-          if (konnectorResult.state === KONNECTOR_STATE.READY) {
+        .then(konnectorResponse => {
+          if (konnectorResponse.state === KONNECTOR_STATE.READY) {
             clearTimeout(idTimeout)
             clearInterval(idInterval)
             resolve(konnector)
           }
         })
         .catch(error => {
+          if (error.status === 404) return // keep waiting
           clearTimeout(idTimeout)
           clearInterval(idInterval)
           reject(error)
@@ -190,11 +192,16 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
   }
   if (!account._id) throw new Error('Missing `_id` parameter for account')
 
-  return cozy.jobs.create('konnector', {
+  const jobAttributes = {
     konnector: slug,
-    account: account._id,
-    folder_to_save: account.folderId
-  }, {
+    account: account._id
+  }
+
+  if (account.folderId) {
+    jobAttributes['folder_to_save'] = account.folderId
+  }
+
+  return cozy.jobs.create('konnector', jobAttributes, {
     priority: 10,
     max_exec_count: 1
   })
