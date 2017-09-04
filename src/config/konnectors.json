@@ -1,6 +1,21 @@
 [
   {
     "accounts":[],
+    "slug":"malakoffmederic",
+    "name":"Malakoff Mederic",
+    "vendorLink":"http://www.malakoffmederic.com/",
+    "category":"insurance",
+    "color":{"hex":"#D4951A","css":"#D4951A"},
+    "dataType":["bill"],
+    "fields":{
+      "login":{"type":"text"},
+      "password":{"type":"password"},
+      "folderPath":{"type":"folder","advanced":true}
+    },
+    "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
+  },
+  {
+    "accounts":[],
     "slug":"ameli",
     "name":"Ameli",
     "vendorLink":"https://www.ameli.fr/",
