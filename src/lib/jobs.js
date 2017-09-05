@@ -4,6 +4,7 @@ import * as realtime from './realtime'
 export const JOBS_DOCTYPE = 'io.cozy.jobs'
 
 export const JOB_STATE = {
+  QUEUED: 'queued',
   DONE: 'done',
   ERRORED: 'errored',
   RUNNING: 'running'
@@ -18,7 +19,7 @@ export function findById (cozy, id) {
 }
 
 export function find (cozy, query) {
-  return cozy.data.defineIndex(JOBS_DOCTYPE, Object.keys(query))
+  return cozy.data.defineIndex(JOBS_DOCTYPE, ['worker', 'domain'])
     // TODO: cache the index
     .then(index => cozy.data.query(index, {
       selector: query
