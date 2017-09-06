@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { cozyConnect } from 'redux-cozy-client'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
@@ -18,7 +18,8 @@ class App extends Component {
       categories: [],
       isFetching: true
     }
-    props.initialize(props.initKonnectors)
+
+    props.initializeRegistry(props.initKonnectors)
 
     this.store.fetchInitialData(props.domain)
       .then(() => {
@@ -64,9 +65,10 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  initialize: (initKonnectors) =>
-    dispatch(initializeRegistry(initKonnectors))
+const mapActionsToProps = (dispatch) => ({
+  initializeRegistry: (konnectors) => dispatch(initializeRegistry(konnectors))
 })
 
-export default connect(null, mapDispatchToProps)(App)
+const mapDocumentsToProps = (ownProps) => ({})
+
+export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
