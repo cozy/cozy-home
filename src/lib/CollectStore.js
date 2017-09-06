@@ -55,7 +55,7 @@ export default class CollectStore {
       this.fetchAllAccounts(),
       this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
-      this.fetchKonnectorRunningJobs(domain)
+      this.fetchKonnectorUnfinishedJobs(domain)
     ])
   }
 
@@ -261,9 +261,13 @@ export default class CollectStore {
       })
   }
 
-  fetchKonnectorRunningJobs (domain) {
+  fetchKonnectorUnfinishedJobs (domain) {
     return jobs.find(cozy.client, {
-      state: jobs.JOB_STATE.RUNNING,
+      $or: [{
+        state: jobs.JOB_STATE.RUNNING
+      }, {
+        state: jobs.JOB_STATE.QUEUED
+      }],
       worker: 'konnector',
       domain: domain
     })
