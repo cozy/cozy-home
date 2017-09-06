@@ -8,6 +8,7 @@ import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 
 import { initializeRegistry } from '../ducks/registry'
+import { fetchKonnectors } from '../ducks/konnectors'
 
 class App extends Component {
   constructor (props, context) {
@@ -69,6 +70,8 @@ const mapActionsToProps = (dispatch) => ({
   initializeRegistry: (konnectors) => dispatch(initializeRegistry(konnectors))
 })
 
-const mapDocumentsToProps = (ownProps) => ({})
+const mapDocumentsToProps = (ownProps) => ({
+  konnectors: fetchKonnectors()
+})
 
 export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
