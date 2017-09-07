@@ -3,10 +3,13 @@
 const path = require('path')
 const { ProvidePlugin } = require('webpack')
 
+const SRC_DIR = path.resolve(__dirname, '../src')
+
 module.exports = {
   resolve: {
     alias: {
-      config: path.resolve(__dirname, '../src/config')
+      config: path.resolve(SRC_DIR, './config'),
+      'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
     }
   },
   plugins: [

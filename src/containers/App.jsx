@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import { cozyConnect } from 'redux-cozy-client'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
+
+import { initializeRegistry } from '../ducks/registry'
+import { fetchKonnectors } from '../ducks/konnectors'
 
 class App extends Component {
   constructor (props, context) {
@@ -15,6 +19,8 @@ class App extends Component {
       categories: [],
       isFetching: true
     }
+
+    props.initializeRegistry(props.initKonnectors)
 
     this.store.fetchInitialData(props.domain)
       .then(() => {
@@ -60,4 +66,12 @@ class App extends Component {
   }
 }
 
-export default App
+const mapActionsToProps = (dispatch) => ({
+  initializeRegistry: (konnectors) => dispatch(initializeRegistry(konnectors))
+})
+
+const mapDocumentsToProps = (ownProps) => ({
+  konnectors: fetchKonnectors()
+})
+
+export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)

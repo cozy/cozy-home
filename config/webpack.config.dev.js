@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __SERVER__: JSON.stringify('http://app.cozy.tools'),
+      __DEVTOOLS__: true,
       __STACK_ASSETS__: false,
       __PIWIK_SITEID__: 8,
       __PIWIK_DIMENSION_ID_APP__: 1,

@@ -1,6 +1,4 @@
 /* global cozy */
-import { Component } from 'react'
-
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
@@ -569,20 +567,5 @@ export default class CollectStore {
     }
 
     return null
-  }
-}
-
-export class Provider extends Component {
-  getChildContext () {
-    return { store: this.store }
-  }
-
-  constructor (props, context) {
-    super(props, context)
-    this.store = props.store
-  }
-
-  render ({children}) {
-    return (children && children[0]) || null
   }
 }

@@ -4,12 +4,13 @@ import 'url-search-params-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Redirect, hashHistory } from 'react-router'
+import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
 import { I18n } from 'cozy-ui/react/I18n'
-import CollectStore, { Provider } from './lib/CollectStore'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
+import configureStore from './store/configureStore'
 import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
 import ConnectedList from './components/ConnectedList'
@@ -41,10 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  cozy.client.init({
-    cozyURL: '//' + data.cozyDomain,
+
+  const client = new CozyClient({
+    cozyURL: `//${data.cozyDomain}`,
     token: data.cozyToken
   })
+
   cozy.bar.init({
     appEditor: data.cozyAppEditor,
     appName: data.cozyAppName,
@@ -54,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = new CollectStore(initKonnectors, initFolders, context)
+  const store = configureStore(client, initKonnectors, initFolders, context)
   const useCases = store.getUseCases()
 
   let history = hashHistory
@@ -70,12 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
     : require(`./locales/${lang}`)
 
   render((
-    <Provider store={store}>
+    <CozyProvider store={store} client={client}>
       <I18n lang={lang} dictRequire={dictRequire} context={context}>
         <Router history={history}>
           <Route
             component={(props) =>
-              <App domain={data.cozyDomain} {...props}
+              <App domain={data.cozyDomain} initKonnectors={initKonnectors} {...props}
               />}
           >
             <Redirect from='/' to='/discovery' />
@@ -134,6 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </Route>
         </Router>
       </I18n>
-    </Provider>
+    </CozyProvider>
   ), document.querySelector('[role=application]'))
 })
