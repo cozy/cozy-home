@@ -299,7 +299,7 @@ class AccountConnection extends Component {
             account={account}
             connector={connector}
             deleting={deleting}
-            disableSuccessTimeout
+            disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error}
             fields={fields}
