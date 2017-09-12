@@ -13,7 +13,7 @@ import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
-export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onSubmit, submitting, success }) => {
+export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onForceConnection, onSubmit, submitting, success }) => {
   const warningIcon = <svg className='item-status-icon'>
     <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
   </svg>
@@ -50,7 +50,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
               frequency={account && account.auth && account.auth.frequency}
               date={lastSync}
               submitting={submitting}
-              onForceConnection={() => this.forceConnection()}
+              onForceConnection={onForceConnection}
             /> }
             { !success && folderPath && <KonnectorFolder
               connector={connector}

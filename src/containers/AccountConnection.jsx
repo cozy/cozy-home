@@ -309,6 +309,7 @@ class AccountConnection extends Component {
             oAuthTerminated={oAuthTerminated}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
+            onForceConnection={() => this.forceConnection()}
             onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
             submitting={submitting}
             success={success}
