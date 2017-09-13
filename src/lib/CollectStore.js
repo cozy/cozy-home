@@ -3,6 +3,8 @@ import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
 
+import { createConnection } from '../ducks/connections'
+
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
 
@@ -318,6 +320,7 @@ export default class CollectStore {
       })
       // 4. Add account to konnector
       .then(installedkonnector => {
+        this.dispatch(createConnection(installedkonnector, connection.account, connection.folderId))
         return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
       })
       // 5. Add permissions to folder for konnector if folder created
