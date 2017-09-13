@@ -18,12 +18,12 @@ exports[`DescriptionContent component should be displayed correctly with two mes
   </h4>
   <p
     className="col-account-description-message">
-    <Unknown
+    <ReactMarkdownWrapper
       source="**First** message \`here\`" />
   </p>
   <p
     className="col-account-description-message">
-    <Unknown
+    <ReactMarkdownWrapper
       source="second message with [link](https://examplelink.mock)" />
   </p>
   Test description component children

@@ -2,15 +2,9 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 
-import KonnectorAccount from '../components/KonnectorAccount'
-import KonnectorSuccess from '../components/KonnectorSuccess'
-import KonnectorSync from '../components/KonnectorSync'
-import KonnectorFolder from '../components/KonnectorFolder'
-import AccountConnectionData from '../components/AccountConnectionData'
-import DescriptionContent from '../components/DescriptionContent'
+import KonnectorInstall from '../components/KonnectorInstall'
+import KonnectorEdit from '../components/KonnectorEdit'
 import {popupCenter, waitForClosedPopup} from '../lib/popup'
-
-import { ACCOUNT_ERRORS } from '../lib/accounts'
 
 const SUCCESS_TYPES = {
   UPDATE: 'update',
@@ -284,11 +278,13 @@ class AccountConnection extends Component {
   }
 
   render () {
-    const { t, connector, fields, isUnloading } = this.props
-    const { submitting, oAuthTerminated, deleting, error, success, account, editing } = this.state
-    const hasGlobalError = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+    const { connector, disableSuccessTimeout, fields, isUnloading } = this.props
+    const { account, deleting, editing, error, oAuthTerminated, submitting, success } = this.state
+    const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
+    const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
+
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -296,60 +292,49 @@ class AccountConnection extends Component {
             className={styles['col-account-connection-icon']}
             src={this.getIcon(connector)} />
         </div>
-        <div className={styles['col-account-connection-content']}>
-          <div className={styles['col-account-connection-form']}>
-            { hasGlobalError && <DescriptionContent
-              cssClassesObject={{'coz-error': true}}
-              title={t('account.message.error.global.title')}
-              messages={[t('account.message.error.global.description', {name: connector.name})]}
-            /> }
 
-            { editing && !success && <KonnectorSync
-              frequency={account && account.auth && account.auth.frequency}
-              date={lastSync}
-              submitting={submitting}
-              onForceConnection={() => this.forceConnection()}
-            /> }
-
-            { editing && !success && folderPath && <KonnectorFolder
-              connector={connector}
-              account={account}
-              driveUrl={this.store.driveUrl}
-            /> }
-
-            { !success && <KonnectorAccount
-              connector={connector}
-              account={account}
-              fields={fields}
-              editing={editing}
-              disableSuccessTimeout={this.props.disableSuccessTimeout}
-              oAuthTerminated={oAuthTerminated}
-              isUnloading={isUnloading}
-              submitting={submitting}
-              deleting={deleting}
-              error={error}
-              onDelete={() => this.deleteAccount()}
-              onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
-              onCancel={() => this.cancel()}
-            /> }
-
-            { success && <KonnectorSuccess
-              success={success}
-              connector={connector}
-              folderId={account.folderId}
-              driveUrl={this.store.driveUrl}
-              isTimeout={success.type === SUCCESS_TYPES.TIMEOUT}
-              folderPath={folderPath}
-              onAccountConfig={() => this.goToConfig()}
-              onCancel={() => this.cancel()}
-              isUnloading={isUnloading}
-            /> }
-          </div>
-
-          <AccountConnectionData
+        { // Properly loed the edit view orthe initial config view
+          editing
+          ? <KonnectorEdit
+            account={account}
             connector={connector}
-          />
-        </div>
+            deleting={deleting}
+            disableSuccessTimeout={disableSuccessTimeout}
+            driveUrl={driveUrl}
+            error={error}
+            fields={fields}
+            folderPath={folderPath}
+            isUnloading={isUnloading}
+            lastSync={lastSync}
+            oAuthTerminated={oAuthTerminated}
+            onCancel={() => this.cancel()}
+            onDelete={() => this.deleteAccount()}
+            onForceConnection={() => this.forceConnection()}
+            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
+            submitting={submitting}
+            success={success}
+            />
+          : <KonnectorInstall
+            account={account}
+            connector={connector}
+            deleting={deleting}
+            disableSuccessTimeout={disableSuccessTimeout}
+            driveUrl={driveUrl}
+            error={error}
+            fields={fields}
+            folderPath={folderPath}
+            isTimeout={isTimeout}
+            isUnloading={isUnloading}
+            oAuthTerminated={oAuthTerminated}
+            onAccountConfig={() => this.goToConfig()}
+            onCancel={() => this.cancel()}
+            onDelete={() => this.deleteAccount()}
+            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
+            submitting={submitting}
+            success={success}
+            />
+        }
+
       </div>
     )
   }

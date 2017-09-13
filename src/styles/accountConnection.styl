@@ -1,57 +1,28 @@
 @import 'cozy-ui'
 
 :local // @stylint ignore
-    .col-account-connection-header svg
-        max-height (48/basefont)em
-
-    .col-account-connection-content
-        display   flex
-        flex-wrap nowrap
-        width     (800/basefont)em
-
-    p
-        font-size   (16/basefont)em
-        line-height (24/basefont)em
-
-    .col-account-connection-security svg
-        max-height   (48/basefont)em
-        max-width    (48/basefont)em
-        float        left
-        margin-right (16/basefont)em
-
-    .col-account-connection-header,
-    .col-account-connection-form,
-    .col-account-connection-data
-        margin 0 (16/basefont)em
-
-    .col-account-connection-icon
-        height 3em
-
     h3
         font-size   (24/basefont)em
         line-height 1.5em
         margin      .667em 0
-
-    .col-account-connection-form
-        flex 1 0 (460/basefont)em
-        max-width (460/basefont)em
 
     h4
         font-size   (20/basefont)em
         line-height 1.5em
         margin      1em 0
 
-    .col-account-connection-data-access
-        padding-left 0
+    p
+        font-size   (16/basefont)em
+        line-height (24/basefont)em
 
-    .col-account-connection
+    .col-account-connection-header
+        margin 0 (16/basefont)em
+
         @media (max-width: (930/basefont)rem)
-            .col-account-connection-data
-                display none
+            width   100%
 
-            .col-account-connection-header,
-            .col-account-connection-content
-                width   100%
+        svg
+            max-height (48/basefont)em
 
-            .col-account-connection-form
-                flex    1 0
+    .col-account-connection-icon
+        height 3em

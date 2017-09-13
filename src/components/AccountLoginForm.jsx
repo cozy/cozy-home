@@ -8,7 +8,7 @@ import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   const submitEnabled = dirty || isOAuth || forceEnabled
   let alreadyFocused = false
@@ -80,30 +80,8 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           }
         }
       )}
-      { isUpdate &&
-        <div className={styles['col-account-form-delete']}>
-          <h4>{t('account.disconnect.title')}</h4>
-          <p>
-            {t('account.disconnect.description')}
-          </p>
-          <button
-            className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
-            disabled={deleting}
-            aria-busy={deleting}
-            onClick={onDelete}>
-            {t('account.form.button.disconnect')}
-          </button>
-        </div>
-      }
+
       <div className={styles['coz-form-controls']}>
-        { isUpdate && !isOAuth &&
-          <button
-            className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
-            onClick={onCancel}
-          >
-            {t('account.form.button.cancel')}
-          </button>
-        }
         { (!(isUpdate && isOAuth) && !isSuccess) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
