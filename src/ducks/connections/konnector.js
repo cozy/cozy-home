@@ -30,10 +30,10 @@ export const getConnectionStatus = (state) => {
   }, 'running')
 }
 
-export const hasRunningConnection = (state) => {
-  return Object.keys(state).find(key => isRunning(state[key]))
+export const hasRunConnection = (state) => {
+  return Object.keys(state).find(accountId => hasRun(state[accountId]))
 }
 
-export const hasRunConnection = (state) => {
-  return Object.keys(state).find(key => hasRun(state[key]))
+export const hasRunningConnection = (state) => {
+  return Object.keys(state).find(accountId => isRunning(state[accountId]))
 }

@@ -28,10 +28,10 @@ export const hasError = (state) => {
   return !isRunning(state) && !!state.error
 }
 
-export const isRunning = (state) => {
-  return state.isRunning
-}
-
 export const hasRun = (state) => {
   return state.hasRun
+}
+
+export const isRunning = (state) => {
+  return state.isRunning
 }
