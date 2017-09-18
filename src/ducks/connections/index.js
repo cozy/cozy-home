@@ -6,12 +6,14 @@ import konnector, {
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
+export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 
 // reducers
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
+    case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
       if (!action.konnector || !action.konnector.slug) throw new Error('Missing konnector slug')
       return { ...state, [action.konnector.slug]: konnector(state[action.konnector.slug], action) }
@@ -28,6 +30,13 @@ export const createConnection = (konnector, account, folder) => ({
   konnector,
   account,
   folder
+})
+
+export const updateConnectionError = (konnector, account, error) => ({
+  type: UPDATE_CONNECTION_ERROR,
+  konnector,
+  account,
+  error
 })
 
 export const updateConnectionRunningStatus = (konnector, account, isRunning = false) => ({

@@ -17,6 +17,16 @@ Object {
 }
 `;
 
+exports[`Connections Duck updateConnectionError set an error 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": [Error: test error],
+    },
+  },
+}
+`;
+
 exports[`Connections Duck updateConnectionRunningStatus keeps \`hasRun\` to true after setting \`isRunning\` from false to true 1`] = `
 Object {
   "testprovider": Object {
