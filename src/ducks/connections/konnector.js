@@ -4,7 +4,11 @@ import {
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
 
-import account, { isRunning, hasRun } from './account'
+import account, {
+  hasError,
+  hasRun,
+  isRunning
+} from './account'
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -20,6 +24,12 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
+export const getConnectionStatus = (state) => {
+  return Object.keys(state).reduce((status, accountId) => {
+    return hasError(state[accountId]) ? 'error' : status
+  }, 'running')
+}
+
 export const hasRunningConnection = (state) => {
   return Object.keys(state).find(key => isRunning(state[key]))
 }

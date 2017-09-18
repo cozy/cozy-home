@@ -24,6 +24,10 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
+export const hasError = (state) => {
+  return !isRunning(state) && !!state.error
+}
+
 export const isRunning = (state) => {
   return state.isRunning
 }

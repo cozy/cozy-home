@@ -1,4 +1,5 @@
 import konnector, {
+  getConnectionStatus,
   hasRunningConnection,
   hasRunConnection
 } from './konnector'
@@ -58,15 +59,16 @@ const getKonnectorIconURL = (registry, slug) => {
   return icon
 }
 
-const getConnectionStatus = (state, key) => {
-  return 'loading'
+const queueStatuses = {
+  running: 'loading',
+  error: 'failed'
 }
 
 export const getQueue = (state, konnectorsRegistry) => {
   return Object.keys(state).reduce((runningConnections, key) => {
     const konnector = state[key]
     const label = konnectorsRegistry[key] && konnectorsRegistry[key].name
-    const status = getConnectionStatus(state, key)
+    const status = queueStatuses[getConnectionStatus(state[key])]
     const icon = getKonnectorIconURL(konnectorsRegistry, key)
     if (hasRunningConnection(konnector) || hasRunConnection(konnector)) {
       runningConnections.push({
