@@ -51,9 +51,7 @@
     "jobs": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.jobs",
-      "verbs": ["ALL"],
-      "selector": "worker",
-      "values": ["konnector"]
+      "verbs": ["ALL"]
     },
     "triggers": {
       "description": "Required to run the konnectors",
