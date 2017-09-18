@@ -3,7 +3,11 @@ import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
 
-import { createConnection, updateConnectionRunningStatus } from '../ducks/connections'
+import {
+  createConnection,
+  updateConnectionError,
+  updateConnectionRunningStatus
+} from '../ducks/connections'
 
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = (cat) => AUTHORIZED_CATEGORIES.includes(cat)
@@ -379,6 +383,9 @@ export default class CollectStore {
         return connection
       })
       .catch(error => {
+        const { konnector, account } = connection
+        this.dispatch(updateConnectionRunningStatus(konnector, account, false))
+        this.dispatch(updateConnectionError(konnector, account, error))
         connection.error = error
         return connection
       })
@@ -393,7 +400,13 @@ export default class CollectStore {
    */
   runAccount (connector, account, disableSuccessTimeout) {
     this.dispatch(updateConnectionRunningStatus(connector, account, true))
-    return konnectors.run(cozy.client, connector, account, disableSuccessTimeout)
+    return konnectors
+      .run(cozy.client, connector, account, disableSuccessTimeout)
+      .catch(error => {
+        this.dispatch(updateConnectionRunningStatus(connector, account, false))
+        this.dispatch(updateConnectionError(connector, account, error))
+        throw error
+      })
   }
 
   fetchAccounts (accountType) {
