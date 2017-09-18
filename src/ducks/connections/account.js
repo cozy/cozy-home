@@ -6,12 +6,23 @@ import {
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
+      return state
     case UPDATE_CONNECTION_RUNNING_STATUS:
       const { isRunning } = action
-      return { ...state, isRunning }
+      const hasRun = state.hasRun || !!state.isRunning && !isRunning
+      return { ...state, isRunning, hasRun }
     default:
       return state
   }
 }
 
 export default reducer
+
+// selectors
+export const isRunning = (state) => {
+  return state.isRunning
+}
+
+export const hasRun = (state) => {
+  return state.hasRun
+}

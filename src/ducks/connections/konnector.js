@@ -3,7 +3,7 @@ import {
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
 
-import account from './account'
+import account, { isRunning, hasRun } from './account'
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -16,3 +16,12 @@ const reducer = (state = {}, action) => {
 }
 
 export default reducer
+
+// selectors
+export const hasRunningConnection = (state) => {
+  return Object.keys(state).find(key => isRunning(state[key]))
+}
+
+export const hasRunConnection = (state) => {
+  return Object.keys(state).find(key => hasRun(state[key]))
+}
