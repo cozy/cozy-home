@@ -27,12 +27,19 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
         messages={[t('account.message.error.global.description', {name: connector.name})]}
       /> }
 
-      <Tabs initialActiveTab='sync' className={styles['col-account-edit-tabs']}>
+      <Tabs
+        initialActiveTab={
+          error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
+          ? 'account'
+          : 'sync'
+        }
+        className={styles['col-account-edit-tabs']}
+      >
 
         <TabList>
           <Tab name='sync'>
             {t('account.config.tabs.sync')}
-            { error && warningIcon}
+            { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && warningIcon}
           </Tab>
           <Tab name='account'>
             {t('account.config.tabs.account')}
