@@ -80,3 +80,12 @@ export const getQueue = (state, konnectorsRegistry) => {
     return runningConnections
   }, [])
 }
+
+export const getRun = (state) => {
+  return Object.keys(state).reduce((numRunConnections, slug) => {
+    const konnector = state[slug]
+    return (hasRunConnection(konnector) && !hasRunningConnection(konnector))
+      ? numRunConnections + 1
+        : numRunConnections
+  }, 0)
+}
