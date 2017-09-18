@@ -12,7 +12,7 @@ const Item = translate()(({ t, label, status, icon }) => {
   return (
     <div className={classNames(styles['queue-item'], {
       [styles['queue-item--done']]: status === 'done',
-      [styles['queue-item--error']]: status === 'error'
+      [styles['queue-item--error']]: status === 'failed'
     })}>
       <div className={classNames(styles['item-icon'])}>
         { icon && <img className={classNames(styles['item-icon-img'])} src={icon} /> }
