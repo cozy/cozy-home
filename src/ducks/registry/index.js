@@ -1,19 +1,22 @@
+import konnectors from './konnectors'
+
 // constant
 const INITIALIZE_REGISTRY_KONNECTORS = 'INITIALIZE_REGISTRY_KONNECTORS'
 
 // reducers
 
-const initialState = { konnectors: [] }
-const registry = (state = initialState, action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case INITIALIZE_REGISTRY_KONNECTORS:
-      return {konnectors: action.konnectors}
+      return {
+        konnectors: konnectors(state.konnectors, action)
+      }
     default:
       return state
   }
 }
 
-export default registry
+export default reducer
 
 // selectors
 
