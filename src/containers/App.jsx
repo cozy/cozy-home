@@ -6,6 +6,7 @@ import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
+import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import { initializeRegistry } from '../ducks/registry'
 import { fetchKonnectors } from '../ducks/konnectors'
@@ -17,7 +18,8 @@ class App extends Component {
 
     this.state = {
       categories: [],
-      isFetching: true
+      isFetching: true,
+      showQueue: false
     }
 
     props.initializeRegistry(props.initKonnectors)
@@ -38,9 +40,18 @@ class App extends Component {
       })
   }
 
+  toggleQueue (showQueue) {
+    this.setState({
+      showQueue: showQueue
+    })
+  }
+
+  hideQueue () { this.toggleQueue(false) }
+  showQueue () { this.toggleQueue(true) }
+
   render () {
     const { children } = this.props
-    const { categories, isFetching, error } = this.state
+    const { categories, isFetching, error, showQueue } = this.state
     if (error) {
       return (
         <div className='con-initial-error'>
@@ -61,6 +72,9 @@ class App extends Component {
             </div>
           </main>
           <Notifier />
+          <ConnectionsQueue
+            visible={showQueue}
+            purgeQueue={() => this.hideQueue()} />
         </div>
     )
   }
