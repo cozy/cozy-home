@@ -3,9 +3,7 @@ import { combineReducers } from 'redux'
 import { reducer } from 'redux-cozy-client'
 import registry from '../ducks/registry'
 import connections, {
-  getQueue as getConnectionsQueue,
-  getRun,
-  getSuccessfulRun as getSuccessfulConnectionsRun
+  getQueue
 } from '../ducks/connections'
 
 export default () => combineReducers({
@@ -15,14 +13,6 @@ export default () => combineReducers({
 })
 
 // selectors
-export const getQueue = (state) => {
-  return getConnectionsQueue(state.connections, state.registry.konnectors)
-}
-
-export const getRunConnections = (state) => {
-  return getRun(state.connections)
-}
-
-export const getSuccessfulRun = (state) => {
-  return getSuccessfulConnectionsRun(state.connections)
+export const getConnectionsQueue = (state) => {
+  return getQueue(state.connections, state.registry.konnectors)
 }

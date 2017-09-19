@@ -1,9 +1,6 @@
 import konnector, {
   getConnectionStatus,
-  hasError,
-  hasQueuedConnection,
-  hasRunningConnection,
-  hasRunConnection
+  hasQueuedConnection
 } from './konnector'
 
 // constant
@@ -99,22 +96,4 @@ export const getQueue = (state, konnectorsRegistry) => {
     }
     return runningConnections
   }, [])
-}
-
-export const getRun = (state) => {
-  return Object.keys(state).reduce((numRunConnections, slug) => {
-    const konnector = state[slug]
-    return (hasRunConnection(konnector) && !hasRunningConnection(konnector))
-      ? numRunConnections + 1
-        : numRunConnections
-  }, 0)
-}
-
-export const getSuccessfulRun = (state) => {
-  return Object.keys(state).reduce((numRunConnections, slug) => {
-    const konnector = state[slug]
-    return (hasRunConnection(konnector) && !hasError(konnector))
-      ? numRunConnections + 1
-        : numRunConnections
-  }, 0)
 }
