@@ -50,12 +50,11 @@ export const updateConnectionRunningStatus = (konnector, account, isRunning = fa
 
 // selectors
 const getKonnectorIconURL = (registry, slug) => {
-  const url = `assets/icons/konnectors/${slug}.svg`
   let icon = null
   try {
-    icon = require(url)
+    icon = require(`../../assets/icons/konnectors/${slug}.svg`)
   } catch (error) {
-    console.warn(`Cannot get icon ${url}: ${error.message}`)
+    console.warn(`Cannot get icon ${slug}: ${error.message}`)
   }
   return icon
 }
