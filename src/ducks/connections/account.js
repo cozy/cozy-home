@@ -1,5 +1,6 @@
 import {
   CREATE_CONNECTION,
+  ENQUEUE_CONNECTION,
   UPDATE_CONNECTION_ERROR,
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
@@ -8,6 +9,8 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
       return state
+    case ENQUEUE_CONNECTION:
+      return { ...state, isQueued: true }
     case UPDATE_CONNECTION_ERROR:
       const { error } = action
       if (error) return { ...state, error }
@@ -30,6 +33,10 @@ export const hasError = (state) => {
 
 export const hasRun = (state) => {
   return state.hasRun
+}
+
+export const isQueued = (state) => {
+  return state.isQueued
 }
 
 export const isRunning = (state) => {

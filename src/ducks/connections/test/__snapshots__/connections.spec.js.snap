@@ -17,6 +17,16 @@ Object {
 }
 `;
 
+exports[`Connections Duck enqueueConnection marks account as queued 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": true,
+    },
+  },
+}
+`;
+
 exports[`Connections Duck updateConnectionError set an error 1`] = `
 Object {
   "testprovider": Object {

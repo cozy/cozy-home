@@ -1,12 +1,14 @@
 import konnector, {
   getConnectionStatus,
   hasError,
+  hasQueuedConnection,
   hasRunningConnection,
   hasRunConnection
 } from './konnector'
 
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
+export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
 export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 
@@ -15,6 +17,7 @@ export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
+    case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
       if (!action.konnector || !action.konnector.slug) throw new Error('Missing konnector slug')
@@ -32,6 +35,12 @@ export const createConnection = (konnector, account, folder) => ({
   konnector,
   account,
   folder
+})
+
+export const enqueueConnection = (konnector, account) => ({
+  type: ENQUEUE_CONNECTION,
+  konnector,
+  account
 })
 
 export const updateConnectionError = (konnector, account, error) => ({
@@ -72,7 +81,7 @@ export const getQueue = (state, konnectorsRegistry) => {
     const connectionStatus = getConnectionStatus(state[key])
     const status = queueStatuses[connectionStatus] || connectionStatus
     const icon = getKonnectorIconURL(konnectorsRegistry, key)
-    if (hasRunningConnection(konnector) || hasRunConnection(konnector)) {
+    if (hasQueuedConnection(konnector)) {
       runningConnections.push({
         label,
         status,

@@ -2,6 +2,7 @@
 
 import connections, {
    createConnection,
+   enqueueConnection,
    updateConnectionError,
    updateConnectionRunningStatus
  } from '../'
@@ -28,6 +29,22 @@ describe('Connections Duck', () => {
       const account = { _id: '9bf93550308311c59f0a0047fc00fa1b' }
 
       const result = connections(state, createConnection(konnector, account))
+
+      expect(result).toMatchSnapshot()
+    })
+  })
+
+  describe('enqueueConnection', () => {
+    it('marks account as queued', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {}
+        }
+      }
+      const konnector = { slug: 'testprovider' }
+      const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+
+      const result = connections(state, enqueueConnection(konnector, account))
 
       expect(result).toMatchSnapshot()
     })
