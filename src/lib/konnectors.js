@@ -21,6 +21,10 @@ export const JOB_STATE = {
   DONE: 'done'
 }
 
+function sanitizeSlug (konnector) {
+  return konnector && { ...konnector, slug: konnector.slug || konnector.attributes.slug }
+}
+
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
   konnector.accounts.push(account)
@@ -50,6 +54,7 @@ export function findBySlug (cozy, slug) {
   return getSlugIndex(cozy)
     .then(index => cozy.data.query(index, {selector: {slug: slug}}))
     .then(list => list.length ? list[0] : null)
+    .then(konnector => sanitizeSlug(konnector))
 }
 
 export function unlinkFolder (cozy, konnector, folderId) {
@@ -85,6 +90,7 @@ export function fetchResult (cozy, konnector) {
 
 export function findAll (cozy) {
   return findAllDocuments(cozy, KONNECTORS_DOCTYPE)
+    .then(konnectors => konnectors.map(sanitizeSlug))
 }
 
 export function findAllResults (cozy) {
@@ -134,6 +140,7 @@ export function install (cozy, konnector, timeout = 120000) {
       ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
         : cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
+    .then(sanitizeSlug)
 }
 
 // monitor the status of the connector and resolve when the connector is ready

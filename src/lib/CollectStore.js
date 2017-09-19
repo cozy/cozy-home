@@ -379,12 +379,13 @@ export default class CollectStore {
         })
       })
       .then(() => {
-        this.updateConnector(connection.konnector)
+        const { konnector, account } = connection
+        this.dispatch(updateConnectionRunningStatus(konnector, account, false))
+        this.updateConnector(konnector)
         return connection
       })
       .catch(error => {
-        const { konnector, account } = connection
-        this.dispatch(updateConnectionRunningStatus(konnector, account, false))
+        this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
         this.dispatch(updateConnectionError(konnector, account, error))
         connection.error = error
         return connection
