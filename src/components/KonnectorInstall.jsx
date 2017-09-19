@@ -53,7 +53,7 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
         { success && <KonnectorSuccess
           connector={connector}
           driveUrl={driveUrl}
-          folderId={account.folderId}
+          folderId={account && account.folderId}
           folderPath={folderPath}
           isTimeout={isTimeout}
           isUnloading={isUnloading}
