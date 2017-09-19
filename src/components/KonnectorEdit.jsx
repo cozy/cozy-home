@@ -17,11 +17,13 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
   const warningIcon = <svg className='item-status-icon'>
     <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
   </svg>
+  const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
+  const hasErrorExceptLogin = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
 
   return (
     <div className={styles['col-account-edit-content']}>
 
-      { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && <DescriptionContent
+      { hasErrorExceptLogin && <DescriptionContent
         cssClassesObject={{'coz-error': true}}
         title={t('account.message.error.global.title')}
         messages={[t('account.message.error.global.description', {name: connector.name})]}
@@ -29,7 +31,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
 
       <Tabs
         initialActiveTab={
-          error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
+          hasLoginError
           ? 'account'
           : 'sync'
         }
@@ -39,11 +41,11 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
         <TabList>
           <Tab name='sync'>
             {t('account.config.tabs.sync')}
-            { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && warningIcon}
+            { hasErrorExceptLogin && warningIcon}
           </Tab>
           <Tab name='account'>
             {t('account.config.tabs.account')}
-            { error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED && warningIcon }
+            { hasLoginError && warningIcon }
           </Tab>
           <Tab name='data'>
             {t('account.config.tabs.data')}
@@ -72,7 +74,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
             { !success && <AccountLoginForm
               connectorSlug={connector.slug}
               disableSuccessTimeout={disableSuccessTimeout}
-              error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
+              error={hasLoginError}
               fields={fields}
               forceEnabled={!!error}
               isOAuth={connector.oauth}
