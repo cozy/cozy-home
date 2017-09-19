@@ -403,6 +403,10 @@ export default class CollectStore {
     this.dispatch(updateConnectionRunningStatus(connector, account, true))
     return konnectors
       .run(cozy.client, connector, account, disableSuccessTimeout)
+      .then(job => {
+        this.dispatch(updateConnectionRunningStatus(connector, account, false))
+        return job
+      })
       .catch(error => {
         this.dispatch(updateConnectionRunningStatus(connector, account, false))
         this.dispatch(updateConnectionError(connector, account, error))

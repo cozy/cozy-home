@@ -1,12 +1,16 @@
 import Queue from './queue'
 import { connect } from 'react-redux'
 
-import { getQueue, getRunConnections } from '../../../../reducers'
+import {
+  getQueue,
+  getRunConnections,
+  getSuccessfulRun
+} from '../../../../reducers'
 
 const mapStateToProps = (state, ownProps) => ({
   queue: getQueue(state),
-  doneCount: getRunConnections(state)
-  // successCount: getSuccessful(state).length
+  doneCount: getRunConnections(state),
+  successCount: getSuccessfulRun(state)
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
   // purgeQueue: () => dispatch(purgeQueue())

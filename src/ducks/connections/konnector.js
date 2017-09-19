@@ -5,7 +5,7 @@ import {
 } from './'
 
 import account, {
-  hasError,
+  hasError as hasAccountError,
   hasRun,
   isRunning
 } from './account'
@@ -26,8 +26,14 @@ export default reducer
 // selectors
 export const getConnectionStatus = (state) => {
   return Object.keys(state).reduce((status, accountId) => {
-    return hasError(state[accountId]) ? 'error' : status
+    if (hasAccountError(state[accountId])) return 'error'
+    if (isRunning(state[accountId])) return 'running'
+    if (hasRun(state[accountId])) return 'done'
   }, 'running')
+}
+
+export const hasError = (state) => {
+  return Object.keys(state).find(accountId => hasAccountError(state[accountId]))
 }
 
 export const hasRunConnection = (state) => {
