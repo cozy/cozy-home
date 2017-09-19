@@ -1,6 +1,7 @@
 import {
   CREATE_CONNECTION,
   ENQUEUE_CONNECTION,
+  PURGE_QUEUE,
   UPDATE_CONNECTION_ERROR,
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
@@ -11,6 +12,8 @@ const reducer = (state = {}, action) => {
       return state
     case ENQUEUE_CONNECTION:
       return { ...state, isQueued: true }
+    case PURGE_QUEUE:
+      return { ...state, isQueued: false }
     case UPDATE_CONNECTION_ERROR:
       const { error } = action
       if (error) return { ...state, error }

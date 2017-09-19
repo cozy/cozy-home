@@ -9,6 +9,7 @@ import konnector, {
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
+export const PURGE_QUEUE = 'PURGE_QUEUE'
 export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
 export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 
@@ -22,6 +23,10 @@ const reducer = (state = {}, action) => {
     case UPDATE_CONNECTION_RUNNING_STATUS:
       if (!action.konnector || !action.konnector.slug) throw new Error('Missing konnector slug')
       return { ...state, [action.konnector.slug]: konnector(state[action.konnector.slug], action) }
+    case PURGE_QUEUE:
+      return Object.keys(state).reduce((konnectors, slug) => {
+        return { ...konnectors, [slug]: konnector(state[slug], action) }
+      }, state)
     default:
       return state
   }
@@ -41,6 +46,10 @@ export const enqueueConnection = (konnector, account) => ({
   type: ENQUEUE_CONNECTION,
   konnector,
   account
+})
+
+export const purgeQueue = () => ({
+  type: PURGE_QUEUE
 })
 
 export const updateConnectionError = (konnector, account, error) => ({

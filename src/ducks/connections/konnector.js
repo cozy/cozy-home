@@ -1,6 +1,7 @@
 import {
   CREATE_CONNECTION,
   ENQUEUE_CONNECTION,
+  PURGE_QUEUE,
   UPDATE_CONNECTION_ERROR,
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
@@ -19,6 +20,10 @@ const reducer = (state = {}, action) => {
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
       return { ...state, [action.account._id]: account(state[action.account._id], action) }
+    case PURGE_QUEUE:
+      return Object.keys(state).reduce((accounts, accountId) => {
+        return { ...accounts, [accountId]: account(state[accountId], action) }
+      }, state)
     default:
       return state
   }

@@ -27,6 +27,24 @@ Object {
 }
 `;
 
+exports[`Connections Duck purgeQueue marks all accounts as not queued 1`] = `
+Object {
+  "anotherprovider": Object {
+    "768ccdaa9d7b11e7869aae88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": false,
+    },
+    "63c670ea9d7b11e7b5888c88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+}
+`;
+
 exports[`Connections Duck updateConnectionError set an error 1`] = `
 Object {
   "testprovider": Object {
