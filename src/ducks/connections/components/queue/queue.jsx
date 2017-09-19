@@ -37,8 +37,10 @@ class Queue extends Component {
   }
 
   render () {
-    const { t, visible = false, queue = [], doneCount = 0, successCount = 0, purgeQueue } = this.props
+    const { t, visible = false, queue = [], purgeQueue } = this.props
     const { collapsed } = this.state
+    const doneCount = queue.filter(connection => connection.status !== 'loading').length
+    const successCount = queue.filter(connection => connection.status === 'loaded').length
     return (
       <div className={classNames(styles['queue'], {
         [styles['queue--visible']]: visible,

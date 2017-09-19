@@ -18,8 +18,7 @@ class App extends Component {
 
     this.state = {
       categories: [],
-      isFetching: true,
-      showQueue: false
+      isFetching: true
     }
 
     props.initializeRegistry(props.initKonnectors)
@@ -40,18 +39,9 @@ class App extends Component {
       })
   }
 
-  toggleQueue (showQueue) {
-    this.setState({
-      showQueue: showQueue
-    })
-  }
-
-  hideQueue () { this.toggleQueue(false) }
-  showQueue () { this.toggleQueue(true) }
-
   render () {
     const { children } = this.props
-    const { categories, isFetching, error, showQueue } = this.state
+    const { categories, isFetching, error } = this.state
     if (error) {
       return (
         <div className='con-initial-error'>
@@ -72,9 +62,7 @@ class App extends Component {
             </div>
           </main>
           <Notifier />
-          <ConnectionsQueue
-            visible={showQueue}
-            purgeQueue={() => this.hideQueue()} />
+          <ConnectionsQueue />
         </div>
     )
   }
