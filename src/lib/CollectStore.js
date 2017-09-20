@@ -430,17 +430,20 @@ export default class CollectStore {
    */
   runAccount (connector, account, disableEnqueue) {
     this.dispatch(updateConnectionRunningStatus(connector, account, true))
-    return konnectors
-      .run(cozy.client, connector, account, disableEnqueue)
-      .then(job => {
-        this.dispatch(updateConnectionRunningStatus(connector, account, false))
-        return job
-      })
-      .catch(error => {
-        this.dispatch(updateConnectionRunningStatus(connector, account, false))
-        this.dispatch(updateConnectionError(connector, account, error))
-        throw error
-      })
+
+    return new Promise((resolve, reject) => {
+      konnectors
+        .run(cozy.client, connector, account, disableEnqueue)
+        .then(job => {
+          this.dispatch(updateConnectionRunningStatus(connector, account, false))
+          resolve(job)
+        })
+        .catch(error => {
+          this.dispatch(updateConnectionRunningStatus(connector, account, false))
+          this.dispatch(updateConnectionError(connector, account, error))
+          reject(error)
+        })
+    }
   }
 
   fetchAccounts (accountType) {
