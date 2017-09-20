@@ -386,7 +386,7 @@ export default class CollectStore {
       })
       .catch(error => {
         this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
-        this.dispatch(updateConnectionError(konnector, account, error))
+        this.dispatch(updateConnectionError(connection.konnector || konnector, connection.account, error))
         connection.error = error
         return connection
       })
