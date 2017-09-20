@@ -192,7 +192,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, disableSuccessTimeout = false, successTimeout = 30 * 1000) {
+export function run (cozy, konnector, account) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -212,39 +212,21 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, disableSuccessTimeout, successTimeout))
+  .then(job => waitForJobFinished(cozy, job))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, disableSuccessTimeout, successTimeout) {
+function waitForJobFinished (cozy, job) {
   return new Promise((resolve, reject) => {
     jobs.subscribe(cozy, job)
       .then(subscription => {
-        let idTimeout
-
-        if (!disableSuccessTimeout) {
-          idTimeout = setTimeout(() => {
-            subscription.unsubscribe()
-            // Ensure that job is not errored in case of realtime issues.
-            jobs.findById(cozy, job._id)
-              .then(job => {
-                if (job.attributes.state === JOB_STATE.ERRORED) {
-                  return reject(new Error(job.attributes.error))
-                }
-                resolve(job)
-              })
-          }, successTimeout)
-        }
-
         subscription.onUpdate(job => {
           if (job.state === JOB_STATE.ERRORED) {
-            clearTimeout(idTimeout)
             subscription.unsubscribe()
             reject(new Error(job.error))
           }
 
           if (job.state === JOB_STATE.DONE) {
-            clearTimeout(idTimeout)
             subscription.unsubscribe()
             resolve(job)
           }
