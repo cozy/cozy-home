@@ -323,73 +323,76 @@ export default class CollectStore {
         this.dispatch(updateConnectionRunningStatus(konnector, account, true))
 
         connection.account = account
-        return konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
-      })
-      // 4. Add account to konnector
-      .then(installedkonnector => {
-        return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
-      })
-      // 5. Add permissions to folder for konnector if folder created
-      .then(completeKonnector => {
-        connection.konnector = completeKonnector
-        this.updateConnector(completeKonnector)
-        if (!connection.folderID) return Promise.resolve()
-        return konnectors.addFolderPermission(cozy.client, completeKonnector, connection.folderID)
-      })
-      // 6. Reference konnector in folder
-      .then(permission => {
-        if (!permission) return Promise.resolve()
-        connection.permission = permission
-        return cozy.client.data.addReferencedFiles(connection.konnector, connection.folderID)
-      })
-      // 7. Run a job for the konnector
-      .then(() => konnectors.run(
-        cozy.client,
-        connection.konnector,
-        connection.account,
-        disableEnqueue,
-        enqueueAfter
-      ))
-      // 8. Creates trigger
-      .then(job => {
-        connection.job = job
 
-        const state = job.state || job.attributes.state
-        connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
+        return new Promise((resolve, reject) => {
+          konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
+            // 4. Add account to konnector
+            .then(installedkonnector => {
+              return konnectors.addAccount(cozy.client, installedkonnector, connection.account)
+            })
+            // 5. Add permissions to folder for konnector if folder created
+            .then(completeKonnector => {
+              connection.konnector = completeKonnector
+              this.updateConnector(completeKonnector)
+              if (!connection.folderID) return Promise.resolve()
+              return konnectors.addFolderPermission(cozy.client, completeKonnector, connection.folderID)
+            })
+            // 6. Reference konnector in folder
+            .then(permission => {
+              if (!permission) return Promise.resolve()
+              connection.permission = permission
+              return cozy.client.data.addReferencedFiles(connection.konnector, connection.folderID)
+            })
+            // 7. Run a job for the konnector
+            .then(() => konnectors.run(
+              cozy.client,
+              connection.konnector,
+              connection.account,
+              disableEnqueue,
+              enqueueAfter
+            ))
+            // 8. Creates trigger
+            .then(job => {
+              connection.job = job
 
-        const slug = connection.konnector.slug || connection.konnector.attributes.slug
+              const state = job.state || job.attributes.state
+              connection.successTimeout = ![konnectors.JOB_STATE.ERRORED, konnectors.JOB_STATE.DONE].includes(state)
 
-        const workerArguments = {
-          konnector: slug,
-          account: connection.account._id
-        }
+              const slug = connection.konnector.slug || connection.konnector.attributes.slug
 
-        if (connection.folderID) {
-          workerArguments['folder_to_save'] = connection.folderID
-        }
+              const workerArguments = {
+                konnector: slug,
+                account: connection.account._id
+              }
 
-        return cozy.client.fetchJSON('POST', '/jobs/triggers', {
-          data: {
-            attributes: {
-              type: '@cron',
-              arguments: `0 0 0 * * ${(new Date()).getDay()}`,
-              worker: 'konnector',
-              worker_arguments: workerArguments
-            }
-          }
+              if (connection.folderID) {
+                workerArguments['folder_to_save'] = connection.folderID
+              }
+
+              return cozy.client.fetchJSON('POST', '/jobs/triggers', {
+                data: {
+                  attributes: {
+                    type: '@cron',
+                    arguments: `0 0 0 * * ${(new Date()).getDay()}`,
+                    worker: 'konnector',
+                    worker_arguments: workerArguments
+                  }
+                }
+              })
+            })
+            .then(() => {
+              const { konnector, account } = connection
+              this.dispatch(updateConnectionRunningStatus(konnector, account, false))
+              this.updateConnector(konnector)
+              resolve(connection)
+            })
+            .catch(error => {
+              this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
+              this.dispatch(updateConnectionError(connection.konnector || konnector, connection.account, error))
+              connection.error = error
+              resolve(connection)
+            })
         })
-      })
-      .then(() => {
-        const { konnector, account } = connection
-        this.dispatch(updateConnectionRunningStatus(konnector, account, false))
-        this.updateConnector(konnector)
-        return connection
-      })
-      .catch(error => {
-        this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
-        this.dispatch(updateConnectionError(connection.konnector || konnector, connection.account, error))
-        connection.error = error
-        return connection
       })
   }
 
