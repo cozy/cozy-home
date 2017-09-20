@@ -5,6 +5,7 @@ import * as jobs from './jobs'
 
 import {
   createConnection,
+  enqueueConnection,
   updateConnectionError,
   updateConnectionRunningStatus
 } from '../ducks/connections'
@@ -286,6 +287,8 @@ export default class CollectStore {
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount (konnector, account, folderPath, disableEnqueue, enqueueAfter = 7000) {
+    const startTime = new Date().getTime()
+
     // return object to store all business object implied in the connection
     const connection = {}
     // detect oauth case
@@ -325,6 +328,16 @@ export default class CollectStore {
         connection.account = account
 
         return new Promise((resolve, reject) => {
+          let enqueued = false
+          let enqueueTimeout
+
+          const enqueue = () => {
+            clearTimeout(enqueueTimeout)
+            this.dispatch(enqueueConnection(konnector, account))
+            enqueued = true
+            resolve(connection)
+          }
+
           konnectors.install(cozy.client, konnector, INSTALL_TIMEOUT)
             // 4. Add account to konnector
             .then(installedkonnector => {
@@ -347,9 +360,7 @@ export default class CollectStore {
             .then(() => konnectors.run(
               cozy.client,
               connection.konnector,
-              connection.account,
-              disableEnqueue,
-              enqueueAfter
+              connection.account
             ))
             // 8. Creates trigger
             .then(job => {
@@ -384,14 +395,28 @@ export default class CollectStore {
               const { konnector, account } = connection
               this.dispatch(updateConnectionRunningStatus(konnector, account, false))
               this.updateConnector(konnector)
-              resolve(connection)
             })
             .catch(error => {
               this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
               this.dispatch(updateConnectionError(connection.konnector || konnector, connection.account, error))
               connection.error = error
-              resolve(connection)
             })
+            .then(() => {
+              clearTimeout(enqueueTimeout)
+              if (!enqueued) {
+                resolve(connection)
+              }
+            })
+
+          if (!disableEnqueue) {
+            const elapsedTime = startTime - new Date().getTime()
+
+            if (elapsedTime >= enqueueAfter) {
+              enqueue()
+            } else {
+              enqueueTimeout = setTimeout(enqueue, enqueueAfter - elapsedTime)
+            }
+          }
         })
       })
   }
