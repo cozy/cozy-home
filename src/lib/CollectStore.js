@@ -285,7 +285,7 @@ export default class CollectStore {
 
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
-  connectAccount (konnector, account, folderPath, disableSuccessTimeout) {
+  connectAccount (konnector, account, folderPath, disableEnqueue, enqueueAfter = 7000) {
     // return object to store all business object implied in the connection
     const connection = {}
     // detect oauth case
@@ -347,7 +347,8 @@ export default class CollectStore {
         cozy.client,
         connection.konnector,
         connection.account,
-        disableSuccessTimeout
+        disableEnqueue,
+        enqueueAfter
       ))
       // 8. Creates trigger
       .then(job => {
@@ -396,13 +397,13 @@ export default class CollectStore {
    * runAccount Runs an account
    * @param {object}  connector            A connector
    * @param {object}  account              the account to run, must belong to the connector
-   * @param {Boolean} disableSuccessTimeout Boolean to disable a success timeout in the run method. Used by example by the onboarding
+   * @param {Boolean} disableEnqueue Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
-  runAccount (connector, account, disableSuccessTimeout) {
+  runAccount (connector, account, disableEnqueue) {
     this.dispatch(updateConnectionRunningStatus(connector, account, true))
     return konnectors
-      .run(cozy.client, connector, account, disableSuccessTimeout)
+      .run(cozy.client, connector, account, disableEnqueue)
       .then(job => {
         this.dispatch(updateConnectionRunningStatus(connector, account, false))
         return job
