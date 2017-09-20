@@ -428,22 +428,43 @@ export default class CollectStore {
    * @param {Boolean} disableEnqueue Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
-  runAccount (connector, account, disableEnqueue) {
+  runAccount (connector, account, disableEnqueue, enqueueAfter = 7000) {
+    // TODO: mutualize this part with connectAccount
     this.dispatch(updateConnectionRunningStatus(connector, account, true))
 
     return new Promise((resolve, reject) => {
+      let enqueued = false
+      let enqueueTimeout
+
+      const enqueue = () => {
+        clearTimeout(enqueueTimeout)
+        this.dispatch(enqueueConnection(connector, account))
+        enqueued = true
+        resolve()
+      }
+
       konnectors
         .run(cozy.client, connector, account, disableEnqueue)
         .then(job => {
           this.dispatch(updateConnectionRunningStatus(connector, account, false))
-          resolve(job)
+          if (!enqueued) {
+            clearTimeout(enqueueTimeout)
+            resolve(job)
+          }
         })
         .catch(error => {
           this.dispatch(updateConnectionRunningStatus(connector, account, false))
           this.dispatch(updateConnectionError(connector, account, error))
-          reject(error)
+          if (!enqueued) {
+            clearTimeout(enqueueTimeout)
+            reject(error)
+          }
         })
-    }
+
+      if (!disableEnqueue) {
+        enqueueTimeout = setTimeout(enqueue, enqueueAfter)
+      }
+    })
   }
 
   fetchAccounts (accountType) {
