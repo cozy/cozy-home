@@ -237,5 +237,14 @@
         "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included).\n\nYou will be able to use these data in different apps in your Cozy, for example \"My Movies Music\" (available soon on the Cozy Store)."
       }
     }
+  },
+  "Queue": {
+    "header": "Syncing %{smart_count} account |||| Syncing %{smart_count} accounts",
+    "header_mobile": "%{done} of %{total} syncing…",
+    "header_done": "Synced %{done} out of %{total}",
+    "item": {
+      "pending": "Pending"
+    },
+    "close": "Close"
   }
 }

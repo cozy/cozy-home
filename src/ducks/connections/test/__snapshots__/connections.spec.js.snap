@@ -1,0 +1,100 @@
+exports[`Connections Duck createConnection adds new connection 1`] = `
+Object {
+  "cozy": Object {
+    "9bf93550308311c59f0a0047fc00fa1b": Object {},
+  },
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {},
+  },
+}
+`;
+
+exports[`Connections Duck createConnection adds new connection in empty state 1`] = `
+Object {
+  "cozy": Object {
+    "9bf93550308311c59f0a0047fc00fa1b": Object {},
+  },
+}
+`;
+
+exports[`Connections Duck enqueueConnection marks account as queued 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": true,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck purgeQueue marks all accounts as not queued 1`] = `
+Object {
+  "anotherprovider": Object {
+    "768ccdaa9d7b11e7869aae88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": false,
+    },
+    "63c670ea9d7b11e7b5888c88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck updateConnectionError set an error 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": [Error: test error],
+    },
+  },
+}
+`;
+
+exports[`Connections Duck updateConnectionRunningStatus keeps \`hasRun\` to true after setting \`isRunning\` from false to true 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "hasRun": true,
+      "isRunning": true,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck updateConnectionRunningStatus set \`hasRun\` to true when setting \`isRunning\` from true to false 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "hasRun": true,
+      "isRunning": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck updateConnectionRunningStatus set a connection to idle 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "hasRun": false,
+      "isRunning": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck updateConnectionRunningStatus set a connection to running 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "hasRun": false,
+      "isRunning": true,
+    },
+  },
+}
+`;

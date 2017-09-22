@@ -6,7 +6,6 @@ import statefulForm from '../lib/statefulForm'
 import { translate } from 'cozy-ui/react/I18n'
 import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
-import FixedProgress from './FixedProgress'
 
 const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
@@ -86,14 +85,11 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
-            aria-busy={submitting && disableSuccessTimeout ? 'true' : 'false'}
+            aria-busy={submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) ? 'true' : 'false'}
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
-        }
-        { submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) &&
-          <FixedProgress duration='32000' />
         }
       </div>
     </div>

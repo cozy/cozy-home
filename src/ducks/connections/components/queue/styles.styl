@@ -1,0 +1,196 @@
+@import 'cozy-ui'
+
+.queue
+    @extend $popover
+    position: fixed
+    bottom: em(8px)
+    left: em(24px)
+    height: em(210px)
+    width: em(480px)
+    max-width: 90%
+    border: 1px solid silver
+    border-radius: 4px
+    background-color: white
+    display: flex
+    flex-direction: column
+    transition: 0.5s
+    opacity: 0
+    visibility: hidden
+    transform: translateY(300px)
+
+.queue--visible
+    opacity: 1
+    visibility: visible
+    transform: translate(0)
+
+.queue-header
+    background-color: pale-grey
+    color: charcoal-grey
+    font-weight: bold
+    margin: 0
+    padding: em(8px) em(16px) em(8px)
+
+    .queue-header-inner
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+    .btn-close
+        border: 0
+        background: 0
+        margin: 0
+        padding: .4em 0 .4em .8em
+        color: dodger-blue
+        text-transform: uppercase
+        font-size: .8em
+
+.queue-progress
+    -webkit-appearance: none
+    -moz-appearance: none
+    border: none
+    display: block
+    flex-grow: 0 0 em(2px)
+    max-height: em(2px)
+    width: 100%
+    margin: 0
+
+
+.queue-progress::-webkit-progress-bar
+.queue-progress::-webkit-progress-value
+    border-radius: 0
+.queue-progress::-webkit-progress-bar
+    background-color: silver
+.queue-progress::-webkit-progress-value
+    background-color: dodger-blue
+.queue-progress::-moz-progress-bar
+    background-color: dodger-blue
+
+.queue-content
+    overflow: auto
+
+.queue--collapsed
+    height: em(40px)
+
+    .queue-content
+        visibility: none
+
+.queue-list
+    flex: 1 1 auto
+    display: flex
+    flex-direction: column
+
+.queue-item--error
+    background-color: rgba(245, 44, 44, 0.1)
+
+.queue-item--done
+    background-color: pale-grey
+
+.queue-item
+    height: 50px
+    box-sizing: border-box
+    overflow: hidden
+    display: flex
+    flex-direction: row
+    align-items: center
+    flex: 0 0 auto
+    width: 100%
+    max-width: 'calc(100vw - %s)' % em(220px)
+    border-bottom: 1px solid silver
+
+    .item-label
+        flex: 0 1 100%
+        font-size: 16px
+        line-height: 1.3
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        color: charcoal-grey
+        user-select: none
+
+    .item-ext
+        color: cool-grey
+
+    .item-status
+        flex: 1 0 auto
+        text-align: center
+        padding: 0 .8em
+
+    .item-icon
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: .4em .8em
+        flex: 0 0 2em
+
+    .item-icon-img
+        max-width: 2em
+        max-height: 2em
+
+    .item-pending
+        text-transform: uppercase
+        color: dodger-blue
+        font-size: em(12px)
+        font-weight: bold
+        line-height: 2em
+
+    .item-loading
+        @extend $icon-16
+        @extend $icon-spinner-blue
+
+    .item-canceled
+        @extend $icon-16
+        @extend $icon
+        background-image: embedurl('./assets/icons/icon-cross.svg')
+
+    .item-failed
+        @extend $icon-16
+        @extend $icon
+        background-image: embedurl('./assets/icons/icon-warning.svg')
+
+    .item-conflict
+        @extend $icon-16
+        @extend $icon
+        background-image: embedurl('./assets/icons/icon-warning.svg')
+
+    .item-loaded
+        @extend $icon-16
+        @extend $icon
+        background-image: embedurl('./assets/icons/icon-checked.svg')
+
+@media (max-width: (1023/basefont)rem)
+    // we need to cover the border-bottom of the cozy-bar
+    $coz-bar-size = 48px
+    $coz-bar-border-size = 1px
+
+    .queue
+        position: static
+        transform: none
+        z-index: $app-index
+        width: 100%
+        max-width: 100%
+        height: auto
+        max-height: 0
+        border-radius: 0
+        border: 0
+        background: 0
+        box-shadow: none
+
+        &:before
+            position: fixed
+            top: $coz-bar-size - $coz-bar-border-size
+            z-index:  $nav-index
+            width: 100%
+            height: $coz-bar-border-size
+            content: ''
+            background: white
+
+    .queue--visible
+        max-height: 30%
+
+    .queue-content
+        display: none
+
+    .queue-header
+        background: 0
+        color: dodger-blue
+        text-transform: uppercase

@@ -2,6 +2,9 @@
 
 import connections, {
    createConnection,
+   enqueueConnection,
+   purgeQueue,
+   updateConnectionError,
    updateConnectionRunningStatus
  } from '../'
 
@@ -32,6 +35,61 @@ describe('Connections Duck', () => {
     })
   })
 
+  describe('enqueueConnection', () => {
+    it('marks account as queued', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {}
+        }
+      }
+      const konnector = { slug: 'testprovider' }
+      const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+
+      const result = connections(state, enqueueConnection(konnector, account))
+
+      expect(result).toMatchSnapshot()
+    })
+  })
+
+  describe('purgeQueue', () => {
+    it('marks all accounts as not queued', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {},
+          '63c670ea9d7b11e7b5888c88b1c12d46': {
+            isQueued: true
+          }
+        },
+        anotherprovider: {
+          '768ccdaa9d7b11e7869aae88b1c12d46': {
+            isQueued: true
+          }
+        }
+      }
+
+      const result = connections(state, purgeQueue())
+
+      expect(result).toMatchSnapshot()
+    })
+  })
+
+  describe('updateConnectionError', () => {
+    it('set an error', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {}
+        }
+      }
+      const konnector = { slug: 'testprovider' }
+      const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+      const error = new Error('test error')
+
+      const result = connections(state, updateConnectionError(konnector, account, error))
+
+      expect(result).toMatchSnapshot()
+    })
+  })
+
   describe('updateConnectionRunningStatus', () => {
     it('set a connection to idle', () => {
       const state = {
@@ -51,6 +109,39 @@ describe('Connections Duck', () => {
       const state = {
         testprovider: {
           '17375ac5a59e4d6585fc7d1e1c75ec74': {}
+        }
+      }
+      const konnector = { slug: 'testprovider' }
+      const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+
+      const result = connections(state, updateConnectionRunningStatus(konnector, account, true))
+
+      expect(result).toMatchSnapshot()
+    })
+
+    it('set `hasRun` to true when setting `isRunning` from true to false', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {
+            isRunning: true
+          }
+        }
+      }
+      const konnector = { slug: 'testprovider' }
+      const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+
+      const result = connections(state, updateConnectionRunningStatus(konnector, account, false))
+
+      expect(result).toMatchSnapshot()
+    })
+
+    it('keeps `hasRun` to true after setting `isRunning` from false to true', () => {
+      const state = {
+        testprovider: {
+          '17375ac5a59e4d6585fc7d1e1c75ec74': {
+            isRunning: false,
+            hasRun: true
+          }
         }
       }
       const konnector = { slug: 'testprovider' }
