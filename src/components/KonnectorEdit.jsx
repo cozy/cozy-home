@@ -19,6 +19,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
   </svg>
   const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
   const hasErrorExceptLogin = error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const { hasDescriptions } = connector
 
   return (
     <div className={styles['col-account-edit-content']}>
@@ -70,6 +71,13 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
 
           <TabPanel name='account' className={styles['col-account-edit-tabpanel']}>
             { !error && !connector.oauth && <h4>{t('account.form.title')}</h4> }
+
+            <DescriptionContent
+              title={t('account.config.title', { name: connector.name })}
+              messages={hasDescriptions && hasDescriptions.connector
+                ? [t(`connector.${connector.slug}.description.connector`)]
+                : []}
+            />
 
             { !success && <AccountLoginForm
               connectorSlug={connector.slug}
