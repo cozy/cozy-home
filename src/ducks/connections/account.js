@@ -30,6 +30,13 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
+export const getConnectionStatus = (state) => {
+  if (hasError(state)) return 'error'
+  if (isRunning(state)) return 'ongoing'
+  if (hasRun(state)) return 'done'
+  return 'pending'
+}
+
 export const hasError = (state) => {
   return !isRunning(state) && !!state.error
 }

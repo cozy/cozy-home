@@ -3,6 +3,7 @@
 import connections, {
    createConnection,
    enqueueConnection,
+   getQueue,
    purgeQueue,
    updateConnectionError,
    updateConnectionRunningStatus
@@ -149,6 +150,39 @@ describe('Connections Duck', () => {
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
         const result = connections(state, updateConnectionRunningStatus(konnector, account, true))
+
+        expect(result).toMatchSnapshot()
+      })
+    })
+  })
+
+  describe('Selectors', () => {
+    describe('getQueue', () => {
+      it('returns one queued connection per queued account', () => {
+        const state = {
+          testprovider: {
+            '17375ac5a59e4d6585fc7d1e1c75ec74': {},
+            '63c670ea9d7b11e7b5888c88b1c12d46': {
+              isRunning: true,
+              isQueued: true
+            },
+            '768ccdaa9d7b11e7869aae88b1c12d46': {
+              isQueued: true,
+              error: {
+                message: 'test error'
+              }
+            }
+          }
+        }
+
+        const konnectorsRegistry = {
+          testprovider: {
+            name: 'Test Provider',
+            slug: 'testprovider'
+          }
+        }
+
+        const result = getQueue(state, konnectorsRegistry)
 
         expect(result).toMatchSnapshot()
       })

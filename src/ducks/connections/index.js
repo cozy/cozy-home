@@ -1,6 +1,5 @@
 import konnector, {
-  getConnectionStatus,
-  hasQueuedConnection
+  getQueuedConnections
 } from './konnector'
 
 // constant
@@ -64,29 +63,9 @@ export const updateConnectionRunningStatus = (konnector, account, isRunning = fa
 })
 
 // selectors
-const getKonnectorIconURL = (registry, slug) => {
-  let icon = null
-  try {
-    icon = require(`../../assets/icons/konnectors/${slug}.svg`)
-  } catch (error) {
-    console.warn(`Cannot get icon ${slug}: ${error.message}`)
-  }
-  return icon
-}
-
 export const getQueue = (state, konnectorsRegistry) => {
-  return Object.keys(state).reduce((runningConnections, key) => {
-    const konnector = state[key]
-    const label = konnectorsRegistry[key] && konnectorsRegistry[key].name
-    const status = getConnectionStatus(state[key])
-    const icon = getKonnectorIconURL(konnectorsRegistry, key)
-    if (hasQueuedConnection(konnector)) {
-      runningConnections.push({
-        label,
-        status,
-        icon
-      })
-    }
-    return runningConnections
+  return Object.keys(state).reduce((runningConnections, konnectorSlug) => {
+    const konnectorAccounts = state[konnectorSlug]
+    return runningConnections.concat(getQueuedConnections(konnectorAccounts, konnectorsRegistry[konnectorSlug]))
   }, [])
 }

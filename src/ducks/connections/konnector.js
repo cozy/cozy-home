@@ -7,6 +7,7 @@ import {
 } from './'
 
 import account, {
+  getConnectionStatus,
   hasError as hasAccountError,
   hasRun,
   isQueued,
@@ -32,12 +33,25 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
-export const getConnectionStatus = (state) => {
-  return Object.keys(state).reduce((status, accountId) => {
-    if (hasAccountError(state[accountId])) return 'error'
-    if (isRunning(state[accountId])) return 'ongoing'
-    if (hasRun(state[accountId])) return 'done'
-  }, 'pending')
+const getKonnectorIconURL = (registryKonnector) => {
+  let icon = null
+  try {
+    icon = require(`../../assets/icons/konnectors/${registryKonnector.slug}.svg`)
+  } catch (error) {
+    console.warn(`Cannot get icon ${registryKonnector.slug}: ${error.message}`)
+  }
+  return icon
+}
+
+export const getQueuedConnections = (state, registryKonnector) => {
+  return Object.keys(state).reduce((runningConnections, accountId) => {
+    const label = registryKonnector.name
+    const status = getConnectionStatus(state[accountId])
+    const icon = getKonnectorIconURL(registryKonnector)
+    return isQueued(state[accountId])
+      ? runningConnections.concat({ label, status, icon })
+        : runningConnections
+  }, [])
 }
 
 export const hasError = (state) => {
