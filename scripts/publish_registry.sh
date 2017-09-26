@@ -6,10 +6,12 @@ set -e
 #   COZY_APP_VERSION: the version string of the deployed version
 
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+    echo "No deployment: in pull-request"
     exit 0
 fi
 
-if [ "${TRAVIS_BRANCH}" != "master" ] && [ "${TRAVIS_BRANCH}" != "${TRAVIS_TAG}" ]; then
+if [ "${TRAVIS_BRANCH}" != "build" ] && [ "${TRAVIS_BRANCH}" != "${TRAVIS_TAG}" ]; then
+    printf 'No deployment: not in master branch nor tag (TRAVIS_BRANCH=%s TRAVIS_TAG=%s)\n' "${TRAVIS_BRANCH}" "${TRAVIS_TAG}"
     exit 0
 fi
 
@@ -22,14 +24,19 @@ if [ -z "${COZY_APP_VERSION}" ]; then
 fi
 
 if [ -z "${COZY_BUILD_URL}" ]; then
-    COZY_BUILD_URL="https://github.com/${TRAVIS_REPO_SLUG}/archive/${TRAVIS_COMMIT}.tar.gz"
+    url="https://github.com/${TRAVIS_REPO_SLUG}/archive"
+    if [ -n "${TRAVIS_TAG}" ]; then
+        COZY_BUILD_URL="${url}/${TRAVIS_TAG}.tar.gz"
+    else
+        COZY_BUILD_URL="${url}/${TRAVIS_COMMIT}.tar.gz"
+    fi
 fi
-
-printf "Publishing version \"%s\" from \"%s\" (%s)\n" "${COZY_APP_VERSION}" "${COZY_BUILD_URL}" "${shasum}"
 
 shasum=$(curl -sSL --fail "${COZY_BUILD_URL}" | shasum -a 256 | cut -d" " -f1)
 
-curl -sS -v --fail -X POST \
+printf 'Publishing version "%s" from "%s" (%s)\n' "${COZY_APP_VERSION}" "${COZY_BUILD_URL}" "${shasum}"
+
+curl -sS --fail -X POST \
     -H "Content-Type: application/json" \
     -H "Authorization: Token ${REGISTRY_TOKEN}" \
     -d "{\"version\": \"${COZY_APP_VERSION}\", \"url\": \"${COZY_BUILD_URL}\", \"sha256\": \"${shasum}\"}" \
