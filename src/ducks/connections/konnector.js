@@ -35,9 +35,9 @@ export default reducer
 export const getConnectionStatus = (state) => {
   return Object.keys(state).reduce((status, accountId) => {
     if (hasAccountError(state[accountId])) return 'error'
-    if (isRunning(state[accountId])) return 'running'
+    if (isRunning(state[accountId])) return 'ongoing'
     if (hasRun(state[accountId])) return 'done'
-  }, 'running')
+  }, 'pending')
 }
 
 export const hasError = (state) => {
