@@ -35,13 +35,13 @@ export const hasError = (state) => {
 }
 
 export const hasRun = (state) => {
-  return state.hasRun
+  return !!state.hasRun
 }
 
 export const isQueued = (state) => {
-  return state.isQueued
+  return !!state.isQueued
 }
 
 export const isRunning = (state) => {
-  return state.isRunning
+  return !!state.isRunning
 }
