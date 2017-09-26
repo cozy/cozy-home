@@ -395,6 +395,7 @@ export default class CollectStore {
               const { konnector, account } = connection
               this.dispatch(updateConnectionRunningStatus(konnector, account, false))
               this.updateConnector(konnector)
+              enqueue()
             })
             .catch(error => {
               this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
@@ -448,7 +449,7 @@ export default class CollectStore {
         .then(job => {
           this.dispatch(updateConnectionRunningStatus(connector, account, false))
           if (!enqueued) {
-            clearTimeout(enqueueTimeout)
+            enqueue()
             resolve(job)
           }
         })
