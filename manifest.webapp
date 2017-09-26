@@ -18,6 +18,7 @@
   },
   "version": "1.0.0",
   "licence": "AGPL-3.0",
+  "screenshots": ["screenshots/ScreenShot1.png", "screenshots/ScreenShot2.png", "screenshots/ScreenShot3.png"],
   "permissions": {
     "apps": {
       "description": "Required by the cozy-bar to display the icons of the apps",
