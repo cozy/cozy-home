@@ -17,6 +17,14 @@ Object {
 }
 `;
 
+exports[`Connections Duck Action creators deleteConnection deletes existing connection 1`] = `
+Object {
+  "testprovider": Object {
+    "63c670ea9d7b11e7b5888c88b1c12d46": Object {},
+  },
+}
+`;
+
 exports[`Connections Duck Action creators enqueueConnection marks account as queued 1`] = `
 Object {
   "testprovider": Object {

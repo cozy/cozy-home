@@ -4,6 +4,7 @@ import konnector, {
 
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
+export const DELETE_CONNECTION = 'DELETE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
 export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
@@ -14,6 +15,7 @@ export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
+    case DELETE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
@@ -36,6 +38,12 @@ export const createConnection = (konnector, account, folder) => ({
   konnector,
   account,
   folder
+})
+
+export const deleteConnection = (konnector, account) => ({
+  type: DELETE_CONNECTION,
+  konnector,
+  account
 })
 
 export const enqueueConnection = (konnector, account) => ({

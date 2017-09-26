@@ -1,5 +1,6 @@
 import {
   CREATE_CONNECTION,
+  DELETE_CONNECTION,
   ENQUEUE_CONNECTION,
   PURGE_QUEUE,
   UPDATE_CONNECTION_ERROR,
@@ -22,6 +23,9 @@ const reducer = (state = {}, action) => {
       return Object.keys(state).reduce((accounts, accountId) => {
         return { ...accounts, [accountId]: account(state[accountId], action) }
       }, state)
+    case DELETE_CONNECTION:
+      // mind = blown : https://stackoverflow.com/questions/36553129/what-is-the-shortest-way-to-modify-immutable-objects-using-spread-and-destructur
+      return (({[action.account._id]: deleted, ...state}) => state)(state)
     default:
       return state
   }
