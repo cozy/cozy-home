@@ -5,6 +5,7 @@ import * as jobs from './jobs'
 
 import {
   createConnection,
+  deleteConnection,
   enqueueConnection,
   updateConnectionError,
   updateConnectionRunningStatus
@@ -518,7 +519,9 @@ export default class CollectStore {
 
   deleteAccounts (konnector) {
     konnector = this.connectors.find(c => c.slug === konnector.slug)
-    return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
+    return Promise.all(konnector.accounts.map(account =>
+      accounts._delete(cozy.client, account)
+        .then(() => this.dispatch(deleteConnection(konnector, account)))
         .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
         .then(() => {
           if (!account.folderId) return
