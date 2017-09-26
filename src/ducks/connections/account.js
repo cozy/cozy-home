@@ -37,11 +37,11 @@ export const getConnectionStatus = (state) => {
   return 'pending'
 }
 
-export const hasError = (state) => {
+const hasError = (state) => {
   return !isRunning(state) && !!state.error
 }
 
-export const hasRun = (state) => {
+const hasRun = (state) => {
   return !!state.hasRun
 }
 
@@ -49,6 +49,6 @@ export const isQueued = (state) => {
   return !!state.isQueued
 }
 
-export const isRunning = (state) => {
+const isRunning = (state) => {
   return !!state.isRunning
 }

@@ -8,10 +8,7 @@ import {
 
 import account, {
   getConnectionStatus,
-  hasError as hasAccountError,
-  hasRun,
-  isQueued,
-  isRunning
+  isQueued
 } from './account'
 
 const reducer = (state = {}, action) => {
@@ -52,20 +49,4 @@ export const getQueuedConnections = (state, registryKonnector) => {
       ? runningConnections.concat({ label, status, icon })
         : runningConnections
   }, [])
-}
-
-export const hasError = (state) => {
-  return Object.keys(state).find(accountId => hasAccountError(state[accountId]))
-}
-
-export const hasQueuedConnection = (state) => {
-  return Object.keys(state).find(accountId => isQueued(state[accountId]))
-}
-
-export const hasRunConnection = (state) => {
-  return Object.keys(state).find(accountId => hasRun(state[accountId]))
-}
-
-export const hasRunningConnection = (state) => {
-  return Object.keys(state).find(accountId => isRunning(state[accountId]))
 }
