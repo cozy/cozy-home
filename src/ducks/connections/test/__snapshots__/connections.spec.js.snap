@@ -59,6 +59,7 @@ exports[`Connections Duck Action creators updateConnectionRunningStatus keeps \`
 Object {
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
       "hasRun": true,
       "isRunning": true,
     },
@@ -70,6 +71,7 @@ exports[`Connections Duck Action creators updateConnectionRunningStatus set \`ha
 Object {
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
       "hasRun": true,
       "isRunning": false,
     },
@@ -81,6 +83,7 @@ exports[`Connections Duck Action creators updateConnectionRunningStatus set a co
 Object {
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
       "hasRun": false,
       "isRunning": false,
     },
@@ -92,6 +95,7 @@ exports[`Connections Duck Action creators updateConnectionRunningStatus set a co
 Object {
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
       "hasRun": false,
       "isRunning": true,
     },

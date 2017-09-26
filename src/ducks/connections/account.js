@@ -21,7 +21,12 @@ const reducer = (state = {}, action) => {
     case UPDATE_CONNECTION_RUNNING_STATUS:
       const { isRunning } = action
       const hasRun = state.hasRun || !!state.isRunning && !isRunning
-      return { ...state, isRunning, hasRun }
+      return {
+        ...state,
+        isRunning,
+        hasRun,
+        error: isRunning ? null : state.error || null
+      }
     default:
       return state
   }
