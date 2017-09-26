@@ -11,7 +11,7 @@ if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 fi
 
 if [ "${TRAVIS_BRANCH}" != "build" ] && [ "${TRAVIS_BRANCH}" != "${TRAVIS_TAG}" ]; then
-    printf 'No deployment: not in master branch nor tag (TRAVIS_BRANCH=%s TRAVIS_TAG=%s)\n' "${TRAVIS_BRANCH}" "${TRAVIS_TAG}"
+    printf 'No deployment: not in build branch nor tag (TRAVIS_BRANCH=%s TRAVIS_TAG=%s)\n' "${TRAVIS_BRANCH}" "${TRAVIS_TAG}"
     exit 0
 fi
 
