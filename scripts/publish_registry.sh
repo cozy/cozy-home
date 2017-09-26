@@ -19,7 +19,7 @@ if [ -z "${COZY_APP_VERSION}" ]; then
     if [ -n "${TRAVIS_TAG}" ]; then
         COZY_APP_VERSION="${TRAVIS_TAG}"
     else
-        COZY_APP_VERSION="$(jq -r '.version' < "${TRAVIS_BUILD_DIR}/package.json")-dev.${TRAVIS_COMMIT}"
+        COZY_APP_VERSION="$(jq -r '.version' < "${TRAVIS_BUILD_DIR}/manifest.webapp")-dev.${TRAVIS_COMMIT}"
     fi
 fi
 
