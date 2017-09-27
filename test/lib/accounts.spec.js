@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import * as accounts from '../../src/lib/accounts'
 
 const konnectorMock = {
