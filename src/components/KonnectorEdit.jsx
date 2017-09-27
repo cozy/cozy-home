@@ -79,7 +79,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
                 : []}
             />
 
-            { !success && <AccountLoginForm
+            { <AccountLoginForm
               connectorSlug={connector.slug}
               disableSuccessTimeout={disableSuccessTimeout}
               error={hasLoginError}
@@ -93,7 +93,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
               values={account ? account.auth || account.oauth : {}}
             /> }
 
-            { !success && <AccountLogout
+            { <AccountLogout
               deleting={deleting}
               onDelete={onDelete}
             /> }
