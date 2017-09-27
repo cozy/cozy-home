@@ -297,5 +297,16 @@
     },
     "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build",
     "oauth_scope": "I"
+  },
+  {
+    "accounts":[],
+    "slug":"caissedepargne",
+    "name":"Caisse d'Epargne",
+    "vendorLink":"https://www.caisse-epargne.fr/particuliers",
+    "category":"banking",
+    "color":{"hex":"#e2010f","css":"#e2010f"},
+    "dataType":["bill"],
+    "fields":{"identifier":{"type":"text"},"secret":{"type":"password"}},
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   }
 ]
