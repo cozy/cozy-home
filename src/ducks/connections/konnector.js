@@ -12,6 +12,8 @@ import account, {
   isQueued
 } from './account'
 
+import { getKonnectorIcon } from '../../lib/icons'
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
@@ -33,22 +35,11 @@ const reducer = (state = {}, action) => {
 
 export default reducer
 
-// selectors
-const getKonnectorIconURL = (registryKonnector) => {
-  let icon = null
-  try {
-    icon = require(`../../assets/icons/konnectors/${registryKonnector.slug}.svg`)
-  } catch (error) {
-    console.warn(`Cannot get icon ${registryKonnector.slug}: ${error.message}`)
-  }
-  return icon
-}
-
 export const getQueuedConnections = (state, registryKonnector) => {
   return Object.keys(state).reduce((runningConnections, accountId) => {
     const label = registryKonnector.name
     const status = getConnectionStatus(state[accountId])
-    const icon = getKonnectorIconURL(registryKonnector)
+    const icon = getKonnectorIcon(registryKonnector.slug)
     return isQueued(state[accountId])
       ? runningConnections.concat({ label, status, icon })
         : runningConnections
