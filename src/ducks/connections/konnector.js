@@ -1,5 +1,6 @@
 import {
   CREATE_CONNECTION,
+  DELETE_CONNECTION,
   ENQUEUE_CONNECTION,
   PURGE_QUEUE,
   UPDATE_CONNECTION_ERROR,
@@ -7,11 +8,11 @@ import {
 } from './'
 
 import account, {
-  hasError as hasAccountError,
-  hasRun,
-  isQueued,
-  isRunning
+  getConnectionStatus,
+  isQueued
 } from './account'
+
+import { getKonnectorIcon } from '../../lib/icons'
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -24,6 +25,9 @@ const reducer = (state = {}, action) => {
       return Object.keys(state).reduce((accounts, accountId) => {
         return { ...accounts, [accountId]: account(state[accountId], action) }
       }, state)
+    case DELETE_CONNECTION:
+      // mind = blown : https://stackoverflow.com/questions/36553129/what-is-the-shortest-way-to-modify-immutable-objects-using-spread-and-destructur
+      return (({[action.account._id]: deleted, ...state}) => state)(state)
     default:
       return state
   }
@@ -31,27 +35,13 @@ const reducer = (state = {}, action) => {
 
 export default reducer
 
-// selectors
-export const getConnectionStatus = (state) => {
-  return Object.keys(state).reduce((status, accountId) => {
-    if (hasAccountError(state[accountId])) return 'error'
-    if (isRunning(state[accountId])) return 'running'
-    if (hasRun(state[accountId])) return 'done'
-  }, 'running')
-}
-
-export const hasError = (state) => {
-  return Object.keys(state).find(accountId => hasAccountError(state[accountId]))
-}
-
-export const hasQueuedConnection = (state) => {
-  return Object.keys(state).find(accountId => isQueued(state[accountId]))
-}
-
-export const hasRunConnection = (state) => {
-  return Object.keys(state).find(accountId => hasRun(state[accountId]))
-}
-
-export const hasRunningConnection = (state) => {
-  return Object.keys(state).find(accountId => isRunning(state[accountId]))
+export const getQueuedConnections = (state, registryKonnector) => {
+  return Object.keys(state).reduce((runningConnections, accountId) => {
+    const label = registryKonnector.name
+    const status = getConnectionStatus(state[accountId])
+    const icon = getKonnectorIcon(registryKonnector.slug)
+    return isQueued(state[accountId])
+      ? runningConnections.concat({ label, status, icon })
+        : runningConnections
+  }, [])
 }

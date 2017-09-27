@@ -5,6 +5,7 @@ import * as jobs from './jobs'
 
 import {
   createConnection,
+  deleteConnection,
   enqueueConnection,
   updateConnectionError,
   updateConnectionRunningStatus
@@ -395,6 +396,7 @@ export default class CollectStore {
               const { konnector, account } = connection
               this.dispatch(updateConnectionRunningStatus(konnector, account, false))
               this.updateConnector(konnector)
+              enqueue()
             })
             .catch(error => {
               this.dispatch(updateConnectionRunningStatus(connection.konnector || konnector, connection.account || account, false))
@@ -448,7 +450,7 @@ export default class CollectStore {
         .then(job => {
           this.dispatch(updateConnectionRunningStatus(connector, account, false))
           if (!enqueued) {
-            clearTimeout(enqueueTimeout)
+            enqueue()
             resolve(job)
           }
         })
@@ -517,7 +519,9 @@ export default class CollectStore {
 
   deleteAccounts (konnector) {
     konnector = this.connectors.find(c => c.slug === konnector.slug)
-    return Promise.all(konnector.accounts.map(account => accounts._delete(cozy.client, account)
+    return Promise.all(konnector.accounts.map(account =>
+      accounts._delete(cozy.client, account)
+        .then(() => this.dispatch(deleteConnection(konnector, account)))
         .then(() => konnector.accounts.splice(konnector.accounts.indexOf(account), 1))
         .then(() => {
           if (!account.folderId) return

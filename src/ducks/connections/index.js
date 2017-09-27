@@ -1,10 +1,10 @@
 import konnector, {
-  getConnectionStatus,
-  hasQueuedConnection
+  getQueuedConnections
 } from './konnector'
 
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
+export const DELETE_CONNECTION = 'DELETE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
 export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
@@ -15,6 +15,7 @@ export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
+    case DELETE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
@@ -37,6 +38,12 @@ export const createConnection = (konnector, account, folder) => ({
   konnector,
   account,
   folder
+})
+
+export const deleteConnection = (konnector, account) => ({
+  type: DELETE_CONNECTION,
+  konnector,
+  account
 })
 
 export const enqueueConnection = (konnector, account) => ({
@@ -64,36 +71,9 @@ export const updateConnectionRunningStatus = (konnector, account, isRunning = fa
 })
 
 // selectors
-const getKonnectorIconURL = (registry, slug) => {
-  let icon = null
-  try {
-    icon = require(`../../assets/icons/konnectors/${slug}.svg`)
-  } catch (error) {
-    console.warn(`Cannot get icon ${slug}: ${error.message}`)
-  }
-  return icon
-}
-
-const queueStatuses = {
-  done: 'loaded',
-  error: 'failed',
-  running: 'loading'
-}
-
 export const getQueue = (state, konnectorsRegistry) => {
-  return Object.keys(state).reduce((runningConnections, key) => {
-    const konnector = state[key]
-    const label = konnectorsRegistry[key] && konnectorsRegistry[key].name
-    const connectionStatus = getConnectionStatus(state[key])
-    const status = queueStatuses[connectionStatus] || connectionStatus
-    const icon = getKonnectorIconURL(konnectorsRegistry, key)
-    if (hasQueuedConnection(konnector)) {
-      runningConnections.push({
-        label,
-        status,
-        icon
-      })
-    }
-    return runningConnections
+  return Object.keys(state).reduce((runningConnections, konnectorSlug) => {
+    const konnectorAccounts = state[konnectorSlug]
+    return runningConnections.concat(getQueuedConnections(konnectorAccounts, konnectorsRegistry[konnectorSlug]))
   }, [])
 }

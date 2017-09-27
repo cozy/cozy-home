@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
 import { CONNECTION_STATUS } from '../lib/CollectStore'
+import { getKonnectorIcon } from '../lib/icons'
 
 class KonnectorItem extends Component {
   constructor (props, context) {
@@ -51,7 +52,7 @@ class KonnectorItem extends Component {
     return (
       <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
         <header className='item-header'>
-          <img className='item-icon' src={icon(slug)} />
+          <img className='item-icon' src={getKonnectorIcon(slug)} />
         </header>
         <p className='item-title'>{name}</p>
         {category && <p className='item-subtitle'>{t(`category.${category}`)}</p>}
@@ -78,23 +79,6 @@ const stateIcon = (status) => {
     default:
       return null
   }
-}
-
-// Fallback to get the item icon and avoid error if not found
-// with a possible default icon
-const icon = (slug) => {
-  let icon = ''
-  const extensions = ['.svg', '.png', '.gif', '.jpg']
-  for (const ext of extensions) {
-    try {
-      icon = require(`../assets/icons/konnectors/${slug}${ext}`)
-      break
-    } catch (e) {}
-  }
-  if (!icon) {
-    icon = require('../assets/icons/konnectors/default.svg')
-  }
-  return icon
 }
 
 export default translate()(withRouter(KonnectorItem))

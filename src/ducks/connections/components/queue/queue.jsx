@@ -12,7 +12,7 @@ const Item = translate()(({ t, label, status, icon }) => {
   return (
     <div className={classNames(styles['queue-item'], {
       [styles['queue-item--done']]: status === 'done',
-      [styles['queue-item--error']]: status === 'failed'
+      [styles['queue-item--error']]: status === 'error'
     })}>
       <div className={classNames(styles['item-icon'])}>
         { icon && <img className={classNames(styles['item-icon-img'])} src={icon} /> }
@@ -39,8 +39,8 @@ class Queue extends Component {
   render () {
     const { t, visible = false, queue = [], purgeQueue } = this.props
     const { collapsed } = this.state
-    const doneCount = queue.filter(connection => connection.status !== 'loading').length
-    const successCount = queue.filter(connection => connection.status === 'loaded').length
+    const doneCount = queue.filter(connection => connection.status !== 'ongoing').length
+    const successCount = queue.filter(connection => connection.status === 'done').length
     return (
       <div className={classNames(styles['queue'], {
         [styles['queue--visible']]: visible,
