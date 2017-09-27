@@ -84,9 +84,14 @@ const stateIcon = (status) => {
 // with a possible default icon
 const icon = (slug) => {
   let icon = ''
-  try {
-    icon = require(`../assets/icons/konnectors/${slug}.svg`)
-  } catch (e) {
+  const extensions = ['.svg', '.png', '.gif', '.jpg']
+  for (const ext of extensions) {
+    try {
+      icon = require(`../assets/icons/konnectors/${slug}${ext}`)
+      break
+    } catch (e) {}
+  }
+  if (!icon) {
     icon = require('../assets/icons/konnectors/default.svg')
   }
   return icon
