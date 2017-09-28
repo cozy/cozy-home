@@ -4,7 +4,6 @@
     "name":"Malakoff Mederic",
     "vendorLink":"http://www.malakoffmederic.com/",
     "category":"insurance",
-    "color":{"hex":"#D4951A","css":"#D4951A"},
     "dataType":["bill"],
     "fields":{
       "login":{"type":"text"},
@@ -18,7 +17,6 @@
     "name":"Ameli",
     "vendorLink":"https://www.ameli.fr/",
     "category":"insurance",
-    "color":{"hex":"#0062AE","css":"#0062AE"},
     "dataType":["bill"],
     "fields":{
       "login":{"type":"text"},
@@ -33,7 +31,6 @@
     "name":"SFR RED mobile",
     "vendorLink":"https://www.red-by-sfr.fr/",
     "category":"telecom",
-    "color":{"hex":"#00E791","css":"#00E791"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
@@ -43,7 +40,6 @@
     "name":"Digiposte",
     "vendorLink":"https://secure.digiposte.fr",
     "category":"other",
-    "color":{"hex":"#FBC32C","css":"linear-gradient(90deg, #EF0001 0%, #FBC32C 100%)"},
     "dataType":["document"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
@@ -53,7 +49,6 @@
     "name":"Bouygues Box",
     "vendorLink":"https://www.bouyguestelecom.fr/",
     "category":"isp",
-    "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
@@ -63,7 +58,6 @@
     "name":"Harmonie Mutuelle",
     "vendorLink":"https://www.harmonie-mutuelle.fr/",
     "category":"insurance",
-    "color":{"hex":"#f59331", "css":"#f59331"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
@@ -73,7 +67,6 @@
     "name":"Numéricable",
     "vendorLink":"https://www.numericable.fr/",
     "category":"isp",
-    "color":{"hex":"#53BB0F","css":"#53BB0F"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
@@ -83,7 +76,6 @@
     "name":"Free",
     "vendorLink":"https://www.free.fr/",
     "category":"isp",
-    "color":{"hex":"#CD1E25","css":"#CD1E25"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-free.git#build"
@@ -93,7 +85,6 @@
     "name":"Bouygues Telecom",
     "vendorLink":"https://www.bouyguestelecom.fr/",
     "category":"telecom",
-    "color":{"hex":"#009DCC","css":"#009DCC"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
@@ -104,7 +95,6 @@
     "name":"MAIF",
     "vendorLink":"maif.fr",
     "category":"insurance",
-    "color":{"hex":"#007858","css":"#007858"},
     "fields":{"access_token":{"type":"hidden"}},
     "dataType":["profile", "contract", "home", "family", "sinister"],
     "source": "git://github.com/cozy/cozy-konnector-maif.git#build",
@@ -115,7 +105,6 @@
     "name":"Sosh",
     "vendorLink":"https://www.sosh.fr/",
     "category":"telecom",
-    "color":{"hex": "#03A0AA", "css": "#03A0AA"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
@@ -125,7 +114,6 @@
     "name":"Virgin Mobile",
     "vendorLink":"https://www.virginmobile.fr/",
     "category":"telecom",
-    "color":{"hex": "#D72938", "css": "#D72938"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-virgin-mobile.git#build"
@@ -135,7 +123,6 @@
     "name":"Free Mobile",
     "vendorLink":"https://mobile.free.fr/",
     "category":"telecom",
-    "color":{"hex": "#CD1E25", "css": "#CD1E25"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
@@ -145,7 +132,6 @@
     "name":"Materiel.net",
     "vendorLink":"https://www.materiel.net/",
     "category":"shopping",
-    "color":{"hex":"#48D5B5","css":"#48D5B5"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
@@ -155,7 +141,6 @@
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
     "category":"transport",
-    "color":{"hex":"#48D5B5","css":"#48D5B5"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/cozy/cozy-konnector-trainline.git#build"
@@ -165,7 +150,6 @@
     "name":"SFR Box",
     "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
     "category":"isp",
-    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
@@ -175,7 +159,6 @@
     "name":"SFR Mobile",
     "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
     "category":"telecom",
-    "color":{"hex":"#9E0017","css":"linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"},
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "dataType":["bill"],
     "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
@@ -185,7 +168,6 @@
     "name":"EDF",
     "vendorLink":"https://www.edf.fr/",
     "category":"energy",
-    "color":{"hex":"#1C79CD","css":"linear-gradient(135deg, #1C79CD 0%, #06428F 100%)"},
     "dataType":["bill", "contract", "consumption", "profile", "home"],
     "fields":{"email":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
@@ -195,7 +177,6 @@
     "name":"Voyage-Sncf",
     "vendorLink":"https://www.voyages-sncf.com/",
     "category":"transport",
-    "color":{"hex":"#0088CE","css":"#0088CE"},
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
@@ -205,7 +186,6 @@
     "name":"Orange",
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
-    "color":{"hex":"#FF6122","css":"#FF6122"},
     "dataType":["bill"],
     "fields":{
       "login": {
@@ -230,10 +210,6 @@
     "name":"Orange Mobile",
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
-    "color":{
-      "hex":"#FF6122",
-      "css":"#FF6122"
-    },
     "dataType":["geopoint", "phonecommunicationlog"],
     "fields":{
         "access_token":{"type":"hidden"},
@@ -256,7 +232,6 @@
     "name":"Orange Livebox",
     "vendorLink":"https://www.orange.fr/",
     "category":"isp",
-    "color":{"hex": "#FF6122", "css": "#FF6122"},
     "dataType":["videostream"],
     "fields": {
       "access_token": {
@@ -281,7 +256,6 @@
     "name":"Caisse d'Epargne",
     "vendorLink":"https://www.caisse-epargne.fr/particuliers",
     "category":"banking",
-    "color":{"hex":"#e2010f","css":"#e2010f"},
     "dataType":["bill"],
     "fields":{"identifier":{"type":"text"},"secret":{"type":"password"}},
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"

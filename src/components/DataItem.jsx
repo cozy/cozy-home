@@ -3,9 +3,9 @@ import styles from '../styles/dataItem'
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
-export const DataItem = ({ t, dataType, hex }) => (
+export const DataItem = ({ t, dataType }) => (
   <li className={styles['col-data-item']}>
-    <svg className={styles['col-data-item-icon']} style={{color: hex}}>
+    <svg className={styles['col-data-item-icon']}>
       <use xlinkHref={require('../assets/sprites/icon-' + dataType + '.svg')} />
     </svg>
     {t(`dataType.${dataType}`)}
