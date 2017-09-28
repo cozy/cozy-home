@@ -1,4 +1,4 @@
-# Cozy Collect: Connector configuration
+# Cozy Collect: Konnector configuration
 
 You can configure some connector proprerties in the `src/config/konnectors.json` file as the form fields, the category or the correct color as good as in your `manifest.konnector`.
 
@@ -10,7 +10,7 @@ Some properties will be available and used only from the Cozy-Collect config fil
 * `name`
 * `fields`
 * `additionnalSuccessMessage`
-* `description`
+* `hasDescriptions`
 
 So, to use them, you have to set them in the cozy-collect `src/config/konnectors.json` file.
 
