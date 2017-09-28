@@ -243,12 +243,12 @@ class AccountConnection extends Component {
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
-  submit (values, { isUpdate = false }) {
+  submit (values) {
     this.setState({
       error: null
     })
 
-    return !isUpdate && this.props.connector && this.props.connector.oauth
+    return this.props.connector && this.props.connector.oauth
          ? this.connectAccountOAuth(this.props.connector.slug, values, this.props.connector.oauth_scope)
          : this.connectAccount(values)
   }
@@ -311,7 +311,7 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
             onForceConnection={() => this.forceConnection()}
-            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}), {isUpdate: true})}
+            onSubmit={(values) => this.connectAccount(Object.assign(values, {folderPath}))}
             submitting={submitting}
             success={success}
             />
