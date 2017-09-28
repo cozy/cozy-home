@@ -1,6 +1,5 @@
 [
   {
-    "accounts":[],
     "slug":"malakoffmederic",
     "name":"Malakoff Mederic",
     "vendorLink":"http://www.malakoffmederic.com/",
@@ -15,7 +14,6 @@
     "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
   },
   {
-    "accounts":[],
     "slug":"ameli",
     "name":"Ameli",
     "vendorLink":"https://www.ameli.fr/",
@@ -31,7 +29,6 @@
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
-    "accounts":[],
     "slug":"redmobile",
     "name":"SFR RED mobile",
     "vendorLink":"https://www.red-by-sfr.fr/",
@@ -42,7 +39,6 @@
     "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
   },
   {
-    "accounts":[],
     "slug":"digiposte",
     "name":"Digiposte",
     "vendorLink":"https://secure.digiposte.fr",
@@ -53,7 +49,6 @@
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
   },
   {
-    "accounts":[],
     "slug":"bouyguesbox",
     "name":"Bouygues Box",
     "vendorLink":"https://www.bouyguestelecom.fr/",
@@ -64,7 +59,6 @@
     "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
   },
   {
-    "accounts":[],
     "slug":"harmonie",
     "name":"Harmonie Mutuelle",
     "vendorLink":"https://www.harmonie-mutuelle.fr/",
@@ -75,7 +69,6 @@
     "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
   },
   {
-    "accounts":[],
     "slug":"numericable",
     "name":"Numéricable",
     "vendorLink":"https://www.numericable.fr/",
@@ -86,7 +79,6 @@
     "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
   },
   {
-    "accounts":[],
     "slug":"free",
     "name":"Free",
     "vendorLink":"https://www.free.fr/",
@@ -97,7 +89,6 @@
     "source": "git://github.com/cozy/cozy-konnector-free.git#build"
   },
   {
-    "accounts":[],
     "slug":"bouyguestelecom",
     "name":"Bouygues Telecom",
     "vendorLink":"https://www.bouyguestelecom.fr/",
@@ -108,7 +99,6 @@
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
   },
   {
-    "accounts":[],
     "oauth": true,
     "slug":"maif",
     "name":"MAIF",
@@ -121,7 +111,6 @@
     "oauth_scope": "openid+profile+offline_access"
   },
   {
-    "accounts":[],
     "slug":"sosh",
     "name":"Sosh",
     "vendorLink":"https://www.sosh.fr/",
@@ -132,7 +121,6 @@
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
   },
   {
-    "accounts":[],
     "slug":"virginmobile",
     "name":"Virgin Mobile",
     "vendorLink":"https://www.virginmobile.fr/",
@@ -143,7 +131,6 @@
     "source": "git://github.com/cozy/cozy-konnector-virgin-mobile.git#build"
   },
   {
-    "accounts":[],
     "slug":"freemobile",
     "name":"Free Mobile",
     "vendorLink":"https://mobile.free.fr/",
@@ -154,7 +141,6 @@
     "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
   },
   {
-    "accounts":[],
     "slug":"materielnet",
     "name":"Materiel.net",
     "vendorLink":"https://www.materiel.net/",
@@ -165,7 +151,6 @@
     "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
   },
   {
-    "accounts":[],
     "slug":"trainline",
     "name":"Trainline",
     "vendorLink":"www.trainline.fr",
@@ -176,7 +161,6 @@
     "source": "git://github.com/cozy/cozy-konnector-trainline.git#build"
   },
   {
-    "accounts":[],
     "slug":"sfrbox",
     "name":"SFR Box",
     "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
@@ -187,7 +171,6 @@
     "source": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
   },
   {
-    "accounts":[],
     "slug":"sfrmobile",
     "name":"SFR Mobile",
     "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
@@ -198,7 +181,6 @@
     "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
   },
   {
-    "accounts":[],
     "slug":"edf",
     "name":"EDF",
     "vendorLink":"https://www.edf.fr/",
@@ -209,7 +191,6 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
-    "accounts":[],
     "slug":"sncf",
     "name":"Voyage-Sncf",
     "vendorLink":"https://www.voyages-sncf.com/",
@@ -220,7 +201,6 @@
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
   },
   {
-    "accounts":[],
     "slug":"orange",
     "name":"Orange",
     "vendorLink":"https://www.orange.fr/",
@@ -245,7 +225,6 @@
     "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
   },
   {
-    "accounts":[],
     "oauth": true,
     "slug":"orangemobile",
     "name":"Orange Mobile",
@@ -272,7 +251,6 @@
     "oauth_scope": "M"
   },
   {
-    "accounts":[],
     "oauth": true,
     "slug":"orangelivebox",
     "name":"Orange Livebox",
@@ -299,7 +277,6 @@
     "oauth_scope": "I"
   },
   {
-    "accounts":[],
     "slug":"caissedepargne",
     "name":"Caisse d'Epargne",
     "vendorLink":"https://www.caisse-epargne.fr/particuliers",
