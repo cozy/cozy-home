@@ -80,46 +80,6 @@ Then you can add the related locales in `src/locales/en.json` in the expected `c
 
 > __⚠️ To know:__ You can format your text by using a kind of Markdown syntax since the description will be displayed using the [react-markdown][react-markdown] module.
 
-## Color
-
-The account connector can define a simple color or a gradient color to be used when displayed (for example as background). Here, it's important to know that the property is not a simple color but a css property. It's why the account connector color property will be defined like an object.
-
-We keep a simple color definition in all cases, because if we have a gradient as background, we can also need a simple for others interface elements (borders, customized svg...).
-
-For a simple color account connector:
-
-```js
-    ...
-    name: "My connector",
-    color: {
-        // the simple color hexadecimal definition
-        hex: "#A7B5C6",
-        // property used to display the connector background in the modal,
-        // could be different from the hexColor property
-        css: "#A7B5C6"
-    }
-    ...
-```
-
-For a 'complex' color account connector:
-
-```js
-    ...
-    name: "My connector",
-    fields: ...
-    ...
-
-    color: {
-        // a default simple color still available, eventually for other usages
-        hex: "#9E0017",
-        // css property for linear gradient
-        css: "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
-    }
-    ...
-```
-
-If a color property is not defined by the account connector, that will fallback to the default `hex` and `css` value which is `#A7B5C6`.
-
 ## Category
 
 An account connector can define a category to be listed in. This category is single because a connector can not be listed in many different categories. Here is the connector category definition:
