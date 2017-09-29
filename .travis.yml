@@ -37,4 +37,3 @@ after_success:
 - test $TRAVIS_BRANCH = "master" && pngquant build/screenshots/* -f --ext ".png"
 - test $TRAVIS_BRANCH = "master" && yarn run deploy -- --branch=build
 - test $TRAVIS_BRANCH = "prod" && yarn run deploy -- --branch=latest
-- sh scripts/publish_registry.sh
