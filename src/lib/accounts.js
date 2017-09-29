@@ -19,7 +19,16 @@ export function create (cozy, konnector, auth, folderID, name = '') {
 }
 
 export function update (cozy, account, newAccount) {
-  return cozy.data.update(ACCOUNTS_DOCTYPE, account, newAccount)
+  // Fetch the current account to get the correct _rev attribute.
+  // It may have changed, if a job has been running for example.
+  return cozy.data.find(ACCOUNTS_DOCTYPE, account._id)
+    .then(currentAccount => {
+      return cozy.data.update(
+        ACCOUNTS_DOCTYPE,
+        { ...account, _rev: currentAccount._rev },
+        (({ _rev: deleted, ...newAccount }) => newAccount)(newAccount)
+      )
+    })
 }
 
 export function _delete (cozy, account) {
