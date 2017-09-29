@@ -9,12 +9,12 @@ import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
 const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
-  const submitEnabled = dirty || isOAuth || forceEnabled
   let alreadyFocused = false
   const editableFields = Object.keys(fields)
     .filter(name => !isHidden(fields[name]) && !isAdvanced(fields[name]))
     .map(name => ({ ...fields[name], name }))
   const hasEditableFields = !!editableFields.length
+  const submitEnabled = dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
   return (
     <div className={styles['account-form-login']}>
       {error &&
@@ -89,7 +89,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
             disabled={submitting || !submitEnabled}
-            aria-busy={submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) ? 'true' : 'false'}
+            aria-busy={submitting && !disableSuccessTimeout && (isUpdate || !isOAuth || oAuthTerminated) ? 'true' : 'false'}
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}

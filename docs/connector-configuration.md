@@ -84,6 +84,8 @@ Then you can add the related locales in `src/locales/en.json` in the expected `c
 
 An account connector can define a category to be listed in. This category is single because a connector can not be listed in many different categories. Here is the connector category definition:
 
+Available Categories are listed in [`/src/config/categories.json`](https://github.com/cozy/cozy-collect/blob/master/src/config/categories.json)
+
 ```js
     ...
     "name": 'My connector',
@@ -101,3 +103,13 @@ If the account connector define a category which is authorized, it will be used.
 
 [tx]: https://www.transifex.com/cozy/
 [react-markdown]: https://github.com/rexxars/react-markdown
+
+## DataType
+
+A connector must define a list of dataType describing the type of data it will access to:
+
+```json
+  "dataType":["profile", "contract", "home", "family", "sinister"],
+```
+
+The list of available dataTypes is not yet listed, but existing icons are present into the [`/src/assets/sprites/` folder](https://github.com/cozy/cozy-collect/blob/master/src/assets/sprites/). For the moment, feel free to use any custom dataType you need, and please make a pull request if you need to add an icon.
