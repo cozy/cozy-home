@@ -112,4 +112,8 @@ A connector must define a list of dataType describing the type of data it will a
   "dataType":["profile", "contract", "home", "family", "sinister"],
 ```
 
+Difference between doctype and datatype : sometimes you can have objects of a certain doctype
+that represent in real life a higher level concept. Example : you have bills that are saved in
+the couchdb as `io.cozy.files`. `bills` is the datatype here.
+
 The list of available dataTypes is not yet listed, but existing icons are present into the [`/src/assets/sprites/` folder](https://github.com/cozy/cozy-collect/blob/master/src/assets/sprites/). For the moment, feel free to use any custom dataType you need, and please make a pull request if you need to add an icon.
