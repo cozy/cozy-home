@@ -29,7 +29,6 @@ const AccountConnectionData = ({ t, connector }) => {
           {connector.dataType.map(data =>
             <DataItem
               dataType={data}
-              hex={connector.color.hex}
             />
           )}
         </ul>}
