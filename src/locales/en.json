@@ -112,6 +112,15 @@
     "forceConnection": "Synchronize now"
   },
 
+  "connection": {
+    "error": {
+      "NOT_EXISTING_DIRECTORY": {
+        "title": "Missing destination folder",
+        "description": "It seems that this account's destination folder has been deleted. Please restore it by disconnecting this account and then reconnect again."
+      }
+    }
+  },
+
   "intent": {
     "service": {
       "error": {

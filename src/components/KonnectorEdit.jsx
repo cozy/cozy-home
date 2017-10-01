@@ -13,6 +13,28 @@ import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
+const NotExistingDirErrorDescription = ({ t, connector }) => (<DescriptionContent
+  cssClassesObject={{'coz-error': true}}
+  title={t('connection.error.NOT_EXISTING_DIRECTORY.title')}
+  messages={[t('connection.error.NOT_EXISTING_DIRECTORY.description', {name: connector.name})]}
+/>)
+
+const GlobalErrorDescription = ({ t, connector }) => (<DescriptionContent
+  cssClassesObject={{'coz-error': true}}
+  title={t('account.message.error.global.title')}
+  messages={[t('account.message.error.global.description', {name: connector.name})]}
+/>)
+
+const getErrorDescription = (props) => {
+  const { error } = props
+  switch (error.message) {
+    case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
+      return (<NotExistingDirErrorDescription {...props} />)
+    default:
+      return (<GlobalErrorDescription {...props} />)
+  }
+}
+
 export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isUnloading, lastSync, oAuthTerminated, onCancel, onDelete, onForceConnection, onSubmit, submitting, success }) => {
   const warningIcon = <svg className='item-status-icon'>
     <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
@@ -24,11 +46,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
   return (
     <div className={styles['col-account-edit-content']}>
 
-      { hasErrorExceptLogin && <DescriptionContent
-        cssClassesObject={{'coz-error': true}}
-        title={t('account.message.error.global.title')}
-        messages={[t('account.message.error.global.description', {name: connector.name})]}
-      /> }
+      { hasErrorExceptLogin && getErrorDescription({t, error, connector})}
 
       <Tabs
         initialActiveTab={
