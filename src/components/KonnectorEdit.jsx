@@ -21,8 +21,8 @@ const NotExistingDirErrorDescription = ({ t, connector }) => (<DescriptionConten
 
 const GlobalErrorDescription = ({ t, connector }) => (<DescriptionContent
   cssClassesObject={{'coz-error': true}}
-  title={t('account.message.error.global.title')}
-  messages={[t('account.message.error.global.description', {name: connector.name})]}
+  title={t('connection.error.default.title')}
+  messages={[t('connection.error.default.description', {name: connector.name})]}
 />)
 
 const getErrorDescription = (props) => {
