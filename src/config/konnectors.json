@@ -16,6 +16,29 @@
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
+    "slug":"orange",
+    "name":"Orange",
+    "vendorLink":"https://www.orange.fr/",
+    "category":"telecom",
+    "dataType":["bill"],
+    "fields":{
+      "login": {
+        "type":"text"
+      },
+      "password": {
+        "type":"password"
+       },
+       "folderPath": {
+          "type":"folder",
+          "advanced":true
+        }
+    },
+    "additionnalSuccessMessage": {
+      "message": "connector.orange.message.delay"
+    },
+    "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
+  },
+  {
     "accounts":[],
     "slug":"redmobile",
     "name":"SFR RED mobile",
