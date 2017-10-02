@@ -16,6 +16,19 @@
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
+    "slug":"malakoffmederic",
+    "name":"Malakoff Mederic",
+    "vendorLink":"http://www.malakoffmederic.com/",
+    "category":"insurance",
+    "dataType":["bill"],
+    "fields":{
+      "login":{"type":"text"},
+      "password":{"type":"password"},
+      "folderPath":{"type":"folder","advanced":true}
+    },
+    "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
+  },
+  {
     "slug":"orange",
     "name":"Orange",
     "vendorLink":"https://www.orange.fr/",
@@ -138,17 +151,6 @@
     "dataType":["bill"],
     "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
-  },
-  {
-    "accounts":[],
-    "slug":"virginmobile",
-    "name":"Virgin Mobile",
-    "vendorLink":"https://www.virginmobile.fr/",
-    "category":"telecom",
-    "color":{"hex": "#D72938", "css": "#D72938"},
-    "dataType":["bill"],
-    "fields":{"login":{"type":"text"},"password":{"type":"password"},"folderPath":{"type":"folder","advanced":true}},
-    "source": "git://github.com/cozy/cozy-konnector-virgin-mobile.git#build"
   },
   {
     "accounts":[],
