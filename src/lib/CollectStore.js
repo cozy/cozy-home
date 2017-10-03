@@ -575,8 +575,7 @@ export default class CollectStore {
     const installedKonnector = this.installedKonnectors.get(slug)
     if (installedKonnector) {
       switch (installedKonnector.state) {
-        case konnectors.KONNECTOR_STATE.ERRORED:
-          return CONNECTION_STATUS.ERRORED
+        case konnectors.KONNECTOR_STATE.INSTALLED:
         case konnectors.KONNECTOR_STATE.READY:
           // ignore
           break
