@@ -1,6 +1,8 @@
 [
   "activity",
   "appointment",
+  "bankTransactions",
+  "bankAccounts",
   "bill",
   "bloodPressure",
   "calendar",

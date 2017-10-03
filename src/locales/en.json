@@ -171,6 +171,8 @@
     "none": "%{name} won't access any data in your Cozy",
     "activity": "Your activities",
     "appointment": "Your appointments",
+    "bankTransactions": "Your bank transactions",
+    "bankAccounts": "Your bank accounts",
     "bill": "Your bills",
     "bloodPressure": "Your blood pressure",
     "calendar": "Your calendars",
