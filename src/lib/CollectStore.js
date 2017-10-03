@@ -565,7 +565,7 @@ export default class CollectStore {
   konnectorHasAccount (konnector) {
     const slug = konnector.slug || konnector.attributes.slug
     const legacyKonnector = this.getKonnectorBySlug(slug)
-    return legacyKonnector && !!legacyKonnector.accounts.length
+    return legacyKonnector && legacyKonnector.accounts && !!legacyKonnector.accounts.length
   }
 
   // Selector to get KonnectorStatus
