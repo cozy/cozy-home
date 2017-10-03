@@ -6,8 +6,15 @@ export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 export const KONNECTOR_STATE = {
-  READY: 'ready',
-  ERRORED: 'errored'
+  // Available state
+  AVAILABLE: 'available',
+  INSTALLING: 'installing',
+  UPGRADING: 'upgrading',
+  UNINSTALLING: 'uninstalling',
+  // Installed state, can be used to state that an application has been
+  // installed but needs a user interaction to be activated and "ready".
+  INSTALLED: 'installed',
+  READY: 'ready'
 }
 
 export const KONNECTOR_RESULT_STATE = {
