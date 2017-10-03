@@ -36,7 +36,7 @@
     "name":"Caisse d'Epargne",
     "vendorLink":"https://www.caisse-epargne.fr/particuliers",
     "category":"banking",
-    "dataType":["bill"],
+    "dataType":["bankTransactions", "bankAccounts"],
     "fields":{"identifier":{"type":"text"},"secret":{"type":"password"}},
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
