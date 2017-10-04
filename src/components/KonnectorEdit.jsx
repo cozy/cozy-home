@@ -58,15 +58,15 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
       >
 
         <TabList>
-          <Tab name='sync'>
+          <Tab name='sync' className={styles['col-account-edit-tab']}>
             {t('account.config.tabs.sync')}
             { hasErrorExceptLogin && warningIcon}
           </Tab>
-          <Tab name='account'>
+          <Tab name='account' className={styles['col-account-edit-tab']}>
             {t('account.config.tabs.account')}
             { hasLoginError && warningIcon }
           </Tab>
-          <Tab name='data'>
+          <Tab name='data' className={styles['col-account-edit-tab']}>
             {t('account.config.tabs.data')}
           </Tab>
         </TabList>
