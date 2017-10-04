@@ -19,16 +19,11 @@ export function findById (cozy, id) {
   return cozy.fetchJSON('GET', `/jobs/${id}`)
 }
 
-export function find (cozy, query) {
-  return cozy.data.defineIndex(JOBS_DOCTYPE, ['worker', 'domain'])
-    // TODO: cache the index
-    .then(index => cozy.data.query(index, {
-      selector: query
+export function findQueuedOrRunning (cozy) {
+  return cozy.fetchJSON('GET', '/jobs/queue/konnector')
+    .then(results => {
+      return results.map(result => decode(result.attributes))
     })
-    .then(jobs => {
-      return jobs.map(decode)
-    })
-  )
 }
 
 export function subscribe (cozy, job) {

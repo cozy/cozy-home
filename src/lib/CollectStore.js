@@ -268,21 +268,13 @@ export default class CollectStore {
   }
 
   fetchKonnectorUnfinishedJobs (domain) {
-    return jobs.find(cozy.client, {
-      $or: [{
-        state: jobs.JOB_STATE.RUNNING
-      }, {
-        state: jobs.JOB_STATE.QUEUED
-      }],
-      worker: 'konnector',
-      domain: domain
-    })
-    .then(jobs => {
-      jobs.forEach(job => {
-        this.updateUnfinishedJob(job)
+    return jobs.findQueuedOrRunning(cozy.client)
+      .then(jobs => {
+        jobs.forEach(job => {
+          this.updateUnfinishedJob(job)
+        })
+        return jobs
       })
-      return jobs
-    })
   }
 
   // Account connection workflow, see
