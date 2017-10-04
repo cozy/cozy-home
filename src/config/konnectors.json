@@ -129,7 +129,7 @@
   },
   {
     "slug":"orange",
-    "name":"Orange",
+    "name":"Orange Factures",
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
     "dataType":["bill"],
@@ -153,7 +153,7 @@
   {
     "oauth": true,
     "slug":"orangelivebox",
-    "name":"Orange Livebox",
+    "name":"Orange Vidéos",
     "vendorLink":"https://www.orange.fr/",
     "category":"isp",
     "dataType":["videostream"],
@@ -178,7 +178,7 @@
   {
     "oauth": true,
     "slug":"orangemobile",
-    "name":"Orange Mobile",
+    "name":"Orange Mobile – Appels & Géoloc",
     "vendorLink":"https://www.orange.fr/",
     "category":"telecom",
     "dataType":["geopoint", "phonecommunicationlog"],
