@@ -1,4 +1,5 @@
 /* global cozy */
+import DateFns from 'date-fns'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
@@ -56,12 +57,12 @@ export default class CollectStore {
   }
 
   // Populate the store
-  fetchInitialData (domain) {
+  fetchInitialData (domain, ignoreJobsAfterInSeconds) {
     return Promise.all([
       this.fetchAllAccounts(),
       this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
-      this.fetchKonnectorUnfinishedJobs(domain)
+      this.fetchKonnectorUnfinishedJobs(domain, ignoreJobsAfterInSeconds)
     ])
   }
 
@@ -267,8 +268,9 @@ export default class CollectStore {
       })
   }
 
-  fetchKonnectorUnfinishedJobs (domain) {
-    return jobs.findQueuedOrRunning(cozy.client)
+  fetchKonnectorUnfinishedJobs (domain, ignoreAfterInSeconds) {
+    const limitDate = DateFns.subSeconds(new Date(), ignoreAfterInSeconds)
+    return jobs.findQueuedOrRunning(cozy.client, limitDate)
       .then(jobs => {
         jobs.forEach(job => {
           this.updateUnfinishedJob(job)

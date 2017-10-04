@@ -23,7 +23,7 @@ class App extends Component {
 
     props.initializeRegistry(props.initKonnectors)
 
-    this.store.fetchInitialData(props.domain)
+    this.store.fetchInitialData(props.domain, props.ignoreJobsAfterInSeconds)
       .then(() => {
         this.setState({
           categories: this.store.categories,

@@ -10,6 +10,7 @@ import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import App from './containers/App'
+import collectConfig from './config/collect'
 import configureStore from './store/configureStore'
 import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Router history={history}>
           <Route
             component={(props) =>
-              <App domain={data.cozyDomain} initKonnectors={initKonnectors} {...props}
+              <App domain={data.cozyDomain} initKonnectors={initKonnectors} {...collectConfig} {...props}
               />}
           >
             <Redirect from='/' to='/discovery' />
