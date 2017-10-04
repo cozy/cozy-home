@@ -573,7 +573,12 @@ export default class CollectStore {
     const slug = konnector.slug || konnector.attributes.slug
 
     const installedKonnector = this.installedKonnectors.get(slug)
+
     if (installedKonnector) {
+      if (installedKonnector.error) {
+        return CONNECTION_STATUS.ERRORED
+      }
+
       switch (installedKonnector.state) {
         case konnectors.KONNECTOR_STATE.INSTALLED:
         case konnectors.KONNECTOR_STATE.READY:
