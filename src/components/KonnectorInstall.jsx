@@ -19,8 +19,8 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
 
         { error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED && <DescriptionContent
           cssClassesObject={{'coz-error': true}}
-          title={t('account.message.error.global.title')}
-          messages={[t('account.message.error.global.description', {name: connector.name})]}
+          title={t('connection.error.default.title')}
+          messages={[t('connection.error.default.description', {name: connector.name})]}
         /> }
 
         <DescriptionContent
