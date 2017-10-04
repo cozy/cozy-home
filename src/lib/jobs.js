@@ -11,7 +11,8 @@ export const JOB_STATE = {
 }
 
 function decode (job) {
-  return { ...job, ...JSON.parse(window.atob(job.message.Data)) }
+  // Retrieve message properties directly into job
+  return { ...job, ...job.message }
 }
 
 export function findById (cozy, id) {
