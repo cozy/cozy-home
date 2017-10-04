@@ -145,9 +145,6 @@
           "advanced":true
         }
     },
-    "additionnalSuccessMessage": {
-      "message": "connector.orange.message.delay"
-    },
     "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
   },
   {

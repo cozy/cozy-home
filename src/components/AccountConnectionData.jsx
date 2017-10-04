@@ -2,15 +2,16 @@ import styles from '../styles/accountConnectionData'
 
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
+import ClassNames from 'classnames'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import DataItem from '../components/DataItem'
 
-const AccountConnectionData = ({ t, connector }) => {
+const AccountConnectionData = ({ t, connector, hideMobile }) => {
   const {hasDescriptions} = connector
   const hasDataTypes = !!(connector.dataType && connector.dataType.length)
 
   return (
-    <div className={styles['col-account-connection-data']}>
+    <div className={ClassNames(styles['col-account-connection-data'], hideMobile ? styles['col-account-connection-data--desktop'] : '')}>
       { hasDescriptions && hasDescriptions.service &&
         <div>
           <h4>{t('account.config.data.service.description')}</h4>
