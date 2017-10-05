@@ -66,7 +66,6 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
 
       <AccountConnectionData
         connector={connector}
-        hideMobile
       />
 
     </div>

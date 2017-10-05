@@ -6,12 +6,12 @@ import ClassNames from 'classnames'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import DataItem from '../components/DataItem'
 
-const AccountConnectionData = ({ t, connector, hideMobile }) => {
+const AccountConnectionData = ({ t, connector }) => {
   const {hasDescriptions} = connector
   const hasDataTypes = !!(connector.dataType && connector.dataType.length)
 
   return (
-    <div className={ClassNames(styles['col-account-connection-data'], hideMobile ? styles['col-account-connection-data--desktop'] : '')}>
+    <div className={ClassNames(styles['col-account-connection-data'])}>
       { hasDescriptions && hasDescriptions.service &&
         <div>
           <h4>{t('account.config.data.service.description')}</h4>
