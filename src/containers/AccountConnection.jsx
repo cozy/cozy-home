@@ -231,9 +231,6 @@ class AccountConnection extends Component {
   handleError (error) {
     console.error(error)
 
-    // when service usage
-    if (this.props.onError) return this.props.onError(error)
-
     this.setState({
       submitting: false,
       deleting: false,
