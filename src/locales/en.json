@@ -154,6 +154,7 @@
 
   "category": {
     "all": "All",
+    "banking": "Banks",
     "health": "Health",
     "insurance": "Insurance",
     "transport": "Transportation",
