@@ -110,25 +110,6 @@
     }
   },
   {
-    "slug": "caissedepargne",
-    "name": "Caisse d'Epargne",
-    "vendorLink": "https://www.caisse-epargne.fr/particuliers",
-    "category": "banking",
-    "dataType": [
-      "bankTransactions",
-      "bankAccounts"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
-  },
-  {
     "slug": "comptenickel",
     "name": "Compte Nickel",
     "vendorLink": "https://compte-nickel.fr",
