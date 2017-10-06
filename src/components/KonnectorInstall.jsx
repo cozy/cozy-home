@@ -9,7 +9,7 @@ import KonnectorSuccess from './KonnectorSuccess'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
-export const KonnectorInstall = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, folderPath, isTimeout, isUnloading, oAuthTerminated, onAccountConfig, onCancel, onDelete, onSubmit, submitting, success }) => {
+export const KonnectorInstall = ({ t, account, connector, deleting, disableSuccessTimeout, driveUrl, error, fields, forceDisabled, folderPath, isTimeout, isUnloading, oAuthTerminated, onAccountConfig, onCancel, onDelete, onSubmit, submitting, success }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions } = connector
 
@@ -43,6 +43,7 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
           error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
           fields={fields}
           forceEnabled={!!error}
+          forceDisabled={forceDisabled}
           isOAuth={connector.oauth}
           isUnloading={isUnloading}
           oAuthTerminated={oAuthTerminated}

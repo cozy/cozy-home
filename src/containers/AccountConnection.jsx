@@ -322,6 +322,7 @@ class AccountConnection extends Component {
             error={error}
             fields={fields}
             folderPath={folderPath}
+            forceDisabled={oAuthTerminated}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}

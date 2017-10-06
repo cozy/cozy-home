@@ -7,7 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Field, { PasswordField, DropdownField, CheckboxField, isHidden, isAdvanced } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceDisabled, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   let alreadyFocused = false
   const editableFields = Object.keys(fields)
@@ -88,7 +88,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
         { ((!isUpdate || hasEditableFields) && !isSuccess) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-            disabled={submitting || !submitEnabled}
+            disabled={forceDisabled || submitting || !(submitEnabled)}
             aria-busy={submitting && !disableSuccessTimeout && (isUpdate || !isOAuth || oAuthTerminated) ? 'true' : 'false'}
             onClick={submit}
           >
