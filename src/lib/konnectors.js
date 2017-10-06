@@ -135,7 +135,13 @@ export function install (cozy, konnector, timeout = 120000) {
     if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
   })
 
-  const { slug, source } = konnector
+  const { slug, source, parameters } = konnector
+  let urlParams = `Source=${encodeURIComponent(source)}`
+
+  // While the registry is not there, the parameters are passed at konnectors install
+  if (parameters) {
+    urlParams = urlParams + `&Parameters=${encodeURIComponent(JSON.stringify(parameters))}`
+  }
 
   return findBySlug(cozy, slug)
     .catch(error => {
@@ -145,7 +151,7 @@ export function install (cozy, konnector, timeout = 120000) {
     .then(konnector => konnector
       // Need JSONAPI format
       ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
-        : cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
+        : cozy.fetchJSON('POST', `/konnectors/${slug}?${urlParams}`))
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
     .then(sanitizeSlug)
 }
