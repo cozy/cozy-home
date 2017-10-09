@@ -59,7 +59,7 @@ export default class CollectStore {
   // Populate the store
   fetchInitialData (domain, ignoreJobsAfterInSeconds) {
     return Promise.all([
-      this.initializeConnectors(),
+      this.initializeKonnectors(),
       this.fetchAllAccounts(),
       this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
@@ -67,7 +67,7 @@ export default class CollectStore {
     ])
   }
 
-  initializeConnectors () {
+  initializeKonnectors () {
     return cozy.client.fetchJSON('GET', '/settings/context')
       .then(context => {
         const ctx = context.attributes
