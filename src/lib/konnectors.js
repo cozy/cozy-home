@@ -41,7 +41,7 @@ export function addAccount (cozy, konnector, account) {
 export function fetchManifest (cozy, source) {
   return source
     ? cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
-    : Promise.reject(new Error('Source konnector is unavailable'))
+    : Promise.reject(new Error('A source must be provided to fetch the konnector manifest'))
 }
 
 let cachedSlugIndex

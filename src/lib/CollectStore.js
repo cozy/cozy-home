@@ -555,7 +555,7 @@ export default class CollectStore {
         return konnector ? konnectors.fetchManifest(cozy.client, konnector.repo)
           .then(this.manifestToKonnector)
           .catch(error => {
-            console.warn && console.warn(`Cannot fetch konnector's manifest (Error ${error.status})`)
+            console.warn && console.warn(`Cannot fetch konnector's manifest (Error ${error.status})`, error)
             return konnector
           }) : null
       })
