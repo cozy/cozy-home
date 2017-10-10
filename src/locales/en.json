@@ -30,6 +30,7 @@
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
         "identifier": "Identifier",
+        "new_identifier": "Identifier",
         "secret": "Password",
         "access_token": "Access token",
         "accessTokenSecret": "Access token secret",

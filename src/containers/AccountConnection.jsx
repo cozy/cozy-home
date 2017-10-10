@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-import {popupCenter, waitForClosedPopup} from '../lib/popup'
-import {getKonnectorIcon} from '../lib/icons'
+import { popupCenter, waitForClosedPopup } from '../lib/popup'
+import { getKonnectorIcon } from '../lib/icons'
 
 const SUCCESS_TYPES = {
   UPDATE: 'update',
@@ -262,7 +262,7 @@ class AccountConnection extends Component {
   // TODO: use a better helper
   getIcon (konnector) {
     try {
-      return getKonnectorIcon(konnector.slug)
+      return getKonnectorIcon(konnector)
     } catch (error) {
       console.warn(error.message)
       return require('assets/icons/konnectors/default.svg')
