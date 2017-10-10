@@ -22,10 +22,11 @@
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
-    "slug": "bnpparibas",
+    "slug": "bnpparibas82",
     "name": "BNP Paribas",
     "vendorLink": "https://mabanque.bnpparibas",
     "category": "banking",
+    "icon": "bnpparibas.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -88,10 +89,11 @@
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
   },
   {
-    "slug": "caissedepargne",
+    "slug": "caissedepargne1",
     "name": "Caisse d'épargne (Particuliers)",
     "vendorLink": "https://www.caisse-epargne.fr",
     "category": "banking",
+    "icon": "caissedepargne.svg",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -110,10 +112,11 @@
     }
   },
   {
-    "slug": "comptenickel",
+    "slug": "comptenickel168",
     "name": "Compte Nickel",
     "vendorLink": "https://compte-nickel.fr",
     "category": "banking",
+    "icon": "comptenickel.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -246,10 +249,11 @@
     "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
   },
   {
-    "slug": "hellobank",
+    "slug": "hellobank145",
     "name": "Hello bank!",
     "vendorLink": "https://www.hellobank.fr",
     "category": "banking",
+    "icon": "hellobank.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -268,10 +272,11 @@
     }
   },
   {
-    "slug": "labanquepostale",
+    "slug": "labanquepostale175",
     "name": "Banque Postale (Particuliers)",
     "vendorLink": "https://www.labanquepostale.fr",
     "category": "banking",
+    "icon": "labanquepostale.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -290,10 +295,11 @@
     }
   },
   {
-    "slug": "labanquepostale",
+    "slug": "labanquepostale44",
     "name": "La Banque Postale (Particuliers)",
     "vendorLink": "https://www.labanquepostale.fr",
     "category": "banking",
+    "icon": "labanquepostale.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -312,16 +318,17 @@
     }
   },
   {
-    "slug": "lcl",
-    "name": "LCL (Professionnels)",
-    "vendorLink": "https://professionnels.secure.lcl.fr",
+    "slug": "lcl143",
+    "name": "LCL (Particuliers)",
+    "vendorLink": "https://particuliers.secure.lcl.fr",
     "category": "banking",
+    "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
     ],
     "fields": {
-      "new": {
+      "new_identifier": {
         "type": "text"
       },
       "secret": {
@@ -330,20 +337,21 @@
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
-      "bankId": "146"
+      "bankId": "143"
     }
   },
   {
-    "slug": "lcl",
+    "slug": "lcl144",
     "name": "e.LCL",
     "vendorLink": "https://e.lcl.fr/",
     "category": "banking",
+    "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
     ],
     "fields": {
-      "new": {
+      "new_identifier": {
         "type": "text"
       },
       "secret": {
@@ -356,16 +364,17 @@
     }
   },
   {
-    "slug": "lcl",
-    "name": "LCL (Particuliers)",
-    "vendorLink": "https://particuliers.secure.lcl.fr",
+    "slug": "lcl146",
+    "name": "LCL (Professionnels)",
+    "vendorLink": "https://professionnels.secure.lcl.fr",
     "category": "banking",
+    "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
     ],
     "fields": {
-      "new": {
+      "new_identifier": {
         "type": "text"
       },
       "secret": {
@@ -374,7 +383,7 @@
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
-      "bankId": "143"
+      "bankId": "146"
     }
   },
   {
@@ -443,10 +452,11 @@
     "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
   },
   {
-    "slug": "monabanq",
+    "slug": "monabanq96",
     "name": "Monabanq",
     "vendorLink": "https://www.monabanq.com/client/",
     "category": "banking",
+    "icon": "monabanq.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -657,54 +667,11 @@
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
   },
   {
-    "slug": "societegenerale",
-    "name": "Société Générale (Entreprises)",
-    "vendorLink": "https://entreprises.societegenerale.fr",
-    "category": "banking",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "156"
-    }
-  },
-  {
-    "slug": "societegenerale",
-    "name": "Progéliance Net",
-    "vendorLink": "https://professionnels.societegenerale.fr/association_connexion.html",
-    "category": "banking",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "157"
-    }
-  },
-  {
-    "slug": "societegenerale",
+    "slug": "societegenerale155",
     "name": "Société Générale (Professionnels)",
     "vendorLink": "https://professionnels.societegenerale.fr",
     "category": "banking",
+    "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -723,10 +690,11 @@
     }
   },
   {
-    "slug": "societegenerale",
-    "name": "Sociéte Générale (Particuliers)",
-    "vendorLink": "https://particuliers.societegenerale.fr",
+    "slug": "societegenerale156",
+    "name": "Société Générale (Entreprises)",
+    "vendorLink": "https://entreprises.societegenerale.fr",
     "category": "banking",
+    "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -741,14 +709,38 @@
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
-      "bankId": "42"
+      "bankId": "156"
     }
   },
   {
-    "slug": "societegenerale",
-    "name": "Sogecash Net",
+    "slug": "societegenerale157",
+    "name": "Société Générale (Associations)- Progéliance Net",
+    "vendorLink": "https://professionnels.societegenerale.fr/association_connexion.html",
+    "category": "banking",
+    "icon": "societegenerale.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "157"
+    }
+  },
+  {
+    "slug": "societegenerale158",
+    "name": "Société Générale (Associations) - Sogecash Net",
     "vendorLink": "https://entreprises.societegenerale.fr/associations-connexion.html",
     "category": "banking",
+    "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -764,6 +756,29 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "158"
+    }
+  },
+  {
+    "slug": "societegenerale42",
+    "name": "Sociéte Générale (Particuliers)",
+    "vendorLink": "https://particuliers.societegenerale.fr",
+    "category": "banking",
+    "icon": "societegenerale.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "42"
     }
   },
   {
