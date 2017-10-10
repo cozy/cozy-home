@@ -39,7 +39,7 @@ export const getQueuedConnections = (state, registryKonnector) => {
   return Object.keys(state).reduce((runningConnections, accountId) => {
     const label = registryKonnector.name
     const status = getConnectionStatus(state[accountId])
-    const icon = getKonnectorIcon(registryKonnector.slug)
+    const icon = getKonnectorIcon(registryKonnector)
     return isQueued(state[accountId])
       ? runningConnections.concat({ label, status, icon })
         : runningConnections
