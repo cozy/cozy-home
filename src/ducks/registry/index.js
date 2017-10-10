@@ -1,3 +1,5 @@
+/* global cozy */
+
 import konnectors from './konnectors'
 
 // constant
@@ -25,4 +27,23 @@ export const getRegistryKonnector = (state, slug) => state.registry.konnectors.f
 
 // action creators sync
 
-export const initializeRegistry = konnectors => ({type: INITIALIZE_REGISTRY_KONNECTORS, konnectors: konnectors})
+export const initializeRegistry = konnectors => {
+  return (dispatch, getState) => {
+    return cozy.client.fetchJSON('GET', '/settings/context')
+      .then(context => {
+        const konnectorsToExclude = context.attributes && context.attributes.exclude_konnectors
+        if (konnectorsToExclude && konnectorsToExclude.length) {
+          return dispatch({
+            type: INITIALIZE_REGISTRY_KONNECTORS,
+            konnectors: konnectors.filter(
+              k => !konnectorsToExclude.includes(k.slug)
+            )
+          })
+        }
+        dispatch({type: INITIALIZE_REGISTRY_KONNECTORS, konnectors})
+      })
+      .catch(() => {
+        dispatch({type: INITIALIZE_REGISTRY_KONNECTORS, konnectors})
+      })
+  }
+}

@@ -59,11 +59,25 @@ export default class CollectStore {
   // Populate the store
   fetchInitialData (domain, ignoreJobsAfterInSeconds) {
     return Promise.all([
+      this.initializeKonnectors(),
       this.fetchAllAccounts(),
       this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
       this.fetchKonnectorUnfinishedJobs(domain, ignoreJobsAfterInSeconds)
     ])
+  }
+
+  initializeKonnectors () {
+    return cozy.client.fetchJSON('GET', '/settings/context')
+      .then(context => {
+        const ctx = context.attributes
+        if (ctx.exclude_konnectors && ctx.exclude_konnectors.length) {
+          this.connectors = this.connectors.filter(
+            k => !ctx.exclude_konnectors.includes(k.slug)
+          )
+        }
+      })
+      .catch(() => {})
   }
 
   initializeRealtime () {
