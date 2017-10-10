@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-import {popupCenter, waitForClosedPopup} from '../lib/popup'
-import {getKonnectorIcon} from '../lib/icons'
+import { popupCenter, waitForClosedPopup } from '../lib/popup'
+import { getKonnectorIcon } from '../lib/icons'
 
 const SUCCESS_TYPES = {
   UPDATE: 'update',
@@ -259,16 +259,6 @@ class AccountConnection extends Component {
     this.setState({ success: null, editing: true })
   }
 
-  // TODO: use a better helper
-  getIcon (konnector) {
-    try {
-      return getKonnectorIcon(konnector.slug)
-    } catch (error) {
-      console.warn(error.message)
-      return require('assets/icons/konnectors/default.svg')
-    }
-  }
-
   forceConnection () {
     this.setState({submitting: true})
     this.store.runAccount(this.props.connector, this.state.account)
@@ -289,7 +279,7 @@ class AccountConnection extends Component {
         <div className={styles['col-account-connection-header']}>
           <img
             className={styles['col-account-connection-icon']}
-            src={this.getIcon(connector)} />
+            src={getKonnectorIcon(connector)} />
         </div>
 
         { // Properly loed the edit view orthe initial config view
