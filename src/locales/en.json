@@ -9,6 +9,11 @@
         "service": {
           "description": "Service description:"
         }
+      },
+      "tabs": {
+        "sync": "synchronization",
+        "account": "account",
+        "data": "collected data"
       }
     },
     "disconnect": {
@@ -24,6 +29,9 @@
         "password": "Password",
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
+        "identifier": "Identifier",
+        "new_identifier": "Identifier",
+        "secret": "Password",
         "access_token": "Access token",
         "accessTokenSecret": "Access token secret",
         "consumerKey": "Consumer Key",
@@ -93,16 +101,25 @@
         "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {
-        "global": {
-          "title": "An error occured",
-          "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [forum](https://forum.cozy.io/)."
-        },
         "server": "Apologies, our server had an hiccup, do you mind starting again?",
         "bad_credentials": "Sorry, you entered an incorrect login or password.",
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
     },
     "forceConnection": "Synchronize now"
+  },
+
+  "connection": {
+    "error": {
+      "default": {
+        "title": "An error occured",
+        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [forum](https://forum.cozy.io/)."
+      },
+      "NOT_EXISTING_DIRECTORY": {
+        "title": "Missing destination folder",
+        "description": "It seems that this account's destination folder has been deleted. Please restore it by disconnecting this account and then reconnect again."
+      }
+    }
   },
 
   "intent": {
@@ -138,6 +155,7 @@
 
   "category": {
     "all": "All",
+    "banking": "Banks",
     "health": "Health",
     "insurance": "Insurance",
     "transport": "Transportation",
@@ -154,33 +172,35 @@
   "dataType": {
     "none": "%{name} won't access any data in your Cozy",
     "activity": "Your activities",
-    "heartbeat": "Your heartbeats",
+    "appointment": "Your appointments",
+    "bankTransactions": "Your bank transactions",
+    "bankAccounts": "Your bank accounts",
+    "bill": "Your bills",
+    "bloodPressure": "Your blood pressure",
     "calendar": "Your calendars",
     "commit": "Your commits",
     "consumption": "Your consumption",
     "contact": "Your contacts",
     "contract": "Your contracts",
-    "travelDate": "Your travel dates",
-    "event": "Your events",
-    "bill": "Your bills",
-    "document": "Your documents",
-    "stepsNumber": "Your number of steps",
-    "podcast": "Your podcasts",
-    "weight": "Your weights",
-    "bloodPressure": "Your blood pressure",
-    "appointment": "Your appointments",
-    "refund": "Your refunds",
-    "sleepTime": "Your sleep time",
     "courseMaterial": "Your course materials",
+    "document": "Your documents",
+    "event": "Your events",
+    "family": "Your family informations",
+    "geopoint": "Your geolocations",
+    "heartbeat": "Your heartbeats",
+    "home": "Your home informations",
+    "phonecommunicationlog": "Your phone communications log",
+    "podcast": "Your podcasts",
+    "profile": "Your client profile",
+    "refund": "Your refunds",
+    "sinister": "Your sinisters",
+    "sleepTime": "Your sleep time",
+    "stepsNumber": "Your number of steps",
     "temperature": "Your temperature data",
+    "travelDate": "Your travel dates",
     "tweet": "Your tweets",
     "videostream": "Your videos",
-    "phonecommunicationlog": "Your phone communications log",
-    "geopoint": "Your geolocations",
-    "family": "Your family informations",
-    "home": "Your home informations",
-    "profile": "Your client profile",
-    "sinister": "Your sinisters"
+    "weight": "Your weights"
   },
 
   "loading": {
@@ -232,5 +252,14 @@
         "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included).\n\nYou will be able to use these data in different apps in your Cozy, for example \"My Movies Music\" (available soon on the Cozy Store)."
       }
     }
+  },
+  "Queue": {
+    "header": "Syncing %{smart_count} account |||| Syncing %{smart_count} accounts",
+    "header_mobile": "%{done} of %{total} syncing…",
+    "header_done": "Synced %{done} out of %{total}",
+    "item": {
+      "pending": "Pending"
+    },
+    "close": "Close"
   }
 }

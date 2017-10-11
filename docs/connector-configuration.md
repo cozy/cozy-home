@@ -1,4 +1,4 @@
-# Cozy Collect: Connector configuration
+# Cozy Collect: Konnector configuration
 
 You can configure some connector proprerties in the `src/config/konnectors.json` file as the form fields, the category or the correct color as good as in your `manifest.konnector`.
 
@@ -10,7 +10,7 @@ Some properties will be available and used only from the Cozy-Collect config fil
 * `name`
 * `fields`
 * `additionnalSuccessMessage`
-* `description`
+* `hasDescriptions`
 
 So, to use them, you have to set them in the cozy-collect `src/config/konnectors.json` file.
 
@@ -80,49 +80,11 @@ Then you can add the related locales in `src/locales/en.json` in the expected `c
 
 > __⚠️ To know:__ You can format your text by using a kind of Markdown syntax since the description will be displayed using the [react-markdown][react-markdown] module.
 
-## Color
-
-The account connector can define a simple color or a gradient color to be used when displayed (for example as background). Here, it's important to know that the property is not a simple color but a css property. It's why the account connector color property will be defined like an object.
-
-We keep a simple color definition in all cases, because if we have a gradient as background, we can also need a simple for others interface elements (borders, customized svg...).
-
-For a simple color account connector:
-
-```js
-    ...
-    name: "My connector",
-    color: {
-        // the simple color hexadecimal definition
-        hex: "#A7B5C6",
-        // property used to display the connector background in the modal,
-        // could be different from the hexColor property
-        css: "#A7B5C6"
-    }
-    ...
-```
-
-For a 'complex' color account connector:
-
-```js
-    ...
-    name: "My connector",
-    fields: ...
-    ...
-
-    color: {
-        // a default simple color still available, eventually for other usages
-        hex: "#9E0017",
-        // css property for linear gradient
-        css: "linear-gradient(90deg, #EF0001 0%, #9E0017 100%)"
-    }
-    ...
-```
-
-If a color property is not defined by the account connector, that will fallback to the default `hex` and `css` value which is `#A7B5C6`.
-
 ## Category
 
 An account connector can define a category to be listed in. This category is single because a connector can not be listed in many different categories. Here is the connector category definition:
+
+Available Categories are listed in [`/src/config/categories.json`](https://github.com/cozy/cozy-collect/blob/master/src/config/categories.json)
 
 ```js
     ...
@@ -141,3 +103,17 @@ If the account connector define a category which is authorized, it will be used.
 
 [tx]: https://www.transifex.com/cozy/
 [react-markdown]: https://github.com/rexxars/react-markdown
+
+## DataType
+
+A connector must define a list of dataType describing the type of data it will access to:
+
+```json
+  "dataType":["profile", "contract", "home", "family", "sinister"],
+```
+
+Difference between doctype and datatype : sometimes you can have objects of a certain doctype
+that represent in real life a higher level concept. Example : you have bills that are saved in
+the couchdb as `io.cozy.files`. `bills` is the datatype here.
+
+The list of available dataTypes is not yet listed, but existing icons are present into the [`/src/assets/sprites/` folder](https://github.com/cozy/cozy-collect/blob/master/src/assets/sprites/). For the moment, feel free to use any custom dataType you need, and please make a pull request if you need to add an icon.

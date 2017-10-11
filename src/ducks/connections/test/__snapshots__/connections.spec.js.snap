@@ -1,0 +1,127 @@
+exports[`Connections Duck Action creators createConnection adds new connection 1`] = `
+Object {
+  "cozy": Object {
+    "9bf93550308311c59f0a0047fc00fa1b": Object {},
+  },
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {},
+  },
+}
+`;
+
+exports[`Connections Duck Action creators createConnection adds new connection in empty state 1`] = `
+Object {
+  "cozy": Object {
+    "9bf93550308311c59f0a0047fc00fa1b": Object {},
+  },
+}
+`;
+
+exports[`Connections Duck Action creators deleteConnection deletes existing connection 1`] = `
+Object {
+  "testprovider": Object {
+    "63c670ea9d7b11e7b5888c88b1c12d46": Object {},
+  },
+}
+`;
+
+exports[`Connections Duck Action creators enqueueConnection marks account as queued 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": true,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators purgeQueue marks all accounts as not queued 1`] = `
+Object {
+  "anotherprovider": Object {
+    "768ccdaa9d7b11e7869aae88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "isQueued": false,
+    },
+    "63c670ea9d7b11e7b5888c88b1c12d46": Object {
+      "isQueued": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators updateConnectionError set an error 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": [Error: test error],
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators updateConnectionRunningStatus keeps \`hasRun\` to true after setting \`isRunning\` from false to true 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
+      "hasRun": true,
+      "isRunning": true,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators updateConnectionRunningStatus set \`hasRun\` to true when setting \`isRunning\` from true to false 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
+      "hasRun": true,
+      "isRunning": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators updateConnectionRunningStatus set a connection to idle 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
+      "hasRun": false,
+      "isRunning": false,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators updateConnectionRunningStatus set a connection to running 1`] = `
+Object {
+  "testprovider": Object {
+    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
+      "error": null,
+      "hasRun": false,
+      "isRunning": true,
+    },
+  },
+}
+`;
+
+exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `
+Array [
+  Object {
+    "icon": "test-file-stub",
+    "label": "Test Provider",
+    "status": "ongoing",
+  },
+  Object {
+    "icon": "test-file-stub",
+    "label": "Test Provider",
+    "status": "error",
+  },
+]
+`;

@@ -16,8 +16,9 @@
       "description": "Application de configuration pour les konnectors"
     }
   },
-  "version": "3.0.3",
+  "version": "1.0.2",
   "licence": "AGPL-3.0",
+  "screenshots": ["screenshots/screenshot1.png", "screenshots/screenshot2.png", "screenshots/screenshot3.png", "screenshots/screenshot4.png"],
   "permissions": {
     "apps": {
       "description": "Required by the cozy-bar to display the icons of the apps",
@@ -50,7 +51,8 @@
     },
     "jobs": {
       "description": "Required to run the konnectors",
-      "type": "io.cozy.jobs"
+      "type": "io.cozy.jobs",
+      "verbs": ["ALL"]
     },
     "triggers": {
       "description": "Required to run the konnectors",

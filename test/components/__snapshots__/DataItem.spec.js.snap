@@ -2,12 +2,7 @@ exports[`DataItem component should display correctly the activity data type 1`] 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -19,12 +14,7 @@ exports[`DataItem component should display correctly the appointment data type 1
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -32,16 +22,35 @@ exports[`DataItem component should display correctly the appointment data type 1
 </li>
 `;
 
+exports[`DataItem component should display correctly the bankAccounts data type 1`] = `
+<li
+  className="col-data-item">
+  <svg
+    className="col-data-item-icon">
+    <use
+      xlinkHref="test-file-stub" />
+  </svg>
+  Your bank accounts
+</li>
+`;
+
+exports[`DataItem component should display correctly the bankTransactions data type 1`] = `
+<li
+  className="col-data-item">
+  <svg
+    className="col-data-item-icon">
+    <use
+      xlinkHref="test-file-stub" />
+  </svg>
+  Your bank transactions
+</li>
+`;
+
 exports[`DataItem component should display correctly the bill data type 1`] = `
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -53,12 +62,7 @@ exports[`DataItem component should display correctly the bloodPressure data type
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -70,12 +74,7 @@ exports[`DataItem component should display correctly the calendar data type 1`] 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -87,12 +86,7 @@ exports[`DataItem component should display correctly the commit data type 1`] = 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -104,12 +98,7 @@ exports[`DataItem component should display correctly the consumption data type 1
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -121,12 +110,7 @@ exports[`DataItem component should display correctly the contact data type 1`] =
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -138,12 +122,7 @@ exports[`DataItem component should display correctly the contract data type 1`] 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -155,12 +134,7 @@ exports[`DataItem component should display correctly the courseMaterial data typ
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -172,12 +146,7 @@ exports[`DataItem component should display correctly the event data type 1`] = `
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -189,12 +158,7 @@ exports[`DataItem component should display correctly the family data type 1`] = 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -206,12 +170,7 @@ exports[`DataItem component should display correctly the geopoint data type 1`] 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -223,12 +182,7 @@ exports[`DataItem component should display correctly the heartbeat data type 1`]
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -240,12 +194,7 @@ exports[`DataItem component should display correctly the home data type 1`] = `
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -257,12 +206,7 @@ exports[`DataItem component should display correctly the phonecommunicationlog d
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -274,12 +218,7 @@ exports[`DataItem component should display correctly the podcast data type 1`] =
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -291,12 +230,7 @@ exports[`DataItem component should display correctly the profile data type 1`] =
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -308,12 +242,7 @@ exports[`DataItem component should display correctly the refund data type 1`] = 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -325,12 +254,7 @@ exports[`DataItem component should display correctly the sinister data type 1`] 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -342,12 +266,7 @@ exports[`DataItem component should display correctly the sleepTime data type 1`]
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -359,12 +278,7 @@ exports[`DataItem component should display correctly the stepsNumber data type 1
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -376,12 +290,7 @@ exports[`DataItem component should display correctly the temperature data type 1
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -393,12 +302,7 @@ exports[`DataItem component should display correctly the travelDate data type 1`
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -410,12 +314,7 @@ exports[`DataItem component should display correctly the tweet data type 1`] = `
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -427,12 +326,7 @@ exports[`DataItem component should display correctly the videostream data type 1
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>
@@ -444,12 +338,7 @@ exports[`DataItem component should display correctly the weight data type 1`] = 
 <li
   className="col-data-item">
   <svg
-    className="col-data-item-icon"
-    style={
-      Object {
-        "color": "#297EF2",
-      }
-    }>
+    className="col-data-item-icon">
     <use
       xlinkHref="test-file-stub" />
   </svg>

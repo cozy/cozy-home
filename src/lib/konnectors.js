@@ -6,8 +6,15 @@ export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
 export const KONNECTOR_STATE = {
-  READY: 'ready',
-  ERRORED: 'errored'
+  // Available state
+  AVAILABLE: 'available',
+  INSTALLING: 'installing',
+  UPGRADING: 'upgrading',
+  UNINSTALLING: 'uninstalling',
+  // Installed state, can be used to state that an application has been
+  // installed but needs a user interaction to be activated and "ready".
+  INSTALLED: 'installed',
+  READY: 'ready'
 }
 
 export const KONNECTOR_RESULT_STATE = {
@@ -21,6 +28,10 @@ export const JOB_STATE = {
   DONE: 'done'
 }
 
+function sanitizeSlug (konnector) {
+  return konnector && { ...konnector, slug: konnector.slug || konnector.attributes.slug }
+}
+
 export function addAccount (cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
   konnector.accounts.push(account)
@@ -30,7 +41,7 @@ export function addAccount (cozy, konnector, account) {
 export function fetchManifest (cozy, source) {
   return source
     ? cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
-    : Promise.reject(new Error('Source konnector is unavailable'))
+    : Promise.reject(new Error('A source must be provided to fetch the konnector manifest'))
 }
 
 let cachedSlugIndex
@@ -50,6 +61,7 @@ export function findBySlug (cozy, slug) {
   return getSlugIndex(cozy)
     .then(index => cozy.data.query(index, {selector: {slug: slug}}))
     .then(list => list.length ? list[0] : null)
+    .then(konnector => sanitizeSlug(konnector))
 }
 
 export function unlinkFolder (cozy, konnector, folderId) {
@@ -85,6 +97,7 @@ export function fetchResult (cozy, konnector) {
 
 export function findAll (cozy) {
   return findAllDocuments(cozy, KONNECTORS_DOCTYPE)
+    .then(konnectors => konnectors.map(sanitizeSlug))
 }
 
 export function findAllResults (cozy) {
@@ -122,7 +135,13 @@ export function install (cozy, konnector, timeout = 120000) {
     if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
   })
 
-  const { slug, source } = konnector
+  const { slug, source, parameters } = konnector
+  let urlParams = `Source=${encodeURIComponent(source)}`
+
+  // While the registry is not there, the parameters are passed at konnectors install
+  if (parameters) {
+    urlParams = urlParams + `&Parameters=${encodeURIComponent(JSON.stringify(parameters))}`
+  }
 
   return findBySlug(cozy, slug)
     .catch(error => {
@@ -132,8 +151,9 @@ export function install (cozy, konnector, timeout = 120000) {
     .then(konnector => konnector
       // Need JSONAPI format
       ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
-        : cozy.fetchJSON('POST', `/konnectors/${slug}?Source=${encodeURIComponent(source)}`))
+        : cozy.fetchJSON('POST', `/konnectors/${slug}?${urlParams}`))
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
+    .then(sanitizeSlug)
 }
 
 // monitor the status of the connector and resolve when the connector is ready
@@ -185,7 +205,7 @@ export function deleteFolderPermission (cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account, disableSuccessTimeout = false, successTimeout = 30 * 1000) {
+export function run (cozy, konnector, account) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -205,39 +225,21 @@ export function run (cozy, konnector, account, disableSuccessTimeout = false, su
     priority: 10,
     max_exec_count: 1
   })
-  .then(job => waitForJobFinished(cozy, job, disableSuccessTimeout, successTimeout))
+  .then(job => waitForJobFinished(cozy, job))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job, disableSuccessTimeout, successTimeout) {
+function waitForJobFinished (cozy, job) {
   return new Promise((resolve, reject) => {
     jobs.subscribe(cozy, job)
       .then(subscription => {
-        let idTimeout
-
-        if (!disableSuccessTimeout) {
-          idTimeout = setTimeout(() => {
-            subscription.unsubscribe()
-            // Ensure that job is not errored in case of realtime issues.
-            jobs.findById(cozy, job._id)
-              .then(job => {
-                if (job.attributes.state === JOB_STATE.ERRORED) {
-                  return reject(new Error(job.attributes.error))
-                }
-                resolve(job)
-              })
-          }, successTimeout)
-        }
-
         subscription.onUpdate(job => {
           if (job.state === JOB_STATE.ERRORED) {
-            clearTimeout(idTimeout)
             subscription.unsubscribe()
             reject(new Error(job.error))
           }
 
           if (job.state === JOB_STATE.DONE) {
-            clearTimeout(idTimeout)
             subscription.unsubscribe()
             resolve(job)
           }

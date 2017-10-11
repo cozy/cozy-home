@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import * as accounts from '../../src/lib/accounts'
 
 const konnectorMock = {
@@ -33,6 +34,7 @@ const folderMock = {
 
 const accountMock = {
   _id: '4d1039c9a419779f70d1dee5f2009b8f',
+  _rev: '6-0cbc3ce9072cc22ccef03f30256a8d57',
   account_type: 'mock',
   auth: {
     folderPath: '/Administrative/Mock',
@@ -67,6 +69,7 @@ const indexMock = {
 // just to tests calling, results are tested in cozy-client-js
 let cozyMock = {
   data: {
+    find: jest.fn((doctype, account) => Promise.resolve({ ...account, _rev: '6-0cbc3ce9072cc22ccef03f30256a8d57' })),
     create: jest.fn(() => Promise.resolve()),
     update: jest.fn(() => Promise.resolve()),
     delete: jest.fn(() => Promise.resolve()),

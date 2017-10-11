@@ -69,7 +69,7 @@ export default class ConnectorManagement extends Component {
 
     return (
       <Modal secondaryAction={() => this.gotoParent()}>
-        <ModalContent>
+        <ModalContent className={styles['col-account-modal']}>
           {isWorking
             ? <div className={styles['installing']}>
               <div className={styles['installing-spinner']} />

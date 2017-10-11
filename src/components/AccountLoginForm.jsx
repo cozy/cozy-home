@@ -4,14 +4,17 @@ import React from 'react'
 import classNames from 'classnames'
 import statefulForm from '../lib/statefulForm'
 import { translate } from 'cozy-ui/react/I18n'
-import Field, { PasswordField, DropdownField, CheckboxField } from './Field'
+import Field, { PasswordField, DropdownField, CheckboxField, isHidden, isAdvanced } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
-import FixedProgress from './FixedProgress'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceEnabled, deleting, values, submit, onDelete, onCancel, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceDisabled, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
-  const submitEnabled = dirty || isOAuth || forceEnabled
   let alreadyFocused = false
+  const editableFields = Object.keys(fields)
+    .filter(name => !isHidden(fields[name]) && !isAdvanced(fields[name]))
+    .map(name => ({ ...fields[name], name }))
+  const hasEditableFields = !!editableFields.length
+  const submitEnabled = dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
   return (
     <div className={styles['account-form-login']}>
       {error &&
@@ -19,20 +22,20 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
           {t('account.message.error.bad_credentials')}
         </p>
       }
-      {!!fields && Object.keys(fields)
-        .filter(name => !fields[name].advanced)
-        .map((name, idx) => {
+      {!!editableFields && editableFields
+        .map((field) => {
+          const { name } = field
           const readOnly = name === 'login' && isUpdate
           const giveFocus = !alreadyFocused && !readOnly
           if (giveFocus) alreadyFocused = giveFocus
           const inputName = `${name}_${connectorSlug}`
-          const description = fields[name].hasDescription
+          const description = field.hasDescription
             ? <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />
             : ''
           const onEnterKey = () => {
-            if ((!(isUpdate && isOAuth) && !isSuccess) && !submitting && submitEnabled) submit()
+            if (((!isUpdate || hasEditableFields) && !isSuccess) && !submitting && submitEnabled) submit()
           }
-          switch (fields[name].type) {
+          switch (field.type) {
             case 'password':
               return <div>
                 {description}
@@ -44,22 +47,22 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   giveFocus={giveFocus}
                   onEnterKey={onEnterKey}
                   noAutoFill
-                  {...Object.assign({}, fields[name], {
-                    value: isUnloading ? '' : fields[name].value
+                  {...Object.assign({}, field, {
+                    value: isUnloading ? '' : field.value
                   })}
                 />
               </div>
             case 'dropdown':
               return <div>
                 {description}
-                <DropdownField label={t(`account.form.label.${name}`)} {...fields[name]} />
+                <DropdownField label={t(`account.form.label.${name}`)} {...field} />
               </div>
             case 'checkbox':
               // force boolean type here since it's just a checkbox
-              fields[name].value = !!fields[name].value
+              field.value = !!field.value
               return <div>
                 {description}
-                <CheckboxField label={t(`account.form.label.${name}`)} {...fields[name]} />
+                <CheckboxField label={t(`account.form.label.${name}`)} {...field} />
               </div>
             default:
               return <div>
@@ -72,50 +75,25 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
                   giveFocus={giveFocus && !readOnly}
                   onEnterKey={onEnterKey}
                   noAutoFill
-                  {...Object.assign({}, fields[name], {
-                    value: isUnloading ? '' : fields[name].value
+                  {...Object.assign({}, field, {
+                    value: isUnloading ? '' : field.value
                   })}
                 />
               </div>
           }
         }
       )}
-      { isUpdate &&
-        <div className={styles['col-account-form-delete']}>
-          <h4>{t('account.disconnect.title')}</h4>
-          <p>
-            {t('account.disconnect.description')}
-          </p>
-          <button
-            className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
-            disabled={deleting}
-            aria-busy={deleting}
-            onClick={onDelete}>
-            {t('account.form.button.disconnect')}
-          </button>
-        </div>
-      }
+
       <div className={styles['coz-form-controls']}>
-        { isUpdate && !isOAuth &&
-          <button
-            className={classNames('coz-btn', 'coz-btn--secondary', styles['coz-btn'])}
-            onClick={onCancel}
-          >
-            {t('account.form.button.cancel')}
-          </button>
-        }
-        { (!(isUpdate && isOAuth) && !isSuccess) &&
+        { ((!isUpdate || hasEditableFields) && !isSuccess) &&
           <button
             className={classNames('coz-btn', 'coz-btn--regular', styles['coz-btn'])}
-            disabled={submitting || !submitEnabled}
-            aria-busy={submitting && disableSuccessTimeout ? 'true' : 'false'}
+            disabled={forceDisabled || submitting || !(submitEnabled)}
+            aria-busy={submitting && !disableSuccessTimeout && (isUpdate || !isOAuth || oAuthTerminated) ? 'true' : 'false'}
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
           </button>
-        }
-        { submitting && !disableSuccessTimeout && (!isOAuth || oAuthTerminated) &&
-          <FixedProgress duration='32000' />
         }
       </div>
     </div>
