@@ -249,6 +249,22 @@ export default class CollectStore {
     })
   }
 
+  // FIXME: should be handled in a cozy-drive inter-app
+  fetchFolders () {
+    return cozy.client.data.findAll('io.cozy.files')
+    .then(result => {
+      const folders = result
+        .filter(f => f.type === 'directory')
+        .filter(f => f.path.match(/^\/$|\/[^.](.*)/)) // remove hidden folders
+        .sort((a, b) => a.path > b.path)
+      return folders
+    })
+    .catch(err => {
+      console.warn(err)
+      return []
+    })
+  }
+
   fetchInstalledKonnectors () {
     return konnectors
       .findAll(cozy.client)
