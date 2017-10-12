@@ -244,5 +244,5 @@ export const CheckboxField = translate()((props) => {
   )
 })
 
-export const isHidden = field => field.type && field.type === 'hidden'
+export const isHidden = field => (field.type && field.type === 'hidden') || field.hidden
 export const isAdvanced = field => !!field.advanced
