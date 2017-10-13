@@ -6,107 +6,104 @@ import statefulForm from '../lib/statefulForm'
 import { translate } from 'cozy-ui/react/I18n'
 import Field, { PasswordField, DropdownField, CheckboxField, isHidden, isAdvanced, FolderPickerField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
+import { map, groupBy } from 'lodash'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceDisabled, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading, displayAdvanced, toggleAdvanced, disableFolderPath }) => {
+const renderers = {
+  password: ({ t }) => <PasswordField noAutoFill placeholder={t('account.form.placeholder.password')}/>,
+  checkbox: () => <CheckboxField />,
+  dropdown: () => <DropdownField />,
+  text: () => <Field />,
+  folder: ({ disableFolderPath }) => <FolderPickerField readOnly={disableFolderPath} />
+}
+
+const hydrateFieldValue = {
+  checkbox: value => !!value
+}
+
+const identity = x => x
+
+const AccountLoginForm = props => {
+  const {
+    t,
+    isOAuth,
+    oAuthTerminated,
+    fields,
+    error,
+    dirty,
+    submitting,
+    forceDisabled,
+    forceEnabled,
+    values,
+    submit,
+    connectorSlug,
+    isSuccess,
+    disableSuccessTimeout,
+    isUnloading,
+    displayAdvanced,
+    toggleAdvanced
+  } = props
   const isUpdate = !!values && Object.keys(values).length > 0
   let alreadyFocused = false
-  const editableFields = Object.keys(fields)
-    .filter(name => !isHidden(fields[name]) && !isAdvanced(fields[name]))
-    .map(name => ({ ...fields[name], name }))
-  const advancedFields = Object.keys(fields)
-    .filter(name => !isHidden(fields[name]) && isAdvanced(fields[name]))
-    .map(name => ({ ...fields[name], name }))
-  const hasEditableFields = !!editableFields.length
-  const submitEnabled = dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
 
-  const renderField = (field) => {
-    const { name } = field
+  // Handle advanced vs simple fields
+  const fieldSpecs = map(fields, (fieldSpec, name) => ({...fieldSpec, name}))
+  const visibleFields = fieldSpecs.filter(field => !isHidden(field))
+  const grouped = groupBy(visibleFields, field => isAdvanced(field) ? 'advancedFields' : 'editableFields')
+  const editableFields = grouped.editableFields || []
+  const advancedFields = grouped.advancedFields || []
+  const hasEditableFields = !!editableFields.length
+
+  // Submit button state
+  const submitEnabled = dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
+  const canHandleEnterKey = ((!isUpdate || hasEditableFields) && !isSuccess) && !submitting && submitEnabled
+  const onEnterKey = canHandleEnterKey && submit
+
+  const renderField = field => {
+    const { name, label, type, value } = field
+    if (!renderers[type]) {
+      throw new Error('Unknown field type ' + type)
+    }
     const readOnly = name === 'login' && isUpdate
+
+    // Give focus only once
     const giveFocus = !alreadyFocused && !readOnly
     if (giveFocus) alreadyFocused = giveFocus
-    const inputName = `${name}_${connectorSlug}`
-    const description = field.hasDescription
-      ? <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />
-      : ''
-    const onEnterKey = () => {
-      if (((!isUpdate || hasEditableFields) && !isSuccess) && !submitting && submitEnabled) submit()
+
+    // Build common fields
+    const hydrate = hydrateFieldValue[name] || identity
+    const attributes = {
+      ...field, // TODO be more restrictive on what comes in
+      invalid: !!error,
+      onEnterKey,
+      giveFocus,
+      label: t(`account.form.label.${label || name}`),
+      value: isUnloading ? '' : hydrate(value)
     }
-    switch (field.type) {
-      case 'password':
-        return <div>
-          {description}
-          <PasswordField
-            label={t(`account.form.label.${name}`)}
-            name={inputName}
-            placeholder={t('account.form.placeholder.password')}
-            invalid={!!error}
-            giveFocus={giveFocus}
-            onEnterKey={onEnterKey}
-            noAutoFill
-            {...Object.assign({}, field, {
-              value: isUnloading ? '' : field.value
-            })}
-          />
-        </div>
-      case 'dropdown':
-        return <div>
-          {description}
-          <DropdownField label={t(`account.form.label.${name}`)} {...field} />
-        </div>
-      case 'folder':
-        return <div>
-          {description}
-          <FolderPickerField
-            readOnly={disableFolderPath}
-            label={t(`account.form.label.${name}`)}
-            {...field}
-          />
-        </div>
-      case 'checkbox':
-        // force boolean type here since it's just a checkbox
-        field.value = !!field.value
-        return <div>
-          {description}
-          <CheckboxField label={t(`account.form.label.${name}`)} {...field} />
-        </div>
-      default:
-        return <div>
-          {description}
-          <Field
-            label={t(`account.form.label.${name}`)}
-            name={inputName}
-            readOnly={readOnly}
-            invalid={!!error}
-            giveFocus={giveFocus && !readOnly}
-            onEnterKey={onEnterKey}
-            noAutoFill
-            {...Object.assign({}, field, {
-              value: isUnloading ? '' : field.value
-            })}
-          />
-        </div>
-    }
+    return <div>
+      {field.hasDescription &&
+        <ReactMarkdownWrapper source={t(`connector.${connectorSlug}.description.field.${name}`)} />}
+      {React.cloneElement(renderers[type](props), attributes)}
+    </div>
   }
 
   return (
     <div className={styles['account-form-login']}>
+      {/* Error */}
       {error &&
         <p className='errors'>
           {t('account.message.error.bad_credentials')}
-        </p>
-      }
-      {!!editableFields && editableFields
-        .map((field) => renderField(field)
-      )}
+        </p>}
+
+      {/* Fields */}
+      {!!editableFields && editableFields.map(renderField)}
       {!displayAdvanced && !!advancedFields.length &&
         <button className={styles['col-account-form-advanced-button']} onClick={toggleAdvanced}>
           {t('account.form.button.advanced')}
         </button>
       }
-      {displayAdvanced && !!advancedFields && advancedFields
-        .map((field) => renderField(field)
-      )}
+      {displayAdvanced && !!advancedFields && advancedFields.map(renderField)}
 
+      {/* Controls */}
       <div className={styles['coz-form-controls']}>
         { ((!isUpdate || hasEditableFields) && !isSuccess) &&
           <button
@@ -116,8 +113,7 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
             onClick={submit}
           >
             {t(isUpdate ? 'account.form.button.save' : 'account.form.button.connect')}
-          </button>
-        }
+          </button>}
       </div>
     </div>
   )
