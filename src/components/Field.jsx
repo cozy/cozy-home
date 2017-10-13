@@ -168,7 +168,7 @@ class FolderPickerFieldComponent extends Component {
   }
 
   render () {
-    const { value, onChange, onInput } = this.props
+    const { value, onChange, onInput, readOnly } = this.props
     const { isFetching, foldersList } = this.state
     return (
       <FieldWrapper {...this.props}>
@@ -178,7 +178,7 @@ class FolderPickerFieldComponent extends Component {
           onChange={onChange}
           onInput={onInput}
           aria-busy={isFetching}
-          disabled={isFetching}
+          disabled={readOnly || isFetching}
         >
           {foldersList.map(folder => (
             <option

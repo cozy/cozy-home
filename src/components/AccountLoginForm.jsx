@@ -7,7 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Field, { PasswordField, DropdownField, CheckboxField, isHidden, isAdvanced, FolderPickerField } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
-const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceDisabled, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading, displayAdvanced, toggleAdvanced }) => {
+const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, submitting, forceDisabled, forceEnabled, values, submit, connectorSlug, isSuccess, disableSuccessTimeout, isUnloading, displayAdvanced, toggleAdvanced, disableFolderPath }) => {
   const isUpdate = !!values && Object.keys(values).length > 0
   let alreadyFocused = false
   const editableFields = Object.keys(fields)
@@ -56,7 +56,11 @@ const AccountLoginForm = ({ t, isOAuth, oAuthTerminated, fields, error, dirty, s
       case 'folder':
         return <div>
           {description}
-          <FolderPickerField label={t(`account.form.label.${name}`)} {...field} />
+          <FolderPickerField
+            readOnly={disableFolderPath}
+            label={t(`account.form.label.${name}`)}
+            {...field}
+          />
         </div>
       case 'checkbox':
         // force boolean type here since it's just a checkbox
