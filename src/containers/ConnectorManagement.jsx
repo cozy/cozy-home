@@ -137,7 +137,7 @@ export default class ConnectorManagement extends Component {
     if (!fields.frequency) {
       fields.frequency = {
         type: 'text',
-        advanced: true
+        hidden: true
       }
     }
     if (fields.frequency && !fields.frequency.default) {

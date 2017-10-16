@@ -109,6 +109,7 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
               onSubmit={onSubmit}
               submitting={submitting}
               values={account ? account.auth || account.oauth : {}}
+              disableFolderPath
             /> }
 
             { <AccountLogout

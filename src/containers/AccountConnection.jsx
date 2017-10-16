@@ -272,6 +272,7 @@ class AccountConnection extends Component {
     const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
+    if (fields.folderPath && !fields.folderPath.default) fields.folderPath.default = folderPath
     const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
 
     return (
@@ -319,7 +320,7 @@ class AccountConnection extends Component {
             onAccountConfig={() => this.goToConfig()}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
-            onSubmit={(values) => this.submit(Object.assign(values, {folderPath}))}
+            onSubmit={(values) => this.submit(values)}
             submitting={submitting}
             success={success}
             />

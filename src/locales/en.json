@@ -55,6 +55,7 @@
         "save": "Save",
         "disconnect": "Disconnect this account",
         "delete": "Delete this account",
+        "advanced": "Advanced options",
         "synchronize": "Synchronize now"
       }
     },

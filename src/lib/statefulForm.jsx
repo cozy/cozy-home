@@ -10,7 +10,8 @@ export default function statefulForm (mapPropsToFormConfig) {
           fields: this.configureFields(config),
           dirty: false,
           submit: this.handleSubmit.bind(this),
-          oauth: props.onOAuth
+          oauth: props.onOAuth,
+          displayAdvanced: false
         }
       }
 
@@ -28,8 +29,16 @@ export default function statefulForm (mapPropsToFormConfig) {
 
       render () {
         return (
-          <WrappedForm {...this.props} {...this.state} />
+          <WrappedForm {...this.props} {...this.state} toggleAdvanced={() => this.toggleAdvanced()} />
         )
+      }
+
+      toggleAdvanced () {
+        this.setState(prevState => {
+          return Object.assign({}, prevState,
+            { displayAdvanced: !prevState.displayAdvanced }
+          )
+        })
       }
 
       assignValues (values) {

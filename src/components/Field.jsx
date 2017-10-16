@@ -150,6 +150,51 @@ export const DropdownField = translate()((props) => {
   )
 })
 
+class FolderPickerFieldComponent extends Component {
+  constructor (props, context) {
+    super(props)
+    this.store = context.store
+    this.state = { isFetching: true, foldersList: [{ path: props.value }] }
+    this.store.fetchFolders()
+    .then(folders => {
+      const foldersList = folders.find(f => f.path === props.value)
+        ? folders
+        : [{ path: props.value }].concat(folders)
+      this.setState({
+        isFetching: false,
+        foldersList
+      })
+    })
+  }
+
+  render () {
+    const { value, onChange, onInput, readOnly } = this.props
+    const { isFetching, foldersList } = this.state
+    return (
+      <FieldWrapper {...this.props}>
+        <select
+          className={styles['coz-field-dropdown']}
+          value={isFetching ? 'loading' : value}
+          onChange={onChange}
+          onInput={onInput}
+          aria-busy={isFetching}
+          disabled={readOnly || isFetching}
+        >
+          {foldersList.map(folder => (
+            <option
+              value={folder.path}
+              selected={folder.path === value}
+            >
+              {folder.path}
+            </option>
+          ))}
+        </select>
+      </FieldWrapper>
+    )
+  }
+}
+export const FolderPickerField = translate()(FolderPickerFieldComponent)
+
 export const CheckboxField = translate()((props) => {
   const { value, onChange, onInput, required, label, dirty, touched, errors } = props
   let input
@@ -199,5 +244,5 @@ export const CheckboxField = translate()((props) => {
   )
 })
 
-export const isHidden = field => field.type && field.type === 'hidden'
+export const isHidden = field => (field.type && field.type === 'hidden') || field.hidden
 export const isAdvanced = field => !!field.advanced
