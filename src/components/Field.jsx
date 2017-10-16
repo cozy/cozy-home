@@ -193,11 +193,10 @@ export const CheckboxField = translate()((props) => {
     type='checkbox'
     className={styles['coz-field-input-checkbox']}
     value={value}
-    checked={ value }
+    checked={value}
     onChange={onChange}
     onInput={onInput}
   />
-
 
   const hasErrored = errors.length > 0
 
