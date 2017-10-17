@@ -65,7 +65,7 @@ export default class CollectStore {
   // Populate the store
   fetchInitialData (domain, ignoreJobsAfterInSeconds) {
     return Promise.all([
-      this.initializeKonnectors(),
+      // this.initializeKonnectors(),
       this.fetchAllAccounts(),
       this.fetchInstalledKonnectors(),
       this.fetchKonnectorResults(),
