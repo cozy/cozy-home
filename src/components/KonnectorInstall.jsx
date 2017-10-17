@@ -25,7 +25,7 @@ export const KonnectorInstall = ({ t, account, connector, deleting, disableSucce
 
         <DescriptionContent
           title={t('account.config.title', { name: connector.name })}
-          messages={hasDescriptions && hasDescriptions.connector
+          messages={!success && hasDescriptions && hasDescriptions.connector
             ? [t(`connector.${connector.slug}.description.connector`)]
             : []}
         >
