@@ -74,13 +74,13 @@ export const KonnectorEdit = ({ t, account, connector, deleting, disableSuccessT
         <TabPanels>
 
           <TabPanel name='sync' className={styles['col-account-edit-tabpanel']}>
-            { !success && <KonnectorSync
+            { lastSync && account.auth && account.auth.frequency && <KonnectorSync
               frequency={account && account.auth && account.auth.frequency}
               date={lastSync}
               submitting={submitting}
               onForceConnection={onForceConnection}
             /> }
-            { !success && folderPath && <KonnectorFolder
+            { folderPath && <KonnectorFolder
               connector={connector}
               account={account}
               driveUrl={driveUrl}
