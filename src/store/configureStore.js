@@ -7,7 +7,7 @@ import thunkMiddleware from 'redux-thunk'
 import CollectStore from '../lib/CollectStore'
 import getReducers from '../reducers'
 
-const configureStore = (client, initKonnectors, initFolders, context) => {
+const configureStore = (client, initKonnectors, initFolders, context, options = {}) => {
   // Enable Redux dev tools
   const composeEnhancers = (__DEVTOOLS__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
@@ -16,7 +16,7 @@ const configureStore = (client, initKonnectors, initFolders, context) => {
     composeEnhancers(applyMiddleware.apply(this, [cozyMiddleware(client), thunkMiddleware, createLogger()]))
   )
 
-  return Object.assign(new CollectStore(initKonnectors, initFolders, context), reduxStore)
+  return Object.assign(new CollectStore(initKonnectors, initFolders, context, options), reduxStore)
 }
 
 export default configureStore

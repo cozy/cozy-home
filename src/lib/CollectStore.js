@@ -32,8 +32,9 @@ const sortByName = (a, b) => {
 }
 
 export default class CollectStore {
-  constructor (connectors, folders, context) {
+  constructor (connectors, folders, context, options = {}) {
     this.listener = null
+    this.options = options
 
     // Store all existing konnectorResults (one per konnector/account)
     // to be able to determine account connection state.
@@ -46,6 +47,10 @@ export default class CollectStore {
 
     // Installing/installed konnectors
     this.installedKonnectors = new Map()
+
+    if (!this.options.debug) {
+      this.connectors.filter(connector => connector.slug !== 'debug')
+    }
 
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders

@@ -411,6 +411,21 @@
     }
   },
   {
+    "name": "Debug",
+    "slug": "debug",
+    "vendorLink": "http://cozy.io",
+    "category": "other",
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-debug.git#build"
+  },
+  {
     "slug": "digiposte",
     "name": "Digiposte",
     "vendorLink": "https://secure.digiposte.fr",

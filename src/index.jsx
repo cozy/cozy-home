@@ -1,4 +1,4 @@
-/* global cozy, initKonnectors, initFolders */
+/* global cozy, initKonnectors, initFolders, __DEBUG__ */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 import React from 'react'
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context)
+  const store = configureStore(client, initKonnectors, initFolders, context, { debug: __DEBUG__ })
   const useCases = store.getUseCases()
 
   let history = hashHistory
