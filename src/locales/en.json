@@ -26,6 +26,7 @@
         "firstname": "Firstname",
         "lastname": "Lastname",
         "login": "Login",
+        "dob": "Date of birth",
         "password": "Password",
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
