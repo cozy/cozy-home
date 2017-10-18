@@ -5,7 +5,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { ReactMarkdownWrapper, reactMarkdownRendererOptions } from '../../src/components/ReactMarkdownWrapper'
+import {
+  ReactMarkdownWrapper,
+  reactMarkdownRendererOptions
+} from '../../src/components/ReactMarkdownWrapper'
 
 describe('ReactMarkdownWrapper component', () => {
   beforeEach(() => {
@@ -21,7 +24,11 @@ describe('ReactMarkdownWrapper component', () => {
 
   it('should be displayed correctly if source with link', () => {
     const component = shallow(
-      <ReactMarkdownWrapper source={'**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)'} />
+      <ReactMarkdownWrapper
+        source={
+          '**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)'
+        }
+      />
     ).node
     expect(component).toMatchSnapshot()
   })
@@ -29,6 +36,11 @@ describe('ReactMarkdownWrapper component', () => {
 
 describe('ReactMarkdown options', () => {
   it('should correctly return an anchor HTML element', () => {
-    expect(reactMarkdownRendererOptions.Link({href: 'https://testlink.mock', children: 'example link test for test'})).toMatchSnapshot()
+    expect(
+      reactMarkdownRendererOptions.Link({
+        href: 'https://testlink.mock',
+        children: 'example link test for test'
+      })
+    ).toMatchSnapshot()
   })
 })

@@ -1,13 +1,12 @@
-import konnector, {
-  getQueuedConnections
-} from './konnector'
+import konnector, { getQueuedConnections } from './konnector'
 
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const DELETE_CONNECTION = 'DELETE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
-export const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS'
+export const UPDATE_CONNECTION_RUNNING_STATUS =
+  'UPDATE_CONNECTION_RUNNING_STATUS'
 export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
 
 // reducers
@@ -19,8 +18,12 @@ const reducer = (state = {}, action) => {
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
-      if (!action.konnector || !action.konnector.slug) throw new Error('Missing konnector slug')
-      return { ...state, [action.konnector.slug]: konnector(state[action.konnector.slug], action) }
+      if (!action.konnector || !action.konnector.slug)
+        throw new Error('Missing konnector slug')
+      return {
+        ...state,
+        [action.konnector.slug]: konnector(state[action.konnector.slug], action)
+      }
     case PURGE_QUEUE:
       return Object.keys(state).reduce((konnectors, slug) => {
         return { ...konnectors, [slug]: konnector(state[slug], action) }
@@ -63,7 +66,11 @@ export const updateConnectionError = (konnector, account, error) => ({
   error
 })
 
-export const updateConnectionRunningStatus = (konnector, account, isRunning = false) => ({
+export const updateConnectionRunningStatus = (
+  konnector,
+  account,
+  isRunning = false
+) => ({
   type: UPDATE_CONNECTION_RUNNING_STATUS,
   konnector,
   account,
@@ -74,6 +81,8 @@ export const updateConnectionRunningStatus = (konnector, account, isRunning = fa
 export const getQueue = (state, konnectorsRegistry) => {
   return Object.keys(state).reduce((runningConnections, konnectorSlug) => {
     const konnectorAccounts = state[konnectorSlug]
-    return runningConnections.concat(getQueuedConnections(konnectorAccounts, konnectorsRegistry[konnectorSlug]))
+    return runningConnections.concat(
+      getQueuedConnections(konnectorAccounts, konnectorsRegistry[konnectorSlug])
+    )
   }, [])
 }

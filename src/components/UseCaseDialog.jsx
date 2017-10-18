@@ -9,16 +9,18 @@ const UseCaseDialog = ({ t, item, connectors, context, router }) => {
     router.push(url.substring(0, url.lastIndexOf('/')))
   }
 
-  return (<Modal
-    title={t(`useCase.${item.slug}.title`)}
-    secondaryAction={() => gotoParent()}
-  >
-    <ModalContent>
-      <div className='use-case-dialog'>
-        <KonnectorList connectors={connectors} />
-      </div>
-    </ModalContent>
-  </Modal>)
+  return (
+    <Modal
+      title={t(`useCase.${item.slug}.title`)}
+      secondaryAction={() => gotoParent()}
+    >
+      <ModalContent>
+        <div className="use-case-dialog">
+          <KonnectorList connectors={connectors} />
+        </div>
+      </ModalContent>
+    </Modal>
+  )
 }
 
 export default translate()(UseCaseDialog)

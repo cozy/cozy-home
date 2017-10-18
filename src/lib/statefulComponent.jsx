@@ -21,18 +21,22 @@ import React, { Component } from 'react'
 const statefulComponent = (initialState, eventHandlers) => {
   return WrappedComponent => {
     return class StatefulComponent extends Component {
-      constructor (props) {
+      constructor(props) {
         super(props)
         this.handlers = eventHandlers(this.setState.bind(this))
       }
 
-      componentDidMount () {
+      componentDidMount() {
         this.state = initialState
       }
 
-      render () {
+      render() {
         return (
-          <WrappedComponent {...this.props} {...this.state} {...this.handlers} />
+          <WrappedComponent
+            {...this.props}
+            {...this.state}
+            {...this.handlers}
+          />
         )
       }
     }

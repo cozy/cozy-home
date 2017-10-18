@@ -1,7 +1,7 @@
 // Fallback to get the item icon and avoid error if not found
 // with a possible default icon
 
-export const getKonnectorIcon = (konnector) => {
+export const getKonnectorIcon = konnector => {
   if (konnector.icon) {
     return require(`../assets/icons/konnectors/${konnector.icon}`)
   }

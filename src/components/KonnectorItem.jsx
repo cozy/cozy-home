@@ -7,7 +7,7 @@ import { CONNECTION_STATUS } from '../lib/CollectStore'
 import { getKonnectorIcon } from '../lib/icons'
 
 class KonnectorItem extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = this.context.store
 
@@ -33,42 +33,53 @@ class KonnectorItem extends Component {
   // Otherwise, in CategoryList view, when we change the category as a konnector
   // is running, we may see other KonnectorItem having their status icon
   // changed.
-  componentWillReceiveProps (nextProps) {
-    this.store.removeConnectionStatusListener(this.props.konnector, this.connectionListener)
-    this.store.addConnectionStatusListener(nextProps.konnector, this.connectionListener)
+  componentWillReceiveProps(nextProps) {
+    this.store.removeConnectionStatusListener(
+      this.props.konnector,
+      this.connectionListener
+    )
+    this.store.addConnectionStatusListener(
+      nextProps.konnector,
+      this.connectionListener
+    )
     this.setState({
       status: this.store.getConnectionStatus(nextProps.konnector)
     })
   }
 
   // Stop listening unmounted KonnectorItems
-  componentWillUnmount () {
-    this.store.removeConnectionStatusListener(this.props.konnector, this.connectionListener)
+  componentWillUnmount() {
+    this.store.removeConnectionStatusListener(
+      this.props.konnector,
+      this.connectionListener
+    )
   }
 
-  render ({ t, konnector, jobs, router }) {
+  render({ t, konnector, jobs, router }) {
     const { status } = this.state
     const { category, name, slug } = konnector
     return (
-      <Link className='item-wrapper' to={`${router.location.pathname}/${slug}`}>
-        <header className='item-header'>
-          <img className='item-icon' src={getKonnectorIcon(konnector)} />
+      <Link className="item-wrapper" to={`${router.location.pathname}/${slug}`}>
+        <header className="item-header">
+          <img className="item-icon" src={getKonnectorIcon(konnector)} />
         </header>
-        <p className='item-title'>{name}</p>
-        {category && <p className='item-subtitle'>{t(`category.${category}`)}</p>}
+        <p className="item-title">{name}</p>
+        {category && (
+          <p className="item-subtitle">{t(`category.${category}`)}</p>
+        )}
         {status && stateIcon(status)}
       </Link>
     )
   }
 }
 
-const svgIcon = (name) => (
-  <svg className='item-status-icon'>
+const svgIcon = name => (
+  <svg className="item-status-icon">
     <use xlinkHref={require(`../assets/sprites/icon-${name}.svg`)} /> }
   </svg>
 )
 
-const stateIcon = (status) => {
+const stateIcon = status => {
   switch (status) {
     case CONNECTION_STATUS.ERRORED:
       return svgIcon('warning')

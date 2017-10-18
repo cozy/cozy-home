@@ -6,11 +6,12 @@ import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import statefulComponent from '../lib/statefulComponent'
 
-const Field = (props) => {
+const Field = props => {
   let inputs
   if (props.children && props.children.length !== 0) {
-    inputs = React.Children.toArray(props.children).map(
-      child => cloneElement(child,
+    inputs = React.Children.toArray(props.children).map(child =>
+      cloneElement(
+        child,
         Object.assign(props, {
           selected: props.value,
           className: styles['coz-field-input']
@@ -18,7 +19,17 @@ const Field = (props) => {
       )
     )
   } else {
-    const { type, placeholder, value, onChange, onInput, disabled, readOnly, name, noAutoFill } = props
+    const {
+      type,
+      placeholder,
+      value,
+      onChange,
+      onInput,
+      disabled,
+      readOnly,
+      name,
+      noAutoFill
+    } = props
     const autoFill = noAutoFill
       ? type === 'password' ? 'new-password' : 'off'
       : 'on'
@@ -27,18 +38,20 @@ const Field = (props) => {
         type={type}
         placeholder={placeholder}
         className={styles['coz-field-input']}
-        readonly={readOnly}
+        readOnly={readOnly}
         disabled={disabled || readOnly}
         value={value}
         name={name}
         onChange={onChange}
         onInput={onInput}
-        autocomplete={autoFill}
+        autoComplete={autoFill}
       />
     )
   }
   const { giveFocus } = props
-  return props.type === 'hidden' ? inputs : (
+  return props.type === 'hidden' ? (
+    inputs
+  ) : (
     <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
       {inputs}
     </FieldWrapper>
@@ -48,77 +61,100 @@ const Field = (props) => {
 export default Field
 
 export class FieldWrapper extends Component {
-  componentDidMount () {
-    if (this.props.giveFocus) ReactDOM.findDOMNode(this).querySelector('input').focus()
+  componentDidMount() {
+    if (this.props.giveFocus)
+      ReactDOM.findDOMNode(this)
+        .querySelector('input')
+        .focus()
   }
 
-  handleKeyUp = (ev) => {
+  handleKeyUp = ev => {
     const key = ev.which || ev.keyCode
     if (key === 13) this.props.onEnterKey()
   }
 
-  render () {
+  render() {
     const { label, invalid, errors, children } = this.props
-    const hasErrored = (errors.length !== 0) || invalid
+    const hasErrored = errors.length !== 0 || invalid
 
     return (
       <div
-        className={classNames(styles['coz-field'], hasErrored && styles['coz-field--error'])}
-        onKeyUp={this.props.onEnterKey && this.handleKeyUp}>
+        className={classNames(
+          styles['coz-field'],
+          hasErrored && styles['coz-field--error']
+        )}
+        onKeyUp={this.props.onEnterKey && this.handleKeyUp}
+      >
         {label && <label>{label}</label>}
         {children}
-        {errors.length !== 0 && errors.map((err, i) => (
-          <small key={i} className={styles['coz-field-error']}>{err}</small>
-        ))}
+        {errors.length !== 0 &&
+          errors.map((err, i) => (
+            <small key={i} className={styles['coz-field-error']}>
+              {err}
+            </small>
+          ))}
       </div>
     )
   }
 }
 
 export const PasswordField = translate()(
-  statefulComponent({
-    visible: false
-  }, (setState) => ({
-    toggleVisibility: () => {
-      setState(state => ({ visible: !state.visible }))
-    }
-  }))(
-    props => {
-      const { t, placeholder, value, onChange, onInput, toggleVisibility, visible, name, giveFocus, noAutoFill } = props
-      const autoFill = noAutoFill
-        ? visible ? 'off' : 'new-password'
-        : 'on'
-      return (
-        <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
-          <button
-            type='button'
-            tabindex='-1'
-            title={visible ? t('field.password.visibility.title.hide') : t('field.password.visibility.title.show')}
-            className={styles['password-visibility']}
-            onClick={() => toggleVisibility()}
-          >
-            {visible
-              ? t('field.password.visibility.hide')
-              : t('field.password.visibility.show')
-            }
-          </button>
-          <input
-            type={visible ? 'text' : 'password'}
-            placeholder={placeholder}
-            className={styles['coz-field-input']}
-            value={value}
-            name={name}
-            onChange={onChange}
-            onInput={onInput}
-            autocomplete={autoFill}
-          />
-        </FieldWrapper>
-      )
-    }
-  )
+  statefulComponent(
+    {
+      visible: false
+    },
+    setState => ({
+      toggleVisibility: () => {
+        setState(state => ({ visible: !state.visible }))
+      }
+    })
+  )(props => {
+    const {
+      t,
+      placeholder,
+      value,
+      onChange,
+      onInput,
+      toggleVisibility,
+      visible,
+      name,
+      giveFocus,
+      noAutoFill
+    } = props
+    const autoFill = noAutoFill ? (visible ? 'off' : 'new-password') : 'on'
+    return (
+      <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
+        <button
+          type="button"
+          tabIndex="-1"
+          title={
+            visible
+              ? t('field.password.visibility.title.hide')
+              : t('field.password.visibility.title.show')
+          }
+          className={styles['password-visibility']}
+          onClick={() => toggleVisibility()}
+        >
+          {visible
+            ? t('field.password.visibility.hide')
+            : t('field.password.visibility.show')}
+        </button>
+        <input
+          type={visible ? 'text' : 'password'}
+          placeholder={placeholder}
+          className={styles['coz-field-input']}
+          value={value}
+          name={name}
+          onChange={onChange}
+          onInput={onInput}
+          autoComplete={autoFill}
+        />
+      </FieldWrapper>
+    )
+  })
 )
 
-export const DropdownField = translate()((props) => {
+export const DropdownField = translate()(props => {
   const { value, options, onChange, onInput } = props
   let valueInOptions = options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
@@ -134,8 +170,10 @@ export const DropdownField = translate()((props) => {
         {dropdownFieldOptions.map(optionValue => (
           <option
             value={optionValue.value}
-            selected={optionValue.value === {value}}
-          >{optionValue.name}</option>
+            selected={optionValue.value === { value }}
+          >
+            {optionValue.name}
+          </option>
         ))}
       </select>
     </FieldWrapper>
@@ -143,12 +181,11 @@ export const DropdownField = translate()((props) => {
 })
 
 class FolderPickerFieldComponent extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props)
     this.store = context.store
     this.state = { isFetching: true, foldersList: [{ path: props.value }] }
-    this.store.fetchFolders()
-    .then(folders => {
+    this.store.fetchFolders().then(folders => {
       const foldersList = folders.find(f => f.path === props.value)
         ? folders
         : [{ path: props.value }].concat(folders)
@@ -159,7 +196,7 @@ class FolderPickerFieldComponent extends Component {
     })
   }
 
-  render () {
+  render() {
     const { value, onChange, onInput, readOnly } = this.props
     const { isFetching, foldersList } = this.state
     return (
@@ -173,10 +210,7 @@ class FolderPickerFieldComponent extends Component {
           disabled={readOnly || isFetching}
         >
           {foldersList.map(folder => (
-            <option
-              value={folder.path}
-              selected={folder.path === value}
-            >
+            <option value={folder.path} selected={folder.path === value}>
               {folder.path}
             </option>
           ))}
@@ -187,28 +221,43 @@ class FolderPickerFieldComponent extends Component {
 }
 export const FolderPickerField = translate()(FolderPickerFieldComponent)
 
-export const CheckboxField = translate()((props) => {
+export const CheckboxField = translate()(props => {
   const { value, onChange, onInput, label, errors } = props
-  let input = <input
-    type='checkbox'
-    className={styles['coz-field-input-checkbox']}
-    value={value}
-    checked={value}
-    onChange={onChange}
-    onInput={onInput}
-  />
+  let input = (
+    <input
+      type="checkbox"
+      className={styles['coz-field-input-checkbox']}
+      value={value}
+      checked={value}
+      onChange={onChange}
+      onInput={onInput}
+    />
+  )
 
   const hasErrored = errors.length > 0
 
   return (
-    <div className={classNames(styles['coz-field'], hasErrored && styles['coz-field--error'])}>
-      {label && <label>{input} {label}</label>}
-      {errors.length !== 0 && errors.map((err, i) => (
-        <small key={i} className={styles['coz-field-error']}>{err}</small>
-      ))}
+    <div
+      className={classNames(
+        styles['coz-field'],
+        hasErrored && styles['coz-field--error']
+      )}
+    >
+      {label && (
+        <label>
+          {input} {label}
+        </label>
+      )}
+      {errors.length !== 0 &&
+        errors.map((err, i) => (
+          <small key={i} className={styles['coz-field-error']}>
+            {err}
+          </small>
+        ))}
     </div>
   )
 })
 
-export const isHidden = field => (field.type && field.type === 'hidden') || field.hidden
+export const isHidden = field =>
+  (field.type && field.type === 'hidden') || field.hidden
 export const isAdvanced = field => !!field.advanced
