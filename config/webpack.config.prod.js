@@ -18,6 +18,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
+      __DEBUG__: false,
       __SERVER__: false,
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
