@@ -22,6 +22,29 @@
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
   },
   {
+    "slug": "axabanque102",
+    "name": "Axa Banque",
+    "vendorLink": "https://www.axabanque.fr/",
+    "category": "banking",
+    "icon": "axa.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "102"
+    }
+  },
+  {
     "slug": "bforbank97",
     "name": "BforBank",
     "vendorLink": "https://www.bforbank.com/",
@@ -316,6 +339,52 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "1"
+    }
+  },
+  {
+    "slug": "cdngroup109",
+    "name": "Société Marseillaise de Crédit (Particuliers)",
+    "vendorLink": "https://www.smc.fr/",
+    "icon": "smc.png",
+    "category": "banking",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "109"
+    }
+  },
+  {
+    "slug": "cdngroup88",
+    "name": "Crédit du Nord (Particuliers)",
+    "vendorLink": "https://www.credit-du-nord.fr/",
+    "icon": "creditdunord.png",
+    "category": "banking",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "88"
     }
   },
   {
