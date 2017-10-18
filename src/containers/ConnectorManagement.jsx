@@ -117,6 +117,10 @@ export default class ConnectorManagement extends Component {
 
   sanitize (connector) {
     // remove invalid dataType declaration
+    if (!connector.dataType) {
+      return connector
+    }
+
     return Object.assign({}, connector,
       {
         dataType: connector.dataType.filter(isValidType)
