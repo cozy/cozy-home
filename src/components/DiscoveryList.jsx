@@ -5,6 +5,14 @@ import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
 class DiscoveryList extends Component {
   componentDidMount () {
+    this.launchTutorial()
+  }
+
+  componentWillReceiveProps () {
+    this.launchTutorial()
+  }
+
+  launchTutorial () {
     if (isTutorial()) {
       setTimeout(() => {
         displayTutorial(this.props.t)
