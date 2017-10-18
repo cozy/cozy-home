@@ -45,7 +45,8 @@
         "loginUrl": "Login URL",
         "token": "Token",
         "agreement": "I agree",
-        "refreshToken": "Refresh Token"
+        "refreshToken": "Refresh Token",
+        "branchName": "Branch name"
       },
       "placeholder": {
         "password": "The password you use to connect to the service"
