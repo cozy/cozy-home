@@ -48,11 +48,12 @@ export default class CollectStore {
     // Installing/installed konnectors
     this.installedKonnectors = new Map()
 
+    this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
+
     if (!this.options.debug) {
       this.connectors.filter(connector => connector.slug !== 'debug')
     }
 
-    this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
