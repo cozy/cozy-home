@@ -147,12 +147,6 @@
       "bankTransactions"
     ],
     "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      },
       "bankId": {
         "type": "dropdown",
         "label": "branchName",
@@ -314,6 +308,12 @@
             "value": "39"
           }
         ]
+      },
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
       }
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
