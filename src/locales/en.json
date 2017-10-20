@@ -46,7 +46,7 @@
         "token": "Token",
         "agreement": "I agree",
         "refreshToken": "Refresh Token",
-        "branchName": "Branch name"
+        "branchName": "Branch"
       },
       "placeholder": {
         "password": "The password you use to connect to the service"
