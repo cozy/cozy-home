@@ -896,6 +896,28 @@
     "oauth_scope": "M"
   },
   {
+    "slug": "redbox",
+    "name": "SFR RED box",
+    "vendorLink": "https://www.red-by-sfr.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-redbox.git#build"
+  },
+  {
     "slug": "redmobile",
     "name": "SFR RED mobile",
     "vendorLink": "https://www.red-by-sfr.fr/",
