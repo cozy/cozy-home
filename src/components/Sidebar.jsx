@@ -21,7 +21,7 @@ export const Sidebar = ({ t, categories, router }) => {
           <li className='coz-nav-item'>
             <Link to='/category/all'
               className={isCategoryView ? 'coz-nav-link con-cat-categories active' : 'coz-nav-link con-cat-categories'}>
-              {t('nav.category')}
+              {t('nav.providers')}
             </Link>
           </li>
           {isCategoryView &&
