@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
 import Loading from '../components/Loading'
-import ServiceBar from '../components/services/ServiceBar'
 import CreateAccountService from '../components/services/CreateAccountService'
+import ServiceBar from '../components/services/ServiceBar'
+import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
 export default class IntentService extends Component {
   constructor (props, context) {
@@ -36,23 +37,27 @@ export default class IntentService extends Component {
           disableSuccessTimeout: !!data.disableSuccessTimeout
         })
 
-        if (!data || !data.slug) {
+        if (!data) {
           throw new Error('Unexpected data from intent')
         }
 
-        return this.store.fetchKonnectorInfos(data.slug)
+        if (data.slug) {
+          return this.store.fetchKonnectorInfos(data.slug).then(konnector => [konnector])
+        } else if (data.dataType) {
+          return this.store.findByDataType(data.dataType)
+        }
       })
-      .then(konnector => {
-        if (!konnector) {
+      .then(konnectorsList => {
+        if (!konnectorsList) {
           throw new Error(`Unknown konnector`)
+        } else {
+          this.setState({
+            isFetching: false,
+            konnectorsList: konnectorsList
+          })
         }
 
-        this.setState({
-          isFetching: false,
-          konnector: konnector
-        })
-
-        return konnector
+        return konnectorsList
       })
       .catch(error => {
         this.setState({
@@ -89,10 +94,23 @@ export default class IntentService extends Component {
     throw error
   }
 
+  showKonnector (konnector) {
+    this.setState({
+      konnector: konnector
+    })
+  }
+
   render () {
     const { data } = this.props
-    const { isFetching, error, konnector, disableSuccessTimeout } = this.state
+    const { isFetching, error, konnectorsList, konnector, disableSuccessTimeout } = this.state
     const { t } = this.context
+
+    // We show the konnector if the konnectorsList contain only 1 item
+    konnectorsList && konnectorsList.length === 1 &&
+      this.setState({
+        konnector: konnectorsList[0]
+      })
+
     return (
       <div className='coz-service'>
         { isFetching &&
@@ -103,15 +121,16 @@ export default class IntentService extends Component {
           <p>{t(error.message)}</p>
           <p>{t('intent.service.error.cause', {error: error.reason})}</p>
         </div>}
-        { !isFetching && !error && konnector &&
-          <div className='coz-service-layout'>
-            <ServiceBar
-              appEditor={data.cozyAppEditor}
-              appName={data.cozyAppName}
-              iconPath={`../${data.cozyIconPath}`}
-              onCancel={() => this.cancel()}
-              {...this.context}
-             />
+        <div className='coz-service-layout'>
+          <ServiceBar
+            appEditor={data.cozyAppEditor}
+            appName={data.cozyAppName}
+            iconPath={`../${data.cozyIconPath}`}
+            onCancel={() => this.cancel()}
+            {...this.context}
+           />
+          {
+            !isFetching && !error && konnector &&
             <CreateAccountService
               konnector={konnector}
               onCancel={() => this.cancel()}
@@ -119,7 +138,15 @@ export default class IntentService extends Component {
               disableSuccessTimeout={disableSuccessTimeout}
               {...this.context}
               />
-          </div>}
+          }
+          {
+            !isFetching && !error && konnectorsList.length > 1 && !konnector &&
+            <ServiceKonnectorsList
+              konnectorsList={konnectorsList}
+              showKonnector={(konnector) => this.showKonnector(konnector)}
+            />
+          }
+        </div>
       </div>)
   }
 }

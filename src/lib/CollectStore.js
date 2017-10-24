@@ -230,6 +230,10 @@ export default class CollectStore {
       : this.connectors.filter(c => c.category === filter)
   }
 
+  findByDataType (dataType) {
+    return this.connectors.filter(c => c.dataType && c.dataType.includes(dataType))
+  }
+
   findByUseCase (slug) {
     let useCase = this.useCases.find(u => u.slug === slug)
     return useCase.connectors
