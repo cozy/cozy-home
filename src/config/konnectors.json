@@ -1163,27 +1163,5 @@
       "bill"
     ],
     "source": "git://github.com/cozy/cozy-konnector-trainline.git#build"
-  },
-  {
-    "slug": "virginmobile",
-    "name": "Virgin Mobile",
-    "vendorLink": "https://www.virginmobile.fr/",
-    "category": "telecom",
-    "dataType": [
-      "bill"
-    ],
-    "fields": {
-      "login": {
-        "type": "text"
-      },
-      "password": {
-        "type": "password"
-      },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true
-      }
-    },
-    "source": "git://github.com/cozy/cozy-konnector-virgin-mobile.git#build"
   }
 ]
