@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      __DEBUG__: true,
       __SERVER__: JSON.stringify('http://app.cozy.tools'),
       __DEVTOOLS__: true,
       __STACK_ASSETS__: false,

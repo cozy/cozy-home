@@ -26,6 +26,7 @@
         "firstname": "Firstname",
         "lastname": "Lastname",
         "login": "Login",
+        "dob": "Date of birth",
         "password": "Password",
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
@@ -44,7 +45,8 @@
         "loginUrl": "Login URL",
         "token": "Token",
         "agreement": "I agree",
-        "refreshToken": "Refresh Token"
+        "refreshToken": "Refresh Token",
+        "branchName": "Branch"
       },
       "placeholder": {
         "password": "The password you use to connect to the service"
@@ -55,6 +57,7 @@
         "save": "Save",
         "disconnect": "Disconnect this account",
         "delete": "Delete this account",
+        "advanced": "Advanced options",
         "synchronize": "Synchronize now"
       }
     },
@@ -247,7 +250,7 @@
         }
       }
     },
-    "orangelivebox": {
+    "orangevideos": {
       "description": {
         "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included).\n\nYou will be able to use these data in different apps in your Cozy, for example \"My Movies Music\" (available soon on the Cozy Store)."
       }

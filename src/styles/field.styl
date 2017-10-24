@@ -38,6 +38,7 @@ text-button-color = #297ef1
 
         input[type=text]
         input[type=password]
+        input[type=date]
         select
             display       inline-block
             width         100%
@@ -66,6 +67,8 @@ text-button-color = #297ef1
             background-repeat   no-repeat
             &::-ms-expand
                 display none
+            &[disabled]
+                opacity .5
         &.coz-field--error
             input[type=text]
             input[type=password]

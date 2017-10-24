@@ -32,8 +32,9 @@ const sortByName = (a, b) => {
 }
 
 export default class CollectStore {
-  constructor (connectors, folders, context) {
+  constructor (connectors, folders, context, options = {}) {
     this.listener = null
+    this.options = options
 
     // Store all existing konnectorResults (one per konnector/account)
     // to be able to determine account connection state.
@@ -48,6 +49,11 @@ export default class CollectStore {
     this.installedKonnectors = new Map()
 
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
+
+    if (!this.options.debug) {
+      this.connectors = this.connectors.filter(connector => connector.slug !== 'debug')
+    }
+
     this.folders = folders
     this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
@@ -246,6 +252,25 @@ export default class CollectStore {
     .catch(err => {
       console.warn(err)
       return false
+    })
+  }
+
+  // FIXME: should be handled in a cozy-drive inter-app
+  fetchFolders () {
+    return this.foldersFromStack
+    ? Promise.resolve(this.foldersFromStack)
+    : cozy.client.data.findAll('io.cozy.files')
+    .then(result => {
+      const folders = result
+        .filter(f => f.type === 'directory')
+        .filter(f => f.path.match(/^\/$|\/[^.](.*)/)) // remove hidden folders
+        .sort((a, b) => a.path > b.path)
+      this.foldersFromStack = folders
+      return folders
+    })
+    .catch(err => {
+      console.warn(err)
+      return []
     })
   }
 

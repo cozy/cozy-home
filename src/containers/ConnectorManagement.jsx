@@ -117,6 +117,10 @@ export default class ConnectorManagement extends Component {
 
   sanitize (connector) {
     // remove invalid dataType declaration
+    if (!connector.dataType) {
+      return connector
+    }
+
     return Object.assign({}, connector,
       {
         dataType: connector.dataType.filter(isValidType)
@@ -137,7 +141,7 @@ export default class ConnectorManagement extends Component {
     if (!fields.frequency) {
       fields.frequency = {
         type: 'text',
-        advanced: true
+        hidden: true
       }
     }
     if (fields.frequency && !fields.frequency.default) {
