@@ -51,7 +51,7 @@ export default class CollectStore {
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
 
     if (!this.options.debug) {
-      this.connectors.filter(connector => connector.slug !== 'debug')
+      this.connectors = this.connectors.filter(connector => connector.slug !== 'debug')
     }
 
     this.folders = folders
