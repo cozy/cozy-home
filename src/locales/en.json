@@ -1,4 +1,5 @@
 {
+  "add_account": "Add an account",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
@@ -151,9 +152,9 @@
   },
 
   "nav": {
-    "category": "Categories",
-    "discovery": "Collecting of my data",
-    "connected": "Connected"
+    "discovery": "Collect by category",
+    "providers": "Providers",
+    "connected": "Connected accounts"
   },
 
   "category": {
