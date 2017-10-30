@@ -88,6 +88,7 @@ const AccountLoginForm = props => {
   }
 
   return (
+    // We use a <div> instead of a <form> to disable the "use password for" function of Chrome
     <div className={styles['account-form-login']}>
       {/* Error */}
       {error &&
@@ -98,7 +99,7 @@ const AccountLoginForm = props => {
       {/* Fields */}
       {!!editableFields && editableFields.map(renderField)}
       {!displayAdvanced && !!advancedFields.length &&
-        <button className={styles['col-account-form-advanced-button']} onClick={toggleAdvanced}>
+        <button type='button' className={styles['col-account-form-advanced-button']} onClick={toggleAdvanced}>
           {t('account.form.button.advanced')}
         </button>
       }
