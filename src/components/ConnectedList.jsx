@@ -1,7 +1,12 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import { Link } from 'react-router'
+
+import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/react/I18n'
+
 import KonnectorList from './KonnectorList'
+
+import addAccount from '../assets/icons/icon-plus.svg'
 
 const ConnectedList = ({ t, connectors, children }) => (
   <div className='content'>
@@ -9,7 +14,10 @@ const ConnectedList = ({ t, connectors, children }) => (
       <h1>{t('nav.connected')}</h1>
       <Link to='/category/all'>
         <button className='coz-btn coz-btn--regular'>
-          {t('add_account')}
+          <Icon
+            icon={addAccount}
+            className='con-icon--add'
+          /> {t('add_account')}
         </button>
       </Link>
     </div>
