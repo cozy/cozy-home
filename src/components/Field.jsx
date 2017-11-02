@@ -52,7 +52,7 @@ export class FieldWrapper extends Component {
     if (this.props.giveFocus) ReactDOM.findDOMNode(this).querySelector('input').focus()
   }
 
-  handleKeyUp (ev) {
+  handleKeyUp = (ev) => {
     const key = ev.which || ev.keyCode
     if (key === 13) this.props.onEnterKey()
   }
