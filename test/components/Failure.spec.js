@@ -14,17 +14,13 @@ describe('Failure component', () => {
   })
 
   it('should be displayed with initial text if errorType is initial', () => {
-    const component = shallow(
-      <Failure t={tMock} errorType='initial' />
-    ).node
+    const component = shallow(<Failure t={tMock} errorType="initial" />).node
     expect(component).toMatchSnapshot()
   })
 
   it('should correctly call the reload function on button click', () => {
     window.location.reload = jest.fn()
-    const component = shallow(
-      <Failure t={tMock} errorType='initial' />
-    )
+    const component = shallow(<Failure t={tMock} errorType="initial" />)
     component.find('button').simulate('click')
     expect(window.location.reload.mock.calls.length).toBe(1)
     expect(component.node).toMatchSnapshot()

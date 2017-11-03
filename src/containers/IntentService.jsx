@@ -6,11 +6,11 @@ import ServiceBar from '../components/services/ServiceBar'
 import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
 export default class IntentService extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = context.store
 
-    const {window} = props
+    const { window } = props
 
     this.state = {
       isFetching: true
@@ -20,7 +20,8 @@ export default class IntentService extends Component {
     // encapsulated in cozy.client.createService
     const intent = window.location.search.split('=')[1]
 
-    this.store.createIntentService(intent, window)
+    this.store
+      .createIntentService(intent, window)
       .then(service => {
         const data = service.getData()
 
@@ -29,7 +30,10 @@ export default class IntentService extends Component {
             maxWidth: 931
           })
         } else {
-          console.warn && console.warn('Cannot resize client\'s iframe, cozy-client-js needs to be updated')
+          console.warn &&
+            console.warn(
+              "Cannot resize client's iframe, cozy-client-js needs to be updated"
+            )
         }
 
         this.setState({
@@ -42,7 +46,9 @@ export default class IntentService extends Component {
         }
 
         if (data.slug) {
-          return this.store.fetchKonnectorInfos(data.slug).then(konnector => [konnector])
+          return this.store
+            .fetchKonnectorInfos(data.slug)
+            .then(konnector => [konnector])
         } else if (data.dataType) {
           return this.store.findByDataType(data.dataType)
         }
@@ -70,20 +76,18 @@ export default class IntentService extends Component {
       })
   }
 
-  terminate (account) {
+  terminate(account) {
     const { service } = this.state
     service.terminate(account)
   }
 
-  cancel () {
+  cancel() {
     const { service } = this.state
 
-    service.cancel
-      ? service.cancel()
-        : service.terminate(null)
+    service.cancel ? service.cancel() : service.terminate(null)
   }
 
-  handleError (error) {
+  handleError(error) {
     this.setState({
       error: {
         message: 'intent.service.error.creation',
@@ -94,59 +98,73 @@ export default class IntentService extends Component {
     throw error
   }
 
-  showKonnector (konnector) {
+  showKonnector(konnector) {
     this.setState({
       konnector: konnector
     })
   }
 
-  render () {
+  render() {
     const { data } = this.props
-    const { isFetching, error, konnectorsList, konnector, disableSuccessTimeout } = this.state
+    const {
+      isFetching,
+      error,
+      konnectorsList,
+      konnector,
+      disableSuccessTimeout
+    } = this.state
     const { t } = this.context
 
     // We show the konnector if the konnectorsList contain only 1 item
-    konnectorsList && konnectorsList.length === 1 &&
+    konnectorsList &&
+      konnectorsList.length === 1 &&
       this.setState({
         konnector: konnectorsList[0]
       })
 
     return (
-      <div className='coz-service'>
-        { isFetching &&
-          <div className='coz-service-loading'>
+      <div className="coz-service">
+        {isFetching && (
+          <div className="coz-service-loading">
             <Loading />
-          </div> }
-        { error && <div className='coz-error coz-service-error'>
-          <p>{t(error.message)}</p>
-          <p>{t('intent.service.error.cause', {error: error.reason})}</p>
-        </div>}
-        <div className='coz-service-layout'>
+          </div>
+        )}
+        {error && (
+          <div className="coz-error coz-service-error">
+            <p>{t(error.message)}</p>
+            <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+          </div>
+        )}
+        <div className="coz-service-layout">
           <ServiceBar
             appEditor={data.cozyAppEditor}
             appName={data.cozyAppName}
             iconPath={`../${data.cozyIconPath}`}
             onCancel={() => this.cancel()}
             {...this.context}
-           />
-          {
-            !isFetching && !error && konnector &&
-            <CreateAccountService
-              konnector={konnector}
-              onCancel={() => this.cancel()}
-              onSuccess={account => this.terminate(account)}
-              disableSuccessTimeout={disableSuccessTimeout}
-              {...this.context}
+          />
+          {!isFetching &&
+            !error &&
+            konnector && (
+              <CreateAccountService
+                konnector={konnector}
+                onCancel={() => this.cancel()}
+                onSuccess={account => this.terminate(account)}
+                disableSuccessTimeout={disableSuccessTimeout}
+                {...this.context}
               />
-          }
-          {
-            !isFetching && !error && konnectorsList.length > 1 && !konnector &&
-            <ServiceKonnectorsList
-              konnectorsList={konnectorsList}
-              showKonnector={(konnector) => this.showKonnector(konnector)}
-            />
-          }
+            )}
+          {!isFetching &&
+            !error &&
+            konnectorsList.length > 1 &&
+            !konnector && (
+              <ServiceKonnectorsList
+                konnectorsList={konnectorsList}
+                showKonnector={konnector => this.showKonnector(konnector)}
+              />
+            )}
         </div>
-      </div>)
+      </div>
+    )
   }
 }

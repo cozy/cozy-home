@@ -30,7 +30,7 @@ describe('Sidebar component', () => {
 
   it('should be displayed correctly in categories view', () => {
     const categoryRouter = Object.assign({}, routerMock, {
-      location: {pathname: '/category/'}
+      location: { pathname: '/category/' }
     })
     const component = shallow(
       <Sidebar t={tMock} categories={categoriesMock} router={categoryRouter} />

@@ -14,7 +14,7 @@ const SUCCESS_TYPES = {
 }
 
 class AccountConnection extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = this.context.store
     const konnector = props.connector
@@ -26,7 +26,7 @@ class AccountConnection extends Component {
       error: this.props.error || this.store.getConnectionError(konnector)
     }
 
-    if (this.props.error) this.handleError({message: this.props.error})
+    if (this.props.error) this.handleError({ message: this.props.error })
 
     this.connectionListener = status => {
       this.setState({
@@ -40,9 +40,10 @@ class AccountConnection extends Component {
     this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
-  getFolderPathIfNecessary (connector, account) {
+  getFolderPathIfNecessary(connector, account) {
     const { t } = this.context
-    const folderField = connector && connector.fields && connector.fields.folderPath
+    const folderField =
+      connector && connector.fields && connector.fields.folderPath
     if (!folderField) return null
 
     const auth = account && account.auth
@@ -53,17 +54,20 @@ class AccountConnection extends Component {
     return folderField.default || t('account.config.default_folder', connector)
   }
 
-  componentWillReceiveProps ({ existingAccount }) {
+  componentWillReceiveProps({ existingAccount }) {
     this.setState({
       account: existingAccount
     })
   }
 
-  componentWillUnmount () {
-    this.store.removeConnectionStatusListener(this.props.connector, this.connectionListener)
+  componentWillUnmount() {
+    this.store.removeConnectionStatusListener(
+      this.props.connector,
+      this.connectionListener
+    )
   }
 
-  connectAccount (auth) {
+  connectAccount(auth) {
     const { folderPath } = auth
     const { connector } = this.props
     let { account } = this.state
@@ -76,7 +80,7 @@ class AccountConnection extends Component {
       auth
     }
 
-    this.setState({account: account})
+    this.setState({ account: account })
 
     return this.runConnection(account, folderPath)
       .then(connection => {
@@ -85,61 +89,73 @@ class AccountConnection extends Component {
       .catch(error => this.handleError(error))
   }
 
-  connectAccountOAuth (accountType, values, scope) {
+  connectAccountOAuth(accountType, values, scope) {
     this.setState({
       submitting: true,
       oAuthTerminated: false
     })
 
-    const cozyUrl =
-      `${window.location.protocol}//${document.querySelector('[role=application]').dataset.cozyDomain}`
-    const newTab = popupCenter(`${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`, `${accountType}_oauth`, 800, 800)
+    const cozyUrl = `${window.location.protocol}//${document.querySelector(
+      '[role=application]'
+    ).dataset.cozyDomain}`
+    const newTab = popupCenter(
+      `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`,
+      `${accountType}_oauth`,
+      800,
+      800
+    )
     return waitForClosedPopup(newTab, `${accountType}_oauth`)
-    .then(accountID => {
-      return this.terminateOAuth(accountID, values)
-    })
-    .catch(error => {
-      this.setState({submitting: false, error: error.message})
-    })
+      .then(accountID => {
+        return this.terminateOAuth(accountID, values)
+      })
+      .catch(error => {
+        this.setState({ submitting: false, error: error.message })
+      })
   }
 
-  terminateOAuth (accountID, accountValues) {
+  terminateOAuth(accountID, accountValues) {
     const { slug } = this.props.connector
 
     this.setState({
       oAuthTerminated: true
     })
 
-    return this.store.fetchKonnectorInfos(slug)
-      .then(konnector => {
-        return this.store
-          .fetchAccounts(slug)
-          .then(accounts => {
-            konnector.accounts = accounts
-            const currentIdx = accounts.findIndex(a => a._id === accountID)
-            // get all properties except folderPath in newValues
-            const {folderPath, ...newValues} = accountValues
-            const account = Object.assign({}, accounts[currentIdx], {auth: newValues})
-            this.setState({account: account})
-            return this.runConnection(account, folderPath)
-              .then(connection => {
-                this.setState({
-                  connector: konnector,
-                  isConnected: konnector.accounts.length !== 0,
-                  selectedAccount: currentIdx,
-                  submitting: false
-                })
-                this.handleConnectionSuccess(connection.successTimeout)
-              })
+    return this.store.fetchKonnectorInfos(slug).then(konnector => {
+      return this.store
+        .fetchAccounts(slug)
+        .then(accounts => {
+          konnector.accounts = accounts
+          const currentIdx = accounts.findIndex(a => a._id === accountID)
+          // get all properties except folderPath in newValues
+          const { folderPath, ...newValues } = accountValues
+          const account = Object.assign({}, accounts[currentIdx], {
+            auth: newValues
           })
-          .catch(error => this.handleError(error))
-      })
+          this.setState({ account: account })
+          return this.runConnection(account, folderPath).then(connection => {
+            this.setState({
+              connector: konnector,
+              isConnected: konnector.accounts.length !== 0,
+              selectedAccount: currentIdx,
+              submitting: false
+            })
+            this.handleConnectionSuccess(connection.successTimeout)
+          })
+        })
+        .catch(error => this.handleError(error))
+    })
   }
 
-  runConnection (account, folderPath) {
+  runConnection(account, folderPath) {
     this.setState({ submitting: true })
 
-    return this.store.connectAccount(this.props.connector, account, folderPath, this.props.disableSuccessTimeout)
+    return this.store
+      .connectAccount(
+        this.props.connector,
+        account,
+        folderPath,
+        this.props.disableSuccessTimeout
+      )
       .then(connection => {
         this.setState({ submitting: false })
         if (connection.account) {
@@ -156,33 +172,39 @@ class AccountConnection extends Component {
       })
   }
 
-  updateAccount (connector, account, values) {
+  updateAccount(connector, account, values) {
     Object.assign(account.auth, values)
 
     this.setState({ submitting: true })
 
-    return this.store.updateAccount(connector, account, values)
-    .then(account => {
-      this.setState({ account: account })
-      return this.store.runAccount(connector, account, this.props.disableSuccessTimeout)
-    })
-    .then(() => this.handleUpdateSuccess())
-    .catch(error => this.handleError(error))
+    return this.store
+      .updateAccount(connector, account, values)
+      .then(account => {
+        this.setState({ account: account })
+        return this.store.runAccount(
+          connector,
+          account,
+          this.props.disableSuccessTimeout
+        )
+      })
+      .then(() => this.handleUpdateSuccess())
+      .catch(error => this.handleError(error))
   }
 
-  deleteAccount () {
+  deleteAccount() {
     // FIXME: disable unused account constant, see below
     // const { account } = this.state
     this.setState({ deleting: true })
     // FIXME: We're supposed to remove only the current account
     // but still we doesn't support the multi-account, we choose to remove all
     // existing accounts, in case of duplicates.
-    this.store.deleteAccounts(this.props.connector/*, account */)
+    this.store
+      .deleteAccounts(this.props.connector /*, account */)
       .then(() => this.handleDeleteSuccess())
       .catch(error => this.handleError(error))
   }
 
-  handleDeleteSuccess () {
+  handleDeleteSuccess() {
     this.setState({
       submitting: false,
       deleting: false,
@@ -190,12 +212,14 @@ class AccountConnection extends Component {
       success: null // exception for the delete success which uses alerts
     })
 
-    this.props.alertSuccess([{message: 'account.message.success.delete'}])
+    this.props.alertSuccess([{ message: 'account.message.success.delete' }])
   }
 
-  handleConnectionSuccess (successTimeout) {
+  handleConnectionSuccess(successTimeout) {
     const { t } = this.context
-    const messages = [t('account.message.success.connect', {name: this.props.connector.name})]
+    const messages = [
+      t('account.message.success.connect', { name: this.props.connector.name })
+    ]
     if (successTimeout) {
       return this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
     } else {
@@ -203,15 +227,20 @@ class AccountConnection extends Component {
     }
   }
 
-  handleUpdateSuccess () {
+  handleUpdateSuccess() {
     const { t } = this.context
-    const messages = [t('account.message.success.update', {name: this.props.connector.name})]
+    const messages = [
+      t('account.message.success.update', { name: this.props.connector.name })
+    ]
     this.handleSuccess(SUCCESS_TYPES.UPDATE, messages)
   }
 
-  handleSuccess (type, messages = []) {
+  handleSuccess(type, messages = []) {
     const { t } = this.context
-    if (this.props.connector.additionnalSuccessMessage && this.props.connector.additionnalSuccessMessage.message) {
+    if (
+      this.props.connector.additionnalSuccessMessage &&
+      this.props.connector.additionnalSuccessMessage.message
+    ) {
       messages.push(t(this.props.connector.additionnalSuccessMessage.message))
     }
 
@@ -229,7 +258,7 @@ class AccountConnection extends Component {
     })
   }
 
-  handleError (error) {
+  handleError(error) {
     console.error(error)
 
     this.setState({
@@ -241,51 +270,66 @@ class AccountConnection extends Component {
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
-  submit (values) {
+  submit(values) {
     this.setState({
       error: null
     })
 
     return this.props.connector && this.props.connector.oauth
-         ? this.connectAccountOAuth(this.props.connector.slug, values, this.props.connector.oauth_scope)
-         : this.connectAccount(values)
+      ? this.connectAccountOAuth(
+          this.props.connector.slug,
+          values,
+          this.props.connector.oauth_scope
+        )
+      : this.connectAccount(values)
   }
 
-  cancel () {
+  cancel() {
     this.props.onCancel()
   }
 
-  goToConfig () {
+  goToConfig() {
     this.setState({ success: null, editing: true })
   }
 
-  forceConnection () {
-    this.setState({submitting: true})
-    this.store.runAccount(this.props.connector, this.state.account)
-    .then(() => this.setState({submitting: false}))
-    .catch(error => this.handleError(error))
+  forceConnection() {
+    this.setState({ submitting: true })
+    this.store
+      .runAccount(this.props.connector, this.state.account)
+      .then(() => this.setState({ submitting: false }))
+      .catch(error => this.handleError(error))
   }
 
-  render () {
+  render() {
     const { connector, disableSuccessTimeout, fields, isUnloading } = this.props
-    const { account, deleting, editing, error, oAuthTerminated, submitting, success } = this.state
+    const {
+      account,
+      deleting,
+      editing,
+      error,
+      oAuthTerminated,
+      submitting,
+      success
+    } = this.state
     const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
     const folderPath = this.getFolderPathIfNecessary(connector, account)
-    if (fields.folderPath && !fields.folderPath.default) fields.folderPath.default = folderPath
-    const isTimeout = (success && success.type === SUCCESS_TYPES.TIMEOUT)
+    if (fields.folderPath && !fields.folderPath.default)
+      fields.folderPath.default = folderPath
+    const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
 
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
           <img
             className={styles['col-account-connection-icon']}
-            src={getKonnectorIcon(connector)} />
+            src={getKonnectorIcon(connector)}
+          />
         </div>
 
-        { // Properly loed the edit view orthe initial config view
-          editing
-          ? <KonnectorEdit
+        {// Properly loed the edit view orthe initial config view
+        editing ? (
+          <KonnectorEdit
             account={account}
             connector={connector}
             deleting={deleting}
@@ -300,11 +344,13 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
             onForceConnection={() => this.forceConnection()}
-            onSubmit={(values) => this.connectAccount(Object.assign(values, {folderPath}))}
+            onSubmit={values =>
+              this.connectAccount(Object.assign(values, { folderPath }))}
             submitting={submitting}
             success={success}
-            />
-          : <KonnectorInstall
+          />
+        ) : (
+          <KonnectorInstall
             account={account}
             connector={connector}
             deleting={deleting}
@@ -320,12 +366,11 @@ class AccountConnection extends Component {
             onAccountConfig={() => this.goToConfig()}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
-            onSubmit={(values) => this.submit(values)}
+            onSubmit={values => this.submit(values)}
             submitting={submitting}
             success={success}
-            />
-        }
-
+          />
+        )}
       </div>
     )
   }

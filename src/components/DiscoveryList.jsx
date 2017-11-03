@@ -4,15 +4,15 @@ import UseCaseList from './UseCaseList'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
 class DiscoveryList extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.launchTutorial()
   }
 
-  componentWillReceiveProps () {
+  componentWillReceiveProps() {
     this.launchTutorial()
   }
 
-  launchTutorial () {
+  launchTutorial() {
     if (isTutorial()) {
       setTimeout(() => {
         displayTutorial(this.props.t)
@@ -20,10 +20,10 @@ class DiscoveryList extends Component {
     }
   }
 
-  render () {
+  render() {
     const { t, useCases, context, children } = this.props
     return (
-      <div className='content'>
+      <div className="content">
         <h1>{t('nav.discovery')}</h1>
         <UseCaseList useCases={useCases} context={context} />
         {children}

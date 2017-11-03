@@ -10,7 +10,7 @@ export const ACCOUNT_ERRORS = {
   SUCCESS_TIMEOUT: 'SUCCESS_TIMEOUT'
 }
 
-export function create (cozy, konnector, auth, folderID, name = '') {
+export function create(cozy, konnector, auth, folderID, name = '') {
   return cozy.data.create(ACCOUNTS_DOCTYPE, {
     name: name,
     account_type: konnector.slug,
@@ -19,64 +19,77 @@ export function create (cozy, konnector, auth, folderID, name = '') {
   })
 }
 
-export function update (cozy, account, newAccount) {
+export function update(cozy, account, newAccount) {
   // Fetch the current account to get the correct _rev attribute.
   // It may have changed, if a job has been running for example.
-  return cozy.data.find(ACCOUNTS_DOCTYPE, account._id)
-    .then(currentAccount => {
-      return cozy.data.update(
-        ACCOUNTS_DOCTYPE,
-        { ...account, _rev: currentAccount._rev },
-        (({ _rev: deleted, ...newAccount }) => newAccount)(newAccount)
-      )
-    })
+  return cozy.data.find(ACCOUNTS_DOCTYPE, account._id).then(currentAccount => {
+    return cozy.data.update(
+      ACCOUNTS_DOCTYPE,
+      { ...account, _rev: currentAccount._rev },
+      (({ _rev: deleted, ...newAccount }) => newAccount)(newAccount)
+    )
+  })
 }
 
-export function _delete (cozy, account) {
+export function _delete(cozy, account) {
   return cozy.data.delete(ACCOUNTS_DOCTYPE, account)
 }
 
 let cachedAccountsIndex
-function indexAccountsByType (cozy) {
+function indexAccountsByType(cozy) {
   return cachedAccountsIndex
     ? Promise.resolve(cachedAccountsIndex)
-    : cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
-      .then(index => {
-        cachedAccountsIndex = index
-        return Promise.resolve(index)
-      })
+    : cozy.data
+        .defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
+        .then(index => {
+          cachedAccountsIndex = index
+          return Promise.resolve(index)
+        })
 }
 
-function getLastSync (cozy, account) {
-  return cozy.data.defineIndex(KONNECTORS_RESULT_DOCTYPE, ['account'])
-  .then(index => cozy.data.query(index, {
-    selector: {'account': account._id}
-  }))
-  // FIXME: nosupport for multiple accounts right now
-  .then(results => results[0] && results[0].last_success)
-  .then(lastSync => !lastSync || /^0001/.test(lastSync) ? null : new Date(lastSync))
+function getLastSync(cozy, account) {
+  return (
+    cozy.data
+      .defineIndex(KONNECTORS_RESULT_DOCTYPE, ['account'])
+      .then(index =>
+        cozy.data.query(index, {
+          selector: { account: account._id }
+        })
+      )
+      // FIXME: nosupport for multiple accounts right now
+      .then(results => results[0] && results[0].last_success)
+      .then(
+        lastSync =>
+          !lastSync || /^0001/.test(lastSync) ? null : new Date(lastSync)
+      )
+  )
 }
 
-export function getAccountsByType (cozy, accountType) {
+export function getAccountsByType(cozy, accountType) {
   if (!accountType) throw new Error('Missing `accountType` parameter')
 
   return indexAccountsByType(cozy)
-  .then(index => cozy.data.query(index, {
-    selector: {'account_type': accountType}
-  }))
-  .then((accounts = []) => Promise.all(accounts.map(account => getLastSync(cozy, account)
-    .then(lastSync => {
-      account.lastSync = lastSync
-      return account
-    })
-  )))
+    .then(index =>
+      cozy.data.query(index, {
+        selector: { account_type: accountType }
+      })
+    )
+    .then((accounts = []) =>
+      Promise.all(
+        accounts.map(account =>
+          getLastSync(cozy, account).then(lastSync => {
+            account.lastSync = lastSync
+            return account
+          })
+        )
+      )
+    )
 }
 
-export function getAllAccounts (cozy) {
-  return indexAccountsByType(cozy)
-  .then(index => {
+export function getAllAccounts(cozy) {
+  return indexAccountsByType(cozy).then(index => {
     return cozy.data.query(index, {
-      selector: {'account_type': {'$gt': null}}
+      selector: { account_type: { $gt: null } }
     })
   })
 }

@@ -28,90 +28,104 @@ export const JOB_STATE = {
   DONE: 'done'
 }
 
-function sanitizeSlug (konnector) {
-  return konnector && { ...konnector, slug: konnector.slug || konnector.attributes.slug }
+function sanitizeSlug(konnector) {
+  return (
+    konnector && {
+      ...konnector,
+      slug: konnector.slug || konnector.attributes.slug
+    }
+  )
 }
 
-export function addAccount (cozy, konnector, account) {
+export function addAccount(cozy, konnector, account) {
   if (!konnector.accounts) konnector.accounts = []
   konnector.accounts.push(account)
   return Promise.resolve(konnector)
 }
 
-export function fetchManifest (cozy, source) {
+export function fetchManifest(cozy, source) {
   return source
-    ? cozy.fetchJSON('GET', `/konnectors/manifests?Source=${encodeURIComponent(source)}`)
-    : Promise.reject(new Error('A source must be provided to fetch the konnector manifest'))
+    ? cozy.fetchJSON(
+        'GET',
+        `/konnectors/manifests?Source=${encodeURIComponent(source)}`
+      )
+    : Promise.reject(
+        new Error('A source must be provided to fetch the konnector manifest')
+      )
 }
 
 let cachedSlugIndex
-function getSlugIndex (cozy) {
+function getSlugIndex(cozy) {
   return cachedSlugIndex
     ? Promise.resolve(cachedSlugIndex)
-      : cozy.data.defineIndex(KONNECTORS_DOCTYPE, ['slug'])
-          .then(index => {
-            cachedSlugIndex = index
-            return index
-          })
+    : cozy.data.defineIndex(KONNECTORS_DOCTYPE, ['slug']).then(index => {
+        cachedSlugIndex = index
+        return index
+      })
 }
 
-export function findBySlug (cozy, slug) {
+export function findBySlug(cozy, slug) {
   if (!slug) throw new Error('Missing `slug` parameter')
 
   return getSlugIndex(cozy)
-    .then(index => cozy.data.query(index, {selector: {slug: slug}}))
-    .then(list => list.length ? list[0] : null)
+    .then(index => cozy.data.query(index, { selector: { slug: slug } }))
+    .then(list => (list.length ? list[0] : null))
     .then(konnector => sanitizeSlug(konnector))
 }
 
-export function unlinkFolder (cozy, konnector, folderId) {
+export function unlinkFolder(cozy, konnector, folderId) {
   return !konnector._id
-    /**
+    ? /**
      * In case of a konnector set in the app and not in the platform,
      * there's no available `_id`. So we should returns an error, but here
      * it's just a warning, that doesn't implies anything, so we `resolve` and
      * not `reject`, because of what the next steps of deleting accounts will
      * fail.
      */
-    ? Promise.resolve(new Error("konnector doesn't have available id"))
-    : cozy.fetchJSON(
-      'DELETE',
-      `/data/io.cozy.konnectors/${encodeURIComponent(konnector._id)}/relationships/references`,
-      {
-        data: [
+      Promise.resolve(new Error("konnector doesn't have available id"))
+    : cozy
+        .fetchJSON(
+          'DELETE',
+          `/data/io.cozy.konnectors/${encodeURIComponent(
+            konnector._id
+          )}/relationships/references`,
           {
-            type: 'io.cozy.files',
-            id: folderId
+            data: [
+              {
+                type: 'io.cozy.files',
+                id: folderId
+              }
+            ]
           }
-        ]
-      }
-    )
-    .then(() => deleteFolderPermission(cozy, konnector))
+        )
+        .then(() => deleteFolderPermission(cozy, konnector))
 }
 
-export function fetchResult (cozy, konnector) {
+export function fetchResult(cozy, konnector) {
   if (!konnector) return Promise.reject(new Error('No konnector'))
   const slug = konnector.slug || konnector.attributes.slug
   return cozy.data.find(KONNECTORS_RESULT_DOCTYPE, slug)
 }
 
-export function findAll (cozy) {
-  return findAllDocuments(cozy, KONNECTORS_DOCTYPE)
-    .then(konnectors => konnectors.map(sanitizeSlug))
+export function findAll(cozy) {
+  return findAllDocuments(cozy, KONNECTORS_DOCTYPE).then(konnectors =>
+    konnectors.map(sanitizeSlug)
+  )
 }
 
-export function findAllResults (cozy) {
+export function findAllResults(cozy) {
   return findAllDocuments(cozy, KONNECTORS_RESULT_DOCTYPE)
 }
 
-function findAllDocuments (cozy, doctype) {
-  return cozy.fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`)
+function findAllDocuments(cozy, doctype) {
+  return cozy
+    .fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`)
     .then(result => {
       return result.rows
         ? result.rows
-          // filter documents only
-          .filter(row => !row.doc.language)
-          .map(row => row.doc)
+            // filter documents only
+            .filter(row => !row.doc.language)
+            .map(row => row.doc)
         : []
     })
     .catch(error => {
@@ -122,17 +136,18 @@ function findAllDocuments (cozy, doctype) {
     })
 }
 
-export function subscribeAll (cozy) {
+export function subscribeAll(cozy) {
   return realtime.subscribeAll(cozy, KONNECTORS_DOCTYPE)
 }
 
-export function subscribeAllResults (cozy) {
+export function subscribeAllResults(cozy) {
   return realtime.subscribeAll(cozy, KONNECTORS_RESULT_DOCTYPE)
 }
 
-export function install (cozy, konnector, timeout = 120000) {
-  ['slug', 'source'].forEach(property => {
-    if (!konnector[property]) throw new Error(`Missing '${property}' property in konnector`)
+export function install(cozy, konnector, timeout = 120000) {
+  ;['slug', 'source'].forEach(property => {
+    if (!konnector[property])
+      throw new Error(`Missing '${property}' property in konnector`)
   })
 
   const { slug, source, parameters } = konnector
@@ -140,7 +155,9 @@ export function install (cozy, konnector, timeout = 120000) {
 
   // While the registry is not there, the parameters are passed at konnectors install
   if (parameters) {
-    urlParams = urlParams + `&Parameters=${encodeURIComponent(JSON.stringify(parameters))}`
+    urlParams =
+      urlParams +
+      `&Parameters=${encodeURIComponent(JSON.stringify(parameters))}`
   }
 
   return findBySlug(cozy, slug)
@@ -148,23 +165,27 @@ export function install (cozy, konnector, timeout = 120000) {
       if (error.status !== '404') throw error
       return null
     })
-    .then(konnector => konnector
-      // Need JSONAPI format
-      ? cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
-        : cozy.fetchJSON('POST', `/konnectors/${slug}?${urlParams}`))
+    .then(
+      konnector =>
+        konnector
+          ? // Need JSONAPI format
+            cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
+          : cozy.fetchJSON('POST', `/konnectors/${slug}?${urlParams}`)
+    )
     .then(konnector => waitForKonnectorReady(cozy, konnector, timeout))
     .then(sanitizeSlug)
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForKonnectorReady (cozy, konnector, timeout) {
+function waitForKonnectorReady(cozy, konnector, timeout) {
   return new Promise((resolve, reject) => {
     const idTimeout = setTimeout(() => {
       reject(new Error('Konnector installation timed out'))
     }, timeout)
 
     const idInterval = setInterval(() => {
-      cozy.data.find(KONNECTORS_DOCTYPE, konnector._id)
+      cozy.data
+        .find(KONNECTORS_DOCTYPE, konnector._id)
         .then(konnectorResponse => {
           if (konnectorResponse.state === KONNECTOR_STATE.READY) {
             clearTimeout(idTimeout)
@@ -182,30 +203,36 @@ function waitForKonnectorReady (cozy, konnector, timeout) {
   })
 }
 
-function patchFolderPermission (cozy, konnector, folderId = null) {
+function patchFolderPermission(cozy, konnector, folderId = null) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
-  const saveFolder = folderId ? {type: 'io.cozy.files', values: [folderId]} : {}
+  const saveFolder = folderId
+    ? { type: 'io.cozy.files', values: [folderId] }
+    : {}
 
-  return cozy.fetchJSON('PATCH', `/permissions/konnectors/${encodeURIComponent(slug)}`, {
-    data: {
-      attributes: {
-        permissions: {
-          saveFolder: saveFolder
+  return cozy.fetchJSON(
+    'PATCH',
+    `/permissions/konnectors/${encodeURIComponent(slug)}`,
+    {
+      data: {
+        attributes: {
+          permissions: {
+            saveFolder: saveFolder
+          }
         }
       }
     }
-  })
+  )
 }
 
-export function addFolderPermission (cozy, konnector, folderId) {
+export function addFolderPermission(cozy, konnector, folderId) {
   return patchFolderPermission(cozy, konnector, folderId)
 }
 
-export function deleteFolderPermission (cozy, konnector) {
+export function deleteFolderPermission(cozy, konnector) {
   return patchFolderPermission(cozy, konnector)
 }
 
-export function run (cozy, konnector, account) {
+export function run(cozy, konnector, account) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
   if (!slug) {
     throw new Error('Missing `slug` parameter for konnector')
@@ -221,17 +248,19 @@ export function run (cozy, konnector, account) {
     jobAttributes['folder_to_save'] = account.folderId
   }
 
-  return cozy.jobs.create('konnector', jobAttributes, {
-    priority: 10,
-    max_exec_count: 1
-  })
-  .then(job => waitForJobFinished(cozy, job))
+  return cozy.jobs
+    .create('konnector', jobAttributes, {
+      priority: 10,
+      max_exec_count: 1
+    })
+    .then(job => waitForJobFinished(cozy, job))
 }
 
 // monitor the status of the connector and resolve when the connector is ready
-function waitForJobFinished (cozy, job) {
+function waitForJobFinished(cozy, job) {
   return new Promise((resolve, reject) => {
-    jobs.subscribe(cozy, job)
+    jobs
+      .subscribe(cozy, job)
       .then(subscription => {
         subscription.onUpdate(job => {
           if (job.state === JOB_STATE.ERRORED) {

@@ -12,7 +12,7 @@ import { initializeRegistry } from '../ducks/registry'
 import { fetchKonnectors } from '../ducks/konnectors'
 
 class App extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = this.context.store
 
@@ -23,7 +23,8 @@ class App extends Component {
 
     props.initializeRegistry(props.initKonnectors)
 
-    this.store.fetchInitialData(props.domain, props.ignoreJobsAfterInSeconds)
+    this.store
+      .fetchInitialData(props.domain, props.ignoreJobsAfterInSeconds)
       .then(() => {
         this.setState({
           categories: this.store.categories,
@@ -39,40 +40,38 @@ class App extends Component {
       })
   }
 
-  render () {
+  render() {
     const { children } = this.props
     const { categories, isFetching, error } = this.state
     if (error) {
       return (
-        <div className='con-initial-error'>
-          <Failure errorType='initial' />
+        <div className="con-initial-error">
+          <Failure errorType="initial" />
         </div>
       )
     }
-    return (
-      isFetching
-        ? <div className='con-initial-loading'>
-          <Loading loadingType='initial' />
-        </div>
-        : <div className='con-wrapper coz-sticky'>
-          <Sidebar categories={categories} />
-          <main className='con-content'>
-            <div role='contentinfo'>
-              {children}
-            </div>
-          </main>
-          <Notifier />
-          <ConnectionsQueue />
-        </div>
+    return isFetching ? (
+      <div className="con-initial-loading">
+        <Loading loadingType="initial" />
+      </div>
+    ) : (
+      <div className="con-wrapper coz-sticky">
+        <Sidebar categories={categories} />
+        <main className="con-content">
+          <div role="contentinfo">{children}</div>
+        </main>
+        <Notifier />
+        <ConnectionsQueue />
+      </div>
     )
   }
 }
 
-const mapActionsToProps = (dispatch) => ({
-  initializeRegistry: (konnectors) => dispatch(initializeRegistry(konnectors))
+const mapActionsToProps = dispatch => ({
+  initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
 })
 
-const mapDocumentsToProps = (ownProps) => ({
+const mapDocumentsToProps = ownProps => ({
   konnectors: fetchKonnectors()
 })
 

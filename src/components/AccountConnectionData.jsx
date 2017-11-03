@@ -7,34 +7,29 @@ import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import DataItem from '../components/DataItem'
 
 const AccountConnectionData = ({ t, connector }) => {
-  const {hasDescriptions} = connector
+  const { hasDescriptions } = connector
   const hasDataTypes = !!(connector.dataType && connector.dataType.length)
 
   return (
     <div className={ClassNames(styles['col-account-connection-data'])}>
-      { hasDescriptions && hasDescriptions.service &&
-        <div>
-          <h4>{t('account.config.data.service.description')}</h4>
-          <p>
-            <ReactMarkdownWrapper
-              source={
-                t(`connector.${connector.slug}.description.service`)
-              }
-            />
-          </p>
-        </div>
-      }
+      {hasDescriptions &&
+        hasDescriptions.service && (
+          <div>
+            <h4>{t('account.config.data.service.description')}</h4>
+            <p>
+              <ReactMarkdownWrapper
+                source={t(`connector.${connector.slug}.description.service`)}
+              />
+            </p>
+          </div>
+        )}
       <h4>{t('account.config.data.title')}</h4>
-      { hasDataTypes &&
+      {hasDataTypes && (
         <ul className={styles['col-account-connection-data-access']}>
-          {connector.dataType.map(data =>
-            <DataItem
-              dataType={data}
-            />
-          )}
-        </ul>}
-      { !hasDataTypes &&
-        <p>{t('dataType.none', {name: connector.name})}</p>}
+          {connector.dataType.map(data => <DataItem dataType={data} />)}
+        </ul>
+      )}
+      {!hasDataTypes && <p>{t('dataType.none', { name: connector.name })}</p>}
     </div>
   )
 }

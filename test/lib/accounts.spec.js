@@ -9,9 +9,9 @@ const konnectorMock = {
   dataType: ['bill'],
   category: 'transport',
   fields: {
-    'login': {type: 'text'},
-    'password': {type: 'password'},
-    'folderPath': {type: 'folder', advanced: true}
+    login: { type: 'text' },
+    password: { type: 'password' },
+    folderPath: { type: 'folder', advanced: true }
   }
 }
 
@@ -69,7 +69,12 @@ const indexMock = {
 // just to tests calling, results are tested in cozy-client-js
 let cozyMock = {
   data: {
-    find: jest.fn((doctype, account) => Promise.resolve({ ...account, _rev: '6-0cbc3ce9072cc22ccef03f30256a8d57' })),
+    find: jest.fn((doctype, account) =>
+      Promise.resolve({
+        ...account,
+        _rev: '6-0cbc3ce9072cc22ccef03f30256a8d57'
+      })
+    ),
     create: jest.fn(() => Promise.resolve()),
     update: jest.fn(() => Promise.resolve()),
     delete: jest.fn(() => Promise.resolve()),
@@ -89,10 +94,13 @@ beforeEach(() => {
 
 describe('accounts library', () => {
   it('should handle account creation', () => {
-    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock._id, 'mock')
+    return accounts
+      .create(cozyMock, konnectorMock, accountMock.auth, folderMock._id, 'mock')
       .then(account => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
-        expect(cozyMock.data.create.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
+        expect(cozyMock.data.create.mock.calls[0][0]).toBe(
+          accounts.ACCOUNTS_DOCTYPE
+        )
         expect(cozyMock.data.create.mock.calls[0][1]).toEqual({
           name: 'mock',
           account_type: konnectorMock.slug,
@@ -103,10 +111,13 @@ describe('accounts library', () => {
   })
 
   it('should handle account creation without name', () => {
-    return accounts.create(cozyMock, konnectorMock, accountMock.auth, folderMock._id)
+    return accounts
+      .create(cozyMock, konnectorMock, accountMock.auth, folderMock._id)
       .then(account => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
-        expect(cozyMock.data.create.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
+        expect(cozyMock.data.create.mock.calls[0][0]).toBe(
+          accounts.ACCOUNTS_DOCTYPE
+        )
         expect(cozyMock.data.create.mock.calls[0][1]).toEqual({
           name: '',
           account_type: konnectorMock.slug,
@@ -117,55 +128,60 @@ describe('accounts library', () => {
   })
 
   it('should handle account updating', () => {
-    return accounts.update(cozyMock, accountMock, accountMock2)
+    return accounts
+      .update(cozyMock, accountMock, accountMock2)
       .then(account => {
         expect(cozyMock.data.update.mock.calls.length).toBe(1)
-        expect(cozyMock.data.update.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
+        expect(cozyMock.data.update.mock.calls[0][0]).toBe(
+          accounts.ACCOUNTS_DOCTYPE
+        )
         expect(cozyMock.data.update.mock.calls[0][1]).toEqual(accountMock)
         expect(cozyMock.data.update.mock.calls[0][2]).toEqual(accountMock2)
       })
   })
 
   it('should handle account deletion', () => {
-    return accounts._delete(cozyMock, accountMock)
-      .then(account => {
-        expect(cozyMock.data.delete.mock.calls.length).toBe(1)
-        expect(cozyMock.data.delete.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
-        expect(cozyMock.data.delete.mock.calls[0][1]).toEqual(accountMock)
-      })
+    return accounts._delete(cozyMock, accountMock).then(account => {
+      expect(cozyMock.data.delete.mock.calls.length).toBe(1)
+      expect(cozyMock.data.delete.mock.calls[0][0]).toBe(
+        accounts.ACCOUNTS_DOCTYPE
+      )
+      expect(cozyMock.data.delete.mock.calls[0][1]).toEqual(accountMock)
+    })
   })
 
   it('should handle accounts listing by type', () => {
     const accountType = 'mock'
-    return accounts.getAccountsByType(cozyMock, accountType)
-      .then(() => {
+    return accounts.getAccountsByType(cozyMock, accountType).then(() => {
+      // indexing
+      expect(cozyMock.data.defineIndex.mock.calls.length).toBe(1)
+      expect(cozyMock.data.defineIndex.mock.calls[0][0]).toBe(
+        accounts.ACCOUNTS_DOCTYPE
+      )
+      expect(cozyMock.data.defineIndex.mock.calls[0][1]).toEqual([
+        'account_type',
+        'name'
+      ])
+      // fetching
+      expect(cozyMock.data.query.mock.calls.length).toBe(1)
+      expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
+      expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
+        selector: { account_type: accountType }
+      })
+
+      // "pseudo-caching" test
+      return accounts.getAccountsByType(cozyMock, accountType).then(() => {
         // indexing
+        // caching so no second call to defineIndex here
         expect(cozyMock.data.defineIndex.mock.calls.length).toBe(1)
-        expect(cozyMock.data.defineIndex.mock.calls[0][0]).toBe(accounts.ACCOUNTS_DOCTYPE)
-        expect(cozyMock.data.defineIndex.mock.calls[0][1]).toEqual([
-          'account_type', 'name'
-        ])
         // fetching
-        expect(cozyMock.data.query.mock.calls.length).toBe(1)
+        expect(cozyMock.data.query.mock.calls.length).toBe(2)
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-          selector: {'account_type': accountType}
+          selector: { account_type: accountType }
         })
-
-        // "pseudo-caching" test
-        return accounts.getAccountsByType(cozyMock, accountType)
-          .then(() => {
-            // indexing
-            // caching so no second call to defineIndex here
-            expect(cozyMock.data.defineIndex.mock.calls.length).toBe(1)
-            // fetching
-            expect(cozyMock.data.query.mock.calls.length).toBe(2)
-            expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
-            expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-              selector: {'account_type': accountType}
-            })
-          })
       })
+    })
   })
 
   it('should throw an error if no accountType to get accounts by type', () => {
@@ -175,31 +191,29 @@ describe('accounts library', () => {
   })
 
   it('should handle all accounts listing', () => {
-    return accounts.getAllAccounts(cozyMock)
-      .then(() => {
+    return accounts.getAllAccounts(cozyMock).then(() => {
+      // indexing
+      // cached index
+      expect(cozyMock.data.defineIndex.mock.calls.length).toBe(0)
+      // fetching
+      expect(cozyMock.data.query.mock.calls.length).toBe(1)
+      expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
+      expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
+        selector: { account_type: { $gt: null } }
+      })
+
+      // "pseudo-caching" test
+      return accounts.getAllAccounts(cozyMock).then(() => {
         // indexing
         // cached index
         expect(cozyMock.data.defineIndex.mock.calls.length).toBe(0)
         // fetching
-        expect(cozyMock.data.query.mock.calls.length).toBe(1)
+        expect(cozyMock.data.query.mock.calls.length).toBe(2)
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-          selector: {'account_type': {'$gt': null}}
+          selector: { account_type: { $gt: null } }
         })
-
-        // "pseudo-caching" test
-        return accounts.getAllAccounts(cozyMock)
-          .then(() => {
-            // indexing
-            // cached index
-            expect(cozyMock.data.defineIndex.mock.calls.length).toBe(0)
-            // fetching
-            expect(cozyMock.data.query.mock.calls.length).toBe(2)
-            expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
-            expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-              selector: {'account_type': {'$gt': null}}
-            })
-          })
       })
+    })
   })
 })

@@ -58,14 +58,14 @@ beforeEach(() => {
 
 describe('jobs library', () => {
   it('does not ignore old jobs', () => {
-    return jobs.findQueuedOrRunning(cozyMock)
-      .then(jobs => {
-        expect(jobs).toMatchSnapshot()
-      })
+    return jobs.findQueuedOrRunning(cozyMock).then(jobs => {
+      expect(jobs).toMatchSnapshot()
+    })
   })
 
   it('ignores oldest jobs', () => {
-    return jobs.findQueuedOrRunning(cozyMock, new Date(Date.UTC(2017, 9, 4, 14)))
+    return jobs
+      .findQueuedOrRunning(cozyMock, new Date(Date.UTC(2017, 9, 4, 14)))
       .then(jobs => {
         expect(jobs).toMatchSnapshot()
       })

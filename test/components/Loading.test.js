@@ -14,23 +14,17 @@ describe('Loading component', () => {
   })
 
   it('should be displayed with initial text if loadingType is initial', () => {
-    const component = shallow(
-      <Loading t={tMock} loadingType='initial' />
-    ).node
+    const component = shallow(<Loading t={tMock} loadingType="initial" />).node
     expect(component).toMatchSnapshot()
   })
 
   it('should be displayed with working text if loadingType is working', () => {
-    const component = shallow(
-      <Loading t={tMock} loadingType='working' />
-    ).node
+    const component = shallow(<Loading t={tMock} loadingType="working" />).node
     expect(component).toMatchSnapshot()
   })
 
   it('should be displayed with --no-margin class if noMargin is true', () => {
-    const component = shallow(
-      <Loading t={tMock} noMargin />
-    ).node
+    const component = shallow(<Loading t={tMock} noMargin />).node
     expect(component).toMatchSnapshot()
   })
 })
