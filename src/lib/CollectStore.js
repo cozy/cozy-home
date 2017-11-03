@@ -3,6 +3,7 @@ import DateFns from 'date-fns'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
+import { randomDayTime } from './daytime'
 
 import {
   createConnection,
@@ -480,7 +481,8 @@ export default class CollectStore {
                   connection.folder,
                   {
                     frequency: 'weekly',
-                    day: new Date().getDay()
+                    day: new Date().getDay(),
+                    ...randomDayTime(this.options.defaultTriggerTimeInterval)
                   }
                 )
               })
