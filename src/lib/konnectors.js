@@ -279,3 +279,28 @@ function waitForJobFinished(cozy, job) {
       })
   })
 }
+
+export function createTrigger(cozy, konnector, account, folder, options = {}) {
+  const { frequency, day, hours, minutes } = options
+
+  let workerArguments = {
+    konnector: konnector.slug || konnector.attributes.slug,
+    account: account._id
+  }
+
+  if (folder) {
+    workerArguments['folder_to_save'] = folder._id
+  }
+
+  return cozy.fetchJSON('POST', '/jobs/triggers', {
+    data: {
+      attributes: {
+        type: '@cron',
+        frequency: frequency,
+        arguments: `0 ${minutes || 0} ${hours || 0} 0 * * ${day || '*'}`,
+        worker: 'konnector',
+        worker_arguments: workerArguments
+      }
+    }
+  })
+}

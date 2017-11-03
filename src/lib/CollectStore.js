@@ -473,16 +473,16 @@ export default class CollectStore {
                   workerArguments['folder_to_save'] = connection.folder._id
                 }
 
-                return cozy.client.fetchJSON('POST', '/jobs/triggers', {
-                  data: {
-                    attributes: {
-                      type: '@cron',
-                      arguments: `0 0 0 * * ${new Date().getDay()}`,
-                      worker: 'konnector',
-                      worker_arguments: workerArguments
-                    }
+                return konnectors.createTrigger(
+                  cozy.client,
+                  connection.konnector,
+                  connection.account,
+                  connection.folder,
+                  {
+                    frequency: 'weekly',
+                    day: new Date().getDay()
                   }
-                })
+                )
               })
               .then(() => {
                 const { konnector, account } = connection
