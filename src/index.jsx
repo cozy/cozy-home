@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // store
   const store = configureStore(client, initKonnectors, initFolders, context, {
+    ...collectConfig,
     debug: __DEBUG__
   })
   const useCases = store.getUseCases()

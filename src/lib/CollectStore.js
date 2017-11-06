@@ -3,6 +3,7 @@ import DateFns from 'date-fns'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
+import { randomDayTime } from './daytime'
 
 import {
   createConnection,
@@ -365,8 +366,8 @@ export default class CollectStore {
       createDirectoryIfNecessary(folderPath)
         // 2. Create account
         .then(folder => {
+          connection.folder = folder
           const folderId = folder ? folder._id : null
-          connection.folderId = folderId
           if (isOAuth) {
             const newAttributes = {}
 
@@ -391,7 +392,11 @@ export default class CollectStore {
         // 3. Konnector installation
         .then(account => {
           this.dispatch(
-            createConnection(konnector, account, connection.folderId)
+            createConnection(
+              konnector,
+              account,
+              connection.folder && connection.folder._id
+            )
           )
           this.dispatch(updateConnectionRunningStatus(konnector, account, true))
 
@@ -422,11 +427,11 @@ export default class CollectStore {
               .then(completeKonnector => {
                 connection.konnector = completeKonnector
                 this.updateConnector(completeKonnector)
-                if (!connection.folderID) return Promise.resolve()
+                if (!connection.folder) return Promise.resolve()
                 return konnectors.addFolderPermission(
                   cozy.client,
                   completeKonnector,
-                  connection.folderID
+                  connection.folder._id
                 )
               })
               // 6. Reference konnector in folder
@@ -435,7 +440,7 @@ export default class CollectStore {
                 connection.permission = permission
                 return cozy.client.data.addReferencedFiles(
                   connection.konnector,
-                  connection.folderID
+                  connection.folder._id
                 )
               })
               // 7. Run a job for the konnector
@@ -465,20 +470,23 @@ export default class CollectStore {
                   account: connection.account._id
                 }
 
-                if (connection.folderID) {
-                  workerArguments['folder_to_save'] = connection.folderID
+                if (connection.folder) {
+                  workerArguments['folder_to_save'] = connection.folder._id
                 }
-
-                return cozy.client.fetchJSON('POST', '/jobs/triggers', {
-                  data: {
-                    attributes: {
-                      type: '@cron',
-                      arguments: `0 0 0 * * ${new Date().getDay()}`,
-                      worker: 'konnector',
-                      worker_arguments: workerArguments
-                    }
+                return konnectors.createTrigger(
+                  cozy.client,
+                  connection.konnector,
+                  connection.account,
+                  connection.folder,
+                  {
+                    frequency: 'weekly',
+                    day: new Date().getDay(),
+                    ...randomDayTime(
+                      konnector.timeInterval ||
+                        this.options.defaultTriggerTimeInterval
+                    )
                   }
-                })
+                )
               })
               .then(() => {
                 const { konnector, account } = connection
