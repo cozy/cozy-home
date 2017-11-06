@@ -2,9 +2,6 @@
   "name": "Collect",
   "slug": "collect",
   "icon": "cozy_collect.svg",
-  "short_description": "Configuration application for konnectors",
-  "long_description": "__Collect__ will allow you to grab all your informations that you have using tons on services on providers websites or applications.\nEnjoy this new way to get control on your daily data :tada:",
-  "changes": "### New features :rocket:\n\nConnectors for you bank accounts!!:bank:",
   "category": "cozy",
   "source": "https://github.com/cozy/cozy-collect.git@build",
   "editor": "Cozy",
@@ -12,14 +9,6 @@
     "name": "Cozy",
     "url": "https://cozy.io"
   },
-  "locales": {
-    "fr": {
-      "short_description": "Application de configuration pour les konnectors",
-      "long_description": "__Collect__ vous permettra de récupérer toutes vos informations que vous générez en utilisant la multitude de services en ligne.\nProfitez de cette nouvelle manière de récupérer le contrôle sur vos données quotidiennes :tada:",
-      "changes": "### Nouveautés :rocket:\n\nDes connecteurs pour vos comptes bancaires!!:bank:"
-    }
-  },
-  "langs": ["en", "fr"],
   "version": "1.0.2",
   "licence": "AGPL-3.0",
   "screenshots": ["screenshots/screenshot1.png", "screenshots/screenshot2.png", "screenshots/screenshot3.png", "screenshots/screenshot4.png"],
