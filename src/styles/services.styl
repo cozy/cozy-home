@@ -28,8 +28,22 @@
         height          100vh
         width           100vw
 
+    .coz-service-return
+        padding         65px 0 0 2em
+        &--button
+            cursor      pointer
+            font-weight 700
+            color       #297ef2
+            &:hover,
+            &:focus
+                color   #000
+
     .coz-service-bar
         display           flex
+        flex              0 0 100%
+        position          fixed
+        z-index           100
+        width             100%
         flex-direction    row
         background-color  grey-10
         box-shadow        inset 0 -1px 0 0 grey-09
@@ -61,6 +75,9 @@
             width         inherit
             zoom          1.5
             padding-right 0
+            flex          1
+            // overide default bg position
+            background-position  center right
 
 
     .coz-service-content

@@ -8,6 +8,9 @@ const CreateAccountService = props => {
     <div className="coz-service-content">
       <AccountConnection
         connector={konnector}
+        existingAccount={
+          konnector.accounts.length ? konnector.accounts[0] : null
+        }
         fields={konnector.fields}
         {...props}
       />

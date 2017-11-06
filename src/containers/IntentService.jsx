@@ -21,57 +21,71 @@ export default class IntentService extends Component {
     const intent = window.location.search.split('=')[1]
 
     this.store
-      .createIntentService(intent, window)
-      .then(service => {
-        const data = service.getData()
+      .fetchInitialData(props.data.cozyDomain, 7200)
+      .then(() => {
+        this.store
+          .createIntentService(intent, window)
+          .then(service => {
+            const data = service.getData()
 
-        if (typeof service.resizeClient === 'function') {
-          service.resizeClient({
-            maxWidth: 931
+            if (typeof service.resizeClient === 'function') {
+              service.resizeClient({
+                maxWidth: 931
+              })
+            } else {
+              console.warn &&
+                console.warn(
+                  "Cannot resize client's iframe, cozy-client-js needs to be updated"
+                )
+            }
+
+            this.setState({
+              service: service,
+              disableSuccessTimeout: !!data.disableSuccessTimeout
+            })
+
+            if (!data) {
+              throw new Error('Unexpected data from intent')
+            }
+
+            if (data.slug) {
+              return this.store
+                .fetchKonnectorInfos(data.slug)
+                .then(konnector => [konnector])
+            } else if (data.dataType) {
+              return this.store.findByDataType(data.dataType)
+            }
           })
-        } else {
-          console.warn &&
-            console.warn(
-              "Cannot resize client's iframe, cozy-client-js needs to be updated"
-            )
-        }
+          .then(konnectorsList => {
+            if (!konnectorsList) {
+              throw new Error(`Unknown konnector`)
+            } else {
+              konnectorsList.forEach(konnector => {
+                konnector.status = this.store.getConnectionStatus(konnector)
+              })
+              this.setState({
+                isFetching: false,
+                konnectorsList: konnectorsList
+              })
+            }
 
-        this.setState({
-          service: service,
-          disableSuccessTimeout: !!data.disableSuccessTimeout
-        })
-
-        if (!data) {
-          throw new Error('Unexpected data from intent')
-        }
-
-        if (data.slug) {
-          return this.store
-            .fetchKonnectorInfos(data.slug)
-            .then(konnector => [konnector])
-        } else if (data.dataType) {
-          return this.store.findByDataType(data.dataType)
-        }
-      })
-      .then(konnectorsList => {
-        if (!konnectorsList) {
-          throw new Error(`Unknown konnector`)
-        } else {
-          this.setState({
-            isFetching: false,
-            konnectorsList: konnectorsList
+            return konnectorsList
           })
-        }
-
-        return konnectorsList
+          .catch(error => {
+            this.setState({
+              isFetching: false,
+              error: {
+                message: 'intent.service.error.initialization',
+                reason: error.message
+              }
+            })
+          })
       })
       .catch(error => {
+        console.error(error)
         this.setState({
           isFetching: false,
-          error: {
-            message: 'intent.service.error.initialization',
-            reason: error.message
-          }
+          error
         })
       })
   }
@@ -143,6 +157,24 @@ export default class IntentService extends Component {
             onCancel={() => this.cancel()}
             {...this.context}
           />
+          {!isFetching &&
+            !error &&
+            konnector &&
+            konnectorsList.length > 1 && (
+              <div className="coz-service-return">
+                <a
+                  className="coz-service-return--button"
+                  onClick={() => this.setState({ konnector: null })}
+                  onKeyDown={e =>
+                    e.keyCode === 13
+                      ? this.setState({ konnector: null })
+                      : null}
+                  tabIndex="0"
+                >
+                  &lt; {t('intent.service.return')}
+                </a>
+              </div>
+            )}
           {!isFetching &&
             !error &&
             konnector && (
