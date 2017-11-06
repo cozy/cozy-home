@@ -9,7 +9,9 @@ export function isTutorial() {
 export function display(t) {
   const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
   const isLandscape = window.innerWidth > window.innerHeight
-  const cozyBarMenuClass = isSmall ? '.coz-bar-burger' : '[data-icon=icon-cube]'
+  const cozyBarMenuClass = isSmall
+    ? '.coz-bar-burger'
+    : '.coz-nav-section [data-icon=icon-apps]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
   const tooltipClass =
     'tooltip' +
