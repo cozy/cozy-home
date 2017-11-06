@@ -473,7 +473,6 @@ export default class CollectStore {
                 if (connection.folder) {
                   workerArguments['folder_to_save'] = connection.folder._id
                 }
-
                 return konnectors.createTrigger(
                   cozy.client,
                   connection.konnector,
@@ -482,7 +481,10 @@ export default class CollectStore {
                   {
                     frequency: 'weekly',
                     day: new Date().getDay(),
-                    ...randomDayTime(this.options.defaultTriggerTimeInterval)
+                    ...randomDayTime(
+                      konnector.timeInterval ||
+                        this.options.defaultTriggerTimeInterval
+                    )
                   }
                 )
               })

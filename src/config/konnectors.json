@@ -833,7 +833,8 @@
         "advanced": true
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-orange.git#build"
+    "source": "git://github.com/cozy/cozy-konnector-orange.git#build",
+    "timeInterval": [15, 21]
   },
   {
     "oauth": true,
@@ -856,6 +857,7 @@
       "service": true
     },
     "source": "git://github.com/cozy/cozy-konnector-orangevod.git#build",
+    "timeInterval": [15, 21],
     "oauth_scope": "I"
   },
   {
@@ -889,6 +891,7 @@
       "connector": true
     },
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build",
+    "timeInterval": [15, 21],
     "oauth_scope": "M"
   },
   {
