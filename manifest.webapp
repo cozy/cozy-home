@@ -2,19 +2,12 @@
   "name": "Collect",
   "slug": "collect",
   "icon": "cozy_collect.svg",
-  "description": "Configuration application for konnectors",
   "category": "cozy",
   "source": "https://github.com/cozy/cozy-collect.git@build",
   "editor": "Cozy",
   "developer": {
     "name": "Cozy",
     "url": "https://cozy.io"
-  },
-  "default_locale": "en",
-  "locales": {
-    "fr": {
-      "description": "Application de configuration pour les konnectors"
-    }
   },
   "version": "1.0.2",
   "licence": "AGPL-3.0",
