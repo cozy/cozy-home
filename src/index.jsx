@@ -29,11 +29,19 @@ const handleOAuthResponse = () => {
   if (queryParams.get('account')) {
     const opener = window.opener
     const accountKey = queryParams.get('account')
-    const targetOrigin = window.location.origin || `${window.location.protocol}//${window.location.hostname}${(window.location.port ? ':' + window.location.port : '')}`
-    opener.postMessage({
-      key: accountKey,
-      origin: window.name
-    }, targetOrigin)
+    const targetOrigin =
+      window.location.origin ||
+      `${window.location.protocol}//${window.location.hostname}${window.location
+        .port
+        ? ':' + window.location.port
+        : ''}`
+    opener.postMessage(
+      {
+        key: accountKey,
+        origin: window.name
+      },
+      targetOrigin
+    )
     window.close()
   }
 }
@@ -58,7 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context, { debug: __DEBUG__ })
+  const store = configureStore(client, initKonnectors, initFolders, context, {
+    ...collectConfig,
+    debug: __DEBUG__
+  })
   const useCases = store.getUseCases()
 
   let history = hashHistory
@@ -69,41 +80,51 @@ document.addEventListener('DOMContentLoaded', () => {
     trackerInstance.track(hashHistory.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
   }
 
-  const dictRequire = (lang, context) => context
-    ? require(`./contexts/${context}/locales/${lang}`)
-    : require(`./locales/${lang}`)
+  const dictRequire = (lang, context) =>
+    context
+      ? require(`./contexts/${context}/locales/${lang}`)
+      : require(`./locales/${lang}`)
 
-  render((
+  render(
     <CozyProvider store={store} client={client}>
       <I18n lang={lang} dictRequire={dictRequire} context={context}>
         <Router history={history}>
           <Route
-            component={(props) =>
-              <App domain={data.cozyDomain} initKonnectors={initKonnectors} {...collectConfig} {...props}
-              />}
+            component={props => (
+              <App
+                domain={data.cozyDomain}
+                initKonnectors={initKonnectors}
+                {...collectConfig}
+                {...props}
+              />
+            )}
           >
-            <Redirect from='/' to='/discovery' />
+            <Redirect from="/" to="/discovery" />
             <Route
-              path='/discovery'
-              component={(props) =>
+              path="/discovery"
+              component={props => (
                 <DiscoveryList
-                  useCases={useCases} context={context} {...props}
-                />}
+                  useCases={useCases}
+                  context={context}
+                  {...props}
+                />
+              )}
             >
               <Route
-                path=':useCase'
-                component={(props) =>
+                path=":useCase"
+                component={props => (
                   <UseCaseDialog
                     item={useCases.find(u => u.slug === props.params.useCase)}
                     connectors={store.findByUseCase(props.params.useCase)}
                     context={context}
                     {...props}
-                  />}
+                  />
+                )}
               />
               <Route
-                path=':useCase/:connectorSlug'
-                component={(props) =>
-                  <div className='multi-dialogs-wrapper'>
+                path=":useCase/:connectorSlug"
+                component={props => (
+                  <div className="multi-dialogs-wrapper">
                     <UseCaseDialog
                       item={useCases.find(u => u.slug === props.params.useCase)}
                       connectors={store.findByUseCase(props.params.useCase)}
@@ -111,33 +132,35 @@ document.addEventListener('DOMContentLoaded', () => {
                       {...props}
                     />
                     <ConnectorManagement {...props} />
-                  </div>}
+                  </div>
+                )}
               />
             </Route>
-            <Redirect from='/category' to='/category/all' />
+            <Redirect from="/category" to="/category/all" />
             <Route
-              path='/category/:filter'
-              component={(props) =>
+              path="/category/:filter"
+              component={props => (
                 <CategoryList
                   category={props.params.filter}
-                  connectors={store.findByCategory(props.params)} {...props}
-                />}
+                  connectors={store.findByCategory(props.params)}
+                  {...props}
+                />
+              )}
             >
-              <Route
-                path=':connectorSlug'
-                component={ConnectorManagement}
-              />
+              <Route path=":connectorSlug" component={ConnectorManagement} />
             </Route>
             <Route
-              path='/connected'
-              component={(props) =>
-                <ConnectedList connectors={store.findConnected()} {...props} />}
+              path="/connected"
+              component={props => (
+                <ConnectedList connectors={store.findConnected()} {...props} />
+              )}
             >
-              <Route path=':connectorSlug' component={ConnectorManagement} />
+              <Route path=":connectorSlug" component={ConnectorManagement} />
             </Route>
           </Route>
         </Router>
       </I18n>
-    </CozyProvider>
-  ), document.querySelector('[role=application]'))
+    </CozyProvider>,
+    document.querySelector('[role=application]')
+  )
 })

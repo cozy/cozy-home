@@ -1,6 +1,4 @@
-import {
-  fetchCollection
-} from 'redux-cozy-client'
+import { fetchCollection } from 'redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.konnectors'
 

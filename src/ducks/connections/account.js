@@ -20,7 +20,7 @@ const reducer = (state = {}, action) => {
       return state
     case UPDATE_CONNECTION_RUNNING_STATUS:
       const { isRunning } = action
-      const hasRun = state.hasRun || !!state.isRunning && !isRunning
+      const hasRun = state.hasRun || (!!state.isRunning && !isRunning)
       return {
         ...state,
         isRunning,
@@ -35,25 +35,25 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
-export const getConnectionStatus = (state) => {
+export const getConnectionStatus = state => {
   if (hasError(state)) return 'error'
   if (isRunning(state)) return 'ongoing'
   if (hasRun(state)) return 'done'
   return 'pending'
 }
 
-const hasError = (state) => {
+const hasError = state => {
   return !isRunning(state) && !!state.error
 }
 
-const hasRun = (state) => {
+const hasRun = state => {
   return !!state.hasRun
 }
 
-export const isQueued = (state) => {
+export const isQueued = state => {
   return !!state.isQueued
 }
 
-const isRunning = (state) => {
+const isRunning = state => {
   return !!state.isRunning
 }

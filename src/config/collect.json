@@ -1,3 +1,4 @@
 {
-  "ignoreJobsAfterInSeconds": "7200"
+  "ignoreJobsAfterInSeconds": "7200",
+  "defaultTriggerTimeInterval": [0, 5]
 }

@@ -1,0 +1,34 @@
+exports[`konnectors lib createTrigger creates a trigger 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "arguments": "0 15 14 * * 1",
+      "frequency": "weekly",
+      "type": "@cron",
+      "worker": "konnector",
+      "worker_arguments": Object {
+        "account": "963a51f6cdd34401b0904de32cc5578d",
+        "folder_to_save": "daa147092e1c4a1da8c991cb2a194adc",
+        "konnector": "test",
+      },
+    },
+  },
+}
+`;
+
+exports[`konnectors lib createTrigger creates a trigger without folder 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "arguments": "0 15 14 * * 1",
+      "frequency": "weekly",
+      "type": "@cron",
+      "worker": "konnector",
+      "worker_arguments": Object {
+        "account": "963a51f6cdd34401b0904de32cc5578d",
+        "konnector": "test",
+      },
+    },
+  },
+}
+`;

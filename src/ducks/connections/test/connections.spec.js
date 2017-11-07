@@ -1,14 +1,14 @@
 /* eslint-env jest */
 
 import connections, {
-   createConnection,
-   deleteConnection,
-   enqueueConnection,
-   getQueue,
-   purgeQueue,
-   updateConnectionError,
-   updateConnectionRunningStatus
- } from '../'
+  createConnection,
+  deleteConnection,
+  enqueueConnection,
+  getQueue,
+  purgeQueue,
+  updateConnectionError,
+  updateConnectionRunningStatus
+} from '../'
 
 describe('Connections Duck', () => {
   describe('Action creators', () => {
@@ -104,7 +104,10 @@ describe('Connections Duck', () => {
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
         const error = new Error('test error')
 
-        const result = connections(state, updateConnectionError(konnector, account, error))
+        const result = connections(
+          state,
+          updateConnectionError(konnector, account, error)
+        )
 
         expect(result).toMatchSnapshot()
       })
@@ -120,7 +123,10 @@ describe('Connections Duck', () => {
         const konnector = { slug: 'testprovider' }
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
-        const result = connections(state, updateConnectionRunningStatus(konnector, account, false))
+        const result = connections(
+          state,
+          updateConnectionRunningStatus(konnector, account, false)
+        )
 
         expect(result).toMatchSnapshot()
       })
@@ -134,7 +140,10 @@ describe('Connections Duck', () => {
         const konnector = { slug: 'testprovider' }
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
-        const result = connections(state, updateConnectionRunningStatus(konnector, account, true))
+        const result = connections(
+          state,
+          updateConnectionRunningStatus(konnector, account, true)
+        )
 
         expect(result).toMatchSnapshot()
       })
@@ -150,7 +159,10 @@ describe('Connections Duck', () => {
         const konnector = { slug: 'testprovider' }
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
-        const result = connections(state, updateConnectionRunningStatus(konnector, account, false))
+        const result = connections(
+          state,
+          updateConnectionRunningStatus(konnector, account, false)
+        )
 
         expect(result).toMatchSnapshot()
       })
@@ -167,7 +179,10 @@ describe('Connections Duck', () => {
         const konnector = { slug: 'testprovider' }
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
-        const result = connections(state, updateConnectionRunningStatus(konnector, account, true))
+        const result = connections(
+          state,
+          updateConnectionRunningStatus(konnector, account, true)
+        )
 
         expect(result).toMatchSnapshot()
       })

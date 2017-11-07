@@ -3,8 +3,10 @@ import { translate } from 'cozy-ui/react/I18n'
 import KonnectorList from './KonnectorList'
 
 const CategoryList = ({ t, category, connectors, children }) => (
-  <div className='content'>
-    <h1>{category === 'all' ? t('nav.providers') : t(`category.${category}`)}</h1>
+  <div className="content">
+    <h1>
+      {category === 'all' ? t('nav.providers') : t(`category.${category}`)}
+    </h1>
     <KonnectorList connectors={connectors} showVoting />
     {children}
   </div>

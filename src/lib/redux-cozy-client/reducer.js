@@ -49,7 +49,11 @@ const documents = (state = {}, action) => {
         ...state,
         'io.cozy.files': {
           ...state['io.cozy.files'],
-          ...updateFilesReferences(state['io.cozy.files'], action.ids, action.document)
+          ...updateFilesReferences(
+            state['io.cozy.files'],
+            action.ids,
+            action.document
+          )
         }
       }
     case REMOVE_REFERENCED_FILES:
@@ -57,7 +61,11 @@ const documents = (state = {}, action) => {
         ...state,
         'io.cozy.files': {
           ...state['io.cozy.files'],
-          ...removeFilesReferences(state['io.cozy.files'], action.ids, action.document)
+          ...removeFilesReferences(
+            state['io.cozy.files'],
+            action.ids,
+            action.document
+          )
         }
       }
     default:
@@ -65,9 +73,11 @@ const documents = (state = {}, action) => {
   }
 }
 
-const objectifyDocumentsArray = (documents) => {
+const objectifyDocumentsArray = documents => {
   let obj = {}
-  documents.forEach(doc => { obj[doc.id] = doc })
+  documents.forEach(doc => {
+    obj[doc.id] = doc
+  })
   return obj
 }
 
@@ -75,9 +85,13 @@ const updateFilesReferences = (files, newlyReferencedIds, doc) => {
   let updated = {}
   newlyReferencedIds.forEach(id => {
     const file = files[id]
-    file.relationships.referenced_by.data = file.relationships.referenced_by.data === null
-      ? [{ id: doc.id, type: doc.type }]
-      : [...file.relationships.referenced_by.data, { id: doc.id, type: doc.type }]
+    file.relationships.referenced_by.data =
+      file.relationships.referenced_by.data === null
+        ? [{ id: doc.id, type: doc.type }]
+        : [
+            ...file.relationships.referenced_by.data,
+            { id: doc.id, type: doc.type }
+          ]
     updated[id] = file
   })
   return updated
@@ -87,14 +101,15 @@ const removeFilesReferences = (files, removedIds, doc) => {
   let updated = {}
   removedIds.forEach(id => {
     const file = files[id]
-    file.relationships.referenced_by.data =
-      file.relationships.referenced_by.data.filter(rel => rel.type !== doc.type && rel.id !== doc.id)
+    file.relationships.referenced_by.data = file.relationships.referenced_by.data.filter(
+      rel => rel.type !== doc.type && rel.id !== doc.id
+    )
     updated[id] = file
   })
   return updated
 }
 
-const getArrayDoctype = (documents) => {
+const getArrayDoctype = documents => {
   const doctype = documents[0].type
   // TODO: don't know why the stack returns 'file' here..
   if (doctype === 'file') {
@@ -129,8 +144,13 @@ const collection = (state = collectionInitialState, action) => {
         fetchStatus: 'loaded',
         lastFetch: Date.now(),
         hasMore: response.next !== undefined ? response.next : state.hasMore,
-        count: response.meta && response.meta.count ? response.meta.count : response.data.length,
-        ids: !action.skip ? response.data.map(doc => doc.id) : [...state.ids, ...response.data.map(doc => doc.id)]
+        count:
+          response.meta && response.meta.count
+            ? response.meta.count
+            : response.data.length,
+        ids: !action.skip
+          ? response.data.map(doc => doc.id)
+          : [...state.ids, ...response.data.map(doc => doc.id)]
       }
     case ADD_REFERENCED_FILES:
       return {
@@ -213,14 +233,14 @@ export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
   doctype,
   options,
   skip,
-  promise: (client) => client.fetchCollection(name, doctype, options, skip)
+  promise: client => client.fetchCollection(name, doctype, options, skip)
 })
 
 export const fetchDocument = (doctype, id) => ({
   types: [FETCH_DOCUMENT, RECEIVE_DATA, RECEIVE_ERROR],
   doctype,
   id,
-  promise: (client) => client.fetchDocument(doctype, id)
+  promise: client => client.fetchDocument(doctype, id)
 })
 
 export const fetchReferencedFiles = (doc, skip = 0) => ({
@@ -229,41 +249,41 @@ export const fetchReferencedFiles = (doc, skip = 0) => ({
   document: doc,
   options: {},
   skip,
-  promise: (client) => client.fetchReferencedFiles(doc, skip)
+  promise: client => client.fetchReferencedFiles(doc, skip)
 })
 
 export const createDocument = (doc, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
   document: doc,
-  promise: (client) => client.createDocument(doc),
+  promise: client => client.createDocument(doc),
   ...actionOptions
 })
 
 export const updateDocument = (doc, actionOptions = {}) => ({
   types: [UPDATE_DOCUMENT, RECEIVE_UPDATED_DOCUMENT, RECEIVE_ERROR],
   document: doc,
-  promise: (client) => client.updateDocument(doc),
+  promise: client => client.updateDocument(doc),
   ...actionOptions
 })
 
 export const deleteDocument = (doc, actionOptions = {}) => ({
   types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
   document: doc,
-  promise: (client) => client.deleteDocument(doc),
+  promise: client => client.deleteDocument(doc),
   ...actionOptions
 })
 
 export const createFile = (file, dirID, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
   doctype: 'io.cozy.files',
-  promise: (client) => client.createFile(file, dirID),
+  promise: client => client.createFile(file, dirID),
   ...actionOptions
 })
 
 export const trashFile = (file, actionOptions = {}) => ({
   types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
   document: file,
-  promise: (client) => client.trashFile(file),
+  promise: client => client.trashFile(file),
   ...actionOptions
 })
 
@@ -272,7 +292,7 @@ export const addReferencedFiles = (doc, ids) => ({
   collection: `${doc.type}/${doc.id}#files`,
   document: doc,
   ids,
-  promise: (client) => client.addReferencedFiles(doc, ids)
+  promise: client => client.addReferencedFiles(doc, ids)
 })
 
 export const removeReferencedFiles = (doc, ids) => ({
@@ -280,18 +300,22 @@ export const removeReferencedFiles = (doc, ids) => ({
   collection: `${doc.type}/${doc.id}#files`,
   document: doc,
   ids,
-  promise: (client) => client.removeReferencedFiles(doc, ids)
+  promise: client => client.removeReferencedFiles(doc, ids)
 })
 
-export const makeActionCreator = (promise) => ({ promise })
+export const makeActionCreator = promise => ({ promise })
 
-export const makeFetchMoreAction = ({ types, collection, document, doctype, options }, skip) =>
+export const makeFetchMoreAction = (
+  { types, collection, document, doctype, options },
+  skip
+) =>
   types[0] === FETCH_REFERENCED_FILES
-  ? fetchReferencedFiles(document, skip)
-  : fetchCollection(collection, doctype, options, skip)
+    ? fetchReferencedFiles(document, skip)
+    : fetchCollection(collection, doctype, options, skip)
 
 // selectors
-const mapDocumentsToIds = (documents, doctype, ids) => ids.map(id => documents[doctype][id])
+const mapDocumentsToIds = (documents, doctype, ids) =>
+  ids.map(id => documents[doctype][id])
 
 export const getCollection = (state, name) => {
   const collection = state.cozy.collections[name]
@@ -300,7 +324,11 @@ export const getCollection = (state, name) => {
   }
   return {
     ...collection,
-    data: mapDocumentsToIds(state.cozy.documents, collection.type, collection.ids)
+    data: mapDocumentsToIds(
+      state.cozy.documents,
+      collection.type,
+      collection.ids
+    )
   }
 }
 

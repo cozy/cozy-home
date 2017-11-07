@@ -7,10 +7,7 @@ import {
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
 
-import account, {
-  getConnectionStatus,
-  isQueued
-} from './account'
+import account, { getConnectionStatus, isQueued } from './account'
 
 import { getKonnectorIcon } from '../../lib/icons'
 
@@ -20,14 +17,17 @@ const reducer = (state = {}, action) => {
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
-      return { ...state, [action.account._id]: account(state[action.account._id], action) }
+      return {
+        ...state,
+        [action.account._id]: account(state[action.account._id], action)
+      }
     case PURGE_QUEUE:
       return Object.keys(state).reduce((accounts, accountId) => {
         return { ...accounts, [accountId]: account(state[accountId], action) }
       }, state)
     case DELETE_CONNECTION:
       // mind = blown : https://stackoverflow.com/questions/36553129/what-is-the-shortest-way-to-modify-immutable-objects-using-spread-and-destructur
-      return (({[action.account._id]: deleted, ...state}) => state)(state)
+      return (({ [action.account._id]: deleted, ...state }) => state)(state)
     default:
       return state
   }
@@ -42,6 +42,6 @@ export const getQueuedConnections = (state, registryKonnector) => {
     const icon = getKonnectorIcon(registryKonnector)
     return isQueued(state[accountId])
       ? runningConnections.concat({ label, status, icon })
-        : runningConnections
+      : runningConnections
   }, [])
 }

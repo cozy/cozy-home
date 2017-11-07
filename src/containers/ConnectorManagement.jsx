@@ -7,14 +7,16 @@ import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
 const AUTHORIZED_DATATYPE = require('config/datatypes')
-const isValidType = (type) => AUTHORIZED_DATATYPE.includes(type)
+const isValidType = type => AUTHORIZED_DATATYPE.includes(type)
 
 export default class ConnectorManagement extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = this.context.store
-    const {t} = context
-    const connector = this.store.find(c => c.slug === props.params.connectorSlug)
+    const { t } = context
+    const connector = this.store.find(
+      c => c.slug === props.params.connectorSlug
+    )
     const { name, fields } = connector
 
     this.state = {
@@ -58,11 +60,11 @@ export default class ConnectorManagement extends Component {
       })
   }
 
-  isInstalled (connector) {
+  isInstalled(connector) {
     return connector.state != null && connector.state === 'ready'
   }
 
-  render () {
+  render() {
     const { accounts } = this.state.connector
     const { selectedAccount, isWorking, isClosing } = this.state
     const { t } = this.context
@@ -70,38 +72,44 @@ export default class ConnectorManagement extends Component {
     return (
       <Modal secondaryAction={() => this.gotoParent()}>
         <ModalContent className={styles['col-account-modal']}>
-          {isWorking
-            ? <div className={styles['installing']}>
+          {isWorking ? (
+            <div className={styles['installing']}>
               <div className={styles['installing-spinner']} />
               <div>{t('loading.working')}</div>
             </div>
-            : <AccountConnection
-              existingAccount={accounts.length ? accounts[selectedAccount] : null}
-              alertSuccess={(messages) => this.alertSuccess(messages)}
+          ) : (
+            <AccountConnection
+              existingAccount={
+                accounts.length ? accounts[selectedAccount] : null
+              }
+              alertSuccess={messages => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
               {...this.state}
-              {...this.context} />
-          }
+              {...this.context}
+            />
+          )}
         </ModalContent>
       </Modal>
     )
   }
 
-  alertSuccess (messages) {
+  alertSuccess(messages) {
     const { t } = this.context
 
     Notifier.info([
-      messages.map(item => {
-        return t(item.message, item.params)
-      }).join('.\n')
+      messages
+        .map(item => {
+          return t(item.message, item.params)
+        })
+        .join('.\n')
     ])
 
     this.gotoParent()
   }
 
-  gotoParent () {
-    this.setState({isClosing: true})
+  gotoParent() {
+    this.setState({ isClosing: true })
 
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
@@ -111,31 +119,31 @@ export default class ConnectorManagement extends Component {
     }, 0)
   }
 
-  selectAccount (idx) {
+  selectAccount(idx) {
     this.setState({ selectedAccount: idx })
   }
 
-  sanitize (connector) {
+  sanitize(connector) {
     // remove invalid dataType declaration
     if (!connector.dataType) {
       return connector
     }
 
-    return Object.assign({}, connector,
-      {
-        dataType: connector.dataType.filter(isValidType)
-      }
-    )
+    return Object.assign({}, connector, {
+      dataType: connector.dataType.filter(isValidType)
+    })
   }
 
   // Set default values for advanced fields that will not be shown
   // on the initial connection form
-  configureFields (fields, t, connectorName) {
+  configureFields(fields, t, connectorName) {
     if (fields.calendar && !fields.calendar.default) {
       fields.calendar.default = connectorName
     }
     if (fields.folderPath && !fields.folderPath.options) {
-      fields.folderPath.options = this.store.folders.map(f => f.path + '/' + f.name)
+      fields.folderPath.options = this.store.folders.map(
+        f => f.path + '/' + f.name
+      )
       fields.folderPath.folders = this.store.folders
     }
     if (!fields.frequency) {

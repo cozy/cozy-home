@@ -28,11 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // store
   const store = configureStore(client, initKonnectors, initFolders, context)
 
-  render((
+  render(
     <CozyProvider store={store} client={client}>
-      <I18n lang={lang} dictRequire={(lang) => require(`./locales/${lang}`)} context={context}>
+      <I18n
+        lang={lang}
+        dictRequire={lang => require(`./locales/${lang}`)}
+        context={context}
+      >
         <IntentService window={window} data={data} />
       </I18n>
-    </CozyProvider>
-  ), document.querySelector('[role=application]'))
+    </CozyProvider>,
+    document.querySelector('[role=application]')
+  )
 })

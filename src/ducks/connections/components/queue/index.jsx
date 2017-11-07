@@ -1,13 +1,9 @@
 import Queue from './queue'
 import { connect } from 'react-redux'
 
-import {
-  getConnectionsQueue
-} from '../../../../reducers'
+import { getConnectionsQueue } from '../../../../reducers'
 
-import {
-  purgeQueue
-} from '../../'
+import { purgeQueue } from '../../'
 
 const mapStateToProps = (state, ownProps) => {
   const queue = getConnectionsQueue(state)

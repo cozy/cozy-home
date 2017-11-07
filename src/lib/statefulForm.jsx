@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
-export default function statefulForm (mapPropsToFormConfig) {
-  return function wrapForm (WrappedForm) {
+export default function statefulForm(mapPropsToFormConfig) {
+  return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
-      constructor (props) {
+      constructor(props) {
         super(props)
-        const config = mapPropsToFormConfig ? mapPropsToFormConfig(props) : props
+        const config = mapPropsToFormConfig
+          ? mapPropsToFormConfig(props)
+          : props
         this.state = {
           fields: this.configureFields(config),
           dirty: false,
@@ -15,7 +17,7 @@ export default function statefulForm (mapPropsToFormConfig) {
         }
       }
 
-      componentWillReceiveProps (nextProps) {
+      componentWillReceiveProps(nextProps) {
         if (nextProps.values !== this.props.values) {
           this.assignValues(nextProps.values)
         }
@@ -27,21 +29,25 @@ export default function statefulForm (mapPropsToFormConfig) {
         }
       }
 
-      render () {
+      render() {
         return (
-          <WrappedForm {...this.props} {...this.state} toggleAdvanced={() => this.toggleAdvanced()} />
+          <WrappedForm
+            {...this.props}
+            {...this.state}
+            toggleAdvanced={() => this.toggleAdvanced()}
+          />
         )
       }
 
-      toggleAdvanced () {
+      toggleAdvanced() {
         this.setState(prevState => {
-          return Object.assign({}, prevState,
-            { displayAdvanced: !prevState.displayAdvanced }
-          )
+          return Object.assign({}, prevState, {
+            displayAdvanced: !prevState.displayAdvanced
+          })
         })
       }
 
-      assignValues (values) {
+      assignValues(values) {
         this.setState(prevState => {
           let updated = {}
           Object.keys(values).forEach(key => {
@@ -60,7 +66,7 @@ export default function statefulForm (mapPropsToFormConfig) {
         })
       }
 
-      assignErrors (errors) {
+      assignErrors(errors) {
         this.setState(prevState => {
           let updated = {}
           Object.keys(errors).forEach(key => {
@@ -76,21 +82,31 @@ export default function statefulForm (mapPropsToFormConfig) {
         })
       }
 
-      configureFields (config) {
+      configureFields(config) {
         if (!config || !config.fields) return {}
 
         let fields = {}
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
-          let value = config.values && config.values[field]
-            ? config.values[field] : defaut
+          let value =
+            config.values && config.values[field]
+              ? config.values[field]
+              : defaut
           let options = config.fields[field].options || []
           fields[field] = Object.assign({}, config.fields[field], {
             value: value,
             dirty: false,
             errors: [],
-            onInput: (event) => this.handleChange(field, event.target ? event.target : { value: event }),
-            onChange: (event) => this.handleChange(field, event.target ? event.target : { value: event })
+            onInput: event =>
+              this.handleChange(
+                field,
+                event.target ? event.target : { value: event }
+              ),
+            onChange: event =>
+              this.handleChange(
+                field,
+                event.target ? event.target : { value: event }
+              )
           })
           if (typeof value === 'boolean') fields[field].checked = value
           if (fields[field].type === 'dropdown') fields[field].options = options
@@ -98,7 +114,7 @@ export default function statefulForm (mapPropsToFormConfig) {
         return fields
       }
 
-      handleChange (field, target) {
+      handleChange(field, target) {
         let stateUpdate
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
@@ -122,13 +138,13 @@ export default function statefulForm (mapPropsToFormConfig) {
         })
       }
 
-      handleSubmit () {
+      handleSubmit() {
         if (this.props.onSubmit) {
           return this.props.onSubmit(this.getData())
         }
       }
 
-      getData () {
+      getData() {
         const data = {}
         Object.keys(this.state.fields).forEach(field => {
           data[field] = this.state.fields[field].value

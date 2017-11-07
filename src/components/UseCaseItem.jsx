@@ -17,9 +17,16 @@ const getItemBackground = (figure, context) => {
 }
 
 const UseCaseItem = ({ t, context, useCase, router }) => (
-  <Link className='item-wrapper' to={`${router.location.pathname}/${useCase.slug}`}>
-    <header className='item-header' style={{background: getItemBackground(useCase.figure, context)}} />
-    <p className='use-case-title'>{t(`useCase.${useCase.slug}.title`)}</p>
-  </Link>)
+  <Link
+    className="item-wrapper"
+    to={`${router.location.pathname}/${useCase.slug}`}
+  >
+    <header
+      className="item-header"
+      style={{ background: getItemBackground(useCase.figure, context) }}
+    />
+    <p className="use-case-title">{t(`useCase.${useCase.slug}.title`)}</p>
+  </Link>
+)
 
 export default translate()(withRouter(UseCaseItem))

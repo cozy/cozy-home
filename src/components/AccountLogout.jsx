@@ -5,21 +5,22 @@ import styles from '../styles/accountLogout'
 
 export const AccountLogout = ({ t, deleting, onDelete }) => {
   return (
-
     <div className={styles['col-account-form-delete']}>
       <h4>{t('account.disconnect.title')}</h4>
-      <p>
-        {t('account.disconnect.description')}
-      </p>
+      <p>{t('account.disconnect.description')}</p>
       <button
-        className={classNames('coz-btn', 'coz-btn--danger-outline', styles['coz-btn'])}
+        className={classNames(
+          'coz-btn',
+          'coz-btn--danger-outline',
+          styles['coz-btn']
+        )}
         disabled={deleting}
         aria-busy={deleting}
-        onClick={onDelete}>
+        onClick={onDelete}
+      >
         {t('account.form.button.disconnect')}
       </button>
     </div>
-
   )
 }
 
