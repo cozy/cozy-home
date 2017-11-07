@@ -6,8 +6,8 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorList from './KonnectorList'
 
-import addAccount from '../assets/icons/icon-plus.svg'
-import noKonnectors from '../assets/images/connected-accounts.svg'
+import addAccountIcon from '../assets/icons/icon-plus.svg'
+import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
 
 const ConnectedList = ({ t, connectors, children }) => (
   <div className="content">
@@ -15,7 +15,7 @@ const ConnectedList = ({ t, connectors, children }) => (
       <h1>{t('nav.connected')}</h1>
       <Link to="/category/all">
         <button className="coz-btn coz-btn--regular">
-          <Icon icon={addAccount} className="con-icon--add" />{' '}
+          <Icon icon={addAccountIcon} className="con-icon--add" />{' '}
           {t('add_account')}
         </button>
       </Link>
@@ -23,10 +23,10 @@ const ConnectedList = ({ t, connectors, children }) => (
     {connectors.length ? (
       <KonnectorList connectors={connectors} />
     ) : (
-      <div className="con-noKonnectors">
+      <div className="con-picture-for-emtpy-list">
         <img
-          src={noKonnectors}
-          className="con-noKonnectors--img"
+          src={pictureForEmtpyList}
+          className="con-picture-for-emtpy-list--img"
           alt={t('connector.empty')}
         />
       </div>
