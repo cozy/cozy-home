@@ -297,7 +297,7 @@ export function createTrigger(cozy, konnector, account, folder, options = {}) {
       attributes: {
         type: '@cron',
         frequency: frequency,
-        arguments: `0 ${minutes || 0} ${hours || 0} 0 * * ${day || '*'}`,
+        arguments: `0 ${minutes || 0} ${hours || 0} * * ${day || '*'}`,
         worker: 'konnector',
         worker_arguments: workerArguments
       }
