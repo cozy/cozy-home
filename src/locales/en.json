@@ -134,6 +134,7 @@
 
   "intent": {
     "service": {
+      "return": "Back to connectors list",
       "error": {
         "initialization": "Service failed to initialize. Sorry for the inconvenience.",
         "creation": "Unable to create account, an error occurred.",
