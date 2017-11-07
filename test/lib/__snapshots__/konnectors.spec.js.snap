@@ -2,7 +2,7 @@ exports[`konnectors lib createTrigger creates a trigger 1`] = `
 Object {
   "data": Object {
     "attributes": Object {
-      "arguments": "0 15 14 0 * * 1",
+      "arguments": "0 15 14 * * 1",
       "frequency": "weekly",
       "type": "@cron",
       "worker": "konnector",
@@ -20,7 +20,7 @@ exports[`konnectors lib createTrigger creates a trigger without folder 1`] = `
 Object {
   "data": Object {
     "attributes": Object {
-      "arguments": "0 15 14 0 * * 1",
+      "arguments": "0 15 14 * * 1",
       "frequency": "weekly",
       "type": "@cron",
       "worker": "konnector",
