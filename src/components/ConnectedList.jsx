@@ -7,6 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import KonnectorList from './KonnectorList'
 
 import addAccount from '../assets/icons/icon-plus.svg'
+import noKonnectors from '../assets/images/connected-accounts.svg'
 
 const ConnectedList = ({ t, connectors, children }) => (
   <div className="content">
@@ -19,7 +20,17 @@ const ConnectedList = ({ t, connectors, children }) => (
         </button>
       </Link>
     </div>
-    <KonnectorList connectors={connectors} />
+    {connectors.length ? (
+      <KonnectorList connectors={connectors} />
+    ) : (
+      <div className="con-noKonnectors">
+        <img
+          src={noKonnectors}
+          className="con-noKonnectors--img"
+          alt={t('connector.empty')}
+        />
+      </div>
+    )}
     {children}
   </div>
 )
