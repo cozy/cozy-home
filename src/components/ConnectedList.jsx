@@ -34,7 +34,10 @@ class ConnectedList extends Component {
         <div className="con-top-bar">
           <h1>{t('nav.connected')}</h1>
           <Link to="/category/all">
-            <button className="coz-btn coz-btn--regular">
+            <button
+              className="coz-btn coz-btn--regular"
+              data-tutorial="add-account"
+            >
               <Icon icon={addAccount} className="con-icon--add" />{' '}
               {t('add_account')}
             </button>

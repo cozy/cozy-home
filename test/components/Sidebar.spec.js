@@ -28,9 +28,9 @@ describe('Sidebar component', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should be displayed correctly in categories view', () => {
+  it('should be displayed correctly in providers view', () => {
     const categoryRouter = Object.assign({}, routerMock, {
-      location: { pathname: '/category/' }
+      location: { pathname: '/providers/' }
     })
     const component = shallow(
       <Sidebar t={tMock} categories={categoriesMock} router={categoryRouter} />

@@ -1,73 +1,9 @@
-exports[`Sidebar component should be displayed correctly in categories view 1`] = `
+exports[`Sidebar component should be displayed correctly in providers view 1`] = `
 <aside
   className="coz-sidebar">
   <nav>
     <ul
       className="coz-nav">
-      <li
-        className="coz-nav-item">
-        <Link
-          activeClassName="active"
-          className="coz-nav-link con-cat-discovery"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/discovery">
-          Collect by category
-        </Link>
-      </li>
-      <li
-        className="coz-nav-item">
-        <Link
-          className="coz-nav-link con-cat-categories active"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/category/all">
-          Providers
-        </Link>
-      </li>
-      <ul
-        className="con-nav-submenu">
-        <li>
-          <Link
-            activeClassName="active"
-            className="con-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/category/all">
-            All
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="con-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/category/isp">
-            ISP
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="con-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/category/telecom">
-            Telecom
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="con-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/category/others">
-            Others
-          </Link>
-        </li>
-      </ul>
       <li
         className="coz-nav-item">
         <Link
@@ -79,6 +15,59 @@ exports[`Sidebar component should be displayed correctly in categories view 1`] 
           Connected accounts
         </Link>
       </li>
+      <li
+        className="coz-nav-item">
+        <Link
+          className="coz-nav-link con-cat-categories active"
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/providers/all">
+          Providers
+        </Link>
+      </li>
+      <ul
+        className="con-nav-submenu">
+        <li>
+          <Link
+            activeClassName="active"
+            className="con-nav-submenu-link"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="/providers/all">
+            All
+          </Link>
+        </li>
+        <li>
+          <Link
+            activeClassName="active"
+            className="con-nav-submenu-link"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="/providers/isp">
+            ISP
+          </Link>
+        </li>
+        <li>
+          <Link
+            activeClassName="active"
+            className="con-nav-submenu-link"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="/providers/telecom">
+            Telecom
+          </Link>
+        </li>
+        <li>
+          <Link
+            activeClassName="active"
+            className="con-nav-submenu-link"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="/providers/others">
+            Others
+          </Link>
+        </li>
+      </ul>
     </ul>
   </nav>
 </aside>
@@ -94,11 +83,11 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
         className="coz-nav-item">
         <Link
           activeClassName="active"
-          className="coz-nav-link con-cat-discovery"
+          className="coz-nav-link con-cat-connected"
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/discovery">
-          Collect by category
+          to="/connected">
+          Connected accounts
         </Link>
       </li>
       <li
@@ -107,19 +96,8 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
           className="coz-nav-link con-cat-categories"
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/category/all">
+          to="/providers/all">
           Providers
-        </Link>
-      </li>
-      <li
-        className="coz-nav-item">
-        <Link
-          activeClassName="active"
-          className="coz-nav-link con-cat-connected"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/connected">
-          Connected accounts
         </Link>
       </li>
     </ul>
