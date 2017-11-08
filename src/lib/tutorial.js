@@ -38,7 +38,7 @@ export function display(t) {
       nextLabel: `${t('tutorial.cozy_collect.button')}`,
       steps: [
         {
-          element: document.querySelectorAll('.item-wrapper')[0],
+          element: document.querySelectorAll('[data-tutorial=add-account]')[0],
           intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
             'tutorial.cozy_collect.text'
           )}</div>`,
@@ -91,7 +91,7 @@ export function display(t) {
       }
 
       cozyBarMenuButton.click()
-      window.location.hash = '#/discovery'
+      window.location.hash = '#/connected'
     })
     .start()
   const clickZone =

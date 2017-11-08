@@ -58,7 +58,6 @@ export default class CollectStore {
     }
 
     this.folders = folders
-    this.useCases = require(`../contexts/${context}/index`).useCases
     this.categories = require('../config/categories')
     this.driveUrl = null
 
@@ -228,10 +227,6 @@ export default class CollectStore {
     return updatedConnector
   }
 
-  getUseCases() {
-    return this.useCases
-  }
-
   find(cb) {
     return this.connectors.find(cb)
   }
@@ -250,14 +245,6 @@ export default class CollectStore {
     return this.connectors.filter(
       c => c.dataType && c.dataType.includes(dataType)
     )
-  }
-
-  findByUseCase(slug) {
-    let useCase = this.useCases.find(u => u.slug === slug)
-    return useCase.connectors
-      .map(c1 => this.find(c2 => c1.slug === c2.slug))
-      .filter(item => item !== undefined)
-      .sort(sortByName)
   }
 
   // Get the drive application url using the list of application
