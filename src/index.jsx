@@ -12,11 +12,9 @@ import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 import App from './containers/App'
 import collectConfig from './config/collect'
 import configureStore from './store/configureStore'
-import DiscoveryList from './components/DiscoveryList'
 import CategoryList from './components/CategoryList'
 import ConnectedList from './components/ConnectedList'
 import ConnectorManagement from './containers/ConnectorManagement'
-import UseCaseDialog from './components/UseCaseDialog'
 
 import './styles/index.styl'
 
@@ -70,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ...collectConfig,
     debug: __DEBUG__
   })
-  const useCases = store.getUseCases()
 
   let history = hashHistory
 
@@ -80,10 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     trackerInstance.track(hashHistory.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
   }
 
-  const dictRequire = (lang, context) =>
-    context
-      ? require(`./contexts/${context}/locales/${lang}`)
-      : require(`./locales/${lang}`)
+  const dictRequire = lang => require(`./locales/${lang}`)
 
   render(
     <CozyProvider store={store} client={client}>
