@@ -95,6 +95,14 @@ export default class CozyAPI {
     return { data: [normalized] }
   }
 
+  async createTrigger(doc) {
+    const created = await cozy.client.fetchJSON('POST', '/jobs/triggers', {
+      data: doc
+    })
+    const normalized = { ...created, id: created._id }
+    return { data: [normalized] }
+  }
+
   async updateDocument(doc) {
     const updated = await cozy.client.data.updateAttributes(
       doc.type,
