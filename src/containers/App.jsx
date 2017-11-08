@@ -9,6 +9,7 @@ import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import { initializeRegistry } from '../ducks/registry'
+import { fetchAccounts } from '../ducks/accounts'
 import { fetchKonnectors } from '../ducks/konnectors'
 import { fetchTriggers } from '../ducks/triggers'
 
@@ -73,6 +74,7 @@ const mapActionsToProps = dispatch => ({
 })
 
 const mapDocumentsToProps = ownProps => ({
+  accounts: fetchAccounts(),
   konnectors: fetchKonnectors(),
   triggers: fetchTriggers()
 })
