@@ -13,6 +13,8 @@ import {
   updateConnectionRunningStatus
 } from '../ducks/connections'
 
+import { createKonnectorTrigger } from '../ducks/triggers'
+
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = cat => AUTHORIZED_CATEGORIES.includes(cat)
 
@@ -432,7 +434,25 @@ export default class CollectStore {
                   connection.folder._id
                 )
               })
-              // 7. Run a job for the konnector
+              // 7. Create trigger
+              .then(() =>
+                this.dispatch(
+                  createKonnectorTrigger(
+                    connection.konnector,
+                    connection.account,
+                    connection.folder,
+                    {
+                      frequency: 'weekly',
+                      day: new Date().getDay(),
+                      ...randomDayTime(
+                        konnector.timeInterval ||
+                          this.options.defaultTriggerTimeInterval
+                      )
+                    }
+                  )
+                )
+              )
+              // 8. Run a job for the konnector
               .then(() =>
                 konnectors.run(
                   cozy.client,
@@ -440,7 +460,7 @@ export default class CollectStore {
                   connection.account
                 )
               )
-              // 8. Creates trigger
+              // 9. Handle job
               .then(job => {
                 connection.job = job
 
@@ -449,33 +469,6 @@ export default class CollectStore {
                   konnectors.JOB_STATE.ERRORED,
                   konnectors.JOB_STATE.DONE
                 ].includes(state)
-
-                const slug =
-                  connection.konnector.slug ||
-                  connection.konnector.attributes.slug
-
-                const workerArguments = {
-                  konnector: slug,
-                  account: connection.account._id
-                }
-
-                if (connection.folder) {
-                  workerArguments['folder_to_save'] = connection.folder._id
-                }
-                return konnectors.createTrigger(
-                  cozy.client,
-                  connection.konnector,
-                  connection.account,
-                  connection.folder,
-                  {
-                    frequency: 'weekly',
-                    day: new Date().getDay(),
-                    ...randomDayTime(
-                      konnector.timeInterval ||
-                        this.options.defaultTriggerTimeInterval
-                    )
-                  }
-                )
               })
               .then(() => {
                 const { konnector, account } = connection
