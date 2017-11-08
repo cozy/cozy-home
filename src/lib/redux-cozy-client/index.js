@@ -15,6 +15,7 @@ export {
   getCollection,
   getDocument,
   createDocument,
+  createTrigger,
   updateDocument,
   deleteDocument,
   createFile,

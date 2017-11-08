@@ -284,6 +284,13 @@ export const createDocument = (doctype, doc, actionOptions = {}) => ({
   ...actionOptions
 })
 
+export const createTrigger = (doc, actionOptions = {}) => ({
+  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  document: doc,
+  promise: client => client.createTrigger(doc),
+  ...actionOptions
+})
+
 export const updateDocument = (doc, actionOptions = {}) => ({
   types: [UPDATE_DOCUMENT, RECEIVE_UPDATED_DOCUMENT, RECEIVE_ERROR],
   document: doc,
