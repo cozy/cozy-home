@@ -139,7 +139,6 @@ class AccountConnection extends Component {
             this.setState({
               connector: konnector,
               isConnected: konnector.accounts.length !== 0,
-              selectedAccount: currentIdx,
               submitting: false
             })
             this.handleConnectionSuccess(connection.successTimeout)

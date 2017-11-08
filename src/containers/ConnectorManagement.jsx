@@ -1,6 +1,10 @@
 import styles from '../styles/connectorManagement.styl'
 
 import React, { Component } from 'react'
+import { cozyConnect } from 'redux-cozy-client'
+
+import { fetchAccount } from '../ducks/accounts'
+import { getKonnectorConnectedAccount } from '../ducks/connections'
 
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
@@ -9,7 +13,7 @@ import Notifier from '../components/Notifier'
 const AUTHORIZED_DATATYPE = require('config/datatypes')
 const isValidType = type => AUTHORIZED_DATATYPE.includes(type)
 
-export default class ConnectorManagement extends Component {
+class ConnectorManagement extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
@@ -24,7 +28,6 @@ export default class ConnectorManagement extends Component {
       isConnected: connector.accounts.length !== 0 && !connector.accounts.error,
       isInstalled: this.isInstalled(connector),
       isWorking: true,
-      selectedAccount: 0,
       fields: fields,
       submitting: false,
       synching: false,
@@ -65,10 +68,8 @@ export default class ConnectorManagement extends Component {
   }
 
   render() {
-    const { accounts } = this.state.connector
-    const { selectedAccount, isWorking, isClosing } = this.state
+    const { existingAccount, isWorking, isClosing } = this.state
     const { t } = this.context
-
     return (
       <Modal secondaryAction={() => this.gotoParent()}>
         <ModalContent className={styles['col-account-modal']}>
@@ -79,9 +80,7 @@ export default class ConnectorManagement extends Component {
             </div>
           ) : (
             <AccountConnection
-              existingAccount={
-                accounts.length ? accounts[selectedAccount] : null
-              }
+              existingAccount={existingAccount}
               alertSuccess={messages => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
@@ -119,10 +118,6 @@ export default class ConnectorManagement extends Component {
     }, 0)
   }
 
-  selectAccount(idx) {
-    this.setState({ selectedAccount: idx })
-  }
-
   sanitize(connector) {
     // remove invalid dataType declaration
     if (!connector.dataType) {
@@ -134,3 +129,21 @@ export default class ConnectorManagement extends Component {
     })
   }
 }
+
+const mapActionsToProps = dispatch => ({})
+
+const mapDocumentsToProps = (state, ownProps) => {
+  return {
+    existingAccount: () => {
+      const id = getKonnectorConnectedAccount(
+        state.connections,
+        ownProps.konnector
+      )
+      return id ? fetchAccount(id) : null
+    }
+  }
+}
+
+export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(
+  ConnectorManagement
+)
