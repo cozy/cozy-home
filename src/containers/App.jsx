@@ -10,6 +10,7 @@ import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import { initializeRegistry } from '../ducks/registry'
 import { fetchKonnectors } from '../ducks/konnectors'
+import { fetchTriggers } from '../ducks/triggers'
 
 class App extends Component {
   constructor(props, context) {
@@ -72,7 +73,8 @@ const mapActionsToProps = dispatch => ({
 })
 
 const mapDocumentsToProps = ownProps => ({
-  konnectors: fetchKonnectors()
+  konnectors: fetchKonnectors(),
+  triggers: fetchTriggers()
 })
 
 export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
