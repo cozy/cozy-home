@@ -13,7 +13,6 @@ export const KonnectorSuccess = ({
   isTimeout,
   folderPath,
   folderId,
-  onAccountConfig,
   onCancel,
   driveUrl
 }) => {
@@ -54,18 +53,6 @@ export const KonnectorSuccess = ({
 
       <div className={styles['coz-form-controls']}>
         <div className={styles['col-account-form-success-buttons']}>
-          <p>
-            <button
-              className={classNames(
-                'coz-btn',
-                'coz-btn--secondary',
-                styles['coz-btn']
-              )}
-              onClick={onAccountConfig}
-            >
-              {t('account.success.button.config')}
-            </button>
-          </p>
           <p>
             <button
               className={classNames(
