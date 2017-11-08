@@ -32,7 +32,7 @@ class ConnectedList extends Component {
     return (
       <div className="content">
         <div className="con-top-bar">
-          <h1>{t('nav.connected')}</h1>
+          <h1 className="con-top-bar-title">{t('nav.connected')}</h1>
           <Link to="/category/all">
             <button
               className="coz-btn coz-btn--regular"
