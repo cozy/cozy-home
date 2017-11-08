@@ -99,60 +99,24 @@ document.addEventListener('DOMContentLoaded', () => {
               />
             )}
           >
-            <Redirect from="/" to="/discovery" />
+            <Redirect from="/" to="/connected" />
             <Route
-              path="/discovery"
+              path="/connected"
               component={props => (
-                <DiscoveryList
-                  useCases={useCases}
-                  context={context}
-                  {...props}
-                />
+                <ConnectedList connectors={store.findConnected()} {...props} />
               )}
             >
-              <Route
-                path=":useCase"
-                component={props => (
-                  <UseCaseDialog
-                    item={useCases.find(u => u.slug === props.params.useCase)}
-                    connectors={store.findByUseCase(props.params.useCase)}
-                    context={context}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path=":useCase/:connectorSlug"
-                component={props => (
-                  <div className="multi-dialogs-wrapper">
-                    <UseCaseDialog
-                      item={useCases.find(u => u.slug === props.params.useCase)}
-                      connectors={store.findByUseCase(props.params.useCase)}
-                      context={context}
-                      {...props}
-                    />
-                    <ConnectorManagement {...props} />
-                  </div>
-                )}
-              />
+              <Route path=":connectorSlug" component={ConnectorManagement} />
             </Route>
-            <Redirect from="/category" to="/category/all" />
+            <Redirect from="/providers" to="/providers/all" />
             <Route
-              path="/category/:filter"
+              path="/providers/:filter"
               component={props => (
                 <CategoryList
                   category={props.params.filter}
                   connectors={store.findByCategory(props.params)}
                   {...props}
                 />
-              )}
-            >
-              <Route path=":connectorSlug" component={ConnectorManagement} />
-            </Route>
-            <Route
-              path="/connected"
-              component={props => (
-                <ConnectedList connectors={store.findConnected()} {...props} />
               )}
             >
               <Route path=":connectorSlug" component={ConnectorManagement} />
