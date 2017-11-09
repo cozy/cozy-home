@@ -39,12 +39,20 @@
             height    48px
 
 .con-icon--add
-    width           10px
-    height          10px
+    width           16px
+    height          16px
+    // Center the picto without enlarging the button height
+    position        relative
+    top             3px
+    margin-top      -3px
 
 .con-picture-for-emtpy-list
-    display         flex
-    justify-content center
+    text-align      center
     &--img
-        max-width   800px
+        max-width   400px
         width       100%
+    h2
+        font-size   em(18px)
+        line-height em(24px)
+    p
+        color       'cool-grey'
