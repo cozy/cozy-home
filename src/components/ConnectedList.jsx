@@ -7,8 +7,8 @@ import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
 import KonnectorList from './KonnectorList'
 
-import addAccount from '../assets/icons/icon-plus.svg'
-import noKonnectors from '../assets/images/connected-accounts.svg'
+import addAccountIcon from '../assets/icons/icon-plus.svg'
+import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -33,25 +33,37 @@ class ConnectedList extends Component {
       <div className="content">
         <div className="con-top-bar">
           <h1 className="con-top-bar-title">{t('nav.connected')}</h1>
-          <Link to="/category/all">
-            <button
-              className="coz-btn coz-btn--regular"
-              data-tutorial="add-account"
-            >
-              <Icon icon={addAccount} className="con-icon--add" />{' '}
-              {t('add_account')}
-            </button>
-          </Link>
+          {connectors.length > 0 && (
+            <Link to="/providers/all">
+              <button
+                className="coz-btn coz-btn--regular"
+                data-tutorial="add-account"
+              >
+                <Icon icon={addAccountIcon} className="con-icon--add" />{' '}
+                {t('add_account')}
+              </button>
+            </Link>
+          )}
         </div>
         {connectors.length ? (
           <KonnectorList connectors={connectors} />
         ) : (
-          <div className="con-noKonnectors">
+          <div className="con-picture-for-emtpy-list">
             <img
-              src={noKonnectors}
-              className="con-noKonnectors--img"
+              src={pictureForEmtpyList}
+              className="con-picture-for-emtpy-list--img"
               alt={t('connector.empty')}
             />
+            <h2>{t('connector.no-connectors-connected')}</h2>
+            <p>{t('connector.get-info')}</p>
+            <Link to="/providers/all">
+              <button
+                className="coz-btn coz-btn--regular"
+                data-tutorial="add-account"
+              >
+                {t('connector.connect-account')}
+              </button>
+            </Link>
           </div>
         )}
         {children}
