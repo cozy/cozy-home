@@ -3,13 +3,16 @@
 import konnectors from './konnectors'
 
 // constant
-const INITIALIZE_REGISTRY_KONNECTORS = 'INITIALIZE_REGISTRY_KONNECTORS'
+const FETCH_REGISTRY_KONNECTORS = 'FETCH_REGISTRY_KONNECTORS'
+const FETCH_REGISTRY_KONNECTORS_ERROR = 'FETCH_REGISTRY_KONNECTORS_ERROR'
+const FETCH_REGISTRY_KONNECTORS_SUCCESS = 'FETCH_REGISTRY_KONNECTORS_SUCCESS'
 
 // reducers
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
-    case INITIALIZE_REGISTRY_KONNECTORS:
+    case FETCH_REGISTRY_KONNECTORS:
+    case FETCH_REGISTRY_KONNECTORS_SUCCESS:
       return {
         konnectors: konnectors(state.konnectors, action)
       }
@@ -21,15 +24,19 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
-
-export const getRegistryKonnectors = state => state.registry.konnectors
-export const getRegistryKonnector = (state, slug) =>
-  state.registry.konnectors.find(konnector => konnector.slug === slug)
+export const getRegistryKonnectors = state => state.konnectors
+export const getRegistryKonnector = (state, slug) => {
+  return state.konnectors.data[slug]
+}
+export const isFetchingRegistryKonnector = state => {
+  return state.konnectors.fetchStatus === 'loading'
+}
 
 // action creators sync
 
 export const initializeRegistry = konnectors => {
   return (dispatch, getState) => {
+    dispatch({ type: FETCH_REGISTRY_KONNECTORS })
     return cozy.client
       .fetchJSON('GET', '/settings/context')
       .then(context => {
@@ -37,16 +44,16 @@ export const initializeRegistry = konnectors => {
           context.attributes && context.attributes.exclude_konnectors
         if (konnectorsToExclude && konnectorsToExclude.length) {
           return dispatch({
-            type: INITIALIZE_REGISTRY_KONNECTORS,
+            type: FETCH_REGISTRY_KONNECTORS_SUCCESS,
             konnectors: konnectors.filter(
               k => !konnectorsToExclude.includes(k.slug)
             )
           })
         }
-        dispatch({ type: INITIALIZE_REGISTRY_KONNECTORS, konnectors })
+        dispatch({ type: FETCH_REGISTRY_KONNECTORS_SUCCESS, konnectors })
       })
       .catch(() => {
-        dispatch({ type: INITIALIZE_REGISTRY_KONNECTORS, konnectors })
+        dispatch({ type: FETCH_REGISTRY_KONNECTORS_ERROR, konnectors })
       })
   }
 }

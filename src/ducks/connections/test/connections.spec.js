@@ -193,16 +193,18 @@ describe('Connections Duck', () => {
     describe('getQueue', () => {
       it('returns one queued connection per queued account', () => {
         const state = {
-          testprovider: {
-            '17375ac5a59e4d6585fc7d1e1c75ec74': {},
-            '63c670ea9d7b11e7b5888c88b1c12d46': {
-              isRunning: true,
-              isQueued: true
-            },
-            '768ccdaa9d7b11e7869aae88b1c12d46': {
-              isQueued: true,
-              error: {
-                message: 'test error'
+          data: {
+            testprovider: {
+              '17375ac5a59e4d6585fc7d1e1c75ec74': {},
+              '63c670ea9d7b11e7b5888c88b1c12d46': {
+                isRunning: true,
+                isQueued: true
+              },
+              '768ccdaa9d7b11e7869aae88b1c12d46': {
+                isQueued: true,
+                error: {
+                  message: 'test error'
+                }
               }
             }
           }

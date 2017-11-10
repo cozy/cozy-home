@@ -79,8 +79,10 @@ export const updateConnectionRunningStatus = (
 
 // selectors
 export const getQueue = (state, konnectorsRegistry) => {
-  return Object.keys(state).reduce((runningConnections, konnectorSlug) => {
-    const konnectorAccounts = state[konnectorSlug]
+  // Todo: not sur if storing into data is a good idea.
+  if (!state.data) return []
+  return Object.keys(state.data).reduce((runningConnections, konnectorSlug) => {
+    const konnectorAccounts = state.data[konnectorSlug]
     return runningConnections.concat(
       getQueuedConnections(konnectorAccounts, konnectorsRegistry[konnectorSlug])
     )
