@@ -35,6 +35,13 @@ const reducer = (state = {}, action) => {
 
 export default reducer
 
+export const getKonnectorAccount = state => {
+  // state is an object containing a set of id: account
+  // At this time, it contains only one account.
+  if (!state) return null
+  return state[Object.keys(state)[0]]
+}
+
 export const getQueuedConnections = (state, registryKonnector) => {
   return Object.keys(state).reduce((runningConnections, accountId) => {
     const label = registryKonnector.name
