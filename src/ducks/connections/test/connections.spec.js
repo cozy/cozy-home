@@ -4,6 +4,7 @@ import connections, {
   createConnection,
   deleteConnection,
   enqueueConnection,
+  getKonnectorConnectedAccount,
   getQueue,
   purgeQueue,
   updateConnectionError,
@@ -190,6 +191,38 @@ describe('Connections Duck', () => {
   })
 
   describe('Selectors', () => {
+    describe('getKonnectorConnectedAccount', () => {
+      it("returns the first konnector's connected account", () => {
+        const state = {
+          testprovider: {
+            '17375ac5a59e4d6585fc7d1e1c75ec74': {},
+            '63c670ea9d7b11e7b5888c88b1c12d46': {},
+            '768ccdaa9d7b11e7869aae88b1c12d46': {}
+          }
+        }
+
+        const konnector = { slug: 'testprovider' }
+
+        expect(getKonnectorConnectedAccount(state, konnector)).toMatchSnapshot()
+      })
+
+      it('returns null when no konnector is registered with a connection', () => {
+        expect(
+          getKonnectorConnectedAccount({}, { slug: 'testprovider' })
+        ).toMatchSnapshot()
+      })
+
+      it('returns null when konnector does not have account', () => {
+        const state = {
+          testprovider: {}
+        }
+
+        const konnector = { slug: 'testprovider' }
+
+        expect(getKonnectorConnectedAccount(state, konnector)).toMatchSnapshot()
+      })
+    })
+
     describe('getQueue', () => {
       it('returns one queued connection per queued account', () => {
         const state = {

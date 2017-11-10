@@ -1,4 +1,7 @@
-import konnector, { getQueuedConnections } from './konnector'
+import konnector, {
+  getQueuedConnections,
+  getKonnectorAccount
+} from './konnector'
 
 // constant
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
@@ -78,6 +81,10 @@ export const updateConnectionRunningStatus = (
 })
 
 // selectors
+export const getKonnectorConnectedAccount = (state, konnector) => {
+  return getKonnectorAccount(state[konnector.slug])
+}
+
 export const getQueue = (state, konnectorsRegistry) => {
   // Todo: not sur if storing into data is a good idea.
   if (!state.data) return []
