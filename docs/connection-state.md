@@ -42,3 +42,32 @@ In this document we'll gather all information and parameters needed to get the c
 >    * `RUNNING`: display a loading spinner
 >    * `CONNECTED`: display a success icon
 >    * `ERRORED`: display an error icon
+
+## Triggers V2
+
+_Triggers v2_ is the name of the next implementation of the whole konnector logic. The connection statues will change consequently.
+KonnectorResults documents will be deprecated and all information about connection will be centralized into Trigger documents.
+The condition for connection state will be:
+
+* `NOT CONNECTED`
+    * NOT existing Trigger
+
+A new state `CREATING` may be used, to indicate that he connection is intializing itself, before the trigger is created.
+
+* `CREATING`
+    * Directory `CREATING`
+    * OR Konnector `INSTALLING`
+    * OR Account `CREATING`
+
+* `RUNNING`
+    * Trigger exists
+    * AND : Job `RUNNING`
+
+* `CONNECTED`
+    * Trigger exists
+    * AND Job `DONE`
+
+* `ERRORED`
+    * Konnector `ERRORED`
+    * OR Trigger exists
+      * AND Job `ERRORED`
