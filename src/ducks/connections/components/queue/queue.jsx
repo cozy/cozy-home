@@ -10,30 +10,62 @@ const Pending = translate()(props => (
   </span>
 ))
 
-const Item = translate()(({ t, label, status, icon }) => {
-  return (
-    <div
-      className={classNames(styles['queue-item'], {
-        [styles['queue-item--done']]: status === 'done',
-        [styles['queue-item--error']]: status === 'error'
-      })}
-    >
-      <div className={classNames(styles['item-icon'])}>
-        {icon && (
-          <img className={classNames(styles['item-icon-img'])} src={icon} />
-        )}
+class Item extends Component {
+  state = {
+    progress: 0
+  }
+  componentDidMount() {
+    let elapsedTime = 0
+    this.myInterval = setInterval(() => {
+      elapsedTime += 10
+      let progress = Math.atan(elapsedTime / 3e3) / (Math.PI / 2) * 90
+      this.setState({
+        progress: progress
+      })
+    }, 25)
+  }
+  componentDidUpdate = prevProps => {
+    if (prevProps.status !== this.props.status) {
+      clearInterval(this.myInterval)
+      this.progressBar.remove()
+    }
+  }
+  render() {
+    const { label, status, icon } = this.props
+    const { progress } = this.state
+    return (
+      <div
+        className={classNames(styles['queue-item'], {
+          [styles['queue-item--done']]: status === 'done',
+          [styles['queue-item--error']]: status === 'error'
+        })}
+      >
+        <div className={classNames(styles['item-icon'])}>
+          {icon && (
+            <img className={classNames(styles['item-icon-img'])} src={icon} />
+          )}
+        </div>
+        <div className={classNames(styles['item-label'])}>{label}</div>
+        <div className={styles['item-status']}>
+          {status === 'pending' ? (
+            <Pending />
+          ) : (
+            <div className={styles[`item-${status}`]} />
+          )}
+        </div>
+        <div
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          className={classNames(styles['queue-item-progress-bar'])}
+          style={{ width: `${progress}%` }}
+          ref={progressBar => (this.progressBar = progressBar)}
+        />
       </div>
-      <div className={classNames(styles['item-label'])}>{label}</div>
-      <div className={styles['item-status']}>
-        {status === 'pending' ? (
-          <Pending />
-        ) : (
-          <div className={styles[`item-${status}`]} />
-        )}
-      </div>
-    </div>
-  )
-})
+    )
+  }
+}
 
 class Queue extends Component {
   state = {

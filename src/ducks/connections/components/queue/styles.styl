@@ -96,6 +96,15 @@
     width: 100%
     max-width: 'calc(100vw - %s)' % em(220px)
     border-bottom: 1px solid silver
+    position: relative
+
+    &-progress-bar
+        position: absolute
+        height: 48px
+        background-color: #F5F6F7
+        border-top: #297EF1 solid em(2px)
+        z-index: -1
+
 
     .item-label
         flex: 0 1 100%
