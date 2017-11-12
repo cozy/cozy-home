@@ -101,6 +101,16 @@ export default class CozyStackAdapter {
     return { data: [normalized] }
   }
 
+  async launchTrigger(doc) {
+    const job = await cozy.client.fetchJSON(
+      'POST',
+      `/jobs/triggers/${doc._id}/launch`
+    )
+
+    const normalized = { ...job, id: job._id }
+    return { data: [normalized] }
+  }
+
   async updateDocument(doc) {
     const updated = await cozy.client.data.updateAttributes(
       doc._type,

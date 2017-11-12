@@ -16,6 +16,7 @@ export {
   getDocument,
   createDocument,
   createTrigger,
+  launchTrigger,
   updateDocument,
   deleteDocument,
   createFile,

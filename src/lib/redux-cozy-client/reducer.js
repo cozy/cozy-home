@@ -9,6 +9,7 @@ import synchronization from './slices/synchronization'
 
 const FETCH_DOCUMENT = 'FETCH_DOCUMENT'
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
+const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 const RECEIVE_DATA = 'RECEIVE_DATA'
 const RECEIVE_ERROR = 'RECEIVE_ERROR'
 export const CREATE_DOCUMENT = 'CREATE_DOCUMENT'
@@ -288,6 +289,13 @@ export const createTrigger = (doc, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
   document: doc,
   promise: client => client.createTrigger(doc),
+  ...actionOptions
+})
+
+export const launchTrigger = (trigger, actionOptions = {}) => ({
+  types: [LAUNCH_TRIGGER, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  trigger: trigger,
+  promise: client => client.launchTrigger(trigger),
   ...actionOptions
 })
 
