@@ -99,6 +99,10 @@ export default class CozyClient {
     return this.getAdapter(doc._type).createTrigger(doc)
   }
 
+  launchTrigger(doc) {
+    return this.getAdapter(doc._type).launchTrigger(doc)
+  }
+
   updateDocument(doc) {
     return this.getAdapter(doc._type).updateDocument(doc)
   }
