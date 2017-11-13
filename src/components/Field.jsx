@@ -138,7 +138,6 @@ export const PasswordField = translate()(
       <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
         <button
           type="button"
-          tabIndex="-1"
           title={
             visible
               ? t('field.password.visibility.title.hide')

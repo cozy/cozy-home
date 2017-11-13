@@ -52,7 +52,7 @@ class AccountConnection extends Component {
       return auth.folderPath
     }
 
-    return folderField.default || t('account.config.default_folder', connector)
+    return folderField.default || t('account.config.default_folder')
   }
 
   componentWillReceiveProps({ existingAccount }) {
@@ -272,6 +272,10 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   submit(values) {
+    // pahtName defined (or not) by the user is concatened with the folderPath
+    values.pathName &&
+      (values.folderPath = `${values.folderPath}/${values.pathName}`)
+
     this.setState({
       error: null
     })

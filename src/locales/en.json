@@ -48,6 +48,7 @@
         "apikey": "Api key",
         "phoneNumber": "Phone number",
         "folderPath": "Folder path",
+        "pathName": "Path name",
         "authCode": "Auth code",
         "accountName": "Account name",
         "loginUrl": "Login URL",

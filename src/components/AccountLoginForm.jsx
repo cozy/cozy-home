@@ -54,8 +54,10 @@ export const AccountLoginForm = props => {
     values,
     submit,
     connectorSlug,
+    connectorName,
     isSuccess,
     disableSuccessTimeout,
+    disableFolderPath,
     isUnloading,
     displayAdvanced,
     toggleAdvanced
@@ -105,7 +107,8 @@ export const AccountLoginForm = props => {
       onEnterKey,
       giveFocus,
       label: t(`account.form.label.${label || name}`),
-      value: isUnloading ? '' : hydrate(value)
+      value: isUnloading ? '' : hydrate(value),
+      placeholder: name === 'pathName' && connectorName
     }
     return (
       <div>
@@ -135,6 +138,7 @@ export const AccountLoginForm = props => {
           </fieldset>
         )}
       {!displayAdvanced &&
+        !disableFolderPath &&
         !!advancedFields.length && (
           <button
             type="button"
