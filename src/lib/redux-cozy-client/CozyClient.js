@@ -3,6 +3,7 @@ import DataAccessFacade from './DataAccessFacade'
 import { authenticateWithCordova } from './authentication/mobile'
 
 const FILES_DOCTYPE = 'io.cozy.files'
+const JOBS_DOCTYPE = 'io.cozy.jobs'
 const SHARINGS_DOCTYPE = 'io.cozy.sharings'
 
 export default class CozyClient {
@@ -81,6 +82,10 @@ export default class CozyClient {
 
   fetchReferencedFiles(doc, skip = 0) {
     return this.getAdapter(doc._type).fetchReferencedFiles(doc, skip)
+  }
+
+  fetchTriggerJobs(name, worker, options = {}, skip = 0) {
+    return this.getAdapter(JOBS_DOCTYPE).fetchTriggerJobs(worker)
   }
 
   addReferencedFiles(doc, ids) {

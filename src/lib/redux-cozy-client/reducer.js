@@ -277,6 +277,15 @@ export const fetchReferencedFiles = (doc, skip = 0) => ({
   promise: client => client.fetchReferencedFiles(doc, skip)
 })
 
+export const fetchTriggerJobs = (name, worker, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.jobs',
+  options,
+  skip,
+  promise: client => client.fetchTriggerJobs(name, worker, options, skip)
+})
+
 export const createDocument = (doctype, doc, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
   doctype,
@@ -392,6 +401,7 @@ const mapDocumentsToIds = (documents, doctype, ids) =>
   ids.map(id => documents[doctype][id])
 
 export const getCollection = (state, name) => {
+  console.debug('getCollection', state, name)
   const collection = state.cozy.collections[name]
   if (!collection) {
     return { ...collectionInitialState, data: null }
