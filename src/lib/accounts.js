@@ -71,7 +71,10 @@ export function getAccountsByType(cozy, accountType) {
   return indexAccountsByType(cozy)
     .then(index =>
       cozy.data.query(index, {
-        selector: { account_type: accountType }
+        selector: {
+          account_type: accountType,
+          name: { $exists: true }
+        }
       })
     )
     .then((accounts = []) =>
@@ -89,7 +92,10 @@ export function getAccountsByType(cozy, accountType) {
 export function getAllAccounts(cozy) {
   return indexAccountsByType(cozy).then(index => {
     return cozy.data.query(index, {
-      selector: { account_type: { $gt: null } }
+      selector: {
+        account_type: { $exists: true },
+        name: { $exists: true }
+      }
     })
   })
 }

@@ -166,7 +166,10 @@ describe('accounts library', () => {
       expect(cozyMock.data.query.mock.calls.length).toBe(1)
       expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
       expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-        selector: { account_type: accountType }
+        selector: {
+          account_type: accountType,
+          name: { $exists: true }
+        }
       })
 
       // "pseudo-caching" test
@@ -178,7 +181,10 @@ describe('accounts library', () => {
         expect(cozyMock.data.query.mock.calls.length).toBe(2)
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-          selector: { account_type: accountType }
+          selector: {
+            account_type: accountType,
+            name: { $exists: true }
+          }
         })
       })
     })
@@ -199,7 +205,10 @@ describe('accounts library', () => {
       expect(cozyMock.data.query.mock.calls.length).toBe(1)
       expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
       expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-        selector: { account_type: { $gt: null } }
+        selector: {
+          account_type: { $exists: true },
+          name: { $exists: true }
+        }
       })
 
       // "pseudo-caching" test
@@ -211,7 +220,10 @@ describe('accounts library', () => {
         expect(cozyMock.data.query.mock.calls.length).toBe(2)
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
-          selector: { account_type: { $gt: null } }
+          selector: {
+            account_type: { $exists: true },
+            name: { $exists: true }
+          }
         })
       })
     })
