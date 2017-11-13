@@ -181,6 +181,30 @@ export default class CozyStackAdapter {
     }
   }
 
+  async fetchTriggerJobs(worker, skip = 0) {
+    const { data, meta } = await cozy.client.fetchJSON(
+      'GET',
+      `/jobs/triggers/jobs?Worker=${worker}`,
+      null,
+      {
+        processJSONAPI: false
+      }
+    )
+
+    return {
+      data: data
+        ? data.map(job => ({
+            ...job,
+            ...job.attributes,
+            _type: 'io.cozy.jobs'
+          }))
+        : [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    }
+  }
+
   async addReferencedFiles(doc, ids) {
     await cozy.client.data.addReferencedFiles(doc, ids)
     return ids

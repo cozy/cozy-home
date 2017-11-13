@@ -8,6 +8,7 @@ export {
   fetchCollection,
   fetchDocument,
   fetchReferencedFiles,
+  fetchTriggerJobs,
   addReferencedFiles,
   removeReferencedFiles,
   applySelectorForAction,
