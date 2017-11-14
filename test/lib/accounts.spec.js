@@ -159,16 +159,14 @@ describe('accounts library', () => {
         accounts.ACCOUNTS_DOCTYPE
       )
       expect(cozyMock.data.defineIndex.mock.calls[0][1]).toEqual([
-        'account_type',
-        'name'
+        'account_type'
       ])
       // fetching
       expect(cozyMock.data.query.mock.calls.length).toBe(1)
       expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
       expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
         selector: {
-          account_type: accountType,
-          name: { $exists: true }
+          account_type: accountType
         }
       })
 
@@ -182,8 +180,7 @@ describe('accounts library', () => {
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
           selector: {
-            account_type: accountType,
-            name: { $exists: true }
+            account_type: accountType
           }
         })
       })
@@ -206,8 +203,7 @@ describe('accounts library', () => {
       expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
       expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
         selector: {
-          account_type: { $exists: true },
-          name: { $exists: true }
+          account_type: { $gt: null }
         }
       })
 
@@ -221,8 +217,7 @@ describe('accounts library', () => {
         expect(cozyMock.data.query.mock.calls[0][0]).toBe(indexMock)
         expect(cozyMock.data.query.mock.calls[0][1]).toEqual({
           selector: {
-            account_type: { $exists: true },
-            name: { $exists: true }
+            account_type: { $gt: null }
           }
         })
       })
