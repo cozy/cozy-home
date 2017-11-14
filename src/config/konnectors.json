@@ -734,10 +734,12 @@
     ],
     "fields": {
       "login": {
-        "type": "text"
+        "type": "text",
+        "pattern": "^.{9}$"
       },
       "password": {
-        "type": "password"
+        "type": "password",
+        "pattern": "^.{4,15}$"
       },
       "folderPath": {
         "type": "folder",

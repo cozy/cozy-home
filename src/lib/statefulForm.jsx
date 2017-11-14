@@ -90,6 +90,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         let fields = {}
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
+          let pattern = config.fields[field].pattern || ''
           let value =
             config.values && config.values[field]
               ? config.values[field]
@@ -99,6 +100,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: value,
             dirty: false,
             errors: [],
+            pattern,
             onInput: event =>
               this.handleChange(
                 field,
@@ -120,6 +122,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         const { t } = this.context
         let stateUpdate
         let errors = []
+        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -134,6 +137,16 @@ export default function statefulForm(mapPropsToFormConfig) {
         }
         if (target.type && target.type === 'email') {
           if (target.value && !isValidEmail(target.value)) {
+            errors.push(
+              t('account.message.error.validation', {
+                name: t(`account.form.label.${field}`)
+              })
+            )
+          }
+        }
+        if (pattern) {
+          const validation = new RegExp(pattern)
+          if (target.value && !validation.test(target.value)) {
             errors.push(
               t('account.message.error.validation', {
                 name: t(`account.form.label.${field}`)
