@@ -1,4 +1,4 @@
-.connector-list, .use-cases-list
+.connector-list
     display          flex
     flex-wrap        wrap
     justify-content  flex-start
@@ -6,6 +6,7 @@
     list-style       none
 
 ul.connector-list
+    margin-top       60px
     padding          0 20px
 
 // We differenciate the "real" margin from the "used" margin. The "used" margin
@@ -68,18 +69,13 @@ $item-margin = .8em
         bottom   1em
         right    1em
 
-.con-voting-item
+.col-voting-item
     border      2px dashed alpha(black, .15)
     &:hover
         box-shadow  none
     .item-title
         font-size   1em
         font-weight 500
-
-.use-cases-list
-    .item-wrapper
-        box-shadow  0 2px 6px 0 alpha(black, .15)
-        border      0
 
 // Dedicated for IE 11 which seems not to take the default 100% into account.
 @media (min-width: 1em)

@@ -23,7 +23,6 @@ export const KonnectorInstall = ({
   isTimeout,
   isUnloading,
   oAuthTerminated,
-  onAccountConfig,
   onCancel,
   onDelete,
   onSubmit,
@@ -91,7 +90,6 @@ export const KonnectorInstall = ({
             folderPath={folderPath}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
-            onAccountConfig={onAccountConfig}
             onCancel={onCancel}
             success={success}
           />

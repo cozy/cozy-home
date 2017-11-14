@@ -288,10 +288,6 @@ class AccountConnection extends Component {
     this.props.onCancel()
   }
 
-  goToConfig() {
-    this.setState({ success: null, editing: true })
-  }
-
   forceConnection() {
     this.setState({ submitting: true })
     this.store
@@ -363,7 +359,6 @@ class AccountConnection extends Component {
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
-            onAccountConfig={() => this.goToConfig()}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteAccount()}
             onSubmit={values => this.submit(values)}

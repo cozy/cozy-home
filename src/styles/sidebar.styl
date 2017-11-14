@@ -1,28 +1,23 @@
-.con-wrapper // @stylint ignore
+.col-wrapper // @stylint ignore
     @extend $sidebar
     @extend $navigation
 
     .coz-nav
         padding 0
 
-.con-cat-discovery
-    background: embedurl('../assets/sprites/icon-compass.svg') em(24px) center no-repeat
-    &.active
-        background-image: embedurl('../assets/sprites/icon-compass-active.svg')
-.con-cat-categories
+.col-cat-categories
     background: embedurl('../assets/sprites/icon-categories.svg') em(24px) center no-repeat
     &.active
         background-image: embedurl('../assets/sprites/icon-categories-active.svg')
-.con-cat-connected
+.col-cat-connected
     background: embedurl('../assets/sprites/icon-pin.svg') em(24px) center no-repeat
     &.active
         background-image: embedurl('../assets/sprites/icon-pin-active.svg')
 
 
 @media (max-width: (1023/basefont)rem)
-    .con-cat-discovery
-    .con-cat-categories
-    .con-cat-connected
+    .col-cat-categories
+    .col-cat-connected
         background-position center top
 
     // need this due to no css-modules usage in this app
@@ -32,11 +27,11 @@
 
 
 // related to categories submenu
-.con-nav-submenu
+.col-nav-submenu
     list-style  none
     margin      .5em 0 0 .5em
 
-    .con-nav-submenu-link
+    .col-nav-submenu-link
         display         block
         width           calc(100% - 2em)
         height          100%
@@ -56,5 +51,5 @@
         background-color    grey-12
 
 @media (max-width: (1023/basefont)rem)
-    .con-nav-submenu
+    .col-nav-submenu
         display none

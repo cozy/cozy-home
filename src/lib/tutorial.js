@@ -8,15 +8,13 @@ export function isTutorial() {
 
 export function display(t) {
   const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
+  const isEmptyView = !!document.querySelectorAll('[data-tutorial=empty-view]')
+    .length
   const isLandscape = window.innerWidth > window.innerHeight
   const cozyBarMenuClass = isSmall
-    ? '.coz-bar-burger'
-    : '.coz-nav-section [data-icon=icon-apps]'
+    ? '[data-tutorial=apps-mobile]'
+    : '[data-tutorial=apps]'
   const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
-  const tooltipClass =
-    'tooltip' +
-    (isSmall ? 'Small' : '') +
-    (isSmall && isLandscape ? 'Right' : 'Bottom')
   const trackerInstance = getTracker()
   const shouldTrackTutorial = shouldEnableTracking() && trackerInstance
   const pageURLsForTracking = [
@@ -27,7 +25,7 @@ export function display(t) {
   const tutorial = introJs()
   tutorial
     .setOptions({
-      overlayOpacity: 0.7,
+      overlayOpacity: 0.8,
       showBullets: false,
       hidePrev: true,
       hideNext: true,
@@ -38,19 +36,25 @@ export function display(t) {
       nextLabel: `${t('tutorial.cozy_collect.button')}`,
       steps: [
         {
-          element: document.querySelectorAll('.item-wrapper')[0],
+          element: isEmptyView
+            ? document.querySelectorAll('[data-tutorial=empty-view]')[0]
+            : document.querySelectorAll('[data-tutorial=top-bar]')[0],
           intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
             'tutorial.cozy_collect.text'
           )}</div>`,
-          tooltipClass: tooltipClass,
-          position: isSmall && isLandscape ? 'right' : 'bottom'
+          tooltipClass: isSmall
+            ? isEmptyView ? 'tooltipSmallTopCenter' : 'tooltipSmallLeft'
+            : isEmptyView ? 'tooltipTopCenter' : 'tooltipLeft',
+
+          position:
+            isSmall && isLandscape ? 'right' : isEmptyView ? 'top' : 'bottom'
         },
         {
           element: cozyBarMenuButton,
           intro: `<h1>${t('tutorial.menu_apps.title')}</h1><div>${t(
             'tutorial.menu_apps.text'
           )}</div>`,
-          tooltipClass: isSmall ? 'tooltipCenter' : 'tooltipLeft',
+          tooltipClass: isSmall ? 'tooltipSmallCenter' : 'tooltipLeft',
           position: isSmall ? 'right' : 'bottom'
         }
       ]
@@ -91,7 +95,7 @@ export function display(t) {
       }
 
       cozyBarMenuButton.click()
-      window.location.hash = '#/discovery'
+      window.location.hash = '#/connected'
     })
     .start()
   const clickZone =
