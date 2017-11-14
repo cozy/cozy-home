@@ -31,14 +31,11 @@ class ConnectedList extends Component {
     const { t, connectors, children } = this.props
     return (
       <div className="content">
-        <div className="con-top-bar">
+        <div className="con-top-bar" data-tutorial="con-top-bar">
           <h1 className="con-top-bar-title">{t('nav.connected')}</h1>
           {connectors.length > 0 && (
             <Link to="/providers/all">
-              <button
-                className="coz-btn coz-btn--regular"
-                data-tutorial="add-account"
-              >
+              <button className="coz-btn coz-btn--regular">
                 <Icon icon={addAccountIcon} className="con-icon--add" />{' '}
                 {t('add_account')}
               </button>
@@ -54,16 +51,15 @@ class ConnectedList extends Component {
               className="con-picture-for-emtpy-list--img"
               alt={t('connector.empty')}
             />
-            <h2>{t('connector.no-connectors-connected')}</h2>
-            <p>{t('connector.get-info')}</p>
-            <Link to="/providers/all">
-              <button
-                className="coz-btn coz-btn--regular"
-                data-tutorial="add-account"
-              >
-                {t('connector.connect-account')}
-              </button>
-            </Link>
+            <div data-tutorial="empty-view">
+              <h2>{t('connector.no-connectors-connected')}</h2>
+              <p>{t('connector.get-info')}</p>
+              <Link to="/providers/all">
+                <button className="coz-btn coz-btn--regular">
+                  {t('connector.connect-account')}
+                </button>
+              </Link>
+            </div>
           </div>
         )}
         {children}

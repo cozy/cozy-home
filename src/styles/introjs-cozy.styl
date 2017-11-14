@@ -3,30 +3,32 @@
     color white
     box-shadow none
 
-.tooltipBottom
-    min-width inherit
-    max-width inherit
-    width 200%!important // @stylint ignore
-
-.tooltipRight, .tooltipSmallRight
-    min-width 100%
-    max-width 100%
-
-.tooltipSmallBottom
-    margin-top -20px
-    left -10px!important // @stylint ignore
-    right -10px!important // @stylint ignore
+[data-tutorial=empty-view]
+    max-width 400px
+    padding   10px
+    margin    auto
 
 .tooltipLeft
-    left -300px!important // @stylint ignore
-    right -50px!important // @stylint ignore
     min-width inherit
     max-width inherit
 
-.tooltipCenter
+.tooltipSmallLeft, .tooltipSmallCenter
+    max-width calc(100vw - 100px)
+    min-width calc(100vw - 100px)
+
+.tooltipSmallCenter
     top 100%!important // @stylint ignore
     left 100%!important // @stylint ignore
+
+.tooltipTopCenter
+    left calc( 50% - (450px) / 2)!important // @stylint ignore
     width 400px
+    min-width 100% // @stylint ignore
+    max-width 100% // @stylint ignore
+
+.tooltipSmallTopCenter
+    left 10px!important // @stylint ignore
+    max-width 100% // @stylint ignore
 
 .introjs-prevbutton, .introjs-arrow, .introjs-helperNumberLayer, .introjs-skipbutton
     display none !important // @stylint ignore
