@@ -1,7 +1,7 @@
-.con-wrapper
+.col-wrapper
     @extend $app-2panes-sticky
 
-.con-content
+.col-content
     top-padded(30px)
 
     h1
@@ -13,14 +13,14 @@
     @media (max-width: (480/basefont)rem)
         top-padded(10px)
 
-.con-initial-error,
-.con-initial-loading
+.col-initial-error,
+.col-initial-loading
     display         flex
     width           100vw
     align-items     center
     justify-content center
 
-.con-top-bar
+.col-top-bar
     display         flex
     flex-direction  row
     justify-content space-between
@@ -28,7 +28,7 @@
     padding-right   .5em
 
     @media (max-width: (768/basefont)rem)
-        .con-top-bar-title
+        .col-top-bar-title
             font-size 24px
             margin    0
             position  fixed
@@ -38,7 +38,7 @@
             z-index   20
             height    48px
 
-.con-icon--add
+.col-icon--add
     width           16px
     height          16px
     // Center the picto without enlarging the button height
@@ -46,7 +46,7 @@
     top             3px
     margin-top      -3px
 
-.con-picture-for-emtpy-list
+.col-picture-for-emtpy-list
     text-align      center
     &--img
         max-width   400px

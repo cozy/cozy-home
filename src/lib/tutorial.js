@@ -38,7 +38,7 @@ export function display(t) {
         {
           element: isEmptyView
             ? document.querySelectorAll('[data-tutorial=empty-view]')[0]
-            : document.querySelectorAll('[data-tutorial=con-top-bar]')[0],
+            : document.querySelectorAll('[data-tutorial=top-bar]')[0],
           intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
             'tutorial.cozy_collect.text'
           )}</div>`,

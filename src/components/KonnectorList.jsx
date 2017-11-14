@@ -12,7 +12,7 @@ const KonnectorList = ({ t, connectors, showVoting = false }) => (
     ))}
     {showVoting && (
       <a
-        className="item-wrapper con-voting-item"
+        className="item-wrapper col-voting-item"
         onClick={() => popupCenter(VOTING_LINK, 'connectorVoting', 700, 650)}
       >
         <header className="item-header">

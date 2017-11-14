@@ -8,7 +8,7 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         className="coz-nav-item">
         <Link
           activeClassName="active"
-          className="coz-nav-link con-cat-connected"
+          className="coz-nav-link col-cat-connected"
           onlyActiveOnIndex={false}
           style={Object {}}
           to="/connected">
@@ -18,7 +18,7 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
       <li
         className="coz-nav-item">
         <Link
-          className="coz-nav-link con-cat-categories active"
+          className="coz-nav-link col-cat-categories active"
           onlyActiveOnIndex={false}
           style={Object {}}
           to="/providers/all">
@@ -26,11 +26,11 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         </Link>
       </li>
       <ul
-        className="con-nav-submenu">
+        className="col-nav-submenu">
         <li>
           <Link
             activeClassName="active"
-            className="con-nav-submenu-link"
+            className="col-nav-submenu-link"
             onlyActiveOnIndex={false}
             style={Object {}}
             to="/providers/all">
@@ -40,7 +40,7 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         <li>
           <Link
             activeClassName="active"
-            className="con-nav-submenu-link"
+            className="col-nav-submenu-link"
             onlyActiveOnIndex={false}
             style={Object {}}
             to="/providers/isp">
@@ -50,7 +50,7 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         <li>
           <Link
             activeClassName="active"
-            className="con-nav-submenu-link"
+            className="col-nav-submenu-link"
             onlyActiveOnIndex={false}
             style={Object {}}
             to="/providers/telecom">
@@ -60,7 +60,7 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         <li>
           <Link
             activeClassName="active"
-            className="con-nav-submenu-link"
+            className="col-nav-submenu-link"
             onlyActiveOnIndex={false}
             style={Object {}}
             to="/providers/others">
@@ -83,7 +83,7 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
         className="coz-nav-item">
         <Link
           activeClassName="active"
-          className="coz-nav-link con-cat-connected"
+          className="coz-nav-link col-cat-connected"
           onlyActiveOnIndex={false}
           style={Object {}}
           to="/connected">
@@ -93,7 +93,7 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
       <li
         className="coz-nav-item">
         <Link
-          className="coz-nav-link con-cat-categories"
+          className="coz-nav-link col-cat-categories"
           onlyActiveOnIndex={false}
           style={Object {}}
           to="/providers/all">
