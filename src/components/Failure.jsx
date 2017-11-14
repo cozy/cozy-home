@@ -6,7 +6,7 @@ const reload = () => {
 }
 
 export const Failure = ({ t, errorType }) => (
-  <div className="con-error">
+  <div className="col-error">
     <h2>{t(`error.${errorType}`)}</h2>
     <p>
       <button

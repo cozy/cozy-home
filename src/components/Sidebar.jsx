@@ -16,7 +16,7 @@ export const Sidebar = ({ t, categories, router }) => {
           <li className="coz-nav-item">
             <Link
               to="/connected"
-              className="coz-nav-link con-cat-connected"
+              className="coz-nav-link col-cat-connected"
               activeClassName="active"
             >
               {t('nav.connected')}
@@ -27,19 +27,19 @@ export const Sidebar = ({ t, categories, router }) => {
               to="/providers/all"
               className={
                 isCategoryView
-                  ? 'coz-nav-link con-cat-categories active'
-                  : 'coz-nav-link con-cat-categories'
+                  ? 'coz-nav-link col-cat-categories active'
+                  : 'coz-nav-link col-cat-categories'
               }
             >
               {t('nav.providers')}
             </Link>
           </li>
           {isCategoryView && (
-            <ul className="con-nav-submenu">
+            <ul className="col-nav-submenu">
               <li>
                 <Link
                   to="/providers/all"
-                  className="con-nav-submenu-link"
+                  className="col-nav-submenu-link"
                   activeClassName="active"
                 >
                   {t('category.all')}
@@ -49,7 +49,7 @@ export const Sidebar = ({ t, categories, router }) => {
                 <li>
                   <Link
                     to={`/providers/${category.slug}`}
-                    className="con-nav-submenu-link"
+                    className="col-nav-submenu-link"
                     activeClassName="active"
                   >
                     {category.label}
@@ -59,7 +59,7 @@ export const Sidebar = ({ t, categories, router }) => {
               <li>
                 <Link
                   to="/providers/others"
-                  className="con-nav-submenu-link"
+                  className="col-nav-submenu-link"
                   activeClassName="active"
                 >
                   {t('category.others')}

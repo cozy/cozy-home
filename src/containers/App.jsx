@@ -45,19 +45,19 @@ class App extends Component {
     const { categories, isFetching, error } = this.state
     if (error) {
       return (
-        <div className="con-initial-error">
+        <div className="col-initial-error">
           <Failure errorType="initial" />
         </div>
       )
     }
     return isFetching ? (
-      <div className="con-initial-loading">
+      <div className="col-initial-loading">
         <Loading loadingType="initial" />
       </div>
     ) : (
-      <div className="con-wrapper coz-sticky">
+      <div className="col-wrapper coz-sticky">
         <Sidebar categories={categories} />
-        <main className="con-content">
+        <main className="col-content">
           <div role="contentinfo">{children}</div>
         </main>
         <Notifier />

@@ -4,8 +4,8 @@ import KonnectorList from './KonnectorList'
 
 const CategoryList = ({ t, category, connectors, children }) => (
   <div className="content">
-    <div className="con-top-bar">
-      <h1 className="con-top-bar-title">
+    <div className="col-top-bar">
+      <h1 className="col-top-bar-title">
         {category === 'all' ? t('nav.providers') : t(`category.${category}`)}
       </h1>
     </div>

@@ -1,6 +1,6 @@
 exports[`Failure component should be displayed with initial text if errorType is initial 1`] = `
 <div
-  className="con-error">
+  className="col-error">
   <h2>
     Something went wrong when fetching your connectors and informations. Please refresh the page.
   </h2>
@@ -17,7 +17,7 @@ exports[`Failure component should be displayed with initial text if errorType is
 
 exports[`Failure component should correctly call the reload function on button click 1`] = `
 <div
-  className="con-error">
+  className="col-error">
   <h2>
     Something went wrong when fetching your connectors and informations. Please refresh the page.
   </h2>
