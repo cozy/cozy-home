@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { isValidEmail } from './emailHelper'
+
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -115,7 +117,9 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleChange(field, target) {
+        const { t } = this.context
         let stateUpdate
+        let errors = []
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -128,9 +132,20 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
+        if (target.type && target.type === 'email') {
+          if (target.value && !isValidEmail(target.value)) {
+            errors.push(
+              t('account.message.error.validation', {
+                name: t(`account.form.label.${field}`)
+              })
+            )
+          }
+        }
+        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
+            errors,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], stateUpdate)
             })

@@ -89,9 +89,9 @@ export class FieldWrapper extends Component {
         {children}
         {errors.length !== 0 &&
           errors.map((err, i) => (
-            <small key={i} className={styles['coz-field-error']}>
+            <p key={i} className={styles['coz-field-error']}>
               {err}
-            </small>
+            </p>
           ))}
       </div>
     )
@@ -250,9 +250,9 @@ export const CheckboxField = translate()(props => {
       )}
       {errors.length !== 0 &&
         errors.map((err, i) => (
-          <small key={i} className={styles['coz-field-error']}>
+          <p key={i} className={styles['coz-field-error']}>
             {err}
-          </small>
+          </p>
         ))}
     </div>
   )

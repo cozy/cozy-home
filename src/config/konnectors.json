@@ -435,7 +435,7 @@
     ],
     "fields": {
       "email": {
-        "type": "text"
+        "type": "email"
       },
       "password": {
         "type": "password"
@@ -461,7 +461,7 @@
     ],
     "fields": {
       "email": {
-        "type": "text"
+        "type": "email"
       },
       "password": {
         "type": "password"
