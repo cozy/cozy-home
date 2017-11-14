@@ -39,12 +39,10 @@ let cachedAccountsIndex
 function indexAccountsByType(cozy) {
   return cachedAccountsIndex
     ? Promise.resolve(cachedAccountsIndex)
-    : cozy.data
-        .defineIndex(ACCOUNTS_DOCTYPE, ['account_type', 'name'])
-        .then(index => {
-          cachedAccountsIndex = index
-          return Promise.resolve(index)
-        })
+    : cozy.data.defineIndex(ACCOUNTS_DOCTYPE, ['account_type']).then(index => {
+        cachedAccountsIndex = index
+        return Promise.resolve(index)
+      })
 }
 
 function getLastSync(cozy, account) {
@@ -72,8 +70,7 @@ export function getAccountsByType(cozy, accountType) {
     .then(index =>
       cozy.data.query(index, {
         selector: {
-          account_type: accountType,
-          name: { $exists: true }
+          account_type: accountType
         }
       })
     )
@@ -93,8 +90,7 @@ export function getAllAccounts(cozy) {
   return indexAccountsByType(cozy).then(index => {
     return cozy.data.query(index, {
       selector: {
-        account_type: { $exists: true },
-        name: { $exists: true }
+        account_type: { $gt: null }
       }
     })
   })
