@@ -184,6 +184,8 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       handleChange(field, target) {
         let stateUpdate
+        let errors = []
+        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -196,6 +198,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
+        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
