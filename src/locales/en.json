@@ -117,7 +117,7 @@
         "cron_undefined": "manually",
         "syncing": "running…",
         "last_sync": "Last synchronization: %{date}",
-        "date_format": "MMMM Mo[,] YYYY [at] HH[:]mm",
+        "date_format": "MMMM D[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {
