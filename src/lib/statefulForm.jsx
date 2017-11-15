@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import { isValidEmail } from './emailHelper'
-
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -119,7 +117,6 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleChange(field, target) {
-        const { t } = this.context
         let stateUpdate
         let errors = []
         const pattern = this.state.fields[field].pattern
@@ -135,24 +132,9 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
-        if (target.type && target.type === 'email') {
-          if (target.value && !isValidEmail(target.value)) {
-            errors.push(
-              t('account.message.error.validation', {
-                name: t(`account.form.label.${field}`)
-              })
-            )
-          }
-        }
-        if (pattern) {
-          const validation = new RegExp(pattern)
-          if (target.value && !validation.test(target.value)) {
-            errors.push(
-              t('account.message.error.validation', {
-                name: t(`account.form.label.${field}`)
-              })
-            )
-          }
+        if (target.validationMessage) {
+          const patternFormat = pattern ? ` (${pattern})` : ''
+          errors.push(`${target.validationMessage}${patternFormat}`)
         }
         stateUpdate.errors = errors
         this.setState(prevState => {

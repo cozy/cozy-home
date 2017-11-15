@@ -23,6 +23,7 @@ const Field = props => {
       type,
       placeholder,
       value,
+      pattern,
       onChange,
       onInput,
       disabled,
@@ -42,6 +43,7 @@ const Field = props => {
         disabled={disabled || readOnly}
         value={value}
         name={name}
+        pattern={pattern}
         onChange={onChange}
         onInput={onInput}
         autoComplete={autoFill}
@@ -115,6 +117,7 @@ export const PasswordField = translate()(
       value,
       onChange,
       onInput,
+      pattern,
       toggleVisibility,
       visible,
       name,
@@ -145,6 +148,7 @@ export const PasswordField = translate()(
           className={styles['coz-field-input']}
           value={value}
           name={name}
+          pattern={pattern}
           onChange={onChange}
           onInput={onInput}
           autoComplete={autoFill}
