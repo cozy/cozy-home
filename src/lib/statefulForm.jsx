@@ -108,6 +108,11 @@ export default function statefulForm(mapPropsToFormConfig) {
               this.handleChange(
                 field,
                 event.target ? event.target : { value: event }
+              ),
+            onBlur: event =>
+              this.handleBlur(
+                field,
+                event.target ? event.target : { value: event }
               )
           })
           if (typeof value === 'boolean') fields[field].checked = value
@@ -116,10 +121,24 @@ export default function statefulForm(mapPropsToFormConfig) {
         return fields
       }
 
+      handleBlur(field, target) {
+        const pattern = this.state.fields[field].pattern || ''
+        const errors = []
+        if (target.validationMessage) {
+          const patternFormat = pattern ? ` (${pattern})` : ''
+          errors.push(`${target.validationMessage}${patternFormat}`)
+        }
+        this.setState(prevState => {
+          return Object.assign({}, prevState, {
+            fields: Object.assign({}, prevState.fields, {
+              [field]: Object.assign({}, prevState.fields[field], { errors })
+            })
+          })
+        })
+      }
+
       handleChange(field, target) {
         let stateUpdate
-        let errors = []
-        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -132,15 +151,9 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
-        if (target.validationMessage) {
-          const patternFormat = pattern ? ` (${pattern})` : ''
-          errors.push(`${target.validationMessage}${patternFormat}`)
-        }
-        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
-            errors,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], stateUpdate)
             })
