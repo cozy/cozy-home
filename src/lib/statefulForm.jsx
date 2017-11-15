@@ -108,6 +108,11 @@ export default function statefulForm(mapPropsToFormConfig) {
               this.handleChange(
                 field,
                 event.target ? event.target : { value: event }
+              ),
+            onBlur: event =>
+              this.handleBlur(
+                field,
+                event.target ? event.target : { value: event }
               )
           })
           if (typeof value === 'boolean') fields[field].checked = value
@@ -116,10 +121,39 @@ export default function statefulForm(mapPropsToFormConfig) {
         return fields
       }
 
+      handleBlur(field, target) {
+        const pattern = this.state.fields[field].pattern || ''
+        const stateFields = this.state.fields
+        const errors = []
+        if (target.validationMessage) {
+          const patternFormat = pattern ? ` (${pattern})` : ''
+          errors.push(`${target.validationMessage}${patternFormat}`)
+        }
+
+        // compute if the form is valid
+        let isValid = true
+        Object.keys(stateFields).forEach(f => {
+          if (f === field && errors.length) isValid = false
+          if (
+            f !== field &&
+            stateFields[f].errors &&
+            stateFields[f].errors.length
+          )
+            isValid = false
+        })
+
+        this.setState(prevState => {
+          return Object.assign({}, prevState, {
+            isValid,
+            fields: Object.assign({}, prevState.fields, {
+              [field]: Object.assign({}, prevState.fields[field], { errors })
+            })
+          })
+        })
+      }
+
       handleChange(field, target) {
         let stateUpdate
-        let errors = []
-        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -132,15 +166,9 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
-        if (target.validationMessage) {
-          const patternFormat = pattern ? ` (${pattern})` : ''
-          errors.push(`${target.validationMessage}${patternFormat}`)
-        }
-        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
-            errors,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], stateUpdate)
             })
@@ -149,7 +177,7 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleSubmit() {
-        if (this.props.onSubmit) {
+        if (this.props.onSubmit && this.state.isValid) {
           return this.props.onSubmit(this.getData())
         }
       }
