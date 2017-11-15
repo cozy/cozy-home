@@ -46,6 +46,7 @@ const AccountLoginForm = props => {
     fields,
     error,
     dirty,
+    isValid,
     submitting,
     forceDisabled,
     forceEnabled,
@@ -74,7 +75,9 @@ const AccountLoginForm = props => {
 
   // Submit button state
   const submitEnabled =
-    dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
+    (dirty && isValid) ||
+    (isOAuth && !(isUpdate && hasEditableFields)) ||
+    forceEnabled
   const canHandleEnterKey =
     (!isUpdate || hasEditableFields) &&
     !isSuccess &&

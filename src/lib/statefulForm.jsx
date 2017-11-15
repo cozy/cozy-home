@@ -123,13 +123,28 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       handleBlur(field, target) {
         const pattern = this.state.fields[field].pattern || ''
+        const stateFields = this.state.fields
         const errors = []
         if (target.validationMessage) {
           const patternFormat = pattern ? ` (${pattern})` : ''
           errors.push(`${target.validationMessage}${patternFormat}`)
         }
+
+        // compute if the form is valid
+        let isValid = true
+        Object.keys(stateFields).forEach(f => {
+          if (f === field && errors.length) isValid = false
+          if (
+            f !== field &&
+            stateFields[f].errors &&
+            stateFields[f].errors.length
+          )
+            isValid = false
+        })
+
         this.setState(prevState => {
           return Object.assign({}, prevState, {
+            isValid,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], { errors })
             })
@@ -162,7 +177,7 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleSubmit() {
-        if (this.props.onSubmit) {
+        if (this.props.onSubmit && this.state.isValid) {
           return this.props.onSubmit(this.getData())
         }
       }
