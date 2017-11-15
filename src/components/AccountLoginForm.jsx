@@ -26,6 +26,7 @@ const renderers = {
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
+  email: () => <Field type="email" />,
   folder: ({ disableFolderPath }) => (
     <FolderPickerField readOnly={disableFolderPath} />
   )

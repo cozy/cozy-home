@@ -37,6 +37,7 @@ text-button-color = #297ef1
             color   pomegranate
 
         input[type=text]
+        input[type=email]
         input[type=password]
         input[type=date]
         select
@@ -69,11 +70,19 @@ text-button-color = #297ef1
                 display none
             &[disabled]
                 opacity .5
+
         &.coz-field--error
             input[type=text]
+            input[type=email]
             input[type=password]
+            input[type=date]
             select
                 border     1px solid pomegranate
 
             label
                 color pomegranate
+
+            .coz-field-error
+                color       pomegranate
+                margin      1rem 0 0
+                width       100%

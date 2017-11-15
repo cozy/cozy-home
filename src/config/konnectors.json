@@ -435,7 +435,7 @@
     ],
     "fields": {
       "email": {
-        "type": "text"
+        "type": "email"
       },
       "password": {
         "type": "password"
@@ -461,7 +461,7 @@
     ],
     "fields": {
       "email": {
-        "type": "text"
+        "type": "email"
       },
       "password": {
         "type": "password"
@@ -734,10 +734,12 @@
     ],
     "fields": {
       "login": {
-        "type": "text"
+        "type": "text",
+        "pattern": "^.{9}$"
       },
       "password": {
-        "type": "password"
+        "type": "password",
+        "pattern": "^.{4,15}$"
       },
       "folderPath": {
         "type": "folder",

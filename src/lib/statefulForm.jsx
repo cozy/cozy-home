@@ -88,6 +88,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         let fields = {}
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
+          let pattern = config.fields[field].pattern || ''
           let value =
             config.values && config.values[field]
               ? config.values[field]
@@ -97,6 +98,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: value,
             dirty: false,
             errors: [],
+            pattern,
             onInput: event =>
               this.handleChange(
                 field,
@@ -116,6 +118,8 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       handleChange(field, target) {
         let stateUpdate
+        let errors = []
+        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -128,9 +132,15 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
+        if (target.validationMessage) {
+          const patternFormat = pattern ? ` (${pattern})` : ''
+          errors.push(`${target.validationMessage}${patternFormat}`)
+        }
+        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
+            errors,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], stateUpdate)
             })
