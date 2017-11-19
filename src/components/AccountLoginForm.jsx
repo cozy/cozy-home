@@ -103,6 +103,7 @@ const AccountLoginForm = props => {
       invalid: !!error,
       onEnterKey,
       giveFocus,
+      connectorSlug,
       label: t(`account.form.label.${label || name}`),
       value: isUnloading ? '' : hydrate(value)
     }
@@ -119,8 +120,12 @@ const AccountLoginForm = props => {
   }
 
   return (
-    // We use a <div> instead of a <form> to disable the "use password for" function of Chrome
-    <div className={styles['account-form-login']}>
+    <form
+      role="form"
+      className={styles['account-form-login']}
+      onSubmit={submit}
+      name={connectorSlug}
+    >
       {/* Error */}
       {error && (
         <p className="errors">{t('account.message.error.bad_credentials')}</p>
@@ -158,7 +163,6 @@ const AccountLoginForm = props => {
                   ? 'true'
                   : 'false'
               }
-              onClick={submit}
             >
               {t(
                 isUpdate
@@ -168,7 +172,7 @@ const AccountLoginForm = props => {
             </button>
           )}
       </div>
-    </div>
+    </form>
   )
 }
 

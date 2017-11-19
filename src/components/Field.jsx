@@ -22,6 +22,7 @@ const Field = props => {
     const {
       type,
       placeholder,
+      connectorSlug,
       value,
       pattern,
       onChange,
@@ -29,16 +30,13 @@ const Field = props => {
       onInput,
       disabled,
       readOnly,
-      name,
-      noAutoFill
+      name
     } = props
-    const autoFill = noAutoFill
-      ? type === 'password' ? 'new-password' : 'off'
-      : 'on'
     inputs = (
       <input
         type={type}
         placeholder={placeholder}
+        autoComplete={`${connectorSlug} ${name}`}
         className={styles['coz-field-input']}
         readOnly={readOnly}
         disabled={disabled || readOnly}
@@ -48,7 +46,6 @@ const Field = props => {
         onChange={onChange}
         onBlur={onBlur}
         onInput={onInput}
-        autoComplete={autoFill}
       />
     )
   }
@@ -72,11 +69,6 @@ export class FieldWrapper extends Component {
         .focus()
   }
 
-  handleKeyUp = ev => {
-    const key = ev.which || ev.keyCode
-    if (key === 13) this.props.onEnterKey()
-  }
-
   render() {
     const { label, invalid, errors, children } = this.props
     const hasErrored = errors.length !== 0 || invalid
@@ -87,7 +79,6 @@ export class FieldWrapper extends Component {
           styles['coz-field'],
           hasErrored && styles['coz-field--error']
         )}
-        onKeyUp={this.props.onEnterKey && this.handleKeyUp}
       >
         {label && <label>{label}</label>}
         {children}
@@ -115,6 +106,7 @@ export const PasswordField = translate()(
   )(props => {
     const {
       t,
+      connectorSlug,
       placeholder,
       value,
       onChange,
@@ -124,10 +116,8 @@ export const PasswordField = translate()(
       toggleVisibility,
       visible,
       name,
-      giveFocus,
-      noAutoFill
+      giveFocus
     } = props
-    const autoFill = noAutoFill ? (visible ? 'off' : 'new-password') : 'on'
     return (
       <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
         <button
@@ -147,6 +137,7 @@ export const PasswordField = translate()(
         </button>
         <input
           type={visible ? 'text' : 'password'}
+          autoComplete={`${connectorSlug} password`}
           placeholder={placeholder}
           className={styles['coz-field-input']}
           value={value}
@@ -155,7 +146,6 @@ export const PasswordField = translate()(
           onChange={onChange}
           onInput={onInput}
           onBlur={onBlur}
-          autoComplete={autoFill}
         />
       </FieldWrapper>
     )

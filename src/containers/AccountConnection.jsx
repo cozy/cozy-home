@@ -271,6 +271,7 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   submit(values) {
+    event.preventDefault()
     this.setState({
       error: null
     })
