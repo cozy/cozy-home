@@ -78,7 +78,7 @@ export class FieldWrapper extends Component {
   }
 
   render() {
-    const { label, invalid, errors, children } = this.props
+    const { label, invalid, errors, children, type } = this.props
     const hasErrored = errors.length !== 0 || invalid
 
     return (
@@ -87,7 +87,7 @@ export class FieldWrapper extends Component {
           styles['coz-field'],
           hasErrored && styles['coz-field--error']
         )}
-        onKeyUp={this.props.onEnterKey && this.handleKeyUp}
+        onKeyUp={type !== 'folder' && this.props.onEnterKey && this.handleKeyUp}
       >
         {label && <label>{label}</label>}
         {children}
