@@ -23,7 +23,9 @@ const Field = props => {
       type,
       placeholder,
       value,
+      pattern,
       onChange,
+      onBlur,
       onInput,
       disabled,
       readOnly,
@@ -42,7 +44,9 @@ const Field = props => {
         disabled={disabled || readOnly}
         value={value}
         name={name}
+        pattern={pattern || false}
         onChange={onChange}
+        onBlur={onBlur}
         onInput={onInput}
         autoComplete={autoFill}
       />
@@ -74,7 +78,7 @@ export class FieldWrapper extends Component {
   }
 
   render() {
-    const { label, invalid, errors, children } = this.props
+    const { label, invalid, errors, children, type } = this.props
     const hasErrored = errors.length !== 0 || invalid
 
     return (
@@ -83,15 +87,15 @@ export class FieldWrapper extends Component {
           styles['coz-field'],
           hasErrored && styles['coz-field--error']
         )}
-        onKeyUp={this.props.onEnterKey && this.handleKeyUp}
+        onKeyUp={type !== 'folder' && this.props.onEnterKey && this.handleKeyUp}
       >
         {label && <label>{label}</label>}
         {children}
         {errors.length !== 0 &&
           errors.map((err, i) => (
-            <small key={i} className={styles['coz-field-error']}>
+            <p key={i} className={styles['coz-field-error']}>
               {err}
-            </small>
+            </p>
           ))}
       </div>
     )
@@ -114,7 +118,9 @@ export const PasswordField = translate()(
       placeholder,
       value,
       onChange,
+      onBlur,
       onInput,
+      pattern,
       toggleVisibility,
       visible,
       name,
@@ -145,8 +151,10 @@ export const PasswordField = translate()(
           className={styles['coz-field-input']}
           value={value}
           name={name}
+          pattern={pattern || false}
           onChange={onChange}
           onInput={onInput}
+          onBlur={onBlur}
           autoComplete={autoFill}
         />
       </FieldWrapper>
@@ -250,9 +258,9 @@ export const CheckboxField = translate()(props => {
       )}
       {errors.length !== 0 &&
         errors.map((err, i) => (
-          <small key={i} className={styles['coz-field-error']}>
+          <p key={i} className={styles['coz-field-error']}>
             {err}
-          </small>
+          </p>
         ))}
     </div>
   )

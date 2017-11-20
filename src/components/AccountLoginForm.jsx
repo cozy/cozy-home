@@ -26,6 +26,7 @@ const renderers = {
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
+  email: () => <Field type="email" />,
   folder: ({ disableFolderPath }) => (
     <FolderPickerField readOnly={disableFolderPath} />
   )
@@ -45,6 +46,7 @@ const AccountLoginForm = props => {
     fields,
     error,
     dirty,
+    isValid,
     submitting,
     forceDisabled,
     forceEnabled,
@@ -73,7 +75,9 @@ const AccountLoginForm = props => {
 
   // Submit button state
   const submitEnabled =
-    dirty || (isOAuth && !(isUpdate && hasEditableFields)) || forceEnabled
+    (dirty && isValid) ||
+    (isOAuth && !(isUpdate && hasEditableFields)) ||
+    forceEnabled
   const canHandleEnterKey =
     (!isUpdate || hasEditableFields) &&
     !isSuccess &&
@@ -116,14 +120,19 @@ const AccountLoginForm = props => {
 
   return (
     // We use a <div> instead of a <form> to disable the "use password for" function of Chrome
-    <div className={styles['account-form-login']}>
+    <div className={styles['account-form-login']} role="form">
       {/* Error */}
       {error && (
         <p className="errors">{t('account.message.error.bad_credentials')}</p>
       )}
 
       {/* Fields */}
-      {!!editableFields && editableFields.map(renderField)}
+      {!!editableFields &&
+        !!editableFields.length && (
+          <fieldset className={styles['account-form-fieldset']}>
+            {editableFields.map(renderField)}
+          </fieldset>
+        )}
       {!displayAdvanced &&
         !!advancedFields.length && (
           <button
@@ -134,7 +143,14 @@ const AccountLoginForm = props => {
             {t('account.form.button.advanced')}
           </button>
         )}
-      {displayAdvanced && !!advancedFields && advancedFields.map(renderField)}
+
+      {displayAdvanced &&
+        !!advancedFields &&
+        !!advancedFields.length && (
+          <fieldset className={styles['account-form-fieldset']}>
+            {advancedFields.map(renderField)}
+          </fieldset>
+        )}
 
       {/* Controls */}
       <div className={styles['coz-form-controls']}>

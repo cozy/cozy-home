@@ -88,6 +88,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         let fields = {}
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
+          let pattern = config.fields[field].pattern || ''
           let value =
             config.values && config.values[field]
               ? config.values[field]
@@ -97,6 +98,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: value,
             dirty: false,
             errors: [],
+            pattern,
             onInput: event =>
               this.handleChange(
                 field,
@@ -106,12 +108,48 @@ export default function statefulForm(mapPropsToFormConfig) {
               this.handleChange(
                 field,
                 event.target ? event.target : { value: event }
+              ),
+            onBlur: event =>
+              this.handleBlur(
+                field,
+                event.target ? event.target : { value: event }
               )
           })
           if (typeof value === 'boolean') fields[field].checked = value
           if (fields[field].type === 'dropdown') fields[field].options = options
         })
         return fields
+      }
+
+      handleBlur(field, target) {
+        const pattern = this.state.fields[field].pattern || ''
+        const stateFields = this.state.fields
+        const errors = []
+        if (target.validationMessage) {
+          const patternFormat = pattern ? ` (${pattern})` : ''
+          errors.push(`${target.validationMessage}${patternFormat}`)
+        }
+
+        // compute if the form is valid
+        let isValid = true
+        Object.keys(stateFields).forEach(f => {
+          if (f === field && errors.length) isValid = false
+          if (
+            f !== field &&
+            stateFields[f].errors &&
+            stateFields[f].errors.length
+          )
+            isValid = false
+        })
+
+        this.setState(prevState => {
+          return Object.assign({}, prevState, {
+            isValid,
+            fields: Object.assign({}, prevState.fields, {
+              [field]: Object.assign({}, prevState.fields[field], { errors })
+            })
+          })
+        })
       }
 
       handleChange(field, target) {
@@ -139,7 +177,7 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleSubmit() {
-        if (this.props.onSubmit) {
+        if (this.props.onSubmit && this.state.isValid) {
           return this.props.onSubmit(this.getData())
         }
       }

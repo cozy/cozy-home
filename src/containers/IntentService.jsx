@@ -65,7 +65,10 @@ export default class IntentService extends Component {
               })
               this.setState({
                 isFetching: false,
-                konnectorsList: konnectorsList
+                konnectorsList: konnectorsList,
+                // We show the konnector if the konnectorsList contain only 1 item
+                konnector:
+                  konnectorsList.length === 1 ? konnectorsList[0] : null
               })
             }
 
@@ -128,13 +131,6 @@ export default class IntentService extends Component {
       disableSuccessTimeout
     } = this.state
     const { t } = this.context
-
-    // We show the konnector if the konnectorsList contain only 1 item
-    konnectorsList &&
-      konnectorsList.length === 1 &&
-      this.setState({
-        konnector: konnectorsList[0]
-      })
 
     return (
       <div className="coz-service">
