@@ -2,10 +2,14 @@
     background-color transparent
     color white
     box-shadow none
+    text-shadow 0 0 8px black
+
+.introjs-helperLayer
+    border 0
+    border-radius 8px
 
 [data-tutorial=empty-view]
     max-width 400px
-    padding   10px
     margin    auto
 
 .tooltipLeft
@@ -30,6 +34,10 @@
     left 10px!important // @stylint ignore
     max-width 100% // @stylint ignore
 
+.tooltipRight
+    left calc( 50% - (400px) / 2)!important // @stylint ignore
+    width 400px // @stylint ignore
+
 .introjs-prevbutton, .introjs-arrow, .introjs-helperNumberLayer, .introjs-skipbutton
     display none !important // @stylint ignore
 
@@ -48,6 +56,8 @@
     border-width 0
     font-size 14px
     text-transform uppercase
+    box-shadow 0 0 5px 0 #111111 // @stylint ignore
+    text-shadow none // @stylint ignore
 
 .introjs-button:focus, .introjs-button:active
     background-image none

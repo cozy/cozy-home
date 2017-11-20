@@ -25,7 +25,7 @@ export function display(t) {
   const tutorial = introJs()
   tutorial
     .setOptions({
-      overlayOpacity: 0.8,
+      overlayOpacity: 0.75,
       showBullets: false,
       hidePrev: true,
       hideNext: true,
@@ -45,16 +45,14 @@ export function display(t) {
           tooltipClass: isSmall
             ? isEmptyView ? 'tooltipSmallTopCenter' : 'tooltipSmallLeft'
             : isEmptyView ? 'tooltipTopCenter' : 'tooltipLeft',
-
-          position:
-            isSmall && isLandscape ? 'right' : isEmptyView ? 'top' : 'bottom'
+          position: isSmall && isLandscape ? 'right' : 'bottom'
         },
         {
           element: cozyBarMenuButton,
           intro: `<h1>${t('tutorial.menu_apps.title')}</h1><div>${t(
             'tutorial.menu_apps.text'
           )}</div>`,
-          tooltipClass: isSmall ? 'tooltipSmallCenter' : 'tooltipLeft',
+          tooltipClass: isSmall ? 'tooltipSmallCenter' : 'tooltipRight',
           position: isSmall ? 'right' : 'bottom'
         }
       ]
