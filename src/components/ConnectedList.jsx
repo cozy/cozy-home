@@ -47,11 +47,12 @@ class ConnectedList extends Component {
         ) : (
           <div className="col-picture-for-emtpy-list">
             <img
+              data-tutorial="empty-view"
               src={pictureForEmtpyList}
               className="col-picture-for-emtpy-list--img"
               alt={t('connector.empty')}
             />
-            <div data-tutorial="empty-view">
+            <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
               <Link to="/providers/all">
