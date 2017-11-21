@@ -13,7 +13,8 @@ export default function statefulForm(mapPropsToFormConfig) {
           dirty: false,
           submit: this.handleSubmit.bind(this),
           oauth: props.onOAuth,
-          displayAdvanced: false
+          displayAdvanced: false,
+          isValid: true
         }
       }
 

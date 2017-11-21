@@ -38,7 +38,7 @@ const hydrateFieldValue = {
 
 const identity = x => x
 
-const AccountLoginForm = props => {
+export const AccountLoginForm = props => {
   const {
     t,
     isOAuth,
