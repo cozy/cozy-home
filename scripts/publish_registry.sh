@@ -55,7 +55,7 @@ fi
 # get the sha256 hash from the archive from the url
 shasum=$(curl -sSL --fail "${COZY_BUILD_URL}" | shasum -a 256 | cut -d" " -f1)
 
-printf 'Publishing version "%s" from "%s" (%s)\n' "${COZY_APP_VERSION}" "${COZY_BUILD_URL}\n" "${shasum}"
+printf 'Publishing version "%s" from "%s" (%s)\n' "${COZY_APP_VERSION}" "${COZY_BUILD_URL}" "${shasum}"
 
 # publish the application
 curl -sS --fail -X POST \
