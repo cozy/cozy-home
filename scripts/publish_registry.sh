@@ -9,6 +9,7 @@ set -e
 #                      creates dev releases
 
 [ -z "${COZY_BUILD_BRANCH}" ] && COZY_BUILD_BRANCH="build"
+[ -z "${REGISTRY_EDITOR}" ] && REGISTRY_EDITOR="Cozy"
 
 # don't publish on pull requests
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
@@ -60,5 +61,5 @@ printf 'Publishing version "%s" from "%s" (%s)\n' "${COZY_APP_VERSION}" "${COZY_
 curl -sS --fail -X POST \
     -H "Content-Type: application/json" \
     -H "Authorization: Token ${REGISTRY_TOKEN}" \
-    -d "{\"version\": \"${COZY_APP_VERSION}\", \"url\": \"${COZY_BUILD_URL}\", \"sha256\": \"${shasum}\"}" \
-    "https://registry.cozy.io/registry/${COZY_APP_SLUG}"
+    -d "{\"editor\": \"${REGISTRY_EDITOR}\", \"version\": \"${COZY_APP_VERSION}\", \"url\": \"${COZY_BUILD_URL}\", \"sha256\": \"${shasum}\", \"type\": \"webapp\"}" \
+    "https://int-registry.cozycloud.cc/registry/${COZY_APP_SLUG}"
