@@ -14,7 +14,8 @@ export default function statefulForm(mapPropsToFormConfig) {
           submit: this.handleSubmit.bind(this),
           oauth: props.onOAuth,
           displayAdvanced: false,
-          isValid: true
+          isValid: true,
+          allRequiredFieldsAreFilled: true
         }
       }
 
@@ -90,6 +91,12 @@ export default function statefulForm(mapPropsToFormConfig) {
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
           let pattern = config.fields[field].pattern || ''
+          let required =
+            config.fields[field].isRequired === undefined
+              ? true
+              : config.fields[field].isRequired
+
+          let isRequired = field === 'frequency' ? false : required
           let value =
             config.values && config.values[field]
               ? config.values[field]
@@ -100,6 +107,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             dirty: false,
             errors: [],
             pattern,
+            isRequired,
             onInput: event =>
               this.handleChange(
                 field,
@@ -174,6 +182,19 @@ export default function statefulForm(mapPropsToFormConfig) {
               [field]: Object.assign({}, prevState.fields[field], stateUpdate)
             })
           })
+        })
+
+        // Check if all required inputs are filled
+        let unfilled = []
+        for (field in this.state.fields) {
+          if (
+            this.state.fields[field].isRequired &&
+            this.state.fields[field].value.length === 0
+          )
+            unfilled.push(field)
+        }
+        this.setState({
+          allRequiredFieldsAreFilled: unfilled.length === 0
         })
       }
 
