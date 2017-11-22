@@ -1,6 +1,7 @@
 import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
+import ClassNames from 'classnames'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
@@ -318,7 +319,10 @@ class AccountConnection extends Component {
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
           <img
-            className={styles['col-account-connection-icon']}
+            className={ClassNames(
+              styles['col-account-connection-icon'],
+              'col-account-connection-icon'
+            )}
             src={getKonnectorIcon(connector)}
           />
         </div>
