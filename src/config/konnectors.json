@@ -771,6 +771,28 @@
     "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
   },
   {
+    "slug": "mgen",
+    "name": "MGEN",
+    "vendorLink": "https://www.mgen.fr",
+    "category": "insurance",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-mgen.git#build"
+  },
+  {
     "slug": "monabanq96",
     "name": "Monabanq",
     "vendorLink": "https://www.monabanq.com/client/",
