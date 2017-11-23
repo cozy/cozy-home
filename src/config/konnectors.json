@@ -16,7 +16,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
@@ -110,7 +111,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
@@ -132,7 +134,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
@@ -442,7 +445,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
@@ -468,7 +472,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
@@ -490,7 +495,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-free.git#build"
@@ -512,7 +518,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
@@ -534,7 +541,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
@@ -743,7 +751,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
@@ -762,7 +771,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "dataType": [
@@ -832,7 +842,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
@@ -854,7 +865,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-orange.git#build",
@@ -900,7 +912,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       },
       "agreement": {
         "type": "checkbox",
@@ -935,7 +948,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-redbox.git#build"
@@ -957,7 +971,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
@@ -976,7 +991,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "dataType": [
@@ -998,7 +1014,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "dataType": [
@@ -1023,7 +1040,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
@@ -1160,7 +1178,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
@@ -1179,7 +1198,8 @@
       },
       "folderPath": {
         "type": "folder",
-        "advanced": true
+        "advanced": true,
+        "isRequired": false
       }
     },
     "dataType": [

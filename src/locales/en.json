@@ -9,6 +9,7 @@
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
+      "optionnal": "(optionnal)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
       "data": {
