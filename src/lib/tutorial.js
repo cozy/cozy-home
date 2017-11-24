@@ -3,7 +3,7 @@ import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial() {
-  return window.location.hash.endsWith('/?intro')
+  return window.location.pathname.endsWith('/intro')
 }
 
 export function display(t) {
