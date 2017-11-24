@@ -21,6 +21,7 @@ class ConnectedList extends Component {
 
   launchTutorial() {
     if (isTutorial()) {
+      window.history.pushState({}, '', `/${window.location.hash}`)
       setTimeout(() => {
         displayTutorial(this.props.t)
       }, 1000)
