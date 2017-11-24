@@ -786,7 +786,8 @@
     "vendorLink": "https://www.mgen.fr",
     "category": "insurance",
     "dataType": [
-      "bill"
+      "bill",
+      "certificate"
     ],
     "fields": {
       "login": {
