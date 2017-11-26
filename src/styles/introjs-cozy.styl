@@ -12,32 +12,6 @@
     max-width 400px
     margin    auto
 
-.tooltipLeft
-    min-width inherit
-    max-width inherit
-
-.tooltipSmallLeft, .tooltipSmallCenter
-    max-width calc(100vw - 100px)
-    min-width calc(100vw - 100px)
-
-.tooltipSmallCenter
-    top 100%!important // @stylint ignore
-    left 100%!important // @stylint ignore
-
-.tooltipTopCenter
-    left calc( 50% - (450px) / 2)!important // @stylint ignore
-    width 400px
-    min-width 100% // @stylint ignore
-    max-width 100% // @stylint ignore
-
-.tooltipSmallTopCenter
-    left 10px!important // @stylint ignore
-    max-width 100% // @stylint ignore
-
-.tooltipRight
-    left calc( 50% - (400px) / 2)!important // @stylint ignore
-    width 400px // @stylint ignore
-
 .introjs-prevbutton, .introjs-arrow, .introjs-helperNumberLayer, .introjs-skipbutton
     display none !important // @stylint ignore
 
@@ -65,6 +39,37 @@
 .introjs-button:hover
     box-shadow none
 
+.tooltipBottom,
+.tooltipEmptyBottom
+    max-width 100%!important // @stylint ignore
+
+/* Fixes for introjs breaking points, larger to smaller */
+@media (max-width: 1118px)
+    .tooltipBottom
+        top 140px!important // @stylint ignore
+
+@media (max-width: 858px)
+    .tooltipEmptyBottom
+        top 370px!important // @stylint ignore
+
+@media (max-width: 680px)
+    .tooltipBottom
+        top 140px!important // @stylint ignore
+
+@media (max-width: 450px)
+    .tooltipEmptyBottom
+        top 150%!important // @stylint ignore
+
+@media (max-width: 360px)
+    .tooltipApps
+        margin-left 0!important // @stylint ignore
+        margin-top 0!important // @stylint ignore
+        max-width 100%!important // @stylint ignore
+
+    .introjs-button
+        white-space normal!important // @stylint ignore
+
+// hide details in smaller screen
 @media (max-width: 40em)
     .introjs-tooltiptext
         div
