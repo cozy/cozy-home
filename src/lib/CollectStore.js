@@ -272,9 +272,10 @@ export default class CollectStore {
       : cozy.client.data
           .findAll('io.cozy.files')
           .then(result => {
+            // if path contains '/.', it contains an hidden folder
             const folders = result
               .filter(f => f.type === 'directory')
-              .filter(f => f.path.match(/^\/$|\/[^.](.*)/)) // remove hidden folders
+              .filter(f => !f.path.match(/(?:\/\.)/)) // remove hidden folders
               .sort((a, b) => a.path > b.path)
             this.foldersFromStack = folders
             return folders
