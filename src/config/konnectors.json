@@ -391,6 +391,110 @@
     }
   },
   {
+    "slug": "cic45",
+    "name": "Crédit Mutuel",
+    "vendorLink": "https://www.creditmutuel.fr/groupe/fr/",
+    "category": "banking",
+    "icon": "credit-mutuel.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      },
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "value": "45"
+          },
+          {
+            "name": "Bretagne (Particuliers)",
+            "value": "46"
+          },
+          {
+            "name": "Massif Central (Particuliers)",
+            "value": "47"
+          },
+          {
+            "name": "Sud-Ouest (Particuliers)",
+            "value": "48"
+          },
+          {
+            "name": "Centre Est Europe",
+            "value": "120"
+          },
+          {
+            "name": "Sud-Est",
+            "value": "121"
+          },
+          {
+            "name": "Ile-de-France",
+            "value": "122"
+          },
+          {
+            "name": "Savoie-Mont Blanc",
+            "value": "123"
+          },
+          {
+            "name": "Midi-Atlantique",
+            "value": "124"
+          },
+          {
+            "name": "Centre",
+            "value": "125"
+          },
+          {
+            "name": "Loire-Atlantique et Centre-Ouest",
+            "value": "126"
+          },
+          {
+            "name": "Normandie",
+            "value": "127"
+          },
+          {
+            "name": "Méditerranéen",
+            "value": "128"
+          },
+          {
+            "name": "Dauphiné-Vivarais",
+            "value": "129"
+          },
+          {
+            "name": "Anjou",
+            "value": "130"
+          },
+          {
+            "name": "Océan",
+            "value": "131"
+          },
+          {
+            "name": "Maine-Anjou, Basse-Normandie",
+            "value": "132"
+          },
+          {
+            "name": "Nord Europe",
+            "value": "133"
+          },
+          {
+            "name": "Antilles-Guyane",
+            "value": "134"
+          }
+        ]
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "45"
+    }
+  },
+  {
     "slug": "comptenickel168",
     "name": "Compte Nickel",
     "vendorLink": "https://compte-nickel.fr",
