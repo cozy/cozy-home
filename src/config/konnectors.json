@@ -1,430 +1,490 @@
 [
-   {
-      "slug":"ameli",
-      "name":"Ameli",
-      "vendorLink":"https://www.ameli.fr/",
-      "category":"insurance",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "bank_identifier":{
-            "type":"text"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+  {
+    "slug": "ameli",
+    "name": "Ameli",
+    "vendorLink": "https://www.ameli.fr/",
+    "category": "insurance",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "source":"git://github.com/briced/cozy-konnector-v3-ameli.git#build"
-   },
-   {
-      "slug":"bouyguesbox",
-      "name":"Bouygues Box",
-      "vendorLink":"https://www.bouyguestelecom.fr/",
-      "category":"isp",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
-   },
-   {
-      "slug":"bouyguestelecom",
-      "name":"Bouygues Telecom",
-      "vendorLink":"https://www.bouyguestelecom.fr/",
-      "category":"telecom",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
+  },
+  {
+    "slug": "bouyguesbox",
+    "name": "Bouygues Box",
+    "vendorLink": "https://www.bouyguestelecom.fr/",
+    "category": "isp",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "source":"git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
-   },
-   {
-      "slug":"digiposte",
-      "name":"Digiposte",
-      "vendorLink":"https://secure.digiposte.fr",
-      "category":"other",
-      "dataType":[
-         "document"
-      ],
-      "fields":{
-         "email":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-digiposte.git#build"
-   },
-   {
-      "slug":"edf",
-      "name":"EDF",
-      "vendorLink":"https://www.edf.fr/",
-      "category":"energy",
-      "dataType":[
-         "bill",
-         "contract",
-         "consumption",
-         "profile",
-         "home"
-      ],
-      "fields":{
-         "email":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
+  },
+  {
+    "slug": "bouyguestelecom",
+    "name": "Bouygues Telecom",
+    "vendorLink": "https://www.bouyguestelecom.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "source":"git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
-   },
-   {
-      "slug":"free",
-      "name":"Free",
-      "vendorLink":"https://www.free.fr/",
-      "category":"isp",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-free.git#build"
-   },
-   {
-      "slug":"freemobile",
-      "name":"Free Mobile",
-      "vendorLink":"https://mobile.free.fr/",
-      "category":"telecom",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
+  },
+  {
+    "slug": "digiposte",
+    "name": "Digiposte",
+    "vendorLink": "https://secure.digiposte.fr",
+    "category": "other",
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
       },
-      "source":"git://github.com/cozy/cozy-konnector-free-mobile.git#build"
-   },
-   {
-      "slug":"harmonie",
-      "name":"Harmonie Mutuelle",
-      "vendorLink":"https://www.harmonie-mutuelle.fr/",
-      "category":"insurance",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-harmonie.git#build"
-   },
-   {
-      "oauth":true,
-      "slug":"maif",
-      "name":"MAIF",
-      "vendorLink":"maif.fr",
-      "category":"insurance",
-      "fields":{
-         "access_token":{
-            "type":"hidden"
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
+  },
+  {
+    "slug": "edf",
+    "name": "EDF",
+    "vendorLink": "https://www.edf.fr/",
+    "category": "energy",
+    "dataType": [
+      "bill",
+      "contract",
+      "consumption",
+      "profile",
+      "home"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
       },
-      "dataType":[
-         "profile",
-         "contract",
-         "home",
-         "family",
-         "sinister"
-      ],
-      "source":"git://github.com/cozy/cozy-konnector-maif.git#build",
-      "oauth_scope":"openid+profile+offline_access"
-   },
-   {
-      "slug":"malakoffmederic",
-      "name":"Malakoff Mederic",
-      "vendorLink":"http://www.malakoffmederic.com/",
-      "category":"insurance",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
-   },
-   {
-      "slug":"materielnet",
-      "name":"Materiel.net",
-      "vendorLink":"https://www.materiel.net/",
-      "category":"shopping",
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
+  },
+  {
+    "slug": "free",
+    "name": "Free",
+    "vendorLink": "https://www.free.fr/",
+    "category": "isp",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "dataType":[
-         "bill"
-      ],
-      "source":"git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
-   },
-   {
-      "slug":"numericable",
-      "name":"Numéricable",
-      "vendorLink":"https://www.numericable.fr/",
-      "category":"isp",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-numericable.git#build"
-   },
-   {
-      "slug":"orange",
-      "name":"Orange",
-      "vendorLink":"https://www.orange.fr/",
-      "category":"telecom",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-free.git#build"
+  },
+  {
+    "slug": "freemobile",
+    "name": "Free Mobile",
+    "vendorLink": "https://mobile.free.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "additionnalSuccessMessage":{
-         "message":"connector.orange.message.delay"
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-orange.git#build",
-      "timeInterval": [15, 21]
-   },
-   {
-      "slug":"redmobile",
-      "name":"SFR RED mobile",
-      "vendorLink":"https://www.red-by-sfr.fr/",
-      "category":"telecom",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
+  },
+  {
+    "slug": "harmonie",
+    "name": "Harmonie Mutuelle",
+    "vendorLink": "https://www.harmonie-mutuelle.fr/",
+    "category": "insurance",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "source":"git://github.com/cozy/cozy-konnector-redmobile.git#build"
-   },
-   {
-      "slug":"sfrbox",
-      "name":"SFR Box",
-      "vendorLink":"espace-client.sfr.fr/facture-fixe/consultation",
-      "category":"isp",
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "dataType":[
-         "bill"
-      ],
-      "source":"git://github.com/cozy/cozy-konnector-sfrbox.git#build"
-   },
-   {
-      "slug":"sfrmobile",
-      "name":"SFR Mobile",
-      "vendorLink":"espace-client.sfr.fr/facture-mobile/consultation",
-      "category":"telecom",
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
+  },
+  {
+    "oauth": true,
+    "slug": "maif",
+    "name": "MAIF",
+    "vendorLink": "maif.fr",
+    "category": "insurance",
+    "fields": {
+      "access_token": {
+        "type": "hidden"
+      }
+    },
+    "dataType": [
+      "profile",
+      "contract",
+      "home",
+      "family",
+      "sinister"
+    ],
+    "source": "git://github.com/cozy/cozy-konnector-maif.git#build",
+    "oauth_scope": "openid+profile+offline_access"
+  },
+  {
+    "slug": "malakoffmederic",
+    "name": "Malakoff Mederic",
+    "vendorLink": "http://www.malakoffmederic.com/",
+    "category": "insurance",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text",
+        "pattern": "^.{9}$"
       },
-      "dataType":[
-         "bill"
-      ],
-      "source":"git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
-   },
-   {
-      "slug":"sosh",
-      "name":"Sosh",
-      "vendorLink":"https://www.sosh.fr/",
-      "category":"telecom",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password",
+        "pattern": "^.{4,15}$"
       },
-      "source":"git://github.com/cozy/cozy-konnector-sosh.git#build"
-   },
-   {
-      "slug":"trainline",
-      "name":"Trainline",
-      "vendorLink":"www.trainline.fr",
-      "category":"transport",
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
+  },
+  {
+    "slug": "materielnet",
+    "name": "Materiel.net",
+    "vendorLink": "https://www.materiel.net/",
+    "category": "shopping",
+    "fields": {
+      "login": {
+        "type": "text"
       },
-      "dataType":[
-         "bill"
-      ],
-      "source":"git://github.com/cozy/cozy-konnector-trainline.git#build"
-   },
-   {
-      "slug":"sncf",
-      "name":"Voyage-Sncf",
-      "vendorLink":"https://www.voyages-sncf.com/",
-      "category":"transport",
-      "dataType":[
-         "bill"
-      ],
-      "fields":{
-         "login":{
-            "type":"text"
-         },
-         "password":{
-            "type":"password"
-         },
-         "folderPath":{
-            "type":"folder",
-            "advanced":true
-         }
+      "password": {
+        "type": "password"
       },
-      "source":"git://github.com/cozy/cozy-konnector-sncf.git#build"
-   }
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
+  },
+  {
+    "slug": "mgen",
+    "name": "MGEN",
+    "vendorLink": "https://www.mgen.fr",
+    "category": "insurance",
+    "dataType": [
+      "bill",
+      "certificate"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-mgen.git#build"
+  },
+  {
+    "slug": "numericable",
+    "name": "Numéricable",
+    "vendorLink": "https://www.numericable.fr/",
+    "category": "isp",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
+  },
+  {
+    "slug": "orange",
+    "name": "Orange Factures",
+    "vendorLink": "https://www.orange.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-orange.git#build",
+    "timeInterval": [15, 21]
+  },
+  {
+    "slug": "redbox",
+    "name": "SFR RED box",
+    "vendorLink": "https://www.red-by-sfr.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-redbox.git#build"
+  },
+  {
+    "slug": "redmobile",
+    "name": "SFR RED mobile",
+    "vendorLink": "https://www.red-by-sfr.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
+  },
+  {
+    "slug": "sfrbox",
+    "name": "SFR Box",
+    "vendorLink": "espace-client.sfr.fr/facture-fixe/consultation",
+    "category": "isp",
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
+  },
+  {
+    "slug": "sfrmobile",
+    "name": "SFR Mobile",
+    "vendorLink": "espace-client.sfr.fr/facture-mobile/consultation",
+    "category": "telecom",
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
+  },
+  {
+    "slug": "sncf",
+    "name": "Voyage-Sncf",
+    "vendorLink": "https://www.voyages-sncf.com/",
+    "category": "transport",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
+  },
+  {
+    "slug": "sosh",
+    "name": "Sosh",
+    "vendorLink": "https://www.sosh.fr/",
+    "category": "telecom",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
+  },
+  {
+    "slug": "trainline",
+    "name": "Trainline",
+    "vendorLink": "www.trainline.fr",
+    "category": "transport",
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "git://github.com/cozy/cozy-konnector-trainline.git#build"
+  }
 ]

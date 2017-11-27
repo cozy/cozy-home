@@ -28,9 +28,9 @@ const Field = props => {
       onBlur,
       onInput,
       disabled,
-      readOnly,
       name,
-      noAutoFill
+      noAutoFill,
+      isRequired
     } = props
     const autoFill = noAutoFill
       ? type === 'password' ? 'new-password' : 'off'
@@ -40,8 +40,8 @@ const Field = props => {
         type={type}
         placeholder={placeholder}
         className={styles['coz-field-input']}
-        readOnly={readOnly}
-        disabled={disabled || readOnly}
+        disabled={disabled}
+        isRequired={isRequired}
         value={value}
         name={name}
         pattern={pattern || false}
@@ -78,7 +78,7 @@ export class FieldWrapper extends Component {
   }
 
   render() {
-    const { label, invalid, errors, children, type } = this.props
+    const { label, invalid, errors, children, type, isRequired, t } = this.props
     const hasErrored = errors.length !== 0 || invalid
 
     return (
@@ -89,7 +89,16 @@ export class FieldWrapper extends Component {
         )}
         onKeyUp={type !== 'folder' && this.props.onEnterKey && this.handleKeyUp}
       >
-        {label && <label>{label}</label>}
+        {label && (
+          <label>
+            {label}
+            {!isRequired && (
+              <span className={styles['coz-field--optionnal']}>
+                {t('account.config.optionnal')}
+              </span>
+            )}
+          </label>
+        )}
         {children}
         {errors.length !== 0 &&
           errors.map((err, i) => (
@@ -205,7 +214,7 @@ class FolderPickerFieldComponent extends Component {
   }
 
   render() {
-    const { value, onChange, onInput, readOnly } = this.props
+    const { value, onChange, onInput, disabled } = this.props
     const { isFetching, foldersList } = this.state
     return (
       <FieldWrapper {...this.props}>
@@ -215,7 +224,7 @@ class FolderPickerFieldComponent extends Component {
           onChange={onChange}
           onInput={onInput}
           aria-busy={isFetching}
-          disabled={readOnly || isFetching}
+          disabled={disabled || isFetching}
         >
           {foldersList.map(folder => (
             <option value={folder.path} selected={folder.path === value}>

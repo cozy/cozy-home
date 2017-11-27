@@ -47,7 +47,7 @@ Then you can add the related locales in `src/locales/en.json` in the expected `c
 
 #### Field description
 
-You can also add a descrption above a field in the connector configuration form by putting the `hasDescription` property to `true`:
+You can also add a description above a field in the connector configuration form by putting the `hasDescription` property to `true`:
 
 ```js
     ...
@@ -79,6 +79,48 @@ Then you can add the related locales in `src/locales/en.json` in the expected `c
 ```
 
 > __⚠️ To know:__ You can format your text by using a kind of Markdown syntax since the description will be displayed using the [react-markdown][react-markdown] module.
+
+## Fields
+
+A connector must define a form to allow the user to connect / update his informations.
+
+Example:
+
+```js
+    ...
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "folderPath": {
+        "type": "folder",
+        "advanced": true,
+        "isRequired": false
+      }
+    },
+    ...
+```
+
+You can use `simple input`, or `complex fieldset`. Single input will render classic html form element, complex fieldset will render custom fieldset.
+
+### Input properties
+
+> __⚠️ To know:__ `dropdown` type will render a <select>, `folder` type is related to a complex input
+
++ type (required): text, password, hidden, checkbox, date, dropdown, folder
++ isRequired: default = true, make the field required to validate the form
++ pattern: allow you to use a regex to validate a field
++ advanced: default false, add the field on the "advenced options" fieldset
++ hasDescription: see `Field description` section of this documentation
+
+#### Complex fieldset
+
+Complex fieldset are custom features developped by Cozy to improve the connector form
+
++ folderPath: need `type: folder` as property. Add a fieldset to allow the user to define a custom path on his Cozy Drive to save his data
 
 ## Category
 

@@ -3,14 +3,13 @@ import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial() {
-  return window.location.hash.endsWith('/?intro')
+  return window.location.pathname.endsWith('/intro')
 }
 
 export function display(t) {
   const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
   const isEmptyView = !!document.querySelectorAll('[data-tutorial=empty-view]')
     .length
-  const isLandscape = window.innerWidth > window.innerHeight
   const cozyBarMenuClass = isSmall
     ? '[data-tutorial=apps-mobile]'
     : '[data-tutorial=apps]'
@@ -42,17 +41,15 @@ export function display(t) {
           intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
             'tutorial.cozy_collect.text'
           )}</div>`,
-          tooltipClass: isSmall
-            ? isEmptyView ? 'tooltipSmallTopCenter' : 'tooltipSmallLeft'
-            : isEmptyView ? 'tooltipTopCenter' : 'tooltipLeft',
-          position: isSmall && isLandscape ? 'right' : 'bottom'
+          tooltipClass: isEmptyView ? 'tooltipEmptyBottom' : 'tooltipBottom',
+          position: 'bottom'
         },
         {
           element: cozyBarMenuButton,
           intro: `<h1>${t('tutorial.menu_apps.title')}</h1><div>${t(
             'tutorial.menu_apps.text'
           )}</div>`,
-          tooltipClass: isSmall ? 'tooltipSmallCenter' : 'tooltipRight',
+          tooltipClass: 'tooltipApps',
           position: isSmall ? 'right' : 'bottom'
         }
       ]

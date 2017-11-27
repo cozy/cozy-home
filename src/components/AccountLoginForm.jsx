@@ -28,7 +28,7 @@ const renderers = {
   text: () => <Field />,
   email: () => <Field type="email" />,
   folder: ({ disableFolderPath }) => (
-    <FolderPickerField readOnly={disableFolderPath} />
+    <FolderPickerField disabled={disableFolderPath} />
   )
 }
 
@@ -47,6 +47,7 @@ export const AccountLoginForm = props => {
     error,
     dirty,
     isValid,
+    allRequiredFieldsAreFilled,
     submitting,
     forceDisabled,
     forceEnabled,
@@ -75,7 +76,7 @@ export const AccountLoginForm = props => {
 
   // Submit button state
   const submitEnabled =
-    (dirty && isValid) ||
+    (dirty && isValid && allRequiredFieldsAreFilled) ||
     (isOAuth && !(isUpdate && hasEditableFields)) ||
     forceEnabled
   const canHandleEnterKey =
@@ -90,10 +91,10 @@ export const AccountLoginForm = props => {
     if (!renderers[type]) {
       throw new Error('Unknown field type ' + type)
     }
-    const readOnly = name === 'login' && isUpdate
+    const disabled = name === 'login' && isUpdate
 
     // Give focus only once
-    const giveFocus = !alreadyFocused && !readOnly
+    const giveFocus = !alreadyFocused && !disabled
     if (giveFocus) alreadyFocused = giveFocus
 
     // Build common fields
