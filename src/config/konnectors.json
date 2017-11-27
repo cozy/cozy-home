@@ -936,7 +936,7 @@
     "slug": "redbox",
     "name": "SFR RED box",
     "vendorLink": "https://www.red-by-sfr.fr/",
-    "category": "telecom",
+    "category": "isp",
     "dataType": [
       "bill"
     ],
