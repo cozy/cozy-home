@@ -13,13 +13,14 @@ import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
-const NotExistingDirErrorDescription = ({ t, connector }) => (
+const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
-    title={t('connection.error.NOT_EXISTING_DIRECTORY.title')}
+    title={t(`connection.error.${errorMessage}.title`)}
     messages={[
-      t('connection.error.NOT_EXISTING_DIRECTORY.description', {
-        name: connector.name
+      t(`connection.error.${errorMessage}.description`, {
+        name: connector.name,
+        link: connector.vendorLink
       })
     ]}
   />
@@ -39,7 +40,8 @@ const getErrorDescription = props => {
   const { error } = props
   switch (error.message) {
     case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
-      return <NotExistingDirErrorDescription {...props} />
+    case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
+      return <KnownErrorDescription errorMessage={error.message} {...props} />
     default:
       return <GlobalErrorDescription {...props} />
   }
