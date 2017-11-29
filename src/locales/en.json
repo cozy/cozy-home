@@ -132,7 +132,7 @@
       },
       "USER_ACTION_NEEDED": {
         "title": "Action needed on the provider",
-        "description": "It seems that the [%{name}](%{link}) provider requires an action from your part. Please do it and run this connector one more time."
+        "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
       }
     }
   },
