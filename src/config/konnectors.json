@@ -2,7 +2,7 @@
   {
     "slug": "ameli",
     "name": "Ameli",
-    "vendorLink": "https://www.ameli.fr/",
+    "vendorLink": "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure",
     "category": "insurance",
     "dataType": [
       "bill"
