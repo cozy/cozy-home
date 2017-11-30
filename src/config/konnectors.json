@@ -847,11 +847,13 @@
     "fields": {
       "login": {
         "type": "text",
-        "pattern": "^.{9}$"
+        "min": 9,
+        "max": 9
       },
       "password": {
         "type": "password",
-        "pattern": "^.{4,15}$"
+        "min": 4,
+        "max": 15
       },
       "folderPath": {
         "type": "folder",
