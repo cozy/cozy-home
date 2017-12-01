@@ -225,6 +225,13 @@
     "working": "Loading"
   },
 
+  "validation": {
+    "exact_length": "It's must be made up of %{length} characters exactly.",
+    "max_length": "The length maximum is %{length} characters.",
+    "min_length": "It should contain at least %{length} characters.",
+    "pattern": "The value must match a specific pattern: %{pattern}"
+  },
+
   "error": {
     "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
     "LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",

@@ -108,19 +108,21 @@ You can use `simple input`, or `complex fieldset`. Single input will render clas
 
 ### Input properties
 
-> __⚠️ To know:__ `dropdown` type will render a <select>, `folder` type is related to a complex input
+> __⚠️ To know:__ `dropdown` type will render a `<select>`, `folder` type is related to a complex input
 
-+ type (required): text, password, hidden, checkbox, date, dropdown, folder
-+ isRequired: default = true, make the field required to validate the form
-+ pattern: allow you to use a regex to validate a field
-+ advanced: default false, add the field on the "advenced options" fieldset
-+ hasDescription: see `Field description` section of this documentation
+* __type (required)__: text, password, hidden, checkbox, date, dropdown, folder
+* __isRequired__: default = true, make the field required to validate the form
+* __pattern__: allow you to use a regex to validate a field
+* __min__: to define a minimum length of the value (number of characters)
+* __max__: to define a maximum length of the value (number of characters)
+* __advanced__: default false, add the field on the "advenced options" fieldset
+* __hasDescription__: see `Field description` section of this documentation
 
 #### Complex fieldset
 
 Complex fieldset are custom features developped by Cozy to improve the connector form
 
-+ folderPath: need `type: folder` as property. Add a fieldset to allow the user to define a custom path on his Cozy Drive to save his data
+* folderPath: need `type: folder` as property. Add a fieldset to allow the user to define a custom path on his Cozy Drive to save his data
 
 ## Category
 

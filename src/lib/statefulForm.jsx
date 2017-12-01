@@ -91,6 +91,8 @@ export default function statefulForm(mapPropsToFormConfig) {
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
           let pattern = config.fields[field].pattern || ''
+          let maxLength = config.fields[field].max || null
+          let minLength = config.fields[field].min || null
           let required =
             config.fields[field].isRequired === undefined
               ? true
@@ -107,6 +109,8 @@ export default function statefulForm(mapPropsToFormConfig) {
             dirty: false,
             errors: [],
             pattern,
+            max: maxLength,
+            min: minLength,
             isRequired,
             onInput: event =>
               this.handleChange(
@@ -131,12 +135,29 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleBlur(field, target) {
-        const pattern = this.state.fields[field].pattern || ''
+        const { t } = this.context
         const stateFields = this.state.fields
+        const value = stateFields[field].value
+        const pattern = stateFields[field].pattern || ''
+        const patternRx = pattern && new RegExp(pattern)
+        const maxLength = stateFields[field].max
+        const minLength = stateFields[field].min
         const errors = []
-        if (target.validationMessage) {
-          const patternFormat = pattern ? ` (${pattern})` : ''
-          errors.push(`${target.validationMessage}${patternFormat}`)
+        if (
+          maxLength &&
+          minLength &&
+          maxLength === minLength &&
+          value.length !== maxLength
+        ) {
+          errors.push(t('validation.exact_length', { length: maxLength }))
+        } else if (maxLength && value.length > maxLength) {
+          errors.push(t('validation.max_length', { length: maxLength }))
+        } else if (minLength && value.length < minLength) {
+          errors.push(t('validation.min_length', { length: minLength }))
+        } else if (patternRx && !patternRx.test(value)) {
+          errors.push(t('validation.pattern', { pattern }))
+        } else if (target.validationMessage) {
+          errors.push(target.validationMessage)
         }
 
         // compute if the form is valid
