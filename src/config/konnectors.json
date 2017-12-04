@@ -1022,12 +1022,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }
@@ -1103,12 +1099,8 @@
       "access_token": {
         "type": "hidden"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       },
@@ -1144,12 +1136,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }
@@ -1172,12 +1160,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }
@@ -1197,12 +1181,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }
@@ -1225,12 +1205,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }
@@ -1404,14 +1380,11 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "customFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
@@ -1429,12 +1402,8 @@
       "password": {
         "type": "password"
       },
-      "pathName": {
-        "type": "text",
-        "advanced": true
-      },
       "folderPath": {
-        "type": "folder",
+        "type": "customField",
         "advanced": true,
         "isRequired": false
       }

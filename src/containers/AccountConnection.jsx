@@ -272,9 +272,16 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   submit(values) {
+    const { t } = this.context
+    values.folderPath =
+      values.folderPath.length > 0
+        ? values.folderPath
+        : t('account.config.default_folder')
     // pahtName defined (or not) by the user is concatened with the folderPath
-    values.pathName &&
-      (values.folderPath = `${values.folderPath}/${values.pathName}`)
+    values.namePath &&
+      (values.folderPath = `${values.folderPath}/${values.namePath}`)
+
+    delete values['namePath']
 
     this.setState({
       error: null

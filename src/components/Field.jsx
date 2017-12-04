@@ -62,7 +62,7 @@ const Field = props => {
 
 export default Field
 
-export class FieldWrapper extends Component {
+class FieldWrapperComponent extends Component {
   componentDidMount() {
     if (this.props.giveFocus)
       ReactDOM.findDOMNode(this)
@@ -108,6 +108,8 @@ export class FieldWrapper extends Component {
     )
   }
 }
+
+export const FieldWrapper = translate()(FieldWrapperComponent)
 
 export const PasswordField = translate()(
   statefulComponent(
@@ -209,20 +211,26 @@ class FolderPickerFieldComponent extends Component {
   }
 
   render() {
-    const { value, onChange, onInput, disabled } = this.props
+    const { value, onChange, onInput, disabled, t } = this.props
     const { isFetching, foldersList } = this.state
+    const defaultPath = t('account.config.default_folder')
     return (
       <FieldWrapper {...this.props}>
         <select
           className={styles['coz-field-dropdown']}
-          value={isFetching ? 'loading' : value}
+          value={
+            isFetching ? 'loading' : value.length > 0 ? value : defaultPath
+          }
           onChange={onChange}
           onInput={onInput}
           aria-busy={isFetching}
           disabled={disabled || isFetching}
         >
           {foldersList.map(folder => (
-            <option value={folder.path} selected={folder.path === value}>
+            <option
+              value={folder.path}
+              selected={folder.path === value.length > 0 ? value : defaultPath}
+            >
               {folder.path}
             </option>
           ))}

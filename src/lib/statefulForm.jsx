@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import customFields from '../config/customFields'
+
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -87,24 +89,40 @@ export default function statefulForm(mapPropsToFormConfig) {
       configureFields(config) {
         if (!config || !config.fields) return {}
 
+        let fieldsList = config.fields
+
+        // Convert custom fields to fields readable by configureFields
+        if (Object.keys(fieldsList).includes('customFields')) {
+          for (let customField in fieldsList.customFields) {
+            for (let k in customFields[customField]) {
+              // Assign values from customFields, and values from konnectors
+              let toto = customFields[customField][k]
+              toto = Object.assign(toto, fieldsList.customFields[customField])
+              fieldsList[k] = toto
+            }
+          }
+          delete fieldsList['customFields']
+        }
+
         let fields = {}
-        Object.keys(config.fields).forEach(field => {
-          let defaut = config.fields[field].default || ''
-          let pattern = config.fields[field].pattern || ''
-          let maxLength = config.fields[field].max || null
-          let minLength = config.fields[field].min || null
+
+        Object.keys(fieldsList).forEach(field => {
+          let defaut = fieldsList[field].default || ''
+          let pattern = fieldsList[field].pattern || ''
+          let maxLength = fieldsList[field].max || null
+          let minLength = fieldsList[field].min || null
           let required =
-            config.fields[field].isRequired === undefined
+            fieldsList[field].isRequired === undefined
               ? true
-              : config.fields[field].isRequired
+              : fieldsList[field].isRequired
 
           let isRequired = field === 'frequency' ? false : required
           let value =
             config.values && config.values[field]
               ? config.values[field]
               : defaut
-          let options = config.fields[field].options || []
-          fields[field] = Object.assign({}, config.fields[field], {
+          let options = fieldsList[field].options || []
+          fields[field] = Object.assign({}, fieldsList[field], {
             value: value,
             dirty: false,
             errors: [],
@@ -184,8 +202,6 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       handleChange(field, target) {
         let stateUpdate
-        let errors = []
-        const pattern = this.state.fields[field].pattern
         if (target.type && target.type === 'checkbox') {
           stateUpdate = {
             dirty: true,
@@ -198,7 +214,6 @@ export default function statefulForm(mapPropsToFormConfig) {
             value: target.value
           }
         }
-        stateUpdate.errors = errors
         this.setState(prevState => {
           return Object.assign({}, prevState, {
             dirty: true,
