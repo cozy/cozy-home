@@ -55,7 +55,7 @@ class KonnectorItem extends Component {
     )
   }
 
-  render({ t, konnector, jobs, router }) {
+  render({ t, konnector, jobs, router, accountName }) {
     const { status } = this.state
     const { category, name, slug } = konnector
     return (
@@ -64,9 +64,11 @@ class KonnectorItem extends Component {
           <img className="item-icon" src={getKonnectorIcon(konnector)} />
         </header>
         <p className="item-title">{name}</p>
-        {category && (
-          <p className="item-subtitle">{t(`category.${category}`)}</p>
-        )}
+        {!accountName &&
+          category && (
+            <p className="item-subtitle">{t(`category.${category}`)}</p>
+          )}
+        {accountName && <p className="item-subtitle">{accountName}</p>}
         {status && stateIcon(status)}
       </Link>
     )

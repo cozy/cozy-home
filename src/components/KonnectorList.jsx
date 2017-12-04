@@ -2,14 +2,34 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import KonnectorItem from './KonnectorItem'
 import { popupCenter } from '../lib/popup'
+import { getAccountName } from '../lib/helpers'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 
-const KonnectorList = ({ t, connectors, showVoting = false }) => (
+const KonnectorList = ({
+  t,
+  connectors,
+  showVoting = false,
+  displayAccounts = false
+}) => (
   <div className="connector-list">
-    {connectors.map(konnector => (
-      <KonnectorItem konnector={konnector} enableDefaultIcon />
-    ))}
+    {displayAccounts &&
+      connectors.map(konnector =>
+        konnector.accounts.map(account => {
+          const accountName = getAccountName(account)
+          return (
+            <KonnectorItem
+              konnector={konnector}
+              enableDefaultIcon
+              accountName={accountName}
+            />
+          )
+        })
+      )}
+    {!displayAccounts &&
+      connectors.map(konnector => (
+        <KonnectorItem konnector={konnector} enableDefaultIcon />
+      ))}
     {showVoting && (
       <a
         className="item-wrapper col-voting-item"
