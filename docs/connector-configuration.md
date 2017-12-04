@@ -8,6 +8,7 @@ Some properties will be available and used only from the Cozy-Collect config fil
 
 * `slug`
 * `name`
+* `editor`
 * `fields`
 * `additionnalSuccessMessage`
 * `hasDescriptions`

@@ -75,7 +75,7 @@ export const KonnectorEdit = ({
   const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-  const { hasDescriptions } = connector
+  const { hasDescriptions, editor } = connector
 
   return (
     <div className={styles['col-account-edit-content']}>
@@ -160,6 +160,11 @@ export const KonnectorEdit = ({
           </TabPanel>
         </TabPanels>
       </Tabs>
+      {editor && (
+        <p className={styles['col-account-connection-editor']}>
+          {t('account.editor_detail', { editor })}
+        </p>
+      )}
     </div>
   )
 }

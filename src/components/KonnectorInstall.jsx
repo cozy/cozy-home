@@ -30,7 +30,7 @@ export const KonnectorInstall = ({
   success
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
-  const { hasDescriptions } = connector
+  const { hasDescriptions, editor } = connector
 
   return (
     <div className={styles['col-account-connection-content']}>
@@ -93,6 +93,11 @@ export const KonnectorInstall = ({
             onCancel={onCancel}
             success={success}
           />
+        )}
+        {editor && (
+          <p className={styles['col-account-connection-editor']}>
+            {t('account.editor_detail', { editor })}
+          </p>
         )}
       </div>
 

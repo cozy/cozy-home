@@ -117,7 +117,8 @@
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
     },
-    "forceConnection": "Synchronize now"
+    "forceConnection": "Synchronize now",
+    "editor_detail": "Service developed by %{editor}"
   },
 
   "connection": {
