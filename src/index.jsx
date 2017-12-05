@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path=":connectorSlug" component={ConnectorManagement} />
             </Route>
           </Route>
+          <Redirect from="*" to="/connected" />
         </Router>
       </I18n>
     </CozyProvider>,
