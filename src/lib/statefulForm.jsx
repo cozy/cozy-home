@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import customFields from '../config/customFields'
+import advancedFields from '../config/advancedFields'
 
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
@@ -88,41 +88,41 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       configureFields(config) {
         if (!config || !config.fields) return {}
-
-        let fieldsList = config.fields
+        const konnectorName = config.connectorName
 
         // Convert custom fields to fields readable by configureFields
-        if (Object.keys(fieldsList).includes('customFields')) {
-          for (let customField in fieldsList.customFields) {
-            for (let k in customFields[customField]) {
-              // Assign values from customFields, and values from konnectors
-              let toto = customFields[customField][k]
-              toto = Object.assign(toto, fieldsList.customFields[customField])
-              fieldsList[k] = toto
+        if (Object.keys(config.fields).includes('advancedFields')) {
+          for (let advancedField in config.fields.advancedFields) {
+            for (let k in advancedFields[advancedField]) {
+              // Assign values from advancedFields, and values from konnectors
+              let field = advancedFields[advancedField][k]
+              field = Object.assign(
+                field,
+                config.fields.advancedFields[advancedField]
+              )
+              config.fields[k] = field
             }
           }
-          delete fieldsList['customFields']
+          delete config.fields['advancedFields']
         }
 
         let fields = {}
 
-        Object.keys(fieldsList).forEach(field => {
-          let defaut = fieldsList[field].default || ''
-          let pattern = fieldsList[field].pattern || ''
-          let maxLength = fieldsList[field].max || null
-          let minLength = fieldsList[field].min || null
-          let required =
-            fieldsList[field].isRequired === undefined
+        Object.keys(config.fields).forEach(field => {
+          let defaut = config.fields[field].default || ''
+          let pattern = config.fields[field].pattern || ''
+          let maxLength = config.fields[field].max || null
+          let minLength = config.fields[field].min || null
+          let isRequired =
+            config.fields[field].isRequired === undefined
               ? true
-              : fieldsList[field].isRequired
-
-          let isRequired = field === 'frequency' ? false : required
+              : config.fields[field].isRequired
           let value =
             config.values && config.values[field]
               ? config.values[field]
               : defaut
-          let options = fieldsList[field].options || []
-          fields[field] = Object.assign({}, fieldsList[field], {
+          let options = config.fields[field].options || []
+          fields[field] = Object.assign({}, config.fields[field], {
             value: value,
             dirty: false,
             errors: [],
@@ -149,6 +149,25 @@ export default function statefulForm(mapPropsToFormConfig) {
           if (typeof value === 'boolean') fields[field].checked = value
           if (fields[field].type === 'dropdown') fields[field].options = options
         })
+        // Set default values for advanced fields that will not be shown
+        // on the initial connection form
+        if (fields.calendar && !fields.calendar.default) {
+          fields.calendar.default = konnectorName
+        }
+        if (fields.namePath.value === '') fields.namePath.value = konnectorName
+        if (!fields.frequency) {
+          fields.frequency = {
+            type: 'text',
+            hidden: true,
+            isRequired: false
+          }
+        }
+        if (fields.frequency && !fields.frequency.default) {
+          fields.frequency.default = 'week'
+        }
+
+        // Update config.fields with builded fields.
+        config.fields = fields
         return fields
       }
 

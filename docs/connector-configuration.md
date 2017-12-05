@@ -96,16 +96,17 @@ Example:
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     ...
 ```
 
-You can use `simple input`, or `complex fieldset`. Single input will render classic html form element, complex fieldset will render custom fieldset.
+You can use `simple input`, or `advanced fields`. Single input will render classic html form element, advanced fields will render custom fieldset defined in `/src/config/advancedFields.js`.
 
 ### Input properties
 
@@ -118,12 +119,16 @@ You can use `simple input`, or `complex fieldset`. Single input will render clas
 * __max__: to define a maximum length of the value (number of characters)
 * __advanced__: default false, add the field on the "advenced options" fieldset
 * __hasDescription__: see `Field description` section of this documentation
+* __options__: related to dropdown, define the options of the <select>
 
-#### Complex fieldset
+#### Advanced fieldsets
 
-Complex fieldset are custom features developped by Cozy to improve the connector form
+Advanced fieldsets are custom features developped by Cozy to improve the connector form.
+They must be defined on `advancedFields` in the connector configuration.
 
-* folderPath: need `type: folder` as property. Add a fieldset to allow the user to define a custom path on his Cozy Drive to save his data
+* folderPath: Add a fieldset to allow the user to define a custom path with a custom name on his Cozy Drive to save his data.
+
+You can create your own advanced field by adding it in `/src/config/advancedFields.js`, it use the input properties defined before.
 
 ## Category
 

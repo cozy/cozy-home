@@ -54,7 +54,7 @@ export const AccountLoginForm = props => {
     values,
     submit,
     connectorSlug,
-    connectorName,
+    konnectorName,
     isSuccess,
     disableSuccessTimeout,
     disableFolderPath,
@@ -108,7 +108,7 @@ export const AccountLoginForm = props => {
       giveFocus,
       label: t(`account.form.label.${label || name}`),
       value: isUnloading ? '' : hydrate(value),
-      placeholder: name === 'pathName' && connectorName
+      placeholder: name === 'pathName' && konnectorName
     }
     return (
       <div>

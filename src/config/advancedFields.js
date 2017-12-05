@@ -1,4 +1,4 @@
-const customFields = {
+const advancedFields = {
   folderPath: {
     namePath: {
       type: 'text'
@@ -9,4 +9,4 @@ const customFields = {
   }
 }
 
-export default customFields
+export default advancedFields

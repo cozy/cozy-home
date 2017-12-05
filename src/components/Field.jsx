@@ -211,26 +211,20 @@ class FolderPickerFieldComponent extends Component {
   }
 
   render() {
-    const { value, onChange, onInput, disabled, t } = this.props
+    const { value, onChange, onInput, disabled } = this.props
     const { isFetching, foldersList } = this.state
-    const defaultPath = t('account.config.default_folder')
     return (
       <FieldWrapper {...this.props}>
         <select
           className={styles['coz-field-dropdown']}
-          value={
-            isFetching ? 'loading' : value.length > 0 ? value : defaultPath
-          }
+          value={isFetching ? 'loading' : value}
           onChange={onChange}
           onInput={onInput}
           aria-busy={isFetching}
           disabled={disabled || isFetching}
         >
           {foldersList.map(folder => (
-            <option
-              value={folder.path}
-              selected={folder.path === value.length > 0 ? value : defaultPath}
-            >
+            <option value={folder.path} selected={folder.path === value}>
               {folder.path}
             </option>
           ))}

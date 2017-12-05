@@ -68,7 +68,7 @@ export const KonnectorInstall = ({
         {!success && (
           <AccountLoginForm
             connectorSlug={connector.slug}
-            connectorName={connector.name}
+            konnectorName={connector.name}
             disableSuccessTimeout={disableSuccessTimeout}
             error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
             fields={fields}
