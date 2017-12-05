@@ -262,6 +262,9 @@
     "no-connectors-connected": "You have not yet connected connectors",
     "get-info": "Get automatically all your informations in your Cozy",
     "connect-account": "Connect my accounts",
+    "logo": {
+      "alt": "%{name} logo"
+    },
     "orange": {
       "message": {
         "delay": "Once connected, a demand to extract your data will be sent to Orange information system. These data will be available within 15 days. You data will be updated automatically, every 15 days."

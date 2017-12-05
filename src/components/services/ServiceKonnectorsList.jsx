@@ -17,7 +17,11 @@ const ServiceKonnectorsList = ({ t, konnectorsList, showKonnector }) => (
         className="item-wrapper"
       >
         <header className="item-header">
-          <img className="item-icon" src={getKonnectorIcon(konnector)} />
+          <img
+            className="item-icon"
+            alt={t('connector.logo.alt', { name })}
+            src={getKonnectorIcon(konnector)}
+          />
         </header>
         <p className="item-title">{konnector.name}</p>
         {konnector.category && (
