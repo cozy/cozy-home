@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
               component={props => (
                 <CategoryList
                   category={props.params.filter}
+                  categories={store.categories}
                   connectors={store.findByCategory(props.params)}
                   {...props}
                 />
