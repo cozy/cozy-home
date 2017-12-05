@@ -62,7 +62,7 @@ const Field = props => {
 
 export default Field
 
-export class FieldWrapper extends Component {
+class FieldWrapperComponent extends Component {
   componentDidMount() {
     if (this.props.giveFocus)
       ReactDOM.findDOMNode(this)
@@ -109,6 +109,8 @@ export class FieldWrapper extends Component {
   }
 }
 
+export const FieldWrapper = translate()(FieldWrapperComponent)
+
 export const PasswordField = translate()(
   statefulComponent(
     {
@@ -138,7 +140,6 @@ export const PasswordField = translate()(
       <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
         <button
           type="button"
-          tabIndex="-1"
           title={
             visible
               ? t('field.password.visibility.title.hide')

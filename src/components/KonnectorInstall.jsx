@@ -19,7 +19,6 @@ export const KonnectorInstall = ({
   error,
   fields,
   forceDisabled,
-  folderPath,
   isTimeout,
   isUnloading,
   oAuthTerminated,
@@ -69,6 +68,7 @@ export const KonnectorInstall = ({
         {!success && (
           <AccountLoginForm
             connectorSlug={connector.slug}
+            konnectorName={connector.name}
             disableSuccessTimeout={disableSuccessTimeout}
             error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
             fields={fields}
@@ -87,7 +87,6 @@ export const KonnectorInstall = ({
             connector={connector}
             driveUrl={driveUrl}
             folderId={account && account.folderId}
-            folderPath={folderPath}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             onCancel={onCancel}

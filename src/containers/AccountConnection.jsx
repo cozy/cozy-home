@@ -3,10 +3,13 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 import ClassNames from 'classnames'
 
+import { translate } from 'cozy-ui/react/I18n'
+
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import { getKonnectorIcon } from '../lib/icons'
+import { popupCenter, waitForClosedPopup } from '../lib/popup'
+import statefulForm from '../lib/statefulForm'
 
 const SUCCESS_TYPES = {
   UPDATE: 'update',
@@ -52,7 +55,7 @@ class AccountConnection extends Component {
       return auth.folderPath
     }
 
-    return folderField.default || t('account.config.default_folder', connector)
+    return folderField.default || t('account.config.default_folder')
   }
 
   componentWillReceiveProps({ existingAccount }) {
@@ -272,6 +275,12 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   submit(values) {
+    // namePath defined by the user is concatened with the folderPath
+    values.namePath &&
+      (values.folderPath = `${values.folderPath}/${values.namePath}`)
+
+    delete values['namePath']
+
     this.setState({
       error: null
     })
@@ -375,4 +384,4 @@ class AccountConnection extends Component {
   }
 }
 
-export default AccountConnection
+export default statefulForm()(translate()(AccountConnection))

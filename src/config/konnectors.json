@@ -15,10 +15,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
@@ -114,10 +115,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
@@ -138,10 +140,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
@@ -561,10 +564,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
@@ -589,10 +593,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
@@ -613,10 +618,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-free.git#build"
@@ -637,10 +643,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
@@ -661,10 +668,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
@@ -882,10 +890,11 @@
         "min": 4,
         "max": 15
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
@@ -903,10 +912,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "dataType": [
@@ -979,7 +989,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }
@@ -1002,10 +1012,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-orange.git#build",
@@ -1052,7 +1063,7 @@
         "type": "hidden"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       },
@@ -1089,7 +1100,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }
@@ -1113,7 +1124,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }
@@ -1134,7 +1145,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }
@@ -1158,7 +1169,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }
@@ -1184,10 +1195,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
@@ -1328,10 +1340,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
@@ -1350,7 +1363,7 @@
         "type": "password"
       },
       "folderPath": {
-        "type": "folder",
+        "type": "advancedField",
         "advanced": true,
         "isRequired": false
       }

@@ -17,7 +17,7 @@ export default class ConnectorManagement extends Component {
     const connector = this.store.find(
       c => c.slug === props.params.connectorSlug
     )
-    const { name, fields } = connector
+    const { fields } = connector
 
     this.state = {
       connector: this.sanitize(connector),
@@ -25,7 +25,7 @@ export default class ConnectorManagement extends Component {
       isInstalled: this.isInstalled(connector),
       isWorking: true,
       selectedAccount: 0,
-      fields: this.configureFields(fields, context.t, name),
+      fields: fields,
       submitting: false,
       synching: false,
       deleting: false,
@@ -132,29 +132,5 @@ export default class ConnectorManagement extends Component {
     return Object.assign({}, connector, {
       dataType: connector.dataType.filter(isValidType)
     })
-  }
-
-  // Set default values for advanced fields that will not be shown
-  // on the initial connection form
-  configureFields(fields, t, connectorName) {
-    if (fields.calendar && !fields.calendar.default) {
-      fields.calendar.default = connectorName
-    }
-    if (fields.folderPath && !fields.folderPath.options) {
-      fields.folderPath.options = this.store.folders.map(
-        f => f.path + '/' + f.name
-      )
-      fields.folderPath.folders = this.store.folders
-    }
-    if (!fields.frequency) {
-      fields.frequency = {
-        type: 'text',
-        hidden: true
-      }
-    }
-    if (fields.frequency && !fields.frequency.default) {
-      fields.frequency.default = 'week'
-    }
-    return fields
   }
 }

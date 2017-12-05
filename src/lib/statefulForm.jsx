@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import advancedFields from '../config/advancedFields'
+
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -86,19 +88,35 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       configureFields(config) {
         if (!config || !config.fields) return {}
+        const konnectorName = config.connectorName
+
+        // Convert custom fields to fields readable by configureFields
+        if (Object.keys(config.fields).includes('advancedFields')) {
+          for (let advancedField in config.fields.advancedFields) {
+            for (let k in advancedFields[advancedField]) {
+              // Assign values from advancedFields, and values from konnectors
+              let field = advancedFields[advancedField][k]
+              field = Object.assign(
+                field,
+                config.fields.advancedFields[advancedField]
+              )
+              config.fields[k] = field
+            }
+          }
+          delete config.fields['advancedFields']
+        }
 
         let fields = {}
+
         Object.keys(config.fields).forEach(field => {
           let defaut = config.fields[field].default || ''
           let pattern = config.fields[field].pattern || ''
           let maxLength = config.fields[field].max || null
           let minLength = config.fields[field].min || null
-          let required =
+          let isRequired =
             config.fields[field].isRequired === undefined
               ? true
               : config.fields[field].isRequired
-
-          let isRequired = field === 'frequency' ? false : required
           let value =
             config.values && config.values[field]
               ? config.values[field]
@@ -131,6 +149,25 @@ export default function statefulForm(mapPropsToFormConfig) {
           if (typeof value === 'boolean') fields[field].checked = value
           if (fields[field].type === 'dropdown') fields[field].options = options
         })
+        // Set default values for advanced fields that will not be shown
+        // on the initial connection form
+        if (fields.calendar && !fields.calendar.default) {
+          fields.calendar.default = konnectorName
+        }
+        if (fields.namePath.value === '') fields.namePath.value = konnectorName
+        if (!fields.frequency) {
+          fields.frequency = {
+            type: 'text',
+            hidden: true,
+            isRequired: false
+          }
+        }
+        if (fields.frequency && !fields.frequency.default) {
+          fields.frequency.default = 'week'
+        }
+
+        // Update config.fields with builded fields.
+        config.fields = fields
         return fields
       }
 
