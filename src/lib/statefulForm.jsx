@@ -154,7 +154,8 @@ export default function statefulForm(mapPropsToFormConfig) {
         if (fields.calendar && !fields.calendar.default) {
           fields.calendar.default = konnectorName
         }
-        if (fields.namePath.value === '') fields.namePath.value = konnectorName
+        if (fields.namePath && fields.namePath.value === '')
+          fields.namePath.value = konnectorName
         if (!fields.frequency) {
           fields.frequency = {
             type: 'text',
