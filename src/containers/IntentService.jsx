@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
+import { cozyConnect } from 'redux-cozy-client'
+import { connect } from 'react-redux'
 
 import Loading from '../components/Loading'
 import CreateAccountService from '../components/services/CreateAccountService'
 import ServiceBar from '../components/services/ServiceBar'
 import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
-export default class IntentService extends Component {
+import { initializeRegistry } from '../ducks/registry'
+import { fetchAccounts } from '../ducks/accounts'
+import { getConnectionsStatusesByKonnectors } from '../ducks/connections'
+import { fetchKonnectorJobs } from '../ducks/jobs'
+import { fetchKonnectors } from '../ducks/konnectors'
+import { fetchTriggers } from '../ducks/triggers'
+
+class IntentService extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = context.store
@@ -15,6 +24,8 @@ export default class IntentService extends Component {
     this.state = {
       isFetching: true
     }
+
+    props.initializeRegistry(props.initKonnectors)
 
     // Maybe the logic about getting the intent from location.search should be
     // encapsulated in cozy.client.createService
@@ -50,8 +61,9 @@ export default class IntentService extends Component {
           throw new Error(`Unknown konnector`)
         } else {
           konnectorsList.forEach(konnector => {
-            konnector.status = this.store.getConnectionStatus(konnector)
+            konnector.status = props.connectionStatuses[konnector.slug]
           })
+
           this.setState({
             isFetching: false,
             konnectorsList: konnectorsList,
@@ -77,7 +89,7 @@ export default class IntentService extends Component {
     const { service, konnector, konnectorsList } = this.state
     // Update konnectors status before rendering the konnectors List
     konnectorsList.forEach(konnector => {
-      konnector.status = this.store.getConnectionStatus(konnector)
+      konnector.status = this.props.connectionStatuses[konnector.slug]
     })
     this.setState({
       isFetching: false,
@@ -110,9 +122,8 @@ export default class IntentService extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const { accounts, data, konnectors, triggers } = this.props
     const {
-      isFetching,
       error,
       konnectorsList,
       konnector,
@@ -121,6 +132,14 @@ export default class IntentService extends Component {
     } = this.state
 
     const { t } = this.context
+
+    let { isFetching } = this.state
+
+    isFetching =
+      isFetching ||
+      [accounts, konnectors, triggers].find(collection =>
+        ['pending', 'loading'].includes(collection.fetchStatus)
+      )
 
     return (
       <div className="coz-service">
@@ -173,3 +192,30 @@ export default class IntentService extends Component {
     )
   }
 }
+
+const mapActionsToProps = dispatch => ({
+  initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
+})
+
+const mapDocumentsToProps = (state, ownProps) => ({
+  accounts: fetchAccounts(),
+  jobs: fetchKonnectorJobs(),
+  konnectors: fetchKonnectors(),
+  triggers: fetchTriggers()
+  // TODO: fetch registry
+  // registry: fetchRegistry()
+})
+
+const mapStateToProps = (state, ownProps) => ({
+  connectionStatuses:
+    (ownProps.konnectorsList &&
+      getConnectionsStatusesByKonnectors(
+        state.connections,
+        ownProps.konnectorsList.map(konnector => konnector.slug)
+      )) ||
+    []
+})
+
+export default cozyConnect(mapDocumentsToProps)(
+  connect(mapStateToProps, mapActionsToProps)(IntentService)
+)

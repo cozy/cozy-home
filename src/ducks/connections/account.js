@@ -11,9 +11,9 @@ const reducer = (state = {}, action) => {
     case CREATE_CONNECTION:
       return state
     case ENQUEUE_CONNECTION:
-      return { ...state, isQueued: true }
+      return { ...state, isEnqueued: true }
     case PURGE_QUEUE:
-      return { ...state, isQueued: false }
+      return { ...state, isEnqueued: false }
     case UPDATE_CONNECTION_ERROR:
       const { error } = action
       if (error) return { ...state, error }
@@ -50,8 +50,8 @@ const hasRun = state => {
   return !!state.hasRun
 }
 
-export const isQueued = state => {
-  return !!state.isQueued
+export const isEnqueued = state => {
+  return !!state.isEnqueued
 }
 
 const isRunning = state => {

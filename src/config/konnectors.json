@@ -573,6 +573,9 @@
         "type": "password"
       }
     },
+    "additionnalSuccessMessage": {
+      "message": "connector.debug.successMessage" 
+    },
     "source": "git://github.com/cozy/cozy-konnector-debug.git#build"
   },
   {

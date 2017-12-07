@@ -8,22 +8,18 @@ import DescriptionContent from './DescriptionContent'
 
 export const KonnectorSuccess = ({
   t,
-  success,
   connector,
   isTimeout,
   folderPath,
   folderId,
   onCancel,
-  driveUrl
+  driveUrl,
+  title,
+  messages
 }) => {
   return (
     <div>
-      <DescriptionContent
-        title={t(`account.success.title.${success.type}`, {
-          name: connector.name
-        })}
-        messages={success.messages}
-      >
+      <DescriptionContent title={title} messages={messages}>
         {Array.isArray(connector.dataType) &&
           connector.dataType.includes('bill') && (
             <p>

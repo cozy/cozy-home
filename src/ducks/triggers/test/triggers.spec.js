@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { buildKonnectorTrigger } from '../'
+import { buildKonnectorTrigger, isTriggerRunning } from '../'
 
 describe('Trigger Duck', () => {
   describe('buildKonnectorTrigger', () => {
@@ -27,4 +27,46 @@ describe('Trigger Duck', () => {
       ).toMatchSnapshot()
     })
   })
+
+  describe('isTriggerRunning', () => {
+    const state = {
+      running: [
+        'cd8426feed174c0e8e5b9c6d5708abc0',
+        '7ab63475e30645b19aedb5cec533a8d6'
+      ]
+    }
+
+    it('returns false', () => {
+      expect(
+        isTriggerRunning(state, { _id: '2fb5cff5edcd43f8ad4fbb2b2fe3c6b9' })
+      ).toBe(false)
+    })
+
+    it('returns true', () => {
+      expect(
+        isTriggerRunning(state, { _id: '7ab63475e30645b19aedb5cec533a8d6' })
+      ).toBe(true)
+    })
+  })
+  //
+  // describe('getKonnectorConnectedAccount', () => {
+  //   it('returns null when no account', () => {
+  //     const konnector = {
+  //       _id
+  //     }
+  //
+  //     expect(getKonnectorConnectedAccount(state, konnector)).toMatchSnapshot()
+  //   })
+  //
+  //
+  //   it('returns connected account', () => {
+  //
+  //   })
+  // })
+  //
+  // describe('getTriggerByKonnector', () => {
+  //   it('returns konnector associated trigger', () => {
+  //
+  //   })
+  // })
 })

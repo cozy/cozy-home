@@ -1,19 +1,12 @@
 /* global cozy */
-import DateFns from 'date-fns'
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
 import { randomDayTime } from './daytime'
 
-import {
-  createConnection,
-  deleteConnection,
-  enqueueConnection,
-  updateConnectionError,
-  updateConnectionRunningStatus
-} from '../ducks/connections'
-
 import { createKonnectorTrigger } from '../ducks/triggers'
+import { launchTriggerAndQueue } from '../ducks/connections'
+import { createAccount } from '../ducks/accounts'
 
 const AUTHORIZED_CATEGORIES = require('config/categories')
 const isValidCategory = cat => AUTHORIZED_CATEGORIES.includes(cat)
@@ -39,18 +32,6 @@ export default class CollectStore {
     this.listener = null
     this.options = options
 
-    // Store all existing konnectorResults (one per konnector/account)
-    // to be able to determine account connection state.
-    this.konnectorResults = new Map()
-    // Listeners on connection statuses
-    this.connectionStatusListeners = new Map()
-
-    // Store all the currently running jobs related to konnectors
-    this.unfinishedJob = new Map()
-
-    // Installing/installed konnectors
-    this.installedKonnectors = new Map()
-
     this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
 
     if (!this.options.debug) {
@@ -68,13 +49,7 @@ export default class CollectStore {
 
   // Populate the store
   fetchInitialData(domain, ignoreJobsAfterInSeconds) {
-    return Promise.all([
-      this.initializeKonnectors(),
-      this.fetchAllAccounts(),
-      this.fetchInstalledKonnectors(),
-      this.fetchKonnectorResults(),
-      this.fetchKonnectorUnfinishedJobs(domain, ignoreJobsAfterInSeconds)
-    ])
+    return Promise.all([this.initializeKonnectors()])
   }
 
   initializeKonnectors() {
@@ -98,72 +73,27 @@ export default class CollectStore {
         subscription
           .onCreate(job => this.updateUnfinishedJob(job))
           .onUpdate(job => this.updateUnfinishedJob(job))
-          .onDelete(job => this.deleteRunningJob(job))
+        // .onDelete(job => this.deleteRunningJob(job))
       })
       .catch(error => {
         console.warn &&
           console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
-
-    konnectors
-      .subscribeAll(cozy.client)
-      .then(subscription => {
-        subscription
-          .onCreate(konnector => this.updateInstalledKonnector(konnector))
-          .onUpdate(konnector => this.updateInstalledKonnector(konnector))
-      })
-      .catch(error => {
-        console.warn &&
-          console.warn(
-            `Cannot initialize realtime for konnectors: ${error.message}`
-          )
-      })
-
-    konnectors
-      .subscribeAllResults(cozy.client)
-      .then(subscription => {
-        subscription
-          .onCreate(result => this.updateKonnectorResult(result))
-          .onUpdate(result => this.updateKonnectorResult(result))
-      })
-      .catch(error => {
-        console.warn &&
-          console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
-      })
-  }
-
-  updateInstalledKonnector(konnector) {
-    const slug = konnector.slug || konnector.attributes.slug
-    this.installedKonnectors.set(slug, konnector)
-    this.triggerConnectionStatusUpdate(this.getKonnectorBySlug(slug))
-  }
-
-  updateKonnectorResult(konnectorResult) {
-    const slug = konnectorResult._id
-    const konnector = this.getKonnectorBySlug(slug)
-    this.konnectorResults.set(slug, konnectorResult)
-    this.triggerConnectionStatusUpdate(konnector)
   }
 
   updateUnfinishedJob(job) {
-    if (
-      job.state === jobs.JOB_STATE.DONE ||
-      job.state === jobs.JOB_STATE.ERRORED
-    ) {
-      return this.deleteRunningJob(job)
+    const normalized = {
+      ...job,
+      ...job.attributes,
+      id: job._id,
+      _type: 'io.cozy.jobs'
     }
 
-    const slug = job.konnector
-    const konnector = this.getKonnectorBySlug(slug)
-    this.unfinishedJob.set(slug, job)
-    this.triggerConnectionStatusUpdate(konnector)
-  }
-
-  deleteRunningJob(job) {
-    const slug = job.konnector
-    const konnector = this.getKonnectorBySlug(slug)
-    const deleted = this.unfinishedJob.delete(slug)
-    if (deleted) this.triggerConnectionStatusUpdate(konnector)
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: { data: [normalized] },
+      updateCollections: ['jobs']
+    })
   }
 
   sanitizeCategories(connectors) {
@@ -198,16 +128,6 @@ export default class CollectStore {
   // Merge source into target
   mergeKonnectors(source, target) {
     return Object.assign({}, target, this.sanitizeKonnector(source))
-  }
-
-  triggerConnectionStatusUpdate(konnector) {
-    const slug = konnector.slug || konnector.attributes.slug
-    const listeners = this.connectionStatusListeners.get(slug)
-    if (listeners) {
-      listeners.forEach(listener => {
-        listener(this.getConnectionStatus(konnector))
-      })
-    }
   }
 
   getKonnectorBySlug(slug) {
@@ -289,45 +209,6 @@ export default class CollectStore {
           })
   }
 
-  fetchInstalledKonnectors() {
-    return konnectors.findAll(cozy.client).then(konnectors => {
-      konnectors.forEach(konnector => {
-        this.installedKonnectors.set(konnector.slug, konnector)
-      })
-    })
-  }
-
-  fetchKonnectorResults() {
-    return konnectors.findAllResults(cozy.client).then(konnectorResults => {
-      konnectorResults.forEach(konnectorResult => {
-        this.konnectorResults.set(konnectorResult._id, konnectorResult)
-      })
-      return konnectorResults
-    })
-  }
-
-  // Fetch all accounts and updates their matching connectors
-  fetchAllAccounts() {
-    return accounts.getAllAccounts(cozy.client).then(accounts => {
-      this.connectors.forEach(konnector => {
-        konnector.accounts = accounts.filter(
-          account => account.account_type === konnector.slug
-        )
-      })
-      return accounts
-    })
-  }
-
-  fetchKonnectorUnfinishedJobs(domain, ignoreAfterInSeconds) {
-    const limitDate = DateFns.subSeconds(new Date(), ignoreAfterInSeconds)
-    return jobs.findQueuedOrRunning(cozy.client, limitDate).then(jobs => {
-      jobs.forEach(job => {
-        this.updateUnfinishedJob(job)
-      })
-      return jobs
-    })
-  }
-
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount(
@@ -372,24 +253,15 @@ export default class CollectStore {
               Object.assign({}, account, newAttributes)
             )
           } else {
-            return accounts.create(
-              cozy.client,
-              konnector,
-              account.auth,
-              folderId
-            )
+            return this.dispatch(createAccount(account.auth)).then(result => {
+              // Temporary hack ot return account
+              return result.data[0]
+            })
           }
         })
         // 3. Konnector installation
         .then(account => {
-          this.dispatch(
-            createConnection(
-              konnector,
-              account,
-              connection.folder && connection.folder._id
-            )
-          )
-          this.dispatch(updateConnectionRunningStatus(konnector, account, true))
+          // this.dispatch(updateConnectionRunningStatus(konnector, account, true))
 
           connection.account = account
 
@@ -399,7 +271,7 @@ export default class CollectStore {
 
             const enqueue = () => {
               clearTimeout(enqueueTimeout)
-              this.dispatch(enqueueConnection(konnector, account))
+              // this.dispatch(enqueueConnection(konnector, account))
               enqueued = true
               resolve(connection)
             }
@@ -452,14 +324,10 @@ export default class CollectStore {
                   )
                 )
               )
+              .then(result => result.data[0])
               // 8. Run a job for the konnector
-              .then(() =>
-                konnectors.run(
-                  cozy.client,
-                  connection.konnector,
-                  connection.account
-                )
-              )
+              .then(trigger => this.dispatch(launchTriggerAndQueue(trigger)))
+              .then(result => result.data[0])
               // 9. Handle job
               .then(job => {
                 connection.job = job
@@ -471,28 +339,11 @@ export default class CollectStore {
                 ].includes(state)
               })
               .then(() => {
-                const { konnector, account } = connection
-                this.dispatch(
-                  updateConnectionRunningStatus(konnector, account, false)
-                )
+                const { konnector } = connection
                 this.updateConnector(konnector)
                 enqueue()
               })
               .catch(error => {
-                this.dispatch(
-                  updateConnectionRunningStatus(
-                    connection.konnector || konnector,
-                    connection.account || account,
-                    false
-                  )
-                )
-                this.dispatch(
-                  updateConnectionError(
-                    connection.konnector || konnector,
-                    connection.account,
-                    error
-                  )
-                )
                 connection.error = error
               })
               .then(() => {
@@ -523,47 +374,9 @@ export default class CollectStore {
    * @param {Boolean} disableEnqueue Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
-  runAccount(connector, account, disableEnqueue, enqueueAfter = 7000) {
+  runAccount(trigger, connector, account, disableEnqueue, enqueueAfter = 7000) {
     // TODO: mutualize this part with connectAccount
-    this.dispatch(updateConnectionRunningStatus(connector, account, true))
-
-    return new Promise((resolve, reject) => {
-      let enqueued = false
-      let enqueueTimeout
-
-      const enqueue = () => {
-        clearTimeout(enqueueTimeout)
-        this.dispatch(enqueueConnection(connector, account))
-        enqueued = true
-        resolve()
-      }
-
-      konnectors
-        .run(cozy.client, connector, account, disableEnqueue)
-        .then(job => {
-          this.dispatch(
-            updateConnectionRunningStatus(connector, account, false)
-          )
-          if (!enqueued) {
-            enqueue()
-            resolve(job)
-          }
-        })
-        .catch(error => {
-          this.dispatch(
-            updateConnectionRunningStatus(connector, account, false)
-          )
-          this.dispatch(updateConnectionError(connector, account, error))
-          if (!enqueued) {
-            clearTimeout(enqueueTimeout)
-            reject(error)
-          }
-        })
-
-      if (!disableEnqueue) {
-        enqueueTimeout = setTimeout(enqueue, enqueueAfter)
-      }
-    })
+    return this.dispatch(launchTriggerAndQueue(trigger))
   }
 
   fetchAccounts(accountType) {
@@ -591,16 +404,6 @@ export default class CollectStore {
 
     return accounts
       .update(cozy.client, previousAccount, account)
-      .then(updatedAccount => {
-        const accountIndex = this.findAccountIndexById(
-          connector.accounts,
-          account._id
-        )
-        // Updates the _rev value of the account in the connector
-        connector.accounts[accountIndex] = updatedAccount
-        this.updateConnector(connector)
-        return updatedAccount
-      })
       .catch(error => {
         return Promise.reject(error)
       })
@@ -620,46 +423,6 @@ export default class CollectStore {
       .catch(error => {
         return Promise.reject(error)
       })
-  }
-
-  /**
-   * findAccountIndexById : returns the account index in an array of accounts, based on its id.
-   * @param {array}    accounts Array of accounts
-   * @param {string}   id       Id of the account we look for
-   * @return {integer} The position of the account with the looked for id in the array
-   */
-  findAccountIndexById(accounts, id) {
-    let foundIndex = -1
-    accounts.forEach((account, index) => {
-      if (account._id === id) {
-        foundIndex = index
-      }
-    })
-    return foundIndex
-  }
-
-  deleteAccounts(konnector) {
-    konnector = this.connectors.find(c => c.slug === konnector.slug)
-    return Promise.all(
-      konnector.accounts.map(account =>
-        accounts
-          ._delete(cozy.client, account)
-          .then(() => this.dispatch(deleteConnection(konnector, account)))
-          .then(() =>
-            konnector.accounts.splice(konnector.accounts.indexOf(account), 1)
-          )
-          .then(() => {
-            if (!account.folderId) return
-            return konnectors.unlinkFolder(
-              cozy.client,
-              konnector,
-              account.folderId
-            )
-          })
-      )
-    )
-      .then(() => this.updateConnector(konnector))
-      .then(konnector => this.triggerConnectionStatusUpdate(konnector))
   }
 
   manifestToKonnector(manifest) {
@@ -697,106 +460,5 @@ export default class CollectStore {
 
   createIntentService(intent, window) {
     return cozy.client.intents.createService(intent, window)
-  }
-
-  konnectorHasAccount(konnector) {
-    const slug = konnector.slug || konnector.attributes.slug
-    const legacyKonnector = this.getKonnectorBySlug(slug)
-    return (
-      legacyKonnector &&
-      legacyKonnector.accounts &&
-      !!legacyKonnector.accounts.length
-    )
-  }
-
-  // Selector to get KonnectorStatus
-  getConnectionStatus(konnector) {
-    const slug = konnector.slug || konnector.attributes.slug
-
-    const installedKonnector = this.installedKonnectors.get(slug)
-
-    if (installedKonnector) {
-      if (installedKonnector.error) {
-        return CONNECTION_STATUS.ERRORED
-      }
-
-      switch (installedKonnector.state) {
-        case konnectors.KONNECTOR_STATE.INSTALLED:
-        case konnectors.KONNECTOR_STATE.READY:
-          // ignore
-          break
-        default:
-          return CONNECTION_STATUS.RUNNING
-      }
-    }
-
-    const legacyKonnector = this.getKonnectorBySlug(slug)
-    const hasAccount =
-      legacyKonnector.accounts && legacyKonnector.accounts.length
-    if (!hasAccount) return null
-
-    const runningJob = this.unfinishedJob.get(slug)
-
-    if (runningJob) {
-      return CONNECTION_STATUS.RUNNING
-    }
-
-    const konnectorResult = this.konnectorResults.get(slug)
-
-    if (!this.konnectorHasAccount(konnector)) {
-      return null
-    }
-
-    if (konnectorResult) {
-      switch (konnectorResult.state) {
-        case konnectors.KONNECTOR_RESULT_STATE.ERRORED:
-          return CONNECTION_STATUS.ERRORED
-        case konnectors.KONNECTOR_RESULT_STATE.CONNECTED:
-          return CONNECTION_STATUS.CONNECTED
-        default:
-          break
-      }
-    }
-
-    return null
-  }
-
-  isConnectionStatusRunning(konnector) {
-    return this.getConnectionStatus(konnector) === CONNECTION_STATUS.RUNNING
-  }
-
-  // listen for update on connection (will be useful for realtime)
-  addConnectionStatusListener(konnector, listener) {
-    const slug = konnector.slug || konnector.attributes.slug
-    const listeners = this.connectionStatusListeners.get(slug) || []
-    this.connectionStatusListeners.set(slug, listeners.concat([listener]))
-  }
-
-  removeConnectionStatusListener(konnector, listener) {
-    const slug = konnector.slug || konnector.attributes.slug
-
-    const listeners = this.connectionStatusListeners.get(slug)
-
-    if (listeners && listeners.includes(listener)) {
-      this.connectionStatusListeners.set(
-        slug,
-        listeners.filter(l => l._id !== listener._id)
-      )
-    }
-  }
-
-  getConnectionError(konnector) {
-    const noAccount = !this.konnectorHasAccount(konnector)
-    if (noAccount) return null
-
-    const slug = konnector.slug || konnector.attributes.slug
-
-    const konnectorResult = this.konnectorResults.get(slug)
-
-    if (konnectorResult && konnectorResult.error) {
-      return new Error(konnectorResult.error)
-    }
-
-    return null
   }
 }

@@ -1,0 +1,24 @@
+exports[`Jobs Duck getTriggerLastJob returns expected last job 1`] = `
+Object {
+  "_id": "cda1ef761d3d4924cd44b3491d476fea",
+  "started_at": "2017-11-10T17:58:50.394605866+01:00",
+  "trigger._id": "c60d36cf501a4ab5b38acf5f657982ec",
+}
+`;
+
+exports[`Jobs Duck getTriggerLastJob returns expected unique job 1`] = `
+Object {
+  "_id": "daa147092e1c4a1da8c991cb2a194adc",
+  "trigger._id": "c60d36cf501a4ab5b38acf5f657982ec",
+}
+`;
+
+exports[`Jobs Duck getTriggerLastJob returns null when empty state 1`] = `null`;
+
+exports[`Jobs Duck getTriggerLastJob returns null when empty state 2`] = `null`;
+
+exports[`Jobs Duck isJobRunning returns true for error job 1`] = `false`;
+
+exports[`Jobs Duck isJobRunning returns true for queued job 1`] = `true`;
+
+exports[`Jobs Duck isJobRunning returns true for running job 1`] = `true`;

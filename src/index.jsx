@@ -96,9 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <Redirect from="/" to="/connected" />
             <Route
               path="/connected"
-              component={props => (
-                <ConnectedList connectors={store.findConnected()} {...props} />
-              )}
+              component={props => <ConnectedList {...props} />}
             >
               <Route path=":connectorSlug" component={ConnectorManagement} />
             </Route>

@@ -116,6 +116,7 @@
         "cron_month": "once a month",
         "cron_undefined": "manually",
         "syncing": "running…",
+        "unknown": "unknown",
         "last_sync": "Last synchronization: %{date}",
         "date_format": "MMMM D[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
@@ -266,6 +267,9 @@
   },
 
   "connector": {
+    "debug": {
+      "successMessage": "This konnector is for debug purpose only, this is an additionnal custom success message."
+    },
     "empty": "No connectors configured",
     "voting": "You don't find the connector you were looking for? Please tell us!",
     "no-connectors-connected": "You have not yet connected connectors",

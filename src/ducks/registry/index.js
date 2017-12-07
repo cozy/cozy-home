@@ -25,6 +25,20 @@ export default reducer
 
 // selectors
 export const getRegistryKonnectors = state => state.konnectors
+
+export const getRegistryKonnectorsFromSlugs = (state, slugs = []) => {
+  return slugs.reduce((returnedKonnectors, slug) => {
+    if (
+      state.konnectors &&
+      state.konnectors.data &&
+      state.konnectors.data[slug]
+    ) {
+      return returnedKonnectors.concat([state.konnectors.data[slug]])
+    }
+    return returnedKonnectors
+  }, [])
+}
+
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
@@ -39,9 +53,14 @@ export const initializeRegistry = konnectors => {
     dispatch({ type: FETCH_REGISTRY_KONNECTORS })
     return cozy.client
       .fetchJSON('GET', '/settings/context')
+      .catch(error => {
+        console.warn &&
+          console.warn(`Cannot get Cozy context : ${error.message}`)
+        return {}
+      })
       .then(context => {
         const konnectorsToExclude =
-          context.attributes && context.attributes.exclude_konnectors
+          !!context.attributes && context.attributes.exclude_konnectors
         if (konnectorsToExclude && konnectorsToExclude.length) {
           return dispatch({
             type: FETCH_REGISTRY_KONNECTORS_SUCCESS,
@@ -50,10 +69,10 @@ export const initializeRegistry = konnectors => {
             )
           })
         }
-        dispatch({ type: FETCH_REGISTRY_KONNECTORS_SUCCESS, konnectors })
+        return dispatch({ type: FETCH_REGISTRY_KONNECTORS_SUCCESS, konnectors })
       })
       .catch(() => {
-        dispatch({ type: FETCH_REGISTRY_KONNECTORS_ERROR, konnectors })
+        dispatch({ type: FETCH_REGISTRY_KONNECTORS_ERROR, konnectors: [] })
       })
   }
 }
