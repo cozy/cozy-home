@@ -61,7 +61,11 @@ class KonnectorItem extends Component {
     return (
       <Link className="item-wrapper" to={`${router.location.pathname}/${slug}`}>
         <header className="item-header">
-          <img className="item-icon" src={getKonnectorIcon(konnector)} />
+          <img
+            className="item-icon"
+            alt={t('connector.logo.alt', { name })}
+            src={getKonnectorIcon(konnector)}
+          />
         </header>
         <p className="item-title">{name}</p>
         {!accountName &&
