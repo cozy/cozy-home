@@ -88,7 +88,7 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       configureFields(config) {
         if (!config || !config.fields) return {}
-        const konnectorName = config.connectorName
+        const konnectorName = config.konnectorName
 
         // Convert custom fields to fields readable by configureFields
         if (Object.keys(config.fields).includes('advancedFields')) {
