@@ -16,11 +16,7 @@ import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
 
 const renderers = {
-  password: ({ t }) => (
-    <PasswordField
-      noAutoFill
-    />
-  ),
+  password: ({ t }) => <PasswordField noAutoFill />,
   date: () => <Field type="date" />,
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
