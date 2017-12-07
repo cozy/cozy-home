@@ -941,9 +941,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-mgen.git#build"
@@ -988,10 +990,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
@@ -1062,10 +1065,11 @@
       "access_token": {
         "type": "hidden"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       },
       "agreement": {
         "type": "checkbox",
@@ -1099,10 +1103,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-redbox.git#build"
@@ -1123,10 +1128,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
@@ -1144,10 +1150,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "dataType": [
@@ -1168,10 +1175,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "dataType": [
@@ -1362,10 +1370,11 @@
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "advancedField",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "dataType": [
