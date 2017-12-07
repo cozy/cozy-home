@@ -1,16 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { getKonnectorConnectedAccount } from '../../ducks/connections'
 
 import AccountConnection from '../../containers/AccountConnection'
 
 const CreateAccountService = props => {
-  const { konnector } = props
+  const { existingAccount, konnector } = props
   return (
     <div className="coz-service-content">
       <AccountConnection
         connector={konnector}
-        existingAccount={
-          konnector.accounts.length ? konnector.accounts[0] : null
-        }
+        existingAccount={existingAccount}
         fields={konnector.fields}
         {...props}
       />
@@ -18,4 +19,13 @@ const CreateAccountService = props => {
   )
 }
 
-export default CreateAccountService
+const mapStateToProps = (state, ownProps) => {
+  return {
+    existingAccount: getKonnectorConnectedAccount(
+      state.cozy,
+      ownProps.konnector
+    )
+  }
+}
+
+export default connect(mapStateToProps)(CreateAccountService)

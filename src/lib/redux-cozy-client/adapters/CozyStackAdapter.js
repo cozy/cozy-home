@@ -97,7 +97,7 @@ export default class CozyStackAdapter {
     const created = await cozy.client.fetchJSON('POST', '/jobs/triggers', {
       data: doc
     })
-    const normalized = { ...created, id: created._id }
+    const normalized = { ...created, ...created.attributes, id: created._id }
     return { data: [normalized] }
   }
 
@@ -107,7 +107,7 @@ export default class CozyStackAdapter {
       `/jobs/triggers/${doc._id}/launch`
     )
 
-    const normalized = { ...job, id: job._id }
+    const normalized = { ...job, ...job.attributes, id: job._id }
     return { data: [normalized] }
   }
 
@@ -124,6 +124,11 @@ export default class CozyStackAdapter {
   async deleteDocument(doc) {
     /* const deleted = */ await cozy.client.data.delete(doc._type, doc)
     // we forge a standard response with a 'data' property
+    return { data: [doc] }
+  }
+
+  async deleteTrigger(doc) {
+    await cozy.client.fetchJSON('DELETE', `/jobs/triggers/${doc._id}`)
     return { data: [doc] }
   }
 
@@ -181,10 +186,10 @@ export default class CozyStackAdapter {
     }
   }
 
-  async fetchTriggerJobs(worker, skip = 0) {
+  async fetchTriggers(worker, skip = 0) {
     const { data, meta } = await cozy.client.fetchJSON(
       'GET',
-      `/jobs/triggers/jobs?Worker=${worker}`,
+      `/jobs/triggers?Worker=${worker}`,
       null,
       {
         processJSONAPI: false
@@ -193,10 +198,10 @@ export default class CozyStackAdapter {
 
     return {
       data: data
-        ? data.map(job => ({
-            ...job,
-            ...job.attributes,
-            _type: 'io.cozy.jobs'
+        ? data.map(trigger => ({
+            ...trigger,
+            ...trigger.attributes,
+            _type: 'io.cozy.triggers'
           }))
         : [],
       meta: meta,

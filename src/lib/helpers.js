@@ -1,4 +1,5 @@
 export const getAccountName = account => {
+  if (!account) return null
   if (account.auth) {
     return (
       account.auth.accountName ||

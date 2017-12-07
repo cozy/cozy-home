@@ -8,7 +8,7 @@ export {
   fetchCollection,
   fetchDocument,
   fetchReferencedFiles,
-  fetchTriggerJobs,
+  fetchTriggers,
   addReferencedFiles,
   removeReferencedFiles,
   applySelectorForAction,
@@ -20,6 +20,7 @@ export {
   launchTrigger,
   updateDocument,
   deleteDocument,
+  deleteTrigger,
   createFile,
   trashFile,
   CREATE_DOCUMENT

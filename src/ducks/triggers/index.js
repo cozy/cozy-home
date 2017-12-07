@@ -1,11 +1,29 @@
 import * as fromCozyClient from 'redux-cozy-client'
 import { getAccount } from '../accounts'
+import * as fromRunning from './running'
 
 export const DOCTYPE = 'io.cozy.triggers'
 const triggersCollectionKey = 'triggers'
 
+const reducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LAUNCH_TRIGGER':
+    case 'RECEIVE_NEW_DOCUMENT':
+      return {
+        ...state,
+        running: fromRunning.reducer(state.running, action)
+      }
+    default:
+      return state
+  }
+}
+
+export default reducer
+
+// CRUD action creators
+
 export const fetchTriggers = () =>
-  fromCozyClient.fetchCollection(triggersCollectionKey, DOCTYPE)
+  fromCozyClient.fetchTriggers(triggersCollectionKey, 'konnector')
 
 export const createKonnectorTrigger = (
   konnector,
@@ -19,6 +37,11 @@ export const createKonnectorTrigger = (
       updateCollections: [triggersCollectionKey]
     }
   )
+
+export const deleteTrigger = trigger =>
+  fromCozyClient.deleteTrigger(trigger, {
+    updateCollections: [triggersCollectionKey]
+  })
 
 export const launchTrigger = trigger => fromCozyClient.launchTrigger(trigger)
 
@@ -54,25 +77,38 @@ export function buildKonnectorTrigger(
 
 // selectors
 
-export const getKonnectorConnectedAccount = (state, konnector) => {
+export const getKonnectorConnectedAccount = (
+  state,
+  konnector,
+  existingAccounts = []
+) => {
   // state is state.cozy
-  const trigger = getTriggerByKonnector(state, konnector)
+  const trigger = getTriggerByKonnector(state, konnector, existingAccounts)
 
   if (!trigger) return null
 
   return getAccount(state, trigger.message.account)
 }
 
-export const getTriggerByKonnector = (state, konnector) => {
+export const getTriggerByKonnector = (
+  state,
+  konnector,
+  existingAccountIds = []
+) => {
   // state is state.cozy
   if (!state.documents || !state.documents[DOCTYPE]) return null
   const trigger = Object.values(state.documents[DOCTYPE]).find(trigger => {
     return (
       trigger.worker === 'konnector' &&
       trigger.message &&
-      trigger.message.konnector === konnector.slug
+      trigger.message.konnector === konnector.slug &&
+      trigger.message.account &&
+      existingAccountIds.includes(trigger.message.account)
     )
   })
-
   return trigger
+}
+
+export const isTriggerRunning = (state, trigger) => {
+  return fromRunning.isTriggerRunning(state.running, trigger)
 }

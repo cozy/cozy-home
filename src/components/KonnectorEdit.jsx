@@ -59,14 +59,15 @@ export const KonnectorEdit = ({
   fields,
   folderPath,
   isUnloading,
-  lastSync,
+  lastExecution,
   oAuthTerminated,
   onCancel,
   onDelete,
   onForceConnection,
   onSubmit,
   submitting,
-  success
+  success,
+  trigger
 }) => {
   const warningIcon = (
     <svg className="item-status-icon">
@@ -81,7 +82,7 @@ export const KonnectorEdit = ({
   if (fields.accountName)
     fields.accountName.placeholder = getAccountName(account)
 
-  if (account.oauth)
+  if (account && account.oauth)
     account.auth = Object.assign({}, account.auth, account.oauth)
 
   return (
@@ -108,16 +109,12 @@ export const KonnectorEdit = ({
 
         <TabPanels>
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
-            {lastSync &&
-              account.auth &&
-              account.auth.frequency && (
-                <KonnectorSync
-                  frequency={account && account.auth && account.auth.frequency}
-                  date={lastSync}
-                  submitting={submitting}
-                  onForceConnection={onForceConnection}
-                />
-              )}
+            <KonnectorSync
+              frequency="week" // hardcoded until further implementation
+              lastSyncDate={lastExecution}
+              submitting={submitting}
+              onForceConnection={onForceConnection}
+            />
             {folderPath && (
               <KonnectorFolder
                 connector={connector}

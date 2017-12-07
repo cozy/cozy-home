@@ -35,7 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
         dictRequire={lang => require(`./locales/${lang}`)}
         context={context}
       >
-        <IntentService window={window} data={data} />
+        <IntentService
+          initKonnectors={initKonnectors}
+          window={window}
+          data={data}
+        />
       </I18n>
     </CozyProvider>,
     document.querySelector('[role=application]')

@@ -10,6 +10,7 @@ import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import { initializeRegistry } from '../ducks/registry'
 import { fetchAccounts } from '../ducks/accounts'
+import { fetchKonnectorJobs } from '../ducks/jobs'
 import { fetchKonnectors } from '../ducks/konnectors'
 import { fetchTriggers } from '../ducks/triggers'
 
@@ -18,34 +19,20 @@ class App extends Component {
     super(props, context)
     this.store = this.context.store
 
-    this.state = {
-      categories: [],
-      isFetching: true
-    }
-
     props.initializeRegistry(props.initKonnectors)
-
-    this.store
-      .fetchInitialData(props.domain, props.ignoreJobsAfterInSeconds)
-      .then(() => {
-        this.setState({
-          categories: this.store.categories,
-          isFetching: false
-        })
-      })
-      .catch(error => {
-        console.error(error)
-        this.setState({
-          isFetching: false,
-          error
-        })
-      })
   }
 
   render() {
-    const { children } = this.props
-    const { categories, isFetching, error } = this.state
-    if (error) {
+    const { children, accounts, konnectors, triggers } = this.props
+    const isFetching = [accounts, konnectors, triggers].find(collection =>
+      ['pending', 'loading'].includes(collection.fetchStatus)
+    )
+
+    const hasError = [accounts, konnectors, triggers].find(
+      collection => collection.fetchStatus === 'failed'
+    )
+
+    if (hasError) {
       return (
         <div className="col-initial-error">
           <Failure errorType="initial" />
@@ -58,7 +45,7 @@ class App extends Component {
       </div>
     ) : (
       <div className="col-wrapper coz-sticky">
-        <Sidebar categories={categories} />
+        <Sidebar categories={this.store.categories} />
         <main className="col-content">
           <div role="contentinfo">{children}</div>
         </main>
@@ -73,10 +60,13 @@ const mapActionsToProps = dispatch => ({
   initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
 })
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = (state, ownProps) => ({
   accounts: fetchAccounts(),
+  jobs: fetchKonnectorJobs(),
   konnectors: fetchKonnectors(),
   triggers: fetchTriggers()
+  // TODO: fetch registry
+  // registry: fetchRegistry()
 })
 
 export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)

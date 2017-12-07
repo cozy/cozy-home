@@ -26,7 +26,10 @@ export const KonnectorInstall = ({
   onDelete,
   onSubmit,
   submitting,
-  success
+  success,
+  successMessage,
+  successMessages,
+  trigger
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -86,11 +89,13 @@ export const KonnectorInstall = ({
           <KonnectorSuccess
             connector={connector}
             driveUrl={driveUrl}
-            folderId={account && account.folderId}
+            folderId={trigger && trigger.message.folder_to_save}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             onCancel={onCancel}
             success={success}
+            title={successMessage}
+            messages={successMessages}
           />
         )}
         {editor && (

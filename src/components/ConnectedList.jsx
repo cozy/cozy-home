@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 
 import Icon from 'cozy-ui/react/Icon'
+import { connect } from 'react-redux'
+import { getConfiguredKonnectors } from '../reducers'
+import { getRegistryKonnectorsFromSlugs } from '../ducks/registry'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
@@ -29,12 +32,12 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectors, children } = this.props
+    const { t, konnectors, children } = this.props
     return (
       <div className="content">
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {connectors.length > 0 && (
+          {konnectors.length > 0 && (
             <Link to="/providers/all">
               <button className="coz-btn coz-btn--regular">
                 <Icon icon={addAccountIcon} className="col-icon--add" />{' '}
@@ -43,8 +46,8 @@ class ConnectedList extends Component {
             </Link>
           )}
         </div>
-        {connectors.length ? (
-          <KonnectorList connectors={connectors} displayAccounts />
+        {konnectors.length ? (
+          <KonnectorList connectors={konnectors} displayAccounts />
         ) : (
           <div className="col-picture-for-emtpy-list">
             <img
@@ -70,4 +73,11 @@ class ConnectedList extends Component {
   }
 }
 
-export default translate()(ConnectedList)
+const mapStateToProps = (state, ownProps) => {
+  const connectedSlugs = getConfiguredKonnectors(state)
+  return {
+    konnectors: getRegistryKonnectorsFromSlugs(state.registry, connectedSlugs)
+  }
+}
+
+export default connect(mapStateToProps)(translate()(ConnectedList))
