@@ -152,26 +152,12 @@ export default class IntentService extends Component {
             iconPath={`../${data.cozyIconPath}`}
             onCancel={() => this.cancel()}
             closeable={closeable}
+            hasReturnToKonnectorsListButton={
+              !isFetching && !error && konnectorsList.length > 1 && konnector
+            }
+            returnToKonnectorsList={() => this.setState({ konnector: null })}
             {...this.context}
           />
-          {!isFetching &&
-            !error &&
-            konnector &&
-            konnectorsList.length > 1 && (
-              <div className="coz-service-return">
-                <a
-                  className="coz-service-return--button"
-                  onClick={() => this.setState({ konnector: null })}
-                  onKeyDown={e =>
-                    e.keyCode === 13
-                      ? this.setState({ konnector: null })
-                      : null}
-                  tabIndex="0"
-                >
-                  &lt; {t('intent.service.return')}
-                </a>
-              </div>
-            )}
           {!isFetching &&
             !error &&
             konnector && (
