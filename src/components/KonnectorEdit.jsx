@@ -12,6 +12,7 @@ import KonnectorFolder from './KonnectorFolder'
 import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
+import { getAccountName } from '../lib/helpers'
 
 const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
@@ -76,6 +77,9 @@ export const KonnectorEdit = ({
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
   const { hasDescriptions, editor } = connector
+  // assign accountName placeholder
+  if (fields.accountName)
+    fields.accountName.placeholder = getAccountName(account)
 
   return (
     <div className={styles['col-account-edit-content']}>

@@ -58,7 +58,8 @@
         "branchName": "Branch"
       },
       "placeholder": {
-        "password": "The password you use to connect to the service"
+        "password": "The password you use to connect to the service",
+        "accountName": "Example: Personal account"
       },
       "button": {
         "connect": "Connect",
