@@ -1065,12 +1065,6 @@
       "access_token": {
         "type": "hidden"
       },
-      "advancedFields": {
-        "folderPath": {
-          "advanced": true,
-          "isRequired": false
-        }
-      },
       "agreement": {
         "type": "checkbox",
         "hasDescription": true
