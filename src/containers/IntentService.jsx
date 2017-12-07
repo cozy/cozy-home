@@ -28,17 +28,6 @@ export default class IntentService extends Component {
           .then(service => {
             const data = service.getData()
 
-            if (typeof service.resizeClient === 'function') {
-              service.resizeClient({
-                maxWidth: 931
-              })
-            } else {
-              console.warn &&
-                console.warn(
-                  "Cannot resize client's iframe, cozy-client-js needs to be updated"
-                )
-            }
-
             this.setState({
               service: service,
               disableSuccessTimeout: !!data.disableSuccessTimeout
