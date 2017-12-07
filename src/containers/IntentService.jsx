@@ -30,7 +30,8 @@ export default class IntentService extends Component {
 
             this.setState({
               service: service,
-              disableSuccessTimeout: !!data.disableSuccessTimeout
+              disableSuccessTimeout: !!data.disableSuccessTimeout,
+              closeable: data.closeable !== undefined ? data.closeable : true
             })
 
             if (!data) {
@@ -117,8 +118,10 @@ export default class IntentService extends Component {
       error,
       konnectorsList,
       konnector,
-      disableSuccessTimeout
+      disableSuccessTimeout,
+      closeable
     } = this.state
+
     const { t } = this.context
 
     return (
@@ -140,6 +143,7 @@ export default class IntentService extends Component {
             appName={data.cozyAppName}
             iconPath={`../${data.cozyIconPath}`}
             onCancel={() => this.cancel()}
+            closeable={closeable}
             {...this.context}
           />
           {!isFetching &&
