@@ -84,7 +84,15 @@ export default class IntentService extends Component {
   }
 
   terminate(account) {
-    const { service } = this.state
+    const { service, konnector, konnectorsList } = this.state
+    // Update konnectors status before rendering the konnectors List
+    konnectorsList.forEach(konnector => {
+      konnector.status = this.store.getConnectionStatus(konnector)
+    })
+    this.setState({
+      isFetching: false,
+      konnector: konnectorsList.length > 1 ? null : konnector
+    })
     service.terminate(account)
   }
 
