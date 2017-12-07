@@ -236,7 +236,8 @@ export default class CollectStore {
   }
 
   findByCategory({ filter }) {
-    return filter === 'all'
+    const categoryExists = this.categories.includes(filter)
+    return !categoryExists || filter === 'all'
       ? this.connectors
       : this.connectors.filter(c => c.category === filter)
   }
