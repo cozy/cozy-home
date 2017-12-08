@@ -235,11 +235,11 @@ export default class CollectStore {
     return this.connectors.filter(c => c.accounts.length !== 0)
   }
 
-  findByCategory({ filter }) {
-    const categoryExists = this.categories.includes(filter)
-    return !categoryExists || filter === 'all'
+  findByCategory(category) {
+    const categoryExists = this.categories.includes(category)
+    return !categoryExists || category === 'all'
       ? this.connectors
-      : this.connectors.filter(c => c.category === filter)
+      : this.connectors.filter(c => c.category === category)
   }
 
   findByDataType(dataType) {
