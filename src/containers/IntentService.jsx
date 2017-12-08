@@ -41,6 +41,8 @@ export default class IntentService extends Component {
             .then(konnector => [konnector])
         } else if (data.dataType) {
           return this.store.findByDataType(data.dataType)
+        } else if (data.category) {
+          return this.store.findByCategory(data.category)
         }
       })
       .then(konnectorsList => {
