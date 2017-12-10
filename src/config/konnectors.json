@@ -533,6 +533,27 @@
     }
   },
   {
+    "slug": "creditagricole",
+    "name": "Crédit Agricole by Cozy",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.credit-agricole.fr",
+    "category": "banking",
+    "icon": "ca.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      }
+    },
+    "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
+  },
+  {
     "name": "Debug",
     "slug": "debug",
     "editor": "Cozy Cloud",
