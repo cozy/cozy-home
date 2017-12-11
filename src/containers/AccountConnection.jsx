@@ -44,10 +44,9 @@ class AccountConnection extends Component {
     this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
-  getFolderPathIfNecessary(connector, account) {
+  getFolderPathIfNecessary(fields, account) {
     const { t } = this.context
-    const folderField =
-      connector && connector.fields && connector.fields.folderPath
+    const folderField = fields && fields.folderPath
     if (!folderField) return null
 
     const auth = account && account.auth
@@ -319,7 +318,7 @@ class AccountConnection extends Component {
     } = this.state
     const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
-    const folderPath = this.getFolderPathIfNecessary(connector, account)
+    const folderPath = this.getFolderPathIfNecessary(fields, account)
     if (fields.folderPath && !fields.folderPath.default)
       fields.folderPath.default = folderPath
     const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
