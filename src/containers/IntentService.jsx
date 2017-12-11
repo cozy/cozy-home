@@ -22,63 +22,53 @@ export default class IntentService extends Component {
 
     this.store
       .fetchInitialData(props.data.cozyDomain, 7200)
-      .then(() => {
-        this.store
-          .createIntentService(intent, window)
-          .then(service => {
-            const data = service.getData()
+      .then(() => this.store.createIntentService(intent, window))
+      .then(service => {
+        const data = service.getData()
+        if (!data) {
+          throw new Error('Unexpected data from intent')
+        }
 
-            this.setState({
-              service: service,
-              disableSuccessTimeout: !!data.disableSuccessTimeout,
-              closeable: data.closeable !== undefined ? data.closeable : true
-            })
+        this.setState({
+          service: service,
+          disableSuccessTimeout: !!data.disableSuccessTimeout,
+          closeable: data.closeable !== undefined ? data.closeable : true
+        })
 
-            if (!data) {
-              throw new Error('Unexpected data from intent')
-            }
-
-            if (data.slug) {
-              return this.store
-                .fetchKonnectorInfos(data.slug)
-                .then(konnector => [konnector])
-            } else if (data.dataType) {
-              return this.store.findByDataType(data.dataType)
-            }
+        if (data.slug) {
+          return this.store
+            .fetchKonnectorInfos(data.slug)
+            .then(konnector => [konnector])
+        } else if (data.dataType) {
+          return this.store.findByDataType(data.dataType)
+        } else if (data.category) {
+          return this.store.findByCategory(data.category)
+        }
+      })
+      .then(konnectorsList => {
+        if (!konnectorsList) {
+          throw new Error(`Unknown konnector`)
+        } else {
+          konnectorsList.forEach(konnector => {
+            konnector.status = this.store.getConnectionStatus(konnector)
           })
-          .then(konnectorsList => {
-            if (!konnectorsList) {
-              throw new Error(`Unknown konnector`)
-            } else {
-              konnectorsList.forEach(konnector => {
-                konnector.status = this.store.getConnectionStatus(konnector)
-              })
-              this.setState({
-                isFetching: false,
-                konnectorsList: konnectorsList,
-                // We show the konnector if the konnectorsList contain only 1 item
-                konnector:
-                  konnectorsList.length === 1 ? konnectorsList[0] : null
-              })
-            }
+          this.setState({
+            isFetching: false,
+            konnectorsList: konnectorsList,
+            // We show the konnector if the konnectorsList contain only 1 item
+            konnector: konnectorsList.length === 1 ? konnectorsList[0] : null
+          })
+        }
 
-            return konnectorsList
-          })
-          .catch(error => {
-            this.setState({
-              isFetching: false,
-              error: {
-                message: 'intent.service.error.initialization',
-                reason: error.message
-              }
-            })
-          })
+        return konnectorsList
       })
       .catch(error => {
-        console.error(error)
         this.setState({
           isFetching: false,
-          error
+          error: {
+            message: 'intent.service.error.initialization',
+            reason: error.message
+          }
         })
       })
   }

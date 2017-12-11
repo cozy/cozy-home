@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <CategoryList
                   category={props.params.filter}
                   categories={store.categories}
-                  connectors={store.findByCategory(props.params)}
+                  connectors={store.findByCategory(props.params.filter)}
                   {...props}
                 />
               )}
