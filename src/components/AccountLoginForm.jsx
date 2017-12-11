@@ -16,12 +16,7 @@ import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
 
 const renderers = {
-  password: ({ t }) => (
-    <PasswordField
-      noAutoFill
-      placeholder={t('account.form.placeholder.password')}
-    />
-  ),
+  password: ({ t }) => <PasswordField noAutoFill />,
   date: () => <Field type="date" />,
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
@@ -89,12 +84,23 @@ export const AccountLoginForm = props => {
   const onEnterKey = canHandleEnterKey && submit
 
   const renderField = field => {
-    const { name, label, type, value } = field
+    const { name, label, type, value, placeholder } = field
     if (!renderers[type]) {
       throw new Error('Unknown field type ' + type)
     }
     const disabled = name === 'login' && isUpdate
 
+    let fieldPlaceholder = null
+    switch (name) {
+      case 'pathName':
+        fieldPlaceholder = konnectorName
+        break
+      case 'password':
+        fieldPlaceholder = t('account.form.placeholder.password')
+        break
+      default:
+        fieldPlaceholder = placeholder || null
+    }
     // Give focus only once
     const giveFocus = !alreadyFocused && !disabled
     if (giveFocus) alreadyFocused = giveFocus
@@ -108,7 +114,7 @@ export const AccountLoginForm = props => {
       giveFocus,
       label: t(`account.form.label.${label || name}`),
       value: isUnloading ? '' : hydrate(value),
-      placeholder: name === 'pathName' && konnectorName
+      placeholder: fieldPlaceholder
     }
     return (
       <div>

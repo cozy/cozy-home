@@ -83,7 +83,7 @@ class FieldWrapperComponent extends Component {
       <div
         className={classNames(
           styles['coz-field'],
-          hasErrored && styles['coz-field--error']
+          hasErrored && isRequired && styles['coz-field--error']
         )}
         onKeyUp={type !== 'folder' && this.props.onEnterKey && this.handleKeyUp}
       >
