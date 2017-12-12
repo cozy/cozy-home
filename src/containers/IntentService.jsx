@@ -74,7 +74,15 @@ export default class IntentService extends Component {
   }
 
   terminate(account) {
-    const { service } = this.state
+    const { service, konnector, konnectorsList } = this.state
+    // Update konnectors status before rendering the konnectors List
+    konnectorsList.forEach(konnector => {
+      konnector.status = this.store.getConnectionStatus(konnector)
+    })
+    this.setState({
+      isFetching: false,
+      konnector: konnectorsList.length > 1 ? null : konnector
+    })
     service.terminate(account)
   }
 
@@ -134,26 +142,12 @@ export default class IntentService extends Component {
             iconPath={`../${data.cozyIconPath}`}
             onCancel={() => this.cancel()}
             closeable={closeable}
+            hasReturnToKonnectorsListButton={
+              !isFetching && !error && konnectorsList.length > 1 && konnector
+            }
+            returnToKonnectorsList={() => this.setState({ konnector: null })}
             {...this.context}
           />
-          {!isFetching &&
-            !error &&
-            konnector &&
-            konnectorsList.length > 1 && (
-              <div className="coz-service-return">
-                <a
-                  className="coz-service-return--button"
-                  onClick={() => this.setState({ konnector: null })}
-                  onKeyDown={e =>
-                    e.keyCode === 13
-                      ? this.setState({ konnector: null })
-                      : null}
-                  tabIndex="0"
-                >
-                  &lt; {t('intent.service.return')}
-                </a>
-              </div>
-            )}
           {!isFetching &&
             !error &&
             konnector && (
