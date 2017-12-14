@@ -26,7 +26,7 @@ const handleOAuthResponse = () => {
   const queryParams = new URLSearchParams(window.location.search)
   if (queryParams.get('account')) {
     const opener = window.opener
-    
+
     // TODO : this is a hack. Why not remove this and add a route "redirect" with accountId ?
     if (opener == null) {
       return { account: queryParams.get('account') }
@@ -53,7 +53,8 @@ const handleOAuthResponse = () => {
 // TODO : this is a hack. Why not remove this and add a route "redirect" with accountId ?
 function runKonnectorFromAccountId(accountId, client, store) {
   let account
-  return client.fetchDocument('io.cozy.accounts', accountId)
+  return client
+    .fetchDocument('io.cozy.accounts', accountId)
     .then(accounts => {
       account = accounts.data[0]
       return store.fetchKonnectorInfos(account.account_type)
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ...collectConfig,
     debug: __DEBUG__
   })
-   
+
   // TODO : this is a hack. Why not remove this and add a route "redirect" with accountId ?
   if (oauthRedirectParams) {
     return runKonnectorFromAccountId(
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.location = `/#/providers/all/${account.account_type}`
     })
   }
-  
+
   let history = hashHistory
 
   if (shouldEnableTracking() && getTracker()) {
