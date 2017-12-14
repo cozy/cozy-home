@@ -81,6 +81,9 @@ export const KonnectorEdit = ({
   if (fields.accountName)
     fields.accountName.placeholder = getAccountName(account)
 
+  if (account.oauth)
+    account.auth = Object.assign({}, account.auth, account.oauth)
+
   return (
     <div className={styles['col-account-edit-content']}>
       {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
@@ -151,7 +154,7 @@ export const KonnectorEdit = ({
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
-                values={account ? account.auth || account.oauth : {}}
+                values={account ? account.auth : {}}
                 disableFolderPath
               />
             }

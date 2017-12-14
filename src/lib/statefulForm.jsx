@@ -281,6 +281,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         for (field in this.state.fields) {
           if (
             this.state.fields[field].isRequired &&
+            this.state.fields[field].type !== 'hidden' &&
             this.state.fields[field].value.length === 0
           )
             unfilled.push(field)
