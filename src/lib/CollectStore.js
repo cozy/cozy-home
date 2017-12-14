@@ -589,8 +589,12 @@ export default class CollectStore {
     const previousAccount = Object.assign({}, account)
 
     // Update account data
-    account.auth.login = values.login
-    account.auth.password = values.password
+    if (values.login && values.password) {
+      account.auth.login = values.login
+      account.auth.password = values.password
+    }
+
+    if (values.folderPath) account.auth.folderPath = values.folderPath
 
     return accounts
       .update(cozy.client, previousAccount, account)
@@ -603,6 +607,22 @@ export default class CollectStore {
         connector.accounts[accountIndex] = updatedAccount
         this.updateConnector(connector)
         return updatedAccount
+      })
+      .catch(error => {
+        return Promise.reject(error)
+      })
+  }
+
+  updateFolderPath(connector, account, values, t) {
+    // Update file
+    return cozy.client.files
+      .updateAttributesById(account.folderId, {
+        name: values.namePath,
+        path: values.folderPath
+      })
+      .then(() => {
+        // Update Account
+        this.updateAccount(connector, account, values)
       })
       .catch(error => {
         return Promise.reject(error)

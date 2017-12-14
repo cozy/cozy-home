@@ -123,6 +123,7 @@ export const KonnectorEdit = ({
                 connector={connector}
                 account={account}
                 driveUrl={driveUrl}
+                fields={fields}
               />
             )}
           </TabPanel>

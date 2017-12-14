@@ -40,7 +40,8 @@
     },
     "files": {
       "description": "Required to access folders",
-      "type": "io.cozy.files"
+      "type": "io.cozy.files",
+      "verbs": ["GET", "PATCH", "POST"]
     },
     "jobs": {
       "description": "Required to run the konnectors",

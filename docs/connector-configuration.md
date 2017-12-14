@@ -119,9 +119,9 @@ You can use `simple input`, or `advanced fields`. Single input will render class
 * __max__: to define a maximum length of the value (number of characters)
 * __advanced__: default false, add the field on the "advenced options" fieldset
 * __hasDescription__: see `Field description` section of this documentation
-* __options__: related to dropdown, define the options of the <select>
+* __options__: related to dropdown, define the options of the `<select>`
 
-#### Advanced fieldsets
+### Advanced fieldsets
 
 Advanced fieldsets are custom features developped by Cozy to improve the connector form.
 They must be defined on `advancedFields` in the connector configuration.

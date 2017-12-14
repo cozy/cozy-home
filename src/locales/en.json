@@ -72,8 +72,15 @@
       }
     },
     "folder": {
-      "title": "Folder",
-      "link" : "Open the folder in Cozy Drive"
+      "title": "Folder in Cozy Drive",
+      "link" : "Open the folder in Cozy Drive",
+      "changePath": "change the path",
+      "error": "Oops, something went wrong. Don't panic, your files are still there, please try again later",
+      "close": "fermer",
+      "warning": "You're changing your folder path",
+      "oldFiles": "All your olds bills will be moved in your new path.",
+      "newFiles": "Your news bills will be downloaded in your new path.",
+      "newPath": "Everything went well, the new path for your %{name} account is:"
     },
     "success": {
       "title": {
