@@ -1204,7 +1204,7 @@
   },
   {
     "slug": "sncf",
-    "name": "Oui.Sncf",
+    "name": "Oui.sncf",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.voyages-sncf.com/",
     "category": "transport",
