@@ -91,8 +91,8 @@ class FieldWrapperComponent extends Component {
           <label>
             {label}
             {!isRequired && (
-              <span className={styles['coz-field--optionnal']}>
-                {t('account.config.optionnal')}
+              <span className={styles['coz-field--optional']}>
+                {t('account.config.optional')}
               </span>
             )}
           </label>
