@@ -211,13 +211,7 @@ export default class CollectStore {
 
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
-  connectAccount(
-    konnector,
-    account,
-    folderPath,
-    disableEnqueue,
-    enqueueAfter = 7000
-  ) {
+  connectAccount(konnector, account, disableEnqueue, enqueueAfter = 7000) {
     const startTime = new Date().getTime()
 
     // return object to store all business object implied in the connection
@@ -235,7 +229,7 @@ export default class CollectStore {
 
     // 1. Create folder, will be replaced by an intent or something else
     return (
-      createDirectoryIfNecessary(folderPath)
+      createDirectoryIfNecessary(account.auth.folderPath)
         // 2. Create account
         .then(folder => {
           connection.folder = folder
@@ -261,8 +255,6 @@ export default class CollectStore {
         })
         // 3. Konnector installation
         .then(account => {
-          // this.dispatch(updateConnectionRunningStatus(konnector, account, true))
-
           connection.account = account
 
           return new Promise((resolve, reject) => {
@@ -271,7 +263,6 @@ export default class CollectStore {
 
             const enqueue = () => {
               clearTimeout(enqueueTimeout)
-              // this.dispatch(enqueueConnection(konnector, account))
               enqueued = true
               resolve(connection)
             }
@@ -409,10 +400,10 @@ export default class CollectStore {
       })
   }
 
-  updateFolderPath(connector, account, values, t) {
+  updateFolderPath(connector, account, folderId, values, t) {
     // Update file
     return cozy.client.files
-      .updateAttributesById(account.folderId, {
+      .updateAttributesById(folderId, {
         name: values.namePath,
         path: values.folderPath
       })

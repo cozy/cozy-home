@@ -10,16 +10,7 @@ import Field, { FolderPickerField } from './Field'
 
 class KonnectorFolder extends React.Component {
   componentDidMount = () => {
-    const { account, fields } = this.props
-    // Split the actual folderPath account to get namePath & folderPath values
-    fields.folderPath.value = account.auth.folderPath.substring(
-      0,
-      account.auth.folderPath.lastIndexOf('/')
-    )
-    fields.namePath.value = account.auth.folderPath.substring(
-      account.auth.folderPath.lastIndexOf('/') + 1,
-      account.auth.folderPath.length
-    )
+    const { fields } = this.props
     this.setState({
       fields: fields,
       isModalOpen: false,
@@ -40,6 +31,7 @@ class KonnectorFolder extends React.Component {
 
   updateFolderPath = () => {
     const { connector, account } = this.props
+    const folderId = this.props.trigger.message.folder_to_save
     const { store } = this.context
     const { fields } = this.state
     this.setState({
@@ -50,7 +42,7 @@ class KonnectorFolder extends React.Component {
     const folderPath = fields.folderPath.value
 
     store
-      .updateFolderPath(connector, account, {
+      .updateFolderPath(connector, account, folderId, {
         namePath: namePath,
         folderPath: `${folderPath}/${namePath}`
       })
@@ -71,11 +63,11 @@ class KonnectorFolder extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({ isModalOpen: false })
+    this.setState({ isModalOpen: false, folderUpdateStatus: null })
   }
 
   render(
-    { t, account, driveUrl, connector },
+    { t, account, driveUrl, connector, trigger },
     { fields, isModalOpen, isFetching, changeState, folderUpdateStatus }
   ) {
     return (
@@ -105,7 +97,7 @@ class KonnectorFolder extends React.Component {
                 {driveUrl && (
                   <a
                     className={styles['col-account-folder-link']}
-                    href={`${driveUrl}${account.folderId}`}
+                    href={`${driveUrl}${trigger.message.folder_to_save}`}
                   >
                     {t('account.folder.link')}
                   </a>
@@ -156,7 +148,7 @@ class KonnectorFolder extends React.Component {
                       ) : (
                         <Button
                           busy={isFetching}
-                          theme="highlight"
+                          theme="regular"
                           onClick={this.updateFolderPath}
                         >
                           {t('account.folder.changePath')}

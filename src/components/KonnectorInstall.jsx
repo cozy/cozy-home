@@ -18,18 +18,25 @@ export const KonnectorInstall = ({
   driveUrl,
   error,
   fields,
-  forceDisabled,
   isTimeout,
   isUnloading,
   oAuthTerminated,
   onCancel,
+  editing,
   onDelete,
   onSubmit,
+  submit,
   submitting,
   success,
   successMessage,
   successMessages,
-  trigger
+  trigger,
+  allRequiredFieldsAreFilled,
+  displayAdvanced,
+  toggleAdvanced,
+  isValid,
+  isSuccess,
+  dirty
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -75,19 +82,26 @@ export const KonnectorInstall = ({
             disableSuccessTimeout={disableSuccessTimeout}
             error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
             fields={fields}
+            editing={editing}
+            isValid={isValid}
+            dirty={dirty}
+            isSuccess={isSuccess}
             forceEnabled={!!error}
-            forceDisabled={forceDisabled}
             isOAuth={connector.oauth}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
             onSubmit={onSubmit}
             submitting={submitting}
+            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+            displayAdvanced={displayAdvanced}
+            toggleAdvanced={toggleAdvanced}
           />
         )}
 
         {success && (
           <KonnectorSuccess
             connector={connector}
+            account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
             isTimeout={isTimeout}

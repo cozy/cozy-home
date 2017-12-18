@@ -110,9 +110,9 @@ You can use `simple input`, or `advanced fields`. Single input will render class
 
 ### Input properties
 
-> __⚠️ To know:__ `dropdown` type will render a `<select>`, `folder` type is related to a complex input
+> __⚠️ To know:__ `dropdown` type will render a `<select>`
 
-* __type (required)__: text, password, hidden, checkbox, date, dropdown, folder
+* __type (required)__: text, password, hidden, checkbox, date, dropdown
 * __isRequired__: default = true, make the field required to validate the form
 * __pattern__: allow you to use a regex to validate a field
 * __min__: to define a minimum length of the value (number of characters)

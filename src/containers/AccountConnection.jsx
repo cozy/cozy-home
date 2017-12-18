@@ -14,6 +14,7 @@ import { fetchAccount } from '../ducks/accounts'
 import classNames from 'classnames'
 
 import { translate } from 'cozy-ui/react/I18n'
+import Spinner from 'cozy-ui/react/Spinner'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
@@ -31,34 +32,32 @@ class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
-    // const konnector = props.konnector
-    this.state = {
-      account: this.props.existingAccount,
-      editing: !!this.props.existingAccount
-    }
-
-    // Ugly reference to existing account folder path. When updating the
-    // connection form, the folderPath disappears. Maybe because of the
-    // statefulForm, we don't know at this time.
-    this.editedFolderPath =
-      this.props.existingAccount &&
-      this.props.existingAccount.auth &&
-      this.props.existingAccount.auth.folderPath
 
     if (this.props.error) this.handleError({ message: this.props.error })
-  }
 
-  getFolderPathIfNecessary(fields, account) {
-    const { t } = this.context
-    const folderField = fields && fields.folderPath
-    if (!folderField) return null
-
-    const auth = account && account.auth
-    if (auth && auth.folderPath) {
-      return auth.folderPath
+    const { fields } = props
+    // Fetch Folders
+    if (fields.folderPath) {
+      this.setState({ isFetching: true })
+      this.store
+        .fetchFolders()
+        .then(folders => {
+          fields.folderPath.options = []
+          folders.map(folder => {
+            fields.folderPath.options.push({
+              name: folder.path,
+              path: folder.path
+            })
+          })
+        })
+        .then(() => this.setState({ isFetching: false }))
     }
 
-    return folderField.default || t('account.config.default_folder')
+    this.state = {
+      account: this.props.existingAccount,
+      editing: !!this.props.existingAccount,
+      isFetching: false
+    }
   }
 
   componentWillReceiveProps({ existingAccount, success }) {
@@ -73,14 +72,12 @@ class AccountConnection extends Component {
   }
 
   connectAccount(auth) {
-    const { folderPath } = auth
     const { konnector } = this.props
     let { account } = this.state
 
     if (account) {
       return this.updateAccount(konnector, account, {
-        ...auth,
-        folderPath: this.editedFolderPath
+        ...auth
       })
     }
 
@@ -90,9 +87,7 @@ class AccountConnection extends Component {
 
     this.setState({ account: account })
 
-    return this.runConnection(account, folderPath).catch(error =>
-      this.handleError(error)
-    )
+    return this.runConnection(account).catch(error => this.handleError(error))
   }
 
   connectAccountOAuth(accountType, values, scope) {
@@ -120,8 +115,6 @@ class AccountConnection extends Component {
   }
 
   terminateOAuth(accountID, accountValues) {
-    // const { slug } = this.props.konnector
-
     this.setState({
       oAuthTerminated: true
     })
@@ -130,27 +123,24 @@ class AccountConnection extends Component {
       .fetchAccount(accountID)
       .then(account => {
         const { konnector } = this.props
-        const { folderPath } = accountValues
         this.setState({ account: account })
-        return this.runConnection(account, folderPath).then(connection => {
+        return this.runConnection(account).then(connection => {
           this.setState({
             connector: konnector,
             submitting: false
           })
-          // this.handleConnectionSuccess(connection.successTimeout)
         })
       })
       .catch(error => this.handleError(error))
   }
 
-  runConnection(account, folderPath) {
+  runConnection(account) {
     this.setState({ submitting: true })
 
     return this.store
       .connectAccount(
         this.props.konnector,
         account,
-        folderPath,
         this.props.disableSuccessTimeout
       )
       .then(connection => {
@@ -218,20 +208,19 @@ class AccountConnection extends Component {
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
-  submit(values) {
+  onSubmit = () => {
     // namePath defined by the user is concatened with the folderPath
-    values.namePath &&
-      (values.folderPath = `${values.folderPath}/${values.namePath}`)
-
-    delete values['namePath']
+    this.props.values.namePath &&
+      (this.props.values.folderPath = `${this.props.values.folderPath}/${this
+        .props.values.namePath}`)
 
     return this.props.konnector && this.props.konnector.oauth
       ? this.connectAccountOAuth(
-          this.props.konnector.slug,
-          values,
-          this.props.konnector.oauth_scope
+          this.props.connector.slug,
+          this.props.values,
+          this.props.connector.oauth_scope
         )
-      : this.connectAccount(values)
+      : this.connectAccount(this.props.values)
   }
 
   cancel() {
@@ -262,31 +251,38 @@ class AccountConnection extends Component {
 
   render() {
     const {
+      disableSuccessTimeout,
+      isUnloading,
+      allRequiredFieldsAreFilled,
+      displayAdvanced,
+      toggleAdvanced,
+      dirty,
+      isValid,
+      fields,
+      isSuccess,
       deleting,
       konnector,
       lastExecution,
-      disableSuccessTimeout,
       error,
       forceConnection,
-      isUnloading,
       isRunning,
       queued,
       t,
       trigger,
       success
     } = this.props
-    const { account, editing, oAuthTerminated, submitting } = this.state
+    const {
+      account,
+      editing,
+      oAuthTerminated,
+      submitting,
+      isFetching
+    } = this.state
     const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
-    const { fields } = konnector
-    const folderPath = this.getFolderPathIfNecessary(fields, account)
-    if (fields.folderPath && !fields.folderPath.default)
-      fields.folderPath.default = folderPath
     const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
-
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
-
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
@@ -299,17 +295,18 @@ class AccountConnection extends Component {
           />
         </div>
 
-        {// Properly load the edit view or the initial config view
-        editing ? (
+        {isFetching ? (
+          <Spinner size="xxlarge" middle="true" />
+        ) : editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
             account={account}
+            editing={editing}
             connector={konnector}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error}
             fields={fields}
-            folderPath={folderPath}
             isUnloading={isUnloading}
             lastExecution={lastExecution}
             lastSync={lastSync}
@@ -317,8 +314,7 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
-            onSubmit={values =>
-              this.connectAccount(Object.assign(values, { folderPath }))}
+            onSubmit={values => this.connectAccount(Object.assign(values))}
             submitting={submitting || isRunning}
             success={success}
             trigger={trigger}
@@ -327,29 +323,33 @@ class AccountConnection extends Component {
           <KonnectorInstall
             account={account}
             connector={konnector}
+            isValid={isValid}
+            dirty={dirty}
+            isSuccess={isSuccess}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error}
             fields={fields}
-            folderPath={folderPath}
-            forceDisabled={oAuthTerminated}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
-            onSubmit={values => this.submit(values)}
+            onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             success={success || queued}
             successMessage={t(
               queued
                 ? 'account.success.title.timeout'
-                : 'account.success.title.success',
+                : 'account.success.title.connect',
               { name: konnector.name }
             )}
             successMessages={successMessages}
             trigger={trigger}
+            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+            displayAdvanced={displayAdvanced}
+            toggleAdvanced={toggleAdvanced}
           />
         )}
       </div>

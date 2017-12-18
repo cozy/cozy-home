@@ -2,15 +2,13 @@ import styles from '../styles/accountLoginForm'
 
 import React from 'react'
 import classNames from 'classnames'
-import statefulForm from '../lib/statefulForm'
 import { translate } from 'cozy-ui/react/I18n'
 import Field, {
   PasswordField,
   DropdownField,
   CheckboxField,
   isHidden,
-  isAdvanced,
-  FolderPickerField
+  isAdvanced
 } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
@@ -21,10 +19,7 @@ const renderers = {
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
-  email: () => <Field type="email" />,
-  folder: ({ disableFolderPath }) => (
-    <FolderPickerField disabled={disableFolderPath} />
-  )
+  email: () => <Field type="email" />
 }
 
 const hydrateFieldValue = {
@@ -41,18 +36,16 @@ export const AccountLoginForm = props => {
     fields,
     error,
     dirty,
+    editing,
     isValid,
     allRequiredFieldsAreFilled,
     submitting,
-    forceDisabled,
     forceEnabled,
     values,
-    submit,
+    onSubmit,
     connectorSlug,
-    konnectorName,
     isSuccess,
     disableSuccessTimeout,
-    disableFolderPath,
     isUnloading,
     displayAdvanced,
     toggleAdvanced
@@ -81,7 +74,7 @@ export const AccountLoginForm = props => {
     !isSuccess &&
     !submitting &&
     submitEnabled
-  const onEnterKey = canHandleEnterKey && submit
+  const onEnterKey = canHandleEnterKey && onSubmit
 
   const renderField = field => {
     const { name, label, type, value, placeholder } = field
@@ -92,15 +85,13 @@ export const AccountLoginForm = props => {
 
     let fieldPlaceholder = null
     switch (name) {
-      case 'pathName':
-        fieldPlaceholder = konnectorName
-        break
       case 'password':
         fieldPlaceholder = t('account.form.placeholder.password')
         break
       default:
         fieldPlaceholder = placeholder || null
     }
+
     // Give focus only once
     const giveFocus = !alreadyFocused && !disabled
     if (giveFocus) alreadyFocused = giveFocus
@@ -143,8 +134,8 @@ export const AccountLoginForm = props => {
             {editableFields.map(renderField)}
           </fieldset>
         )}
-      {!displayAdvanced &&
-        !disableFolderPath &&
+      {!editing &&
+        !displayAdvanced &&
         !!advancedFields.length && (
           <button
             type="button"
@@ -155,7 +146,8 @@ export const AccountLoginForm = props => {
           </button>
         )}
 
-      {displayAdvanced &&
+      {!editing &&
+        displayAdvanced &&
         !!advancedFields &&
         !!advancedFields.length && (
           <fieldset className={styles['account-form-fieldset']}>
@@ -173,7 +165,7 @@ export const AccountLoginForm = props => {
                 'coz-btn--regular',
                 styles['coz-btn']
               )}
-              disabled={forceDisabled || submitting || !submitEnabled}
+              disabled={oAuthTerminated || submitting || !submitEnabled}
               aria-busy={
                 submitting &&
                 !disableSuccessTimeout &&
@@ -181,7 +173,7 @@ export const AccountLoginForm = props => {
                   ? 'true'
                   : 'false'
               }
-              onClick={submit}
+              onClick={onSubmit}
             >
               {t(
                 isUpdate
@@ -195,4 +187,4 @@ export const AccountLoginForm = props => {
   )
 }
 
-export default statefulForm()(translate()(AccountLoginForm))
+export default translate()(AccountLoginForm)
