@@ -549,6 +549,12 @@
       },
       "password": {
         "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
