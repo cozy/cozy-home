@@ -544,6 +544,168 @@
       "bankTransactions"
     ],
     "fields": {
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Alsace-Vosges",
+            "value": "3"
+          },
+          {
+            "name": "Brie-Picardie",
+            "value": "5"
+          },
+          {
+            "name": "Franche Comté",
+            "value": "18"
+          },
+          {
+            "name": "Ile de France",
+            "value": "20"
+          },
+          {
+            "name": "Lorraine",
+            "value": "24"
+          },
+          {
+            "name": "Nord-Est",
+            "value": "28"
+          },
+          {
+            "name": "Pyrénées Gascogne",
+            "value": "33"
+          },
+          {
+            "name": "Val de France",
+            "value": "40"
+          },
+          {
+            "name": "Alpes Provence",
+            "value": "2"
+          },
+          {
+            "name": "Aquitaine",
+            "value": "4"
+          },
+          {
+            "name": "Atlantique-Vendée",
+            "value": "6"
+          },
+          {
+            "name": "Anjou-Maine",
+            "value": "7"
+          },
+          {
+            "name": "Centre Est",
+            "value": "8"
+          },
+          {
+            "name": "Centre France",
+            "value": "9"
+          },
+          {
+            "name": "Centre Loire",
+            "value": "10"
+          },
+          {
+            "name": "Centre Ouest",
+            "value": "11"
+          },
+          {
+            "name": "Champagne Bourgogne",
+            "value": "12"
+          },
+          {
+            "name": "Charente-Maritime Deux-Sèvres",
+            "value": "13"
+          },
+          {
+            "name": "Charente Périgord",
+            "value": "14"
+          },
+          {
+            "name": "Corse",
+            "value": "15"
+          },
+          {
+            "name": "Côtes d'Armor",
+            "value": "16"
+          },
+          {
+            "name": "Finistère",
+            "value": "17"
+          },
+          {
+            "name": "Guadeloupe",
+            "value": "19"
+          },
+          {
+            "name": "Ille-et-Vilaine",
+            "value": "21"
+          },
+          {
+            "name": "Languedoc",
+            "value": "22"
+          },
+          {
+            "name": "Loire Haute-Loire",
+            "value": "23"
+          },
+          {
+            "name": "Martinique",
+            "value": "25"
+          },
+          {
+            "name": "Morbihan",
+            "value": "26"
+          },
+          {
+            "name": "Nord de France",
+            "value": "27"
+          },
+          {
+            "name": "Nord Midi Pyrénées",
+            "value": "29"
+          },
+          {
+            "name": "Normandie",
+            "value": "30"
+          },
+          {
+            "name": "Normandie-Seine",
+            "value": "31"
+          },
+          {
+            "name": "Provence Côte d'Azur",
+            "value": "32"
+          },
+          {
+            "name": "Réunion",
+            "value": "34"
+          },
+          {
+            "name": "Des Savoie",
+            "value": "35"
+          },
+          {
+            "name": "Sud Méditerranée",
+            "value": "36"
+          },
+          {
+            "name": "Sud Rhône Alpes",
+            "value": "37"
+          },
+          {
+            "name": "Toulouse 31",
+            "value": "38"
+          },
+          {
+            "name": "Touraine-Poitou",
+            "value": "39"
+          }
+        ]
+      },
       "login": {
         "type": "text"
       },
