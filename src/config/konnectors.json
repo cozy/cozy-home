@@ -913,6 +913,26 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
+    "oauth": true,
+    "slug": "enedis",
+    "name": "Enedis",
+    "vendorLink": "https://www.enedis.fr/",
+    "category": "energy",
+    "dataType": [
+      "consumption",
+      "profile"
+    ],
+    "hasDescriptions": {
+      "service": true
+    },
+    "fields": {
+      "access_token": {
+        "type": "hidden"
+      }
+    },
+    "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-enedis.git#build"
+  },
+  {
     "slug": "free",
     "name": "Free",
     "editor": "Cozy Cloud",
