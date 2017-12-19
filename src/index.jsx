@@ -52,6 +52,9 @@ const handleOAuthResponse = () => {
 
 // TODO : this is a hack. Why not remove this and add a route "redirect" with accountId ?
 function runKonnectorFromAccountId(accountId, client, store) {
+  document.querySelector(
+    '[role=application]'
+  ).innerHTML = `<h2>Récupération des données en cours, cela peut prendre quelques minutes ...</h2>`
   let account
   return client
     .fetchDocument('io.cozy.accounts', accountId)
@@ -92,13 +95,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // TODO : this is a hack. Why not remove this and add a route "redirect" with accountId ?
   if (oauthRedirectParams) {
-    return runKonnectorFromAccountId(
-      oauthRedirectParams.account,
-      client,
-      store
-    ).then(account => {
-      document.location = `/#/providers/all/${account.account_type}`
-    })
+    return runKonnectorFromAccountId(oauthRedirectParams.account, client, store)
+      .then(account => {
+        document.location = `/#/providers/all/${account.account_type}`
+      })
+      .catch(err => {
+        document.querySelector(
+          '[role=application]'
+        ).innerHTML = `<div><h2>Error: ${err.msg}</h2><div><a href='/'><button>"ok"</button></a></div><pre>stack trace:\n${err.stack}</pre></div>`
+      })
   }
 
   let history = hashHistory
