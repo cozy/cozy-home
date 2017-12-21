@@ -4,7 +4,7 @@ const advancedFields = {
       type: 'text'
     },
     folderPath: {
-      type: 'folder'
+      type: 'dropdown'
     }
   }
 }

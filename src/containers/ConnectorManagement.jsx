@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 
-// import { fetchAccount } from '../ducks/accounts'
 import {
   getTriggerLastExecution,
   isConnectionRunning
@@ -17,7 +16,6 @@ import {
   getKonnectorConnectedAccount,
   getTriggerByKonnector
 } from '../reducers'
-// import { getKonnectorConnectedAccount } from '../ducks/connections'
 
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
@@ -28,9 +26,40 @@ class ConnectorManagement extends Component {
     super(props, context)
     this.store = this.context.store
 
+    // Set values
+    const values =
+      (props.existingAccount &&
+        Object.assign({}, props.existingAccount.auth)) ||
+      {}
+    // Split the actual folderPath account to get namePath & folderPath values
+    if (props.existingAccount && values.folderPath) {
+      values.folderPath = props.existingAccount.auth.folderPath.substring(
+        0,
+        props.existingAccount.auth.folderPath.lastIndexOf('/')
+      )
+      values.namePath = props.existingAccount.auth.folderPath.substring(
+        props.existingAccount.auth.folderPath.lastIndexOf('/') + 1,
+        props.existingAccount.auth.folderPath.length
+      )
+    } else if (
+      (props.existingAccount === null &&
+        props.konnector.fields &&
+        props.konnector.fields.advancedFields &&
+        props.konnector.fields.advancedFields.folderPath) ||
+      (props.existingAccount === null &&
+        props.konnector.fields &&
+        props.konnector.folderPath)
+    ) {
+      values.folderPath =
+        props.konnector.fields.advancedFields.folderPath.default ||
+        this.context.t('account.config.default_folder')
+      values.namePath = props.konnector.name
+    }
+
     this.state = {
       isWorking: true,
-      isClosing: false
+      isClosing: false,
+      values: values
     }
 
     this.store.fetchDriveUrl()
@@ -38,8 +67,9 @@ class ConnectorManagement extends Component {
 
   render() {
     const { isWorking } = this.props
-    const { isClosing } = this.state
+    const { isClosing, values } = this.state
     const { t } = this.context
+
     return (
       <Modal secondaryAction={() => this.gotoParent()}>
         <ModalContent className={styles['col-account-modal']}>
@@ -53,11 +83,11 @@ class ConnectorManagement extends Component {
               alertSuccess={messages => this.alertSuccess(messages)}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
+              values={values}
               {...this.state}
               {...this.props}
               {...this.context}
             />
-            // <div>Test</div>
           )}
         </ModalContent>
       </Modal>
@@ -111,8 +141,6 @@ const mapStateToProps = (state, ownProps) => {
     isRunning: isConnectionRunning(state.connections, trigger),
     lastExecution: getTriggerLastExecution(state.cozy, trigger),
     trigger
-    // const konnector = getKonnector()
-    // accountId: getKonnectorConnectedAccount(state.connections, ownProps.konnector)
   }
 }
 

@@ -17,11 +17,10 @@ export default function statefulForm(mapPropsToFormConfig) {
             t('account.form.placeholder.accountName')
           ),
           dirty: false,
-          submit: this.handleSubmit.bind(this),
           oauth: props.onOAuth,
           displayAdvanced: false,
           isValid: true,
-          allRequiredFieldsAreFilled: true
+          allRequiredFieldsAreFilled: false
         }
       }
 
@@ -92,16 +91,17 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       configureFields(config, defaultAccountNamePlaceholder) {
         // it will at least have an accountName field
-        if (!config || !config.fields) config = { fields: {} }
-        const konnectorName = config.konnectorName
+        if (!config || !config.konnector.fields) config = { fields: {} }
+        const konnectorName = config.konnector.name
         const accountNamePlaceholder =
-          config.fields.accountName && config.fields.accountName.placeholder
+          config.konnector.fields.accountName &&
+          config.konnector.fields.accountName.placeholder
         const accountNameField = {
           type: 'text',
           isRequired: false,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
-        const fieldsFromConfig = Object.assign({}, config.fields, {
+        const fieldsFromConfig = Object.assign({}, config.konnector.fields, {
           accountName: accountNameField
         })
 
@@ -169,21 +169,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         if (fields.calendar && !fields.calendar.default) {
           fields.calendar.default = konnectorName
         }
-        if (fields.namePath && fields.namePath.value === '')
-          fields.namePath.value = konnectorName
-        if (!fields.frequency) {
-          fields.frequency = {
-            type: 'text',
-            hidden: true,
-            isRequired: false
-          }
-        }
-        if (fields.frequency && !fields.frequency.default) {
-          fields.frequency.default = 'week'
-        }
 
-        // Update config.fields with builded fields.
-        config.fields = fields
         return fields
       }
 
@@ -287,14 +273,9 @@ export default function statefulForm(mapPropsToFormConfig) {
             unfilled.push(field)
         }
         this.setState({
-          allRequiredFieldsAreFilled: unfilled.length === 0
+          allRequiredFieldsAreFilled: unfilled.length === 0,
+          values: this.getData()
         })
-      }
-
-      handleSubmit() {
-        if (this.props.onSubmit && this.state.isValid) {
-          return this.props.onSubmit(this.getData())
-        }
       }
 
       getData() {

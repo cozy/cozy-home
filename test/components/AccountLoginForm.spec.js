@@ -15,7 +15,7 @@ describe('AccountLoginForm component', () => {
     const component = shallow(
       <AccountLoginForm
         t={tMock}
-        submit={jest.fn()}
+        onSubmit={jest.fn()}
         isOAuth
         isValid
         allRequiredFieldsAreFilled

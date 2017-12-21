@@ -10,7 +10,7 @@ export const KonnectorSuccess = ({
   t,
   connector,
   isTimeout,
-  folderPath,
+  account,
   folderId,
   onCancel,
   driveUrl,
@@ -27,11 +27,9 @@ export const KonnectorSuccess = ({
                 name: connector.name
               })}
               <br />
-              {folderPath && (
-                <span
-                  className={styles['col-account-success-highlighted-data']}
-                >
-                  {folderPath}
+              {account.auth.folderPath && (
+                <span className={styles['col-account-folder-highlighted-data']}>
+                  {account.auth.folderPath}
                 </span>
               )}
               {driveUrl &&

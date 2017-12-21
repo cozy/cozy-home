@@ -58,6 +58,7 @@ export const KonnectorEdit = ({
   error,
   fields,
   folderPath,
+  editing,
   isUnloading,
   lastExecution,
   oAuthTerminated,
@@ -81,7 +82,6 @@ export const KonnectorEdit = ({
   // assign accountName placeholder
   if (fields.accountName)
     fields.accountName.placeholder = getAccountName(account)
-
   if (account && account.oauth)
     account.auth = Object.assign({}, account.auth, account.oauth)
 
@@ -115,14 +115,17 @@ export const KonnectorEdit = ({
               submitting={submitting}
               onForceConnection={onForceConnection}
             />
-            {folderPath && (
-              <KonnectorFolder
-                connector={connector}
-                account={account}
-                driveUrl={driveUrl}
-                fields={fields}
-              />
-            )}
+            {account &&
+              account.auth.folderPath &&
+              trigger.message.folder_to_save && (
+                <KonnectorFolder
+                  connector={connector}
+                  account={account}
+                  driveUrl={driveUrl}
+                  fields={fields}
+                  trigger={trigger}
+                />
+              )}
           </TabPanel>
 
           <TabPanel
@@ -146,13 +149,13 @@ export const KonnectorEdit = ({
                 disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}
                 fields={fields}
+                editing={editing}
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
-                values={account ? account.auth : {}}
                 disableFolderPath
               />
             }
