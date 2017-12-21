@@ -10,7 +10,9 @@
     ],
     "fields": {
       "login": {
-        "type": "text"
+        "type": "text",
+        "min": 13,
+        "max": 13
       },
       "password": {
         "type": "password"
