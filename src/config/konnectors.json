@@ -736,7 +736,7 @@
       }
     },
     "additionnalSuccessMessage": {
-      "message": "connector.debug.successMessage" 
+      "message": "connector.debug.successMessage"
     },
     "source": "git://github.com/cozy/cozy-konnector-debug.git#build"
   },
@@ -1399,8 +1399,8 @@
     "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
   },
   {
-    "slug": "societegenerale155",
-    "name": "Société Générale (Professionnels)",
+    "slug": "societegenerale",
+    "name": "Société Générale",
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.societegenerale.fr",
     "category": "banking",
@@ -1410,6 +1410,32 @@
       "bankTransactions"
     ],
     "fields": {
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Professionnels",
+            "value": "155"
+          },
+          {
+            "name": "Entreprises",
+            "value": "156"
+          },
+          {
+            "name": "Associations - Progéliance Net",
+            "value": "157"
+          },
+          {
+            "name": "Associations - Sogecash Net",
+            "value": "158"
+          },
+          {
+            "name": "Particuliers",
+            "value": "42"
+          }
+        ]
+      },
       "identifier": {
         "type": "text"
       },
@@ -1417,106 +1443,7 @@
         "type": "password"
       }
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "155"
-    }
-  },
-  {
-    "slug": "societegenerale156",
-    "name": "Société Générale (Entreprises)",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://entreprises.societegenerale.fr",
-    "category": "banking",
-    "icon": "societegenerale.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "156"
-    }
-  },
-  {
-    "slug": "societegenerale157",
-    "name": "Société Générale (Associations)- Progéliance Net",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://professionnels.societegenerale.fr/association_connexion.html",
-    "category": "banking",
-    "icon": "societegenerale.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "157"
-    }
-  },
-  {
-    "slug": "societegenerale158",
-    "name": "Société Générale (Associations) - Sogecash Net",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://entreprises.societegenerale.fr/associations-connexion.html",
-    "category": "banking",
-    "icon": "societegenerale.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "158"
-    }
-  },
-  {
-    "slug": "societegenerale42",
-    "name": "Sociéte Générale (Particuliers)",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://particuliers.societegenerale.fr",
-    "category": "banking",
-    "icon": "societegenerale.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "42"
-    }
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
     "slug": "sosh",
