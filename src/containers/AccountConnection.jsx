@@ -35,29 +35,13 @@ class AccountConnection extends Component {
 
     if (this.props.error) this.handleError({ message: this.props.error })
 
-    const { fields } = props
-    // Fetch Folders
-    if (fields.folderPath) {
-      this.setState({ isFetching: true })
-      this.store
-        .fetchFolders()
-        .then(folders => {
-          fields.folderPath.options = []
-          folders.map(folder => {
-            fields.folderPath.options.push({
-              name: folder.path,
-              path: folder.path
-            })
-          })
-        })
-        .then(() => this.setState({ isFetching: false }))
-    }
-
     this.state = {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       isFetching: false
     }
+
+    this.fetchFolders()
   }
 
   componentWillReceiveProps({ existingAccount, success }) {
@@ -69,6 +53,29 @@ class AccountConnection extends Component {
     this.setState({
       account: existingAccount
     })
+  }
+
+  fetchFolders() {
+    const { fields, values } = this.props
+    // Fetch Folders
+    if (fields.folderPath) {
+      this.setState({ isFetching: true })
+      this.store
+        .fetchFolders()
+        .then(folders => {
+          this.setState({ folders: folders })
+          fields.folderPath.options = []
+          folders.map(folder => {
+            if (`${values.folderPath}/${values.namePath}` !== folder.path) {
+              fields.folderPath.options.push({
+                name: folder.path,
+                path: folder.path
+              })
+            }
+          })
+        })
+        .then(() => this.setState({ isFetching: false }))
+    }
   }
 
   connectAccount(auth) {
@@ -227,10 +234,6 @@ class AccountConnection extends Component {
     this.props.onCancel()
   }
 
-  goToConfig() {
-    this.setState({ editing: true })
-  }
-
   buildSuccessMessages(konnector) {
     const { t } = this.context
     const messages = [
@@ -269,14 +272,16 @@ class AccountConnection extends Component {
       queued,
       t,
       trigger,
-      success
+      success,
+      closeModal
     } = this.props
     const {
       account,
       editing,
       oAuthTerminated,
       submitting,
-      isFetching
+      isFetching,
+      folders
     } = this.state
     const { driveUrl } = this.store
     const lastSync = this.state.lastSync || (account && account.lastSync)
@@ -306,6 +311,7 @@ class AccountConnection extends Component {
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error}
+            folders={folders}
             fields={fields}
             isUnloading={isUnloading}
             lastExecution={lastExecution}
@@ -318,6 +324,7 @@ class AccountConnection extends Component {
             submitting={submitting || isRunning}
             success={success}
             trigger={trigger}
+            closeModal={closeModal}
           />
         ) : (
           <KonnectorInstall

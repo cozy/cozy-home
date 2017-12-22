@@ -6,7 +6,7 @@ import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import styles from '../styles/konnectorFolder'
 
 import DescriptionContent from './DescriptionContent'
-import Field, { FolderPickerField } from './Field'
+import Field, { DropdownField } from './Field'
 
 class KonnectorFolder extends React.Component {
   componentDidMount = () => {
@@ -30,7 +30,7 @@ class KonnectorFolder extends React.Component {
   }
 
   updateFolderPath = () => {
-    const { connector, account } = this.props
+    const { connector, account, folders } = this.props
     const folderId = this.props.trigger.message.folder_to_save
     const { store } = this.context
     const { fields } = this.state
@@ -40,11 +40,14 @@ class KonnectorFolder extends React.Component {
 
     const namePath = fields.namePath.value
     const folderPath = fields.folderPath.value
+    const fullFolderPath = `${fields.folderPath.value}/${fields.namePath.value}`
+    const dirId = folders.find(folder => folder.path === folderPath)._id
 
     store
       .updateFolderPath(connector, account, folderId, {
         namePath: namePath,
-        folderPath: `${folderPath}/${namePath}`
+        folderPath: fullFolderPath,
+        dir_id: dirId
       })
       .then(() => {
         this.setState({
@@ -67,7 +70,7 @@ class KonnectorFolder extends React.Component {
   }
 
   render(
-    { t, account, driveUrl, connector, trigger },
+    { t, account, driveUrl, connector, trigger, closeModal },
     { fields, isModalOpen, isFetching, changeState, folderUpdateStatus }
   ) {
     return (
@@ -82,7 +85,7 @@ class KonnectorFolder extends React.Component {
                       label={t('account.form.label.namePath')}
                       {...fields.namePath}
                     />
-                    <FolderPickerField
+                    <DropdownField
                       label={t('account.form.label.folderPath')}
                       {...fields.folderPath}
                     />
@@ -105,7 +108,7 @@ class KonnectorFolder extends React.Component {
               </p>
               {isModalOpen && (
                 <Modal
-                  secondaryAction={this.closeModal}
+                  secondaryAction={() => closeModal()}
                   title={t('account.folder.warning')}
                   className={styles['col-account-folder-modal-path']}
                 >
@@ -142,7 +145,7 @@ class KonnectorFolder extends React.Component {
 
                     <p className={styles['col-account-folder-modal-path-btn']}>
                       {folderUpdateStatus ? (
-                        <Button theme="secondary" onClick={this.closeModal}>
+                        <Button theme="secondary" onClick={() => closeModal()}>
                           {t('account.folder.close')}
                         </Button>
                       ) : (
