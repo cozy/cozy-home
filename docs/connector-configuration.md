@@ -120,6 +120,7 @@ You can use `simple input`, or `advanced fields`. Single input will render class
 * __advanced__: default false, add the field on the "advenced options" fieldset
 * __hasDescription__: see `Field description` section of this documentation
 * __options__: related to dropdown, define the options of the `<select>`
+* __default__: default value for the fields. It can a string for a text field, or an obect for a select field ("default": {"value": "foo","name": "bar"},)
 
 ### Advanced fieldsets
 

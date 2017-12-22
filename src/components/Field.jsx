@@ -183,57 +183,16 @@ export const DropdownField = translate()(props => {
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
-            value={optionValue.value}
+            value={optionValue.value || (props.default && props.default.value)}
             selected={optionValue.value === { value }}
           >
-            {optionValue.name}
+            {optionValue.name || (props.default && props.default.name)}
           </option>
         ))}
       </select>
     </FieldWrapper>
   )
 })
-
-class FolderPickerFieldComponent extends Component {
-  constructor(props, context) {
-    super(props)
-    this.store = context.store
-    this.state = { isFetching: true, foldersList: [{ path: props.value }] }
-    this.store.fetchFolders().then(folders => {
-      const foldersList = folders.find(f => f.path === props.value)
-        ? folders
-        : [{ path: props.value }].concat(folders)
-      this.setState({
-        isFetching: false,
-        foldersList
-      })
-    })
-  }
-
-  render() {
-    const { value, onChange, onInput, disabled } = this.props
-    const { isFetching, foldersList } = this.state
-    return (
-      <FieldWrapper {...this.props}>
-        <select
-          className={styles['coz-field-dropdown']}
-          value={isFetching ? 'loading' : value}
-          onChange={onChange}
-          onInput={onInput}
-          aria-busy={isFetching}
-          disabled={disabled || isFetching}
-        >
-          {foldersList.map(folder => (
-            <option value={folder.path} selected={folder.path === value}>
-              {folder.path}
-            </option>
-          ))}
-        </select>
-      </FieldWrapper>
-    )
-  }
-}
-export const FolderPickerField = translate()(FolderPickerFieldComponent)
 
 export const CheckboxField = translate()(props => {
   const { value, onChange, onInput, label, errors } = props

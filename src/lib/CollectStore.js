@@ -190,23 +190,19 @@ export default class CollectStore {
 
   // FIXME: should be handled in a cozy-drive inter-app
   fetchFolders() {
-    return this.foldersFromStack
-      ? Promise.resolve(this.foldersFromStack)
-      : cozy.client.data
-          .findAll('io.cozy.files')
-          .then(result => {
-            // if path contains '/.', it contains an hidden folder
-            const folders = result
-              .filter(f => f.type === 'directory')
-              .filter(f => !f.path.match(/(?:\/\.)/)) // remove hidden folders
-              .sort((a, b) => a.path > b.path)
-            this.foldersFromStack = folders
-            return folders
-          })
-          .catch(err => {
-            console.warn(err)
-            return []
-          })
+    return cozy.client.data
+      .findAll('io.cozy.files')
+      .then(result => {
+        // if path contains '/.', it contains an hidden folder
+        const folders = result
+          .filter(f => f.type === 'directory' && !f.path.match(/(?:\/\.)/))
+          .sort((a, b) => a.path > b.path)
+        return folders
+      })
+      .catch(err => {
+        console.warn(err)
+        return []
+      })
   }
 
   // Account connection workflow, see
@@ -384,17 +380,12 @@ export default class CollectStore {
   updateAccount(connector, account, values) {
     // Save the previous state
     const previousAccount = Object.assign({}, account)
-
-    // Update account data
-    if (values.login && values.password) {
-      account.auth.login = values.login
-      account.auth.password = values.password
-    }
-
-    if (values.folderPath) account.auth.folderPath = values.folderPath
+    const newAccount = Object.assign({}, account)
+    // merge values in account
+    newAccount.auth = Object.assign(newAccount.auth, values)
 
     return accounts
-      .update(cozy.client, previousAccount, account)
+      .update(cozy.client, previousAccount, newAccount)
       .catch(error => {
         return Promise.reject(error)
       })
@@ -405,7 +396,8 @@ export default class CollectStore {
     return cozy.client.files
       .updateAttributesById(folderId, {
         name: values.namePath,
-        path: values.folderPath
+        path: `${values.folderPath}/${values.namePath}`,
+        dir_id: values.dir_id
       })
       .then(() => {
         // Update Account

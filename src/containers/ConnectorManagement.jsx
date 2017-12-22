@@ -37,10 +37,7 @@ class ConnectorManagement extends Component {
         0,
         props.existingAccount.auth.folderPath.lastIndexOf('/')
       )
-      values.namePath = props.existingAccount.auth.folderPath.substring(
-        props.existingAccount.auth.folderPath.lastIndexOf('/') + 1,
-        props.existingAccount.auth.folderPath.length
-      )
+      values.namePath = props.existingAccount.auth.namePath
     } else if (
       (props.existingAccount === null &&
         props.konnector.fields &&
@@ -84,6 +81,7 @@ class ConnectorManagement extends Component {
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
               values={values}
+              closeModal={() => this.gotoParent()}
               {...this.state}
               {...this.props}
               {...this.context}

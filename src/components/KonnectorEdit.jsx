@@ -62,6 +62,8 @@ export const KonnectorEdit = ({
   isUnloading,
   lastExecution,
   oAuthTerminated,
+  folders,
+  closeModal,
   onCancel,
   onDelete,
   onForceConnection,
@@ -124,6 +126,8 @@ export const KonnectorEdit = ({
                   driveUrl={driveUrl}
                   fields={fields}
                   trigger={trigger}
+                  folders={folders}
+                  closeModal={closeModal}
                 />
               )}
           </TabPanel>
