@@ -426,6 +426,7 @@
         "label": "branchName",
         "options": [
           {
+            "name": "Autre",
             "value": "45"
           },
           {
@@ -736,7 +737,7 @@
       }
     },
     "additionnalSuccessMessage": {
-      "message": "connector.debug.successMessage" 
+      "message": "connector.debug.successMessage"
     },
     "source": "git://github.com/cozy/cozy-konnector-debug.git#build"
   },
