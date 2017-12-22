@@ -552,40 +552,16 @@
         "label": "branchName",
         "options": [
           {
-            "name": "Alsace-Vosges",
-            "value": "3"
-          },
-          {
-            "name": "Brie-Picardie",
-            "value": "5"
-          },
-          {
-            "name": "Franche Comté",
-            "value": "18"
-          },
-          {
-            "name": "Ile de France",
-            "value": "20"
-          },
-          {
-            "name": "Lorraine",
-            "value": "24"
-          },
-          {
-            "name": "Nord-Est",
-            "value": "28"
-          },
-          {
-            "name": "Pyrénées Gascogne",
-            "value": "33"
-          },
-          {
-            "name": "Val de France",
-            "value": "40"
-          },
-          {
             "name": "Alpes Provence",
+            "value": "1"
+          },
+          {
+            "name": "Alsace-Vosges",
             "value": "2"
+          },
+          {
+            "name": "Anjou-Maine",
+            "value": "3"
           },
           {
             "name": "Aquitaine",
@@ -593,46 +569,50 @@
           },
           {
             "name": "Atlantique-Vendée",
+            "value": "5"
+          },
+          {
+            "name": "Brie-Picardie",
             "value": "6"
           },
           {
-            "name": "Anjou-Maine",
+            "name": "Centre Est",
             "value": "7"
           },
           {
-            "name": "Centre Est",
+            "name": "Centre France",
             "value": "8"
           },
           {
-            "name": "Centre France",
+            "name": "Centre Loire",
             "value": "9"
           },
           {
-            "name": "Centre Loire",
+            "name": "Centre Ouest",
             "value": "10"
           },
           {
-            "name": "Centre Ouest",
+            "name": "Champagne-Bourgogne",
             "value": "11"
           },
           {
-            "name": "Champagne Bourgogne",
+            "name": "Charente-Maritime Deux-Sèvres",
             "value": "12"
           },
           {
-            "name": "Charente-Maritime Deux-Sèvres",
+            "name": "Charente-Périgord",
             "value": "13"
           },
           {
-            "name": "Charente Périgord",
+            "name": "Corse",
             "value": "14"
           },
           {
-            "name": "Corse",
+            "name": "Côtes-d’Armor",
             "value": "15"
           },
           {
-            "name": "Côtes d'Armor",
+            "name": "Des Savoie",
             "value": "16"
           },
           {
@@ -640,8 +620,16 @@
             "value": "17"
           },
           {
+            "name": "Franche-Comté",
+            "value": "18"
+          },
+          {
             "name": "Guadeloupe",
             "value": "19"
+          },
+          {
+            "name": "Île-de-France",
+            "value": "20"
           },
           {
             "name": "Ille-et-Vilaine",
@@ -654,6 +642,10 @@
           {
             "name": "Loire Haute-Loire",
             "value": "23"
+          },
+          {
+            "name": "Lorraine",
+            "value": "24"
           },
           {
             "name": "Martinique",
@@ -669,6 +661,10 @@
           },
           {
             "name": "Nord Midi Pyrénées",
+            "value": "28"
+          },
+          {
+            "name": "Nord-Est",
             "value": "29"
           },
           {
@@ -680,31 +676,35 @@
             "value": "31"
           },
           {
-            "name": "Provence Côte d'Azur",
+            "name": "Provence Côte d’Azur",
             "value": "32"
+          },
+          {
+            "name": "Pyrénées Gascogne",
+            "value": "33"
           },
           {
             "name": "Réunion",
             "value": "34"
           },
           {
-            "name": "Des Savoie",
+            "name": "Sud Méditerranée",
             "value": "35"
           },
           {
-            "name": "Sud Méditerranée",
+            "name": "Sud Rhône Alpes",
             "value": "36"
           },
           {
-            "name": "Sud Rhône Alpes",
+            "name": "Toulouse 31",
             "value": "37"
           },
           {
-            "name": "Toulouse 31",
+            "name": "Touraine-Poitou",
             "value": "38"
           },
           {
-            "name": "Touraine-Poitou",
+            "name": "Val de France",
             "value": "39"
           }
         ]
