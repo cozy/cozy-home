@@ -346,7 +346,7 @@ class AccountConnection extends Component {
             onDelete={() => this.deleteConnection()}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
-            success={success || queued}
+            success={success}
             successMessage={t(
               queued
                 ? 'account.success.title.timeout'
