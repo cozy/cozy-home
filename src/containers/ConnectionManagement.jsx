@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 
+import { getAccount } from '../ducks/accounts'
 import {
   getTriggerLastExecution,
   isConnectionRunning
@@ -12,10 +13,7 @@ import {
   getRegistryKonnector,
   isFetchingRegistryKonnector
 } from '../ducks/registry'
-import {
-  getKonnectorConnectedAccount,
-  getTriggerByKonnector
-} from '../reducers'
+import { getTriggerByKonnector } from '../reducers'
 
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
@@ -145,13 +143,14 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 const mapStateToProps = (state, ownProps) => {
+  const { accountId } = ownProps.params
   const konnector = getRegistryKonnector(
     state.registry,
     ownProps.params.konnectorSlug
   )
   const trigger = getTriggerByKonnector(state, konnector)
   return {
-    existingAccount: getKonnectorConnectedAccount(state, konnector),
+    existingAccount: getAccount(state.cozy, accountId),
     isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),

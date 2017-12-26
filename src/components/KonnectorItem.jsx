@@ -16,11 +16,15 @@ class KonnectorItem extends Component {
     this.store = this.context.store
   }
 
-  render({ displayAccount, t, konnector, jobs, router, accountName }) {
+  render({ displayAccount, t, konnector, jobs, router }) {
     const { account, status } = this.props
     const { category, name, slug } = konnector
+    const accountSegment = account ? `/${account._id}` : ''
     return (
-      <Link className="item-wrapper" to={`${router.location.pathname}/${slug}`}>
+      <Link
+        className="item-wrapper"
+        to={`${router.location.pathname}/${slug}${accountSegment}`}
+      >
         <header className="item-header">
           <img
             className="item-icon"
