@@ -1,4 +1,4 @@
-import styles from '../styles/connectorManagement.styl'
+import styles from '../styles/connectionManagement.styl'
 
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
@@ -21,7 +21,7 @@ import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
 import Notifier from '../components/Notifier'
 
-class ConnectorManagement extends Component {
+class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
@@ -143,5 +143,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps)(
-  cozyConnect(mapDocumentsToProps, mapActionsToProps)(ConnectorManagement)
+  cozyConnect(mapDocumentsToProps, mapActionsToProps)(ConnectionManagement)
 )

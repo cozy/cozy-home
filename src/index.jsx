@@ -14,7 +14,7 @@ import collectConfig from './config/collect'
 import configureStore from './store/configureStore'
 import CategoryList from './components/CategoryList'
 import ConnectedList from './components/ConnectedList'
-import ConnectorManagement from './containers/ConnectorManagement'
+import ConnectionManagement from './containers/ConnectionManagement'
 
 import './styles/index.styl'
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
               path="/connected"
               component={props => <ConnectedList {...props} />}
             >
-              <Route path=":connectorSlug" component={ConnectorManagement} />
+              <Route path=":connectorSlug" component={ConnectionManagement} />
             </Route>
             <Redirect from="/providers" to="/providers/all" />
             <Route
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 />
               )}
             >
-              <Route path=":connectorSlug" component={ConnectorManagement} />
+              <Route path=":connectorSlug" component={ConnectionManagement} />
             </Route>
           </Route>
           <Redirect from="*" to="/connected" />
