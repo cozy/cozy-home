@@ -77,7 +77,7 @@ class ConnectorManagement extends Component {
             </div>
           ) : (
             <AccountConnection
-              alertSuccess={messages => this.alertSuccess(messages)}
+              alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
               values={values}
@@ -92,7 +92,7 @@ class ConnectorManagement extends Component {
     )
   }
 
-  alertSuccess(messages) {
+  alertDeleteSuccess(messages) {
     const { t } = this.context
 
     Notifier.info([

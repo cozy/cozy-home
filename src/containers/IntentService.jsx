@@ -3,7 +3,6 @@ import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 
 import Loading from '../components/Loading'
-import Notifier from '../components/Notifier'
 import CreateAccountService from '../components/services/CreateAccountService'
 import ServiceBar from '../components/services/ServiceBar'
 import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
@@ -122,20 +121,6 @@ class IntentService extends Component {
     })
   }
 
-  alertSuccess(messages) {
-    const { t } = this.context
-
-    Notifier.info([
-      messages
-        .map(item => {
-          return t(item.message, item.params)
-        })
-        .join('.\n')
-    ])
-
-    this.setState({ konnector: null })
-  }
-
   render() {
     const { accounts, data, konnectors, triggers } = this.props
     const {
@@ -186,7 +171,7 @@ class IntentService extends Component {
             !error &&
             konnector && (
               <CreateAccountService
-                alertSuccess={messages => this.alertSuccess(messages)}
+                alertDeleteSuccess={() => this.setState({ konnector: null })}
                 konnector={konnector}
                 onCancel={() => this.cancel()}
                 onSuccess={() => this.setState({ konnector: null })}

@@ -9,7 +9,7 @@ import {
 import AccountConnection from '../../containers/AccountConnection'
 
 const CreateAccountService = props => {
-  const { existingAccount, alertSuccess, konnector, trigger, t } = props
+  const { existingAccount, alertDeleteSuccess, konnector, trigger, t } = props
   const values =
     (existingAccount && Object.assign({}, existingAccount.auth)) || {}
   // Split the actual folderPath account to get namePath & folderPath values
@@ -37,7 +37,7 @@ const CreateAccountService = props => {
   return (
     <div className="coz-service-content">
       <AccountConnection
-        alertSuccess={alertSuccess}
+        alertDeleteSuccess={alertDeleteSuccess}
         connector={konnector}
         trigger={trigger}
         values={values}
