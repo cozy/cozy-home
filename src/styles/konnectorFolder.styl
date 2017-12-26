@@ -7,6 +7,13 @@
             display block
             background grey-01
 
+        &-fetching
+            padding 0 0 2em 0
+            position relative
+            > div
+                position relative // override default Spinner absolute position
+                transform translateX(-50%) translateY(0)
+
         &-link
             color dodger-blue
             text-decoration none

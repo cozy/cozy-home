@@ -2,6 +2,7 @@ import React from 'react'
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
+import Spinner from 'cozy-ui/react/Spinner'
 
 import styles from '../styles/konnectorFolder'
 
@@ -35,7 +36,7 @@ class KonnectorFolder extends React.Component {
     const { store } = this.context
     const { fields } = this.state
     this.setState({
-      isFetching: true
+      isFetchingUpdateUpdate: true
     })
 
     const namePath = fields.namePath.value
@@ -51,14 +52,14 @@ class KonnectorFolder extends React.Component {
       })
       .then(() => {
         this.setState({
-          isFetching: false,
+          isFetchingUpdate: false,
           folderUpdateStatus: 'ok'
         })
       })
       .catch(error => {
         if (error) {
           this.setState({
-            isFetching: false,
+            isFetchingUpdate: false,
             folderUpdateStatus: 'error'
           })
         }
@@ -70,42 +71,49 @@ class KonnectorFolder extends React.Component {
   }
 
   render(
-    { t, account, driveUrl, connector, trigger, closeModal },
-    { fields, isModalOpen, isFetching, changeState, folderUpdateStatus }
+    { t, account, driveUrl, connector, trigger, closeModal, isFetching },
+    { fields, isModalOpen, isFetchingUpdate, changeState, folderUpdateStatus }
   ) {
     return (
       <div className={styles['col-account-folder']}>
         {account &&
           account.auth && (
             <DescriptionContent title={t('account.folder.title')}>
-              <p>
-                {!!fields && (
-                  <form onSubmit={this.openModal}>
-                    <Field
-                      label={t('account.form.label.namePath')}
-                      {...fields.namePath}
-                    />
-                    <DropdownField
-                      label={t('account.form.label.folderPath')}
-                      {...fields.folderPath}
-                    />
-                    <Button
-                      theme="secondary"
-                      className={styles['col-account-folder-save-btn']}
+              {isFetching ? (
+                <div className={styles['col-account-folder-fetching']}>
+                  <Spinner size="xxlarge" middle="true" />
+                </div>
+              ) : (
+                <p>
+                  {!!fields && (
+                    <form onSubmit={this.openModal}>
+                      <Field
+                        label={t('account.form.label.namePath')}
+                        {...fields.namePath}
+                      />
+                      <DropdownField
+                        label={t('account.form.label.folderPath')}
+                        {...fields.folderPath}
+                      />
+                      <Button
+                        theme="secondary"
+                        className={styles['col-account-folder-save-btn']}
+                      >
+                        {t('account.form.button.save')}
+                      </Button>
+                    </form>
+                  )}
+                  {driveUrl && (
+                    <a
+                      className={styles['col-account-folder-link']}
+                      href={`${driveUrl}${trigger.message.folder_to_save}`}
                     >
-                      {t('account.form.button.save')}
-                    </Button>
-                  </form>
-                )}
-                {driveUrl && (
-                  <a
-                    className={styles['col-account-folder-link']}
-                    href={`${driveUrl}${trigger.message.folder_to_save}`}
-                  >
-                    {t('account.folder.link')}
-                  </a>
-                )}
-              </p>
+                      {t('account.folder.link')}
+                    </a>
+                  )}
+                </p>
+              )}
+
               {isModalOpen && (
                 <Modal
                   secondaryAction={() => closeModal()}
@@ -115,7 +123,7 @@ class KonnectorFolder extends React.Component {
                   <ModalContent>
                     <p>{t('account.folder.oldFiles')}</p>
                     <p>{t('account.folder.newFiles')}</p>
-                    {!isFetching &&
+                    {!isFetchingUpdate &&
                       folderUpdateStatus === 'ok' && (
                         <div>
                           <p>
@@ -138,7 +146,7 @@ class KonnectorFolder extends React.Component {
                         </div>
                       )}
 
-                    {!isFetching &&
+                    {!isFetchingUpdate &&
                       folderUpdateStatus === 'error' && (
                         <p>{t('account.folder.error')}</p>
                       )}
@@ -150,7 +158,7 @@ class KonnectorFolder extends React.Component {
                         </Button>
                       ) : (
                         <Button
-                          busy={isFetching}
+                          busy={isFetchingUpdate}
                           theme="regular"
                           onClick={this.updateFolderPath}
                         >

@@ -14,7 +14,6 @@ import { fetchAccount } from '../ducks/accounts'
 import classNames from 'classnames'
 
 import { translate } from 'cozy-ui/react/I18n'
-import Spinner from 'cozy-ui/react/Spinner'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
@@ -300,10 +299,9 @@ class AccountConnection extends Component {
           />
         </div>
 
-        {isFetching ? (
-          <Spinner size="xxlarge" middle="true" />
-        ) : editing ? ( // Properly load the edit view or the initial config view
+        {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
+            isFetching={isFetching}
             account={account}
             editing={editing}
             connector={konnector}
@@ -328,6 +326,7 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
+            isFetching={isFetching}
             account={account}
             connector={konnector}
             isValid={isValid}

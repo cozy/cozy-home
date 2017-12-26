@@ -5,6 +5,13 @@
         display   flex
         flex-wrap nowrap
 
+    .col-account-connection-fetching
+        padding 0 0 2em 0
+        position relative
+        > div
+            position relative // override default Spinner absolute position
+            transform translateX(-50%) translateY(0)
+
     .col-account-connection-security svg
         max-height   (48/basefont)em
         max-width    (48/basefont)em
