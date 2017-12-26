@@ -4,7 +4,7 @@ import { getTriggerLastJob } from '../jobs'
 import { getKonnectorAccount } from './konnector'
 
 import { deleteTrigger, launchTrigger } from '../triggers'
-import { deleteAccount, getAccount } from '../accounts'
+import { deleteAccount, getAccount, getIds } from '../accounts'
 
 // constant
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
@@ -225,17 +225,6 @@ export const updateConnectionError = (konnector, account, error) => ({
   error
 })
 
-// export const updateConnectionRunningStatus = (
-//   konnector,
-//   account,
-//   isRunning = false
-// ) => ({
-//   type: UPDATE_CONNECTION_RUNNING_STATUS,
-//   konnector,
-//   account,
-//   isRunning
-// })
-
 // action creators async
 export const deleteConnection = trigger => {
   return (dispatch, getState) => {
@@ -279,7 +268,12 @@ export const getConnectionStatus = (
   existingAccountIds = []
 ) => {
   // Sould we access `state.connections` from here ?
-  const triggers = state[konnector.slug] && state[konnector.slug].triggers
+  const triggers =
+    state.connections &&
+    state.connections[konnector.slug] &&
+    state.connections[konnector.slug].triggers
+
+  existingAccountIds = getIds(state.cozy)
 
   if (!triggers) return null
 
@@ -359,10 +353,15 @@ export const getTriggerLastExecution = (state, trigger) => {
   )
 }
 
-export const getConnectionsStatusesByKonnectors = (state, konnectorSlugs) =>
-  konnectorSlugs.map(slug => {
-    return getConnectionStatus(state, slug)
-  })
+export const getConnectionsStatusesByKonnectors = (state, konnectors) => {
+  let connectionsStatusesByKonnectors = {}
+  for (let konnector in konnectors) {
+    connectionsStatusesByKonnectors[
+      konnectors[konnector]['slug']
+    ] = getConnectionStatus(state, konnectors[konnector])
+  }
+  return connectionsStatusesByKonnectors
+}
 
 // get trigger from state, in state[konnectorSlug].triggers[triggerId]
 const getTriggerState = (state, trigger) => {
