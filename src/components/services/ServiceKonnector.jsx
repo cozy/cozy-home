@@ -32,6 +32,8 @@ const ServiceKonnector = ({ t, status, konnector, showKonnector }) => (
   </li>
 )
 
+ServiceKonnector.componentDidMount = () => window.scrollTo(0, 0)
+
 const svgIcon = name => (
   <svg className="item-status-icon">
     <use xlinkHref={require(`../../assets/sprites/icon-${name}.svg`)} /> }
