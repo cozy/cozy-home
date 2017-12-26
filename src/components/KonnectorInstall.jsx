@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
+import Spinner from 'cozy-ui/react/Spinner'
 import styles from '../styles/konnectorInstall'
 
 import AccountConnectionData from './AccountConnectionData'
@@ -34,6 +35,7 @@ export const KonnectorInstall = ({
   allRequiredFieldsAreFilled,
   displayAdvanced,
   toggleAdvanced,
+  isFetching,
   isValid,
   isSuccess,
   dirty
@@ -75,7 +77,11 @@ export const KonnectorInstall = ({
           )}
         </DescriptionContent>
 
-        {!success && (
+        {isFetching ? (
+          <div className={styles['col-account-connection-fetching']}>
+            <Spinner size="xxlarge" middle="true" />
+          </div>
+        ) : !success ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
@@ -86,6 +92,7 @@ export const KonnectorInstall = ({
             isValid={isValid}
             dirty={dirty}
             isSuccess={isSuccess}
+            isFetching={isFetching}
             forceEnabled={!!error}
             isOAuth={connector.oauth}
             isUnloading={isUnloading}
@@ -96,9 +103,7 @@ export const KonnectorInstall = ({
             displayAdvanced={displayAdvanced}
             toggleAdvanced={toggleAdvanced}
           />
-        )}
-
-        {success && (
+        ) : (
           <KonnectorSuccess
             connector={connector}
             account={account}
@@ -112,6 +117,7 @@ export const KonnectorInstall = ({
             messages={successMessages}
           />
         )}
+
         {editor && (
           <p className={styles['col-account-connection-editor']}>
             {t('account.editor_detail', { editor })}

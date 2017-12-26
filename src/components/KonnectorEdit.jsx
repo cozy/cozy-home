@@ -59,6 +59,7 @@ export const KonnectorEdit = ({
   fields,
   folderPath,
   editing,
+  isFetching,
   isUnloading,
   lastExecution,
   oAuthTerminated,
@@ -122,6 +123,7 @@ export const KonnectorEdit = ({
               trigger.message.folder_to_save && (
                 <KonnectorFolder
                   connector={connector}
+                  isFetching={isFetching}
                   account={account}
                   driveUrl={driveUrl}
                   fields={fields}
