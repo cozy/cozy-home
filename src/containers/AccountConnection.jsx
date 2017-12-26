@@ -44,9 +44,9 @@ class AccountConnection extends Component {
   }
 
   componentWillReceiveProps({ existingAccount, success }) {
-    const hasJusSucceed = !this.props.success && success
+    const hasJustSucceed = !this.props.success && success
 
-    if (hasJusSucceed && this.props.onSuccess)
+    if (hasJustSucceed && this.props.onSuccess)
       this.props.onSuccess(this.state.account)
 
     this.setState({
