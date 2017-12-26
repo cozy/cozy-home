@@ -6,6 +6,8 @@ import {
   UPDATE_CONNECTION_RUNNING_STATUS
 } from './'
 
+const DOCTYPE = 'io.cozy.accounts'
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CONNECTION:
@@ -35,6 +37,11 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
+export const getAccount = (state, accountId) =>
+  state.documents &&
+  state.documents[DOCTYPE] &&
+  state.documents[DOCTYPE][accountId]
+
 export const getConnectionStatus = state => {
   if (hasError(state)) return 'error'
   if (isRunning(state)) return 'ongoing'
