@@ -98,7 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
               path="/connected"
               component={props => <ConnectedList {...props} />}
             >
-              <Route path=":connectorSlug" component={ConnectionManagement} />
+              <Route
+                path=":konnectorSlug"
+                component={props => (
+                  <ConnectionManagement originPath="/connected" {...props} />
+                )}
+              >
+                <Route
+                  path=":accountId"
+                  component={props => (
+                    <ConnectionManagement originPath="/connected" {...props} />
+                  )}
+                />
+              </Route>
             </Route>
             <Redirect from="/providers" to="/providers/all" />
             <Route
@@ -112,7 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 />
               )}
             >
-              <Route path=":connectorSlug" component={ConnectionManagement} />
+              <Route
+                path=":konnectorSlug"
+                component={props => (
+                  <ConnectionManagement
+                    originPath="/providers/:filter"
+                    {...props}
+                  />
+                )}
+              >
+                <Route
+                  path=":accountId"
+                  component={props => (
+                    <ConnectionManagement
+                      originPath="/providers/:filter"
+                      {...props}
+                    />
+                  )}
+                />
+              </Route>
             </Route>
           </Route>
           <Redirect from="*" to="/connected" />

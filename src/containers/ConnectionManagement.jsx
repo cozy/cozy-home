@@ -111,9 +111,27 @@ class ConnectionManagement extends Component {
 
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
-      const router = this.context.router
-      let url = router.location.pathname
-      router.push(url.substring(0, url.lastIndexOf('/')))
+      const { router } = this.context
+      const { originPath } = this.props
+
+      if (originPath) {
+        const { params } = this.props
+        const resolvedOriginPath = Object.keys(params)
+          .filter(param => typeof params[param] === 'string')
+          // Sort params from longest string to shortest string to avoid
+          // unexpected replacements like :test in :test2.
+          .sort(
+            (a, b) => (a.length === b.length ? 0 : a.length > b.length ? -1 : 1)
+          )
+          .reduce(
+            (path, param) => path.replace(`:${param}`, params[param]),
+            originPath
+          )
+        router.push(resolvedOriginPath)
+      } else {
+        let url = router.location.pathname
+        router.push(url.substring(0, url.lastIndexOf('/')))
+      }
     }, 0)
   }
 }
@@ -129,7 +147,7 @@ const mapDocumentsToProps = ownProps => ({
 const mapStateToProps = (state, ownProps) => {
   const konnector = getRegistryKonnector(
     state.registry,
-    ownProps.params.connectorSlug
+    ownProps.params.konnectorSlug
   )
   const trigger = getTriggerByKonnector(state, konnector)
   return {
