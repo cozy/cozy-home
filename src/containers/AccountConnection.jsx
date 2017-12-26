@@ -320,7 +320,7 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
-            onSubmit={values => this.connectAccount(Object.assign(values))}
+            onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             success={success}
             trigger={trigger}
