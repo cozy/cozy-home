@@ -203,7 +203,9 @@ class AccountConnection extends Component {
       submitting: false
     })
 
-    this.props.alertSuccess([{ message: 'account.message.success.delete' }])
+    this.props.alertDeleteSuccess([
+      { message: 'account.message.success.delete' }
+    ])
   }
 
   handleError(error) {

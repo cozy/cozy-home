@@ -10,9 +10,11 @@ import { getConnectionStatus } from '../../reducers'
 import { getKonnectorIcon } from '../../lib/icons'
 import { CONNECTION_STATUS } from '../../lib/CollectStore'
 
+const ENTER_KEY = 13
+
 const ServiceKonnector = ({ t, status, konnector, showKonnector }) => (
   <li
-    onKeyDown={e => (e.keyCode === 13 ? showKonnector(konnector) : null)}
+    onKeyDown={e => (e.keyCode === ENTER_KEY ? showKonnector(konnector) : null)}
     onClick={() => showKonnector(konnector)}
     tabIndex="0"
     className="item-wrapper"
