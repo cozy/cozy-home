@@ -173,7 +173,7 @@ class IntentService extends Component {
               <CreateAccountService
                 alertDeleteSuccess={() => this.setState({ konnector: null })}
                 konnector={konnector}
-                onCancel={() => this.cancel()}
+                onCancel={() => this.setState({ konnector: null })}
                 onSuccess={() => this.setState({ konnector: null })}
                 disableSuccessTimeout={disableSuccessTimeout}
                 closeModal={() => this.setState({ konnector: null })}
