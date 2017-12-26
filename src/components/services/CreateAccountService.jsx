@@ -41,7 +41,8 @@ class CreateAccountService extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    props.status && props.status === 'running' && props.onSuccess()
+    if (this.props.status === 'running') {
+    } else if (props.status && props.status === 'running') props.onSuccess()
   }
 
   render() {
