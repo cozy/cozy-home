@@ -16,6 +16,7 @@ const KEEPALIVE = {
 }
 
 const NUM_RETRIES = 3
+const RETRY_BASE_DELAY = 1000
 
 // Send a subscribe message for the given doctype trough the given websocket, but
 // only if it is in a ready state. If not, retry a few milliseconds later.
@@ -58,7 +59,13 @@ function keepAlive(socket, interval, message) {
   return socket
 }
 
-async function connectWebSocket(cozy, onmessage, onclose, numRetries) {
+async function connectWebSocket(
+  cozy,
+  onmessage,
+  onclose,
+  numRetries,
+  retryDelay
+) {
   return new Promise((resolve, reject) => {
     const protocol = getWebsocketProtocol()
     const socket = new WebSocket(
@@ -84,7 +91,8 @@ async function connectWebSocket(cozy, onmessage, onclose, numRetries) {
       socket.onmessage = onmessage
       socket.onclose = event => {
         window.removeEventListener('beforeunload', windowUnloadHandler)
-        if (typeof onclose === 'function') onclose(event, numRetries)
+        if (typeof onclose === 'function')
+          onclose(event, numRetries, retryDelay)
       }
       socket.onerror = error =>
         console.error && console.error(`WebSocket error: ${error.message}`)
@@ -136,7 +144,7 @@ function getCozySocket(cozy) {
       }
     }
 
-    const onSocketClose = async (event, numRetries) => {
+    const onSocketClose = async (event, numRetries, retryDelay) => {
       if (!event.wasClean) {
         console.warn &&
           console.warn(
@@ -148,19 +156,22 @@ function getCozySocket(cozy) {
         if (numRetries) {
           console.warn &&
             console.warn(`Reconnecting ... ${numRetries} tries left.`)
-          try {
-            socket = await connectWebSocket(
-              cozy,
-              onSocketMessage,
-              onSocketClose,
-              --numRetries
-            )
-          } catch (error) {
-            console.error &&
-              console.error(
-                `Unable to reconnect to realtime. Error: ${error.message}`
+          setTimeout(async () => {
+            try {
+              socket = await connectWebSocket(
+                cozy,
+                onSocketMessage,
+                onSocketClose,
+                --numRetries,
+                retryDelay + 1000
               )
-          }
+            } catch (error) {
+              console.error &&
+                console.error(
+                  `Unable to reconnect to realtime. Error: ${error.message}`
+                )
+            }
+          }, retryDelay)
         }
       }
     }
@@ -170,7 +181,8 @@ function getCozySocket(cozy) {
         cozy,
         onSocketMessage,
         onSocketClose,
-        NUM_RETRIES
+        NUM_RETRIES,
+        RETRY_BASE_DELAY
       )
     } catch (error) {
       reject(error)
