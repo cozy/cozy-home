@@ -225,17 +225,6 @@ export const updateConnectionError = (konnector, account, error) => ({
   error
 })
 
-// export const updateConnectionRunningStatus = (
-//   konnector,
-//   account,
-//   isRunning = false
-// ) => ({
-//   type: UPDATE_CONNECTION_RUNNING_STATUS,
-//   konnector,
-//   account,
-//   isRunning
-// })
-
 // action creators async
 export const deleteConnection = trigger => {
   return (dispatch, getState) => {
