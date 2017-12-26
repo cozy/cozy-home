@@ -5,6 +5,10 @@ import {
   getKonnectorConnectedAccount,
   getTriggerByKonnector
 } from '../../reducers'
+import {
+  isConnectionConnected,
+  isConnectionEnqueued
+} from '../../ducks/connections'
 
 import AccountConnection from '../../containers/AccountConnection'
 
@@ -50,7 +54,9 @@ const CreateAccountService = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     existingAccount: getKonnectorConnectedAccount(state, ownProps.konnector),
-    trigger: getTriggerByKonnector(state, ownProps.konnector)
+    trigger: getTriggerByKonnector(state, ownProps.konnector),
+    success: isConnectionConnected(state.connections, ownProps.trigger),
+    queued: isConnectionEnqueued(state.connections, ownProps.trigger)
   }
 }
 
