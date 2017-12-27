@@ -143,11 +143,8 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 const mapStateToProps = (state, ownProps) => {
-  const { accountId } = ownProps.params
-  const konnector = getRegistryKonnector(
-    state.registry,
-    ownProps.params.konnectorSlug
-  )
+  const { accountId, konnectorSlug } = ownProps.params
+  const konnector = getRegistryKonnector(state.registry, konnectorSlug)
   const trigger = getTriggerByKonnector(state, konnector)
   return {
     existingAccount: getAccount(state.cozy, accountId),
