@@ -20,7 +20,7 @@ describe('AccountLoginForm component', () => {
         isValid
         allRequiredFieldsAreFilled
       />
-    ).node
-    expect(component).toMatchSnapshot()
+    )
+    expect(component.state().submitEnabled).toBe(true)
   })
 })
