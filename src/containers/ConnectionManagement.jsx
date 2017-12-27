@@ -60,7 +60,28 @@ class ConnectionManagement extends Component {
     this.store.fetchDriveUrl()
   }
 
+  componentWillReceiveProps(nextProps) {
+    const isInvalidKonnectorSlug =
+      nextProps.params.konnectorSlug && !nextProps.konnector
+
+    if (isInvalidKonnectorSlug) {
+      console.warn && console.warn('Invalid konnector slug')
+      return this.gotoParent()
+    }
+
+    const isInvalidAccountId =
+      nextProps.params.accountId && !nextProps.existingAccount
+    if (isInvalidAccountId) {
+      console.warn && console.warn('Invalid account id')
+      return this.gotoParent()
+    }
+  }
+
   render() {
+    const { konnector } = this.props
+    // Do not even render if there is no konnector (in case of wrong URL)
+    if (!konnector) return
+
     const { isWorking } = this.props
     const { isClosing, values } = this.state
     const { t } = this.context
