@@ -16,7 +16,7 @@ const CategoryList = ({ t, category, categories, connectors, children }) => (
           : t(`category.${category}`)}
       </h1>
     </div>
-    <KonnectorList connectors={connectors} showVoting />
+    <KonnectorList konnectors={connectors} showVoting />
     {children}
   </div>
 )

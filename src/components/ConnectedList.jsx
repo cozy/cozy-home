@@ -47,7 +47,7 @@ class ConnectedList extends Component {
           )}
         </div>
         {konnectors.length ? (
-          <KonnectorList connectors={konnectors} displayAccounts />
+          <KonnectorList konnectors={konnectors} displayAccounts />
         ) : (
           <div className="col-picture-for-emtpy-list">
             <img

@@ -8,15 +8,15 @@ const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 
 const KonnectorList = ({
   t,
-  connectors,
+  konnectors,
   showVoting = false,
   displayAccounts = false
 }) => (
   <div className="connector-list">
     {displayAccounts &&
-      connectors.map(konnector => <ConnectedTile konnector={konnector} />)}
+      konnectors.map(konnector => <ConnectedTile konnector={konnector} />)}
     {!displayAccounts &&
-      connectors.map(konnector => (
+      konnectors.map(konnector => (
         <KonnectorTile
           konnector={konnector}
           subtitle={t(`category.${konnector.category}`)}
