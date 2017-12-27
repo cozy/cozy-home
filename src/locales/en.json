@@ -8,7 +8,7 @@
   "add_account": "Add an account",
   "account": {
     "config": {
-      "default_folder": "/Administrative",
+      "default_folder": "/Administrative/%{name}",
       "optional": "(optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
@@ -59,7 +59,8 @@
       },
       "placeholder": {
         "password": "The password you use to connect to the service",
-        "accountName": "Example: Personal account"
+        "accountName": "Example: Personal account",
+        "namePath": "Example: Camille bills. Default name path is your login."
       },
       "button": {
         "connect": "Connect",

@@ -39,11 +39,13 @@ class AccountConnection extends Component {
       editing: !!this.props.existingAccount,
       isFetching: false
     }
-
-    this.fetchFolders()
+    // TODO : Add updateFields
+    if (props.fields.folderPath) this.fetchFolders()
   }
 
-  componentWillReceiveProps({ existingAccount, success }) {
+  componentWillReceiveProps(nextProps) {
+    const { existingAccount, success } = nextProps
+
     const hasJustSucceed = !this.props.success && success
 
     if (hasJustSucceed && this.props.onSuccess)
@@ -56,26 +58,32 @@ class AccountConnection extends Component {
   }
 
   fetchFolders() {
-    const { fields, values } = this.props
+    const { fields, values, editing, t } = this.props
+    fields.namePath.placeholder = t('account.form.placeholder.namePath')
     // Fetch Folders
-    if (fields.folderPath) {
-      this.setState({ isFetching: true })
-      this.store
-        .fetchFolders()
-        .then(folders => {
-          this.setState({ folders: folders })
-          fields.folderPath.options = []
-          folders.map(folder => {
-            if (`${values.folderPath}/${values.namePath}` !== folder.path) {
-              fields.folderPath.options.push({
-                name: folder.path,
-                path: folder.path
-              })
-            }
-          })
+
+    this.setState({ isFetching: true })
+    this.store
+      .fetchFolders()
+      .then(folders => {
+        this.setState({ folders: folders })
+        fields.folderPath.options = []
+        folders.map(folder => {
+          if (`${values.folderPath}/${values.namePath}` !== folder.path) {
+            fields.folderPath.options.push({
+              name: folder.path,
+              path: folder.path
+            })
+          }
         })
-        .then(() => this.setState({ isFetching: false }))
-    }
+        // Add default folder path for installation
+        !editing &&
+          fields.folderPath.options.push({
+            name: values.folderPath,
+            path: values.folderPath
+          })
+      })
+      .then(() => this.setState({ isFetching: false }))
   }
 
   connectAccount(auth) {
@@ -218,18 +226,31 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   onSubmit = () => {
+    const { values, konnector } = this.props
+    const valuesToSubmit = Object.assign({}, values)
     // namePath defined by the user is concatened with the folderPath
-    this.props.values.namePath &&
-      (this.props.values.folderPath = `${this.props.values.folderPath}/${this
-        .props.values.namePath}`)
-
-    return this.props.konnector && this.props.konnector.oauth
+    if (valuesToSubmit.folderPath) {
+      if (valuesToSubmit.namePath) {
+      } else {
+        valuesToSubmit.namePath =
+          valuesToSubmit.identifier ||
+          valuesToSubmit.login ||
+          valuesToSubmit.email ||
+          konnector.name
+      }
+      valuesToSubmit.namePath = valuesToSubmit.namePath.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
+      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${valuesToSubmit.namePath}`
+    }
+    return konnector && konnector.oauth
       ? this.connectAccountOAuth(
-          this.props.konnector.slug,
-          this.props.values,
-          this.props.konnector.oauth_scope
+          konnector.slug,
+          valuesToSubmit,
+          konnector.oauth_scope
         )
-      : this.connectAccount(this.props.values)
+      : this.connectAccount(valuesToSubmit)
   }
 
   cancel() {

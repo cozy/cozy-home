@@ -26,15 +26,15 @@ class CreateAccountService extends React.Component {
         existingAccount.auth.folderPath.length
       )
     } else if (
-      (existingAccount === null &&
+      (!existingAccount &&
         konnector.fields &&
         konnector.fields.advancedFields &&
         konnector.fields.advancedFields.folderPath) ||
-      (existingAccount === null && konnector.fields && konnector.folderPath)
+      (!existingAccount && konnector.fields && konnector.folderPath)
     ) {
-      values.folderPath =
-        konnector.fields.advancedFields.folderPath.default ||
-        t('account.config.default_folder')
+      values.folderPath = t('account.config.default_folder', {
+        name: konnector.name
+      })
       values.namePath = konnector.name
     }
     this.setState({ values: values })
