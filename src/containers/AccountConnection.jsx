@@ -261,7 +261,10 @@ class AccountConnection extends Component {
       cozy.client.files.updateAttributesById(folderId, {
         name: valuesToSubmit.accountName
       })
-      valuesToSubmit.namePath = valuesToSubmit.accountName
+      valuesToSubmit.namePath = valuesToSubmit.accountName.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
     }
     // Update account
     return konnector && konnector.oauth
