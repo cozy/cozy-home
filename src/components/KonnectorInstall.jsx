@@ -117,12 +117,12 @@ export const KonnectorInstall = ({
             messages={successMessages}
           />
         )}
-
-        {editor && (
-          <p className={styles['col-account-connection-editor']}>
-            {t('account.editor_detail', { editor })}
-          </p>
-        )}
+        {!isFetching &&
+          editor && (
+            <p className={styles['col-account-connection-editor']}>
+              {t('account.editor_detail', { editor })}
+            </p>
+          )}
       </div>
 
       <AccountConnectionData connector={connector} />
