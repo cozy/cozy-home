@@ -81,7 +81,7 @@ export const KonnectorInstall = ({
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !success ? (
+        ) : !account || !success ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}

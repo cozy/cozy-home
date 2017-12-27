@@ -1,30 +1,13 @@
-import styles from '../styles/konnectorTile'
-
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router'
-import { translate } from 'cozy-ui/react/I18n'
-import { CONNECTION_STATUS } from '../lib/CollectStore'
-import { getAccountName } from '../lib/helpers'
 import { getKonnectorIcon } from '../lib/icons'
+import { translate } from 'cozy-ui/react/I18n'
 
-import { getConnectionStatus, getKonnectorConnectedAccount } from '../reducers'
-
-const KonnectorTile = ({
-  account,
-  displayAccount,
-  konnector,
-  status,
-  router,
-  t
-}) => {
-  const { category, name, slug } = konnector
-  const accountSegment = account ? `/${account._id}` : ''
+const KonnectorTile = props => {
+  const { icon, konnector, route, router, subtitle, t } = props
+  const { name } = konnector
   return (
-    <Link
-      className="item-wrapper"
-      to={`${router.location.pathname}/${slug}${accountSegment}`}
-    >
+    <Link className="item-wrapper" to={`${router.location.pathname}/${route}`}>
       <header className="item-header">
         <img
           className="item-icon"
@@ -33,39 +16,10 @@ const KonnectorTile = ({
         />
       </header>
       <h3 className="item-title">{name}</h3>
-      {!displayAccount &&
-        category && (
-          <p className="item-subtitle">{t(`category.${category}`)}</p>
-        )}
-      {displayAccount &&
-        account && <p className="item-subtitle">{getAccountName(account)}</p>}
-      {status && stateIcon(status)}
+      {subtitle && <p className="item-subtitle">{subtitle}</p>}
+      {icon}
     </Link>
   )
 }
 
-const svgIcon = name => (
-  <svg className="item-status-icon">
-    <use xlinkHref={require(`../assets/sprites/icon-${name}.svg`)} /> }
-  </svg>
-)
-
-const stateIcon = status => {
-  switch (status) {
-    case CONNECTION_STATUS.ERRORED:
-      return svgIcon('warning')
-    case CONNECTION_STATUS.CONNECTED:
-      return svgIcon('check')
-    case CONNECTION_STATUS.RUNNING:
-      return <span className={styles['col-konnector-status-running']} />
-    default:
-      return null
-  }
-}
-
-const mapStateToProps = (state, props) => ({
-  status: getConnectionStatus(state, props.konnector),
-  account: getKonnectorConnectedAccount(state, props.konnector)
-})
-
-export default connect(mapStateToProps)(translate()(withRouter(KonnectorTile)))
+export default translate()(withRouter(KonnectorTile))

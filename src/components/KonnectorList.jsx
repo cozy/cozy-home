@@ -1,5 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
+import ConnectedTile from './ConnectedTile'
 import KonnectorTile from './KonnectorTile'
 import { popupCenter } from '../lib/popup'
 
@@ -13,16 +14,14 @@ const KonnectorList = ({
 }) => (
   <div className="connector-list">
     {displayAccounts &&
+      connectors.map(konnector => <ConnectedTile konnector={konnector} />)}
+    {!displayAccounts &&
       connectors.map(konnector => (
         <KonnectorTile
           konnector={konnector}
-          displayAccount={displayAccounts}
-          enableDefaultIcon
+          subtitle={t(`category.${konnector.category}`)}
+          route={`${konnector.slug}`}
         />
-      ))}
-    {!displayAccounts &&
-      connectors.map(konnector => (
-        <KonnectorTile konnector={konnector} enableDefaultIcon />
       ))}
     {showVoting && (
       <a
