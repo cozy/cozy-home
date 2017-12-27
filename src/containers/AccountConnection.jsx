@@ -45,6 +45,7 @@ class AccountConnection extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { existingAccount, success } = nextProps
+
     const hasJustSucceed = !this.props.success && success
     const accountHasJustBeenCreated =
       !this.props.existingAccount && !!existingAccount
@@ -234,6 +235,7 @@ class AccountConnection extends Component {
       if (valuesToSubmit.namePath) {
       } else {
         valuesToSubmit.namePath =
+          valuesToSubmit.accountName ||
           valuesToSubmit.identifier ||
           valuesToSubmit.login ||
           valuesToSubmit.email ||
