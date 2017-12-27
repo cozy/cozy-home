@@ -1,3 +1,4 @@
+/* global cozy */
 import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
@@ -229,6 +230,7 @@ class AccountConnection extends Component {
   // @param isUpdate : used to force updating values not related to OAuth
   onSubmit = () => {
     const { values, konnector } = this.props
+    const { account } = this.state
     const valuesToSubmit = Object.assign({}, values)
     // namePath defined by the user is concatened with the folderPath
     if (valuesToSubmit.folderPath) {
@@ -247,6 +249,24 @@ class AccountConnection extends Component {
       )
       valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${valuesToSubmit.namePath}`
     }
+    // Update the path if the name path is the account name
+    const folderId =
+      this.props.trigger && this.props.trigger.message.folder_to_save
+    if (
+      account &&
+      account.auth.accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
+        account.auth.namePath &&
+      account.auth.accountName !== valuesToSubmit.accountName
+    ) {
+      cozy.client.files.updateAttributesById(folderId, {
+        name: valuesToSubmit.accountName
+      })
+      valuesToSubmit.namePath = valuesToSubmit.accountName.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
+    }
+    // Update account
     return konnector && konnector.oauth
       ? this.connectAccountOAuth(
           konnector.slug,
