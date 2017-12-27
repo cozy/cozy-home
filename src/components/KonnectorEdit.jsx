@@ -54,6 +54,9 @@ export const KonnectorEdit = ({
   connector,
   deleting,
   disableSuccessTimeout,
+  allRequiredFieldsAreFilled,
+  isValid,
+  dirty,
   driveUrl,
   error,
   fields,
@@ -155,6 +158,7 @@ export const KonnectorEdit = ({
                 disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}
                 fields={fields}
+                dirty={dirty}
                 editing={editing}
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
@@ -162,7 +166,8 @@ export const KonnectorEdit = ({
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
-                disableFolderPath
+                isValid={isValid}
+                allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
               />
             }
 

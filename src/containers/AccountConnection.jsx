@@ -50,7 +50,8 @@ class AccountConnection extends Component {
       this.props.onSuccess(this.state.account)
 
     this.setState({
-      account: existingAccount
+      account: existingAccount,
+      editing: !!existingAccount
     })
   }
 
@@ -224,9 +225,9 @@ class AccountConnection extends Component {
 
     return this.props.konnector && this.props.konnector.oauth
       ? this.connectAccountOAuth(
-          this.props.connector.slug,
+          this.props.konnector.slug,
           this.props.values,
-          this.props.connector.oauth_scope
+          this.props.konnector.oauth_scope
         )
       : this.connectAccount(this.props.values)
   }
@@ -322,9 +323,12 @@ class AccountConnection extends Component {
             onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
+            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+            isValid={isValid}
             success={success}
             trigger={trigger}
             closeModal={closeModal}
+            dirty={dirty}
           />
         ) : (
           <KonnectorInstall

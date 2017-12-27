@@ -28,163 +28,179 @@ const hydrateFieldValue = {
 
 const identity = x => x
 
-export const AccountLoginForm = props => {
-  const {
-    t,
-    isOAuth,
-    oAuthTerminated,
-    fields,
-    error,
-    dirty,
-    editing,
-    isValid,
-    allRequiredFieldsAreFilled,
-    submitting,
-    forceEnabled,
-    values,
-    onSubmit,
-    connectorSlug,
-    isSuccess,
-    disableSuccessTimeout,
-    isUnloading,
-    displayAdvanced,
-    toggleAdvanced
-  } = props
-  const isUpdate = !!values && Object.keys(values).length > 0
-  let alreadyFocused = false
+export class AccountLoginForm extends React.Component {
+  state = {
+    submitEnabled: this.props.isOAuth || false
+  }
+  componentWillReceiveProps(newProps) {
+    const {
+      dirty,
+      editing,
+      isValid,
+      allRequiredFieldsAreFilled,
+      forceEnabled,
+      isOAuth
+    } = newProps
+    const submitEnabled =
+      (editing && dirty && isValid && allRequiredFieldsAreFilled) ||
+      (!editing && isValid && allRequiredFieldsAreFilled) ||
+      forceEnabled ||
+      isOAuth
+    this.setState({
+      submitEnabled: submitEnabled
+    })
+  }
+  render() {
+    const {
+      t,
+      isOAuth,
+      oAuthTerminated,
+      fields,
+      error,
+      editing,
+      submitting,
+      onSubmit,
+      connectorSlug,
+      isSuccess,
+      disableSuccessTimeout,
+      isUnloading,
+      displayAdvanced,
+      toggleAdvanced
+    } = this.props
+    const { submitEnabled } = this.state
 
-  // Handle advanced vs simple fields
-  const fieldSpecs = map(fields, (fieldSpec, name) => ({ ...fieldSpec, name }))
-  const visibleFields = fieldSpecs.filter(field => !isHidden(field))
-  const grouped = groupBy(
-    visibleFields,
-    field => (isAdvanced(field) ? 'advancedFields' : 'editableFields')
-  )
-  const editableFields = grouped.editableFields || []
-  const advancedFields = grouped.advancedFields || []
-  const hasEditableFields = !!editableFields.length
+    let alreadyFocused = false
+    // Handle advanced vs simple fields
+    const fieldSpecs = map(fields, (fieldSpec, name) => ({
+      ...fieldSpec,
+      name
+    }))
+    const visibleFields = fieldSpecs.filter(field => !isHidden(field))
+    const grouped = groupBy(
+      visibleFields,
+      field => (isAdvanced(field) ? 'advancedFields' : 'editableFields')
+    )
+    const editableFields = grouped.editableFields || []
+    const advancedFields = grouped.advancedFields || []
+    const hasEditableFields = !!editableFields.length
 
-  // Submit button state
-  const submitEnabled =
-    (isUpdate && dirty && isValid && allRequiredFieldsAreFilled) ||
-    (!isUpdate && isValid && allRequiredFieldsAreFilled) ||
-    forceEnabled
-  const canHandleEnterKey =
-    (!isUpdate || hasEditableFields) &&
-    !isSuccess &&
-    !submitting &&
-    submitEnabled
-  const onEnterKey = canHandleEnterKey && onSubmit
+    const canHandleEnterKey =
+      (!editing || hasEditableFields) &&
+      !isSuccess &&
+      !submitting &&
+      submitEnabled
+    const onEnterKey = canHandleEnterKey && onSubmit
 
-  const renderField = field => {
-    const { name, label, type, value, placeholder } = field
-    if (!renderers[type]) {
-      throw new Error('Unknown field type ' + type)
+    const renderField = field => {
+      const { name, label, type, value, placeholder } = field
+      if (!renderers[type]) {
+        throw new Error('Unknown field type ' + type)
+      }
+      const disabled = name === 'login' && editing
+
+      let fieldPlaceholder = null
+      switch (name) {
+        case 'password':
+          fieldPlaceholder = t('account.form.placeholder.password')
+          break
+        default:
+          fieldPlaceholder = placeholder || null
+      }
+
+      // Give focus only once
+      const giveFocus = !alreadyFocused && !disabled
+      if (giveFocus) alreadyFocused = giveFocus
+
+      // Build common fields
+      const hydrate = hydrateFieldValue[name] || identity
+      const attributes = {
+        ...field, // TODO be more restrictive on what comes in
+        invalid: !!error,
+        onEnterKey,
+        giveFocus,
+        label: t(`account.form.label.${label || name}`),
+        value: isUnloading ? '' : hydrate(value),
+        placeholder: fieldPlaceholder
+      }
+      return (
+        <div>
+          {field.hasDescription && (
+            <ReactMarkdownWrapper
+              source={t(`connector.${connectorSlug}.description.field.${name}`)}
+            />
+          )}
+          {React.cloneElement(renderers[type](this.props), attributes)}
+        </div>
+      )
     }
-    const disabled = name === 'login' && isUpdate
 
-    let fieldPlaceholder = null
-    switch (name) {
-      case 'password':
-        fieldPlaceholder = t('account.form.placeholder.password')
-        break
-      default:
-        fieldPlaceholder = placeholder || null
-    }
-
-    // Give focus only once
-    const giveFocus = !alreadyFocused && !disabled
-    if (giveFocus) alreadyFocused = giveFocus
-
-    // Build common fields
-    const hydrate = hydrateFieldValue[name] || identity
-    const attributes = {
-      ...field, // TODO be more restrictive on what comes in
-      invalid: !!error,
-      onEnterKey,
-      giveFocus,
-      label: t(`account.form.label.${label || name}`),
-      value: isUnloading ? '' : hydrate(value),
-      placeholder: fieldPlaceholder
-    }
     return (
-      <div>
-        {field.hasDescription && (
-          <ReactMarkdownWrapper
-            source={t(`connector.${connectorSlug}.description.field.${name}`)}
-          />
+      // We use a <div> instead of a <form> to disable the "use password for" function of Chrome
+      <div className={styles['account-form-login']} role="form">
+        {/* Error */}
+        {error && (
+          <p className="errors">{t('account.message.error.bad_credentials')}</p>
         )}
-        {React.cloneElement(renderers[type](props), attributes)}
+
+        {/* Fields */}
+        {!!editableFields &&
+          !!editableFields.length && (
+            <fieldset className={styles['account-form-fieldset']}>
+              {editableFields.map(renderField)}
+            </fieldset>
+          )}
+        {!editing &&
+          !displayAdvanced &&
+          !!advancedFields.length && (
+            <button
+              type="button"
+              className={styles['col-account-form-advanced-button']}
+              onClick={toggleAdvanced}
+            >
+              {t('account.form.button.advanced')}
+            </button>
+          )}
+
+        {!editing &&
+          displayAdvanced &&
+          !!advancedFields &&
+          !!advancedFields.length && (
+            <fieldset className={styles['account-form-fieldset']}>
+              {advancedFields.map(renderField)}
+            </fieldset>
+          )}
+
+        {/* Controls */}
+        <div className={styles['coz-form-controls']}>
+          {(!editing || hasEditableFields) &&
+            !isSuccess && (
+              <button
+                className={classNames(
+                  'coz-btn',
+                  'coz-btn--regular',
+                  styles['coz-btn']
+                )}
+                disabled={oAuthTerminated || submitting || !submitEnabled}
+                aria-busy={
+                  submitting &&
+                  !disableSuccessTimeout &&
+                  (editing || !isOAuth || oAuthTerminated)
+                    ? 'true'
+                    : 'false'
+                }
+                onClick={onSubmit}
+              >
+                {t(
+                  editing
+                    ? 'account.form.button.save'
+                    : 'account.form.button.connect'
+                )}
+              </button>
+            )}
+        </div>
       </div>
     )
   }
-
-  return (
-    // We use a <div> instead of a <form> to disable the "use password for" function of Chrome
-    <div className={styles['account-form-login']} role="form">
-      {/* Error */}
-      {error && (
-        <p className="errors">{t('account.message.error.bad_credentials')}</p>
-      )}
-
-      {/* Fields */}
-      {!!editableFields &&
-        !!editableFields.length && (
-          <fieldset className={styles['account-form-fieldset']}>
-            {editableFields.map(renderField)}
-          </fieldset>
-        )}
-      {!editing &&
-        !displayAdvanced &&
-        !!advancedFields.length && (
-          <button
-            type="button"
-            className={styles['col-account-form-advanced-button']}
-            onClick={toggleAdvanced}
-          >
-            {t('account.form.button.advanced')}
-          </button>
-        )}
-
-      {!editing &&
-        displayAdvanced &&
-        !!advancedFields &&
-        !!advancedFields.length && (
-          <fieldset className={styles['account-form-fieldset']}>
-            {advancedFields.map(renderField)}
-          </fieldset>
-        )}
-
-      {/* Controls */}
-      <div className={styles['coz-form-controls']}>
-        {(!isUpdate || hasEditableFields) &&
-          !isSuccess && (
-            <button
-              className={classNames(
-                'coz-btn',
-                'coz-btn--regular',
-                styles['coz-btn']
-              )}
-              disabled={oAuthTerminated || submitting || !submitEnabled}
-              aria-busy={
-                submitting &&
-                !disableSuccessTimeout &&
-                (isUpdate || !isOAuth || oAuthTerminated)
-                  ? 'true'
-                  : 'false'
-              }
-              onClick={onSubmit}
-            >
-              {t(
-                isUpdate
-                  ? 'account.form.button.save'
-                  : 'account.form.button.connect'
-              )}
-            </button>
-          )}
-      </div>
-    </div>
-  )
 }
 
 export default translate()(AccountLoginForm)
