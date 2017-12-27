@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import KonnectorItem from './KonnectorItem'
+import KonnectorTile from './KonnectorTile'
 import { popupCenter } from '../lib/popup'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
@@ -14,7 +14,7 @@ const KonnectorList = ({
   <div className="connector-list">
     {displayAccounts &&
       connectors.map(konnector => (
-        <KonnectorItem
+        <KonnectorTile
           konnector={konnector}
           displayAccount={displayAccounts}
           enableDefaultIcon
@@ -22,7 +22,7 @@ const KonnectorList = ({
       ))}
     {!displayAccounts &&
       connectors.map(konnector => (
-        <KonnectorItem konnector={konnector} enableDefaultIcon />
+        <KonnectorTile konnector={konnector} enableDefaultIcon />
       ))}
     {showVoting && (
       <a

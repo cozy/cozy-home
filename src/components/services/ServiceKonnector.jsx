@@ -1,4 +1,4 @@
-import styles from '../../styles/konnectorItem'
+import styles from '../../styles/konnectorTile'
 
 import React from 'react'
 import { connect } from 'react-redux'

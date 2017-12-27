@@ -1,4 +1,4 @@
-import styles from '../styles/konnectorItem'
+import styles from '../styles/konnectorTile'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import { getKonnectorIcon } from '../lib/icons'
 
 import { getConnectionStatus, getKonnectorConnectedAccount } from '../reducers'
 
-class KonnectorItem extends Component {
+class KonnectorTile extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
@@ -69,4 +69,4 @@ const mapStateToProps = (state, props) => ({
   account: getKonnectorConnectedAccount(state, props.konnector)
 })
 
-export default connect(mapStateToProps)(translate()(withRouter(KonnectorItem)))
+export default connect(mapStateToProps)(translate()(withRouter(KonnectorTile)))
