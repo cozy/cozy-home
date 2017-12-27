@@ -96,7 +96,7 @@ export const getTriggerByKonnector = (
   existingAccountIds = []
 ) => {
   // state is state.cozy
-  if (!state.documents || !state.documents[DOCTYPE]) return null
+  if (!konnector || !state.documents || !state.documents[DOCTYPE]) return null
   const trigger = Object.values(state.documents[DOCTYPE]).find(trigger => {
     return (
       trigger.worker === 'konnector' &&
