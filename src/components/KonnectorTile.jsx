@@ -1,6 +1,6 @@
 import styles from '../styles/konnectorTile'
 
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
@@ -10,39 +10,38 @@ import { getKonnectorIcon } from '../lib/icons'
 
 import { getConnectionStatus, getKonnectorConnectedAccount } from '../reducers'
 
-class KonnectorTile extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.store = this.context.store
-  }
-
-  render({ displayAccount, t, konnector, jobs, router }) {
-    const { account, status } = this.props
-    const { category, name, slug } = konnector
-    const accountSegment = account ? `/${account._id}` : ''
-    return (
-      <Link
-        className="item-wrapper"
-        to={`${router.location.pathname}/${slug}${accountSegment}`}
-      >
-        <header className="item-header">
-          <img
-            className="item-icon"
-            alt={t('connector.logo.alt', { name })}
-            src={getKonnectorIcon(konnector)}
-          />
-        </header>
-        <p className="item-title">{name}</p>
-        {!displayAccount &&
-          category && (
-            <p className="item-subtitle">{t(`category.${category}`)}</p>
-          )}
-        {displayAccount &&
-          account && <p className="item-subtitle">{getAccountName(account)}</p>}
-        {status && stateIcon(status)}
-      </Link>
-    )
-  }
+const KonnectorTile = ({
+  account,
+  displayAccount,
+  konnector,
+  status,
+  router,
+  t
+}) => {
+  const { category, name, slug } = konnector
+  const accountSegment = account ? `/${account._id}` : ''
+  return (
+    <Link
+      className="item-wrapper"
+      to={`${router.location.pathname}/${slug}${accountSegment}`}
+    >
+      <header className="item-header">
+        <img
+          className="item-icon"
+          alt={t('connector.logo.alt', { name })}
+          src={getKonnectorIcon(konnector)}
+        />
+      </header>
+      <h3 className="item-title">{name}</h3>
+      {!displayAccount &&
+        category && (
+          <p className="item-subtitle">{t(`category.${category}`)}</p>
+        )}
+      {displayAccount &&
+        account && <p className="item-subtitle">{getAccountName(account)}</p>}
+      {status && stateIcon(status)}
+    </Link>
+  )
 }
 
 const svgIcon = name => (
