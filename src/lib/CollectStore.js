@@ -8,8 +8,7 @@ import { createKonnectorTrigger } from '../ducks/triggers'
 import { launchTriggerAndQueue } from '../ducks/connections'
 import { createAccount } from '../ducks/accounts'
 
-const AUTHORIZED_CATEGORIES = require('config/categories')
-const isValidCategory = cat => AUTHORIZED_CATEGORIES.includes(cat)
+const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
 export const CONNECTION_STATUS = {
   ERRORED: 'errored',
@@ -19,51 +18,16 @@ export const CONNECTION_STATUS = {
 
 const INSTALL_TIMEOUT = 120 * 1000
 
-const sortByName = (a, b) => {
-  const nameA = a.name.toUpperCase()
-  const nameB = b.name.toUpperCase()
-  if (nameA < nameB) return -1
-  if (nameA > nameB) return 1
-  return 0 // if equal
-}
-
 export default class CollectStore {
   constructor(connectors, folders, context, options = {}) {
     this.listener = null
     this.options = options
-
-    this.connectors = this.sanitizeCategories(connectors.sort(sortByName))
-
-    if (!this.options.debug) {
-      this.connectors = this.connectors.filter(
-        connector => connector.slug !== 'debug'
-      )
-    }
 
     this.folders = folders
     this.categories = require('../config/categories')
     this.driveUrl = null
 
     this.initializeRealtime()
-  }
-
-  // Populate the store
-  fetchInitialData(domain, ignoreJobsAfterInSeconds) {
-    return Promise.all([this.initializeKonnectors()])
-  }
-
-  initializeKonnectors() {
-    return cozy.client
-      .fetchJSON('GET', '/settings/context')
-      .then(context => {
-        const ctx = context.attributes
-        if (ctx.exclude_konnectors && ctx.exclude_konnectors.length) {
-          this.connectors = this.connectors.filter(
-            k => !ctx.exclude_konnectors.includes(k.slug)
-          )
-        }
-      })
-      .catch(() => {})
   }
 
   initializeRealtime() {
@@ -79,6 +43,12 @@ export default class CollectStore {
         console.warn &&
           console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
+
+    konnectors.subscribeAll(cozy.client).then(subscription => {
+      subscription.onCreate(konnector =>
+        this.handleInstalledKonnector(konnector)
+      )
+    })
   }
 
   updateUnfinishedJob(job) {
@@ -96,78 +66,19 @@ export default class CollectStore {
     })
   }
 
-  sanitizeCategories(connectors) {
-    return connectors.map(c =>
-      Object.assign({}, c, {
-        category: isValidCategory(c.category) ? c.category : 'others'
-      })
-    )
-  }
-
-  sanitizeKonnector(konnector) {
-    const sanitized = Object.assign({}, konnector)
-
-    // disallow empty category
-    if (sanitized.category === '') {
-      delete sanitized.category
+  handleInstalledKonnector(konnector) {
+    const normalized = {
+      ...konnector,
+      ...konnector.attributes,
+      id: `${KONNECTORS_DOCTYPE}/${konnector.slug}`,
+      _type: KONNECTORS_DOCTYPE
     }
 
-    // disallow updating name and slug
-    delete sanitized.name
-    delete sanitized.slug
-    // custom message only from collect json config
-    delete sanitized.additionnalSuccessMessage
-    // hasDescriptions only from collect json config
-    delete sanitized.hasDescriptions
-    // fields settings only from collect json config
-    delete sanitized.fields
-
-    return sanitized
-  }
-
-  // Merge source into target
-  mergeKonnectors(source, target) {
-    return Object.assign({}, target, this.sanitizeKonnector(source))
-  }
-
-  getKonnectorBySlug(slug) {
-    return this.connectors.find(connector => connector.slug === slug)
-  }
-
-  updateConnector(connector) {
-    if (!connector) throw new Error('Missing mandatory connector parameter')
-    const slug = connector.slug || connector.attributes.slug
-    if (!slug) throw new Error('Missing mandatory slug property in konnector')
-
-    const current = this.connectors.find(connector => connector.slug === slug)
-    const updatedConnector = this.mergeKonnectors(connector, current)
-
-    this.connectors = this.connectors.map(connector => {
-      return connector === current ? updatedConnector : connector
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: { data: [normalized] },
+      updateCollections: ['konnectors']
     })
-
-    return updatedConnector
-  }
-
-  find(cb) {
-    return this.connectors.find(cb)
-  }
-
-  findConnected() {
-    return this.connectors.filter(c => c.accounts.length !== 0)
-  }
-
-  findByCategory(category) {
-    const categoryExists = this.categories.includes(category)
-    return !categoryExists || category === 'all'
-      ? this.connectors
-      : this.connectors.filter(c => c.category === category)
-  }
-
-  findByDataType(dataType) {
-    return this.connectors.filter(
-      c => c.dataType && c.dataType.includes(dataType)
-    )
   }
 
   // Get the drive application url using the list of application
@@ -276,7 +187,6 @@ export default class CollectStore {
               // 5. Add permissions to folder for konnector if folder created
               .then(completeKonnector => {
                 connection.konnector = completeKonnector
-                this.updateConnector(completeKonnector)
                 if (!connection.folder) return Promise.resolve()
                 return konnectors.addFolderPermission(
                   cozy.client,
@@ -326,8 +236,6 @@ export default class CollectStore {
                 ].includes(state)
               })
               .then(() => {
-                const { konnector } = connection
-                this.updateConnector(konnector)
                 enqueue()
               })
               .catch(error => {
@@ -366,10 +274,6 @@ export default class CollectStore {
     return this.dispatch(launchTriggerAndQueue(trigger))
   }
 
-  fetchAccounts(accountType) {
-    return accounts.getAccountsByType(cozy.client, accountType)
-  }
-
   /**
    * updateAccount : updates an account in a connector in DB with new values
    * @param {Object} connector The connector to update
@@ -406,39 +310,6 @@ export default class CollectStore {
       .catch(error => {
         return Promise.reject(error)
       })
-  }
-
-  manifestToKonnector(manifest) {
-    return manifest
-  }
-
-  // get properties from installed konnector or remote manifest
-  fetchKonnectorInfos(slug) {
-    return this.getInstalledConnector(slug)
-      .then(konnector => {
-        if (!konnector) {
-          konnector = this.connectors.find(k => k.slug === slug)
-        }
-
-        return konnector
-          ? konnectors
-              .fetchManifest(cozy.client, konnector.repo)
-              .then(this.manifestToKonnector)
-              .catch(error => {
-                console.warn &&
-                  console.warn(
-                    `Cannot fetch konnector's manifest (Error ${error.status})`,
-                    error
-                  )
-                return konnector
-              })
-          : null
-      })
-      .then(konnector => (konnector ? this.updateConnector(konnector) : null))
-  }
-
-  getInstalledConnector(slug) {
-    return konnectors.findBySlug(cozy.client, slug)
   }
 
   createIntentService(intent, window) {

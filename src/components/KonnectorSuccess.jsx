@@ -13,9 +13,11 @@ export const KonnectorSuccess = ({
   account,
   folderId,
   onCancel,
+  onNext,
   driveUrl,
   title,
-  messages
+  messages,
+  successButtonLabel
 }) => {
   return (
     account && (
@@ -57,9 +59,9 @@ export const KonnectorSuccess = ({
                   'coz-btn--regular',
                   styles['coz-btn']
                 )}
-                onClick={onCancel}
+                onClick={onNext}
               >
-                {t('account.success.button.back')}
+                {successButtonLabel || t('account.success.button.back')}
               </button>
             </p>
           </div>

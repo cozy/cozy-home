@@ -34,6 +34,15 @@ export const getRegistryKonnectorsByCategory = (state, category) =>
       )
     : getRegistryKonnectors(state)
 
+export const getRegistryKonnectorsByDataType = (state, dataType) =>
+  dataType
+    ? Object.values(state.konnectors.data).filter(
+        konnector =>
+          Array.isArray(konnector.dataType) &&
+          konnector.dataType.includes(dataType)
+      )
+    : []
+
 export const getRegistryKonnectorsFromSlugs = (state, slugs = []) => {
   return slugs.reduce((returnedKonnectors, slug) => {
     if (

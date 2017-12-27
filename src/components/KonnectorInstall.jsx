@@ -25,6 +25,7 @@ export const KonnectorInstall = ({
   onCancel,
   editing,
   onDelete,
+  onNext,
   onSubmit,
   submit,
   submitting,
@@ -38,7 +39,8 @@ export const KonnectorInstall = ({
   isFetching,
   isValid,
   isSuccess,
-  dirty
+  dirty,
+  successButtonLabel
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -111,10 +113,12 @@ export const KonnectorInstall = ({
             folderId={trigger && trigger.message.folder_to_save}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
+            onNext={onNext}
             onCancel={onCancel}
             success={success}
             title={successMessage}
             messages={successMessages}
+            successButtonLabel={successButtonLabel}
           />
         )}
         {!isFetching &&

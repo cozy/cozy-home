@@ -111,6 +111,7 @@ class AccountConnection extends Component {
   connectAccountOAuth(accountType, values, scope) {
     this.setState({
       submitting: true,
+      oAuthError: null,
       oAuthTerminated: false
     })
 
@@ -128,7 +129,7 @@ class AccountConnection extends Component {
         return this.terminateOAuth(accountID, values)
       })
       .catch(error => {
-        this.setState({ submitting: false, error: error.message })
+        this.setState({ submitting: false, oAuthError: error.message })
       })
   }
 
@@ -153,7 +154,7 @@ class AccountConnection extends Component {
   }
 
   runConnection(account) {
-    this.setState({ submitting: true })
+    this.setState({ submitting: true, connectionError: null })
 
     return this.store
       .connectAccount(
@@ -214,16 +215,19 @@ class AccountConnection extends Component {
       submitting: false
     })
 
-    this.props.alertDeleteSuccess([
-      { message: 'account.message.success.delete' }
-    ])
+    if (typeof this.props.alertDeleteSuccess === 'function') {
+      this.props.alertDeleteSuccess([
+        { message: 'account.message.success.delete' }
+      ])
+    }
   }
 
   handleError(error) {
     console.error(error)
 
     this.setState({
-      submitting: false
+      submitting: false,
+      connectionError: error.message
     })
   }
 
@@ -300,11 +304,12 @@ class AccountConnection extends Component {
 
   render() {
     const {
+      createdAccount,
       disableSuccessTimeout,
       isUnloading,
+      onNext,
       allRequiredFieldsAreFilled,
       displayAdvanced,
-      existingAccount,
       toggleAdvanced,
       dirty,
       isValid,
@@ -320,18 +325,20 @@ class AccountConnection extends Component {
       t,
       trigger,
       success,
-      closeModal
+      closeModal,
+      successButtonLabel
     } = this.props
     const {
       account,
+      connectionError,
       editing,
+      oAuthError,
       oAuthTerminated,
       submitting,
       isFetching,
       folders
     } = this.state
     const { driveUrl } = this.store
-    const lastSync = this.state.lastSync || (account && account.lastSync)
     const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
@@ -356,12 +363,11 @@ class AccountConnection extends Component {
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
-            error={error}
+            error={error || oAuthError || connectionError}
             folders={folders}
             fields={fields}
             isUnloading={isUnloading}
             lastExecution={lastExecution}
-            lastSync={lastSync}
             oAuthTerminated={oAuthTerminated}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
@@ -378,7 +384,7 @@ class AccountConnection extends Component {
         ) : (
           <KonnectorInstall
             isFetching={isFetching}
-            account={existingAccount}
+            account={createdAccount}
             connector={konnector}
             isValid={isValid}
             dirty={dirty}
@@ -386,14 +392,15 @@ class AccountConnection extends Component {
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
-            error={error}
+            error={error || oAuthError || connectionError}
             fields={fields}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
+            onNext={onNext}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
-            onSubmit={this.onSubmit}
+            onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
             success={success || queued}
             successMessage={t(
@@ -402,6 +409,7 @@ class AccountConnection extends Component {
                 : 'account.success.title.connect',
               { name: konnector.name }
             )}
+            successButtonLabel={successButtonLabel}
             successMessages={successMessages}
             trigger={trigger}
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}

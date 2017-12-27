@@ -5,17 +5,19 @@ export const DOCTYPE = 'io.cozy.konnectors'
 // CRUD
 
 export const fetchKonnectors = () => fetchCollection('konnectors', DOCTYPE)
-// export const fetchKonnectorBySlug = slug =>
-//   fetchCollection('konnector', DOCTYPE, {
-//     selector: {
-//       slug: slug
-//     }
-//   })
-//
-// export const fetchRegistryKonnectorBySlug = slug => {
-//   // Temporary solution as we do not actually fetch konnector registry
-//   return Promise.resolve({
-//     /* global initKonnectors */
-//     data: [initKonnectors.find(konnector => konnector.slug === slug)]
-//   })
-// }
+
+// Selectors
+
+export const getKonnector = (state, slug) =>
+  !!state.documents &&
+  !!state.documents[DOCTYPE] &&
+  state.documents[DOCTYPE][`${DOCTYPE}/${slug}`]
+
+export const getKonnectorsByCategory = (state, category) =>
+  !!state.documents &&
+  !!state.documents[DOCTYPE] &&
+  Object.keys(state.documents[DOCTYPE]).reduce((konnectors, slug) => {
+    return state.documents[DOCTYPE][slug].category === category
+      ? konnectors.concat([state.documents[DOCTYPE][slug]])
+      : konnectors
+  }, [])

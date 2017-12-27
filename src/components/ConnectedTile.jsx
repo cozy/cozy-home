@@ -6,13 +6,14 @@ import { translate } from 'cozy-ui/react/I18n'
 import { CONNECTION_STATUS } from '../lib/CollectStore'
 import { getAccountName } from '../lib/helpers'
 
-import { getConnectionStatus, getKonnectorConnectedAccount } from '../reducers'
+import { getConnectionStatus } from '../reducers'
 
 import KonnectorTile from './KonnectorTile'
 
 const ConnectedTile = props => (
   <KonnectorTile
     route={`${props.konnector.slug}/${props.account._id}`}
+    subtitle={getAccountName(props.account)}
     {...props}
   />
 )
@@ -38,10 +39,7 @@ const stateIcon = status => {
 
 const mapStateToProps = (state, props) => {
   return {
-    icon: stateIcon(getConnectionStatus(state, props.konnector)),
-    subtitle: getAccountName(
-      getKonnectorConnectedAccount(state, props.konnector)
-    )
+    icon: stateIcon(getConnectionStatus(state, props.konnector))
   }
 }
 
