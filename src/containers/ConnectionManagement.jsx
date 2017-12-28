@@ -37,18 +37,17 @@ class ConnectionManagement extends Component {
       )
       values.namePath = props.existingAccount.auth.namePath
     } else if (
-      (props.existingAccount === null &&
+      (!props.existingAccount &&
         props.konnector.fields &&
         props.konnector.fields.advancedFields &&
         props.konnector.fields.advancedFields.folderPath) ||
-      (props.existingAccount === null &&
+      (!props.existingAccount &&
         props.konnector.fields &&
         props.konnector.folderPath)
     ) {
-      values.folderPath =
-        props.konnector.fields.advancedFields.folderPath.default ||
-        this.context.t('account.config.default_folder')
-      values.namePath = props.konnector.name
+      values.folderPath = this.context.t('account.config.default_folder', {
+        name: props.konnector.name
+      })
     }
 
     this.state = {

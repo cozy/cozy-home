@@ -20,7 +20,8 @@ export default function statefulForm(mapPropsToFormConfig) {
           oauth: props.onOAuth,
           displayAdvanced: false,
           isValid: true,
-          allRequiredFieldsAreFilled: false
+          allRequiredFieldsAreFilled: false,
+          values: props.values
         }
       }
 
