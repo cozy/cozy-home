@@ -45,16 +45,19 @@ class AccountConnection extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { existingAccount, success } = nextProps
-
     const hasJustSucceed = !this.props.success && success
+    const accountHasJustBeenCreated =
+      !this.props.existingAccount && !!existingAccount
 
-    if (hasJustSucceed && this.props.onSuccess)
+    if (hasJustSucceed && this.props.onSuccess) {
       this.props.onSuccess(this.state.account)
+    }
 
-    this.setState({
-      account: existingAccount,
-      editing: !!existingAccount
-    })
+    if (accountHasJustBeenCreated) {
+      this.setState({
+        account: existingAccount
+      })
+    }
   }
 
   fetchFolders() {
@@ -99,8 +102,6 @@ class AccountConnection extends Component {
     account = {
       auth
     }
-
-    this.setState({ account: account })
 
     return this.runConnection(account).catch(error => this.handleError(error))
   }
@@ -281,6 +282,7 @@ class AccountConnection extends Component {
       isUnloading,
       allRequiredFieldsAreFilled,
       displayAdvanced,
+      existingAccount,
       toggleAdvanced,
       dirty,
       isValid,
@@ -354,7 +356,7 @@ class AccountConnection extends Component {
         ) : (
           <KonnectorInstall
             isFetching={isFetching}
-            account={account}
+            account={existingAccount}
             connector={konnector}
             isValid={isValid}
             dirty={dirty}

@@ -163,11 +163,16 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 const mapStateToProps = (state, ownProps) => {
+  // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.params
   const konnector = getRegistryKonnector(state.registry, konnectorSlug)
   const trigger = getTriggerByKonnector(state, konnector)
+  // Needed to get the account in case of an account creation, as accountId is
+  // not provided as route parameter.
+  const triggerAccountId =
+    !!trigger && !!trigger.message && trigger.message.account
   return {
-    existingAccount: getAccount(state.cozy, accountId),
+    existingAccount: getAccount(state.cozy, accountId || triggerAccountId),
     isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
