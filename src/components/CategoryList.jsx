@@ -1,6 +1,11 @@
 import React from 'react'
+
+import { connect } from 'react-redux'
+
 import { translate } from 'cozy-ui/react/I18n'
 import KonnectorList from './KonnectorList'
+
+import { getRegistryKonnectorsByCategory } from '../ducks/registry'
 
 const CategoryList = ({ t, category, categories, connectors, children }) => (
   <div className="content">
@@ -16,4 +21,14 @@ const CategoryList = ({ t, category, categories, connectors, children }) => (
   </div>
 )
 
-export default translate()(CategoryList)
+const mapStateToProps = (state, ownProps) => {
+  const { filter } = ownProps.params
+  return {
+    connectors: getRegistryKonnectorsByCategory(
+      state.registry,
+      filter !== 'all' && filter
+    )
+  }
+}
+
+export default connect(mapStateToProps)(translate()(CategoryList))

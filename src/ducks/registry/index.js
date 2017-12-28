@@ -24,7 +24,15 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
-export const getRegistryKonnectors = state => state.konnectors
+export const getRegistryKonnectors = state =>
+  Object.values(state.konnectors.data) || []
+
+export const getRegistryKonnectorsByCategory = (state, category) =>
+  category
+    ? Object.values(state.konnectors.data).filter(
+        konnector => konnector.category === category
+      )
+    : getRegistryKonnectors(state)
 
 export const getRegistryKonnectorsFromSlugs = (state, slugs = []) => {
   return slugs.reduce((returnedKonnectors, slug) => {

@@ -116,12 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <Route
               path="/providers/:filter"
               component={props => (
-                <CategoryList
-                  category={props.params.filter}
-                  categories={store.categories}
-                  connectors={store.findByCategory(props.params.filter)}
-                  {...props}
-                />
+                <CategoryList {...props} categories={store.categories} />
               )}
             >
               <Route
