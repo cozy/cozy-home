@@ -194,7 +194,7 @@
     "host_provider": "Host",
     "productivity": "Productivity",
     "shopping": "Shopping",
-    "others": "Others"
+    "other": "Others"
   },
 
   "dataType": {
