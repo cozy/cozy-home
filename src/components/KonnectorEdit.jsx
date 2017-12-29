@@ -122,6 +122,7 @@ export const KonnectorEdit = ({
               onForceConnection={onForceConnection}
             />
             {account &&
+              trigger &&
               account.auth.folderPath &&
               trigger.message.folder_to_save && (
                 <KonnectorFolder
