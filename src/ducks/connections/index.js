@@ -380,20 +380,25 @@ export const getConnectionStatus = (
 
   const triggerId = validTriggers[0]
 
-  if (triggers[triggerId].isRunning) return 'running'
-  if (triggers[triggerId].isConnected) return 'connected'
-  return 'errored'
+  return getTriggerConnectionStatus(triggers[triggerId])
 }
 
 export const getKonnectorConnectedAccount = (state, konnector) => {
   return getKonnectorAccount(state.konnectors[konnector.slug])
 }
 
-const getConnectionStatusFromTrigger = trigger => {
+// Map the trigger status to a status compatible with queue
+const getTriggerQueueStatus = trigger => {
   if (trigger.isRunning) return 'ongoing'
   if (trigger.hasError) return 'error'
   if (trigger.isConnected) return 'done'
   return 'pending'
+}
+
+const getTriggerConnectionStatus = trigger => {
+  if (trigger.isRunning) return 'running'
+  if (trigger.isConnected) return 'connected'
+  return 'errored'
 }
 
 export const getQueue = (state, registryKonnectors) =>
@@ -409,7 +414,7 @@ export const getQueue = (state, registryKonnectors) =>
           Object.keys(triggers).reduce((queuedTriggers, triggerId) => {
             if (triggers[triggerId].isEnqueued) {
               const label = registryKonnector.name
-              const status = getConnectionStatusFromTrigger(triggers[triggerId])
+              const status = getTriggerQueueStatus(triggers[triggerId])
               const icon = getKonnectorIcon(registryKonnector)
               return queuedTriggers.concat({ label, status, icon })
             }
