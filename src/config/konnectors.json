@@ -736,6 +736,12 @@
       },
       "password": {
         "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "additionnalSuccessMessage": {
