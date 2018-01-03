@@ -930,30 +930,6 @@
     }
   },
   {
-    "slug": "labanquepostale175",
-    "name": "Banque Postale (Particuliers)",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://www.labanquepostale.fr",
-    "category": "banking",
-    "icon": "labanquepostale.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "175"
-    }
-  },
-  {
     "slug": "labanquepostale44",
     "name": "La Banque Postale (Particuliers)",
     "editor": "Cozy Cloud",
