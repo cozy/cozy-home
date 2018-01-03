@@ -62,7 +62,7 @@ export const Sidebar = ({ t, categories, router }) => {
                   className="col-nav-submenu-link"
                   activeClassName="active"
                 >
-                  {t('category.others')}
+                  {t('category.other')}
                 </Link>
               </li>
             </ul>
