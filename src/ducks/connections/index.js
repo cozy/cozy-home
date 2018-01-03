@@ -383,6 +383,17 @@ export const getConnectionStatus = (
   return getTriggerConnectionStatus(triggers[triggerId])
 }
 
+export const getConnectionStatusForTrigger = (state, trigger) => {
+  if (!trigger) return null
+  const { konnector } = trigger.message
+  return getTriggerConnectionStatus(
+    !!state.konnectors &&
+      !!state.konnectors[konnector] &&
+      !!state.konnectors[konnector].triggers &&
+      state.konnectors[konnector].triggers[trigger._id]
+  )
+}
+
 export const getKonnectorConnectedAccount = (state, konnector) => {
   return getKonnectorAccount(state.konnectors[konnector.slug])
 }

@@ -6,7 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import { CONNECTION_STATUS } from '../lib/CollectStore'
 import { getAccountName } from '../lib/helpers'
 
-import { getConnectionStatus } from '../reducers'
+import { getConnectionStatusForTrigger } from '../ducks/connections'
 
 import KonnectorTile from './KonnectorTile'
 
@@ -39,7 +39,9 @@ const stateIcon = status => {
 
 const mapStateToProps = (state, props) => {
   return {
-    icon: stateIcon(getConnectionStatus(state, props.konnector))
+    icon: stateIcon(
+      getConnectionStatusForTrigger(state.connections, props.trigger)
+    )
   }
 }
 

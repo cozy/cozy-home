@@ -51,6 +51,7 @@ class ConnectedList extends Component {
               <ConnectedTile
                 konnector={connection.konnector}
                 account={connection.account}
+                trigger={connection.trigger}
               />
             ))}
           </div>
