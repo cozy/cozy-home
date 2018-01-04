@@ -916,6 +916,7 @@
     "oauth": true,
     "slug": "enedis",
     "name": "Enedis",
+    "editor": "Fing",
     "vendorLink": "https://www.enedis.fr/",
     "category": "energy",
     "dataType": [
