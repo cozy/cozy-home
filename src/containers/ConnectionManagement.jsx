@@ -6,14 +6,20 @@ import { connect } from 'react-redux'
 
 import { getAccount } from '../ducks/accounts'
 import {
+  endConnectionCreation,
   getTriggerLastExecution,
-  isConnectionRunning
+  isConnectionRunning,
+  isCreatingConnection,
+  startConnectionCreation
 } from '../ducks/connections'
 import {
   getRegistryKonnector,
   isFetchingRegistryKonnector
 } from '../ducks/registry'
-import { getTriggerByKonnector } from '../reducers'
+import {
+  getCreatedConnectionAccount,
+  getTriggerByKonnectorAndAccount
+} from '../reducers'
 
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
@@ -57,6 +63,17 @@ class ConnectionManagement extends Component {
     }
 
     this.store.fetchDriveUrl()
+
+    if (!this.props.existingAccount) {
+      if (this.props.isCreating) {
+        console.warn &&
+          console.warn(
+            'Unexpected state: connection creation already in progress'
+          )
+      } else {
+        this.props.startCreation()
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,6 +113,7 @@ class ConnectionManagement extends Component {
           ) : (
             <AccountConnection
               alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+              onNext={() => this.gotoParent()}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
               values={values}
@@ -150,6 +168,10 @@ class ConnectionManagement extends Component {
         let url = router.location.pathname
         router.push(url.substring(0, url.lastIndexOf('/')))
       }
+
+      if (this.props.isCreating) {
+        this.props.endCreation()
+      }
     }, 0)
   }
 }
@@ -166,13 +188,17 @@ const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.params
   const konnector = getRegistryKonnector(state.registry, konnectorSlug)
-  const trigger = getTriggerByKonnector(state, konnector)
-  // Needed to get the account in case of an account creation, as accountId is
-  // not provided as route parameter.
-  const triggerAccountId =
-    !!trigger && !!trigger.message && trigger.message.account
+  const existingAccount = getAccount(state.cozy, accountId)
+  const createdAccount = getCreatedConnectionAccount(state)
+  const trigger = getTriggerByKonnectorAndAccount(
+    state,
+    konnector,
+    existingAccount || createdAccount
+  )
   return {
-    existingAccount: getAccount(state.cozy, accountId || triggerAccountId),
+    createdAccount,
+    existingAccount,
+    isCreating: isCreatingConnection(state.connections),
     isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
@@ -181,6 +207,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  startCreation: () => dispatch(startConnectionCreation(ownProps.konnector)),
+  endCreation: () => dispatch(endConnectionCreation())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   cozyConnect(mapDocumentsToProps, mapActionsToProps)(ConnectionManagement)
 )

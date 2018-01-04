@@ -152,6 +152,11 @@
   "intent": {
     "service": {
       "return": "Back to connectors list",
+      "success": {
+        "button": {
+          "label": "Terminate operation"
+        }
+      },
       "error": {
         "initialization": "Service failed to initialize. Sorry for the inconvenience.",
         "creation": "Unable to create account, an error occurred.",

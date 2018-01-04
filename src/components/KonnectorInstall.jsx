@@ -25,6 +25,7 @@ export const KonnectorInstall = ({
   onCancel,
   editing,
   onDelete,
+  onNext,
   onSubmit,
   submit,
   submitting,
@@ -38,7 +39,8 @@ export const KonnectorInstall = ({
   isFetching,
   isValid,
   isSuccess,
-  dirty
+  dirty,
+  successButtonLabel
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -81,7 +83,7 @@ export const KonnectorInstall = ({
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !success ? (
+        ) : !account || !success ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
@@ -111,10 +113,12 @@ export const KonnectorInstall = ({
             folderId={trigger && trigger.message.folder_to_save}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
+            onNext={onNext}
             onCancel={onCancel}
             success={success}
             title={successMessage}
             messages={successMessages}
+            successButtonLabel={successButtonLabel}
           />
         )}
         {!isFetching &&

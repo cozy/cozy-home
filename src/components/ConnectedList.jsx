@@ -3,12 +3,11 @@ import { Link } from 'react-router'
 
 import Icon from 'cozy-ui/react/Icon'
 import { connect } from 'react-redux'
-import { getConfiguredKonnectors } from '../reducers'
-import { getRegistryKonnectorsFromSlugs } from '../ducks/registry'
+import { getConnections } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
-import KonnectorList from './KonnectorList'
+import ConnectedTile from './ConnectedTile'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
@@ -32,12 +31,12 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, konnectors, children } = this.props
+    const { t, connections, children } = this.props
     return (
       <div className="content">
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {konnectors.length > 0 && (
+          {connections.length > 0 && (
             <Link to="/providers/all">
               <button className="coz-btn coz-btn--regular">
                 <Icon icon={addAccountIcon} className="col-icon--add" />{' '}
@@ -46,8 +45,16 @@ class ConnectedList extends Component {
             </Link>
           )}
         </div>
-        {konnectors.length ? (
-          <KonnectorList connectors={konnectors} displayAccounts />
+        {connections.length ? (
+          <div className="connector-list">
+            {connections.map(connection => (
+              <ConnectedTile
+                konnector={connection.konnector}
+                account={connection.account}
+                trigger={connection.trigger}
+              />
+            ))}
+          </div>
         ) : (
           <div className="col-picture-for-emtpy-list">
             <img
@@ -74,9 +81,8 @@ class ConnectedList extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const connectedSlugs = getConfiguredKonnectors(state)
   return {
-    konnectors: getRegistryKonnectorsFromSlugs(state.registry, connectedSlugs)
+    connections: getConnections(state)
   }
 }
 

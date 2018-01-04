@@ -1,118 +1,53 @@
 import React, { Component } from 'react'
-import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 
-import Loading from '../components/Loading'
 import CreateAccountService from '../components/services/CreateAccountService'
 import ServiceBar from '../components/services/ServiceBar'
 import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
-import { initializeRegistry } from '../ducks/registry'
-import { fetchAccounts } from '../ducks/accounts'
-import { getConnectionsStatusesByKonnectors } from '../ducks/connections'
-import { fetchKonnectorJobs } from '../ducks/jobs'
-import { fetchKonnectors } from '../ducks/konnectors'
-import { fetchTriggers } from '../ducks/triggers'
+import {
+  getRegistryKonnector,
+  getRegistryKonnectorsByCategory,
+  getRegistryKonnectorsByDataType
+} from '../ducks/registry'
 
 class IntentService extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.store = context.store
+  constructor(props) {
+    super(props)
 
-    const { window } = props
+    if (props.konnectors && props.konnectors.length === 1) {
+      this.state = {
+        konnector: props.konnectors[0],
+        isUnique: true
+      }
+    }
+  }
 
-    this.state = {
-      isFetching: true
+  reset() {
+    this.setState({
+      konnector: null
+    })
+  }
+
+  onSuccess(account) {
+    const { isUnique } = this.state
+
+    if (isUnique) {
+      this.reset()
+      return this.props.onTerminate(account)
     }
 
-    props.initializeRegistry(props.initKonnectors)
-
-    // Maybe the logic about getting the intent from location.search should be
-    // encapsulated in cozy.client.createService
-    const intent = window.location.search.split('=')[1]
-
-    this.store
-      .fetchInitialData(props.data.cozyDomain, 7200)
-      .then(() => this.store.createIntentService(intent, window))
-      .then(service => {
-        const data = service.getData()
-        if (!data) {
-          throw new Error('Unexpected data from intent')
-        }
-
-        this.setState({
-          service: service,
-          disableSuccessTimeout: !!data.disableSuccessTimeout,
-          closeable: data.closeable !== undefined ? data.closeable : true
-        })
-
-        if (data.slug) {
-          return this.store
-            .fetchKonnectorInfos(data.slug)
-            .then(konnector => [konnector])
-        } else if (data.dataType) {
-          return this.store.findByDataType(data.dataType)
-        } else if (data.category) {
-          return this.store.findByCategory(data.category)
-        }
-      })
-      .then(konnectorsList => {
-        if (!konnectorsList) {
-          throw new Error(`Unknown konnector`)
-        } else {
-          konnectorsList.forEach(konnector => {
-            konnector.status = props.connectionStatuses[konnector.slug]
-          })
-
-          this.setState({
-            isFetching: false,
-            konnectorsList: konnectorsList,
-            // We show the konnector if the konnectorsList contain only 1 item
-            konnector: konnectorsList.length === 1 ? konnectorsList[0] : null
-          })
-        }
-
-        return konnectorsList
-      })
-      .catch(error => {
-        this.setState({
-          isFetching: false,
-          error: {
-            message: 'intent.service.error.initialization',
-            reason: error.message
-          }
-        })
-      })
+    this.reset()
   }
 
-  terminate(account) {
-    const { service, konnector, konnectorsList } = this.state
-    // Update konnectors status before rendering the konnectors List
-    konnectorsList.forEach(konnector => {
-      konnector.status = this.props.connectionStatuses[konnector.slug]
-    })
-    this.setState({
-      isFetching: false,
-      konnector: konnectorsList.length > 1 ? null : konnector
-    })
-    service.terminate(account)
-  }
+  onCancel() {
+    const { isUnique } = this.state
 
-  cancel() {
-    const { service } = this.state
+    if (isUnique) {
+      return this.props.onCancel()
+    }
 
-    service.cancel ? service.cancel() : service.terminate(null)
-  }
-
-  handleError(error) {
-    this.setState({
-      error: {
-        message: 'intent.service.error.creation',
-        reason: error.message
-      }
-    })
-
-    throw error
+    this.reset()
   }
 
   showKonnector(konnector) {
@@ -122,32 +57,13 @@ class IntentService extends Component {
   }
 
   render() {
-    const { accounts, data, konnectors, triggers } = this.props
-    const {
-      error,
-      konnectorsList,
-      konnector,
-      disableSuccessTimeout,
-      closeable
-    } = this.state
+    const { appData, konnectors, onCancel } = this.props
+    const { konnector, error, disableSuccessTimeout, closeable } = this.state
 
     const { t } = this.context
 
-    let { isFetching } = this.state
-
-    isFetching =
-      isFetching ||
-      [accounts, konnectors, triggers].find(collection =>
-        ['pending', 'loading'].includes(collection.fetchStatus)
-      )
-
     return (
       <div className="coz-service">
-        {isFetching && (
-          <div className="coz-service-loading">
-            <Loading />
-          </div>
-        )}
         {error && (
           <div className="coz-error coz-service-error">
             <p>{t(error.message)}</p>
@@ -156,36 +72,31 @@ class IntentService extends Component {
         )}
         <div className="coz-service-layout">
           <ServiceBar
-            appEditor={data.cozyAppEditor}
-            appName={data.cozyAppName}
-            iconPath={`../${data.cozyIconPath}`}
-            onCancel={() => this.cancel()}
+            appEditor={appData.cozyAppEditor}
+            appName={appData.cozyAppName}
+            iconPath={`../${appData.cozyIconPath}`}
+            onCancel={onCancel}
             closeable={closeable}
             hasReturnToKonnectorsListButton={
-              !isFetching && !error && konnectorsList.length > 1 && konnector
+              !error && konnectors.length > 1 && konnector
             }
             returnToKonnectorsList={() => this.setState({ konnector: null })}
             {...this.context}
           />
-          {!isFetching &&
-            !error &&
-            konnector && (
-              <CreateAccountService
-                alertDeleteSuccess={() => this.setState({ konnector: null })}
-                konnector={konnector}
-                onCancel={() => this.setState({ konnector: null })}
-                onSuccess={() => this.setState({ konnector: null })}
-                disableSuccessTimeout={disableSuccessTimeout}
-                closeModal={() => this.setState({ konnector: null })}
-                {...this.context}
-              />
-            )}
-          {!isFetching &&
-            !error &&
-            konnectorsList.length > 1 &&
-            !konnector && (
+          {konnector && (
+            <CreateAccountService
+              konnector={konnector}
+              onCancel={() => this.onCancel()}
+              onSuccess={account => this.onSuccess(account)}
+              disableSuccessTimeout={disableSuccessTimeout}
+              closeModal={() => this.onCancel()}
+              {...this.context}
+            />
+          )}
+          {!konnector &&
+            konnectors.length > 1 && (
               <ServiceKonnectorsList
-                konnectorsList={konnectorsList}
+                konnectorsList={konnectors}
                 showKonnector={konnector => this.showKonnector(konnector)}
               />
             )}
@@ -195,29 +106,16 @@ class IntentService extends Component {
   }
 }
 
-const mapActionsToProps = dispatch => ({
-  initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
-})
+const mapStateToProps = (state, ownProps) => {
+  const { data } = ownProps
+  const { category, dataType, slug } = data
+  return {
+    konnectors:
+      (slug && [getRegistryKonnector(state.registry, slug)]) ||
+      (category && getRegistryKonnectorsByCategory(state.registry, category)) ||
+      (dataType && getRegistryKonnectorsByDataType(state.registry, dataType)) ||
+      []
+  }
+}
 
-const mapDocumentsToProps = (state, ownProps) => ({
-  accounts: fetchAccounts(),
-  jobs: fetchKonnectorJobs(),
-  konnectors: fetchKonnectors(),
-  triggers: fetchTriggers()
-  // TODO: fetch registry
-  // registry: fetchRegistry()
-})
-
-const mapStateToProps = (state, ownProps) => ({
-  connectionStatuses:
-    (ownProps.konnectorsList &&
-      getConnectionsStatusesByKonnectors(
-        state.connections,
-        ownProps.konnectorsList.map(konnector => konnector.slug)
-      )) ||
-    []
-})
-
-export default cozyConnect(mapDocumentsToProps)(
-  connect(mapStateToProps, mapActionsToProps)(IntentService)
-)
+export default connect(mapStateToProps)(IntentService)

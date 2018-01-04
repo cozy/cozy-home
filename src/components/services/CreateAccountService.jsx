@@ -1,60 +1,59 @@
 import React from 'react'
+import { translate } from 'cozy-ui/react/I18n'
+
+import AccountConnection from '../../containers/AccountConnection'
+
 import { connect } from 'react-redux'
 
 import {
-  getConnectionStatus,
-  getKonnectorConnectedAccount,
-  getTriggerByKonnector
+  endConnectionCreation,
+  isConnectionRunning,
+  isCreatingConnection,
+  startConnectionCreation
+} from '../../ducks/connections'
+import { isFetchingRegistryKonnector } from '../../ducks/registry'
+import {
+  getCreatedConnectionAccount,
+  getTriggerByKonnectorAndAccount
 } from '../../reducers'
-
-import AccountConnection from '../../containers/AccountConnection'
 
 class CreateAccountService extends React.Component {
   constructor(props, context) {
     super(props, context)
-    const { t, konnector, existingAccount } = props
-    const values =
-      (existingAccount && Object.assign({}, existingAccount.auth)) || {}
-    // Split the actual folderPath account to get namePath & folderPath values
-    if (existingAccount && values.folderPath) {
-      values.folderPath = existingAccount.auth.folderPath.substring(
-        0,
-        existingAccount.auth.folderPath.lastIndexOf('/')
-      )
-      values.namePath = existingAccount.auth.folderPath.substring(
-        existingAccount.auth.folderPath.lastIndexOf('/') + 1,
-        existingAccount.auth.folderPath.length
-      )
-    } else if (
-      (!existingAccount &&
-        konnector.fields &&
+    const { t, konnector } = props
+    const values = {}
+
+    if (
+      (konnector.fields &&
         konnector.fields.advancedFields &&
         konnector.fields.advancedFields.folderPath) ||
-      (!existingAccount && konnector.fields && konnector.folderPath)
+      (konnector.fields && konnector.folderPath)
     ) {
       values.folderPath = t('account.config.default_folder', {
         name: konnector.name
       })
       values.namePath = konnector.name
     }
+
     this.setState({ values: values })
+
+    this.props.startCreation(this.props.konnector)
   }
 
-  componentWillReceiveProps(props) {
-    if (this.props.status === 'running') {
-    } else if (props.status && props.status === 'running') props.onSuccess()
+  onSuccess(account) {
+    this.props.endCreation()
+    this.props.onSuccess(account)
   }
 
   render() {
-    const { onSuccess, alertDeleteSuccess, konnector, trigger } = this.props
+    const { konnector, t } = this.props
     const { values } = this.state
     return (
       <div className="coz-service-content">
         <AccountConnection
-          alertDeleteSuccess={alertDeleteSuccess}
           connector={konnector}
-          onSuccess={onSuccess}
-          trigger={trigger}
+          onNext={account => this.onSuccess(account)}
+          successButtonLabel={t('intent.service.success.button.label')}
           values={values}
           {...this.props}
         />
@@ -64,11 +63,28 @@ class CreateAccountService extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // infos from route parameters
+  const { konnector } = ownProps
+  const createdAccount = getCreatedConnectionAccount(state)
+  const trigger = getTriggerByKonnectorAndAccount(
+    state,
+    konnector,
+    createdAccount
+  )
   return {
-    existingAccount: getKonnectorConnectedAccount(state, ownProps.konnector),
-    trigger: getTriggerByKonnector(state, ownProps.konnector),
-    status: getConnectionStatus(state, ownProps.konnector)
+    createdAccount,
+    isCreating: isCreatingConnection(state.connections),
+    isWorking: isFetchingRegistryKonnector(state.registry),
+    isRunning: isConnectionRunning(state.connections, trigger),
+    trigger
   }
 }
 
-export default connect(mapStateToProps)(CreateAccountService)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  startCreation: () => dispatch(startConnectionCreation(ownProps.konnector)),
+  endCreation: () => dispatch(endConnectionCreation())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  translate()(CreateAccountService)
+)

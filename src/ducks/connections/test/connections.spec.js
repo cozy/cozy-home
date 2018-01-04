@@ -118,10 +118,12 @@ describe('Connections Duck', () => {
     describe('getKonnectorConnectedAccount', () => {
       it("returns the first konnector's connected account", () => {
         const state = {
-          testprovider: {
-            '17375ac5a59e4d6585fc7d1e1c75ec74': {},
-            '63c670ea9d7b11e7b5888c88b1c12d46': {},
-            '768ccdaa9d7b11e7869aae88b1c12d46': {}
+          konnectors: {
+            testprovider: {
+              '17375ac5a59e4d6585fc7d1e1c75ec74': {},
+              '63c670ea9d7b11e7b5888c88b1c12d46': {},
+              '768ccdaa9d7b11e7869aae88b1c12d46': {}
+            }
           }
         }
 

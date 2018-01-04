@@ -90,6 +90,11 @@ export const getKonnectorConnectedAccount = (
   return getAccount(state, trigger.message.account)
 }
 
+export const getTrigger = (state, id) =>
+  !!state.documents &&
+  !!state.documents[DOCTYPE] &&
+  state.documents[DOCTYPE][id]
+
 export const getTriggerByKonnector = (
   state,
   konnector,
