@@ -205,6 +205,14 @@ export default class CollectStore {
       })
   }
 
+  createDirectoryIfNecessary(folderPath) {
+    if (folderPath) {
+      return cozy.client.files.createDirectoryByPath(folderPath)
+    } else {
+      return Promise.resolve(null)
+    }
+  }
+
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount(konnector, account, disableEnqueue, enqueueAfter = 7000) {
@@ -215,17 +223,9 @@ export default class CollectStore {
     // detect oauth case
     const isOAuth = !!account.oauth
 
-    function createDirectoryIfNecessary(folderPath) {
-      if (folderPath) {
-        return cozy.client.files.createDirectoryByPath(folderPath)
-      } else {
-        return Promise.resolve(null)
-      }
-    }
-
     // 1. Create folder, will be replaced by an intent or something else
     return (
-      createDirectoryIfNecessary(account.auth.folderPath)
+      this.createDirectoryIfNecessary(!!account.auth && account.auth.folderPath)
         // 2. Create account
         .then(folder => {
           connection.folder = folder
