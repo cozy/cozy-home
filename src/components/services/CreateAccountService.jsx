@@ -32,7 +32,6 @@ class CreateAccountService extends React.Component {
       values.folderPath = t('account.config.default_folder', {
         name: konnector.name
       })
-      values.namePath = konnector.name
     }
 
     this.setState({ values: values })
