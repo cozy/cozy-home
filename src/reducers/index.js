@@ -33,6 +33,11 @@ export const getConfiguredKonnectors = state =>
     fromAccounts.getIds(state.cozy)
   )
 
+export const getKonnectorsByStatus = (state, status) => {
+  const connections = getConnections(state)
+  return fromTriggers.getKonnectorsByStatus(connections, status)
+}
+
 export const getConnectionStatus = (state, konnector) =>
   fromConnections.getConnectionStatus(
     state.connections,

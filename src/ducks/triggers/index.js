@@ -117,3 +117,8 @@ export const getTriggerByKonnector = (
 export const isTriggerRunning = (state, trigger) => {
   return fromRunning.isTriggerRunning(state.running, trigger)
 }
+
+export const getKonnectorsByStatus = (connections, status) =>
+  Object.values(connections).filter(
+    connection => connection.trigger.current_state.status === status
+  )
