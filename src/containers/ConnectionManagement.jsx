@@ -3,6 +3,7 @@ import styles from '../styles/connectionManagement.styl'
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { getAccount } from '../ducks/accounts'
 import {
@@ -78,7 +79,9 @@ class ConnectionManagement extends Component {
 
   componentWillReceiveProps(nextProps) {
     const isInvalidKonnectorSlug =
-      nextProps.params.konnectorSlug && !nextProps.konnector
+      nextProps.match &&
+      nextProps.match.params.konnectorSlug &&
+      !nextProps.konnector
 
     if (isInvalidKonnectorSlug) {
       console.warn && console.warn('Invalid konnector slug')
@@ -86,7 +89,9 @@ class ConnectionManagement extends Component {
     }
 
     const isInvalidAccountId =
-      nextProps.params.accountId && !nextProps.existingAccount
+      nextProps.match &&
+      nextProps.match.params.accountId &&
+      !nextProps.existingAccount
     if (isInvalidAccountId) {
       console.warn && console.warn('Invalid account id')
       return this.gotoParent()
@@ -103,8 +108,11 @@ class ConnectionManagement extends Component {
     const { t } = this.context
 
     return (
-      <Modal secondaryAction={() => this.gotoParent()}>
-        <ModalContent className={styles['col-account-modal']}>
+      <Modal
+        dismissAction={() => this.gotoParent()}
+        className={styles['col-account-modal']}
+      >
+        <ModalContent>
           {isWorking ? (
             <div className={styles['installing']}>
               <div className={styles['installing-spinner']} />
@@ -151,7 +159,7 @@ class ConnectionManagement extends Component {
       const { originPath } = this.props
 
       if (originPath) {
-        const { params } = this.props
+        const params = this.props.match.params
         const resolvedOriginPath = Object.keys(params)
           .filter(param => typeof params[param] === 'string')
           // Sort params from longest string to shortest string to avoid
@@ -163,10 +171,10 @@ class ConnectionManagement extends Component {
             (path, param) => path.replace(`:${param}`, params[param]),
             originPath
           )
-        router.push(resolvedOriginPath)
+        router.history.push(resolvedOriginPath)
       } else {
-        let url = router.location.pathname
-        router.push(url.substring(0, url.lastIndexOf('/')))
+        let url = router.history.location.pathname
+        router.history.push(url.substring(0, url.lastIndexOf('/')))
       }
 
       if (this.props.isCreating) {
@@ -186,7 +194,7 @@ const mapDocumentsToProps = ownProps => ({
 
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
-  const { accountId, konnectorSlug } = ownProps.params
+  const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
   const konnector = getRegistryKonnector(state.registry, konnectorSlug)
   const existingAccount = getAccount(state.cozy, accountId)
   const createdAccount = getCreatedConnectionAccount(state)
@@ -213,5 +221,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  cozyConnect(mapDocumentsToProps, mapActionsToProps)(ConnectionManagement)
+  cozyConnect(mapDocumentsToProps, mapActionsToProps)(
+    withRouter(ConnectionManagement)
+  )
 )

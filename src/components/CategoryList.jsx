@@ -1,13 +1,15 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
+import { Route, withRouter } from 'react-router-dom'
 
 import { translate } from 'cozy-ui/react/I18n'
 import KonnectorList from './KonnectorList'
 
 import { getRegistryKonnectorsByCategory } from '../ducks/registry'
+import ConnectionManagement from '../containers/ConnectionManagement'
 
-const CategoryList = ({ t, category, categories, connectors, children }) => (
+const CategoryList = ({ t, category, categories, connectors }) => (
   <div className="content">
     <div className="col-top-bar">
       <h1 className="col-top-bar-title">
@@ -17,12 +19,17 @@ const CategoryList = ({ t, category, categories, connectors, children }) => (
       </h1>
     </div>
     <KonnectorList konnectors={connectors} showVoting />
-    {children}
+    <Route
+      path="/providers/:filter/:konnectorSlug"
+      render={props => (
+        <ConnectionManagement originPath="/providers/:filter" {...props} />
+      )}
+    />
   </div>
 )
 
 const mapStateToProps = (state, ownProps) => {
-  const { filter } = ownProps.params
+  const { filter } = ownProps.match && ownProps.match.params
   return {
     connectors: getRegistryKonnectorsByCategory(
       state.registry,
@@ -31,4 +38,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(CategoryList))
+export default connect(mapStateToProps)(translate()(withRouter(CategoryList)))

@@ -1,6 +1,6 @@
-@import cozy-ui
+@require 'cozy-ui'
 
-text-button-color = #297ef1
+text-button-color = dodgerBlue
 
 :local // @stylint ignore
     .coz-field
@@ -16,7 +16,7 @@ text-button-color = #297ef1
         .password-visibility
             display        block
             text-transform uppercase
-            color          grey-05
+            color          coolGrey
             font-size      .9em
             padding        .55em 0
             flex           1 0 auto
@@ -50,15 +50,15 @@ text-button-color = #297ef1
             border-radius 2px
             box-sizing    border-box
             background-color transparent
-            border        1px solid grey-03
+            border        1px solid silver
             color         black
             &::placeholder
-                color     grey-05
+                color     coolGrey
                 font-size 1.05em
             &:focus
-                border     1px solid dodger-blue
+                border     1px solid dodgerBlue
             &:hover
-                border 1px solid grey-06
+                border 1px solid coolGrey
             &.error
                 border     1px solid pomegranate
 

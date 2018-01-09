@@ -1,13 +1,13 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router'
+import { NavLink, withRouter } from 'react-router-dom'
 import { getKonnectorIcon } from '../lib/icons'
 import { translate } from 'cozy-ui/react/I18n'
 
 const KonnectorTile = props => {
-  const { icon, konnector, route, router, subtitle, t } = props
+  const { icon, konnector, route, location, subtitle, t } = props
   const { name } = konnector
   return (
-    <Link className="item-wrapper" to={`${router.location.pathname}/${route}`}>
+    <NavLink className="item-wrapper" to={`${location.pathname}/${route}`}>
       <header className="item-header">
         <img
           className="item-icon"
@@ -18,7 +18,7 @@ const KonnectorTile = props => {
       <h3 className="item-title">{name}</h3>
       {subtitle && <p className="item-subtitle">{subtitle}</p>}
       {icon}
-    </Link>
+    </NavLink>
   )
 }
 
