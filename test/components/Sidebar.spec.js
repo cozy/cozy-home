@@ -23,7 +23,11 @@ describe('Sidebar component', () => {
 
   it('should be displayed correctly in root view', () => {
     const component = shallow(
-      <Sidebar t={tMock} categories={categoriesMock} router={routerMock} />
+      <Sidebar
+        t={tMock}
+        categories={categoriesMock}
+        location={routerMock.location}
+      />
     ).node
     expect(component).toMatchSnapshot()
   })
@@ -33,7 +37,11 @@ describe('Sidebar component', () => {
       location: { pathname: '/providers/' }
     })
     const component = shallow(
-      <Sidebar t={tMock} categories={categoriesMock} router={categoryRouter} />
+      <Sidebar
+        t={tMock}
+        categories={categoriesMock}
+        location={categoryRouter.location}
+      />
     ).node
     expect(component).toMatchSnapshot()
   })

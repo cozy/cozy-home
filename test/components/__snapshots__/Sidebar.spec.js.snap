@@ -1,106 +1,104 @@
 exports[`Sidebar component should be displayed correctly in providers view 1`] = `
-<aside
-  className="coz-sidebar">
-  <nav>
-    <ul
-      className="coz-nav">
-      <li
-        className="coz-nav-item">
-        <Link
-          activeClassName="active"
-          className="coz-nav-link col-cat-connected"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/connected">
+<Sidebar>
+  <Nav>
+    <NavItem>
+      <NavLink
+        activeClassName="is-active"
+        ariaCurrent="true"
+        className="c-nav-link"
+        to="/connected">
+        <NavIcon
+          icon="test-file-stub" />
+        <NavText>
           Connected accounts
-        </Link>
-      </li>
-      <li
-        className="coz-nav-item">
-        <Link
-          className="coz-nav-link col-cat-categories active"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/providers/all">
+        </NavText>
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink
+        activeClassName="is-active"
+        ariaCurrent="true"
+        className="c-nav-link is-active"
+        to="/providers/all">
+        <NavIcon
+          icon="test-file-stub" />
+        <NavText>
           Providers
-        </Link>
+        </NavText>
+      </NavLink>
+    </NavItem>
+    <ul
+      className="col-nav-submenu">
+      <li>
+        <NavLink
+          activeClassName="active"
+          ariaCurrent="true"
+          className="col-nav-submenu-link"
+          to="/providers/all">
+          All
+        </NavLink>
       </li>
-      <ul
-        className="col-nav-submenu">
-        <li>
-          <Link
-            activeClassName="active"
-            className="col-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/providers/all">
-            All
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="col-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/providers/isp">
-            ISP
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="col-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/providers/telecom">
-            Telecom
-          </Link>
-        </li>
-        <li>
-          <Link
-            activeClassName="active"
-            className="col-nav-submenu-link"
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="/providers/others">
-            Others
-          </Link>
-        </li>
-      </ul>
+      <li>
+        <NavLink
+          activeClassName="active"
+          ariaCurrent="true"
+          className="col-nav-submenu-link"
+          to="/providers/isp">
+          ISP
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          activeClassName="active"
+          ariaCurrent="true"
+          className="col-nav-submenu-link"
+          to="/providers/telecom">
+          Telecom
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          activeClassName="active"
+          ariaCurrent="true"
+          className="col-nav-submenu-link"
+          to="/providers/others">
+          Others
+        </NavLink>
+      </li>
     </ul>
-  </nav>
-</aside>
+  </Nav>
+</Sidebar>
 `;
 
 exports[`Sidebar component should be displayed correctly in root view 1`] = `
-<aside
-  className="coz-sidebar">
-  <nav>
-    <ul
-      className="coz-nav">
-      <li
-        className="coz-nav-item">
-        <Link
-          activeClassName="active"
-          className="coz-nav-link col-cat-connected"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/connected">
+<Sidebar>
+  <Nav>
+    <NavItem>
+      <NavLink
+        activeClassName="is-active"
+        ariaCurrent="true"
+        className="c-nav-link"
+        to="/connected">
+        <NavIcon
+          icon="test-file-stub" />
+        <NavText>
           Connected accounts
-        </Link>
-      </li>
-      <li
-        className="coz-nav-item">
-        <Link
-          className="coz-nav-link col-cat-categories"
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/providers/all">
+        </NavText>
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink
+        activeClassName="is-active"
+        ariaCurrent="true"
+        className="c-nav-link"
+        to="/providers/all">
+        <NavIcon
+          icon="test-file-stub" />
+        <NavText>
           Providers
-        </Link>
-      </li>
-    </ul>
-  </nav>
-</aside>
+        </NavText>
+      </NavLink>
+    </NavItem>
+  </Nav>
+</Sidebar>
 `;
