@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 
 import Icon from 'cozy-ui/react/Icon'
 import { connect } from 'react-redux'
+import { Route, NavLink } from 'react-router-dom'
 import { getConnections } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
 import ConnectedTile from './ConnectedTile'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
+import ConnectionManagement from '../containers/ConnectionManagement'
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -31,18 +33,18 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connections, children } = this.props
+    const { t, connections } = this.props
     return (
       <div className="content">
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {connections.length > 0 && (
-            <Link to="/providers/all">
-              <button className="coz-btn coz-btn--regular">
+            <NavLink to="/providers/all">
+              <Button>
                 <Icon icon={addAccountIcon} className="col-icon--add" />{' '}
                 {t('add_account')}
-              </button>
-            </Link>
+              </Button>
+            </NavLink>
           )}
         </div>
         {connections.length ? (
@@ -66,15 +68,18 @@ class ConnectedList extends Component {
             <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
-              <Link to="/providers/all">
-                <button className="coz-btn coz-btn--regular">
-                  {t('connector.connect-account')}
-                </button>
-              </Link>
+              <NavLink to="/providers/all">
+                <Button>{t('connector.connect-account')}</Button>
+              </NavLink>
             </div>
           </div>
         )}
-        {children}
+        <Route
+          path="/connected/:konnectorSlug/:accountId"
+          render={props => (
+            <ConnectionManagement originPath="/connected" {...props} />
+          )}
+        />
       </div>
     )
   }

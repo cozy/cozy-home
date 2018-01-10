@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
@@ -14,6 +15,9 @@ import { fetchKonnectorJobs } from '../ducks/jobs'
 import { fetchKonnectors } from '../ducks/konnectors'
 import { fetchTriggers } from '../ducks/triggers'
 
+import CategoryList from '../components/CategoryList'
+import ConnectedList from '../components/ConnectedList'
+
 class App extends Component {
   constructor(props, context) {
     super(props, context)
@@ -23,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { children, accounts, konnectors, triggers } = this.props
+    const { accounts, konnectors, triggers } = this.props
     const isFetching = [accounts, konnectors, triggers].find(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
@@ -47,7 +51,20 @@ class App extends Component {
       <div className="col-wrapper coz-sticky">
         <Sidebar categories={this.store.categories} />
         <main className="col-content">
-          <div role="contentinfo">{children}</div>
+          <div role="contentinfo">
+            <Switch>
+              <Route path="/connected" component={ConnectedList} />
+              <Route
+                path="/providers/:filter"
+                render={props => (
+                  <CategoryList {...props} categories={this.store.categories} />
+                )}
+              />
+              <Redirect exact from="/providers" to="/providers/all" />
+              <Redirect exact from="/" to="/connected" />
+              <Redirect from="*" to="/connected" />
+            </Switch>
+          </div>
         </main>
         <Notifier />
         <ConnectionsQueue />
@@ -69,4 +86,10 @@ const mapDocumentsToProps = (state, ownProps) => ({
   // registry: fetchRegistry()
 })
 
-export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
+/*
+withRouter is necessary here to deal with redux
+https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
+*/
+export default withRouter(
+  cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
+)

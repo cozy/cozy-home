@@ -1,8 +1,8 @@
 import styles from '../styles/accountLoginForm'
 
 import React from 'react'
-import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 import Field, {
   PasswordField,
   DropdownField,
@@ -174,14 +174,10 @@ export class AccountLoginForm extends React.Component {
         <div className={styles['coz-form-controls']}>
           {(!editing || hasEditableFields) &&
             !isSuccess && (
-              <button
-                className={classNames(
-                  'coz-btn',
-                  'coz-btn--regular',
-                  styles['coz-btn']
-                )}
+              <Button
+                className={styles['coz-btn']}
                 disabled={oAuthTerminated || submitting || !submitEnabled}
-                aria-busy={
+                busy={
                   submitting &&
                   !disableSuccessTimeout &&
                   (editing || !isOAuth || oAuthTerminated)
@@ -195,7 +191,7 @@ export class AccountLoginForm extends React.Component {
                     ? 'account.form.button.save'
                     : 'account.form.button.connect'
                 )}
-              </button>
+              </Button>
             )}
         </div>
       </div>
