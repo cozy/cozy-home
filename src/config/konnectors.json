@@ -903,6 +903,30 @@
     }
   },
   {
+    "slug": "hsbc119",
+    "name": "HSBC (France)",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion",
+    "category": "banking",
+    "icon": "hsbc.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "119"
+    }
+  },
+  {
     "slug": "ingdirect95",
     "name": "ING Direct",
     "editor": "Cozy Cloud",
