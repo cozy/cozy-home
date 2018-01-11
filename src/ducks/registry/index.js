@@ -59,6 +59,11 @@ export const getRegistryKonnectorsFromSlugs = (state, slugs = []) => {
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
+
+export const getSlugs = state => {
+  return Object.keys(state.konnectors.data)
+}
+
 export const isFetchingRegistryKonnector = state => {
   return state.konnectors.fetchStatus === 'loading'
 }
