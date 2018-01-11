@@ -1,8 +1,8 @@
 import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
-import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 
 import DescriptionContent from './DescriptionContent'
 
@@ -53,16 +53,9 @@ export const KonnectorSuccess = ({
         <div className={styles['coz-form-controls']}>
           <div className={styles['col-account-form-success-buttons']}>
             <p>
-              <button
-                className={classNames(
-                  'coz-btn',
-                  'coz-btn--regular',
-                  styles['coz-btn']
-                )}
-                onClick={onNext}
-              >
+              <Button className={styles['coz-btn']} onClick={onNext}>
                 {successButtonLabel || t('account.success.button.back')}
-              </button>
+              </Button>
             </p>
           </div>
         </div>
