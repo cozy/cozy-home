@@ -51,6 +51,93 @@
     }
   },
   {
+    "slug": "banquepopulaire",
+    "name": "Banque Populaire",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.banquepopulaire.fr/",
+    "category": "banking",
+    "icon": "banquepopulaire.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      },
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Alpes",
+            "value": "64"
+          },
+          {
+            "name": "Alsace Lorraine Champagne",
+            "value": "65"
+          },
+          {
+            "name": "Atlantique",
+            "value": "66"
+          },
+          {
+            "name": "Bourgogne-Franche Comté",
+            "value": "67"
+          },
+          {
+            "name": "Aquitaine Centre atlantique",
+            "value": "69"
+          },
+          {
+            "name": "Côte d'azur",
+            "value": "70"
+          },
+          {
+            "name": "Loire et Lyonnais",
+            "value": "71"
+          },
+          {
+            "name": "Massif central",
+            "value": "73"
+          },
+          {
+            "name": "Nord",
+            "value": "74"
+          },
+          {
+            "name": "Occitane",
+            "value": "75"
+          },
+          {
+            "name": "Ouest",
+            "value": "76"
+          },
+          {
+            "name": "Provence et Corse",
+            "value": "77"
+          },
+          {
+            "name": "Rives de Paris",
+            "value": "78"
+          },
+          {
+            "name": "Sud",
+            "value": "79"
+          },
+          {
+            "name": "Val de France",
+            "value": "81"
+          }
+        ]
+      }
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+  },
+  {
     "slug": "bforbank97",
     "name": "BforBank",
     "editor": "Cozy Cloud",
