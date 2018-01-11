@@ -4,7 +4,7 @@ import { reducer } from 'redux-cozy-client'
 import * as fromAccounts from '../ducks/accounts'
 import * as fromKonnectors from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
-import registry from '../ducks/registry'
+import registry, * as fromRegistry from '../ducks/registry'
 import connections, * as fromConnections from '../ducks/connections'
 
 export default () =>
@@ -17,7 +17,11 @@ export default () =>
 // selectors
 export const getConnections = state =>
   fromConnections
-    .getConnections(state.connections, fromAccounts.getIds(state.cozy))
+    .getConnections(
+      state.connections,
+      fromAccounts.getIds(state.cozy),
+      fromRegistry.getSlugs(state.registry)
+    )
     .map(connection => ({
       account: fromAccounts.getAccount(state.cozy, connection.accountId),
       konnector: fromKonnectors.getKonnector(

@@ -335,7 +335,11 @@ export const launchTriggerAndQueue = (trigger, delay = 7000) => (
 
 // Retrieves all the connections, return an array of JS object with three
 // properties : `{ accountId, konnectorSlug, triggerId }`
-export const getConnections = (state, validAccounts = []) =>
+export const getConnections = (
+  state,
+  validAccounts = [],
+  validKonnectors = []
+) =>
   state.konnectors
     ? Object.keys(state.konnectors).reduce((connections, konnectorSlug) => {
         return connections.concat(
@@ -345,7 +349,14 @@ export const getConnections = (state, validAccounts = []) =>
               ).reduce((connections, triggerId) => {
                 const accountId =
                   state.konnectors[konnectorSlug].triggers[triggerId].account
-                return accountId && validAccounts.includes(accountId)
+
+                const isValidAccount =
+                  accountId && validAccounts.includes(accountId)
+
+                const isValidKonnector =
+                  konnectorSlug && validKonnectors.includes(konnectorSlug)
+
+                return isValidKonnector && isValidAccount
                   ? connections.concat([
                       {
                         accountId,
