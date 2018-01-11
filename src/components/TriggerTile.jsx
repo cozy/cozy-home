@@ -8,10 +8,10 @@ import { getAccountName } from '../lib/helpers'
 
 import { getConnectionStatusForTrigger } from '../ducks/connections'
 
-import KonnectorTile from './KonnectorTile'
+import Tile from './Tile'
 
-const ConnectedTile = props => (
-  <KonnectorTile
+const TriggerTile = props => (
+  <Tile
     route={`${props.konnector.slug}/${props.account._id}`}
     subtitle={getAccountName(props.account)}
     {...props}
@@ -37,12 +37,10 @@ const stateIcon = status => {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    icon: stateIcon(
-      getConnectionStatusForTrigger(state.connections, props.trigger)
-    )
-  }
-}
+const mapStateToProps = (state, props) => ({
+  footer: stateIcon(
+    getConnectionStatusForTrigger(state.connections, props.trigger)
+  )
+})
 
-export default connect(mapStateToProps)(translate()(ConnectedTile))
+export default connect(mapStateToProps)(translate()(TriggerTile))

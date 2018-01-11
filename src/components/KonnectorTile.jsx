@@ -1,25 +1,22 @@
 import React from 'react'
-import { NavLink, withRouter } from 'react-router-dom'
-import { getKonnectorIcon } from '../lib/icons'
+import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
-const KonnectorTile = props => {
-  const { icon, konnector, route, location, subtitle, t } = props
-  const { name } = konnector
-  return (
-    <NavLink className="item-wrapper" to={`${location.pathname}/${route}`}>
-      <header className="item-header">
-        <img
-          className="item-icon"
-          alt={t('connector.logo.alt', { name })}
-          src={getKonnectorIcon(konnector)}
-        />
-      </header>
-      <h3 className="item-title">{name}</h3>
-      {subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {icon}
-    </NavLink>
-  )
+import { getKonnectorTriggersCount } from '../reducers'
+
+import Tile from './Tile'
+
+const KonnectorTile = props => (
+  <Tile route={props.route} subtitle={props.subtitle} {...props} />
+)
+
+const mapStateToProps = (state, props) => {
+  const accountsCount = getKonnectorTriggersCount(state, props.konnector)
+  return {
+    footer: !!accountsCount && (
+      <span className="item-count">{accountsCount}</span>
+    )
+  }
 }
 
-export default translate()(withRouter(KonnectorTile))
+export default connect(mapStateToProps)(translate()(KonnectorTile))

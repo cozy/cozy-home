@@ -8,7 +8,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
-import ConnectedTile from './ConnectedTile'
+import TriggerTile from './TriggerTile'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
@@ -50,10 +50,10 @@ class ConnectedList extends Component {
         {connections.length ? (
           <div className="connector-list">
             {connections.map(connection => (
-              <ConnectedTile
+              <TriggerTile
                 konnector={connection.konnector}
-                account={connection.account}
                 trigger={connection.trigger}
+                account={connection.account}
               />
             ))}
           </div>
