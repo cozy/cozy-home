@@ -14,9 +14,14 @@ const mapStateToProps = (state, props) => {
   const accountsCount = getKonnectorTriggersCount(state, props.konnector)
   return {
     footer: !!accountsCount && (
-      <span className="item-count">{accountsCount}</span>
+      <span
+        className="item-count"
+        title={props.t('connector.accounts_count', { count: accountsCount })}
+      >
+        {accountsCount}
+      </span>
     )
   }
 }
 
-export default connect(mapStateToProps)(translate()(KonnectorTile))
+export default translate()(connect(mapStateToProps)(KonnectorTile))
