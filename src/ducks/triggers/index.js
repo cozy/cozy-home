@@ -3,6 +3,8 @@ import { getAccount } from '../accounts'
 import * as fromRunning from './running'
 
 export const DOCTYPE = 'io.cozy.triggers'
+const VALID_FREQUENCIES = ['weekly', 'daily']
+
 const triggersCollectionKey = 'triggers'
 
 const reducer = (state = {}, action) => {
@@ -52,9 +54,7 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
 
   const frequencyOptions = {
     frequency:
-      frequency && ['weekly', 'daily'].includes(frequency)
-        ? frequency
-        : 'weekly'
+      frequency && VALID_FREQUENCIES.includes(frequency) ? frequency : 'weekly'
   }
 
   if (frequencyOptions.frequency === 'daily') {
