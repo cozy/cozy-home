@@ -48,25 +48,4 @@ describe('Trigger Duck', () => {
       ).toBe(true)
     })
   })
-  //
-  // describe('getKonnectorConnectedAccount', () => {
-  //   it('returns null when no account', () => {
-  //     const konnector = {
-  //       _id
-  //     }
-  //
-  //     expect(getKonnectorConnectedAccount(state, konnector)).toMatchSnapshot()
-  //   })
-  //
-  //
-  //   it('returns connected account', () => {
-  //
-  //   })
-  // })
-  //
-  // describe('getTriggerByKonnector', () => {
-  //   it('returns konnector associated trigger', () => {
-  //
-  //   })
-  // })
 })
