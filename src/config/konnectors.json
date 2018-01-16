@@ -45,6 +45,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "102"
@@ -135,6 +136,7 @@
         ]
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
@@ -159,6 +161,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "97"
@@ -183,6 +186,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "82"
@@ -418,6 +422,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
@@ -439,6 +444,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "1"
@@ -463,6 +469,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "109"
@@ -487,6 +494,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "88"
@@ -593,6 +601,7 @@
         ]
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "45"
@@ -617,6 +626,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "168"
@@ -809,6 +819,7 @@
         }
       }
     },
+    "frequency": "daily",
     "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
   },
   {
@@ -984,6 +995,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "145"
@@ -1008,6 +1020,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "119"
@@ -1035,6 +1048,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "95"
@@ -1059,6 +1073,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "44"
@@ -1083,6 +1098,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "143"
@@ -1107,6 +1123,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "144"
@@ -1131,6 +1148,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "146"
@@ -1257,6 +1275,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "96"
@@ -1539,6 +1558,7 @@
         "type": "password"
       }
     },
+    "frequency": "daily",
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
