@@ -46,6 +46,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "102"
@@ -137,6 +138,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
@@ -162,6 +164,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "97"
@@ -187,6 +190,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "82"
@@ -423,6 +427,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
@@ -445,6 +450,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "1"
@@ -470,6 +476,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "109"
@@ -495,6 +502,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "88"
@@ -602,6 +610,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "45"
@@ -627,6 +636,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "168"
@@ -820,6 +830,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
   },
   {
@@ -996,6 +1007,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "145"
@@ -1021,6 +1033,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "119"
@@ -1049,6 +1062,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "95"
@@ -1074,6 +1088,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "44"
@@ -1099,6 +1114,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "143"
@@ -1124,6 +1140,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "144"
@@ -1149,6 +1166,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "146"
@@ -1276,6 +1294,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
       "bankId": "96"
@@ -1559,6 +1578,7 @@
       }
     },
     "frequency": "daily",
+    "timeInterval": [6.5, 7.5],
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
   },
   {
