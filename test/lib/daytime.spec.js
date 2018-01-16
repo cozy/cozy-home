@@ -32,10 +32,7 @@ describe('daytime library', () => {
     })
 
     it('returns expected hours/minutes values', () => {
-      const randomizeStub = jest
-        .fn()
-        .mockReturnValueOnce(10)
-        .mockReturnValueOnce(34)
+      const randomizeStub = jest.fn().mockReturnValueOnce(10.58)
 
       const result = randomDayTime([0, 24], randomizeStub)
 
@@ -58,28 +55,6 @@ describe('daytime library', () => {
         .fn()
         .mockReturnValueOnce(24)
         .mockReturnValueOnce(34)
-
-      expect(() =>
-        randomDayTime([0, 24], randomizeStub)
-      ).toThrowErrorMatchingSnapshot()
-    })
-
-    it('throws error on incorrect minimal minute', () => {
-      const randomizeStub = jest
-        .fn()
-        .mockReturnValueOnce(12)
-        .mockReturnValueOnce(-1)
-
-      expect(() =>
-        randomDayTime([0, 24], randomizeStub)
-      ).toThrowErrorMatchingSnapshot()
-    })
-
-    it('throws error on incorrect maximal minute', () => {
-      const randomizeStub = jest
-        .fn()
-        .mockReturnValueOnce(12)
-        .mockReturnValueOnce(-1)
 
       expect(() =>
         randomDayTime([0, 24], randomizeStub)

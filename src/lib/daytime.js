@@ -5,7 +5,7 @@
 // @returns an object with two atributes : hours and minutes
 export const randomDayTime = (
   interval = [0, 1],
-  randomize = (min, max) => Math.floor(Math.random() * (max - min) + min)
+  randomize = (min, max) => Math.random() * (max - min) + min
 ) => {
   if (!interval) throw new Error('Missing interval parameter')
   if (!randomize) throw new Error('Missing randomize parameter')
@@ -19,8 +19,9 @@ export const randomDayTime = (
 
   if (start < 0 || end > 24) throw new Error('interval must be inside [0, 24]')
 
-  let hours = randomize(start, end)
-  let minutes = randomize(0, 60)
+  const r = randomize(start, end)
+  const hours = Math.floor(r)
+  const minutes = Math.floor((r - hours) * 60)
 
   if (hours < 0 || hours > 23)
     throw new Error('randomize function returns inconsistent hour value')
