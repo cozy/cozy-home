@@ -3,7 +3,10 @@ import { getAccount } from '../accounts'
 import * as fromRunning from './running'
 
 export const DOCTYPE = 'io.cozy.triggers'
-const VALID_FREQUENCIES = ['weekly', 'daily']
+const DAILY_FREQUENCY = 'daily'
+const WEEKLY_FREQUENCY = 'weekly'
+const VALID_FREQUENCIES = [DAILY_FREQUENCY, WEEKLY_FREQUENCY]
+const DEFAULT_FREQUENCY = WEEKLY_FREQUENCY
 
 const triggersCollectionKey = 'triggers'
 
@@ -48,30 +51,29 @@ export const deleteTrigger = trigger =>
 export const launchTrigger = trigger => fromCozyClient.launchTrigger(trigger)
 
 // Helpers
+
+const parseFrequency = frequency =>
+  frequency && VALID_FREQUENCIES.includes(frequency)
+    ? frequency
+    : DEFAULT_FREQUENCY
+
 export const buildTriggerFrequencyOptions = (konnector, options) => {
-  const { frequency } = konnector
   const { day, hours, minutes } = options
 
   const frequencyOptions = {
-    frequency:
-      frequency && VALID_FREQUENCIES.includes(frequency) ? frequency : 'weekly'
+    hours,
+    minutes,
+    frequency: parseFrequency(konnector.frequency)
   }
 
-  if (frequencyOptions.frequency === 'daily') {
+  if (frequencyOptions.frequency === 'weekly') {
     return {
       ...frequencyOptions,
-      hours,
-      minutes
+      day
     }
   }
 
-  // weekly case by default
-  return {
-    ...frequencyOptions,
-    day,
-    hours,
-    minutes
-  }
+  return frequencyOptions
 }
 
 export function buildKonnectorTrigger(
