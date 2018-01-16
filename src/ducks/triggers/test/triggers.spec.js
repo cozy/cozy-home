@@ -1,19 +1,24 @@
 /* eslint-env jest */
 
-import { buildKonnectorTrigger, isTriggerRunning } from '../'
+import {
+  buildKonnectorTrigger,
+  buildTriggerFrequencyOptions,
+  isTriggerRunning
+} from '../'
 
 describe('Trigger Duck', () => {
+  const konnector = { slug: 'test' }
+
+  const options = {
+    frequency: 'weekly',
+    day: 1,
+    hours: 14,
+    minutes: 15
+  }
+
   describe('buildKonnectorTrigger', () => {
-    const konnector = { slug: 'test' }
     const account = { _id: '963a51f6cdd34401b0904de32cc5578d' }
     const folder = { _id: 'daa147092e1c4a1da8c991cb2a194adc' }
-
-    const options = {
-      frequency: 'weekly',
-      day: 1,
-      hours: 14,
-      minutes: 15
-    }
 
     it('creates a trigger', () => {
       expect(
@@ -25,6 +30,27 @@ describe('Trigger Duck', () => {
       expect(
         buildKonnectorTrigger(konnector, account, null, options)
       ).toMatchSnapshot()
+    })
+
+    it('creates a trigger with a daily frequency', () => {
+      const dailyKonnector = { ...konnector, frequency: 'daily' }
+      expect(
+        buildKonnectorTrigger(dailyKonnector, account, null, options)
+      ).toMatchSnapshot()
+    })
+  })
+
+  describe('buildTriggerFrequencyOptions', () => {
+    it('creates default weekly options', () => {
+      expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
+    })
+
+    it('creates daily options', () => {
+      const konnector = {
+        frequency: 'daily'
+      }
+
+      expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
     })
   })
 

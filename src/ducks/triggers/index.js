@@ -46,6 +46,33 @@ export const deleteTrigger = trigger =>
 export const launchTrigger = trigger => fromCozyClient.launchTrigger(trigger)
 
 // Helpers
+export const buildTriggerFrequencyOptions = (konnector, options) => {
+  const { frequency } = konnector
+  const { day, hours, minutes } = options
+
+  const frequencyOptions = {
+    frequency:
+      frequency && ['weekly', 'daily'].includes(frequency)
+        ? frequency
+        : 'weekly'
+  }
+
+  if (frequencyOptions.frequency === 'daily') {
+    return {
+      ...frequencyOptions,
+      hours,
+      minutes
+    }
+  }
+
+  // weekly case by default
+  return {
+    ...frequencyOptions,
+    day,
+    hours,
+    minutes
+  }
+}
 
 export function buildKonnectorTrigger(
   konnector,
@@ -53,7 +80,10 @@ export function buildKonnectorTrigger(
   folder,
   options = {}
 ) {
-  const { day, hours, minutes } = options
+  const { day, hours, minutes } = buildTriggerFrequencyOptions(
+    konnector,
+    options
+  )
 
   let workerArguments = {
     konnector: konnector.slug || konnector.attributes.slug,

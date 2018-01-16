@@ -186,7 +186,7 @@ export default class CollectStore {
               })
               // 5. Add permissions to folder for konnector if folder created
               .then(completeKonnector => {
-                connection.konnector = completeKonnector
+                connection.konnector = { ...konnector, ...completeKonnector }
                 if (!connection.folder) return Promise.resolve()
                 return konnectors.addFolderPermission(
                   cozy.client,
@@ -211,7 +211,9 @@ export default class CollectStore {
                     connection.account,
                     connection.folder,
                     {
-                      frequency: 'weekly',
+                      // We always pass a default day value,
+                      // `createKonnectorTrigger` will
+                      // then use it if it needs.
                       day: new Date().getDay(),
                       ...randomDayTime(
                         konnector.timeInterval ||
