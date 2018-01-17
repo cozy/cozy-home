@@ -98,9 +98,7 @@ class Queue extends Component {
         >
           {doneCount < queue.length && (
             <div className={styles['queue-header-inner']}>
-              <span className="coz-desktop">
-                {t('Queue.header', { smart_count: queue.length })}
-              </span>
+              <span className="coz-desktop">{t('Queue.header')}</span>
               <span className="coz-mobile">
                 {t('Queue.header_mobile', {
                   done: doneCount,
