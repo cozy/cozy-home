@@ -306,8 +306,8 @@
     }
   },
   "Queue": {
-    "header": "Syncing %{smart_count} account |||| Syncing %{smart_count} accounts",
-    "header_mobile": "%{done} of %{total} syncing…",
+    "header": "Syncing accounts:",
+    "header_mobile": "%{done} of %{total}",
     "header_done": "Synced %{done} out of %{total}",
     "item": {
       "pending": "Pending"
