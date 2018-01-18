@@ -919,6 +919,7 @@
     "editor": "Fing",
     "vendorLink": "https://www.enedis.fr/",
     "category": "energy",
+    "frequency": "hourly",
     "dataType": [
       "consumption",
       "profile"
