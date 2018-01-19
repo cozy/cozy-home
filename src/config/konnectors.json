@@ -4,7 +4,7 @@
     "name": "Ameli",
     "editor": "Cozy Cloud",
     "vendorLink": "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure",
-    "category": "insurance",
+    "categories": ["insurance"],
     "dataType": [
       "bill"
     ],
@@ -31,7 +31,7 @@
     "name": "Axa Banque",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.axabanque.fr/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "axa.png",
     "dataType": [
       "bankAccounts",
@@ -57,7 +57,7 @@
     "name": "Banque Populaire",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.banquepopulaire.fr/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "banquepopulaire.png",
     "dataType": [
       "bankAccounts",
@@ -146,7 +146,7 @@
     "name": "BforBank",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bforbank.com/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "bforbank.png",
     "dataType": [
       "bankAccounts",
@@ -175,7 +175,7 @@
     "name": "BNP Paribas",
     "editor": "Cozy Cloud",
     "vendorLink": "https://mabanque.bnpparibas",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "bnpparibas.png",
     "dataType": [
       "bankAccounts",
@@ -201,7 +201,7 @@
     "name": "Bouygues Box",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bouyguestelecom.fr/",
-    "category": "isp",
+    "categories": ["isp"],
     "dataType": [
       "bill"
     ],
@@ -226,7 +226,7 @@
     "name": "Bouygues Telecom",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bouyguestelecom.fr/",
-    "category": "telecom",
+    "categories": ["telecom"],
     "dataType": [
       "bill"
     ],
@@ -251,7 +251,7 @@
     "name": "Crédit Agricole",
     "editor": "Cozy Cloud",
     "icon": "ca.png",
-    "category": "banking",
+    "categories": ["banking"],
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -435,7 +435,7 @@
     "name": "Caisse d'épargne (Particuliers)",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.caisse-epargne.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "caissedepargne.svg",
     "dataType": [
       "bankAccounts",
@@ -462,7 +462,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.smc.fr/",
     "icon": "smc.png",
-    "category": "banking",
+    "categories": ["banking"],
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -488,7 +488,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-du-nord.fr/",
     "icon": "creditdunord.png",
-    "category": "banking",
+    "categories": ["banking"],
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -513,7 +513,7 @@
     "name": "Crédit Mutuel",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.creditmutuel.fr/groupe/fr/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "credit-mutuel.png",
     "dataType": [
       "bankAccounts",
@@ -621,7 +621,7 @@
     "name": "Compte Nickel",
     "editor": "Cozy Cloud",
     "vendorLink": "https://compte-nickel.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "comptenickel.png",
     "dataType": [
       "bankAccounts",
@@ -647,7 +647,7 @@
     "name": "Crédit Agricole by Cozy",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-agricole.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "ca.png",
     "dataType": [
       "bankAccounts",
@@ -838,7 +838,7 @@
     "slug": "debug",
     "editor": "Cozy Cloud",
     "vendorLink": "http://cozy.io",
-    "category": "other",
+    "categories": ["other"],
     "fields": {
       "login": {
         "type": "text"
@@ -863,7 +863,7 @@
     "name": "Digiposte",
     "editor": "Cozy Cloud",
     "vendorLink": "https://secure.digiposte.fr",
-    "category": "other",
+    "categories": ["other"],
     "dataType": [
       "document"
     ],
@@ -888,7 +888,7 @@
     "name": "EDF",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.edf.fr/",
-    "category": "energy",
+    "categories": ["energy"],
     "dataType": [
       "bill",
       "contract",
@@ -917,7 +917,7 @@
     "name": "Free",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.free.fr/",
-    "category": "isp",
+    "categories": ["isp"],
     "dataType": [
       "bill"
     ],
@@ -942,7 +942,7 @@
     "name": "Free Mobile",
     "editor": "Cozy Cloud",
     "vendorLink": "https://mobile.free.fr/",
-    "category": "telecom",
+    "categories": ["telecom"],
     "dataType": [
       "bill"
     ],
@@ -967,7 +967,7 @@
     "name": "Harmonie Mutuelle",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.harmonie-mutuelle.fr/",
-    "category": "insurance",
+    "categories": ["insurance"],
     "dataType": [
       "bill"
     ],
@@ -992,7 +992,7 @@
     "name": "Hello bank!",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hellobank.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "hellobank.png",
     "dataType": [
       "bankAccounts",
@@ -1018,7 +1018,7 @@
     "name": "HSBC (France)",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "hsbc.svg",
     "dataType": [
       "bankAccounts",
@@ -1044,7 +1044,7 @@
     "name": "ING Direct",
     "editor": "Cozy Cloud",
     "vendorLink": "https://secure.ingdirect.fr/public/displayLogin.jsf",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "ingdirect.png",
     "dataType": [
       "bankAccounts",
@@ -1073,7 +1073,7 @@
     "name": "La Banque Postale (Particuliers)",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.labanquepostale.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "labanquepostale.png",
     "dataType": [
       "bankAccounts",
@@ -1099,7 +1099,7 @@
     "name": "LCL (Particuliers)",
     "editor": "Cozy Cloud",
     "vendorLink": "https://particuliers.secure.lcl.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1125,7 +1125,7 @@
     "name": "e.LCL",
     "editor": "Cozy Cloud",
     "vendorLink": "https://e.lcl.fr/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1151,7 +1151,7 @@
     "name": "LCL (Professionnels)",
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.secure.lcl.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1178,7 +1178,7 @@
     "name": "MAIF",
     "editor": "Cozy Cloud",
     "vendorLink": "maif.fr",
-    "category": "insurance",
+    "categories": ["insurance"],
     "fields": {
       "access_token": {
         "type": "hidden"
@@ -1199,7 +1199,7 @@
     "name": "Malakoff Mederic",
     "editor": "Cozy Cloud",
     "vendorLink": "http://www.malakoffmederic.com/",
-    "category": "insurance",
+    "categories": ["insurance"],
     "dataType": [
       "bill"
     ],
@@ -1228,7 +1228,7 @@
     "name": "Materiel.net",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.materiel.net/",
-    "category": "shopping",
+    "categories": ["shopping"],
     "fields": {
       "login": {
         "type": "text"
@@ -1253,7 +1253,7 @@
     "name": "MGEN",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.mgen.fr",
-    "category": "insurance",
+    "categories": ["insurance"],
     "dataType": [
       "bill",
       "certificate"
@@ -1279,7 +1279,7 @@
     "name": "Monabanq",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.monabanq.com/client/",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "monabanq.png",
     "dataType": [
       "bankAccounts",
@@ -1305,7 +1305,7 @@
     "name": "Numéricable",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.numericable.fr/",
-    "category": "isp",
+    "categories": ["isp"],
     "dataType": [
       "bill"
     ],
@@ -1330,7 +1330,7 @@
     "name": "Orange Factures",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.orange.fr/",
-    "category": "telecom",
+    "categories": ["telecom", "isp"],
     "dataType": [
       "bill"
     ],
@@ -1357,7 +1357,7 @@
     "name": "Orange Vidéos",
     "editor": "Orange",
     "vendorLink": "https://www.orange.fr/",
-    "category": "isp",
+    "categories": ["isp"],
     "dataType": [
       "videostream"
     ],
@@ -1382,7 +1382,7 @@
     "name": "Orange Mobile – Appels & Géoloc",
     "editor": "Orange",
     "vendorLink": "https://www.orange.fr/",
-    "category": "telecom",
+    "categories": ["telecom"],
     "dataType": [
       "geopoint",
       "phonecommunicationlog"
@@ -1412,7 +1412,7 @@
     "name": "SFR RED box",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.red-by-sfr.fr/",
-    "category": "isp",
+    "categories": ["isp"],
     "dataType": [
       "bill"
     ],
@@ -1437,7 +1437,7 @@
     "name": "SFR RED mobile",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.red-by-sfr.fr/",
-    "category": "telecom",
+    "categories": ["telecom"],
     "dataType": [
       "bill"
     ],
@@ -1462,7 +1462,7 @@
     "name": "SFR Box",
     "editor": "Cozy Cloud",
     "vendorLink": "espace-client.sfr.fr/facture-fixe/consultation",
-    "category": "isp",
+    "categories": ["isp"],
     "fields": {
       "login": {
         "type": "text"
@@ -1487,7 +1487,7 @@
     "name": "SFR Mobile",
     "editor": "Cozy Cloud",
     "vendorLink": "espace-client.sfr.fr/facture-mobile/consultation",
-    "category": "telecom",
+    "categories": ["telecom"],
     "fields": {
       "login": {
         "type": "text"
@@ -1512,7 +1512,7 @@
     "name": "Oui.sncf",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.voyages-sncf.com/",
-    "category": "transport",
+    "categories": ["transport"],
     "dataType": [
       "bill"
     ],
@@ -1537,7 +1537,7 @@
     "name": "Société Générale",
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.societegenerale.fr",
-    "category": "banking",
+    "categories": ["banking"],
     "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",
@@ -1586,7 +1586,7 @@
     "name": "Sosh",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.sosh.fr/",
-    "category": "telecom",
+    "categories": ["telecom"],
     "dataType": [
       "bill"
     ],
@@ -1611,7 +1611,7 @@
     "name": "Trainline",
     "editor": "Cozy Cloud",
     "vendorLink": "www.trainline.fr",
-    "category": "transport",
+    "categories": ["transport"],
     "fields": {
       "login": {
         "type": "text"

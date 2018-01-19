@@ -29,8 +29,8 @@ export const getRegistryKonnectors = state =>
 
 export const getRegistryKonnectorsByCategory = (state, category) =>
   category
-    ? Object.values(state.konnectors.data).filter(
-        konnector => konnector.category === category
+    ? Object.values(state.konnectors.data).filter(konnector =>
+        konnector.categories.includes(category)
       )
     : getRegistryKonnectors(state)
 
