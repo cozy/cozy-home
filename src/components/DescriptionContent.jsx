@@ -7,7 +7,8 @@ export const DescriptionContent = ({
   cssClassesObject,
   title,
   messages,
-  children
+  children,
+  hasError
 }) => {
   return (
     <div className={classNames(cssClassesObject)}>
@@ -16,7 +17,12 @@ export const DescriptionContent = ({
         messages.length > 0 &&
         messages.map(m => {
           return (
-            <p className="col-account-description-message">
+            <p
+              className={classNames(
+                'col-account-description-message',
+                hasError && 'errors'
+              )}
+            >
               <ReactMarkdownWrapper source={m} />
             </p>
           )
