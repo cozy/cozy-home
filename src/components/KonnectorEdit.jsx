@@ -66,7 +66,7 @@ export const KonnectorEdit = ({
   editing,
   isFetching,
   isUnloading,
-  lastExecution,
+  lastSuccess,
   oAuthTerminated,
   folders,
   closeModal,
@@ -119,7 +119,7 @@ export const KonnectorEdit = ({
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
             <KonnectorSync
               frequency="week" // hardcoded until further implementation
-              lastSyncDate={lastExecution}
+              lastSuccessDate={lastSuccess}
               submitting={submitting}
               onForceConnection={onForceConnection}
             />

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom'
 import { getAccount } from '../ducks/accounts'
 import {
   endConnectionCreation,
-  getTriggerLastExecution,
+  getTriggerLastSuccess,
   isConnectionRunning,
   isCreatingConnection,
   startConnectionCreation
@@ -210,7 +210,7 @@ const mapStateToProps = (state, ownProps) => {
     isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
-    lastExecution: getTriggerLastExecution(state.cozy, trigger),
+    lastSuccess: getTriggerLastSuccess(state.cozy, trigger),
     trigger
   }
 }

@@ -497,11 +497,12 @@ export const getTriggerIdByKonnectorAndAccount = (
       account._id
   )
 
-export const getTriggerLastExecution = (state, trigger) => {
+export const getTriggerLastSuccess = (state, trigger) => {
   const lastJob = getTriggerLastJob(state, trigger)
-  if (lastJob) return lastJob.started_at
+  const lastJobIsSuccess = lastJob && lastJob.state === 'done'
+  if (lastJobIsSuccess) return lastJob.started_at
   return (
-    !!trigger && !!trigger.current_state && trigger.current_state.last_execution
+    !!trigger && !!trigger.current_state && trigger.current_state.last_success
   )
 }
 
