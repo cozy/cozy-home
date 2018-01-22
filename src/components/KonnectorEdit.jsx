@@ -118,7 +118,7 @@ export const KonnectorEdit = ({
         <TabPanels>
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
             <KonnectorSync
-              frequency="week" // hardcoded until further implementation
+              frequency={connector.frequency || 'weekly'}
               lastSuccessDate={lastSuccess}
               submitting={submitting}
               onForceConnection={onForceConnection}
