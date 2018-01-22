@@ -15,14 +15,14 @@ export const KonnectorSync = ({
   t,
   f,
   frequency,
-  lastSyncDate,
+  lastSuccessDate,
   submitting,
   onForceConnection
 }) => {
   const lastSyncMessage =
     (submitting && t('account.message.synced.syncing')) ||
-    (!lastSyncDate && t('account.message.synced.unknown')) ||
-    (lastSyncDate && getDateLabel({ date: lastSyncDate, t, f })) ||
+    (!lastSuccessDate && t('account.message.synced.unknown')) ||
+    (lastSuccessDate && getDateLabel({ date: lastSuccessDate, t, f })) ||
     null
   return (
     <div>

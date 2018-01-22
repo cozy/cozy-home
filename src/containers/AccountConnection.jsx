@@ -317,7 +317,7 @@ class AccountConnection extends Component {
       isSuccess,
       deleting,
       konnector,
-      lastExecution,
+      lastSuccess,
       error,
       forceConnection,
       isRunning,
@@ -367,7 +367,7 @@ class AccountConnection extends Component {
             folders={folders}
             fields={fields}
             isUnloading={isUnloading}
-            lastExecution={lastExecution}
+            lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
             onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
