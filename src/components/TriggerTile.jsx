@@ -11,11 +11,7 @@ import { getConnectionStatusForTrigger } from '../ducks/connections'
 import Tile from './Tile'
 
 const TriggerTile = props => (
-  <Tile
-    route={`${props.konnector.slug}/${props.account._id}`}
-    subtitle={getAccountName(props.account)}
-    {...props}
-  />
+  <Tile subtitle={getAccountName(props.account)} {...props} />
 )
 
 const svgIcon = name => (

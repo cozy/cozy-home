@@ -9,7 +9,7 @@ import KonnectorList from './KonnectorList'
 import { getRegistryKonnectorsByCategory } from '../ducks/registry'
 import ConnectionManagement from '../containers/ConnectionManagement'
 
-const CategoryList = ({ t, category, categories, connectors }) => (
+const CategoryList = ({ t, category, categories, connectors, location }) => (
   <div className="content">
     <div className="col-top-bar">
       <h1 className="col-top-bar-title">
@@ -18,7 +18,11 @@ const CategoryList = ({ t, category, categories, connectors }) => (
           : t(`category.${category}`)}
       </h1>
     </div>
-    <KonnectorList konnectors={connectors} showVoting />
+    <KonnectorList
+      base={`${location.pathname}`}
+      konnectors={connectors}
+      showVoting
+    />
     <Route
       path="/providers/:filter/:konnectorSlug"
       render={props => (

@@ -33,7 +33,7 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connections } = this.props
+    const { base, t, connections } = this.props
     return (
       <div className="content">
         <div className="col-top-bar" data-tutorial="top-bar">
@@ -49,11 +49,12 @@ class ConnectedList extends Component {
         </div>
         {connections.length ? (
           <div className="connector-list">
-            {connections.map(connection => (
+            {connections.map(({ account, konnector, trigger }) => (
               <TriggerTile
-                konnector={connection.konnector}
-                trigger={connection.trigger}
-                account={connection.account}
+                konnector={konnector}
+                trigger={trigger}
+                account={account}
+                route={`${base}/${konnector.slug}/${account._id}`}
               />
             ))}
           </div>
