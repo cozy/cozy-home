@@ -24,8 +24,10 @@ class Item extends Component {
       })
     }, 25)
   }
-  componentDidUpdate = prevProps => {
-    if (prevProps.status !== this.props.status) {
+  componentDidUpdate = () => {
+    // If the status of the konnector is not 'ongoing', we remove the progressBar
+    const updatedStatus = this.props.status
+    if (updatedStatus !== 'ongoing') {
       clearInterval(this.myInterval)
       this.progressBar.remove()
     }
