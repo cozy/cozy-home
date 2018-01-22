@@ -53,7 +53,12 @@ class App extends Component {
         <main className="col-content">
           <div role="contentinfo">
             <Switch>
-              <Route path="/connected" component={ConnectedList} />
+              <Route
+                path="/connected"
+                component={props => (
+                  <ConnectedList {...props} base="/connected" />
+                )}
+              />
               <Route
                 path="/providers/:filter"
                 render={props => (

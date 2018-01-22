@@ -5,7 +5,7 @@ import { popupCenter } from '../lib/popup'
 
 const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
 
-const KonnectorList = ({ t, konnectors, showVoting = false }) => (
+const KonnectorList = ({ base, t, konnectors, showVoting = false }) => (
   <div className="connector-list">
     {konnectors.map(konnector => {
       const categories = konnector.categories.map(category =>
@@ -15,7 +15,7 @@ const KonnectorList = ({ t, konnectors, showVoting = false }) => (
         <KonnectorTile
           konnector={konnector}
           subtitle={categories.join(', ')}
-          route={`${konnector.slug}`}
+          route={`${base}/${konnector.slug}`}
         />
       )
     })}

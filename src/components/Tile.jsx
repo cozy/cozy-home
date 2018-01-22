@@ -4,10 +4,10 @@ import { getKonnectorIcon } from '../lib/icons'
 import { translate } from 'cozy-ui/react/I18n'
 
 const Tile = props => {
-  const { footer, konnector, route, location, subtitle, t } = props
+  const { footer, konnector, route, subtitle, t } = props
   const { name } = konnector
   return (
-    <NavLink className="item-wrapper" to={`${location.pathname}/${route}`}>
+    <NavLink className="item-wrapper" to={route}>
       <header className="item-header">
         <img
           className="item-icon"
