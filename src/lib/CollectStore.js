@@ -126,7 +126,7 @@ export default class CollectStore {
 
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
-  connectAccount(konnector, account, disableEnqueue, enqueueAfter = 7000) {
+  connectAccount(konnector, account, disableEnqueue, enqueueAfter = 10000) {
     const startTime = new Date().getTime()
 
     // return object to store all business object implied in the connection
@@ -271,7 +271,13 @@ export default class CollectStore {
    * @param {Boolean} disableEnqueue Boolean to disable a success timeout in the run method. Used by example by the onboarding
    * @returns The run result or a resulting error
    */
-  runAccount(trigger, connector, account, disableEnqueue, enqueueAfter = 7000) {
+  runAccount(
+    trigger,
+    connector,
+    account,
+    disableEnqueue,
+    enqueueAfter = 10000
+  ) {
     // TODO: mutualize this part with connectAccount
     return this.dispatch(launchTriggerAndQueue(trigger))
   }

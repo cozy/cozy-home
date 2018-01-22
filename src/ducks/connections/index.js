@@ -317,7 +317,7 @@ export const deleteConnection = trigger => {
   }
 }
 
-export const launchTriggerAndQueue = (trigger, delay = 7000) => (
+export const launchTriggerAndQueue = (trigger, delay = 10000) => (
   dispatch,
   getState,
   options
