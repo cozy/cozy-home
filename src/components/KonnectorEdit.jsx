@@ -18,6 +18,7 @@ const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
     title={t(`connection.error.${errorMessage}.title`)}
+    hasError
     messages={[
       t(`connection.error.${errorMessage}.description`, {
         name: connector.name,
@@ -31,6 +32,7 @@ const GlobalErrorDescription = ({ t, connector }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
     title={t('connection.error.default.title')}
+    hasError
     messages={[
       t('connection.error.default.description', { name: connector.name })
     ]}
