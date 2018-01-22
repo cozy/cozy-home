@@ -53,6 +53,7 @@ export const KonnectorInstall = ({
             <DescriptionContent
               cssClassesObject={{ 'coz-error': true }}
               title={t('connection.error.default.title')}
+              hasError
               messages={[
                 t('connection.error.default.description', {
                   name: connector.name
