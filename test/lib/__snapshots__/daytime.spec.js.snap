@@ -13,10 +13,6 @@ exports[`daytime library randomDayTime throws error on inconsistent start hour 1
 
 exports[`daytime library randomDayTime throws error on incorrect maximal hour 1`] = `"randomize function returns inconsistent hour value"`;
 
-exports[`daytime library randomDayTime throws error on incorrect maximal minute 1`] = `"randomize function returns inconsistent minute value"`;
-
-exports[`daytime library randomDayTime throws error on incorrect minimal minute 1`] = `"randomize function returns inconsistent minute value"`;
-
 exports[`daytime library randomDayTime throws error when interval is malformed 1`] = `"interval must contain two values"`;
 
 exports[`daytime library randomDayTime throws error when interval is not an array 1`] = `"interval must be an array"`;

@@ -23,7 +23,6 @@ const Field = props => {
       type,
       placeholder,
       value,
-      pattern,
       onChange,
       onBlur,
       onInput,
@@ -44,7 +43,6 @@ const Field = props => {
         isRequired={isRequired}
         value={value}
         name={name}
-        pattern={pattern || false}
         onChange={onChange}
         onBlur={onBlur}
         onInput={onInput}
@@ -64,7 +62,7 @@ const Field = props => {
 
 export default Field
 
-export class FieldWrapper extends Component {
+class FieldWrapperComponent extends Component {
   componentDidMount() {
     if (this.props.giveFocus)
       ReactDOM.findDOMNode(this)
@@ -85,7 +83,7 @@ export class FieldWrapper extends Component {
       <div
         className={classNames(
           styles['coz-field'],
-          hasErrored && styles['coz-field--error']
+          hasErrored && isRequired && styles['coz-field--error']
         )}
         onKeyUp={type !== 'folder' && this.props.onEnterKey && this.handleKeyUp}
       >
@@ -93,8 +91,8 @@ export class FieldWrapper extends Component {
           <label>
             {label}
             {!isRequired && (
-              <span className={styles['coz-field--optionnal']}>
-                {t('account.config.optionnal')}
+              <span className={styles['coz-field--optional']}>
+                {t('account.config.optional')}
               </span>
             )}
           </label>
@@ -110,6 +108,8 @@ export class FieldWrapper extends Component {
     )
   }
 }
+
+export const FieldWrapper = translate()(FieldWrapperComponent)
 
 export const PasswordField = translate()(
   statefulComponent(
@@ -129,7 +129,6 @@ export const PasswordField = translate()(
       onChange,
       onBlur,
       onInput,
-      pattern,
       toggleVisibility,
       visible,
       name,
@@ -141,7 +140,6 @@ export const PasswordField = translate()(
       <FieldWrapper giveFocus={props.type !== 'hidden' && giveFocus} {...props}>
         <button
           type="button"
-          tabIndex="-1"
           title={
             visible
               ? t('field.password.visibility.title.hide')
@@ -160,7 +158,6 @@ export const PasswordField = translate()(
           className={styles['coz-field-input']}
           value={value}
           name={name}
-          pattern={pattern || false}
           onChange={onChange}
           onInput={onInput}
           onBlur={onBlur}
@@ -186,57 +183,16 @@ export const DropdownField = translate()(props => {
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
-            value={optionValue.value}
+            value={optionValue.value || (props.default && props.default.value)}
             selected={optionValue.value === { value }}
           >
-            {optionValue.name}
+            {optionValue.name || (props.default && props.default.name)}
           </option>
         ))}
       </select>
     </FieldWrapper>
   )
 })
-
-class FolderPickerFieldComponent extends Component {
-  constructor(props, context) {
-    super(props)
-    this.store = context.store
-    this.state = { isFetching: true, foldersList: [{ path: props.value }] }
-    this.store.fetchFolders().then(folders => {
-      const foldersList = folders.find(f => f.path === props.value)
-        ? folders
-        : [{ path: props.value }].concat(folders)
-      this.setState({
-        isFetching: false,
-        foldersList
-      })
-    })
-  }
-
-  render() {
-    const { value, onChange, onInput, disabled } = this.props
-    const { isFetching, foldersList } = this.state
-    return (
-      <FieldWrapper {...this.props}>
-        <select
-          className={styles['coz-field-dropdown']}
-          value={isFetching ? 'loading' : value}
-          onChange={onChange}
-          onInput={onInput}
-          aria-busy={isFetching}
-          disabled={disabled || isFetching}
-        >
-          {foldersList.map(folder => (
-            <option value={folder.path} selected={folder.path === value}>
-              {folder.path}
-            </option>
-          ))}
-        </select>
-      </FieldWrapper>
-    )
-  }
-}
-export const FolderPickerField = translate()(FolderPickerFieldComponent)
 
 export const CheckboxField = translate()(props => {
   const { value, onChange, onInput, label, errors } = props

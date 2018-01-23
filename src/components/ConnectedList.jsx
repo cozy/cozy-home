@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 
 import Icon from 'cozy-ui/react/Icon'
+import { connect } from 'react-redux'
+import { Route, NavLink } from 'react-router-dom'
+import { getConnections } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
-import KonnectorList from './KonnectorList'
+import TriggerTile from './TriggerTile'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
+import ConnectionManagement from '../containers/ConnectionManagement'
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -29,22 +32,29 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectors, children } = this.props
+    const { base, t, connections } = this.props
     return (
       <div className="content">
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {connectors.length > 0 && (
-            <Link to="/providers/all">
-              <button className="coz-btn coz-btn--regular">
-                <Icon icon={addAccountIcon} className="col-icon--add" />{' '}
-                {t('add_account')}
-              </button>
-            </Link>
+          {connections.length > 0 && (
+            <NavLink to="/providers/all" className="col-add-button">
+              <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
+              {t('add_account')}
+            </NavLink>
           )}
         </div>
-        {connectors.length ? (
-          <KonnectorList connectors={connectors} />
+        {connections.length ? (
+          <div className="connector-list">
+            {connections.map(({ account, konnector, trigger }) => (
+              <TriggerTile
+                konnector={konnector}
+                trigger={trigger}
+                account={account}
+                route={`${base}/${konnector.slug}/${account._id}`}
+              />
+            ))}
+          </div>
         ) : (
           <div className="col-picture-for-emtpy-list">
             <img
@@ -56,18 +66,27 @@ class ConnectedList extends Component {
             <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
-              <Link to="/providers/all">
-                <button className="coz-btn coz-btn--regular">
-                  {t('connector.connect-account')}
-                </button>
-              </Link>
+              <NavLink to="/providers/all" className="col-add-button">
+                {t('connector.connect-account')}
+              </NavLink>
             </div>
           </div>
         )}
-        {children}
+        <Route
+          path="/connected/:konnectorSlug/:accountId"
+          render={props => (
+            <ConnectionManagement originPath="/connected" {...props} />
+          )}
+        />
       </div>
     )
   }
 }
 
-export default translate()(ConnectedList)
+const mapStateToProps = (state, ownProps) => {
+  return {
+    connections: getConnections(state)
+  }
+}
+
+export default connect(mapStateToProps)(translate()(ConnectedList))

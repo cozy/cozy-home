@@ -23,7 +23,7 @@ $item-margin = .8em
     background-color white
     border           1px solid alpha(black, .15)
     margin           $item-real-margin
-    padding-bottom   1em
+    padding-bottom   2.5em
     cursor           pointer
     text-decoration  none
     text-align       center
@@ -46,28 +46,35 @@ $item-margin = .8em
             top           50%
             transform     translateY(-50%)
     .item-title
-    .use-case-title
         padding     0 .5em
         margin      .5em
         color       black
         font-size   em(20px)
         font-weight 700
-    .use-case-title
-        font-weight 500
-        font-size   em(18px)
-        text-align  left
-        margin-top  1em
     .item-subtitle
-        font-size 14px
-        padding   0 1em
-        margin    0 .5em
-        color     grey-06
-    .item-status-icon
+        font-size       14px
+        padding         0 3em
+        width           100%
+        overflow        hidden
+        margin          0
+        color           coolGrey
+        box-sizing      border-box
+        position        absolute
+        text-overflow   ellipsis
+        white-space     nowrap
+    .item-status-icon,
+    .item-count
         position absolute
         width    24px
         height   24px
         bottom   1em
         right    1em
+    .item-count
+        border-radius 100%
+        color   dodgerBlue
+        font-weight 900
+        background rgba(41, 126, 242, .1)
+        line-height 24px
 
 .col-voting-item
     border      2px dashed alpha(black, .15)

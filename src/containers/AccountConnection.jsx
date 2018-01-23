@@ -1,12 +1,26 @@
+/* global cozy */
 import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
-import ClassNames from 'classnames'
+import { connect } from 'react-redux'
+import {
+  deleteConnection,
+  getConnectionError,
+  isConnectionConnected,
+  isConnectionDeleting,
+  isConnectionEnqueued,
+  launchTriggerAndQueue
+} from '../ducks/connections'
+import { fetchAccount } from '../ducks/accounts'
+import classNames from 'classnames'
+
+import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import { getKonnectorIcon } from '../lib/icons'
+import { popupCenter, waitForClosedPopup } from '../lib/popup'
+import statefulForm from '../lib/statefulForm'
 
 const SUCCESS_TYPES = {
   UPDATE: 'update',
@@ -18,81 +32,86 @@ class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
-    const konnector = props.connector
-    this.state = {
-      account: this.props.existingAccount,
-      editing: !!this.props.existingAccount,
-      success: null,
-      submitting: this.store.isConnectionStatusRunning(konnector),
-      error: this.props.error || this.store.getConnectionError(konnector)
-    }
 
     if (this.props.error) this.handleError({ message: this.props.error })
 
-    this.connectionListener = status => {
+    this.state = {
+      account: this.props.existingAccount,
+      editing: !!this.props.existingAccount,
+      isFetching: false
+    }
+    // TODO : Add updateFields
+    if (props.fields.folderPath) this.fetchFolders()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { existingAccount, success } = nextProps
+
+    const hasJustSucceed = !this.props.success && success
+    const accountHasJustBeenCreated =
+      !this.props.existingAccount && !!existingAccount
+
+    if (hasJustSucceed && this.props.onSuccess) {
+      this.props.onSuccess(this.state.account)
+    }
+
+    if (accountHasJustBeenCreated) {
       this.setState({
-        submitting: this.store.isConnectionStatusRunning(this.props.connector),
-        error: this.store.getConnectionError(this.props.connector),
-        // dirty hack waiting for better account management in store
-        lastSync: Date.now()
+        account: existingAccount
       })
     }
-
-    this.store.addConnectionStatusListener(konnector, this.connectionListener)
   }
 
-  getFolderPathIfNecessary(connector, account) {
-    const { t } = this.context
-    const folderField =
-      connector && connector.fields && connector.fields.folderPath
-    if (!folderField) return null
+  fetchFolders() {
+    const { fields, values, editing, t } = this.props
+    fields.namePath.placeholder = t('account.form.placeholder.namePath')
+    // Fetch Folders
 
-    const auth = account && account.auth
-    if (auth && auth.folderPath) {
-      return auth.folderPath
-    }
-
-    return folderField.default || t('account.config.default_folder', connector)
-  }
-
-  componentWillReceiveProps({ existingAccount }) {
-    this.setState({
-      account: existingAccount
-    })
-  }
-
-  componentWillUnmount() {
-    this.store.removeConnectionStatusListener(
-      this.props.connector,
-      this.connectionListener
-    )
+    this.setState({ isFetching: true })
+    this.store
+      .fetchFolders()
+      .then(folders => {
+        this.setState({ folders: folders })
+        fields.folderPath.options = []
+        folders.map(folder => {
+          if (`${values.folderPath}/${values.namePath}` !== folder.path) {
+            fields.folderPath.options.push({
+              name: folder.path,
+              path: folder.path
+            })
+          }
+        })
+        // Add default folder path for installation
+        !editing &&
+          fields.folderPath.options.push({
+            name: values.folderPath,
+            path: values.folderPath
+          })
+      })
+      .then(() => this.setState({ isFetching: false }))
   }
 
   connectAccount(auth) {
-    const { folderPath } = auth
-    const { connector } = this.props
+    const { konnector } = this.props
     let { account } = this.state
 
     if (account) {
-      return this.updateAccount(connector, account, auth)
+      return this.updateAccount(konnector, account, {
+        ...auth
+      })
     }
 
     account = {
       auth
     }
 
-    this.setState({ account: account })
-
-    return this.runConnection(account, folderPath)
-      .then(connection => {
-        this.handleConnectionSuccess(connection.successTimeout)
-      })
-      .catch(error => this.handleError(error))
+    return this.runConnection(account).catch(error => this.handleError(error))
   }
 
   connectAccountOAuth(accountType, values, scope) {
     this.setState({
       submitting: true,
+      oAuthError: null,
       oAuthTerminated: false
     })
 
@@ -110,51 +129,37 @@ class AccountConnection extends Component {
         return this.terminateOAuth(accountID, values)
       })
       .catch(error => {
-        this.setState({ submitting: false, error: error.message })
+        this.setState({ submitting: false, oAuthError: error.message })
       })
   }
 
   terminateOAuth(accountID, accountValues) {
-    const { slug } = this.props.connector
-
     this.setState({
       oAuthTerminated: true
     })
 
-    return this.store.fetchKonnectorInfos(slug).then(konnector => {
-      return this.store
-        .fetchAccounts(slug)
-        .then(accounts => {
-          konnector.accounts = accounts
-          const currentIdx = accounts.findIndex(a => a._id === accountID)
-          // get all properties except folderPath in newValues
-          const { folderPath, ...newValues } = accountValues
-          const account = Object.assign({}, accounts[currentIdx], {
-            auth: newValues
-          })
-          this.setState({ account: account })
-          return this.runConnection(account, folderPath).then(connection => {
-            this.setState({
-              connector: konnector,
-              isConnected: konnector.accounts.length !== 0,
-              selectedAccount: currentIdx,
-              submitting: false
-            })
-            this.handleConnectionSuccess(connection.successTimeout)
+    this.props
+      .fetchAccount(accountID)
+      .then(account => {
+        const { konnector } = this.props
+        this.setState({ account: account })
+        return this.runConnection(account).then(connection => {
+          this.setState({
+            connector: konnector,
+            submitting: false
           })
         })
-        .catch(error => this.handleError(error))
-    })
+      })
+      .catch(error => this.handleError(error))
   }
 
-  runConnection(account, folderPath) {
-    this.setState({ submitting: true })
+  runConnection(account) {
+    this.setState({ submitting: true, connectionError: null })
 
     return this.store
       .connectAccount(
-        this.props.connector,
+        this.props.konnector,
         account,
-        folderPath,
         this.props.disableSuccessTimeout
       )
       .then(connection => {
@@ -182,81 +187,39 @@ class AccountConnection extends Component {
       .updateAccount(connector, account, values)
       .then(account => {
         this.setState({ account: account })
-        return this.store.runAccount(
-          connector,
-          account,
-          this.props.disableSuccessTimeout
-        )
+        return this.store
+          .runAccount(
+            this.props.trigger,
+            connector,
+            account,
+            this.props.disableSuccessTimeout
+          )
+          .then(() => {
+            this.setState({
+              submitting: false
+            })
+          })
       })
-      .then(() => this.handleUpdateSuccess())
       .catch(error => this.handleError(error))
   }
 
-  deleteAccount() {
-    // FIXME: disable unused account constant, see below
-    // const { account } = this.state
-    this.setState({ deleting: true })
-    // FIXME: We're supposed to remove only the current account
-    // but still we doesn't support the multi-account, we choose to remove all
-    // existing accounts, in case of duplicates.
-    this.store
-      .deleteAccounts(this.props.connector /*, account */)
+  deleteConnection() {
+    return this.props
+      .deleteConnection()
       .then(() => this.handleDeleteSuccess())
       .catch(error => this.handleError(error))
   }
 
   handleDeleteSuccess() {
     this.setState({
-      submitting: false,
-      deleting: false,
-      error: null,
-      success: null // exception for the delete success which uses alerts
+      submitting: false
     })
 
-    this.props.alertSuccess([{ message: 'account.message.success.delete' }])
-  }
-
-  handleConnectionSuccess(successTimeout) {
-    const { t } = this.context
-    const messages = [
-      t('account.message.success.connect', { name: this.props.connector.name })
-    ]
-    if (successTimeout) {
-      return this.handleSuccess(SUCCESS_TYPES.TIMEOUT, messages)
-    } else {
-      return this.handleSuccess(SUCCESS_TYPES.CONNECT, messages)
+    if (typeof this.props.alertDeleteSuccess === 'function') {
+      this.props.alertDeleteSuccess([
+        { message: 'account.message.success.delete' }
+      ])
     }
-  }
-
-  handleUpdateSuccess() {
-    const { t } = this.context
-    const messages = [
-      t('account.message.success.update', { name: this.props.connector.name })
-    ]
-    this.handleSuccess(SUCCESS_TYPES.UPDATE, messages)
-  }
-
-  handleSuccess(type, messages = []) {
-    const { t } = this.context
-    if (
-      this.props.connector.additionnalSuccessMessage &&
-      this.props.connector.additionnalSuccessMessage.message
-    ) {
-      messages.push(t(this.props.connector.additionnalSuccessMessage.message))
-    }
-
-    // when service usage
-    if (this.props.onSuccess) return this.props.onSuccess(this.state.account)
-
-    this.setState({
-      submitting: false,
-      deleting: false,
-      error: null,
-      success: {
-        type,
-        messages
-      }
-    })
   }
 
   handleError(error) {
@@ -264,110 +227,194 @@ class AccountConnection extends Component {
 
     this.setState({
       submitting: false,
-      deleting: false,
-      error: error,
-      success: null
+      connectionError: error.message
     })
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
-  submit(values) {
-    this.setState({
-      error: null
-    })
-
-    return this.props.connector && this.props.connector.oauth
+  onSubmit = () => {
+    const { values, konnector } = this.props
+    const { account } = this.state
+    const valuesToSubmit = Object.assign({}, values)
+    // namePath defined by the user is concatened with the folderPath
+    if (valuesToSubmit.folderPath) {
+      if (valuesToSubmit.namePath) {
+      } else {
+        valuesToSubmit.namePath =
+          valuesToSubmit.accountName ||
+          valuesToSubmit.identifier ||
+          valuesToSubmit.login ||
+          valuesToSubmit.email ||
+          konnector.name
+      }
+      valuesToSubmit.namePath = valuesToSubmit.namePath.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
+      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${valuesToSubmit.namePath}`
+    }
+    // Update the path if the name path is the account name
+    const folderId =
+      this.props.trigger && this.props.trigger.message.folder_to_save
+    if (
+      account &&
+      account.auth.accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
+        account.auth.namePath &&
+      account.auth.accountName !== valuesToSubmit.accountName
+    ) {
+      cozy.client.files.updateAttributesById(folderId, {
+        name: valuesToSubmit.accountName
+      })
+      valuesToSubmit.namePath = valuesToSubmit.accountName.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
+    }
+    // Update account
+    return konnector && konnector.oauth
       ? this.connectAccountOAuth(
-          this.props.connector.slug,
-          values,
-          this.props.connector.oauth_scope
+          konnector.slug,
+          valuesToSubmit,
+          konnector.oauth_scope
         )
-      : this.connectAccount(values)
+      : this.connectAccount(valuesToSubmit)
   }
 
   cancel() {
     this.props.onCancel()
   }
 
-  forceConnection() {
-    this.setState({ submitting: true })
-    this.store
-      .runAccount(this.props.connector, this.state.account)
-      .then(() => this.setState({ submitting: false }))
-      .catch(error => this.handleError(error))
+  buildSuccessMessages(konnector) {
+    const { t } = this.context
+    const messages = [
+      t('account.message.success.connect', {
+        name: konnector.name
+      })
+    ]
+
+    if (
+      konnector.additionnalSuccessMessage &&
+      konnector.additionnalSuccessMessage.message
+    ) {
+      messages.push(t(konnector.additionnalSuccessMessage.message))
+    }
+
+    return messages
   }
 
   render() {
-    const { connector, disableSuccessTimeout, fields, isUnloading } = this.props
+    const {
+      createdAccount,
+      disableSuccessTimeout,
+      isUnloading,
+      onNext,
+      allRequiredFieldsAreFilled,
+      displayAdvanced,
+      toggleAdvanced,
+      dirty,
+      isValid,
+      fields,
+      isSuccess,
+      deleting,
+      konnector,
+      lastSuccess,
+      error,
+      forceConnection,
+      isRunning,
+      queued,
+      t,
+      trigger,
+      success,
+      closeModal,
+      successButtonLabel
+    } = this.props
     const {
       account,
-      deleting,
+      connectionError,
       editing,
-      error,
+      oAuthError,
       oAuthTerminated,
       submitting,
-      success
+      isFetching,
+      folders
     } = this.state
     const { driveUrl } = this.store
-    const lastSync = this.state.lastSync || (account && account.lastSync)
-    const folderPath = this.getFolderPathIfNecessary(connector, account)
-    if (fields.folderPath && !fields.folderPath.default)
-      fields.folderPath.default = folderPath
     const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
-
+    const successMessages =
+      success || queued ? this.buildSuccessMessages(konnector) : []
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
           <img
-            className={ClassNames(
+            className={classNames(
               styles['col-account-connection-icon'],
               'col-account-connection-icon'
             )}
-            src={getKonnectorIcon(connector)}
+            src={getKonnectorIcon(konnector)}
           />
         </div>
 
-        {// Properly loed the edit view orthe initial config view
-        editing ? (
+        {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
+            isFetching={isFetching}
             account={account}
-            connector={connector}
+            editing={editing}
+            connector={konnector}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
-            error={error}
+            error={error || oAuthError || connectionError}
+            folders={folders}
             fields={fields}
-            folderPath={folderPath}
             isUnloading={isUnloading}
-            lastSync={lastSync}
+            lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
             onCancel={() => this.cancel()}
-            onDelete={() => this.deleteAccount()}
-            onForceConnection={() => this.forceConnection()}
-            onSubmit={values =>
-              this.connectAccount(Object.assign(values, { folderPath }))}
-            submitting={submitting}
+            onDelete={() => this.deleteConnection()}
+            onForceConnection={forceConnection}
+            onSubmit={this.onSubmit}
+            submitting={submitting || isRunning}
+            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+            isValid={isValid}
             success={success}
+            trigger={trigger}
+            closeModal={closeModal}
+            dirty={dirty}
           />
         ) : (
           <KonnectorInstall
-            account={account}
-            connector={connector}
+            isFetching={isFetching}
+            account={createdAccount}
+            connector={konnector}
+            isValid={isValid}
+            dirty={dirty}
+            isSuccess={isSuccess}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
-            error={error}
+            error={error || oAuthError || connectionError}
             fields={fields}
-            folderPath={folderPath}
-            forceDisabled={oAuthTerminated}
             isTimeout={isTimeout}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
+            onNext={onNext}
             onCancel={() => this.cancel()}
-            onDelete={() => this.deleteAccount()}
-            onSubmit={values => this.submit(values)}
-            submitting={submitting}
-            success={success}
+            onDelete={() => this.deleteConnection()}
+            onSubmit={() => this.onSubmit()}
+            submitting={submitting || isRunning}
+            success={success || queued}
+            successMessage={t(
+              queued
+                ? 'account.success.title.timeout'
+                : 'account.success.title.connect',
+              { name: konnector.name }
+            )}
+            successButtonLabel={successButtonLabel}
+            successMessages={successMessages}
+            trigger={trigger}
+            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+            displayAdvanced={displayAdvanced}
+            toggleAdvanced={toggleAdvanced}
           />
         )}
       </div>
@@ -375,4 +422,23 @@ class AccountConnection extends Component {
   }
 }
 
-export default AccountConnection
+const mapStateToProps = (state, ownProps) => ({
+  success: isConnectionConnected(state.connections, ownProps.trigger),
+  deleting: isConnectionDeleting(state.connections, ownProps.trigger),
+  error: getConnectionError(state.connections, ownProps.trigger),
+  queued: isConnectionEnqueued(state.connections, ownProps.trigger)
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { trigger } = ownProps
+  return {
+    fetchAccount: accountId =>
+      dispatch(fetchAccount(accountId)).then(response => response.data[0]),
+    forceConnection: () => dispatch(launchTriggerAndQueue(trigger)),
+    deleteConnection: () => dispatch(deleteConnection(trigger))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  statefulForm()(translate()(AccountConnection))
+)

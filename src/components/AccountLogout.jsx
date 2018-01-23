@@ -1,6 +1,6 @@
 import React from 'react'
-import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 import styles from '../styles/accountLogout'
 
 export const AccountLogout = ({ t, deleting, onDelete }) => {
@@ -8,18 +8,15 @@ export const AccountLogout = ({ t, deleting, onDelete }) => {
     <div className={styles['col-account-form-delete']}>
       <h4>{t('account.disconnect.title')}</h4>
       <p>{t('account.disconnect.description')}</p>
-      <button
-        className={classNames(
-          'coz-btn',
-          'coz-btn--danger-outline',
-          styles['coz-btn']
-        )}
+      <Button
+        className={styles['coz-btn']}
+        theme="danger-outline"
         disabled={deleting}
-        aria-busy={deleting}
+        busy={deleting}
         onClick={onDelete}
       >
         {t('account.form.button.disconnect')}
-      </button>
+      </Button>
     </div>
   )
 }

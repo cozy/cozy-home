@@ -12,14 +12,17 @@ import KonnectorFolder from './KonnectorFolder'
 import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
+import { getAccountName } from '../lib/helpers'
 
-const NotExistingDirErrorDescription = ({ t, connector }) => (
+const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
-    title={t('connection.error.NOT_EXISTING_DIRECTORY.title')}
+    title={t(`connection.error.${errorMessage}.title`)}
+    hasError
     messages={[
-      t('connection.error.NOT_EXISTING_DIRECTORY.description', {
-        name: connector.name
+      t(`connection.error.${errorMessage}.description`, {
+        name: connector.name,
+        link: connector.vendorLink
       })
     ]}
   />
@@ -29,6 +32,7 @@ const GlobalErrorDescription = ({ t, connector }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
     title={t('connection.error.default.title')}
+    hasError
     messages={[
       t('connection.error.default.description', { name: connector.name })
     ]}
@@ -39,7 +43,8 @@ const getErrorDescription = props => {
   const { error } = props
   switch (error.message) {
     case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
-      return <NotExistingDirErrorDescription {...props} />
+    case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
+      return <KnownErrorDescription errorMessage={error.message} {...props} />
     default:
       return <GlobalErrorDescription {...props} />
   }
@@ -51,19 +56,27 @@ export const KonnectorEdit = ({
   connector,
   deleting,
   disableSuccessTimeout,
+  allRequiredFieldsAreFilled,
+  isValid,
+  dirty,
   driveUrl,
   error,
   fields,
   folderPath,
+  editing,
+  isFetching,
   isUnloading,
-  lastSync,
+  lastSuccess,
   oAuthTerminated,
+  folders,
+  closeModal,
   onCancel,
   onDelete,
   onForceConnection,
   onSubmit,
   submitting,
-  success
+  success,
+  trigger
 }) => {
   const warningIcon = (
     <svg className="item-status-icon">
@@ -73,7 +86,12 @@ export const KonnectorEdit = ({
   const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
-  const { hasDescriptions } = connector
+  const { hasDescriptions, editor } = connector
+  // assign accountName placeholder
+  if (fields.accountName)
+    fields.accountName.placeholder = getAccountName(account)
+  if (account && account.oauth)
+    account.auth = Object.assign({}, account.auth, account.oauth)
 
   return (
     <div className={styles['col-account-edit-content']}>
@@ -99,23 +117,27 @@ export const KonnectorEdit = ({
 
         <TabPanels>
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
-            {lastSync &&
-              account.auth &&
-              account.auth.frequency && (
-                <KonnectorSync
-                  frequency={account && account.auth && account.auth.frequency}
-                  date={lastSync}
-                  submitting={submitting}
-                  onForceConnection={onForceConnection}
+            <KonnectorSync
+              frequency={connector.frequency || 'weekly'}
+              lastSuccessDate={lastSuccess}
+              submitting={submitting}
+              onForceConnection={onForceConnection}
+            />
+            {account &&
+              trigger &&
+              account.auth.folderPath &&
+              trigger.message.folder_to_save && (
+                <KonnectorFolder
+                  connector={connector}
+                  isFetching={isFetching}
+                  account={account}
+                  driveUrl={driveUrl}
+                  fields={fields}
+                  trigger={trigger}
+                  folders={folders}
+                  closeModal={closeModal}
                 />
               )}
-            {folderPath && (
-              <KonnectorFolder
-                connector={connector}
-                account={account}
-                driveUrl={driveUrl}
-              />
-            )}
           </TabPanel>
 
           <TabPanel
@@ -139,14 +161,16 @@ export const KonnectorEdit = ({
                 disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}
                 fields={fields}
+                dirty={dirty}
+                editing={editing}
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
-                values={account ? account.auth || account.oauth : {}}
-                disableFolderPath
+                isValid={isValid}
+                allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
               />
             }
 
@@ -158,6 +182,11 @@ export const KonnectorEdit = ({
           </TabPanel>
         </TabPanels>
       </Tabs>
+      {editor && (
+        <p className={styles['col-account-connection-editor']}>
+          {t('account.editor_detail', { editor })}
+        </p>
+      )}
     </div>
   )
 }

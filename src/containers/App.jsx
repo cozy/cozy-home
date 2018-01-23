@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
@@ -9,41 +10,33 @@ import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import { initializeRegistry } from '../ducks/registry'
+import { fetchAccounts } from '../ducks/accounts'
+import { fetchKonnectorJobs } from '../ducks/jobs'
 import { fetchKonnectors } from '../ducks/konnectors'
+import { fetchTriggers } from '../ducks/triggers'
+
+import CategoryList from '../components/CategoryList'
+import ConnectedList from '../components/ConnectedList'
 
 class App extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
 
-    this.state = {
-      categories: [],
-      isFetching: true
-    }
-
     props.initializeRegistry(props.initKonnectors)
-
-    this.store
-      .fetchInitialData(props.domain, props.ignoreJobsAfterInSeconds)
-      .then(() => {
-        this.setState({
-          categories: this.store.categories,
-          isFetching: false
-        })
-      })
-      .catch(error => {
-        console.error(error)
-        this.setState({
-          isFetching: false,
-          error
-        })
-      })
   }
 
   render() {
-    const { children } = this.props
-    const { categories, isFetching, error } = this.state
-    if (error) {
+    const { accounts, konnectors, triggers } = this.props
+    const isFetching = [accounts, konnectors, triggers].find(collection =>
+      ['pending', 'loading'].includes(collection.fetchStatus)
+    )
+
+    const hasError = [accounts, konnectors, triggers].find(
+      collection => collection.fetchStatus === 'failed'
+    )
+
+    if (hasError) {
       return (
         <div className="col-initial-error">
           <Failure errorType="initial" />
@@ -56,9 +49,27 @@ class App extends Component {
       </div>
     ) : (
       <div className="col-wrapper coz-sticky">
-        <Sidebar categories={categories} />
+        <Sidebar categories={this.store.categories} />
         <main className="col-content">
-          <div role="contentinfo">{children}</div>
+          <div role="contentinfo">
+            <Switch>
+              <Route
+                path="/connected"
+                component={props => (
+                  <ConnectedList {...props} base="/connected" />
+                )}
+              />
+              <Route
+                path="/providers/:filter"
+                render={props => (
+                  <CategoryList {...props} categories={this.store.categories} />
+                )}
+              />
+              <Redirect exact from="/providers" to="/providers/all" />
+              <Redirect exact from="/" to="/connected" />
+              <Redirect from="*" to="/connected" />
+            </Switch>
+          </div>
         </main>
         <Notifier />
         <ConnectionsQueue />
@@ -71,8 +82,19 @@ const mapActionsToProps = dispatch => ({
   initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
 })
 
-const mapDocumentsToProps = ownProps => ({
-  konnectors: fetchKonnectors()
+const mapDocumentsToProps = (state, ownProps) => ({
+  accounts: fetchAccounts(),
+  jobs: fetchKonnectorJobs(),
+  konnectors: fetchKonnectors(),
+  triggers: fetchTriggers()
+  // TODO: fetch registry
+  // registry: fetchRegistry()
 })
 
-export default cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
+/*
+withRouter is necessary here to deal with redux
+https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
+*/
+export default withRouter(
+  cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
+)

@@ -5,7 +5,7 @@
     padding 2em
     text-align center
     font-size 2em
-    color grey-06
+    color coolGrey
 
 .installing-spinner
     @extend $icon-spinner-blue
@@ -14,7 +14,8 @@
 
 :local // @stylint ignore
     .col-account-modal
-        width 45em
+        max-width 50rem!important // @stylint ignore
+        width 50rem!important // @stylint ignore
 
         @media (max-width: (930/basefont)rem)
-            width   calc(100% - 3em)
+            max-width   calc(100% - 3rem)!important // @stylint ignore

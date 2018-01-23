@@ -31,6 +31,5 @@ export const downloadArchive = async (notSecureFilename, fileIds) => {
 export const downloadFile = async file => {
   const response = await cozy.client.files.downloadById(file.id)
   const blob = await response.blob()
-  const filename = file.name
-  forceFileDownload(window.URL.createObjectURL(blob), filename)
+  forceFileDownload(window.URL.createObjectURL(blob), file.name)
 }

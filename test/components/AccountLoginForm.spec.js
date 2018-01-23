@@ -13,8 +13,14 @@ describe('AccountLoginForm component', () => {
 
   it('should enable connection button for valid OAuth account', () => {
     const component = shallow(
-      <AccountLoginForm t={tMock} submit={jest.fn()} isOAuth />
-    ).node
-    expect(component).toMatchSnapshot()
+      <AccountLoginForm
+        t={tMock}
+        onSubmit={jest.fn()}
+        isOAuth
+        isValid
+        allRequiredFieldsAreFilled
+      />
+    )
+    expect(component.state().submitEnabled).toBe(true)
   })
 })

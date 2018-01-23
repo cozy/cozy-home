@@ -1,18 +1,31 @@
 @import 'cozy-ui'
 
 :local // @stylint ignore
+    .col-account-folder
+        &-highlighted-data
+            padding .5em 1em
+            display block
+            background paleGrey
 
-    .col-account-folder-highlighted-data
-        padding .5em 1em
-        display block
-        background grey-01
+        &-fetching
+            padding 0 0 2em 0
+            position relative
+            > div
+                position relative // override default Spinner absolute position
+                transform translateX(-50%) translateY(0)
 
-    .col-account-folder-link
-        color dodger-blue
-        text-decoration none
-        font-weight bold
-        background embedurl('../assets/icons/icon-openwith.svg') 0 no-repeat
-        display block
-        padding-left 1.3em
-        margin-top .5em
+        &-link
+            color dodgerBlue
+            text-decoration none
+            font-weight bold
+            background embedurl('../assets/icons/icon-openwith.svg') 0 no-repeat
+            display block
+            padding-left 1.3em
+            margin-top .5em
 
+        &-save-btn
+            width 100%
+            margin 1em 0 !important
+
+        &-modal-path-btn
+            text-align center

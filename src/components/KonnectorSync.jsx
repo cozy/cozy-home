@@ -2,25 +2,27 @@ import styles from '../styles/KonnectorSync'
 
 import React from 'react'
 import classNames from 'classnames'
+import DateFns from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from './DescriptionContent'
 
 function getDateLabel({ date, t, f }) {
-  return f(date, t('account.message.synced.date_format'))
+  return f(DateFns.parse(date), t('account.message.synced.date_format'))
 }
 
 export const KonnectorSync = ({
   t,
   f,
   frequency,
-  date,
+  lastSuccessDate,
   submitting,
   onForceConnection
 }) => {
   const lastSyncMessage =
     (submitting && t('account.message.synced.syncing')) ||
-    (date && getDateLabel({ date, t, f })) ||
+    (!lastSuccessDate && t('account.message.synced.unknown')) ||
+    (lastSuccessDate && getDateLabel({ date: lastSuccessDate, t, f })) ||
     null
   return (
     <div>

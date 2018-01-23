@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 
+import advancedFields from '../config/advancedFields'
+
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
-      constructor(props) {
+      constructor(props, context) {
         super(props)
+        const { t } = context
         const config = mapPropsToFormConfig
           ? mapPropsToFormConfig(props)
           : props
         this.state = {
-          fields: this.configureFields(config),
+          fields: this.configureFields(
+            config,
+            t('account.form.placeholder.accountName')
+          ),
           dirty: false,
-          submit: this.handleSubmit.bind(this),
           oauth: props.onOAuth,
           displayAdvanced: false,
           isValid: true,
-          allRequiredFieldsAreFilled: true
+          allRequiredFieldsAreFilled: false,
+          values: props.values
         }
       }
 
@@ -84,29 +90,61 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
       }
 
-      configureFields(config) {
-        if (!config || !config.fields) return {}
+      configureFields(config, defaultAccountNamePlaceholder) {
+        // it will at least have an accountName field
+        if (!config || !config.konnector.fields) config = { fields: {} }
+        const konnectorName = config.konnector.name
+        const accountNamePlaceholder =
+          config.konnector.fields.accountName &&
+          config.konnector.fields.accountName.placeholder
+        const accountNameField = {
+          type: 'text',
+          isRequired: false,
+          placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
+        }
+        const fieldsFromConfig = Object.assign({}, config.konnector.fields, {
+          accountName: accountNameField
+        })
+
+        // Convert custom fields to fields readable by configureFields
+        if (Object.keys(fieldsFromConfig).includes('advancedFields')) {
+          for (let advancedField in fieldsFromConfig.advancedFields) {
+            for (let k in advancedFields[advancedField]) {
+              // Assign values from advancedFields, and values from konnectors
+              let field = advancedFields[advancedField][k]
+              field = Object.assign(
+                field,
+                fieldsFromConfig.advancedFields[advancedField]
+              )
+              fieldsFromConfig[k] = field
+            }
+          }
+          delete fieldsFromConfig['advancedFields']
+        }
 
         let fields = {}
-        Object.keys(config.fields).forEach(field => {
-          let defaut = config.fields[field].default || ''
-          let pattern = config.fields[field].pattern || ''
-          let required =
-            config.fields[field].isRequired === undefined
-              ? true
-              : config.fields[field].isRequired
 
-          let isRequired = field === 'frequency' ? false : required
+        Object.keys(fieldsFromConfig).forEach(field => {
+          let defaut = fieldsFromConfig[field].default || ''
+          let pattern = fieldsFromConfig[field].pattern || ''
+          let maxLength = fieldsFromConfig[field].max || null
+          let minLength = fieldsFromConfig[field].min || null
+          let isRequired =
+            fieldsFromConfig[field].isRequired === undefined
+              ? true
+              : fieldsFromConfig[field].isRequired
           let value =
             config.values && config.values[field]
               ? config.values[field]
               : defaut
-          let options = config.fields[field].options || []
-          fields[field] = Object.assign({}, config.fields[field], {
+          let options = fieldsFromConfig[field].options || []
+          fields[field] = Object.assign({}, fieldsFromConfig[field], {
             value: value,
             dirty: false,
             errors: [],
             pattern,
+            max: maxLength,
+            min: minLength,
             isRequired,
             onInput: event =>
               this.handleChange(
@@ -127,16 +165,39 @@ export default function statefulForm(mapPropsToFormConfig) {
           if (typeof value === 'boolean') fields[field].checked = value
           if (fields[field].type === 'dropdown') fields[field].options = options
         })
+        // Set default values for advanced fields that will not be shown
+        // on the initial connection form
+        if (fields.calendar && !fields.calendar.default) {
+          fields.calendar.default = konnectorName
+        }
+
         return fields
       }
 
       handleBlur(field, target) {
-        const pattern = this.state.fields[field].pattern || ''
+        const { t } = this.context
         const stateFields = this.state.fields
+        const value = stateFields[field].value
+        const pattern = stateFields[field].pattern || ''
+        const patternRx = pattern && new RegExp(pattern)
+        const maxLength = stateFields[field].max
+        const minLength = stateFields[field].min
         const errors = []
-        if (target.validationMessage) {
-          const patternFormat = pattern ? ` (${pattern})` : ''
-          errors.push(`${target.validationMessage}${patternFormat}`)
+        if (
+          maxLength &&
+          minLength &&
+          maxLength === minLength &&
+          value.length !== maxLength
+        ) {
+          errors.push(t('validation.exact_length', { length: maxLength }))
+        } else if (maxLength && value.length > maxLength) {
+          errors.push(t('validation.max_length', { length: maxLength }))
+        } else if (minLength && value.length < minLength) {
+          errors.push(t('validation.min_length', { length: minLength }))
+        } else if (patternRx && !patternRx.test(value)) {
+          errors.push(t('validation.pattern', { pattern }))
+        } else if (target.validationMessage) {
+          errors.push(target.validationMessage)
         }
 
         // compute if the form is valid
@@ -152,10 +213,28 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
 
         this.setState(prevState => {
+          // check and update accountName placeholder
+          let accountNameUpdate = {}
+          const { login, identifier } = prevState.fields
+          const shouldChangeNamePlaceholder =
+            (login && field === 'login') ||
+            (!login && field === 'identifier') ||
+            (!login && !identifier && field === 'email')
+          if (shouldChangeNamePlaceholder) {
+            accountNameUpdate = {
+              placeholder:
+                target.value || t('account.form.placeholder.accountName')
+            }
+          }
           return Object.assign({}, prevState, {
             isValid,
             fields: Object.assign({}, prevState.fields, {
-              [field]: Object.assign({}, prevState.fields[field], { errors })
+              [field]: Object.assign({}, prevState.fields[field], { errors }),
+              accountName: Object.assign(
+                {},
+                prevState.fields.accountName,
+                accountNameUpdate
+              )
             })
           })
         })
@@ -189,19 +268,15 @@ export default function statefulForm(mapPropsToFormConfig) {
         for (field in this.state.fields) {
           if (
             this.state.fields[field].isRequired &&
+            this.state.fields[field].type !== 'hidden' &&
             this.state.fields[field].value.length === 0
           )
             unfilled.push(field)
         }
         this.setState({
-          allRequiredFieldsAreFilled: unfilled.length === 0
+          allRequiredFieldsAreFilled: unfilled.length === 0,
+          values: this.getData()
         })
-      }
-
-      handleSubmit() {
-        if (this.props.onSubmit && this.state.isValid) {
-          return this.props.onSubmit(this.getData())
-        }
       }
 
       getData() {

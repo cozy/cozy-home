@@ -9,7 +9,7 @@ import { I18n } from 'cozy-ui/react/I18n'
 import configureStore from './store/configureStore'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
-import IntentService from './containers/IntentService'
+import IntentHandler from './containers/IntentHandler'
 
 import './styles/services.styl'
 
@@ -18,11 +18,11 @@ const context = window.context || 'cozy'
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
-  const data = root.dataset
+  const appData = root.dataset
 
   const client = new CozyClient({
-    cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken
+    cozyURL: `//${appData.cozyDomain}`,
+    token: appData.cozyToken
   })
 
   // store
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dictRequire={lang => require(`./locales/${lang}`)}
         context={context}
       >
-        <IntentService window={window} data={data} />
+        <IntentHandler initKonnectors={initKonnectors} appData={appData} />
       </I18n>
     </CozyProvider>,
     document.querySelector('[role=application]')

@@ -29,7 +29,7 @@ exports[`Connections Duck Action creators enqueueConnection marks account as que
 Object {
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "isQueued": true,
+      "isEnqueued": true,
     },
   },
 }
@@ -39,15 +39,15 @@ exports[`Connections Duck Action creators purgeQueue marks all accounts as not q
 Object {
   "anotherprovider": Object {
     "768ccdaa9d7b11e7869aae88b1c12d46": Object {
-      "isQueued": false,
+      "isEnqueued": false,
     },
   },
   "testprovider": Object {
     "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "isQueued": false,
+      "isEnqueued": false,
     },
     "63c670ea9d7b11e7b5888c88b1c12d46": Object {
-      "isQueued": false,
+      "isEnqueued": false,
     },
   },
 }
@@ -63,53 +63,11 @@ Object {
 }
 `;
 
-exports[`Connections Duck Action creators updateConnectionRunningStatus keeps \`hasRun\` to true after setting \`isRunning\` from false to true 1`] = `
-Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "error": null,
-      "hasRun": true,
-      "isRunning": true,
-    },
-  },
-}
-`;
+exports[`Connections Duck Selectors getKonnectorConnectedAccount returns null when konnector does not have account 1`] = `undefined`;
 
-exports[`Connections Duck Action creators updateConnectionRunningStatus set \`hasRun\` to true when setting \`isRunning\` from true to false 1`] = `
-Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "error": null,
-      "hasRun": true,
-      "isRunning": false,
-    },
-  },
-}
-`;
+exports[`Connections Duck Selectors getKonnectorConnectedAccount returns null when no konnector is registered with a connection 1`] = `null`;
 
-exports[`Connections Duck Action creators updateConnectionRunningStatus set a connection to idle 1`] = `
-Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "error": null,
-      "hasRun": false,
-      "isRunning": false,
-    },
-  },
-}
-`;
-
-exports[`Connections Duck Action creators updateConnectionRunningStatus set a connection to running 1`] = `
-Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "error": null,
-      "hasRun": false,
-      "isRunning": true,
-    },
-  },
-}
-`;
+exports[`Connections Duck Selectors getKonnectorConnectedAccount returns the first konnector's connected account 1`] = `Object {}`;
 
 exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `
 Array [

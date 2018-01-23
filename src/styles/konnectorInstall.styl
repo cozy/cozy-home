@@ -5,6 +5,17 @@
         display   flex
         flex-wrap nowrap
 
+    .col-account-connection-fetching
+        padding 0 0 2em 0
+        position relative
+        > div
+            position relative // override default Spinner absolute position
+            transform translateX(-50%) translateY(0)
+
+    .col-account-connection-security
+        display      flex
+        align-items  center
+
     .col-account-connection-security svg
         max-height   (48/basefont)em
         max-width    (48/basefont)em
@@ -13,8 +24,15 @@
 
     .col-account-connection-form
         margin 0 (16/basefont)em
+        min-width 50%
 
     @media (max-width: (768/basefont)rem)
         .col-account-connection-content
             display block
             width   100%
+
+    .col-account-connection-editor
+        text-align      center
+        color           coolGrey
+        margin-top      0
+        margin-bottom   .5em

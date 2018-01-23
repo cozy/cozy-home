@@ -7,7 +7,8 @@ export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 export const ACCOUNT_ERRORS = {
   LOGIN_FAILED: 'LOGIN_FAILED',
   NOT_EXISTING_DIRECTORY: 'NOT_EXISTING_DIRECTORY',
-  SUCCESS_TIMEOUT: 'SUCCESS_TIMEOUT'
+  SUCCESS_TIMEOUT: 'SUCCESS_TIMEOUT',
+  USER_ACTION_NEEDED: 'USER_ACTION_NEEDED'
 }
 
 export function create(cozy, konnector, auth, folderID, name = '') {

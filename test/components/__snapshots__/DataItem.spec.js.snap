@@ -82,6 +82,18 @@ exports[`DataItem component should display correctly the calendar data type 1`] 
 </li>
 `;
 
+exports[`DataItem component should display correctly the certificate data type 1`] = `
+<li
+  className="col-data-item">
+  <svg
+    className="col-data-item-icon">
+    <use
+      xlinkHref="test-file-stub" />
+  </svg>
+  Your certificates
+</li>
+`;
+
 exports[`DataItem component should display correctly the commit data type 1`] = `
 <li
   className="col-data-item">

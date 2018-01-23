@@ -1,30 +1,4 @@
-.col-wrapper // @stylint ignore
-    @extend $sidebar
-    @extend $navigation
-
-    .coz-nav
-        padding 0
-
-.col-cat-categories
-    background: embedurl('../assets/sprites/icon-categories.svg') em(24px) center no-repeat
-    &.active
-        background-image: embedurl('../assets/sprites/icon-categories-active.svg')
-.col-cat-connected
-    background: embedurl('../assets/sprites/icon-pin.svg') em(24px) center no-repeat
-    &.active
-        background-image: embedurl('../assets/sprites/icon-pin-active.svg')
-
-
-@media (max-width: (1023/basefont)rem)
-    .col-cat-categories
-    .col-cat-connected
-        background-position center top
-
-    // need this due to no css-modules usage in this app
-    [role=application]
-        aside
-            width   100%!important // @stylint ignore
-
+@require 'cozy-ui'
 
 // related to categories submenu
 .col-nav-submenu
@@ -39,16 +13,16 @@
         margin          0
         border-radius   4px 0 0 4px
         font-size       em(14px)
-        color           grey-08
+        color           charcoalGrey
         text-decoration none
 
         &:hover:not(.active)
-            background-color grey-09
+            background-color silver
 
     .active
         color               white
-        border-right        1px solid grey-12
-        background-color    grey-12
+        border-right        1px solid slateGrey
+        background-color    slateGrey
 
 @media (max-width: (1023/basefont)rem)
     .col-nav-submenu

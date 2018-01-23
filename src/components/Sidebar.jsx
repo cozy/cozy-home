@@ -1,75 +1,81 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react/I18n'
+import { NavLink as RouterLink, withRouter } from 'react-router-dom'
+import Nav, { NavLink, NavItem, NavIcon, NavText } from 'cozy-ui/react/Nav'
+import UISidebar from 'cozy-ui/react/Sidebar'
 
-export const Sidebar = ({ t, categories, router }) => {
-  let isCategoryView = router.location.pathname.match(/^\/providers/) !== null
+import providersIcon from 'assets/icons/icon-stack.svg'
+import connectedIcon from 'assets/icons/icon-pin.svg'
+
+export const Sidebar = ({ t, categories, location }) => {
+  let isCategoryView = location.pathname.match(/^\/providers/) !== null
   const i18nCategories = categories
     .filter(c => c !== 'others')
     .map(c => ({ slug: c, label: t(`category.${c}`) }))
     .sort((a, b) => a.label.localeCompare(b.label))
 
   return (
-    <aside className="coz-sidebar">
-      <nav>
-        <ul className="coz-nav">
-          <li className="coz-nav-item">
-            <Link
-              to="/connected"
-              className="coz-nav-link col-cat-connected"
-              activeClassName="active"
-            >
-              {t('nav.connected')}
-            </Link>
-          </li>
-          <li className="coz-nav-item">
-            <Link
-              to="/providers/all"
-              className={
-                isCategoryView
-                  ? 'coz-nav-link col-cat-categories active'
-                  : 'coz-nav-link col-cat-categories'
-              }
-            >
-              {t('nav.providers')}
-            </Link>
-          </li>
-          {isCategoryView && (
-            <ul className="col-nav-submenu">
+    <UISidebar>
+      <Nav>
+        <NavItem>
+          <RouterLink
+            to="/connected"
+            className={NavLink.className}
+            activeClassName={NavLink.activeClassName}
+          >
+            <NavIcon icon={connectedIcon} />
+            <NavText>{t('nav.connected')}</NavText>
+          </RouterLink>
+        </NavItem>
+        <NavItem>
+          <RouterLink
+            to="/providers/all"
+            activeClassName={NavLink.activeClassName}
+            className={
+              isCategoryView
+                ? `${NavLink.className} ${NavLink.activeClassName}`
+                : NavLink.className
+            }
+          >
+            <NavIcon icon={providersIcon} />
+            <NavText>{t('nav.providers')}</NavText>
+          </RouterLink>
+        </NavItem>
+        {isCategoryView && (
+          <ul className="col-nav-submenu">
+            <li>
+              <RouterLink
+                to="/providers/all"
+                className="col-nav-submenu-link"
+                activeClassName="active"
+              >
+                {t('category.all')}
+              </RouterLink>
+            </li>
+            {i18nCategories.map(category => (
               <li>
-                <Link
-                  to="/providers/all"
+                <RouterLink
+                  to={`/providers/${category.slug}`}
                   className="col-nav-submenu-link"
                   activeClassName="active"
                 >
-                  {t('category.all')}
-                </Link>
+                  {category.label}
+                </RouterLink>
               </li>
-              {i18nCategories.map(category => (
-                <li>
-                  <Link
-                    to={`/providers/${category.slug}`}
-                    className="col-nav-submenu-link"
-                    activeClassName="active"
-                  >
-                    {category.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  to="/providers/others"
-                  className="col-nav-submenu-link"
-                  activeClassName="active"
-                >
-                  {t('category.others')}
-                </Link>
-              </li>
-            </ul>
-          )}
-        </ul>
-      </nav>
-    </aside>
+            ))}
+            <li>
+              <RouterLink
+                to="/providers/others"
+                className="col-nav-submenu-link"
+                activeClassName="active"
+              >
+                {t('category.other')}
+              </RouterLink>
+            </li>
+          </ul>
+        )}
+      </Nav>
+    </UISidebar>
   )
 }
 export default translate()(withRouter(Sidebar))

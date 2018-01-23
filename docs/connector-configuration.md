@@ -8,6 +8,7 @@ Some properties will be available and used only from the Cozy-Collect config fil
 
 * `slug`
 * `name`
+* `editor`
 * `fields`
 * `additionnalSuccessMessage`
 * `hasDescriptions`
@@ -95,32 +96,40 @@ Example:
       "password": {
         "type": "password"
       },
-      "folderPath": {
-        "type": "folder",
-        "advanced": true,
-        "isRequired": false
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     ...
 ```
 
-You can use `simple input`, or `complex fieldset`. Single input will render classic html form element, complex fieldset will render custom fieldset.
+You can use `simple input`, or `advanced fields`. Single input will render classic html form element, advanced fields will render custom fieldset defined in `/src/config/advancedFields.js`.
 
 ### Input properties
 
-> __⚠️ To know:__ `dropdown` type will render a <select>, `folder` type is related to a complex input
+> __⚠️ To know:__ `dropdown` type will render a `<select>`
 
-+ type (required): text, password, hidden, checkbox, date, dropdown, folder
-+ isRequired: default = true, make the field required to validate the form
-+ pattern: allow you to use a regex to validate a field
-+ advanced: default false, add the field on the "advenced options" fieldset
-+ hasDescription: see `Field description` section of this documentation
+* __type (required)__: text, password, hidden, checkbox, date, dropdown
+* __isRequired__: default = true, make the field required to validate the form
+* __pattern__: allow you to use a regex to validate a field
+* __min__: to define a minimum length of the value (number of characters)
+* __max__: to define a maximum length of the value (number of characters)
+* __advanced__: default false, add the field on the "advenced options" fieldset
+* __hasDescription__: see `Field description` section of this documentation
+* __options__: related to dropdown, define the options of the `<select>`
+* __default__: default value for the fields. It can a string for a text field, or an obect for a select field ("default": {"value": "foo","name": "bar"},)
 
-#### Complex fieldset
+### Advanced fieldsets
 
-Complex fieldset are custom features developped by Cozy to improve the connector form
+Advanced fieldsets are custom features developped by Cozy to improve the connector form.
+They must be defined on `advancedFields` in the connector configuration.
 
-+ folderPath: need `type: folder` as property. Add a fieldset to allow the user to define a custom path on his Cozy Drive to save his data
+* folderPath: Add a fieldset to allow the user to define a custom path with a custom name on his Cozy Drive to save his data.
+
+You can create your own advanced field by adding it in `/src/config/advancedFields.js`, it use the input properties defined before.
 
 ## Category
 
