@@ -100,6 +100,7 @@ const reducer = (state = {}, action) => {
         const error =
           (isTrigger &&
             !!doc.current_state &&
+            doc.current_state.status !== 'done' &&
             !!doc.current_state.last_error && {
               message: doc.current_state.last_error
             }) ||
