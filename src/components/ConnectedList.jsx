@@ -41,7 +41,7 @@ class ConnectedList extends Component {
           {connections.length > 0 && (
             <NavLink to="/providers/all">
               <Button>
-                <Icon icon={addAccountIcon} className="col-icon--add" />{' '}
+                <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
                 {t('add_account')}
               </Button>
             </NavLink>
