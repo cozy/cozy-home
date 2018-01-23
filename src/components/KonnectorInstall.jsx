@@ -7,6 +7,7 @@ import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
 import KonnectorSuccess from './KonnectorSuccess'
+import { NavLink } from 'react-router-dom'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
@@ -40,7 +41,8 @@ export const KonnectorInstall = ({
   isValid,
   isSuccess,
   dirty,
-  successButtonLabel
+  successButtonLabel,
+  accountsCount
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -61,7 +63,11 @@ export const KonnectorInstall = ({
               ]}
             />
           )}
-
+        {!!accountsCount && (
+          <NavLink to="/connected" className="col-link">
+            {t('account.config.connected')}
+          </NavLink>
+        )}
         <DescriptionContent
           title={t('account.config.title', { name: connector.name })}
           messages={

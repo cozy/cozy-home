@@ -11,6 +11,7 @@ import {
   isConnectionEnqueued,
   launchTriggerAndQueue
 } from '../ducks/connections'
+import { getKonnectorTriggersCount } from '../reducers'
 import { fetchAccount } from '../ducks/accounts'
 import classNames from 'classnames'
 
@@ -326,7 +327,8 @@ class AccountConnection extends Component {
       trigger,
       success,
       closeModal,
-      successButtonLabel
+      successButtonLabel,
+      accountsCount
     } = this.props
     const {
       account,
@@ -383,6 +385,7 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
+            accountsCount={accountsCount}
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
@@ -426,7 +429,8 @@ const mapStateToProps = (state, ownProps) => ({
   success: isConnectionConnected(state.connections, ownProps.trigger),
   deleting: isConnectionDeleting(state.connections, ownProps.trigger),
   error: getConnectionError(state.connections, ownProps.trigger),
-  queued: isConnectionEnqueued(state.connections, ownProps.trigger)
+  queued: isConnectionEnqueued(state.connections, ownProps.trigger),
+  accountsCount: getKonnectorTriggersCount(state, ownProps.konnector)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
