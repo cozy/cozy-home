@@ -89,7 +89,12 @@ export function display(t) {
         trackerInstance.push(['trackPageView'])
       }
 
-      cozyBarMenuButton.click()
+      // When a click occurs on the last tutorial button, it seems that there
+      // is some kind of conflict or event capture that block the click() call
+      // on cozyBarMenuButton. So we must delay a little bit this call. It is
+      // really dirty and hackish and we should instead call directly a method
+      // on the Cozy-Bar to show the app panel.
+      setTimeout(() => cozyBarMenuButton.click(), 10)
       window.location.hash = '#/connected'
     })
     .start()
