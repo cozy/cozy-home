@@ -83,15 +83,25 @@ export const initializeRegistry = konnectors => {
       .then(context => {
         const konnectorsToExclude =
           !!context.attributes && context.attributes.exclude_konnectors
+        const filteredKonnectors =
+          context.attributes && context.attributes.debug
+            ? konnectors
+            : konnectors.filter(
+                k => !k.categories.includes('banking') && k.slug !== 'debug'
+              )
+
         if (konnectorsToExclude && konnectorsToExclude.length) {
           return dispatch({
             type: FETCH_REGISTRY_KONNECTORS_SUCCESS,
-            konnectors: konnectors.filter(
+            konnectors: filteredKonnectors.filter(
               k => !konnectorsToExclude.includes(k.slug)
             )
           })
         }
-        return dispatch({ type: FETCH_REGISTRY_KONNECTORS_SUCCESS, konnectors })
+        return dispatch({
+          type: FETCH_REGISTRY_KONNECTORS_SUCCESS,
+          konnectors: filteredKonnectors
+        })
       })
       .catch(() => {
         dispatch({ type: FETCH_REGISTRY_KONNECTORS_ERROR, konnectors: [] })
