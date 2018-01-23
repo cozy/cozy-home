@@ -12,6 +12,7 @@
       "optional": "(optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
+      "connected": "Access my connected accounts",
       "data": {
         "title": "Collected data:",
         "service": {
