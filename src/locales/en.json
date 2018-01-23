@@ -303,6 +303,101 @@
       "description": {
         "service": "This connector will download data from your Orange account on your Cozy. It will automatically download the list of movies you downloaded in free (TV Replay) or paid VOD from 01/01/2015 (adult contents are not included).\n\nYou will be able to use these data in different apps in your Cozy, for example \"My Movies Music\" (available soon on the Cozy Store)."
       }
+    },
+    "axabanque102": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "banquepopulaire": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "bforbank97": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "bnpparibas82": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "caatlantica3": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "caissedepargne1": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cdngroup109": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cdngroup88": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cic45": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "comptenickel168": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "hellobank145": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "hsbc119": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "ingdirect95": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "labanquepostale44": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl143": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl144": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl146": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "monabanq96": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "societegenerale": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
     }
   },
   "Queue": {
