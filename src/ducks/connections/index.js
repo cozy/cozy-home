@@ -76,7 +76,7 @@ const reducer = (state = {}, action) => {
       if (
         !action.response ||
         !action.response.data ||
-        !action.response.data.length
+        (action.response.data && !action.response.data.length)
       ) {
         return state
       }
@@ -155,7 +155,7 @@ const creation = (state = null, action) => {
       if (
         !action.response ||
         !action.response.data ||
-        action.response.data.length !== 1
+        (action.response.data && action.response.data.length !== 1)
       ) {
         return state
       }
