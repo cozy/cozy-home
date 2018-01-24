@@ -51,18 +51,31 @@ class App extends Component {
       <div className="col-wrapper coz-sticky">
         <Sidebar categories={this.store.categories} />
         <main className="col-content">
-          <div role="contentinfo">
+          <div
+            role="contentinfo"
+            ref={div => {
+              this.contentWrapper = div
+            }}
+          >
             <Switch>
               <Route
                 path="/connected"
                 component={props => (
-                  <ConnectedList {...props} base="/connected" />
+                  <ConnectedList
+                    {...props}
+                    base="/connected"
+                    wrapper={this.contentWrapper}
+                  />
                 )}
               />
               <Route
                 path="/providers/:filter"
                 render={props => (
-                  <CategoryList {...props} categories={this.store.categories} />
+                  <CategoryList
+                    {...props}
+                    categories={this.store.categories}
+                    wrapper={this.contentWrapper}
+                  />
                 )}
               />
               <Redirect exact from="/providers" to="/providers/all" />
