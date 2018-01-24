@@ -37,12 +37,19 @@ export class AccountLoginForm extends React.Component {
       dirty,
       editing,
       isValid,
+      isValidButPasswords,
       allRequiredFieldsAreFilled,
+      allRequiredFilledButPasswords,
       forceEnabled,
       isOAuth
     } = newProps
+    // we don't take in account passwords in editing
+    // since they will be returned encrypted from the stack
     const submitEnabled =
-      (editing && dirty && isValid && allRequiredFieldsAreFilled) ||
+      (editing &&
+        dirty &&
+        isValidButPasswords &&
+        allRequiredFilledButPasswords) ||
       (!editing && isValid && allRequiredFieldsAreFilled) ||
       forceEnabled ||
       isOAuth
@@ -101,7 +108,9 @@ export class AccountLoginForm extends React.Component {
       let fieldPlaceholder = null
       switch (name) {
         case 'password':
-          fieldPlaceholder = t('account.form.placeholder.password')
+          fieldPlaceholder = editing
+            ? t('account.form.placeholder.update_password')
+            : t('account.form.placeholder.password')
           break
         default:
           fieldPlaceholder = placeholder || null

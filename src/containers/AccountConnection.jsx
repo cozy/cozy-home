@@ -310,10 +310,12 @@ class AccountConnection extends Component {
       isUnloading,
       onNext,
       allRequiredFieldsAreFilled,
+      allRequiredFilledButPasswords,
       displayAdvanced,
       toggleAdvanced,
       dirty,
       isValid,
+      isValidButPasswords,
       fields,
       isSuccess,
       deleting,
@@ -378,6 +380,8 @@ class AccountConnection extends Component {
             submitting={submitting || isRunning}
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
             isValid={isValid}
+            allRequiredFilledButPasswords={allRequiredFilledButPasswords}
+            isValidButPasswords={isValidButPasswords}
             success={success}
             trigger={trigger}
             closeModal={closeModal}

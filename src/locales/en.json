@@ -60,6 +60,7 @@
       },
       "placeholder": {
         "password": "The password you use to connect to the service",
+        "update_password": "Update the password",
         "accountName": "Example: Personal account",
         "namePath": "Example: Camille bills. Default name path is your login."
       },
