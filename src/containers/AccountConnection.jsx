@@ -257,11 +257,12 @@ class AccountConnection extends Component {
     // Update the path if the name path is the account name
     const folderId =
       this.props.trigger && this.props.trigger.message.folder_to_save
+    const accountName = account && account.auth && account.auth.accountName
     if (
-      account &&
-      account.auth.accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
+      accountName &&
+      accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
         account.auth.namePath &&
-      account.auth.accountName !== valuesToSubmit.accountName
+      accountName !== valuesToSubmit.accountName
     ) {
       cozy.client.files.updateAttributesById(folderId, {
         name: valuesToSubmit.accountName
