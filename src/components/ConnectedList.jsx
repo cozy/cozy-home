@@ -8,6 +8,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
 import TriggerTile from './TriggerTile'
+import ScrollToTopOnMount from './ScrollToTopOnMount'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
@@ -32,9 +33,10 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { base, t, connections } = this.props
+    const { base, t, connections, wrapper } = this.props
     return (
       <div className="content">
+        <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {connections.length > 0 && (
