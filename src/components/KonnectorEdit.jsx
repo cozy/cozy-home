@@ -57,7 +57,9 @@ export const KonnectorEdit = ({
   deleting,
   disableSuccessTimeout,
   allRequiredFieldsAreFilled,
+  allRequiredFilledButPasswords,
   isValid,
+  isValidButPasswords,
   dirty,
   driveUrl,
   error,
@@ -171,6 +173,8 @@ export const KonnectorEdit = ({
                 submitting={submitting}
                 isValid={isValid}
                 allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
+                isValidButPasswords={isValidButPasswords}
+                allRequiredFilledButPasswords={allRequiredFilledButPasswords}
               />
             }
 
