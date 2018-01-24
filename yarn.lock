@@ -1876,9 +1876,9 @@ cozy-client-js@^0.4.5:
     pouchdb-adapter-memory "6.3.4"
     pouchdb-find "6.3.4"
 
-cozy-ui@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.1.0.tgz#e678bf1c524c5640c2fddeeb55e745d77d570de7"
+cozy-ui@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.0.1.tgz#1d21d238035a64bdfb2331479b3c11e6c7d0106f"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
