@@ -96,8 +96,7 @@
       },
       "folderLintText": "Open the folder into Cozy Drive",
       "button": {
-        "config": "Access my account configuration",
-        "back": "Back to the list of services"
+        "config": "Access my account configuration"
       }
     },
     "message": {
@@ -141,7 +140,7 @@
     "error": {
       "default": {
         "title": "An error occured",
-        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [forum](https://forum.cozy.io/)."
+        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations or visit our online help."
       },
       "NOT_EXISTING_DIRECTORY": {
         "title": "Missing destination folder",

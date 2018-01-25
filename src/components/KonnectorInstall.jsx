@@ -91,6 +91,7 @@ export const KonnectorInstall = ({
       <div className={styles['col-account-connection-form']}>
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
         {!!accountsCount &&
+          !error &&
           Number.isInteger(accountsCount) && (
             <div>
               <h4 className={styles['col-account-connection-connected-title']}>
@@ -103,31 +104,38 @@ export const KonnectorInstall = ({
               </NavLink>
             </div>
           )}
-        <DescriptionContent
-          title={t('account.config.title', { name: connector.name })}
-          messages={
-            !success && hasDescriptions && hasDescriptions.connector
-              ? [t(`connector.${connector.slug}.description.connector`)]
-              : []
-          }
-        >
-          {!connector.oauth && (
-            <p className={styles['col-account-connection-security']}>
-              <svg>
-                <use xlinkHref={securityIcon} />
-              </svg>
-              {connector.categories && connector.categories.includes('banking')
-                ? t('account.config.security_third_party')
-                : t('account.config.security')}
-            </p>
-          )}
-        </DescriptionContent>
+        {(!error ||
+          (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) && (
+          <DescriptionContent
+            title={t('account.config.title', { name: connector.name })}
+            messages={
+              !success && hasDescriptions && hasDescriptions.connector
+                ? [t(`connector.${connector.slug}.description.connector`)]
+                : []
+            }
+          >
+            {!connector.oauth &&
+              !error && (
+                <p className={styles['col-account-connection-security']}>
+                  <svg>
+                    <use xlinkHref={securityIcon} />
+                  </svg>
+                  {connector.categories &&
+                  connector.categories.includes('banking')
+                    ? t('account.config.security_third_party')
+                    : t('account.config.security')}
+                </p>
+              )}
+          </DescriptionContent>
+        )}
 
         {isFetching ? (
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !account || !success ? (
+        ) : !account ||
+        !success ||
+        (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED) ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
@@ -152,6 +160,7 @@ export const KonnectorInstall = ({
         ) : (
           <KonnectorSuccess
             connector={connector}
+            error={error}
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
