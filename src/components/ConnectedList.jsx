@@ -40,7 +40,7 @@ class ConnectedList extends Component {
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {connections.length > 0 && (
-            <NavLink to="/providers/all" className="col-add-button">
+            <NavLink to="/providers/all" className="col-button">
               <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
               {t('add_account')}
             </NavLink>
@@ -68,7 +68,7 @@ class ConnectedList extends Component {
             <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
-              <NavLink to="/providers/all" className="col-add-button">
+              <NavLink to="/providers/all" className="col-button">
                 {t('connector.connect-account')}
               </NavLink>
             </div>
