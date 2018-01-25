@@ -914,6 +914,31 @@
     "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
   },
   {
+    "slug": "directenergie",
+    "name": "Direct Energie",
+    "editor": "Brice Coquereau",
+    "vendorLink": "https://clients.direct-energie.com/connexion-clients-particuliers/",
+    "categories": ["energy"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-directenergie.git#build"
+  },
+  {
     "slug": "edf",
     "name": "EDF",
     "editor": "Cozy Cloud",
