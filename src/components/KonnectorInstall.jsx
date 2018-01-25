@@ -64,9 +64,14 @@ export const KonnectorInstall = ({
             />
           )}
         {!!accountsCount && (
-          <NavLink to="/connected" className="col-link">
-            {t('account.config.connected')}
-          </NavLink>
+          <div>
+            <h4 className={styles['col-account-connection-connected-title']}>
+              {t('account.config.connected_title')}
+            </h4>
+            <NavLink to="/connected" className="col-link">
+              {t('account.config.connected_link')}
+            </NavLink>
+          </div>
         )}
         <DescriptionContent
           title={t('account.config.title', { name: connector.name })}
