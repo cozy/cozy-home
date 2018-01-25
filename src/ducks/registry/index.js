@@ -87,7 +87,7 @@ export const initializeRegistry = konnectors => {
           context.attributes && context.attributes.debug
             ? konnectors
             : konnectors.filter(
-                k => !k.categories.includes('banking') && k.slug !== 'debug'
+                k => k.slug !== 'creditagricole' && k.slug !== 'debug'
               )
 
         if (konnectorsToExclude && konnectorsToExclude.length) {
