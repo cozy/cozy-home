@@ -43,6 +43,7 @@
         "identifier": "Identifier",
         "new_identifier": "Identifier",
         "secret": "Password",
+        "answer": "Secret Answer",
         "access_token": "Access token",
         "accessTokenSecret": "Access token secret",
         "consumerKey": "Consumer Key",
