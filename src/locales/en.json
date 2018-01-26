@@ -149,6 +149,10 @@
       "USER_ACTION_NEEDED": {
         "title": "Action needed on the provider",
         "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
+      },
+      "MAINTENANCE": {
+        "title": "Unavailable website",
+        "description": "It seems that the [%{name}](%{link}) website is unavailable or the konnector must be updated. Please rerun the connector later or visit our online help."
       }
     }
   },
