@@ -154,7 +154,12 @@ export default class CollectStore {
               Object.assign({}, account, newAttributes)
             )
           } else {
-            return this.dispatch(createAccount(account.auth)).then(result => {
+            return this.dispatch(
+              createAccount({
+                auth: account.auth,
+                account_type: konnector.slug
+              })
+            ).then(result => {
               // Temporary hack ot return account
               return result.data[0]
             })
