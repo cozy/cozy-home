@@ -1063,6 +1063,9 @@
       },
       "secret": {
         "type": "password"
+      },
+      "answer": {
+        "type": "password"
       }
     },
     "frequency": "daily",
