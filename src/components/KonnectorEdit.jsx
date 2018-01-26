@@ -44,6 +44,7 @@ const getErrorDescription = props => {
   switch (error.message) {
     case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
     case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
+    case ACCOUNT_ERRORS.MAINTENANCE:
       return <KnownErrorDescription errorMessage={error.message} {...props} />
     default:
       return <GlobalErrorDescription {...props} />
