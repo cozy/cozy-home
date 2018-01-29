@@ -7,10 +7,12 @@ import UISidebar from 'cozy-ui/react/Sidebar'
 import providersIcon from 'assets/icons/icon-stack.svg'
 import connectedIcon from 'assets/icons/icon-pin.svg'
 
+import { OTHERS_CATEGORY } from '../ducks/registry'
+
 export const Sidebar = ({ t, categories, location }) => {
   let isCategoryView = location.pathname.match(/^\/providers/) !== null
   const i18nCategories = categories
-    .filter(c => c !== 'others')
+    .filter(c => c !== OTHERS_CATEGORY)
     .map(c => ({ slug: c, label: t(`category.${c}`) }))
     .sort((a, b) => a.label.localeCompare(b.label))
 
@@ -65,7 +67,7 @@ export const Sidebar = ({ t, categories, location }) => {
             ))}
             <li>
               <RouterLink
-                to="/providers/others"
+                to={`/providers/${OTHERS_CATEGORY}`}
                 className="col-nav-submenu-link"
                 activeClassName="active"
               >
