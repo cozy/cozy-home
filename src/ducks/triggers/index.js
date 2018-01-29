@@ -3,9 +3,10 @@ import { getAccount } from '../accounts'
 import * as fromRunning from './running'
 
 export const DOCTYPE = 'io.cozy.triggers'
+const HOURLY_FREQUENCY = 'hourly'
 const DAILY_FREQUENCY = 'daily'
 const WEEKLY_FREQUENCY = 'weekly'
-const VALID_FREQUENCIES = [DAILY_FREQUENCY, WEEKLY_FREQUENCY]
+const VALID_FREQUENCIES = [HOURLY_FREQUENCY, DAILY_FREQUENCY, WEEKLY_FREQUENCY]
 const DEFAULT_FREQUENCY = WEEKLY_FREQUENCY
 
 const triggersCollectionKey = 'triggers'
@@ -61,14 +62,21 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
   const { day, hours, minutes } = options
 
   const frequencyOptions = {
-    hours,
     minutes,
     frequency: parseFrequency(konnector.frequency)
+  }
+
+  if (frequencyOptions.frequency === 'daily') {
+    return {
+      ...frequencyOptions,
+      hours
+    }
   }
 
   if (frequencyOptions.frequency === 'weekly') {
     return {
       ...frequencyOptions,
+      hours,
       day
     }
   }
@@ -100,7 +108,7 @@ export function buildKonnectorTrigger(
     _type: DOCTYPE,
     attributes: {
       type: '@cron',
-      arguments: `0 ${minutes || 0} ${hours || 0} * * ${day || '*'}`,
+      arguments: `0 ${minutes || 0} ${hours || '*'} * * ${day || '*'}`,
       worker: 'konnector',
       worker_arguments: workerArguments
     }
