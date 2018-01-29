@@ -7,7 +7,7 @@ import UISidebar from 'cozy-ui/react/Sidebar'
 import providersIcon from 'assets/icons/icon-stack.svg'
 import connectedIcon from 'assets/icons/icon-pin.svg'
 
-import { OTHERS_CATEGORY } from '../ducks/registry'
+import { OTHERS_CATEGORY } from 'ducks/registry'
 
 export const Sidebar = ({ t, categories, location }) => {
   let isCategoryView = location.pathname.match(/^\/providers/) !== null

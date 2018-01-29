@@ -137,6 +137,10 @@
       "json",
       "styl"
     ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleNameMapper": {
       "^redux-cozy-client$": "<rootDir>/src/lib/redux-cozy-client",
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
