@@ -29,6 +29,21 @@ Object {
 }
 `;
 
+exports[`Trigger Duck buildKonnectorTrigger creates a trigger with an hourly frequency 1`] = `
+Object {
+  "_type": "io.cozy.triggers",
+  "attributes": Object {
+    "arguments": "0 15 * * * *",
+    "type": "@cron",
+    "worker": "konnector",
+    "worker_arguments": Object {
+      "account": "963a51f6cdd34401b0904de32cc5578d",
+      "konnector": "test",
+    },
+  },
+}
+`;
+
 exports[`Trigger Duck buildKonnectorTrigger creates a trigger without folder 1`] = `
 Object {
   "_type": "io.cozy.triggers",
@@ -57,6 +72,13 @@ Object {
   "day": 1,
   "frequency": "weekly",
   "hours": 14,
+  "minutes": 15,
+}
+`;
+
+exports[`Trigger Duck buildTriggerFrequencyOptions creates hourly options 1`] = `
+Object {
+  "frequency": "hourly",
   "minutes": 15,
 }
 `;

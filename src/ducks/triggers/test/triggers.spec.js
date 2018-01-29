@@ -38,6 +38,13 @@ describe('Trigger Duck', () => {
         buildKonnectorTrigger(dailyKonnector, account, null, options)
       ).toMatchSnapshot()
     })
+
+    it('creates a trigger with an hourly frequency', () => {
+      const hourlyKonnector = { ...konnector, frequency: 'hourly' }
+      expect(
+        buildKonnectorTrigger(hourlyKonnector, account, null, options)
+      ).toMatchSnapshot()
+    })
   })
 
   describe('buildTriggerFrequencyOptions', () => {
@@ -48,6 +55,14 @@ describe('Trigger Duck', () => {
     it('creates daily options', () => {
       const konnector = {
         frequency: 'daily'
+      }
+
+      expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
+    })
+
+    it('creates hourly options', () => {
+      const konnector = {
+        frequency: 'hourly'
       }
 
       expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
