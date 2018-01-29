@@ -230,7 +230,11 @@ export default class CollectStore {
               )
               .then(result => result.data[0])
               // 8. Run a job for the konnector
-              .then(trigger => this.dispatch(launchTriggerAndQueue(trigger)))
+              .then(trigger =>
+                this.dispatch(
+                  launchTriggerAndQueue(trigger, konnector.loginDelay)
+                )
+              )
               .then(result => result.data[0])
               // 9. Handle job
               .then(job => {
