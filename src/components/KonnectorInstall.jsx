@@ -94,11 +94,9 @@ export const KonnectorInstall = ({
           Number.isInteger(accountsCount) && (
             <div>
               <h4 className={styles['col-account-connection-connected-title']}>
-                {accountsCount > 1
-                  ? t('account.config.connected_title', {
-                      count: accountsCount
-                    })
-                  : t('account.config.connected_title_single')}
+                {t('account.config.connected_title', {
+                  smart_count: accountsCount
+                })}
               </h4>
               <NavLink to="/connected" className="col-link">
                 {t('account.config.connected_link')}
