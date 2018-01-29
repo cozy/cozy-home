@@ -90,16 +90,21 @@ export const KonnectorInstall = ({
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
-        {!!accountsCount && (
-          <div>
-            <h4 className={styles['col-account-connection-connected-title']}>
-              {t('account.config.connected_title')}
-            </h4>
-            <NavLink to="/connected" className="col-link">
-              {t('account.config.connected_link')}
-            </NavLink>
-          </div>
-        )}
+        {!!accountsCount &&
+          Number.isInteger(accountsCount) && (
+            <div>
+              <h4 className={styles['col-account-connection-connected-title']}>
+                {accountsCount > 1
+                  ? t('account.config.connected_title', {
+                      count: accountsCount
+                    })
+                  : t('account.config.connected_title_single')}
+              </h4>
+              <NavLink to="/connected" className="col-link">
+                {t('account.config.connected_link')}
+              </NavLink>
+            </div>
+          )}
         <DescriptionContent
           title={t('account.config.title', { name: connector.name })}
           messages={
