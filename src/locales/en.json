@@ -379,7 +379,8 @@
     },
     "hsbc119": {
       "description": {
-        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo).",
+        "connector": "The secret answer is [asked by HSBC](https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion) when you connect without double authentication. Example: what is the name of your pet?"
       }
     },
     "ingdirect95": {
