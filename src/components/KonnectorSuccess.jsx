@@ -10,7 +10,7 @@ import DescriptionContent from './DescriptionContent'
 export const KonnectorSuccess = ({
   t,
   connector,
-  isTimeout,
+  isRunningInQueue,
   account,
   error,
   folderId,
@@ -33,7 +33,9 @@ export const KonnectorSuccess = ({
               <p>
                 {!error &&
                   t(
-                    `account.message.${isTimeout ? 'syncing' : 'synced'}.bill`,
+                    `account.message.${isRunningInQueue
+                      ? 'syncing'
+                      : 'synced'}.bill`,
                     {
                       name: connector.name
                     }
