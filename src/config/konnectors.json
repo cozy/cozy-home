@@ -1096,7 +1096,8 @@
     "frequency": "daily",
     "timeInterval": [5.5, 6.5],
     "hasDescriptions": {
-      "service": true
+      "service": true,
+      "connector": true
     },
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
     "parameters": {
