@@ -1568,35 +1568,6 @@
     "oauth_scope": "M"
   },
   {
-    "slug": "revolut199",
-    "name": "Revolut",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://clients.boursorama.com/connexion/",
-    "categories": ["banking"],
-    "icon": "revolut.png",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "frequency": "daily",
-    "timeInterval": [5.5, 6.5],
-    "hasDescriptions": {
-      "service": true
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "199"
-    }
-  },
-  {
     "slug": "redbox",
     "name": "SFR RED box",
     "editor": "Cozy Cloud",
