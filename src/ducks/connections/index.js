@@ -13,6 +13,10 @@ const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 const JOBS_DOCTYPE = 'io.cozy.jobs'
 
+// Delay until the konnector is queued. It is used to compensate the fact that
+// we cannot determine when a login is OK for the konnector.
+export const DEFAULT_QUEUE_DELAY = 7000
+
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const CONNECTION_DELETED = 'CONNECTION_DELETED'
 export const DELETE_CONNECTION = 'DELETE_CONNECTION'
@@ -318,7 +322,7 @@ export const deleteConnection = trigger => {
   }
 }
 
-export const launchTriggerAndQueue = (trigger, delay = 10000) => (
+export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   dispatch,
   getState,
   options

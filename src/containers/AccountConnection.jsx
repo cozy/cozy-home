@@ -439,11 +439,14 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { trigger } = ownProps
+  const { konnector, trigger } = ownProps
   return {
     fetchAccount: accountId =>
       dispatch(fetchAccount(accountId)).then(response => response.data[0]),
-    forceConnection: () => dispatch(launchTriggerAndQueue(trigger)),
+    forceConnection: () =>
+      dispatch(
+        launchTriggerAndQueue(trigger, !!konnector && konnector.loginDelay)
+      ),
     deleteConnection: () => dispatch(deleteConnection(trigger))
   }
 }
