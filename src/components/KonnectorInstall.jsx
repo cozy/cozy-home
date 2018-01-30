@@ -57,7 +57,7 @@ export const KonnectorInstall = ({
   driveUrl,
   error,
   fields,
-  isTimeout,
+  queued,
   isUnloading,
   oAuthTerminated,
   onCancel,
@@ -85,6 +85,7 @@ export const KonnectorInstall = ({
   const { hasDescriptions, editor } = connector
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const isRunningInQueue = queued && submitting
 
   return (
     <div className={styles['col-account-connection-content']}>
@@ -92,6 +93,8 @@ export const KonnectorInstall = ({
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
         {!!accountsCount &&
           !error &&
+          !submitting &&
+          !success &&
           Number.isInteger(accountsCount) && (
             <div>
               <h4 className={styles['col-account-connection-connected-title']}>
@@ -104,30 +107,31 @@ export const KonnectorInstall = ({
               </NavLink>
             </div>
           )}
-        {(!error ||
-          (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) && (
-          <DescriptionContent
-            title={t('account.config.title', { name: connector.name })}
-            messages={
-              !success && hasDescriptions && hasDescriptions.connector
-                ? [t(`connector.${connector.slug}.description.connector`)]
-                : []
-            }
-          >
-            {!connector.oauth &&
-              !error && (
-                <p className={styles['col-account-connection-security']}>
-                  <svg>
-                    <use xlinkHref={securityIcon} />
-                  </svg>
-                  {connector.categories &&
-                  connector.categories.includes('banking')
-                    ? t('account.config.security_third_party')
-                    : t('account.config.security')}
-                </p>
-              )}
-          </DescriptionContent>
-        )}
+        {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
+          !isRunningInQueue &&
+          !success && (
+            <DescriptionContent
+              title={t('account.config.title', { name: connector.name })}
+              messages={
+                hasDescriptions && hasDescriptions.connector
+                  ? [t(`connector.${connector.slug}.description.connector`)]
+                  : []
+              }
+            >
+              {!connector.oauth &&
+                !error && (
+                  <p className={styles['col-account-connection-security']}>
+                    <svg>
+                      <use xlinkHref={securityIcon} />
+                    </svg>
+                    {connector.categories &&
+                    connector.categories.includes('banking')
+                      ? t('account.config.security_third_party')
+                      : t('account.config.security')}
+                  </p>
+                )}
+            </DescriptionContent>
+          )}
 
         {isFetching ? (
           <div className={styles['col-account-connection-fetching']}>
@@ -164,7 +168,7 @@ export const KonnectorInstall = ({
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
-            isTimeout={isTimeout}
+            isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
             onNext={onNext}
             onCancel={onCancel}
