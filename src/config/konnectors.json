@@ -213,6 +213,35 @@
     }
   },
   {
+    "slug": "boursorama83",
+    "name": "Boursorama Banque",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://clients.boursorama.com/connexion/",
+    "categories": ["banking"],
+    "icon": "boursorama.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "83"
+    }
+  },
+  {
     "slug": "bouyguesbox",
     "name": "Bouygues Box",
     "editor": "Cozy Cloud",
@@ -979,6 +1008,35 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
+    "slug": "fortuneo84",
+    "name": "Fortuneo",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.fortuneo.fr/",
+    "categories": ["banking"],
+    "icon": "fortuneo.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "84"
+    }
+  },
+  {
     "slug": "free",
     "name": "Free",
     "editor": "Cozy Cloud",
@@ -1507,6 +1565,35 @@
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build",
     "timeInterval": [15, 21],
     "oauth_scope": "M"
+  },
+  {
+    "slug": "revolut199",
+    "name": "Revolut",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://clients.boursorama.com/connexion/",
+    "categories": ["banking"],
+    "icon": "revolut.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "199"
+    }
   },
   {
     "slug": "redbox",
