@@ -2,7 +2,8 @@ import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import { Button } from 'cozy-ui/react/Button'
+import { NavLink } from 'react-router-dom'
+import classNames from 'classnames'
 
 import DescriptionContent from './DescriptionContent'
 
@@ -11,6 +12,7 @@ export const KonnectorSuccess = ({
   connector,
   isTimeout,
   account,
+  error,
   folderId,
   onCancel,
   onNext,
@@ -22,13 +24,20 @@ export const KonnectorSuccess = ({
   return (
     account && (
       <div>
-        <DescriptionContent title={title} messages={messages}>
+        <DescriptionContent
+          title={!error && title}
+          messages={!error && messages}
+        >
           {Array.isArray(connector.dataType) &&
             connector.dataType.includes('bill') && (
               <p>
-                {t(`account.message.${isTimeout ? 'syncing' : 'synced'}.bill`, {
-                  name: connector.name
-                })}
+                {!error &&
+                  t(
+                    `account.message.${isTimeout ? 'syncing' : 'synced'}.bill`,
+                    {
+                      name: connector.name
+                    }
+                  )}
                 <br />
                 {account.auth.folderPath && (
                   <span
@@ -53,9 +62,12 @@ export const KonnectorSuccess = ({
         <div className={styles['coz-form-controls']}>
           <div className={styles['col-account-form-success-buttons']}>
             <p>
-              <Button className={styles['coz-btn']} onClick={onNext}>
-                {successButtonLabel || t('account.success.button.back')}
-              </Button>
+              <NavLink
+                to={`/connected/${connector.slug}/${account._id}`}
+                className={classNames(styles['coz-btn'], 'col-button')}
+              >
+                {successButtonLabel || t('account.success.button.config')}
+              </NavLink>
             </p>
           </div>
         </div>

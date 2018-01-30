@@ -8,10 +8,14 @@ import {
 export const DOCTYPE = 'io.cozy.accounts'
 const accountCollectionKey = 'accounts'
 
-export const createAccount = (auth, name) =>
-  createDocument(DOCTYPE, buildAccount(auth, name), {
-    updateCollections: [accountCollectionKey]
-  })
+export const createAccount = attributes =>
+  createDocument(
+    DOCTYPE,
+    { type: DOCTYPE, ...attributes },
+    {
+      updateCollections: [accountCollectionKey]
+    }
+  )
 
 export const deleteAccount = deleteDocument
 
@@ -22,18 +26,6 @@ export const fetchAccount = id => {
   return fetchDocument(DOCTYPE, id, {
     collection: [accountCollectionKey]
   })
-}
-
-// Factory helpers
-
-export const buildAccount = (auth, name) => {
-  const doc = { type: DOCTYPE, auth }
-
-  if (name) {
-    doc.name = name
-  }
-
-  return doc
 }
 
 // selectors

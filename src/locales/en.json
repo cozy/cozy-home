@@ -12,9 +12,8 @@
       "optional": "(optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-
       "security_third_party": "Your login and password will be stored in your Cozy.",
-      "connected_title": "You already have account(s) for this provider:",
+      "connected_title": "You already have an account for this provider: |||| You already have %{smart_count} accounts for this provider:",
       "connected_link": "Access my connected accounts",
       "data": {
         "title": "Collected data:",
@@ -64,6 +63,7 @@
       },
       "placeholder": {
         "password": "The password you use to connect to the service",
+        "update_password": "Update the password",
         "accountName": "Example: Personal account",
         "namePath": "Example: Camille bills. Default name path is your login."
       },
@@ -96,8 +96,7 @@
       },
       "folderLintText": "Open the folder into Cozy Drive",
       "button": {
-        "config": "Access my account configuration",
-        "back": "Back to the list of services"
+        "config": "Access my account configuration"
       }
     },
     "message": {
@@ -141,7 +140,7 @@
     "error": {
       "default": {
         "title": "An error occured",
-        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please retry or contact the Cozy support on our [forum](https://forum.cozy.io/)."
+        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations or visit our online help."
       },
       "NOT_EXISTING_DIRECTORY": {
         "title": "Missing destination folder",

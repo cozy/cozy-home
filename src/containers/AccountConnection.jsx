@@ -11,6 +11,7 @@ import {
   isConnectionEnqueued,
   launchTriggerAndQueue
 } from '../ducks/connections'
+import { getKonnectorTriggersCount } from '../reducers'
 import { fetchAccount } from '../ducks/accounts'
 import classNames from 'classnames'
 
@@ -256,11 +257,12 @@ class AccountConnection extends Component {
     // Update the path if the name path is the account name
     const folderId =
       this.props.trigger && this.props.trigger.message.folder_to_save
+    const accountName = account && account.auth && account.auth.accountName
     if (
-      account &&
-      account.auth.accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
+      accountName &&
+      accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
         account.auth.namePath &&
-      account.auth.accountName !== valuesToSubmit.accountName
+      accountName !== valuesToSubmit.accountName
     ) {
       cozy.client.files.updateAttributesById(folderId, {
         name: valuesToSubmit.accountName
@@ -309,10 +311,12 @@ class AccountConnection extends Component {
       isUnloading,
       onNext,
       allRequiredFieldsAreFilled,
+      allRequiredFilledButPasswords,
       displayAdvanced,
       toggleAdvanced,
       dirty,
       isValid,
+      isValidButPasswords,
       fields,
       isSuccess,
       deleting,
@@ -326,7 +330,8 @@ class AccountConnection extends Component {
       trigger,
       success,
       closeModal,
-      successButtonLabel
+      successButtonLabel,
+      accountsCount
     } = this.props
     const {
       account,
@@ -376,6 +381,8 @@ class AccountConnection extends Component {
             submitting={submitting || isRunning}
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
             isValid={isValid}
+            allRequiredFilledButPasswords={allRequiredFilledButPasswords}
+            isValidButPasswords={isValidButPasswords}
             success={success}
             trigger={trigger}
             closeModal={closeModal}
@@ -383,6 +390,7 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
+            accountsCount={accountsCount}
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
@@ -426,7 +434,8 @@ const mapStateToProps = (state, ownProps) => ({
   success: isConnectionConnected(state.connections, ownProps.trigger),
   deleting: isConnectionDeleting(state.connections, ownProps.trigger),
   error: getConnectionError(state.connections, ownProps.trigger),
-  queued: isConnectionEnqueued(state.connections, ownProps.trigger)
+  queued: isConnectionEnqueued(state.connections, ownProps.trigger),
+  accountsCount: getKonnectorTriggersCount(state, ownProps.konnector)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {

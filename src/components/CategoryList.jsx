@@ -5,12 +5,21 @@ import { Route, withRouter } from 'react-router-dom'
 
 import { translate } from 'cozy-ui/react/I18n'
 import KonnectorList from './KonnectorList'
+import ScrollToTopOnMount from './ScrollToTopOnMount'
 
 import { getRegistryKonnectorsByCategory } from '../ducks/registry'
 import ConnectionManagement from '../containers/ConnectionManagement'
 
-const CategoryList = ({ t, category, categories, connectors, location }) => (
+const CategoryList = ({
+  t,
+  category,
+  categories,
+  connectors,
+  location,
+  wrapper
+}) => (
   <div className="content">
+    <ScrollToTopOnMount target={wrapper} />
     <div className="col-top-bar">
       <h1 className="col-top-bar-title">
         {!categories.includes(category) || category === 'all'

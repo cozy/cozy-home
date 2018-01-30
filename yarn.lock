@@ -1846,9 +1846,9 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-cozy-bar@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.7.0.tgz#c4ad0793a2f3c155ffe470f431664c7d33dccd83"
+cozy-bar@^4.8.5:
+  version "4.8.5"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.8.5.tgz#bd7c81a7c0629c84b164b0d9b44e7b59be25403d"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     cozy-client-js "^0.3.19"
@@ -1876,7 +1876,7 @@ cozy-client-js@^0.4.5:
     pouchdb-adapter-memory "6.3.4"
     pouchdb-find "6.3.4"
 
-cozy-ui@^7.0.1:
+cozy-ui@7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.0.1.tgz#1d21d238035a64bdfb2331479b3c11e6c7d0106f"
   dependencies:

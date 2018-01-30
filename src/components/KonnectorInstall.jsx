@@ -7,6 +7,7 @@ import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
 import KonnectorSuccess from './KonnectorSuccess'
+import { NavLink } from 'react-router-dom'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
@@ -77,7 +78,8 @@ export const KonnectorInstall = ({
   isValid,
   isSuccess,
   dirty,
-  successButtonLabel
+  successButtonLabel,
+  accountsCount
 }) => {
   const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
@@ -88,31 +90,52 @@ export const KonnectorInstall = ({
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
-        <DescriptionContent
-          title={t('account.config.title', { name: connector.name })}
-          messages={
-            !success && hasDescriptions && hasDescriptions.connector
-              ? [t(`connector.${connector.slug}.description.connector`)]
-              : []
-          }
-        >
-          {!connector.oauth && (
-            <p className={styles['col-account-connection-security']}>
-              <svg>
-                <use xlinkHref={securityIcon} />
-              </svg>
-              {connector.categories && connector.categories.includes('banking')
-                ? t('account.config.security_third_party')
-                : t('account.config.security')}
-            </p>
+        {!!accountsCount &&
+          !error &&
+          Number.isInteger(accountsCount) && (
+            <div>
+              <h4 className={styles['col-account-connection-connected-title']}>
+                {t('account.config.connected_title', {
+                  smart_count: accountsCount
+                })}
+              </h4>
+              <NavLink to="/connected" className="col-link">
+                {t('account.config.connected_link')}
+              </NavLink>
+            </div>
           )}
-        </DescriptionContent>
+        {(!error ||
+          (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) && (
+          <DescriptionContent
+            title={t('account.config.title', { name: connector.name })}
+            messages={
+              !success && hasDescriptions && hasDescriptions.connector
+                ? [t(`connector.${connector.slug}.description.connector`)]
+                : []
+            }
+          >
+            {!connector.oauth &&
+              !error && (
+                <p className={styles['col-account-connection-security']}>
+                  <svg>
+                    <use xlinkHref={securityIcon} />
+                  </svg>
+                  {connector.categories &&
+                  connector.categories.includes('banking')
+                    ? t('account.config.security_third_party')
+                    : t('account.config.security')}
+                </p>
+              )}
+          </DescriptionContent>
+        )}
 
         {isFetching ? (
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !account || !success ? (
+        ) : !account ||
+        !success ||
+        (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED) ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
@@ -137,6 +160,7 @@ export const KonnectorInstall = ({
         ) : (
           <KonnectorSuccess
             connector={connector}
+            error={error}
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}

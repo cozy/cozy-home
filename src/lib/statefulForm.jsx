@@ -20,7 +20,9 @@ export default function statefulForm(mapPropsToFormConfig) {
           oauth: props.onOAuth,
           displayAdvanced: false,
           isValid: true,
+          isValidButPasswords: true,
           allRequiredFieldsAreFilled: false,
+          allRequiredFilledButPasswords: false,
           values: props.values
         }
       }
@@ -201,16 +203,28 @@ export default function statefulForm(mapPropsToFormConfig) {
         }
 
         // compute if the form is valid
-        let isValid = true
+        const invalidFields = [] // all except passwords
+        const invalidPasswords = []
         Object.keys(stateFields).forEach(f => {
-          if (f === field && errors.length) isValid = false
-          if (
-            f !== field &&
-            stateFields[f].errors &&
-            stateFields[f].errors.length
-          )
-            isValid = false
+          const isErrored =
+            (f === field && errors.length) ||
+            (f !== field &&
+              stateFields[f].errors &&
+              stateFields[f].errors.length)
+          if (isErrored) {
+            // TODO use the next line instead when the stack will be
+            // able to encrypt many fields
+            // if (stateFields[f].type === 'password') {
+            if (f === 'password') {
+              invalidPasswords.push(f)
+            } else {
+              invalidFields.push(f)
+            }
+          }
         })
+        const isValid =
+          invalidFields.length === 0 && invalidPasswords.length === 0
+        const isValidButPasswords = invalidFields.length === 0
 
         this.setState(prevState => {
           // check and update accountName placeholder
@@ -228,6 +242,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           }
           return Object.assign({}, prevState, {
             isValid,
+            isValidButPasswords,
             fields: Object.assign({}, prevState.fields, {
               [field]: Object.assign({}, prevState.fields[field], { errors }),
               accountName: Object.assign(
@@ -264,17 +279,29 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
 
         // Check if all required inputs are filled
-        let unfilled = []
-        for (field in this.state.fields) {
-          if (
-            this.state.fields[field].isRequired &&
-            this.state.fields[field].type !== 'hidden' &&
-            this.state.fields[field].value.length === 0
-          )
-            unfilled.push(field)
+        let unfilled = [] // all except passwords
+        let unfilledPasswords = []
+        const { fields } = this.state
+        for (field in fields) {
+          const isRequiredAndEmpty =
+            fields[field].isRequired &&
+            fields[field].type !== 'hidden' &&
+            fields[field].value.length === 0
+          if (isRequiredAndEmpty) {
+            // TODO use the next line instead when the stack will be
+            // able to encrypt many fields
+            // if (fields[field].type === 'password') {
+            if (field === 'password') {
+              unfilledPasswords.push(field)
+            } else {
+              unfilled.push(field)
+            }
+          }
         }
         this.setState({
-          allRequiredFieldsAreFilled: unfilled.length === 0,
+          allRequiredFieldsAreFilled:
+            unfilled.length === 0 && unfilledPasswords.length === 0,
+          allRequiredFilledButPasswords: unfilled.length === 0,
           values: this.getData()
         })
       }
