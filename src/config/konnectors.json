@@ -504,6 +504,36 @@
     }
   },
   {
+    "slug": "casden173",
+    "name": "Casden",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://www.casden.fr/",
+    "categories": ["banking"],
+    "icon": "casden.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "parameters": {
+      "bankId": "173"
+    }
+  },
+  {
     "slug": "cdngroup109",
     "name": "Société Marseillaise de Crédit (Particuliers)",
     "editor": "Cozy Cloud",
