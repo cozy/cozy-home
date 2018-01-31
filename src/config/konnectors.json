@@ -1564,7 +1564,7 @@
       "connector": true
     },
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build",
-    "timeInterval": [15, 21],
+    "frequency": "hourly",
     "oauth_scope": "M"
   },
   {
