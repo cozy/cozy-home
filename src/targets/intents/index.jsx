@@ -1,4 +1,4 @@
-/* global initKonnectors, initFolders */
+/* global initKonnectors */
 
 import 'babel-polyfill'
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context)
+  const store = configureStore(client, initKonnectors, context)
 
   render(
     <CozyProvider store={store} client={client}>

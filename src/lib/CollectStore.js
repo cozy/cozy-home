@@ -19,11 +19,10 @@ export const CONNECTION_STATUS = {
 const INSTALL_TIMEOUT = 120 * 1000
 
 export default class CollectStore {
-  constructor(connectors, folders, context, options = {}) {
+  constructor(connectors, context, options = {}) {
     this.listener = null
     this.options = options
 
-    this.folders = folders
     this.categories = require('../config/categories')
     this.driveUrl = null
 

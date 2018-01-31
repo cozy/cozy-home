@@ -15,8 +15,7 @@ module.exports = {
   },
   plugins: [
     new ProvidePlugin({
-      initKonnectors: 'expose-loader?initKonnectors!config/konnectors.json',
-      initFolders: 'expose-loader?intFolders!config/folders.json'
+      initKonnectors: 'expose-loader?initKonnectors!config/konnectors.json'
     }),
     new DefinePlugin({
       __PIWIK_SITEID__: 8,

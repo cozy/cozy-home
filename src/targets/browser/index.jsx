@@ -1,4 +1,4 @@
-/* global cozy, initKonnectors, initFolders */
+/* global cozy, initKonnectors */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 import React from 'react'
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context, {
+  const store = configureStore(client, initKonnectors, context, {
     ...collectConfig
   })
 
