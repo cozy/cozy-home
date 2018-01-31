@@ -27,7 +27,7 @@ const KonnectorList = ({ base, t, konnectors, showVoting = false }) => (
         <header className="item-header">
           <img
             className="item-icon"
-            src={require('../assets/icons/konnectors/icon-voting.svg')}
+            src={require('../assets/konnectors/icon-voting.svg')}
           />
         </header>
         <p className="item-title item-voting-text">{t('connector.voting')}</p>

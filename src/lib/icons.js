@@ -3,19 +3,19 @@
 
 export const getKonnectorIcon = konnector => {
   if (konnector.icon) {
-    return require(`../assets/icons/konnectors/${konnector.icon}`)
+    return require(`../assets/konnectors/${konnector.icon}`)
   }
   const slug = konnector.slug
   let icon = ''
   const extensions = ['.svg', '.png', '.gif', '.jpg']
   for (const ext of extensions) {
     try {
-      icon = require(`../assets/icons/konnectors/${slug}${ext}`)
+      icon = require(`../assets/konnectors/${slug}${ext}`)
       break
     } catch (e) {}
   }
   if (!icon) {
-    icon = require('../assets/icons/konnectors/default.svg')
+    icon = require('../assets/konnectors/default.svg')
   }
   return icon
 }
