@@ -1,4 +1,3 @@
-/* global __DEVTOOLS__ */
 import { compose, createStore, applyMiddleware } from 'redux'
 import { cozyMiddleware } from 'redux-cozy-client'
 import { createLogger } from 'redux-logger'
@@ -15,8 +14,7 @@ const configureStore = (
   options = {}
 ) => {
   // Enable Redux dev tools
-  const composeEnhancers =
-    (__DEVTOOLS__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose
 
   const reduxStore = createStore(
     getReducers(),
