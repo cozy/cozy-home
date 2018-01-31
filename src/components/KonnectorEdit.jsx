@@ -14,6 +14,8 @@ import KonnectorSync from './KonnectorSync'
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 import { getAccountName } from '../lib/helpers'
 
+import warningSvg from '../assets/sprites/icon-warning.svg'
+
 const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
@@ -83,7 +85,7 @@ export const KonnectorEdit = ({
 }) => {
   const warningIcon = (
     <svg className="item-status-icon">
-      <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
+      <use xlinkHref={`#${warningSvg.id}`} /> }
     </svg>
   )
   const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED

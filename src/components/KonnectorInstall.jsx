@@ -11,6 +11,8 @@ import { NavLink } from 'react-router-dom'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 
+import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
+
 const KnownErrorDescription = ({ t, connector, errorMessage }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
@@ -81,7 +83,6 @@ export const KonnectorInstall = ({
   successButtonLabel,
   accountsCount
 }) => {
-  const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
@@ -122,7 +123,7 @@ export const KonnectorInstall = ({
                 !error && (
                   <p className={styles['col-account-connection-security']}>
                     <svg>
-                      <use xlinkHref={securityIcon} />
+                      <use xlinkHref={`#${securityIcon.id}`} />
                     </svg>
                     {connector.categories &&
                     connector.categories.includes('banking')
