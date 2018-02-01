@@ -1038,35 +1038,6 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
-    "slug": "fortuneo84",
-    "name": "Fortuneo",
-    "editor": "Cozy Cloud",
-    "vendorLink": "https://www.fortuneo.fr/",
-    "categories": ["banking"],
-    "icon": "fortuneo.svg",
-    "dataType": [
-      "bankAccounts",
-      "bankTransactions"
-    ],
-    "fields": {
-      "identifier": {
-        "type": "text"
-      },
-      "secret": {
-        "type": "password"
-      }
-    },
-    "frequency": "daily",
-    "timeInterval": [5.5, 6.5],
-    "hasDescriptions": {
-      "service": true
-    },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
-    "parameters": {
-      "bankId": "84"
-    }
-  },
-  {
     "slug": "free",
     "name": "Free",
     "editor": "Cozy Cloud",
