@@ -51,7 +51,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "102"
     }
@@ -147,7 +147,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "bforbank97",
@@ -177,7 +177,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "97"
     }
@@ -207,7 +207,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "82"
     }
@@ -236,7 +236,7 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "83"
     }
@@ -477,7 +477,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "caissedepargne1",
@@ -504,7 +504,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "1"
     }
@@ -534,7 +534,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "173"
     }
@@ -564,7 +564,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "109"
     }
@@ -594,7 +594,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "88"
     }
@@ -706,7 +706,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "45"
     }
@@ -736,7 +736,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "63"
     }
@@ -766,7 +766,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "168"
     }
@@ -1167,7 +1167,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "145"
     }
@@ -1201,7 +1201,7 @@
       "connector": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "119"
     }
@@ -1234,7 +1234,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "95"
     }
@@ -1264,7 +1264,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "44"
     }
@@ -1294,7 +1294,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "143"
     }
@@ -1324,7 +1324,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "144"
     }
@@ -1354,7 +1354,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "146"
     }
@@ -1486,7 +1486,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "96"
     }
@@ -1774,7 +1774,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "sosh",
