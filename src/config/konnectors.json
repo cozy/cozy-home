@@ -32,6 +32,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.axabanque.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "axa.png",
     "dataType": [
       "bankAccounts",
@@ -62,6 +63,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.banquepopulaire.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "banquepopulaire.png",
     "dataType": [
       "bankAccounts",
@@ -155,6 +157,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bforbank.com/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "bforbank.png",
     "dataType": [
       "bankAccounts",
@@ -188,6 +191,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://mabanque.bnpparibas",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "bnpparibas.png",
     "dataType": [
       "bankAccounts",
@@ -218,6 +222,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://clients.boursorama.com/connexion/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "boursorama.svg",
     "dataType": [
       "bankAccounts",
@@ -297,6 +302,7 @@
     "editor": "Cozy Cloud",
     "icon": "ca.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -485,6 +491,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.caisse-epargne.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "caissedepargne.svg",
     "dataType": [
       "bankAccounts",
@@ -515,6 +522,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "http://www.casden.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "casden.png",
     "dataType": [
       "bankAccounts",
@@ -546,6 +554,7 @@
     "vendorLink": "https://www.smc.fr/",
     "icon": "smc.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -576,6 +585,7 @@
     "vendorLink": "https://www.credit-du-nord.fr/",
     "icon": "creditdunord.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -605,6 +615,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.creditmutuel.fr/groupe/fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "credit-mutuel.png",
     "dataType": [
       "bankAccounts",
@@ -717,6 +728,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.cic.fr/lb/fr/banques/particuliers/index.html",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "cic.png",
     "dataType": [
       "bankAccounts",
@@ -747,6 +759,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://compte-nickel.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "comptenickel.png",
     "dataType": [
       "bankAccounts",
@@ -777,6 +790,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-agricole.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "ca.png",
     "dataType": [
       "bankAccounts",
@@ -1148,6 +1162,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hellobank.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "hellobank.png",
     "dataType": [
       "bankAccounts",
@@ -1178,6 +1193,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "hsbc.svg",
     "dataType": [
       "bankAccounts",
@@ -1212,6 +1228,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://secure.ingdirect.fr/public/displayLogin.jsf",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "ingdirect.png",
     "dataType": [
       "bankAccounts",
@@ -1245,6 +1262,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.labanquepostale.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "labanquepostale.png",
     "dataType": [
       "bankAccounts",
@@ -1275,6 +1293,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://particuliers.secure.lcl.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1305,6 +1324,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://e.lcl.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1335,6 +1355,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.secure.lcl.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1467,6 +1488,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.monabanq.com/client/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "monabanq.png",
     "dataType": [
       "bankAccounts",
@@ -1729,6 +1751,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.societegenerale.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",

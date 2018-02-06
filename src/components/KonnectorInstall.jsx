@@ -125,9 +125,10 @@ export const KonnectorInstall = ({
                     <svg>
                       <use xlinkHref={`#${securityIcon.id}`} />
                     </svg>
-                    {connector.categories &&
-                    connector.categories.includes('banking')
-                      ? t('account.config.security_third_party')
+                    {connector.partner
+                      ? t('account.config.security_third_party', {
+                          partner: connector.partner
+                        })
                       : t('account.config.security')}
                   </p>
                 )}
