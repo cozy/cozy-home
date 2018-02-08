@@ -84,7 +84,7 @@
     "trigger-bouncing": {
       "type": "node",
       "file": "/services/triggerBouncing.js",
-      "trigger": "@cron 0 0 * * * *"
+      "trigger": "@cron 0 15 */6 * * *"
     }
   }
 }
