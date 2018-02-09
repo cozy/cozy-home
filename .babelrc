@@ -2,10 +2,11 @@
   "presets": [
     ["env", {
       "targets": {
+        "ie": 10,
         "chrome": 42,
         "browsers": ["last 2 versions"]
       },
-      "useBuiltIns": true
+      "useBuiltIns": false
     }],
     "react"
   ],
