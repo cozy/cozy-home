@@ -9,7 +9,7 @@
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
-      "optional": "(optional)",
+      "optional": "(Optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
       "connected_title": "You already have an account for this provider: |||| You already have %{smart_count} accounts for this provider:",
@@ -122,7 +122,7 @@
         "cron_undefined": "manually",
         "syncing": "running…",
         "unknown": "unknown",
-        "last_sync": "Last synchronization: %{date}",
+        "last_sync": "Last synchronization: **%{date}**",
         "date_format": "MMMM D[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },

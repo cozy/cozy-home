@@ -113,8 +113,6 @@ export const KonnectorEdit = ({
             name="account"
             className={styles['col-account-edit-tabpanel']}
           >
-            {!error && !connector.oauth && <h4>{t('account.form.title')}</h4>}
-
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={
