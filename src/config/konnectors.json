@@ -1419,8 +1419,7 @@
       },
       "password": {
         "type": "password",
-        "min": 4,
-        "max": 15
+        "min": 4
       },
       "advancedFields": {
         "folderPath": {
