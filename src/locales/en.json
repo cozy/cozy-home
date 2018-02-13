@@ -432,5 +432,8 @@
       "pending": "Pending"
     },
     "close": "Close"
+  },
+  "status": {
+    "edf_maintenance": "INTERRUPTED SERVICE: EDF's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from EDF. We are trying to restore the situation and we will notice you when it will be fixed."
   }
 }
