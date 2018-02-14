@@ -167,6 +167,9 @@
       "identifier": {
         "type": "text"
       },
+      "code": {
+        "type": "password"
+      },
       "secret": {
         "type": "password"
       }
