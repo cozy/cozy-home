@@ -1,4 +1,4 @@
-/* global initKonnectors, initFolders */
+/* global initKonnectors */
 
 import 'babel-polyfill'
 
@@ -6,12 +6,12 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import { I18n } from 'cozy-ui/react/I18n'
-import configureStore from './store/configureStore'
+import configureStore from 'store/configureStore'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
-import IntentHandler from './containers/IntentHandler'
+import IntentHandler from 'containers/IntentHandler'
 
-import './styles/services.styl'
+import 'styles/services.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context)
+  const store = configureStore(client, initKonnectors, context)
 
   render(
     <CozyProvider store={store} client={client}>
       <I18n
         lang={lang}
-        dictRequire={lang => require(`./locales/${lang}`)}
+        dictRequire={lang => require(`locales/${lang}`)}
         context={context}
       >
         <IntentHandler initKonnectors={initKonnectors} appData={appData} />

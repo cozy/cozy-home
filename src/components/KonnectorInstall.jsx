@@ -10,43 +10,9 @@ import KonnectorSuccess from './KonnectorSuccess'
 import { NavLink } from 'react-router-dom'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
+import getErrorDescription from './ErrorDescriptions'
 
-const KnownErrorDescription = ({ t, connector, errorMessage }) => (
-  <DescriptionContent
-    cssClassesObject={{ 'coz-error': true }}
-    title={t(`connection.error.${errorMessage}.title`)}
-    hasError
-    messages={[
-      t(`connection.error.${errorMessage}.description`, {
-        name: connector.name,
-        link: connector.vendorLink
-      })
-    ]}
-  />
-)
-
-const GlobalErrorDescription = ({ t, connector }) => (
-  <DescriptionContent
-    cssClassesObject={{ 'coz-error': true }}
-    title={t('connection.error.default.title')}
-    hasError
-    messages={[
-      t('connection.error.default.description', { name: connector.name })
-    ]}
-  />
-)
-
-const getErrorDescription = props => {
-  const { error } = props
-  switch (error.message) {
-    case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
-    case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
-    case ACCOUNT_ERRORS.MAINTENANCE:
-      return <KnownErrorDescription errorMessage={error.message} {...props} />
-    default:
-      return <GlobalErrorDescription {...props} />
-  }
-}
+import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
 
 export const KonnectorInstall = ({
   t,
@@ -57,7 +23,7 @@ export const KonnectorInstall = ({
   driveUrl,
   error,
   fields,
-  isTimeout,
+  queued,
   isUnloading,
   oAuthTerminated,
   onCancel,
@@ -81,10 +47,10 @@ export const KonnectorInstall = ({
   successButtonLabel,
   accountsCount
 }) => {
-  const securityIcon = require('../assets/icons/color/icon-cloud-lock.svg')
   const { hasDescriptions, editor } = connector
   const hasErrorExceptLogin =
     error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const isRunningInQueue = queued && submitting
 
   return (
     <div className={styles['col-account-connection-content']}>
@@ -92,6 +58,8 @@ export const KonnectorInstall = ({
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
         {!!accountsCount &&
           !error &&
+          !submitting &&
+          !success &&
           Number.isInteger(accountsCount) && (
             <div>
               <h4 className={styles['col-account-connection-connected-title']}>
@@ -104,30 +72,30 @@ export const KonnectorInstall = ({
               </NavLink>
             </div>
           )}
-        {(!error ||
-          (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) && (
-          <DescriptionContent
-            title={t('account.config.title', { name: connector.name })}
-            messages={
-              !success && hasDescriptions && hasDescriptions.connector
-                ? [t(`connector.${connector.slug}.description.connector`)]
-                : []
-            }
-          >
-            {!connector.oauth &&
-              !error && (
-                <p className={styles['col-account-connection-security']}>
-                  <svg>
-                    <use xlinkHref={securityIcon} />
-                  </svg>
-                  {connector.categories &&
-                  connector.categories.includes('banking')
-                    ? t('account.config.security_third_party')
-                    : t('account.config.security')}
-                </p>
-              )}
-          </DescriptionContent>
-        )}
+        {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
+          !isRunningInQueue &&
+          !success && (
+            <DescriptionContent
+              title={t('account.config.title', { name: connector.name })}
+              messages={
+                hasDescriptions && hasDescriptions.connector
+                  ? [t(`connector.${connector.slug}.description.connector`)]
+                  : []
+              }
+            >
+              {!connector.oauth &&
+                !error && (
+                  <p className={styles['col-account-connection-security']}>
+                    <svg>
+                      <use xlinkHref={`#${securityIcon.id}`} />
+                    </svg>
+                    {connector.partner
+                      ? t('account.config.security_third_party')
+                      : t('account.config.security')}
+                  </p>
+                )}
+            </DescriptionContent>
+          )}
 
         {isFetching ? (
           <div className={styles['col-account-connection-fetching']}>
@@ -164,7 +132,7 @@ export const KonnectorInstall = ({
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
-            isTimeout={isTimeout}
+            isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
             onNext={onNext}
             onCancel={onCancel}

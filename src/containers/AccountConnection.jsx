@@ -23,12 +23,6 @@ import { getKonnectorIcon } from '../lib/icons'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import statefulForm from '../lib/statefulForm'
 
-const SUCCESS_TYPES = {
-  UPDATE: 'update',
-  CONNECT: 'connect',
-  TIMEOUT: 'timeout'
-}
-
 class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
@@ -344,7 +338,6 @@ class AccountConnection extends Component {
       folders
     } = this.state
     const { driveUrl } = this.store
-    const isTimeout = success && success.type === SUCCESS_TYPES.TIMEOUT
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
     return (
@@ -402,7 +395,7 @@ class AccountConnection extends Component {
             driveUrl={driveUrl}
             error={error || oAuthError || connectionError}
             fields={fields}
-            isTimeout={isTimeout}
+            queued={queued}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
             onNext={onNext}
@@ -412,7 +405,7 @@ class AccountConnection extends Component {
             submitting={submitting || isRunning}
             success={success || queued}
             successMessage={t(
-              queued
+              queued && !success
                 ? 'account.success.title.timeout'
                 : 'account.success.title.connect',
               { name: konnector.name }
@@ -439,11 +432,14 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { trigger } = ownProps
+  const { konnector, trigger } = ownProps
   return {
     fetchAccount: accountId =>
       dispatch(fetchAccount(accountId)).then(response => response.data[0]),
-    forceConnection: () => dispatch(launchTriggerAndQueue(trigger)),
+    forceConnection: () =>
+      dispatch(
+        launchTriggerAndQueue(trigger, !!konnector && konnector.loginDelay)
+      ),
     deleteConnection: () => dispatch(deleteConnection(trigger))
   }
 }

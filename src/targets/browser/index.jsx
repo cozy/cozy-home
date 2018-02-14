@@ -1,4 +1,4 @@
-/* global cozy, initKonnectors, initFolders, __DEBUG__ */
+/* global cozy, initKonnectors */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 import React from 'react'
@@ -6,13 +6,13 @@ import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
 import I18n from 'cozy-ui/react/I18n'
-import PiwikHashRouter from './lib/PiwikHashRouter'
+import PiwikHashRouter from 'lib/PiwikHashRouter'
 
-import App from './containers/App'
-import collectConfig from './config/collect'
-import configureStore from './store/configureStore'
+import App from 'containers/App'
+import collectConfig from 'config/collect'
+import configureStore from 'store/configureStore'
 
-import './styles/index.styl'
+import 'styles/index.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
@@ -60,12 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, initFolders, context, {
-    ...collectConfig,
-    debug: __DEBUG__
+  const store = configureStore(client, initKonnectors, context, {
+    ...collectConfig
   })
 
-  const dictRequire = lang => require(`./locales/${lang}`)
+  const dictRequire = lang => require(`locales/${lang}`)
 
   render(
     <CozyProvider store={store} client={client}>

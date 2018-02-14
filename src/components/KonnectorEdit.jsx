@@ -13,43 +13,9 @@ import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
 import { getAccountName } from '../lib/helpers'
+import getErrorDescription from './ErrorDescriptions'
 
-const KnownErrorDescription = ({ t, connector, errorMessage }) => (
-  <DescriptionContent
-    cssClassesObject={{ 'coz-error': true }}
-    title={t(`connection.error.${errorMessage}.title`)}
-    hasError
-    messages={[
-      t(`connection.error.${errorMessage}.description`, {
-        name: connector.name,
-        link: connector.vendorLink
-      })
-    ]}
-  />
-)
-
-const GlobalErrorDescription = ({ t, connector }) => (
-  <DescriptionContent
-    cssClassesObject={{ 'coz-error': true }}
-    title={t('connection.error.default.title')}
-    hasError
-    messages={[
-      t('connection.error.default.description', { name: connector.name })
-    ]}
-  />
-)
-
-const getErrorDescription = props => {
-  const { error } = props
-  switch (error.message) {
-    case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
-    case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
-    case ACCOUNT_ERRORS.MAINTENANCE:
-      return <KnownErrorDescription errorMessage={error.message} {...props} />
-    default:
-      return <GlobalErrorDescription {...props} />
-  }
-}
+import warningSvg from '../assets/sprites/icon-warning.svg'
 
 export const KonnectorEdit = ({
   t,
@@ -82,8 +48,8 @@ export const KonnectorEdit = ({
   trigger
 }) => {
   const warningIcon = (
-    <svg className="item-status-icon">
-      <use xlinkHref={require('../assets/sprites/icon-warning.svg')} /> }
+    <svg className={styles['item-status-icon']}>
+      <use xlinkHref={`#${warningSvg.id}`} /> }
     </svg>
   )
   const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
@@ -147,8 +113,6 @@ export const KonnectorEdit = ({
             name="account"
             className={styles['col-account-edit-tabpanel']}
           >
-            {!error && !connector.oauth && <h4>{t('account.form.title')}</h4>}
-
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={

@@ -19,11 +19,10 @@ export const CONNECTION_STATUS = {
 const INSTALL_TIMEOUT = 120 * 1000
 
 export default class CollectStore {
-  constructor(connectors, folders, context, options = {}) {
+  constructor(connectors, context, options = {}) {
     this.listener = null
     this.options = options
 
-    this.folders = folders
     this.categories = require('../config/categories')
     this.driveUrl = null
 
@@ -230,7 +229,11 @@ export default class CollectStore {
               )
               .then(result => result.data[0])
               // 8. Run a job for the konnector
-              .then(trigger => this.dispatch(launchTriggerAndQueue(trigger)))
+              .then(trigger =>
+                this.dispatch(
+                  launchTriggerAndQueue(trigger, konnector.loginDelay)
+                )
+              )
               .then(result => result.data[0])
               // 9. Handle job
               .then(job => {

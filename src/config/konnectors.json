@@ -32,6 +32,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.axabanque.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "axa.png",
     "dataType": [
       "bankAccounts",
@@ -50,7 +51,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "102"
     }
@@ -61,6 +63,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.banquepopulaire.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "banquepopulaire.png",
     "dataType": [
       "bankAccounts",
@@ -145,7 +148,39 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+  },
+  {
+    "slug": "barclays136",
+    "name": "Barclays",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.barclays.fr/",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "barclays.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "parameters": {
+      "bankId": "136"
+    }
   },
   {
     "slug": "bforbank97",
@@ -153,6 +188,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bforbank.com/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "bforbank.png",
     "dataType": [
       "bankAccounts",
@@ -174,7 +210,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "97"
     }
@@ -185,6 +222,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://mabanque.bnpparibas",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "bnpparibas.png",
     "dataType": [
       "bankAccounts",
@@ -203,7 +241,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "82"
     }
@@ -214,6 +253,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://clients.boursorama.com/connexion/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "boursorama.svg",
     "dataType": [
       "bankAccounts",
@@ -232,7 +272,7 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "83"
     }
@@ -293,6 +333,7 @@
     "editor": "Cozy Cloud",
     "icon": "ca.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -472,7 +513,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "caissedepargne1",
@@ -480,6 +522,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.caisse-epargne.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "caissedepargne.svg",
     "dataType": [
       "bankAccounts",
@@ -498,7 +541,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "1"
     }
@@ -509,6 +553,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "http://www.casden.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "casden.png",
     "dataType": [
       "bankAccounts",
@@ -528,7 +573,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "173"
     }
@@ -540,6 +585,7 @@
     "vendorLink": "https://www.smc.fr/",
     "icon": "smc.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -557,7 +603,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "109"
     }
@@ -569,6 +616,7 @@
     "vendorLink": "https://www.credit-du-nord.fr/",
     "icon": "creditdunord.png",
     "categories": ["banking"],
+    "partner": "Linxo",
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -586,7 +634,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "88"
     }
@@ -597,6 +646,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.creditmutuel.fr/groupe/fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "credit-mutuel.png",
     "dataType": [
       "bankAccounts",
@@ -697,7 +747,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "45"
     }
@@ -708,6 +759,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.cic.fr/lb/fr/banques/particuliers/index.html",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "cic.png",
     "dataType": [
       "bankAccounts",
@@ -727,7 +779,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "63"
     }
@@ -738,6 +790,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://compte-nickel.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "comptenickel.png",
     "dataType": [
       "bankAccounts",
@@ -756,7 +809,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "168"
     }
@@ -767,6 +821,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-agricole.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "ca.png",
     "dataType": [
       "bankAccounts",
@@ -950,6 +1005,7 @@
     },
     "frequency": "daily",
     "timeInterval": [5.5, 6.5],
+    "loginDelay": 10000,
     "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
   },
   {
@@ -1057,6 +1113,29 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
+    "oauth": true,
+    "slug": "enedis",
+    "name": "Enedis",
+    "editor": "Fing",
+    "vendorLink": "https://www.enedis.fr/",
+    "categories": ["energy"],
+    "frequency": "daily",
+    "timeInterval": [4, 5],
+    "dataType": [
+      "consumption",
+      "profile"
+    ],
+    "hasDescriptions": {
+      "service": true
+    },
+    "fields": {
+      "access_token": {
+        "type": "hidden"
+      }
+    },
+    "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-enedis.git#build"
+  },
+  {
     "slug": "free",
     "name": "Free",
     "editor": "Cozy Cloud",
@@ -1137,6 +1216,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hellobank.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "hellobank.png",
     "dataType": [
       "bankAccounts",
@@ -1155,7 +1235,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "145"
     }
@@ -1166,6 +1247,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "hsbc.svg",
     "dataType": [
       "bankAccounts",
@@ -1185,9 +1267,11 @@
     "frequency": "daily",
     "timeInterval": [5.5, 6.5],
     "hasDescriptions": {
-      "service": true
+      "service": true,
+      "connector": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "119"
     }
@@ -1198,6 +1282,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://secure.ingdirect.fr/public/displayLogin.jsf",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "ingdirect.png",
     "dataType": [
       "bankAccounts",
@@ -1219,7 +1304,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "95"
     }
@@ -1230,6 +1316,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.labanquepostale.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "labanquepostale.png",
     "dataType": [
       "bankAccounts",
@@ -1248,7 +1335,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "44"
     }
@@ -1259,6 +1347,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://particuliers.secure.lcl.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1277,7 +1366,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "143"
     }
@@ -1288,6 +1378,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://e.lcl.fr/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1306,7 +1397,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "144"
     }
@@ -1317,6 +1409,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.secure.lcl.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "lcl.png",
     "dataType": [
       "bankAccounts",
@@ -1335,7 +1428,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "146"
     }
@@ -1379,8 +1473,7 @@
       },
       "password": {
         "type": "password",
-        "min": 4,
-        "max": 15
+        "min": 4
       },
       "advancedFields": {
         "folderPath": {
@@ -1448,6 +1541,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.monabanq.com/client/",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "monabanq.png",
     "dataType": [
       "bankAccounts",
@@ -1466,7 +1560,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build",
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
     "parameters": {
       "bankId": "96"
     }
@@ -1575,7 +1670,7 @@
       "connector": true
     },
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build",
-    "timeInterval": [15, 21],
+    "frequency": "hourly",
     "oauth_scope": "M"
   },
   {
@@ -1709,6 +1804,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://professionnels.societegenerale.fr",
     "categories": ["banking"],
+    "partner": "Linxo",
     "icon": "societegenerale.png",
     "dataType": [
       "bankAccounts",
@@ -1753,7 +1849,8 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#build"
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "sosh",

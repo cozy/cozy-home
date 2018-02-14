@@ -9,11 +9,11 @@
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
-      "optional": "(optional)",
+      "optional": "(Optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-      "security_third_party": "Your login and password will be stored in your Cozy.",
       "connected_title": "You already have an account for this provider: |||| You already have %{smart_count} accounts for this provider:",
+      "security_third_party": "Your login and password will be stored in your Cozy.",
       "connected_link": "Access my connected accounts",
       "data": {
         "title": "Collected data:",
@@ -122,7 +122,7 @@
         "cron_undefined": "manually",
         "syncing": "running…",
         "unknown": "unknown",
-        "last_sync": "Last synchronization: %{date}",
+        "last_sync": "Last synchronization: **%{date}**",
         "date_format": "MMMM D[,] YYYY [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },
@@ -293,6 +293,11 @@
     "logo": {
       "alt": "%{name} logo"
     },
+    "enedis": {
+      "description": {
+        "service": "This connector is provided by the Fing. With this tools, you can get your personnal data from Enedis and store them in your Cozy. It will bring back daily the data about your electric consumption measured by your Linky counter (energy, maxpower and load curve by day), and a few data about your account (contact information, postal address, counter informations). This tool is run by your Cozy and the Fing will not have any access or view of the data."
+      }
+    },
     "orange": {
       "message": {
         "delay": "Once connected, a demand to extract your data will be sent to Orange information system. These data will be available within 15 days. You data will be updated automatically, every 15 days."
@@ -318,6 +323,11 @@
       }
     },
     "banquepopulaire": {
+      "description": {
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "barclays136": {
       "description": {
         "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
       }
@@ -384,7 +394,8 @@
     },
     "hsbc119": {
       "description": {
-        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo)."
+        "service": "The connection to your bank is operated and secured by our partner : Linxo. [Learn more](https://support.cozy.io/article/147-linxo).",
+        "connector": "The secret answer is [asked by HSBC](https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion) when you connect without double authentication. Example: what is the name of your pet?"
       }
     },
     "ingdirect95": {
@@ -431,5 +442,12 @@
       "pending": "Pending"
     },
     "close": "Close"
+  },
+  "status": {
+    "interrupted": "INTERRUPTED SERVICE",
+    "edf": {
+      "maintenance": "EDF's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from EDF. We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](%{supportLink})",
+      "support_link": "https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas"
+    }
   }
 }

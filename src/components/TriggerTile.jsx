@@ -16,7 +16,9 @@ const TriggerTile = props => (
 
 const svgIcon = name => (
   <svg className="item-status-icon">
-    <use xlinkHref={require(`../assets/sprites/icon-${name}.svg`)} /> }
+    <use
+      xlinkHref={'#' + require(`../assets/sprites/icon-${name}.svg`).default.id}
+    />
   </svg>
 )
 
