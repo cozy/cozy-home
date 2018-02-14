@@ -10,16 +10,13 @@ const FETCH_REGISTRY_KONNECTORS_SUCCESS = 'FETCH_REGISTRY_KONNECTORS_SUCCESS'
 
 export const OTHERS_CATEGORY = 'others'
 
-const getUncategorizedKonnectors = (list, categories) =>
-  list.reduce((uncategorized, konnector) => {
-    if (
+// helpers
+const getUncategorizedKonnectors = (konnectors, categories) =>
+  konnectors.filter(
+    konnector =>
       konnector.categories &&
       !konnector.categories.every(category => categories.includes(category))
-    ) {
-      uncategorized.push(konnector)
-    }
-    return uncategorized
-  }, [])
+  )
 
 // reducers
 
