@@ -48,7 +48,7 @@ export const KonnectorEdit = ({
   trigger
 }) => {
   const warningIcon = (
-    <svg className="item-status-icon">
+    <svg className={styles['item-status-icon']}>
       <use xlinkHref={`#${warningSvg.id}`} /> }
     </svg>
   )
