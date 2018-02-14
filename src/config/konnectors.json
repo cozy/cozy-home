@@ -152,6 +152,37 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
+    "slug": "barclays136",
+    "name": "Barclays",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.barclays.fr/",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "barclays.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "parameters": {
+      "bankId": "136"
+    }
+  },
+  {
     "slug": "bforbank97",
     "name": "BforBank",
     "editor": "Cozy Cloud",
