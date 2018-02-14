@@ -14,12 +14,17 @@ export const OTHERS_CATEGORY = 'others'
 const getUncategorizedKonnectors = (konnectors, categories) =>
   konnectors.filter(
     konnector =>
-      konnector.categories &&
-      !konnector.categories.every(category => categories.includes(category))
+      !konnector.categories.length ||
+      (konnector.categories &&
+        !konnector.categories.every(category => categories.includes(category)))
   )
 
-// reducers
+const sanitizeKonnector = konnector => ({
+  categories: [],
+  ...konnector
+})
 
+// reducers
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_REGISTRY_KONNECTORS:
@@ -115,7 +120,7 @@ export const initializeRegistry = konnectors => {
         }
         return dispatch({
           type: FETCH_REGISTRY_KONNECTORS_SUCCESS,
-          konnectors: filteredKonnectors
+          konnectors: filteredKonnectors.map(sanitizeKonnector)
         })
       })
       .catch(() => {
