@@ -6,6 +6,10 @@ export const DOCTYPE = 'io.cozy.konnectors'
 
 export const fetchKonnectors = () => fetchCollection('konnectors', DOCTYPE)
 
+// TODO: Fetch the registry
+export const fetchKonnectorsInMaintenance = () =>
+  require('../../config/maintenance')
+
 // Selectors
 
 export const getKonnector = (state, slug) =>
