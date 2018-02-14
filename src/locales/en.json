@@ -59,7 +59,8 @@
         "token": "Token",
         "agreement": "I agree",
         "refreshToken": "Refresh Token",
-        "branchName": "Branch"
+        "branchName": "Branch",
+        "code": "Confidential code"
       },
       "placeholder": {
         "password": "The password you use to connect to the service",
