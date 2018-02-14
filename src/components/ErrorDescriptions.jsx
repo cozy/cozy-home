@@ -7,11 +7,12 @@ export const KnownErrorDescription = ({
   t,
   connector,
   errorMessage,
-  message
+  message,
+  title
 }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
-    title={t(`connection.error.${errorMessage}.title`)}
+    title={title || t(`connection.error.${errorMessage}.title`)}
     hasError
     messages={[
       message ||
@@ -40,12 +41,18 @@ export const getErrorDescription = props => {
     case ACCOUNT_ERRORS.NOT_EXISTING_DIRECTORY:
     case ACCOUNT_ERRORS.USER_ACTION_NEEDED:
     case ACCOUNT_ERRORS.MAINTENANCE:
-      // FIXME temporary, only for EDF
+      // FIXME temporarily, only for EDF
       if (props.connector && props.connector.slug === 'edf') {
         return (
           <KnownErrorDescription
             errorMessage={error.message}
-            message={props.t && props.t('status.edf_maintenance')}
+            message={
+              props.t &&
+              props.t('status.edf.maintenance', {
+                supportLink: props.t('status.edf.support_link')
+              })
+            }
+            title={props.t && props.t('status.interrupted')}
             {...props}
           />
         )
