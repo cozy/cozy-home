@@ -90,9 +90,7 @@ export const KonnectorInstall = ({
                       <use xlinkHref={`#${securityIcon.id}`} />
                     </svg>
                     {connector.partner
-                      ? t('account.config.security_third_party', {
-                          partner: connector.partner
-                        })
+                      ? t('account.config.security_third_party')
                       : t('account.config.security')}
                   </p>
                 )}
