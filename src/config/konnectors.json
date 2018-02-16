@@ -156,6 +156,7 @@
     "name": "Barclays",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.barclays.fr/",
+    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "barclays.svg",
@@ -823,6 +824,7 @@
     "name": "Crédit Agricole by Cozy",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-agricole.fr",
+    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "ca.png",
@@ -1016,6 +1018,7 @@
     "slug": "debug",
     "editor": "Cozy Cloud",
     "vendorLink": "http://cozy.io",
+    "testing": true,
     "categories": ["other"],
     "fields": {
       "login": {
@@ -1121,6 +1124,7 @@
     "name": "Enedis",
     "editor": "Fing",
     "vendorLink": "https://www.enedis.fr/",
+    "testing": true,
     "categories": ["energy"],
     "frequency": "daily",
     "timeInterval": [4, 5],
