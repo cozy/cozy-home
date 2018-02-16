@@ -281,6 +281,13 @@
     }
   },
 
+  "maintenance": {
+    "icon": "This connector is under maintenance",
+    "service": "Service interrupted",
+    "probleme": "We have a problem with this provider",
+    "title": "What is going on ?"
+  },
+
   "connector": {
     "debug": {
       "successMessage": "This konnector is for debug purpose only, this is an additionnal custom success message."

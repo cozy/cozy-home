@@ -33,7 +33,11 @@ class AccountConnection extends Component {
     this.state = {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
-      isFetching: false
+      isFetching: false,
+      maintenance:
+        this.props.maintenance &&
+        this.props.maintenance[this.props.konnector.slug],
+      lang: this.context.lang
     }
     // TODO : Add updateFields
     if (props.fields.folderPath) this.fetchFolders()
@@ -335,7 +339,9 @@ class AccountConnection extends Component {
       oAuthTerminated,
       submitting,
       isFetching,
-      folders
+      folders,
+      maintenance,
+      lang
     } = this.state
     const { driveUrl } = this.store
     const successMessages =
@@ -380,6 +386,8 @@ class AccountConnection extends Component {
             trigger={trigger}
             closeModal={closeModal}
             dirty={dirty}
+            maintenance={maintenance}
+            lang={lang}
           />
         ) : (
           <KonnectorInstall
@@ -416,6 +424,8 @@ class AccountConnection extends Component {
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
             displayAdvanced={displayAdvanced}
             toggleAdvanced={toggleAdvanced}
+            maintenance={maintenance}
+            lang={lang}
           />
         )}
       </div>

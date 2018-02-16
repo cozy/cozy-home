@@ -19,7 +19,8 @@ import {
 } from '../ducks/registry'
 import {
   getCreatedConnectionAccount,
-  getTriggerByKonnectorAndAccount
+  getTriggerByKonnectorAndAccount,
+  getKonnectorsInMaintenance
 } from '../reducers'
 
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
@@ -203,6 +204,7 @@ const mapStateToProps = (state, ownProps) => {
     konnector,
     existingAccount || createdAccount
   )
+  const maintenance = getKonnectorsInMaintenance()
   return {
     createdAccount,
     existingAccount,
@@ -211,7 +213,8 @@ const mapStateToProps = (state, ownProps) => {
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
     lastSuccess: getTriggerLastSuccess(state.cozy, trigger),
-    trigger
+    trigger,
+    maintenance: maintenance
   }
 }
 
