@@ -10,6 +10,7 @@ set -e
 
 [ -z "${COZY_BUILD_BRANCH}" ] && COZY_BUILD_BRANCH="build"
 [ -z "${REGISTRY_EDITOR}" ] && REGISTRY_EDITOR="Cozy"
+[ -z "${REGISTRY_URL}"] && REGISTRY_URL="https://staging-apps-registry.cozycloud.cc/registry"
 
 # don't publish on pull requests
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
@@ -55,11 +56,11 @@ fi
 # get the sha256 hash from the archive from the url
 shasum=$(curl -sSL --fail "${COZY_BUILD_URL}" | shasum -a 256 | cut -d" " -f1)
 
-printf 'Publishing version "%s" from "%s" (%s)\n' "${COZY_APP_VERSION}" "${COZY_BUILD_URL}" "${shasum}"
+printf 'Publishing version "%s" from "%s" (%s) to %s\n' "${COZY_APP_VERSION}" "${COZY_BUILD_URL}" "${shasum}" "${REGISTRY_URL}/${COZY_APP_SLUG}"
 
 # publish the application
 curl -sS --fail -X POST \
     -H "Content-Type: application/json" \
     -H "Authorization: Token ${REGISTRY_TOKEN}" \
     -d "{\"editor\": \"${REGISTRY_EDITOR}\", \"version\": \"${COZY_APP_VERSION}\", \"url\": \"${COZY_BUILD_URL}\", \"sha256\": \"${shasum}\", \"type\": \"webapp\"}" \
-    "https://staging-apps-registry.cozycloud.cc/registry/${COZY_APP_SLUG}"
+    "${REGISTRY_URL}/${COZY_APP_SLUG}"
