@@ -631,6 +631,10 @@
       },
       "secret": {
         "type": "password"
+      },
+      "home_url": {
+        "type": "hidden",
+        "default": "https://www.credit-du-nord.fr/"
       }
     },
     "frequency": "daily",
