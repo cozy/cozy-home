@@ -126,149 +126,95 @@ export default class CollectStore {
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount(konnector, account, disableEnqueue, enqueueAfter = 10000) {
-    const startTime = new Date().getTime()
-
     // return object to store all business object implied in the connection
     const connection = {}
     // detect oauth case
     const isOAuth = !!account.oauth
 
-    // 1. Create folder, will be replaced by an intent or something else
+    // 1. Konnector installation
     return (
-      this.createDirectoryIfNecessary(!!account.auth && account.auth.folderPath)
-        // 2. Create account
-        .then(folder => {
-          connection.folder = folder
-          const folderId = folder ? folder._id : null
-          if (isOAuth) {
-            const newAttributes = {}
-
-            if (folderId) {
-              newAttributes.folderId = folderId
-            }
-
-            return accounts.update(
-              cozy.client,
-              account,
-              Object.assign({}, account, newAttributes)
-            )
-          } else {
-            return this.dispatch(
-              createAccount({
-                auth: account.auth,
-                account_type: konnector.slug
-              })
-            ).then(result => {
-              // Temporary hack ot return account
-              return result.data[0]
-            })
-          }
+      konnectors
+        .install(cozy.client, konnector, INSTALL_TIMEOUT)
+        .then(completeKonnector => {
+          connection.konnector = { ...konnector, ...completeKonnector }
         })
-        // 3. Konnector installation
-        .then(account => {
-          connection.account = account
-
-          return new Promise((resolve, reject) => {
-            let enqueued = false
-            let enqueueTimeout
-
-            const enqueue = () => {
-              clearTimeout(enqueueTimeout)
-              enqueued = true
-              resolve(connection)
-            }
-
-            konnectors
-              .install(cozy.client, konnector, INSTALL_TIMEOUT)
-              // 4. Add account to konnector
-              .then(installedkonnector => {
-                return konnectors.addAccount(
-                  cozy.client,
-                  installedkonnector,
-                  connection.account
-                )
-              })
-              // 5. Add permissions to folder for konnector if folder created
-              .then(completeKonnector => {
-                connection.konnector = { ...konnector, ...completeKonnector }
-                if (!connection.folder) return Promise.resolve()
-                return konnectors.addFolderPermission(
-                  cozy.client,
-                  completeKonnector,
-                  connection.folder._id
-                )
-              })
-              // 6. Reference konnector in folder
+        // 2. Create folder, will be replaced by an intent or something else
+        .then(
+          this.createDirectoryIfNecessary(
+            !!account.auth && account.auth.folderPath
+          ).then(folder => {
+            if (!folder) return Promise.resolve()
+            connection.folder = folder
+            // 3. Reference konnector in folder
+            return konnectors
+              .addFolderPermission(
+                cozy.client,
+                connection.konnector,
+                connection.folder._id
+              )
               .then(permission => {
-                if (!permission) return Promise.resolve()
                 connection.permission = permission
                 return cozy.client.data.addReferencedFiles(
                   connection.konnector,
                   connection.folder._id
                 )
               })
-              // 7. Create trigger
-              .then(() =>
-                this.dispatch(
-                  createKonnectorTrigger(
-                    connection.konnector,
-                    connection.account,
-                    connection.folder,
-                    {
-                      // We always pass a default day value,
-                      // `createKonnectorTrigger` will
-                      // then use it if it needs.
-                      day: new Date().getDay(),
-                      ...randomDayTime(
-                        konnector.timeInterval ||
-                          this.options.defaultTriggerTimeInterval
-                      )
-                    }
-                  )
-                )
-              )
-              .then(result => result.data[0])
-              // 8. Run a job for the konnector
-              .then(trigger =>
-                this.dispatch(
-                  launchTriggerAndQueue(trigger, konnector.loginDelay)
-                )
-              )
-              .then(result => result.data[0])
-              // 9. Handle job
-              .then(job => {
-                connection.job = job
+          })
+        )
+        // 4. Creates account
+        .then(() => {
+          if (isOAuth) {
+            return account
+          }
 
-                const state = job.state || job.attributes.state
-                connection.successTimeout = ![
-                  konnectors.JOB_STATE.ERRORED,
-                  konnectors.JOB_STATE.DONE
-                ].includes(state)
-              })
-              .then(() => {
-                enqueue()
-              })
-              .catch(error => {
-                connection.error = error
-              })
-              .then(() => {
-                clearTimeout(enqueueTimeout)
-                if (!enqueued) {
-                  resolve(connection)
-                }
-              })
-
-            if (!disableEnqueue) {
-              const elapsedTime = startTime - new Date().getTime()
-
-              if (elapsedTime >= enqueueAfter) {
-                enqueue()
-              } else {
-                enqueueTimeout = setTimeout(enqueue, enqueueAfter - elapsedTime)
-              }
-            }
+          return this.dispatch(
+            createAccount({
+              auth: account.auth,
+              account_type: konnector.slug
+            })
+          ).then(result => {
+            // Return account
+            return result.data[0]
           })
         })
+        .then(account => {
+          connection.account = account
+        })
+        // 5. Create trigger
+        .then(() =>
+          this.dispatch(
+            createKonnectorTrigger(
+              connection.konnector,
+              connection.account,
+              connection.folder,
+              {
+                // We always pass a default day value,
+                // `createKonnectorTrigger` will
+                // then use it if it needs.
+                day: new Date().getDay(),
+                ...randomDayTime(
+                  konnector.timeInterval ||
+                    this.options.defaultTriggerTimeInterval
+                )
+              }
+            )
+          ).then(result => result.data[0])
+        )
+        // 6. Launch trigger for the konnector
+        .then(trigger =>
+          this.dispatch(
+            launchTriggerAndQueue(trigger, konnector.loginDelay)
+          ).then(result => result.data[0])
+        )
+        // 7. Handle job
+        .then(job => {
+          connection.job = job
+        })
+        .catch(error => {
+          connection.error = error
+        })
+        // 8. Returns connection
+        .then(() => connection)
     )
   }
 
