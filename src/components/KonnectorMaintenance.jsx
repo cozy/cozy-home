@@ -13,8 +13,8 @@ const KonnectorMaintenance = ({ t, maintenance, lang }) => (
       <h3 className={styles['maintenance-service']}>
         {t('maintenance.service')}
       </h3>
-      <p className={styles['maintenance-probleme']}>
-        {t('maintenance.probleme')}
+      <p className={styles['maintenance-problem']}>
+        {t('maintenance.problem')}
       </p>
     </div>
     <h4 className={styles['maintenance-title']}>{t('maintenance.title')}</h4>
