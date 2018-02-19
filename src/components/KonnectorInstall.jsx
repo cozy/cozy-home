@@ -78,8 +78,7 @@ export const KonnectorInstall = ({
         {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
           !isRunningInQueue &&
           !success &&
-          !maintenance &&
-          !maintenance.longTerm && (
+          !maintenance && (
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={
