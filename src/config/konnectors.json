@@ -24,7 +24,7 @@
         }
       }
     },
-    "source": "git://github.com/briced/cozy-konnector-v3-ameli.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-ameli.git#latest"
   },
   {
     "slug": "axabanque102",
@@ -1211,7 +1211,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-harmonie.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-harmonie.git#latest"
   },
   {
     "slug": "hellobank145",
@@ -1456,7 +1456,7 @@
       "family",
       "sinister"
     ],
-    "source": "git://github.com/cozy/cozy-konnector-maif.git#build",
+    "source": "git://github.com/konnectors/cozy-konnector-maif.git#latest",
     "oauth_scope": "openid+profile+offline_access"
   },
   {
@@ -1485,7 +1485,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-malakoffmederic.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-malakoffmederic.git#latest"
   },
   {
     "slug": "materielnet",
@@ -1536,7 +1536,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-mgen.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-mgen.git#latest"
   },
   {
     "slug": "monabanq96",
