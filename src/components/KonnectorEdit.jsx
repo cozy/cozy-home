@@ -67,7 +67,9 @@ export const KonnectorEdit = ({
 
   return (
     <div className={styles['col-account-edit-content']}>
-      {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
+      {!maintenance &&
+        hasErrorExceptLogin &&
+        getErrorDescription({ t, error, connector })}
 
       <Tabs
         initialActiveTab={hasLoginError ? 'account' : 'sync'}
