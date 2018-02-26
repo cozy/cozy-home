@@ -1685,6 +1685,31 @@
     "oauth_scope": "M"
   },
   {
+    "slug": "payfit",
+    "name": "Payfit",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://app.payfit.com/",
+    "categories": ["other"],
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "username": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-payfit.git#build"
+  },
+  {
     "slug": "redbox",
     "name": "SFR RED box",
     "editor": "Cozy Cloud",
