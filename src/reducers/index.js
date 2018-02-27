@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import { reducer } from 'redux-cozy-client'
 import * as fromAccounts from '../ducks/accounts'
+import { fetchKonnectorsInMaintenance } from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
 import registry, * as fromRegistry from '../ducks/registry'
 import connections, * as fromConnections from '../ducks/connections'
@@ -71,6 +72,8 @@ export const getKonnectorConnectedAccount = (state, konnector) =>
     konnector,
     fromAccounts.getIds(state.cozy)
   )
+
+export const getKonnectorsInMaintenance = () => fetchKonnectorsInMaintenance()
 
 export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   const triggerId = fromConnections.getTriggerIdByKonnectorAndAccount(

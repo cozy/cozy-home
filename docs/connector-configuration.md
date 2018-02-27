@@ -112,6 +112,8 @@ You can use `simple input`, or `advanced fields`. Single input will render class
 
 > __⚠️ To know:__ `dropdown` type will render a `<select>`
 
+> __⚠️ To know:__ if you need a default value, use the proprertie `default`, the propertie `value` is not supported
+
 * __type (required)__: text, password, hidden, checkbox, date, dropdown
 * __isRequired__: default = true, make the field required to validate the form
 * __pattern__: allow you to use a regex to validate a field

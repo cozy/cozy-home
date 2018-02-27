@@ -6,6 +6,7 @@ import styles from '../styles/konnectorInstall'
 import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
+import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 import { NavLink } from 'react-router-dom'
 
@@ -45,7 +46,9 @@ export const KonnectorInstall = ({
   isSuccess,
   dirty,
   successButtonLabel,
-  accountsCount
+  accountsCount,
+  maintenance,
+  lang
 }) => {
   const { hasDescriptions, editor } = connector
   const hasErrorExceptLogin =
@@ -74,7 +77,8 @@ export const KonnectorInstall = ({
           )}
         {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
           !isRunningInQueue &&
-          !success && (
+          !success &&
+          !maintenance && (
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={
@@ -96,8 +100,9 @@ export const KonnectorInstall = ({
                 )}
             </DescriptionContent>
           )}
-
-        {isFetching ? (
+        {maintenance && maintenance.longTerm ? (
+          <KonnectorMaintenance maintenance={maintenance} lang={lang} />
+        ) : isFetching ? (
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>

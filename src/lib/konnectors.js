@@ -37,12 +37,6 @@ function sanitizeSlug(konnector) {
   )
 }
 
-export function addAccount(cozy, konnector, account) {
-  if (!konnector.accounts) konnector.accounts = []
-  konnector.accounts.push(account)
-  return Promise.resolve(konnector)
-}
-
 export function fetchManifest(cozy, source) {
   return source
     ? cozy.fetchJSON(

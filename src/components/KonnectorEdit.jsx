@@ -9,6 +9,7 @@ import AccountLoginForm from './AccountLoginForm'
 import AccountLogout from './AccountLogout'
 import DescriptionContent from './DescriptionContent'
 import KonnectorFolder from './KonnectorFolder'
+import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSync from './KonnectorSync'
 
 import { ACCOUNT_ERRORS } from '../lib/accounts'
@@ -45,7 +46,9 @@ export const KonnectorEdit = ({
   onSubmit,
   submitting,
   success,
-  trigger
+  trigger,
+  maintenance,
+  lang
 }) => {
   const warningIcon = (
     <svg className={styles['item-status-icon']}>
@@ -64,7 +67,9 @@ export const KonnectorEdit = ({
 
   return (
     <div className={styles['col-account-edit-content']}>
-      {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
+      {!maintenance &&
+        hasErrorExceptLogin &&
+        getErrorDescription({ t, error, connector })}
 
       <Tabs
         initialActiveTab={hasLoginError ? 'account' : 'sync'}
@@ -86,9 +91,14 @@ export const KonnectorEdit = ({
 
         <TabPanels>
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
+            {maintenance &&
+              maintenance.longTerm && (
+                <KonnectorMaintenance maintenance={maintenance} lang={lang} />
+              )}
             <KonnectorSync
               frequency={connector.frequency || 'weekly'}
               lastSuccessDate={lastSuccess}
+              maintenance={maintenance}
               submitting={submitting}
               onForceConnection={onForceConnection}
             />
