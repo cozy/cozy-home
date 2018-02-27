@@ -65,7 +65,7 @@
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-react": "7.4.0",
     "eslint-plugin-standard": "3.0.1",
-    "expose-loader": "0.7.3",
+    "expose-loader": "0.7.4",
     "husky": "0.14.3",
     "intro.js": "2.8.0-alpha.1",
     "lint-staged": "4.3.0",
