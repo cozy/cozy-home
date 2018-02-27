@@ -1694,7 +1694,7 @@
       "document"
     ],
     "fields": {
-      "username": {
+      "login": {
         "type": "text"
       },
       "password": {
