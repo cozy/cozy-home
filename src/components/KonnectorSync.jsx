@@ -16,6 +16,7 @@ export const KonnectorSync = ({
   f,
   frequency,
   lastSuccessDate,
+  maintenance,
   submitting,
   onForceConnection
 }) => {
@@ -39,20 +40,22 @@ export const KonnectorSync = ({
           ]}
         />
       }
-      <div className={styles['account-forceConnection']}>
-        <button
-          className={
-            submitting
-              ? classNames('coz-btn', styles['submitting'])
-              : classNames('coz-btn')
-          }
-          disabled={submitting}
-          aria-busy={submitting}
-          onClick={onForceConnection}
-        >
-          {t('account.forceConnection')}
-        </button>
-      </div>
+      {!maintenance && (
+        <div className={styles['account-forceConnection']}>
+          <button
+            className={
+              submitting
+                ? classNames('coz-btn', styles['submitting'])
+                : classNames('coz-btn')
+            }
+            disabled={submitting}
+            aria-busy={submitting}
+            onClick={onForceConnection}
+          >
+            {t('account.forceConnection')}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

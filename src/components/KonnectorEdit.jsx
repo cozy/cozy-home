@@ -98,6 +98,7 @@ export const KonnectorEdit = ({
             <KonnectorSync
               frequency={connector.frequency || 'weekly'}
               lastSuccessDate={lastSuccess}
+              maintenance={maintenance}
               submitting={submitting}
               onForceConnection={onForceConnection}
             />
