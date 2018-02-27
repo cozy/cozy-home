@@ -1,5 +1,19 @@
 {
+  "assignees": ["CPatchane", "gregorylegarec"],
+  "labels": [],
+  "automerge": false,
   "extends": [
-    "config:base"
+    "config:js-lib"
+  ],
+  "packageFiles": [
+    {
+      "packageFile": "package.json",
+      "devDependencies": {
+        "pinVersions": true
+      },
+      "dependencies": {
+        "pinVersions": true
+      }
+    }
   ]
 }
