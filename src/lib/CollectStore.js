@@ -139,7 +139,7 @@ export default class CollectStore {
           connection.konnector = { ...konnector, ...completeKonnector }
         })
         // 2. Create folder, will be replaced by an intent or something else
-        .then(
+        .then(() =>
           this.createDirectoryIfNecessary(
             !!account.auth && account.auth.folderPath
           ).then(folder => {
