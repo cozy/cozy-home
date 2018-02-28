@@ -54,7 +54,7 @@
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
     "cozy-scripts": "0.5.4",
-    "date-fns": "1.28.5",
+    "date-fns": "1.29.0",
     "eslint": "4.9.0",
     "eslint-config-prettier": "2.6.0",
     "eslint-config-standard": "10.2.1",
