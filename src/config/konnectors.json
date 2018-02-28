@@ -331,6 +331,61 @@
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
   },
   {
+    "slug": "bred",
+    "name": "Bred",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.bred.fr/",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "bred.png",
+    "testing": true,
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      },
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Bred",
+            "value": "68"
+          },
+          {
+            "name": "Bred Banque Privée",
+            "value": "101"
+          },
+          {
+            "name": "SBE",
+            "value": "110"
+          },
+          {
+            "name": "Bred Dispobank",
+            "value": "165"
+          },
+          {
+            "name": "Crédit Maritime Outre Mer",
+            "value": "166"
+          }
+        ]
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+  },
+  {
     "slug": "caatlantica3",
     "name": "Crédit Agricole",
     "editor": "Cozy Cloud",
