@@ -70,7 +70,7 @@
     "intro.js": "2.8.0-alpha.1",
     "lint-staged": "4.3.0",
     "piwik-react-router": "0.8.2",
-    "preact": "8.2.5",
+    "preact": "8.2.7",
     "preact-compat": "3.17.0",
     "prettier": "1.7.4",
     "react-markdown": "2.5.0",
