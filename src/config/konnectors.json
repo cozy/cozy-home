@@ -156,7 +156,6 @@
     "name": "Barclays",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.barclays.fr/",
-    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "barclays.svg",
