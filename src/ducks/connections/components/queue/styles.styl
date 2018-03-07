@@ -3,10 +3,10 @@
 .queue
     @extend $popover
     position: fixed
-    bottom: em(8px)
-    left: em(24px)
-    max-height: em(185px)
-    width: em(480px)
+    bottom: 0.5rem
+    left: 1.5rem
+    max-height: 11.5625rem
+    width: 30rem
     max-width: 90%
     border: 1px solid silver
     border-radius: 4px
@@ -28,7 +28,7 @@
     color: charcoal-grey
     font-weight: bold
     margin: 0
-    padding: em(8px) em(16px) em(8px)
+    padding: 0.5rem 1rem 0.5rem
 
     .queue-header-inner
         display: flex
@@ -49,8 +49,8 @@
     -moz-appearance: none
     border: none
     display: block
-    flex-grow: 0 0 em(2px)
-    max-height: em(2px)
+    flex-grow: 0 0 0.125rem
+    max-height: 0.125rem
     width: 100%
     margin: 0
 
@@ -69,7 +69,7 @@
     overflow: auto
 
 .queue--collapsed
-    height: em(40px)
+    height: 2.5rem
 
     .queue-content
         visibility: none
@@ -94,7 +94,7 @@
     align-items: center
     flex: 0 0 auto
     width: 100%
-    max-width: 'calc(100vw - %s)' % em(220px)
+    max-width: 'calc(100vw - %s)' % 13.75rem
     border-bottom: 1px solid silver
     position: relative
 
@@ -102,7 +102,7 @@
         position: absolute
         height: 48px
         background-color: #F5F6F7
-        border-top: #297EF1 solid em(2px)
+        border-top: #297EF1 solid 0.125rem
         z-index: -1
 
 
@@ -138,7 +138,7 @@
     .item-pending
         text-transform: uppercase
         color: dodger-blue
-        font-size: em(12px)
+        font-size: 0.75rem
         font-weight: bold
         line-height: 2em
 
