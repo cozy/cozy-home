@@ -1233,6 +1233,32 @@
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-enedis.git#build"
   },
   {
+    "slug": "enercoop",
+    "name": "Enercoop",
+    "editor": "Choj",
+    "vendorLink": "https://espace-client.enercoop.fr/",
+    "categories": ["energy"],
+    "dataType": [
+      "bill"
+    ],
+    "testing": true,
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-enercoop.git#build"
+  },
+  {
     "slug": "fortuneo84",
     "name": "Fortuneo",
     "editor": "Cozy Cloud",
