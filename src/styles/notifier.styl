@@ -1,3 +1,6 @@
+@require 'tools/mixins.styl'
+@require 'settings/palette.styl'
+
 // Onboarding notification styles
 // TODO: use the one in cozy-ui ?
 notification-width = (546/basefont)em
@@ -29,12 +32,12 @@ notification-width = (546/basefont)em
     cursor                     pointer
 
     .coz-notification-title
-        font-size(18px)
+        font-size   1.125rem
         font-weight bold
 
     .coz-notification-details
-        margin-top em(5px)
-        font-size(15px)
+        margin-top .3125rem
+        font-size  .9375rem
 
 .coz-notification--error
     background-color pomegranate

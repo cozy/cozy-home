@@ -1,4 +1,6 @@
-@require 'cozy-ui'
+@require 'settings/palette.styl'
+@require 'tools/mixins.styl'
+@require 'settings/icons.styl'
 
 :global // @stylint ignore
     #svg-sprite-content
@@ -7,9 +9,9 @@
         height 0
         visibility hidden
 
-    @import './lists.styl'
-    @import './loading.styl'
-    @import './dialog.styl'
+    @require './lists.styl'
+    @require './loading.styl'
+    @require './dialog.styl'
 
     .coz-service-loading
     .coz-service-error

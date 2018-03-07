@@ -1,4 +1,5 @@
-@require 'cozy-ui'
+@require 'tools/mixins.styl'
+@require 'settings/palette.styl'
 
 :local // @stylint ignore
     .coz-form-controls
@@ -41,7 +42,7 @@
             background-color    white
             text-transform      uppercase
             font-weight         700
-            padding             em(2px) // Magic number to align button with form fields
+            padding             .125rem // Magic number to align button with form fields
 
     .account-form-fieldset
         padding   0
