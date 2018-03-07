@@ -22,7 +22,7 @@ const fetchAccounts = async () => {
 
   const accounts = await cozyFetch(
     'GET',
-    '/data/io.cozy.accounts/_all_docs?include_docs=true',
+    'data/io.cozy.accounts/_all_docs?include_docs=true',
     null,
     true
   )
@@ -37,7 +37,7 @@ const fetchTriggers = async () => {
 
   const result = await cozyFetch(
     'GET',
-    '/jobs/triggers?Worker=konnector',
+    'jobs/triggers?Worker=konnector',
     null,
     true
   )
