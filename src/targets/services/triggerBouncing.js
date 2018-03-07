@@ -1,3 +1,4 @@
+require('babel-polyfill')
 const cozyFetch = require('../../lib/services/cozyFetch')
 
 const LOGIN_FAILED_ERROR = 'LOGIN_FAILED'
