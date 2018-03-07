@@ -72,7 +72,7 @@ const deleteAccounts = async accounts => {
   log.info(`Deleting accounts ${accounts.map(doc => doc._id).join(', ')}`)
   await cozyFetch(
     'POST',
-    `/data/io.cozy.accounts/_bulk_docs`,
+    `data/io.cozy.accounts/_bulk_docs`,
     { docs: accounts.map(doc => ({ ...doc, _deleted: true })) },
     true
   )
