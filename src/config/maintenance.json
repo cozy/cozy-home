@@ -5,5 +5,33 @@
       "fr": "EDF a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par EDF.<br/>Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas)",
       "en": "EDF's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from EDF.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas)"
     }
+  },
+  "redbox": {
+    "longTerm": true,
+    "message": {
+      "fr": "SFR RED box a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par SFR RED box. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)",
+      "en": "SFR RED Box's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from SFR RED Box.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)"
+    }
+  },
+  "redmobile": {
+    "longTerm": true,
+    "message": {
+      "fr": "SFR RED mobile a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par SFR RED mobile. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)",
+      "en": "SFR RED mobile's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from SFR RED mobile.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)"
+    }
+  },
+  "sfrbox": {
+    "longTerm": true,
+    "message": {
+      "fr": "SFR Box a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par SFR Box. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)",
+      "en": "SFR Box's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from SFR Box.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)"
+    }
+  },
+  "sfrmobile": {
+    "longTerm": true,
+    "message": {
+      "fr": "SFR Mobile a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par SFR Mobile. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)",
+      "en": "SFR Mobile's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from SFR Mobile.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)"
+    }
   }
 }
