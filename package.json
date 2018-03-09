@@ -53,7 +53,7 @@
   },
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
-    "cozy-app-publish": "^0.1.0",
+    "cozy-app-publish": "0.1.0",
     "cozy-scripts": "0.5.4",
     "date-fns": "1.29.0",
     "eslint": "4.9.0",
