@@ -331,6 +331,61 @@
     "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
   },
   {
+    "slug": "bred",
+    "name": "Bred",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.bred.fr/",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "bred.png",
+    "testing": true,
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      },
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Bred",
+            "value": "68"
+          },
+          {
+            "name": "Bred Banque Privée",
+            "value": "101"
+          },
+          {
+            "name": "SBE",
+            "value": "110"
+          },
+          {
+            "name": "Bred Dispobank",
+            "value": "165"
+          },
+          {
+            "name": "Crédit Maritime Outre Mer",
+            "value": "166"
+          }
+        ]
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+  },
+  {
     "slug": "caatlantica3",
     "name": "Crédit Agricole",
     "editor": "Cozy Cloud",
@@ -1017,6 +1072,38 @@
     "source": "git://github.com/cozy/cozy-konnector-bank-cragr.git#build"
   },
   {
+    "slug": "creditcooperatif148",
+    "name": "Crédit Coopératif",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.credit-cooperatif.coop/particuliers/",
+    "testing": true,
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "creditcooperatif.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "parameters": {
+      "bankId": "148"
+    }
+  },
+  {
     "name": "Debug",
     "slug": "debug",
     "editor": "Cozy Cloud",
@@ -1144,6 +1231,63 @@
       }
     },
     "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-enedis.git#build"
+  },
+  {
+    "slug": "enercoop",
+    "name": "Enercoop",
+    "editor": "Choj",
+    "vendorLink": "https://espace-client.enercoop.fr/",
+    "categories": ["energy"],
+    "dataType": [
+      "bill"
+    ],
+    "testing": true,
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-enercoop.git#build"
+  },
+  {
+    "slug": "fortuneo84",
+    "name": "Fortuneo",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://mabanque.fortuneo.fr/fr/identification.jsp",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "fortuneo.svg",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "parameters": {
+      "bankId": "84"
+    }
   },
   {
     "slug": "free",
