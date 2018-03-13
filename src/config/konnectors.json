@@ -1241,7 +1241,6 @@
     "dataType": [
       "bill"
     ],
-    "testing": true,
     "fields": {
       "login": {
         "type": "text"
