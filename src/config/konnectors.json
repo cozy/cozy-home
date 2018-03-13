@@ -1263,7 +1263,6 @@
     "name": "Fortuneo",
     "editor": "Cozy Cloud",
     "vendorLink": "https://mabanque.fortuneo.fr/fr/identification.jsp",
-    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "fortuneo.svg",
