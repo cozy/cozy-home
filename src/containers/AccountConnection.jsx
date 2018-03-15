@@ -306,6 +306,7 @@ class AccountConnection extends Component {
     const {
       createdAccount,
       disableSuccessTimeout,
+      displayAccountsCount,
       isUnloading,
       onNext,
       allRequiredFieldsAreFilled,
@@ -392,6 +393,7 @@ class AccountConnection extends Component {
         ) : (
           <KonnectorInstall
             accountsCount={accountsCount}
+            displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}

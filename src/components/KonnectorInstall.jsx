@@ -21,6 +21,7 @@ export const KonnectorInstall = ({
   connector,
   deleting,
   disableSuccessTimeout,
+  displayAccountsCount,
   driveUrl,
   error,
   fields,
@@ -59,7 +60,8 @@ export const KonnectorInstall = ({
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
         {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
-        {!!accountsCount &&
+        {displayAccountsCount &&
+          !!accountsCount &&
           !error &&
           !submitting &&
           !success &&

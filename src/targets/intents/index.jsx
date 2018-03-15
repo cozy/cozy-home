@@ -4,6 +4,7 @@ import 'babel-polyfill'
 
 import React from 'react'
 import { render } from 'react-dom'
+import { HashRouter } from 'react-router-dom'
 
 import { I18n } from 'cozy-ui/react/I18n'
 import configureStore from 'store/configureStore'
@@ -35,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         dictRequire={lang => require(`locales/${lang}`)}
         context={context}
       >
-        <IntentHandler initKonnectors={initKonnectors} appData={appData} />
+        <HashRouter>
+          <IntentHandler initKonnectors={initKonnectors} appData={appData} />
+        </HashRouter>
       </I18n>
     </CozyProvider>,
     document.querySelector('[role=application]')
