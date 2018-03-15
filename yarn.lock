@@ -2127,14 +2127,15 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-cozy-bar@4.8.9:
-  version "4.8.9"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.8.9.tgz#751aaa325ddf5c9b6a1488ff2b557b1307934f1f"
+cozy-bar@4.9.3:
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.9.3.tgz#733b0d9b88a84c985ff05eb7e154fb1ae549a5f3"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     core-js "^2.5.3"
     cozy-client-js "^0.3.19"
     localforage "^1.5.5"
+    lodash.debounce "4.0.8"
     node-polyglot "^2.2.2"
     piwik-react-router "^0.10.0"
     preact "^8.2.7"
@@ -5640,6 +5641,10 @@ lodash.clonedeep@^4.5.0:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
+
+lodash.debounce@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.defaults@4.0.1, lodash.defaults@^4.0.1:
   version "4.0.1"
