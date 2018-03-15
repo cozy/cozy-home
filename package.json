@@ -57,7 +57,7 @@
     "date-fns": "1.29.0",
     "eslint": "4.9.0",
     "eslint-config-prettier": "2.9.0",
-    "eslint-config-standard": "10.2.1",
+    "eslint-config-standard": "11.0.0",
     "eslint-config-standard-react": "6.0.0",
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-node": "6.0.1",
