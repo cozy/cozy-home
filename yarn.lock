@@ -9432,9 +9432,9 @@ time-stamp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-2.0.0.tgz#95c6a44530e15ba8d6f4a3ecb8c3a3fac46da357"
 
-timeago-react@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/timeago-react/-/timeago-react-1.2.2.tgz#249b475dcf4c44284284541c600f8cf04674bf5b"
+timeago-react@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/timeago-react/-/timeago-react-2.0.0.tgz#01ed7cea809a0e03706c6ec5602bfd29f76d8e49"
   dependencies:
     timeago.js "^3.0.1"
 
