@@ -2208,9 +2208,9 @@ cozy-scripts@0.5.4:
     webpack-dev-server "2.11.1"
     webpack-merge "4.1.2"
 
-cozy-ui@7.7.2:
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.7.2.tgz#0466d5084cab47c36a200701a8e4798001884024"
+cozy-ui@7.7.3:
+  version "7.7.3"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.7.3.tgz#aacb36ca0e2fc30aebeab227341266887286e3a3"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
