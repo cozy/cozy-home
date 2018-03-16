@@ -319,3 +319,9 @@ export function isKonnectorUserError(error) {
     )
   )
 }
+
+export function isKonnectorKnownError(error) {
+  return (
+    error && error.message && Object.keys(ERROR_TYPES).includes(error.message)
+  )
+}

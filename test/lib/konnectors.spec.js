@@ -73,4 +73,25 @@ describe('konnectors lib', () => {
       )
     })
   })
+
+  describe('isKonnectorKnownError', () => {
+    ;[
+      'LOGIN_FAILED',
+      'MAINTENANCE',
+      'NOT_EXISTING_DIRECTORY',
+      'USER_ACTION_NEEDED'
+    ].forEach(errorType => {
+      it(`returns true for ${errorType}`, () => {
+        expect(konnectors.isKonnectorKnownError(new Error(errorType))).toBe(
+          true
+        )
+      })
+    })
+
+    it('returns false for unknown error', () => {
+      expect(
+        konnectors.isKonnectorKnownError(new Error('UNEXPECTED_MESSAGE'))
+      ).toBe(false)
+    })
+  })
 })

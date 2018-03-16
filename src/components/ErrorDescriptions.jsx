@@ -1,7 +1,7 @@
 import React from 'react'
 
 import DescriptionContent from './DescriptionContent'
-import { ERROR_TYPES } from '../lib/konnectors'
+import { isKonnectorKnownError } from '../lib/konnectors'
 
 export const KnownErrorDescription = ({
   t,
@@ -37,30 +37,28 @@ export const GlobalErrorDescription = ({ t, connector }) => (
 
 export const getErrorDescription = props => {
   const { error } = props
-  switch (error.message) {
-    case ERROR_TYPES.NOT_EXISTING_DIRECTORY:
-    case ERROR_TYPES.USER_ACTION_NEEDED:
-    case ERROR_TYPES.MAINTENANCE:
-      // FIXME temporarily, only for EDF
-      if (props.connector && props.connector.slug === 'edf') {
-        return (
-          <KnownErrorDescription
-            errorMessage={error.message}
-            message={
-              props.t &&
-              props.t('status.edf.maintenance', {
-                supportLink: props.t('status.edf.support_link')
-              })
-            }
-            title={props.t && props.t('status.interrupted')}
-            {...props}
-          />
-        )
-      }
-      return <KnownErrorDescription errorMessage={error.message} {...props} />
-    default:
-      return <GlobalErrorDescription {...props} />
+
+  if (!isKonnectorKnownError(error)) {
+    return <GlobalErrorDescription {...props} />
   }
+
+  // FIXME temporarily, only for EDF
+  if (props.connector && props.connector.slug === 'edf') {
+    return (
+      <KnownErrorDescription
+        errorMessage={error.message}
+        message={
+          props.t &&
+          props.t('status.edf.maintenance', {
+            supportLink: props.t('status.edf.support_link')
+          })
+        }
+        title={props.t && props.t('status.interrupted')}
+        {...props}
+      />
+    )
+  }
+  return <KnownErrorDescription errorMessage={error.message} {...props} />
 }
 
 export default getErrorDescription
