@@ -224,10 +224,35 @@ class AccountConnection extends Component {
   handleError(error) {
     console.error(error)
 
+    const finalError = this.getBestErrorMessage(error.message.message)
+
     this.setState({
       submitting: false,
-      connectionError: error.message
+      connectionError: { message: finalError }
     })
+  }
+
+  // Look for the most precise error message
+  getBestErrorMessage(error) {
+    if (typeof error !== 'string') return error
+
+    const { t } = this.props
+
+    function checkLocale(locale) {
+      const key = `connection.error.${locale}.title`
+      return t(key) !== key
+    }
+
+    const errorList = error.split('-')
+    while (errorList.length) {
+      const joinedError = errorList.join('-')
+      if (checkLocale(joinedError)) {
+        return joinedError
+      } else {
+        errorList.pop()
+      }
+    }
+    return error
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
