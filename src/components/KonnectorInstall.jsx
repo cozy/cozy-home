@@ -11,7 +11,7 @@ import KonnectorSuccess from './KonnectorSuccess'
 import { NavLink } from 'react-router-dom'
 
 import { isKonnectorLoginError } from '../lib/konnectors'
-import getErrorDescription from './ErrorDescriptions'
+import ErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
 
@@ -59,7 +59,7 @@ export const KonnectorInstall = ({
   return (
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
-        {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
+        {hasErrorExceptLogin && ErrorDescription({ t, error, connector })}
         {displayAccountsCount &&
           !!accountsCount &&
           !error &&

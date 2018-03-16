@@ -14,7 +14,7 @@ import KonnectorSync from './KonnectorSync'
 
 import { isKonnectorLoginError } from '../lib/konnectors'
 import { getAccountName } from '../lib/helpers'
-import getErrorDescription from './ErrorDescriptions'
+import ErrorDescription from './ErrorDescriptions'
 
 import warningSvg from '../assets/sprites/icon-warning.svg'
 
@@ -68,7 +68,7 @@ export const KonnectorEdit = ({
     <div className={styles['col-account-edit-content']}>
       {!maintenance &&
         hasErrorExceptLogin &&
-        getErrorDescription({ t, error, connector })}
+        ErrorDescription({ t, error, connector })}
 
       <Tabs
         initialActiveTab={hasLoginError ? 'account' : 'sync'}

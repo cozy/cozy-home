@@ -330,3 +330,24 @@ export function buildKonnectorError(message) {
   error.code = message
   return error
 }
+
+const checkLocale = (t, key) => {
+  return t(key) !== key
+}
+
+export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
+  // Legacy. Kind of.
+  if (!error.code) return error.message
+
+  const errorSegments = error.code.split('.')
+
+  let tested = errorSegments
+  let fullKey = getKey(tested.join('.'))
+
+  while (tested.length && !checkLocale(t, fullKey)) {
+    tested = tested.slice(0, tested.length - 1)
+    fullKey = getKey(tested.join('.'))
+  }
+
+  return fullKey || errorSegments[0]
+}

@@ -1,26 +1,39 @@
 import React from 'react'
 
 import DescriptionContent from './DescriptionContent'
-import { isKonnectorKnownError } from '../lib/konnectors'
+import {
+  getMostAccurateErrorKey,
+  isKonnectorKnownError
+} from '../lib/konnectors'
+
+const getErrorTitle = (t, error) =>
+  t(getMostAccurateErrorKey(t, error, key => `connection.error.${key}.title`))
+
+const getErrorDescription = (t, konnector, error) =>
+  t(
+    getMostAccurateErrorKey(
+      t,
+      error,
+      key => `connection.error.${key}.description`
+    ),
+    {
+      name: konnector.name,
+      link: konnector.vendorLink
+    }
+  )
 
 export const KnownErrorDescription = ({
   t,
   connector,
-  errorMessage,
+  error,
   message,
   title
 }) => (
   <DescriptionContent
     cssClassesObject={{ 'coz-error': true }}
-    title={title || t(`connection.error.${errorMessage}.title`)}
+    title={title || getErrorTitle(t, error)}
     hasError
-    messages={[
-      message ||
-        t(`connection.error.${errorMessage}.description`, {
-          name: connector.name,
-          link: connector.vendorLink
-        })
-    ]}
+    messages={[message || getErrorDescription(t, connector, error)]}
   />
 )
 
@@ -35,7 +48,7 @@ export const GlobalErrorDescription = ({ t, connector }) => (
   />
 )
 
-export const getErrorDescription = props => {
+export const ErrorDescription = props => {
   const { error } = props
 
   if (!isKonnectorKnownError(error)) {
@@ -46,7 +59,7 @@ export const getErrorDescription = props => {
   if (props.connector && props.connector.slug === 'edf') {
     return (
       <KnownErrorDescription
-        errorMessage={error.message}
+        error={error}
         message={
           props.t &&
           props.t('status.edf.maintenance', {
@@ -58,7 +71,7 @@ export const getErrorDescription = props => {
       />
     )
   }
-  return <KnownErrorDescription errorMessage={error.message} {...props} />
+  return <KnownErrorDescription error={error} {...props} />
 }
 
-export default getErrorDescription
+export default ErrorDescription

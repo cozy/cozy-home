@@ -126,4 +126,65 @@ describe('konnectors lib', () => {
       expect(error.code).toBe('USER_ACTION_NEEDED.DO_SOMETHING')
     })
   })
+
+  describe('getMostAccurateErrorKey', () => {
+    it('returns the full key', () => {
+      const t = key =>
+        key === 'LOGIN_FAILED.RANDOM_REASON' ? 'Translated message' : key
+
+      const error = konnectors.buildKonnectorError('LOGIN_FAILED.RANDOM_REASON')
+
+      expect(konnectors.getMostAccurateErrorKey(t, error)).toBe(
+        'LOGIN_FAILED.RANDOM_REASON'
+      )
+    })
+
+    it('returns first segment', () => {
+      const t = key => (key === 'LOGIN_FAILED' ? 'Translated message' : key)
+
+      const error = konnectors.buildKonnectorError(
+        'LOGIN_FAILED.RANDOM_REASON.DETAIL'
+      )
+
+      expect(konnectors.getMostAccurateErrorKey(t, error)).toBe('LOGIN_FAILED')
+    })
+
+    it('returns medium segment', () => {
+      const t = key =>
+        key === 'LOGIN_FAILED.RANDOM_REASON' ? 'Translated message' : key
+
+      const error = konnectors.buildKonnectorError(
+        'LOGIN_FAILED.RANDOM_REASON.DETAIL'
+      )
+
+      expect(konnectors.getMostAccurateErrorKey(t, error)).toBe(
+        'LOGIN_FAILED.RANDOM_REASON'
+      )
+    })
+
+    it('handles getKey parameter', () => {
+      const t = key =>
+        key === 'prefix.LOGIN_FAILED.RANDOM_REASON.suffix'
+          ? 'Translated message'
+          : key
+
+      const error = konnectors.buildKonnectorError('LOGIN_FAILED.RANDOM_REASON')
+
+      const getKey = key => `prefix.${key}.suffix`
+
+      expect(konnectors.getMostAccurateErrorKey(t, error, getKey)).toBe(
+        'prefix.LOGIN_FAILED.RANDOM_REASON.suffix'
+      )
+    })
+
+    it('returns first segment when no match', () => {
+      const t = key => key
+
+      const error = konnectors.buildKonnectorError(
+        'LOGIN_FAILED.RANDOM_REASON.DETAIL'
+      )
+
+      expect(konnectors.getMostAccurateErrorKey(t, error)).toBe('LOGIN_FAILED')
+    })
+  })
 })
