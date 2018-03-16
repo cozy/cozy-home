@@ -3,10 +3,14 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
 
 import { tMock } from '../jestLib/I18n'
 import { Failure } from '../../src/components/Failure'
+
+import Adapter from 'enzyme-adapter-react-15'
+
+configure({ adapter: new Adapter() })
 
 describe('Failure component', () => {
   beforeEach(() => {
@@ -14,7 +18,9 @@ describe('Failure component', () => {
   })
 
   it('should be displayed with initial text if errorType is initial', () => {
-    const component = shallow(<Failure t={tMock} errorType="initial" />).node
+    const component = shallow(
+      <Failure t={tMock} errorType="initial" />
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 
@@ -23,6 +29,6 @@ describe('Failure component', () => {
     const component = shallow(<Failure t={tMock} errorType="initial" />)
     component.find('button').simulate('click')
     expect(window.location.reload.mock.calls.length).toBe(1)
-    expect(component.node).toMatchSnapshot()
+    expect(component.getElement()).toMatchSnapshot()
   })
 })

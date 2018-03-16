@@ -3,10 +3,13 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 
 import { tMock } from '../jestLib/I18n'
 import { DescriptionContent } from '../../src/components/DescriptionContent'
+
+configure({ adapter: new Adapter() })
 
 describe('DescriptionContent component', () => {
   beforeEach(() => {
@@ -20,7 +23,7 @@ describe('DescriptionContent component', () => {
         title="A title mock"
         children="Test description component children"
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 
@@ -32,7 +35,7 @@ describe('DescriptionContent component', () => {
         title="A title mock"
         cssClassesObject={cssClassesObject}
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 
@@ -48,7 +51,7 @@ describe('DescriptionContent component', () => {
         children="Test description component children"
         messages={messages}
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 })
