@@ -148,9 +148,9 @@ function getCozySocket(cozy) {
       if (!event.wasClean) {
         console.warn &&
           console.warn(
-            `WebSocket closed unexpectedly with code ${event.code} and ${event.reason
-              ? `reason: '${event.reason}'`
-              : 'no reason'}.`
+            `WebSocket closed unexpectedly with code ${event.code} and ${
+              event.reason ? `reason: '${event.reason}'` : 'no reason'
+            }.`
           )
 
         if (numRetries) {
