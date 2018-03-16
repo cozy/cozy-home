@@ -25,10 +25,9 @@ const handleOAuthResponse = () => {
     const accountKey = queryParams.get('account')
     const targetOrigin =
       window.location.origin ||
-      `${window.location.protocol}//${window.location.hostname}${window.location
-        .port
-        ? ':' + window.location.port
-        : ''}`
+      `${window.location.protocol}//${window.location.hostname}${
+        window.location.port ? ':' + window.location.port : ''
+      }`
     opener.postMessage(
       {
         key: accountKey,

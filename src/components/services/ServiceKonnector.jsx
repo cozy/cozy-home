@@ -13,7 +13,8 @@ const ServiceKonnector = ({ t, status, konnector, showKonnector }) => {
   return (
     <li
       onKeyDown={e =>
-        e.keyCode === ENTER_KEY ? showKonnector(konnector) : null}
+        e.keyCode === ENTER_KEY ? showKonnector(konnector) : null
+      }
       onClick={() => showKonnector(konnector)}
       tabIndex="0"
       className="item-wrapper"

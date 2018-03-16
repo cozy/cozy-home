@@ -70,12 +70,12 @@ export function findBySlug(cozy, slug) {
 export function unlinkFolder(cozy, konnector, folderId) {
   return !konnector._id
     ? /**
-     * In case of a konnector set in the app and not in the platform,
-     * there's no available `_id`. So we should returns an error, but here
-     * it's just a warning, that doesn't implies anything, so we `resolve` and
-     * not `reject`, because of what the next steps of deleting accounts will
-     * fail.
-     */
+       * In case of a konnector set in the app and not in the platform,
+       * there's no available `_id`. So we should returns an error, but here
+       * it's just a warning, that doesn't implies anything, so we `resolve` and
+       * not `reject`, because of what the next steps of deleting accounts will
+       * fail.
+       */
       Promise.resolve(new Error("konnector doesn't have available id"))
     : cozy
         .fetchJSON(
