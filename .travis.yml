@@ -37,6 +37,6 @@ script:
 - yarn run build
 after_success:
 - test $TRAVIS_BRANCH = "master" && pngquant build/screenshots/* -f --ext ".png"
-- test $TRAVIS_BRANCH = "master" && yarn run deploy -- --branch=build
-- test $TRAVIS_BRANCH = "orange" && yarn run deploy -- --branch=build_orange
-- test $TRAVIS_BRANCH = "prod" && yarn run deploy -- --branch=latest
+- test $TRAVIS_BRANCH = "master" && test "$TRAVIS_PULL_REQUEST" = "false" &&  yarn run deploy -- --branch=build
+- test $TRAVIS_BRANCH = "orange" && test "$TRAVIS_PULL_REQUEST" = "false" && yarn run deploy -- --branch=build_orange
+- test $TRAVIS_BRANCH = "prod" && test "$TRAVIS_PULL_REQUEST" = "false" && yarn run deploy -- --branch=latest
