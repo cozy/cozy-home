@@ -12,7 +12,7 @@ import KonnectorFolder from './KonnectorFolder'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSync from './KonnectorSync'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
+import { isKonnectorLoginError } from '../lib/konnectors'
 import { getAccountName } from '../lib/helpers'
 import getErrorDescription from './ErrorDescriptions'
 
@@ -55,9 +55,8 @@ export const KonnectorEdit = ({
       <use xlinkHref={`#${warningSvg.id}`} /> }
     </svg>
   )
-  const hasLoginError = error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED
-  const hasErrorExceptLogin =
-    error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const hasLoginError = isKonnectorLoginError(error)
+  const hasErrorExceptLogin = !!error && !hasLoginError
   const { hasDescriptions, editor } = connector
   // assign accountName placeholder
   if (fields.accountName)

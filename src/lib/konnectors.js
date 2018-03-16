@@ -2,6 +2,11 @@
 import * as realtime from './realtime'
 import * as jobs from './jobs'
 
+export const ERROR_TYPES = {
+  LOGIN_FAILED: 'LOGIN_FAILED',
+  USER_ACTION_NEEDED: 'USER_ACTION_NEEDED'
+}
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
@@ -297,4 +302,18 @@ export function createTrigger(cozy, konnector, account, folder, options = {}) {
       }
     }
   })
+}
+
+export function isKonnectorLoginError(error) {
+  return error && error.message && error.message === ERROR_TYPES.LOGIN_FAILED
+}
+
+export function isKonnectorUserError(error) {
+  return (
+    error &&
+    error.message &&
+    [ERROR_TYPES.LOGIN_FAILED, ERROR_TYPES.USER_ACTION_NEEDED].includes(
+      error.message
+    )
+  )
 }

@@ -39,4 +39,38 @@ describe('konnectors lib', () => {
         .then(data => expect(data).toMatchSnapshot())
     })
   })
+
+  describe('isKonnectorLoginError', () => {
+    it('returns true', () => {
+      expect(konnectors.isKonnectorLoginError(new Error('LOGIN_FAILED'))).toBe(
+        true
+      )
+    })
+
+    it('returns false', () => {
+      expect(konnectors.isKonnectorLoginError(new Error('MAINTENANCE'))).toBe(
+        false
+      )
+    })
+  })
+
+  describe('isKonnectorUserError', () => {
+    it('returns true for LOGIN_FAILED', () => {
+      expect(konnectors.isKonnectorUserError(new Error('LOGIN_FAILED'))).toBe(
+        true
+      )
+    })
+
+    it('returns true for USER_ACTION_NEEDED', () => {
+      expect(
+        konnectors.isKonnectorUserError(new Error('USER_ACTION_NEEDED'))
+      ).toBe(true)
+    })
+
+    it('returns false for any other error', () => {
+      expect(konnectors.isKonnectorUserError(new Error('UNKNOWN_ERROR'))).toBe(
+        false
+      )
+    })
+  })
 })

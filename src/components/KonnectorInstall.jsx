@@ -10,7 +10,7 @@ import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 import { NavLink } from 'react-router-dom'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
+import { isKonnectorLoginError } from '../lib/konnectors'
 import getErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
@@ -52,8 +52,8 @@ export const KonnectorInstall = ({
   lang
 }) => {
   const { hasDescriptions, editor } = connector
-  const hasErrorExceptLogin =
-    error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const hasLoginError = isKonnectorLoginError(error)
+  const hasErrorExceptLogin = !!error && !hasLoginError
   const isRunningInQueue = queued && submitting
 
   return (
@@ -77,7 +77,7 @@ export const KonnectorInstall = ({
               </NavLink>
             </div>
           )}
-        {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
+        {(!error || hasLoginError) &&
           !isRunningInQueue &&
           !success &&
           !maintenance && (
@@ -108,14 +108,12 @@ export const KonnectorInstall = ({
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !account ||
-        !success ||
-        (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED) ? (
+        ) : !account || !success || hasLoginError ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
             disableSuccessTimeout={disableSuccessTimeout}
-            error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
+            error={hasLoginError}
             fields={fields}
             editing={editing}
             isValid={isValid}
