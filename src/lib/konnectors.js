@@ -307,21 +307,26 @@ export function createTrigger(cozy, konnector, account, folder, options = {}) {
 }
 
 export function isKonnectorLoginError(error) {
-  return error && error.message && error.message === ERROR_TYPES.LOGIN_FAILED
+  return error && error.type && error.type === ERROR_TYPES.LOGIN_FAILED
 }
 
 export function isKonnectorUserError(error) {
   return (
     error &&
-    error.message &&
+    error.type &&
     [ERROR_TYPES.LOGIN_FAILED, ERROR_TYPES.USER_ACTION_NEEDED].includes(
-      error.message
+      error.type
     )
   )
 }
 
 export function isKonnectorKnownError(error) {
-  return (
-    error && error.message && Object.keys(ERROR_TYPES).includes(error.message)
-  )
+  return error && error.type && Object.keys(ERROR_TYPES).includes(error.type)
+}
+
+export function buildKonnectorError(message) {
+  var error = new Error(message)
+  error.type = message.split('.')[0]
+  error.code = message
+  return error
 }
