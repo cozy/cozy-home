@@ -63,12 +63,6 @@ Object {
 }
 `;
 
-exports[`Connections Duck Selectors getKonnectorConnectedAccount returns null when konnector does not have account 1`] = `undefined`;
-
-exports[`Connections Duck Selectors getKonnectorConnectedAccount returns null when no konnector is registered with a connection 1`] = `null`;
-
-exports[`Connections Duck Selectors getKonnectorConnectedAccount returns the first konnector's connected account 1`] = `Object {}`;
-
 exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `
 Array [
   Object {
