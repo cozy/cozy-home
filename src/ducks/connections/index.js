@@ -4,7 +4,6 @@ import { getKonnectorIcon } from '../../lib/icons'
 import { buildKonnectorError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
-import { getKonnectorAccount } from './konnector'
 
 import { deleteTrigger, launchTrigger } from '../triggers'
 import { deleteAccount, getAccount } from '../accounts'
@@ -409,10 +408,6 @@ export const getConnectionStatusForTrigger = (state, trigger) => {
       !!state.konnectors[konnector].triggers &&
       state.konnectors[konnector].triggers[trigger._id]
   )
-}
-
-export const getKonnectorConnectedAccount = (state, konnector) => {
-  return getKonnectorAccount(state.konnectors[konnector.slug])
 }
 
 // Map the trigger status to a status compatible with queue
