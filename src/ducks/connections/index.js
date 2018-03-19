@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { getKonnectorIcon } from '../../lib/icons'
+import { buildKonnectorError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
 import { getKonnectorAccount } from './konnector'
@@ -105,10 +106,9 @@ const reducer = (state = {}, action) => {
           (isTrigger &&
             !!doc.current_state &&
             doc.current_state.status !== 'done' &&
-            !!doc.current_state.last_error && {
-              message: doc.current_state.last_error
-            }) ||
-          (isJob && !!doc.error && { message: doc.error }) ||
+            !!doc.current_state.last_error &&
+            buildKonnectorError(doc.current_state.last_error)) ||
+          (isJob && !!doc.error && buildKonnectorError(doc.error)) ||
           null
 
         return {

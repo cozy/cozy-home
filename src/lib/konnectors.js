@@ -2,6 +2,13 @@
 import * as realtime from './realtime'
 import * as jobs from './jobs'
 
+export const ERROR_TYPES = {
+  LOGIN_FAILED: 'LOGIN_FAILED',
+  MAINTENANCE: 'MAINTENANCE',
+  NOT_EXISTING_DIRECTORY: 'NOT_EXISTING_DIRECTORY',
+  USER_ACTION_NEEDED: 'USER_ACTION_NEEDED'
+}
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
@@ -297,4 +304,50 @@ export function createTrigger(cozy, konnector, account, folder, options = {}) {
       }
     }
   })
+}
+
+export function isKonnectorLoginError(error) {
+  return error && error.type && error.type === ERROR_TYPES.LOGIN_FAILED
+}
+
+export function isKonnectorUserError(error) {
+  return (
+    error &&
+    error.type &&
+    [ERROR_TYPES.LOGIN_FAILED, ERROR_TYPES.USER_ACTION_NEEDED].includes(
+      error.type
+    )
+  )
+}
+
+export function isKonnectorKnownError(error) {
+  return error && error.type && Object.keys(ERROR_TYPES).includes(error.type)
+}
+
+export function buildKonnectorError(message) {
+  var error = new Error(message)
+  error.type = message.split('.')[0]
+  error.code = message
+  return error
+}
+
+const checkLocale = (t, key) => {
+  return t(key) !== key
+}
+
+export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
+  // Legacy. Kind of.
+  if (!error.code) return error.message
+
+  const errorSegments = error.code.split('.')
+
+  let tested = errorSegments
+  let fullKey = getKey(tested.join('.'))
+
+  while (tested.length && !checkLocale(t, fullKey)) {
+    tested = tested.slice(0, tested.length - 1)
+    fullKey = getKey(tested.join('.'))
+  }
+
+  return fullKey || errorSegments[0]
 }
