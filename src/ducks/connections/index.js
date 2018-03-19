@@ -376,6 +376,22 @@ export const getConnections = (
       }, [])
     : []
 
+export const getConnectionsByKonnector = (
+  state,
+  konnectorSlug,
+  validAccounts = [],
+  validKonnectors = []
+) => {
+  const konnectorIsValid =
+    !validKonnectors.length || validKonnectors.includes(konnectorSlug)
+  const konnectorHasConnections =
+    state.konnectors[konnectorSlug] &&
+    Object.keys(state.konnectors[konnectorSlug].triggers).length
+  if (!konnectorIsValid || !konnectorHasConnections) return []
+
+  return Object.values(state.konnectors[konnectorSlug].triggers)
+}
+
 export const getConnectionStatus = (
   state,
   konnector,
