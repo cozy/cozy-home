@@ -338,7 +338,6 @@
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "bred.png",
-    "testing": true,
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -1076,7 +1075,6 @@
     "name": "Crédit Coopératif",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-cooperatif.coop/particuliers/",
-    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "creditcooperatif.svg",
