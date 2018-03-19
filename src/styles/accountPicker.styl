@@ -1,0 +1,51 @@
+@require 'components/button.styl'
+@require 'settings/palette.styl'
+
+:local
+    .col-account-picker-header-image
+        max-height 2rem
+
+    .col-account-picker
+        list-style-type none
+        padding 0
+
+    .col-account-picker-button
+        @extend $button
+        @extend $button--full
+        background-color transparent
+        border-color coolGrey
+        border-radius .3em
+        margin .3em 0
+
+        span
+            color charcoalGrey
+
+        small
+            line-height 1rem
+
+        // Sad but only way to override :hover style
+        &:not([disabled]):not([aria-disabled=true])
+            &:active,
+            &:focus,
+            &:hover
+                background-color paleGrey
+
+    .col-account-picker-button-add
+        border-style dashed
+        font-weight bold
+
+        span
+            color dodgerBlue
+
+        // Sad but only way to override :hover style
+        &:not([disabled]):not([aria-disabled=true])
+            &:active,
+            &:focus,
+            &:hover
+                color scienceBlue
+
+    .col-account-picker-button-account
+        span
+            align-items start
+            flex-direction column
+            text-transform none

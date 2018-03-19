@@ -5,6 +5,7 @@ import connections, {
   createConnection,
   deleteConnection,
   enqueueConnection,
+  getConnectionsByKonnector,
   getQueue,
   launchTriggerAndQueue,
   purgeQueue,
@@ -193,6 +194,45 @@ describe('Connections Duck', () => {
   })
 
   describe('Selectors', () => {
+    describe('getConnectionsByKonnector', () => {
+      it('returns expected connections', () => {
+        const state = {
+          konnectors: {
+            provider: {
+              triggers: {
+                '81a548fca81455ec2c2644dd55009990': {
+                  account: '81a548fca81455ec2c2644dd55008b52',
+                  error: 'LOGIN_FAILED',
+                  hasError: true,
+                  isConnected: false,
+                  isRunning: false
+                },
+                '63c670ea9d7b11e7b5888c88b1c12d46': {
+                  account: '17375ac5a59e4d6585fc7d1e1c75ec74',
+                  error: null,
+                  hasError: false,
+                  isConnected: true,
+                  isRunning: true
+                }
+              }
+            }
+          }
+        }
+
+        const validKonnectors = ['provider']
+        const validAccounts = ['81a548fca81455ec2c2644dd55008b52']
+
+        expect(
+          getConnectionsByKonnector(
+            state,
+            'provider',
+            validAccounts,
+            validKonnectors
+          )
+        ).toMatchSnapshot()
+      })
+    })
+
     describe('getQueue', () => {
       it.skip('returns one queued connection per queued account', () => {
         const state = {

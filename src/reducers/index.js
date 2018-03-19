@@ -31,6 +31,14 @@ export const getConnections = state =>
       trigger: fromTriggers.getTrigger(state.cozy, connection.triggerId)
     }))
 
+export const getConnectionsByKonnector = (state, konnectorSlug) =>
+  fromConnections.getConnectionsByKonnector(
+    state.connections,
+    konnectorSlug,
+    fromAccounts.getIds(state.cozy),
+    fromRegistry.getSlugs(state.registry)
+  )
+
 export const getConfiguredKonnectors = state =>
   fromConnections.getConfiguredKonnectors(
     state.connections,
