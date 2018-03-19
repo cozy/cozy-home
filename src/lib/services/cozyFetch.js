@@ -1,6 +1,4 @@
 const fetch = require('node-fetch')
-const fs = require('fs')
-const path = require('path')
 
 const exceptions = require('./exceptions')
 
@@ -13,18 +11,14 @@ const {
   BadRequestException
 } = exceptions
 
-let COZY_URL = process.env.COZY_URL
-let COZY_CREDENTIALS = process.env.COZY_CREDENTIALS
-
-// DEV ONLY
-if (process.env.NODE_ENV !== 'production') {
-  const devOptionsPath = path.join(__dirname, '../../../cozy_dev.json')
-  if (fs.existsSync(devOptionsPath)) {
-    const devOptions = require(devOptionsPath)
-    COZY_URL = devOptions.COZY_URL
-    COZY_CREDENTIALS = devOptions.COZY_CREDENTIALS
-  }
+if (!process.env.COZY_URL || !process.env.COZY_CREDENTIALS) {
+  throw new Error(
+    'COZY_URL and COZY_CREDENTIALS environment variables must be set.'
+  )
 }
+
+const COZY_URL = process.env.COZY_URL
+const COZY_CREDENTIALS = process.env.COZY_CREDENTIALS
 
 const errorStatuses = {
   '400': BadRequestException,
