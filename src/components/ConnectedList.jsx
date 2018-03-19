@@ -10,10 +10,10 @@ import sortBy from 'lodash/sortBy'
 
 import TriggerTile from './TriggerTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
+import AccountPicker from './AccountPicker'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
-import ConnectionManagement from '../containers/ConnectionManagement'
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -56,7 +56,7 @@ class ConnectedList extends Component {
                 konnector={konnector}
                 trigger={trigger}
                 account={account}
-                route={`${base}/${konnector.slug}/${account._id}`}
+                route={`${base}/${konnector.slug}`}
               />
             ))}
           </div>
@@ -78,10 +78,8 @@ class ConnectedList extends Component {
           </div>
         )}
         <Route
-          path="/connected/:konnectorSlug/:accountId"
-          render={props => (
-            <ConnectionManagement originPath="/connected" {...props} />
-          )}
+          path="/connected/:konnectorSlug/"
+          render={props => <AccountPicker {...props} />}
         />
       </div>
     )
