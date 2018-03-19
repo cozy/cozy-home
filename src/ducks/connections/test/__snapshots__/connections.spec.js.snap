@@ -63,6 +63,25 @@ Object {
 }
 `;
 
+exports[`Connections Duck Selectors getConnectionsByKonnector returns expected connections 1`] = `
+Array [
+  Object {
+    "account": "81a548fca81455ec2c2644dd55008b52",
+    "error": "LOGIN_FAILED",
+    "hasError": true,
+    "isConnected": false,
+    "isRunning": false,
+  },
+  Object {
+    "account": "17375ac5a59e4d6585fc7d1e1c75ec74",
+    "error": null,
+    "hasError": false,
+    "isConnected": true,
+    "isRunning": true,
+  },
+]
+`;
+
 exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `
 Array [
   Object {
