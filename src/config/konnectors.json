@@ -646,7 +646,7 @@
       "bankTransactions"
     ],
     "fields": {},
-    "source": "git://github.com/konnectors/cozy-konnector-bank-categorization.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-bank-categorization.git#latest"
   },
   {
     "slug": "cdngroup109",
