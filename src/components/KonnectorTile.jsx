@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
-import { getKonnectorTriggersCount } from '../reducers'
+import { NavLink, withRouter } from 'react-router-dom'
 
-import Tile from './Tile'
+import { getKonnectorIcon } from '../lib/icons'
+import { getKonnectorTriggersCount } from '../reducers'
 
 const KonnectorTile = ({ footer, konnector, route, t }) => {
   const categories = konnector.categories
@@ -12,12 +13,18 @@ const KonnectorTile = ({ footer, konnector, route, t }) => {
     : []
   const subtitle = categories.join(', ')
   return (
-    <Tile
-      konnector={konnector}
-      route={route}
-      subtitle={subtitle}
-      footer={footer}
-    />
+    <NavLink className="item-wrapper" to={route}>
+      <header className="item-header">
+        <img
+          className="item-icon"
+          alt={t('connector.logo.alt', { name })}
+          src={getKonnectorIcon(konnector)}
+        />
+      </header>
+      <h3 className="item-title">{name}</h3>
+      {subtitle && <p className="item-subtitle">{subtitle}</p>}
+      {footer}
+    </NavLink>
   )
 }
 
@@ -35,4 +42,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default translate()(connect(mapStateToProps)(KonnectorTile))
+export default translate()(connect(mapStateToProps)(withRouter(KonnectorTile)))
