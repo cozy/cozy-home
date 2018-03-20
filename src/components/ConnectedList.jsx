@@ -52,9 +52,10 @@ class ConnectedList extends Component {
         </div>
         {hasConnections ? (
           <div className="connector-list">
-            {connectedKonnectors.map(({ konnector }) => (
+            {connectedKonnectors.map(({ konnector, hasUserError }) => (
               <KonnectorTile
                 konnector={konnector}
+                markErrored={hasUserError}
                 route={`connected/${konnector.slug}`}
               />
             ))}

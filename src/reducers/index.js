@@ -22,8 +22,9 @@ export const getConnectedKonnectors = state =>
       fromAccounts.getIds(state.cozy),
       fromRegistry.getSlugs(state.registry)
     )
-    .map(({ slug }) => ({
-      konnector: fromRegistry.getRegistryKonnector(state.registry, slug)
+    .map(({ slug, hasUserError }) => ({
+      konnector: fromRegistry.getRegistryKonnector(state.registry, slug),
+      hasUserError
     }))
 
 export const getConnectionsByKonnector = (state, konnectorSlug) =>

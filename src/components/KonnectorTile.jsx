@@ -28,10 +28,21 @@ const KonnectorTile = ({ footer, konnector, route, t }) => {
   )
 }
 
-const mapStateToProps = (state, props) => {
+const svgIcon = name => (
+  <svg className="item-status-icon">
+    <use
+      xlinkHref={'#' + require(`../assets/sprites/icon-${name}.svg`).default.id}
+    />
+  </svg>
+)
+
+const buildFooter = (state, props) => {
+  if (props.markErrored) return svgIcon('warning')
+
   const accountsCount = getKonnectorTriggersCount(state, props.konnector)
-  return {
-    footer: !!accountsCount && (
+
+  if (accountsCount)
+    return (
       <span
         className="item-count"
         title={props.t('connector.accounts_count', { count: accountsCount })}
@@ -39,6 +50,11 @@ const mapStateToProps = (state, props) => {
         {accountsCount}
       </span>
     )
+}
+
+const mapStateToProps = (state, props) => {
+  return {
+    footer: buildFooter(state, props)
   }
 }
 
