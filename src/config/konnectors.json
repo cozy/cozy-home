@@ -1128,6 +1128,10 @@
       "password": {
         "type": "password"
       },
+      "timeout": {
+        "type": "text",
+        "default": "1000"
+      },
       "advancedFields": {
         "folderPath": {
           "advanced": true,
