@@ -59,6 +59,7 @@
         "token": "Token",
         "agreement": "I agree",
         "refreshToken": "Refresh Token",
+        "timeout": "Delay (ms)",
         "branchName": "Branch",
         "code": "Confidential code"
       },
