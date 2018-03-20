@@ -76,7 +76,7 @@ let cozyMock = {
       })
     ),
     create: jest.fn(() => Promise.resolve()),
-    update: jest.fn(() => Promise.resolve()),
+    updateAttributes: jest.fn(() => Promise.resolve()),
     delete: jest.fn(() => Promise.resolve()),
     defineIndex: jest.fn(() => Promise.resolve(indexMock)),
     query: jest.fn(() => Promise.resolve())
@@ -86,7 +86,7 @@ let cozyMock = {
 beforeEach(() => {
   // clear mocks calls
   cozyMock.data.create.mockClear()
-  cozyMock.data.update.mockClear()
+  cozyMock.data.updateAttributes.mockClear()
   cozyMock.data.delete.mockClear()
   cozyMock.data.defineIndex.mockClear()
   cozyMock.data.query.mockClear()
@@ -131,12 +131,16 @@ describe('accounts library', () => {
     return accounts
       .update(cozyMock, accountMock, accountMock2)
       .then(account => {
-        expect(cozyMock.data.update.mock.calls.length).toBe(1)
-        expect(cozyMock.data.update.mock.calls[0][0]).toBe(
+        expect(cozyMock.data.updateAttributes.mock.calls.length).toBe(1)
+        expect(cozyMock.data.updateAttributes.mock.calls[0][0]).toBe(
           accounts.ACCOUNTS_DOCTYPE
         )
-        expect(cozyMock.data.update.mock.calls[0][1]).toEqual(accountMock)
-        expect(cozyMock.data.update.mock.calls[0][2]).toEqual(accountMock2)
+        expect(cozyMock.data.updateAttributes.mock.calls[0][1]).toEqual(
+          accountMock.id
+        )
+        expect(cozyMock.data.updateAttributes.mock.calls[0][2]).toEqual({
+          auth: accountMock2.auth
+        })
       })
   })
 
