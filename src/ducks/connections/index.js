@@ -335,46 +335,37 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   return dispatch(launchTrigger(trigger))
 }
 
+// Helpers
+const slugIsInList = (slugs = []) => slug => slugs.includes(slug)
+const hasAtLeastOneValidAccount = (konnectors, validAccounts) => slug => {
+  return (
+    konnectors[slug] &&
+    konnectors[slug].triggers &&
+    Object.values(konnectors[slug].triggers).find(trigger =>
+      slugIsInList(validAccounts)(trigger.account)
+    )
+  )
+}
+
 // selectors
 
-// Retrieves all the connections, return an array of JS object with three
-// properties : `{ accountId, konnectorSlug, triggerId }`
-export const getConnections = (
+// Retrieves connected Konnectors
+export const getConnectedKonnectors = (
   state,
   validAccounts = [],
   validKonnectors = []
-) =>
-  state.konnectors
-    ? Object.keys(state.konnectors).reduce((connections, konnectorSlug) => {
-        return connections.concat(
-          state.konnectors[konnectorSlug].triggers
-            ? Object.keys(state.konnectors[konnectorSlug].triggers).reduce(
-                (connections, triggerId) => {
-                  const accountId =
-                    state.konnectors[konnectorSlug].triggers[triggerId].account
-
-                  const isValidAccount =
-                    accountId && validAccounts.includes(accountId)
-
-                  const isValidKonnector =
-                    konnectorSlug && validKonnectors.includes(konnectorSlug)
-
-                  return isValidKonnector && isValidAccount
-                    ? connections.concat([
-                        {
-                          accountId,
-                          konnectorSlug,
-                          triggerId
-                        }
-                      ])
-                    : connections
-                },
-                []
-              )
-            : []
-        )
-      }, [])
-    : []
+) => {
+  const konnectorSlugs = Object.keys(state.konnectors)
+  const validKonnectorSlugs = konnectorSlugs.filter(
+    slugIsInList(validKonnectors)
+  )
+  const connectedKonnectors = validKonnectorSlugs
+    .filter(hasAtLeastOneValidAccount(state.konnectors, validAccounts))
+    .map(slug => ({
+      slug: slug
+    }))
+  return connectedKonnectors
+}
 
 export const getConnectionsByKonnector = (
   state,
