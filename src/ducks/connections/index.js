@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux'
 
 import { getKonnectorIcon } from '../../lib/icons'
-import { buildKonnectorError } from '../../lib/konnectors'
+import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
-import { getKonnectorAccount } from './konnector'
 
 import { deleteTrigger, launchTrigger } from '../triggers'
 import { deleteAccount, getAccount } from '../accounts'
@@ -336,46 +335,63 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   return dispatch(launchTrigger(trigger))
 }
 
+// Helpers
+const slugIsInList = (slugs = []) => slug => slugs.includes(slug)
+const hasAtLeastOneValidAccount = (konnectors, validAccounts) => slug => {
+  return (
+    konnectors[slug] &&
+    konnectors[slug].triggers &&
+    Object.values(konnectors[slug].triggers).find(trigger =>
+      slugIsInList(validAccounts)(trigger.account)
+    )
+  )
+}
+
+const hasAtLeastOneTriggerWithUserError = connection => {
+  return (
+    !!connection.triggers &&
+    !!Object.values(connection.triggers).find(
+      trigger => !!trigger.error && isKonnectorUserError(trigger.error)
+    )
+  )
+}
+
 // selectors
 
-// Retrieves all the connections, return an array of JS object with three
-// properties : `{ accountId, konnectorSlug, triggerId }`
-export const getConnections = (
+// Retrieves connected Konnectors
+export const getConnectedKonnectors = (
   state,
   validAccounts = [],
   validKonnectors = []
-) =>
-  state.konnectors
-    ? Object.keys(state.konnectors).reduce((connections, konnectorSlug) => {
-        return connections.concat(
-          state.konnectors[konnectorSlug].triggers
-            ? Object.keys(state.konnectors[konnectorSlug].triggers).reduce(
-                (connections, triggerId) => {
-                  const accountId =
-                    state.konnectors[konnectorSlug].triggers[triggerId].account
+) => {
+  const konnectorSlugs = Object.keys(state.konnectors)
+  const validKonnectorSlugs = konnectorSlugs.filter(
+    slugIsInList(validKonnectors)
+  )
+  const connectedKonnectors = validKonnectorSlugs
+    .filter(hasAtLeastOneValidAccount(state.konnectors, validAccounts))
+    .map(slug => ({
+      slug: slug,
+      hasUserError: hasAtLeastOneTriggerWithUserError(state.konnectors[slug])
+    }))
+  return connectedKonnectors
+}
 
-                  const isValidAccount =
-                    accountId && validAccounts.includes(accountId)
+export const getConnectionsByKonnector = (
+  state,
+  konnectorSlug,
+  validAccounts = [],
+  validKonnectors = []
+) => {
+  const konnectorIsValid =
+    !validKonnectors.length || validKonnectors.includes(konnectorSlug)
+  const konnectorHasConnections =
+    state.konnectors[konnectorSlug] &&
+    Object.keys(state.konnectors[konnectorSlug].triggers).length
+  if (!konnectorIsValid || !konnectorHasConnections) return []
 
-                  const isValidKonnector =
-                    konnectorSlug && validKonnectors.includes(konnectorSlug)
-
-                  return isValidKonnector && isValidAccount
-                    ? connections.concat([
-                        {
-                          accountId,
-                          konnectorSlug,
-                          triggerId
-                        }
-                      ])
-                    : connections
-                },
-                []
-              )
-            : []
-        )
-      }, [])
-    : []
+  return Object.values(state.konnectors[konnectorSlug].triggers)
+}
 
 export const getConnectionStatus = (
   state,
@@ -409,10 +425,6 @@ export const getConnectionStatusForTrigger = (state, trigger) => {
       !!state.konnectors[konnector].triggers &&
       state.konnectors[konnector].triggers[trigger._id]
   )
-}
-
-export const getKonnectorConnectedAccount = (state, konnector) => {
-  return getKonnectorAccount(state.konnectors[konnector.slug])
 }
 
 // Map the trigger status to a status compatible with queue
