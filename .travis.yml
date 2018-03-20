@@ -38,6 +38,6 @@ script:
 after_success:
 - test $TRAVIS_BRANCH = "master" && pngquant build/screenshots/* -f --ext ".png"
 - test $TRAVIS_BRANCH = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build yarn run deploy
-- test $TRAVIS_BRANCH = "feature/one-tile-per-provider" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build_one_tile_per_provider yarn run deploy
+- test $TRAVIS_BRANCH = "feature/no-more-providers" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build_no_more_providers yarn run deploy
 - test $TRAVIS_BRANCH = "orange" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build_orange yarn run deploy
 - test $TRAVIS_BRANCH = "prod" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=latest yarn run deploy
