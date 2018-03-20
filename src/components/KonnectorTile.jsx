@@ -6,9 +6,20 @@ import { getKonnectorTriggersCount } from '../reducers'
 
 import Tile from './Tile'
 
-const KonnectorTile = props => (
-  <Tile route={props.route} subtitle={props.subtitle} {...props} />
-)
+const KonnectorTile = ({ footer, konnector, route, t }) => {
+  const categories = konnector.categories
+    ? konnector.categories.map(c => t(`category.${c}`))
+    : []
+  const subtitle = categories.join(', ')
+  return (
+    <Tile
+      konnector={konnector}
+      route={route}
+      subtitle={subtitle}
+      footer={footer}
+    />
+  )
+}
 
 const mapStateToProps = (state, props) => {
   const accountsCount = getKonnectorTriggersCount(state, props.konnector)

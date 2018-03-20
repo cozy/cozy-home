@@ -15,20 +15,15 @@ export default () =>
   })
 
 // selectors
-export const getConnections = state =>
+export const getConnectedKonnectors = state =>
   fromConnections
-    .getConnections(
+    .getConnectedKonnectors(
       state.connections,
       fromAccounts.getIds(state.cozy),
       fromRegistry.getSlugs(state.registry)
     )
-    .map(connection => ({
-      account: fromAccounts.getAccount(state.cozy, connection.accountId),
-      konnector: fromRegistry.getRegistryKonnector(
-        state.registry,
-        connection.konnectorSlug
-      ),
-      trigger: fromTriggers.getTrigger(state.cozy, connection.triggerId)
+    .map(({ slug }) => ({
+      konnector: fromRegistry.getRegistryKonnector(state.registry, slug)
     }))
 
 export const getConnectionsByKonnector = (state, konnectorSlug) =>

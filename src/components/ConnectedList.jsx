@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 import Icon from 'cozy-ui/react/Icon'
 import { connect } from 'react-redux'
 import { Route, NavLink } from 'react-router-dom'
-import { getConnections } from '../reducers'
+import { getConnectedKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
-import TriggerTile from './TriggerTile'
+import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
 
@@ -34,13 +34,14 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { base, t, connections, wrapper } = this.props
+    const { t, connectedKonnectors, wrapper } = this.props
+    const hasConnections = !!connectedKonnectors.length
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {connections.length > 0 && (
+          {hasConnections && (
             <NavLink to="/providers/all" className="col-button">
               <span>
                 <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
@@ -49,14 +50,12 @@ class ConnectedList extends Component {
             </NavLink>
           )}
         </div>
-        {connections.length ? (
+        {hasConnections ? (
           <div className="connector-list">
-            {connections.map(({ account, konnector, trigger }) => (
-              <TriggerTile
+            {connectedKonnectors.map(({ konnector }) => (
+              <KonnectorTile
                 konnector={konnector}
-                trigger={trigger}
-                account={account}
-                route={`${base}/${konnector.slug}`}
+                route={`connected/${konnector.slug}`}
               />
             ))}
           </div>
@@ -88,8 +87,8 @@ class ConnectedList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connections: sortBy(
-      getConnections(state),
+    connectedKonnectors: sortBy(
+      getConnectedKonnectors(state),
       ({ konnector }) => konnector.name
     )
   }
