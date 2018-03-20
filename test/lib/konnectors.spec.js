@@ -44,7 +44,7 @@ describe('konnectors lib', () => {
     it('returns true', () => {
       expect(
         konnectors.isKonnectorLoginError(
-          konnectors.buildKonnectorError('LOGIN_FAILED')
+          konnectors.buildKonnectorError('LOGIN_FAILED.TOO_MANY_ATTEMPTS')
         )
       ).toBe(true)
     })
@@ -70,7 +70,7 @@ describe('konnectors lib', () => {
     it('returns true for USER_ACTION_NEEDED', () => {
       expect(
         konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('USER_ACTION_NEEDED')
+          konnectors.buildKonnectorError('USER_ACTION_NEEDED.CHANGE_PASSWORD')
         )
       ).toBe(true)
     })
@@ -78,7 +78,7 @@ describe('konnectors lib', () => {
     it('returns false for any other error', () => {
       expect(
         konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('UNKNOWN_ERROR')
+          konnectors.buildKonnectorError('VENDOR_DOWN.BANK_DOWN')
         )
       ).toBe(false)
     })
@@ -119,11 +119,11 @@ describe('konnectors lib', () => {
 
     it('builds an complex error from a konnector to expected format', () => {
       const error = konnectors.buildKonnectorError(
-        'USER_ACTION_NEEDED.DO_SOMETHING'
+        'USER_ACTION_NEEDED.ACCOUNT_REMOVED'
       )
       expect(error).toMatchSnapshot()
       expect(error.type).toBe('USER_ACTION_NEEDED')
-      expect(error.code).toBe('USER_ACTION_NEEDED.DO_SOMETHING')
+      expect(error.code).toBe('USER_ACTION_NEEDED.ACCOUNT_REMOVED')
     })
   })
 
