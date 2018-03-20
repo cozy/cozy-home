@@ -636,6 +636,19 @@
     }
   },
   {
+    "name": "Bank Categorization",
+    "slug": "bankcategorization",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://cozy.io",
+    "testing": true,
+    "categories": ["other"],
+    "dataType": [
+      "bankTransactions"
+    ],
+    "fields": {},
+    "source": "git://github.com/konnectors/cozy-konnector-bank-categorization.git#build"
+  },
+  {
     "slug": "cdngroup109",
     "name": "Société Marseillaise de Crédit (Particuliers)",
     "editor": "Cozy Cloud",
