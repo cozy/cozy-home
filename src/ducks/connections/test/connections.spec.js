@@ -212,7 +212,13 @@ describe('Connections Duck', () => {
             reliableToo: {
               triggers: {
                 ee8aae83d53f4825ae9f7b4ee34982d4: {
-                  account: '0306125d1ba14405acee4901fc27f982'
+                  account: '0306125d1ba14405acee4901fc27f982',
+                  hasError: true,
+                  error: {
+                    code: 'LOGIN_FAILED',
+                    type: 'LOGIN_FAILED',
+                    message: 'LOGIN_FAILED'
+                  }
                 }
               }
             },
@@ -252,8 +258,8 @@ describe('Connections Duck', () => {
           getConnectedKonnectors(state, validAccounts, validKonnectors)
         ).toEqual(
           expect.arrayContaining([
-            { slug: 'reliable' },
-            { slug: 'reliableToo' }
+            { slug: 'reliable', hasUserError: false },
+            { slug: 'reliableToo', hasUserError: true }
           ])
         )
       })

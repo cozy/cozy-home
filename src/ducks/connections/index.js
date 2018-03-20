@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { getKonnectorIcon } from '../../lib/icons'
-import { buildKonnectorError } from '../../lib/konnectors'
+import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
 
@@ -347,6 +347,15 @@ const hasAtLeastOneValidAccount = (konnectors, validAccounts) => slug => {
   )
 }
 
+const hasAtLeastOneTriggerWithUserError = connection => {
+  return (
+    !!connection.triggers &&
+    !!Object.values(connection.triggers).find(
+      trigger => !!trigger.error && isKonnectorUserError(trigger.error)
+    )
+  )
+}
+
 // selectors
 
 // Retrieves connected Konnectors
@@ -362,7 +371,8 @@ export const getConnectedKonnectors = (
   const connectedKonnectors = validKonnectorSlugs
     .filter(hasAtLeastOneValidAccount(state.konnectors, validAccounts))
     .map(slug => ({
-      slug: slug
+      slug: slug,
+      hasUserError: hasAtLeastOneTriggerWithUserError(state.konnectors[slug])
     }))
   return connectedKonnectors
 }
