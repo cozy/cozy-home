@@ -1735,6 +1735,31 @@
     }
   },
   {
+    "slug": "nef",
+    "name": "La Nef",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.lanef.com/",
+    "icon": "nef.svg",
+    "categories": ["banking"],
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      }
+    },
+    "testing": true,
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "loginDelay": 10000,
+    "source": "git://github.com/konnectors/cozy-konnector-nef.git#latest"
+  },
+  {
     "slug": "numericable",
     "name": "Numéricable",
     "editor": "Cozy Cloud",
