@@ -1229,7 +1229,6 @@
     "name": "Enedis",
     "editor": "Fing",
     "vendorLink": "https://www.enedis.fr/",
-    "testing": true,
     "categories": ["energy"],
     "frequency": "daily",
     "timeInterval": [4, 5],
