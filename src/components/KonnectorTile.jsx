@@ -21,7 +21,7 @@ const KonnectorTile = ({ footer, konnector, route, t }) => {
           src={getKonnectorIcon(konnector)}
         />
       </header>
-      <h3 className="item-title">{name}</h3>
+      <h3 className="item-title">{konnector.name}</h3>
       {subtitle && <p className="item-subtitle">{subtitle}</p>}
       {footer}
     </NavLink>
