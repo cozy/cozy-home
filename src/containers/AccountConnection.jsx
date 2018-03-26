@@ -3,6 +3,8 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavLink, withRouter } from 'react-router-dom'
+
 import {
   deleteConnection,
   getConnectionError,
@@ -17,11 +19,14 @@ import classNames from 'classnames'
 
 import { translate } from 'cozy-ui/react/I18n'
 
+import Icon from 'cozy-ui/react/Icon'
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
 import { getKonnectorIcon } from '../lib/icons'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import statefulForm from '../lib/statefulForm'
+
+import backIcon from '../assets/sprites/icon-arrow-left.svg'
 
 class AccountConnection extends Component {
   constructor(props, context) {
@@ -306,6 +311,7 @@ class AccountConnection extends Component {
 
   render() {
     const {
+      backRoute,
       createdAccount,
       disableSuccessTimeout,
       displayAccountsCount,
@@ -352,6 +358,14 @@ class AccountConnection extends Component {
     return (
       <div className={styles['col-account-connection']}>
         <div className={styles['col-account-connection-header']}>
+          {backRoute && (
+            <NavLink
+              to={backRoute}
+              className={styles['col-account-connection-back']}
+            >
+              <Icon icon={backIcon} />
+            </NavLink>
+          )}
           <img
             className={classNames(
               styles['col-account-connection-icon'],
@@ -459,5 +473,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  statefulForm()(translate()(AccountConnection))
+  statefulForm()(withRouter(translate()(AccountConnection)))
 )
