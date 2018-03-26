@@ -13,15 +13,18 @@
         @extend $button
         @extend $button--full
         background-color transparent
-        border-color coolGrey
+        border-color silver
         border-radius .3em
         margin .3em 0
+        font-size (16/basefont)em
+        height (48/basefont)em
 
         span
             color charcoalGrey
 
         small
             line-height 1rem
+            color coolGrey
 
         // Sad but only way to override :hover style
         &:not([disabled]):not([aria-disabled=true])
@@ -29,6 +32,9 @@
             &:focus,
             &:hover
                 background-color paleGrey
+
+    .col-account-picker-button-label
+        margin-top: (7/basefont)em
 
     .col-account-picker-button-add
         border-style dashed

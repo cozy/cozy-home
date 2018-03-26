@@ -18,7 +18,9 @@ export const AccountPickerItem = ({ account, konnectorSlug }) => (
     )}
   >
     <span>
-      {getAccountName(account)}
+      <span className={styles['col-account-picker-button-label']}>
+        {getAccountName(account)}
+      </span>
       {!!account.auth.accountName && <small>{account.auth.login}</small>}
     </span>
   </NavLink>
