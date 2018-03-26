@@ -1354,6 +1354,34 @@
     "source": "git://github.com/konnectors/cozy-konnector-free-mobile.git#latest"
   },
   {
+    "slug": "generali",
+    "name": "Generali",
+    "editor": "Jeremy Carrier",
+    "vendorLink": "https://www.generali.fr/espace-client/public/connexion",
+    "testing": true,
+    "categories": ["insurance"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text",
+        "min": 8,
+        "max": 8
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-generali.git#latest"
+  },
+  {
     "oauth": true,
     "slug": "google",
     "name": "Google",
