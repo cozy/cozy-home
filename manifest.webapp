@@ -3,7 +3,7 @@
   "slug": "collect",
   "icon": "cozy_collect.svg",
   "category": "cozy",
-  "source": "https://github.com/cozy/cozy-collect.git@build",
+  "source": "git://github.com/cozy/cozy-collect.git",
   "editor": "Cozy",
   "developer": {
     "name": "Cozy",
