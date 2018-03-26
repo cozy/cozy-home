@@ -101,7 +101,7 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const { konnector } = this.props
+    const { konnector, backRoute } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
@@ -128,6 +128,7 @@ class ConnectionManagement extends Component {
           ) : (
             <AccountConnection
               alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+              backRoute={backRoute}
               displayAccountsCount
               onNext={() => this.gotoParent()}
               onCancel={() => this.gotoParent()}
