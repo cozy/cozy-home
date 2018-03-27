@@ -70,12 +70,14 @@ const indexTriggersByAccounts = triggers =>
 
 const deleteAccounts = async accounts => {
   log.info(`Deleting accounts ${accounts.map(doc => doc._id).join(', ')}`)
-  await cozyFetch(
-    'POST',
-    `data/io.cozy.accounts/_bulk_docs`,
-    { docs: accounts.map(doc => ({ ...doc, _deleted: true })) },
-    true
-  )
+  for (let acc of accounts) {
+    await cozyFetch(
+      'DELETE',
+      `data/io.cozy.accounts/${acc._id}?rev=${acc._rev}`,
+      null,
+      true
+    )
+  }
 }
 
 const cleanOrphanAccounts = async () => {
