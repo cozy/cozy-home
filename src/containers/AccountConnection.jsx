@@ -310,6 +310,7 @@ class AccountConnection extends Component {
       disableSuccessTimeout,
       displayAccountsCount,
       isUnloading,
+      onBack,
       onNext,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
@@ -387,6 +388,7 @@ class AccountConnection extends Component {
             accountsCount={accountsCount}
             displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
+            onBack={onBack}
             account={createdAccount}
             connector={konnector}
             isValid={isValid}

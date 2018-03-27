@@ -25,6 +25,7 @@ export const KonnectorInstall = ({
   driveUrl,
   error,
   fields,
+  onBack,
   queued,
   isUnloading,
   oAuthTerminated,
@@ -134,6 +135,7 @@ export const KonnectorInstall = ({
           <KonnectorSuccess
             connector={connector}
             error={error}
+            onBack={onBack}
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}

@@ -64,7 +64,13 @@ export const AccountPicker = ({
       <Route
         path="/connected/:konnectorSlug/new"
         render={props => (
-          <ConnectionManagement originPath="/connected" {...props} />
+          <ConnectionManagement
+            backRoute={`/connected/${
+              props.match.params.konnectorSlug
+            }/accounts`}
+            originPath="/connected"
+            {...props}
+          />
         )}
       />
       <Route
