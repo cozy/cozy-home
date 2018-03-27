@@ -308,9 +308,9 @@ export const deleteConnection = trigger => {
       trigger: trigger
     })
     const account = getTriggerAccount(getState(), trigger)
-    return dispatch(deleteTrigger(trigger))
+    return dispatch(deleteAccount(account))
       .then(() => {
-        dispatch(deleteAccount(account))
+        dispatch(deleteTrigger(trigger))
       })
       .then(() =>
         dispatch({
