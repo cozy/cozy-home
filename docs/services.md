@@ -62,28 +62,27 @@ It will need the following environment variables in production: `process.env.COZ
 
 #### Development
 
-To develop or run the service using your local cozy instance in development environment you can use a file named `cozy_dev.json` (ignored by git) to define the needed environment variables.
-
-Here is the format to use to development with the service:
-
-```javascript
-{
-  "COZY_URL": "http://cozy.tools:8080",
-  "COZY_CREDENTIALS": "yourTokenProvidedByCozyStack"
-}
+To develop or run the service using your local cozy instance, the best way is to `yarn watch` the application.
 
 ```
+yarn watch
+```
+It allows the service code to be transpiled. You may also run directly your service without transpiling it if it does not require application internal code, which may use for example some `import` instructions.
 
-To generate to token (`COZY_CREDENTIALS` here) with the same permissions than the application (here `collect` for `cozy.tools:8080`), you have to use the following command:
+For `triggerBouncing` and `cleanOrphanAccount` services, which both use `cozyFetch` you need an app token to have the permission to request the stack. To generate a token with the same permissions than the application (here `collect` for `cozy.tools:8080`), you have to use the following command:
 ```
 cozy-stack instances token-app cozy.tools:8080 collect
 ```
+> Be aware that the token will expire after a short time.
 
-The copy and the paste the provided token in the `COZY_CREDENTIALS` property of your `cozy_dev.json` file.
+`cozyFetch` will use two process environment variables: `COZY_URL` and `COZY_CREDENTIALS`. `COZY_URL` is the url of your cozy stack. In the most of case `http://cozy.tools:8080` (don't forget the `http` protocol), and `COZY_CREDENTIALS` is your previously generated token.
 
-> Be aware that the token will expire after a short time, so you will have to run again the command and replace the token value in `cozy_dev.json` file.
 
-You can finally run the service script using node:
+So to run the `triggerBouncing` service for example, run:
 ```
-node src/targets/services/triggerBouncing.js
+COZY_URL=http://cozy.tools:8080 COZY_CREDENTIALS=<your_token> node build/services/triggerBouncing.js
+```
+or even better:
+```
+COZY_URL=http://cozy.tools:8080 COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 collect) node build/services/triggerBouncing.js
 ```

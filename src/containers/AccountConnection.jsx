@@ -114,9 +114,9 @@ class AccountConnection extends Component {
       oAuthTerminated: false
     })
 
-    const cozyUrl = `${window.location.protocol}//${document.querySelector(
-      '[role=application]'
-    ).dataset.cozyDomain}`
+    const cozyUrl = `${window.location.protocol}//${
+      document.querySelector('[role=application]').dataset.cozyDomain
+    }`
     const newTab = popupCenter(
       `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`,
       `${accountType}_oauth`,
@@ -250,7 +250,9 @@ class AccountConnection extends Component {
         /[&/\\#,+()$@~%.'":*?<>{}]/g,
         '_'
       )
-      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${valuesToSubmit.namePath}`
+      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${
+        valuesToSubmit.namePath
+      }`
     }
     // Update the path if the name path is the account name
     const folderId =
@@ -306,6 +308,7 @@ class AccountConnection extends Component {
     const {
       createdAccount,
       disableSuccessTimeout,
+      displayAccountsCount,
       isUnloading,
       onNext,
       allRequiredFieldsAreFilled,
@@ -392,6 +395,7 @@ class AccountConnection extends Component {
         ) : (
           <KonnectorInstall
             accountsCount={accountsCount}
+            displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
