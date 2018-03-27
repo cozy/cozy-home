@@ -14,8 +14,7 @@ import { NavLink, Route, withRouter } from 'react-router-dom'
 
 import AccountPickerItem from './AccountPickerItem'
 import ConnectionManagement from '../containers/ConnectionManagement'
-
-import { getKonnectorIcon } from '../lib/icons'
+import KonnectorHeaderIcon from './KonnectorHeaderIcon'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 
@@ -30,10 +29,7 @@ export const AccountPicker = ({
   return (
     <Modal dismissAction={() => history.push('/connected')}>
       <ModalHeader>
-        <img
-          className={styles['col-account-picker-header-image']}
-          src={getKonnectorIcon(konnector)}
-        />
+        <KonnectorHeaderIcon konnector={konnector} />
       </ModalHeader>
       <ModalContent>
         <ul className={styles[classNames('col-account-picker')]}>
