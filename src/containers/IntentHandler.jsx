@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
-import { cozyConnect } from 'redux-cozy-client'
-import { connect } from 'react-redux'
+
+import appEntryPoint from '../components/appEntryPoint'
 
 import Loading from '../components/Loading'
 import IntentService from './IntentService'
-
-import { initializeRegistry } from '../ducks/registry'
-import { fetchAccounts } from '../ducks/accounts'
-import { fetchKonnectorJobs } from '../ducks/jobs'
-import { fetchKonnectors } from '../ducks/konnectors'
-import { fetchTriggers } from '../ducks/triggers'
 
 class IntentHandler extends Component {
   constructor(props, context) {
@@ -20,6 +14,7 @@ class IntentHandler extends Component {
       isInitializing: true
     }
 
+    // TODO: externalize into appEntryPoint
     props.initializeRegistry(props.initKonnectors)
 
     this.store
@@ -111,19 +106,4 @@ class IntentHandler extends Component {
   }
 }
 
-const mapActionsToProps = dispatch => ({
-  initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
-})
-
-const mapDocumentsToProps = (state, ownProps) => ({
-  accounts: fetchAccounts(),
-  jobs: fetchKonnectorJobs(),
-  konnectors: fetchKonnectors(),
-  triggers: fetchTriggers()
-  // TODO: fetch registry
-  // registry: fetchRegistry()
-})
-
-export default cozyConnect(mapDocumentsToProps)(
-  connect(null, mapActionsToProps)(IntentHandler)
-)
+export default appEntryPoint(IntentHandler)

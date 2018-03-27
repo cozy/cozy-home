@@ -2,6 +2,15 @@
 import * as realtime from './realtime'
 import * as jobs from './jobs'
 
+export const ERROR_TYPES = {
+  CHALLENGE_ASKED: 'CHALLENGE_ASKED',
+  LOGIN_FAILED: 'LOGIN_FAILED',
+  MAINTENANCE: 'MAINTENANCE',
+  NOT_EXISTING_DIRECTORY: 'NOT_EXISTING_DIRECTORY',
+  USER_ACTION_NEEDED: 'USER_ACTION_NEEDED',
+  VENDOR_DOWN: 'VENDOR_DOWN'
+}
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 export const KONNECTORS_RESULT_DOCTYPE = 'io.cozy.konnectors.result'
 
@@ -70,12 +79,12 @@ export function findBySlug(cozy, slug) {
 export function unlinkFolder(cozy, konnector, folderId) {
   return !konnector._id
     ? /**
-     * In case of a konnector set in the app and not in the platform,
-     * there's no available `_id`. So we should returns an error, but here
-     * it's just a warning, that doesn't implies anything, so we `resolve` and
-     * not `reject`, because of what the next steps of deleting accounts will
-     * fail.
-     */
+       * In case of a konnector set in the app and not in the platform,
+       * there's no available `_id`. So we should returns an error, but here
+       * it's just a warning, that doesn't implies anything, so we `resolve` and
+       * not `reject`, because of what the next steps of deleting accounts will
+       * fail.
+       */
       Promise.resolve(new Error("konnector doesn't have available id"))
     : cozy
         .fetchJSON(
@@ -297,4 +306,50 @@ export function createTrigger(cozy, konnector, account, folder, options = {}) {
       }
     }
   })
+}
+
+export function isKonnectorLoginError(error) {
+  return error && error.type && error.type === ERROR_TYPES.LOGIN_FAILED
+}
+
+export function isKonnectorUserError(error) {
+  return (
+    error &&
+    error.type &&
+    [ERROR_TYPES.LOGIN_FAILED, ERROR_TYPES.USER_ACTION_NEEDED].includes(
+      error.type
+    )
+  )
+}
+
+export function isKonnectorKnownError(error) {
+  return error && error.type && Object.keys(ERROR_TYPES).includes(error.type)
+}
+
+export function buildKonnectorError(message) {
+  var error = new Error(message)
+  error.type = message.split('.')[0]
+  error.code = message
+  return error
+}
+
+const checkLocale = (t, key) => {
+  return t(key) !== key
+}
+
+export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
+  // Legacy. Kind of.
+  if (!error.code) return error.message
+
+  const errorSegments = error.code.split('.')
+
+  let tested = errorSegments
+  let fullKey = getKey(tested.join('.'))
+
+  while (tested.length && !checkLocale(t, fullKey)) {
+    tested = tested.slice(0, tested.length - 1)
+    fullKey = getKey(tested.join('.'))
+  }
+
+  return fullKey || errorSegments[0]
 }

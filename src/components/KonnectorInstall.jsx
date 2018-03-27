@@ -10,8 +10,8 @@ import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 import { NavLink } from 'react-router-dom'
 
-import { ACCOUNT_ERRORS } from '../lib/accounts'
-import getErrorDescription from './ErrorDescriptions'
+import { isKonnectorLoginError } from '../lib/konnectors'
+import ErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
 
@@ -21,6 +21,7 @@ export const KonnectorInstall = ({
   connector,
   deleting,
   disableSuccessTimeout,
+  displayAccountsCount,
   driveUrl,
   error,
   fields,
@@ -51,15 +52,16 @@ export const KonnectorInstall = ({
   lang
 }) => {
   const { hasDescriptions, editor } = connector
-  const hasErrorExceptLogin =
-    error && error.message !== ACCOUNT_ERRORS.LOGIN_FAILED
+  const hasLoginError = isKonnectorLoginError(error)
+  const hasErrorExceptLogin = !!error && !hasLoginError
   const isRunningInQueue = queued && submitting
 
   return (
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
-        {hasErrorExceptLogin && getErrorDescription({ t, error, connector })}
-        {!!accountsCount &&
+        {hasErrorExceptLogin && ErrorDescription({ t, error, connector })}
+        {displayAccountsCount &&
+          !!accountsCount &&
           !error &&
           !submitting &&
           !success &&
@@ -75,7 +77,7 @@ export const KonnectorInstall = ({
               </NavLink>
             </div>
           )}
-        {(!error || (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED)) &&
+        {(!error || hasLoginError) &&
           !isRunningInQueue &&
           !success &&
           !maintenance && (
@@ -106,14 +108,12 @@ export const KonnectorInstall = ({
           <div className={styles['col-account-connection-fetching']}>
             <Spinner size="xxlarge" middle="true" />
           </div>
-        ) : !account ||
-        !success ||
-        (error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED) ? (
+        ) : !account || !success || hasLoginError ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
             disableSuccessTimeout={disableSuccessTimeout}
-            error={error && error.message === ACCOUNT_ERRORS.LOGIN_FAILED}
+            error={hasLoginError}
             fields={fields}
             editing={editing}
             isValid={isValid}

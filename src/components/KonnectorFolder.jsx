@@ -137,8 +137,9 @@ class KonnectorFolder extends React.Component {
                                 styles['col-account-folder-highlighted-data']
                               }
                             >
-                              {`${fields.folderPath.value}/${fields.namePath
-                                .value}`}
+                              {`${fields.folderPath.value}/${
+                                fields.namePath.value
+                              }`}
                             </span>
                           </p>
                         </div>

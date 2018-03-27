@@ -33,9 +33,9 @@ export const KonnectorSuccess = ({
               <p>
                 {!error &&
                   t(
-                    `account.message.${isRunningInQueue
-                      ? 'syncing'
-                      : 'synced'}.bill`,
+                    `account.message.${
+                      isRunningInQueue ? 'syncing' : 'synced'
+                    }.bill`,
                     {
                       name: connector.name
                     }

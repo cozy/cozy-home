@@ -1,8 +1,6 @@
 require('babel-polyfill')
+const { isKonnectorUserError } = require('../../lib/konnectors')
 const cozyFetch = require('../../lib/services/cozyFetch')
-
-const LOGIN_FAILED_ERROR = 'LOGIN_FAILED'
-const USER_ACTION_NEEDED_ERROR = 'USER_ACTION_NEEDED'
 
 // for timestamp usage
 const ONE_HOUR = 3600 * 1000
@@ -36,15 +34,10 @@ cozyFetch('GET', '/data/io.cozy.jobs/_all_docs?include_docs=true', null, true)
           erroredJobsCounter = 0
           continue
         }
-        switch (job.error) {
-          // errors exceptions
-          case LOGIN_FAILED_ERROR:
-          case USER_ACTION_NEEDED_ERROR:
-            erroredJobsCounter = 0
-            break
-          default:
-            erroredJobsCounter++
-        }
+
+        erroredJobsCounter = isKonnectorUserError(new Error(job.error))
+          ? 0
+          : erroredJobsCounter + 1
       }
 
       // don't relaunch if no errors or too many errors

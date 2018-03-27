@@ -3,10 +3,13 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 
 import { tMock } from '../jestLib/I18n'
 import { Sidebar } from '../../src/components/Sidebar'
+
+configure({ adapter: new Adapter() })
 
 const routerMock = {
   location: {
@@ -28,7 +31,7 @@ describe('Sidebar component', () => {
         categories={categoriesMock}
         location={routerMock.location}
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 
@@ -42,7 +45,7 @@ describe('Sidebar component', () => {
         categories={categoriesMock}
         location={categoryRouter.location}
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 })

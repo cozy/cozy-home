@@ -59,6 +59,7 @@
         "token": "Token",
         "agreement": "I agree",
         "refreshToken": "Refresh Token",
+        "timeout": "Delay (ms)",
         "branchName": "Branch",
         "code": "Confidential code"
       },
@@ -143,6 +144,26 @@
         "title": "An error occured",
         "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations or visit our online help."
       },
+      "CHALLENGE_ASKED": {
+        "title": "Challenge required",
+        "description": "It seems that the website requires a second authentification factor that we don’t support yet. You may try to settle the issue on the [%{name}](%{link}) website before a retry."
+      },
+      "LOGIN_FAILED": {
+        "title": "Bad credentials",
+        "description": "Bad credentials. Check the konnector fields and run the connection again."
+      },
+      "LOGIN_FAILED.NEEDS_SECRET": {
+        "title": "Needs secret",
+        "description": "An additional field must be filled in before checking your credentials."
+      },
+      "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
+        "title": "Konnector temporarly blocked",
+        "description": "Too many attempts occured. Please update your credentials on [%{name}](%{link}) website and update the konnector later on."
+      },
+      "MAINTENANCE": {
+        "title": "Unavailable website",
+        "description": "It seems that the [%{name}](%{link}) website is unavailable or the konnector must be updated. Please rerun the connector later or visit our online help."
+      },
       "NOT_EXISTING_DIRECTORY": {
         "title": "Missing destination folder",
         "description": "It seems that this account's destination folder has been deleted. Please restore it by disconnecting this account and then reconnect again."
@@ -151,9 +172,29 @@
         "title": "Action needed on the provider",
         "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
       },
-      "MAINTENANCE": {
+      "USER_ACTION_NEEDED.ACCOUNT_REMOVED": {
+        "title": "Unavailable account",
+        "description": "It seems that your account is no longer active. Please check your account on [%{name}](%{link}) before retry."
+      },
+      "USER_ACTION_NEEDED.CHANGE_PASSWORD": {
+        "title": "Password update required",
+        "description": "It seems that the [%{name}](%{link}) website requires you to log in and update your password. Please rerun the connector once you have settled the issue on the website."
+      },
+      "USER_ACTION_NEEDED.PERMISSIONS_CHANGED": {
+        "title": "New permissions validation needed",
+        "description": "You connector was updated and the permissions changed. Please validate them before launching the connector again."
+      },
+      "VENDOR_DOWN": {
+        "title": "Unavailable service",
+        "description": "It seems that the [%{name}](%{link}) service is unavailable at the moment. Please rerun the connector later."
+      },
+      "VENDOR_DOWN.BANK_DOWN": {
         "title": "Unavailable website",
-        "description": "It seems that the [%{name}](%{link}) website is unavailable or the konnector must be updated. Please rerun the connector later or visit our online help."
+        "description": "It seems that the [%{name}](%{link}) website is unavailable at the moment. Please rerun the connector later."
+      },
+      "VENDOR_DOWN.LINXO_DOWN": {
+        "title": "Unavailable service",
+        "description": "It seems that we are experiencing overload with our bank konnectors at the moment. Please rerun the connector later."
       }
     }
   },

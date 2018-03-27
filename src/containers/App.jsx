@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { cozyConnect } from 'redux-cozy-client'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+
+import appEntryPoint from '../components/appEntryPoint'
 
 import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
@@ -8,12 +9,6 @@ import Notifier from '../components/Notifier'
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
-
-import { initializeRegistry } from '../ducks/registry'
-import { fetchAccounts } from '../ducks/accounts'
-import { fetchKonnectorJobs } from '../ducks/jobs'
-import { fetchKonnectors } from '../ducks/konnectors'
-import { fetchTriggers } from '../ducks/triggers'
 
 import CategoryList from '../components/CategoryList'
 import ConnectedList from '../components/ConnectedList'
@@ -23,6 +18,7 @@ class App extends Component {
     super(props, context)
     this.store = this.context.store
 
+    // TODO: externalize into appEntryPoint
     props.initializeRegistry(props.initKonnectors)
   }
 
@@ -91,23 +87,8 @@ class App extends Component {
   }
 }
 
-const mapActionsToProps = dispatch => ({
-  initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
-})
-
-const mapDocumentsToProps = (state, ownProps) => ({
-  accounts: fetchAccounts(),
-  jobs: fetchKonnectorJobs(),
-  konnectors: fetchKonnectors(),
-  triggers: fetchTriggers()
-  // TODO: fetch registry
-  // registry: fetchRegistry()
-})
-
 /*
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withRouter(
-  cozyConnect(mapDocumentsToProps, mapActionsToProps)(App)
-)
+export default withRouter(appEntryPoint(App))

@@ -303,7 +303,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-bouyguesbox.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-bouyguesbox.git#latest"
   },
   {
     "slug": "bouyguestelecom",
@@ -328,7 +328,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-bouyguestelecom.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-bouyguestelecom.git#latest"
   },
   {
     "slug": "bred",
@@ -338,7 +338,6 @@
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "bred.png",
-    "testing": true,
     "dataType": [
       "bankAccounts",
       "bankTransactions"
@@ -635,6 +634,19 @@
     "parameters": {
       "bankId": "173"
     }
+  },
+  {
+    "name": "Bank Categorization",
+    "slug": "bankcategorization",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://cozy.io",
+    "testing": true,
+    "categories": ["other"],
+    "dataType": [
+      "bankTransactions"
+    ],
+    "fields": {},
+    "source": "git://github.com/konnectors/cozy-konnector-bank-categorization.git#latest"
   },
   {
     "slug": "cdngroup109",
@@ -1076,7 +1088,6 @@
     "name": "Crédit Coopératif",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.credit-cooperatif.coop/particuliers/",
-    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "creditcooperatif.svg",
@@ -1116,6 +1127,10 @@
       },
       "password": {
         "type": "password"
+      },
+      "timeout": {
+        "type": "text",
+        "default": "1000"
       },
       "advancedFields": {
         "folderPath": {
@@ -1241,7 +1256,6 @@
     "dataType": [
       "bill"
     ],
-    "testing": true,
     "fields": {
       "login": {
         "type": "text"
@@ -1263,7 +1277,6 @@
     "name": "Fortuneo",
     "editor": "Cozy Cloud",
     "vendorLink": "https://mabanque.fortuneo.fr/fr/identification.jsp",
-    "testing": true,
     "categories": ["banking"],
     "partner": "Linxo",
     "icon": "fortuneo.svg",
@@ -1313,7 +1326,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-free.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-free.git#latest"
   },
   {
     "slug": "freemobile",
@@ -1338,7 +1351,55 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-free-mobile.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-free-mobile.git#latest"
+  },
+  {
+    "slug": "generali",
+    "name": "Generali",
+    "editor": "Jeremy Carrier",
+    "vendorLink": "https://www.generali.fr/espace-client/public/connexion",
+    "testing": true,
+    "categories": ["insurance"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text",
+        "min": 8,
+        "max": 8
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-generali.git#latest"
+  },
+  {
+    "oauth": true,
+    "slug": "google",
+    "name": "Google",
+    "editor": "Cozy Cloud",
+    "vendorLink": "google.com",
+    "testing": true,
+    "categories": ["other"],
+    "fields": {
+      "access_token": {
+        "type": "hidden"
+      },
+      "refresh_token": {
+        "type": "hidden"
+      }
+    },
+    "dataType": ["contact"],
+    "source": "git://github.com/konnectors/cozy-konnector-google.git#latest",
+    "oauth_scope": "https://www.googleapis.com/auth/contacts.readonly"
   },
   {
     "slug": "harmonie",
@@ -1722,6 +1783,31 @@
     }
   },
   {
+    "slug": "nef",
+    "name": "La Nef",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.lanef.com/",
+    "icon": "nef.svg",
+    "categories": ["banking"],
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      }
+    },
+    "testing": true,
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "loginDelay": 10000,
+    "source": "git://github.com/konnectors/cozy-konnector-nef.git#latest"
+  },
+  {
     "slug": "numericable",
     "name": "Numéricable",
     "editor": "Cozy Cloud",
@@ -1744,7 +1830,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-numericable.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-numericable.git#latest"
   },
   {
     "slug": "orange",
@@ -1769,7 +1855,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-orange.git#build",
+    "source": "git://github.com/konnectors/cozy-konnector-orange.git#latest",
     "timeInterval": [15, 21]
   },
   {
@@ -1824,7 +1910,7 @@
       "service": true,
       "connector": true
     },
-    "source": "git://gitlab.cozycloud.cc/gjacquart/cozy-konnector-orangemobile.git#build",
+    "source": "git://github.com/konnectors/cozy-konnector-orangemobile.git#latest",
     "frequency": "hourly",
     "oauth_scope": "M"
   },
@@ -2055,7 +2141,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-sosh.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-sosh.git#latest"
   },
   {
     "slug": "trainline",
