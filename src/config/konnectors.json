@@ -1915,6 +1915,33 @@
     "oauth_scope": "M"
   },
   {
+    "slug": "pajemploi",
+    "name": "Pajemploi",
+    "icon": "pajemploi.gif",
+    "editor": "Sébastien Nicouleau",
+    "vendorLink": "http://www.pajemploi.urssaf.fr/pajewebinfo/cms/sites/pajewebinfo/accueil.html",
+    "categories": ["other"],
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/cozy-konnector-pajemploi.git#latest"
+  },
+  {
     "slug": "payfit",
     "name": "Payfit",
     "editor": "Cozy Cloud",
