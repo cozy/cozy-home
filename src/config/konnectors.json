@@ -1167,7 +1167,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-digiposte.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-digiposte.git#latest"
   },
   {
     "slug": "directenergie",
@@ -1192,7 +1192,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-directenergie.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-directenergie.git#latest"
   },
   {
     "slug": "edf",
@@ -1270,7 +1270,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-enercoop.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-enercoop.git#latest"
   },
   {
     "slug": "fortuneo84",
@@ -1965,7 +1965,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-payfit.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-payfit.git#latest"
   },
   {
     "slug": "redbox",
@@ -2090,7 +2090,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-sncf.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-sncf.git#latest"
   },
   {
     "slug": "societegenerale",
@@ -2194,6 +2194,6 @@
     "dataType": [
       "bill"
     ],
-    "source": "git://github.com/cozy/cozy-konnector-trainline.git#build"
+    "source": "git://github.com/konnectors/cozy-konnector-trainline.git#latest"
   }
 ]
