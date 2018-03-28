@@ -1399,7 +1399,8 @@
     },
     "dataType": ["contact"],
     "source": "git://github.com/konnectors/cozy-konnector-google.git#latest",
-    "oauth_scope": "https://www.googleapis.com/auth/contacts.readonly"
+    "oauth_scope":
+      "https://www.googleapis.com/auth/contacts.readonly+https://www.googleapis.com/auth/userinfo.email"
   },
   {
     "slug": "harmonie",
