@@ -12,9 +12,7 @@
       "optional": "(Optional)",
       "title": "Connect your %{name} account to your Cozy",
       "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-      "connected_title": "You already have an account for this provider: |||| You already have %{smart_count} accounts for this provider:",
       "security_third_party": "Your login and password will be stored in your Cozy.",
-      "connected_link": "Access my connected accounts",
       "data": {
         "title": "Collected data:",
         "service": {

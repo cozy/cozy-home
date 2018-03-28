@@ -8,7 +8,6 @@ import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
-import { NavLink } from 'react-router-dom'
 
 import { isKonnectorLoginError } from '../lib/konnectors'
 import ErrorDescription from './ErrorDescriptions'
@@ -21,7 +20,6 @@ export const KonnectorInstall = ({
   connector,
   deleting,
   disableSuccessTimeout,
-  displayAccountsCount,
   driveUrl,
   error,
   fields,
@@ -61,23 +59,6 @@ export const KonnectorInstall = ({
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
         {hasErrorExceptLogin && ErrorDescription({ t, error, connector })}
-        {displayAccountsCount &&
-          !!accountsCount &&
-          !error &&
-          !submitting &&
-          !success &&
-          Number.isInteger(accountsCount) && (
-            <div>
-              <h4 className={styles['col-account-connection-connected-title']}>
-                {t('account.config.connected_title', {
-                  smart_count: accountsCount
-                })}
-              </h4>
-              <NavLink to="/connected" className="col-link">
-                {t('account.config.connected_link')}
-              </NavLink>
-            </div>
-          )}
         {(!error || hasLoginError) &&
           !isRunningInQueue &&
           !success &&
