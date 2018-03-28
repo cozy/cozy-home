@@ -6,6 +6,7 @@ import { Route, NavLink } from 'react-router-dom'
 import { getConnections } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
+import sortBy from 'lodash/sortBy'
 
 import TriggerTile from './TriggerTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
@@ -89,7 +90,10 @@ class ConnectedList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connections: getConnections(state)
+    connections: sortBy(
+      getConnections(state),
+      ({ konnector }) => konnector.name
+    )
   }
 }
 
