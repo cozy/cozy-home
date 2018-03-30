@@ -3,7 +3,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import KonnectorTile from './KonnectorTile'
 import { popupCenter } from '../lib/popup'
 
-const VOTING_LINK = 'https://framaforms.org/cozy-collect-1494574386'
+const VOTING_LINK = 'https://framaforms.org/collect-1518082910'
 
 const KonnectorList = ({ base, t, konnectors, showVoting = false }) => (
   <div className="connector-list">
