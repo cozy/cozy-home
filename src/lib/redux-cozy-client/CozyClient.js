@@ -2,6 +2,7 @@
 import DataAccessFacade from './DataAccessFacade'
 import { authenticateWithCordova } from './authentication/mobile'
 
+const APPS_DOCTYPE = 'io.cozy.apps'
 const FILES_DOCTYPE = 'io.cozy.files'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 const SHARINGS_DOCTYPE = 'io.cozy.sharings'
@@ -59,6 +60,10 @@ export default class CozyClient {
 
   getAdapter(doctype) {
     return this.facade.getAdapter(doctype)
+  }
+
+  async fetchApps(name, options = {}, skip = 0) {
+    return this.getAdapter(APPS_DOCTYPE).fetchApps()
   }
 
   async fetchCollection(name, doctype, options = {}, skip = 0) {
