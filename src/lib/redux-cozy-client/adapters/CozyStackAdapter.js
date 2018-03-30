@@ -7,6 +7,19 @@ export const SHARED_WITH_ME = 'sharedWithMe'
 export const SHARED_WITH_OTHERS = 'sharedWithOthers'
 
 export default class CozyStackAdapter {
+  async fetchApps(skip = 0) {
+    const { data, meta } = await cozy.client.fetchJSON('GET', '/apps/', null, {
+      processJSONAPI: false
+    })
+
+    return {
+      data: data || [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    }
+  }
+
   async fetchDocuments(doctype) {
     // WARN: cozy-client-js lacks a cozy.data.findAll method that uses this route
     try {
