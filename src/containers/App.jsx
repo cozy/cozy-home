@@ -10,7 +10,6 @@ import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
-import CategoryList from '../components/CategoryList'
 import ConnectedList from '../components/ConnectedList'
 
 class App extends Component {
@@ -59,16 +58,6 @@ class App extends Component {
                 render={props => (
                   <ConnectedList
                     connectedKonnectors={props.connectedKonnectors}
-                    wrapper={this.contentWrapper}
-                  />
-                )}
-              />
-              <Route
-                path="/providers/:filter"
-                render={props => (
-                  <CategoryList
-                    {...props}
-                    categories={this.store.categories}
                     wrapper={this.contentWrapper}
                   />
                 )}
