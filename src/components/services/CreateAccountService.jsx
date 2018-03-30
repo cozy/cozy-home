@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
 import AccountConnection from '../../containers/AccountConnection'
+import KonnectorHeaderIcon from '../../components/KonnectorHeaderIcon'
 
 import { connect } from 'react-redux'
 
@@ -49,6 +50,9 @@ class CreateAccountService extends React.Component {
     const { values } = this.state
     return (
       <div className="coz-service-content">
+        <header className="coz-service-content-header">
+          <KonnectorHeaderIcon konnector={konnector} />
+        </header>
         <AccountConnection
           connector={konnector}
           onNext={account => this.onSuccess(account)}

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { getKonnectorIcon } from '../../lib/icons'
+import { buildKonnectorError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
 import { getKonnectorAccount } from './konnector'
@@ -105,10 +106,9 @@ const reducer = (state = {}, action) => {
           (isTrigger &&
             !!doc.current_state &&
             doc.current_state.status !== 'done' &&
-            !!doc.current_state.last_error && {
-              message: doc.current_state.last_error
-            }) ||
-          (isJob && !!doc.error && { message: doc.error }) ||
+            !!doc.current_state.last_error &&
+            buildKonnectorError(doc.current_state.last_error)) ||
+          (isJob && !!doc.error && buildKonnectorError(doc.error)) ||
           null
 
         return {
@@ -308,9 +308,9 @@ export const deleteConnection = trigger => {
       trigger: trigger
     })
     const account = getTriggerAccount(getState(), trigger)
-    return dispatch(deleteTrigger(trigger))
+    return dispatch(deleteAccount(account))
       .then(() => {
-        dispatch(deleteAccount(account))
+        dispatch(deleteTrigger(trigger))
       })
       .then(() =>
         dispatch({
@@ -349,28 +349,29 @@ export const getConnections = (
     ? Object.keys(state.konnectors).reduce((connections, konnectorSlug) => {
         return connections.concat(
           state.konnectors[konnectorSlug].triggers
-            ? Object.keys(
-                state.konnectors[konnectorSlug].triggers
-              ).reduce((connections, triggerId) => {
-                const accountId =
-                  state.konnectors[konnectorSlug].triggers[triggerId].account
+            ? Object.keys(state.konnectors[konnectorSlug].triggers).reduce(
+                (connections, triggerId) => {
+                  const accountId =
+                    state.konnectors[konnectorSlug].triggers[triggerId].account
 
-                const isValidAccount =
-                  accountId && validAccounts.includes(accountId)
+                  const isValidAccount =
+                    accountId && validAccounts.includes(accountId)
 
-                const isValidKonnector =
-                  konnectorSlug && validKonnectors.includes(konnectorSlug)
+                  const isValidKonnector =
+                    konnectorSlug && validKonnectors.includes(konnectorSlug)
 
-                return isValidKonnector && isValidAccount
-                  ? connections.concat([
-                      {
-                        accountId,
-                        konnectorSlug,
-                        triggerId
-                      }
-                    ])
-                  : connections
-              }, [])
+                  return isValidKonnector && isValidAccount
+                    ? connections.concat([
+                        {
+                          accountId,
+                          konnectorSlug,
+                          triggerId
+                        }
+                      ])
+                    : connections
+                },
+                []
+              )
             : []
         )
       }, [])
@@ -431,25 +432,26 @@ const getTriggerConnectionStatus = trigger => {
 export const getQueue = (state, registryKonnectors) =>
   // state is state.connections
   state.konnectors
-    ? Object.keys(
-        state.konnectors
-      ).reduce((queuedConnections, konnectorSlug) => {
-        const triggers = state.konnectors[konnectorSlug].triggers
-        if (!triggers) return queuedConnections
-        const registryKonnector = registryKonnectors.data[konnectorSlug]
-        return queuedConnections.concat(
-          Object.keys(triggers).reduce((queuedTriggers, triggerId) => {
-            if (triggers[triggerId].isEnqueued) {
-              const label = registryKonnector.name
-              const status = getTriggerQueueStatus(triggers[triggerId])
-              const icon = getKonnectorIcon(registryKonnector)
-              return queuedTriggers.concat({ label, status, icon })
-            }
+    ? Object.keys(state.konnectors).reduce(
+        (queuedConnections, konnectorSlug) => {
+          const triggers = state.konnectors[konnectorSlug].triggers
+          if (!triggers) return queuedConnections
+          const registryKonnector = registryKonnectors.data[konnectorSlug]
+          return queuedConnections.concat(
+            Object.keys(triggers).reduce((queuedTriggers, triggerId) => {
+              if (triggers[triggerId].isEnqueued) {
+                const label = registryKonnector.name
+                const status = getTriggerQueueStatus(triggers[triggerId])
+                const icon = getKonnectorIcon(registryKonnector)
+                return queuedTriggers.concat({ label, status, icon })
+              }
 
-            return queuedTriggers
-          }, [])
-        )
-      }, [])
+              return queuedTriggers
+            }, [])
+          )
+        },
+        []
+      )
     : []
 
 export const getConfiguredKonnectors = (state, existingAccountIds = []) =>

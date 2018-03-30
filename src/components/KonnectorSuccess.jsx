@@ -33,9 +33,9 @@ export const KonnectorSuccess = ({
               <p>
                 {!error &&
                   t(
-                    `account.message.${isRunningInQueue
-                      ? 'syncing'
-                      : 'synced'}.bill`,
+                    `account.message.${
+                      isRunningInQueue ? 'syncing' : 'synced'
+                    }.bill`,
                     {
                       name: connector.name
                     }
@@ -68,7 +68,9 @@ export const KonnectorSuccess = ({
                 to={`/connected/${connector.slug}/${account._id}`}
                 className={classNames(styles['coz-btn'], 'col-button')}
               >
-                {successButtonLabel || t('account.success.button.config')}
+                <span>
+                  {successButtonLabel || t('account.success.button.config')}
+                </span>
               </NavLink>
             </p>
           </div>

@@ -23,8 +23,9 @@ import {
   getKonnectorsInMaintenance
 } from '../reducers'
 
-import Modal, { ModalContent } from 'cozy-ui/react/Modal'
+import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
+import KonnectorHeaderIcon from '../components/KonnectorHeaderIcon'
 import Notifier from '../components/Notifier'
 
 class ConnectionManagement extends Component {
@@ -113,6 +114,11 @@ class ConnectionManagement extends Component {
         dismissAction={() => this.gotoParent()}
         className={styles['col-account-modal']}
       >
+        <ModalHeader>
+          <div className={styles['col-account-connection-header']}>
+            <KonnectorHeaderIcon konnector={konnector} />
+          </div>
+        </ModalHeader>
         <ModalContent>
           {isWorking ? (
             <div className={styles['installing']}>

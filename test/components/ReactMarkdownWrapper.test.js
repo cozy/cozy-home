@@ -3,12 +3,15 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 
 import {
   ReactMarkdownWrapper,
   reactMarkdownRendererOptions
 } from '../../src/components/ReactMarkdownWrapper'
+
+configure({ adapter: new Adapter() })
 
 describe('ReactMarkdownWrapper component', () => {
   beforeEach(() => {
@@ -18,7 +21,7 @@ describe('ReactMarkdownWrapper component', () => {
   it('should be displayed correctly if source provided', () => {
     const component = shallow(
       <ReactMarkdownWrapper source={'**test** using `markdown`'} />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 
@@ -29,7 +32,7 @@ describe('ReactMarkdownWrapper component', () => {
           '**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)'
         }
       />
-    ).node
+    ).getElement()
     expect(component).toMatchSnapshot()
   })
 })

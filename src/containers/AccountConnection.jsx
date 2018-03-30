@@ -13,13 +13,11 @@ import {
 } from '../ducks/connections'
 import { getKonnectorTriggersCount } from '../reducers'
 import { fetchAccount } from '../ducks/accounts'
-import classNames from 'classnames'
 
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
-import { getKonnectorIcon } from '../lib/icons'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import statefulForm from '../lib/statefulForm'
 
@@ -114,9 +112,9 @@ class AccountConnection extends Component {
       oAuthTerminated: false
     })
 
-    const cozyUrl = `${window.location.protocol}//${document.querySelector(
-      '[role=application]'
-    ).dataset.cozyDomain}`
+    const cozyUrl = `${window.location.protocol}//${
+      document.querySelector('[role=application]').dataset.cozyDomain
+    }`
     const newTab = popupCenter(
       `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`,
       `${accountType}_oauth`,
@@ -250,7 +248,9 @@ class AccountConnection extends Component {
         /[&/\\#,+()$@~%.'":*?<>{}]/g,
         '_'
       )
-      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${valuesToSubmit.namePath}`
+      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${
+        valuesToSubmit.namePath
+      }`
     }
     // Update the path if the name path is the account name
     const folderId =
@@ -349,16 +349,6 @@ class AccountConnection extends Component {
       success || queued ? this.buildSuccessMessages(konnector) : []
     return (
       <div className={styles['col-account-connection']}>
-        <div className={styles['col-account-connection-header']}>
-          <img
-            className={classNames(
-              styles['col-account-connection-icon'],
-              'col-account-connection-icon'
-            )}
-            src={getKonnectorIcon(konnector)}
-          />
-        </div>
-
         {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
             isFetching={isFetching}

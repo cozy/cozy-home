@@ -83,16 +83,23 @@
             // overide default bg position
             background-position  center right
 
+    .coz-service-content-header
+        width: 100%
 
     .coz-service-content
         flex    1
         display flex
         max-height      calc(100vh - (32/basefont)em)
-        justify-content center
+        justify-content: start
         padding         (16/basefont)em
+        flex-direction: column
+        width: 70%
+        // width at wich the header "separates" from content to continue its way
+        // to the left.
+        max-width: 68rem
+        align-items: center
+        margin: (48/basefont)em auto
 
-        .col-account-connection-icon
-            margin-top 3em
 
     .coz-service-return + .coz-service-content
         .col-account-connection-icon

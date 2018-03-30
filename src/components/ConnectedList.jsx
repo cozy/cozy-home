@@ -6,6 +6,7 @@ import { Route, NavLink } from 'react-router-dom'
 import { getConnections } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
+import sortBy from 'lodash/sortBy'
 
 import TriggerTile from './TriggerTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
@@ -41,8 +42,10 @@ class ConnectedList extends Component {
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {connections.length > 0 && (
             <NavLink to="/providers/all" className="col-button">
-              <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
-              {t('add_account')}
+              <span>
+                <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
+                {t('add_account')}
+              </span>
             </NavLink>
           )}
         </div>
@@ -69,7 +72,7 @@ class ConnectedList extends Component {
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
               <NavLink to="/providers/all" className="col-button">
-                {t('connector.connect-account')}
+                <span>{t('connector.connect-account')}</span>
               </NavLink>
             </div>
           </div>
@@ -87,7 +90,10 @@ class ConnectedList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connections: getConnections(state)
+    connections: sortBy(
+      getConnections(state),
+      ({ konnector }) => konnector.name
+    )
   }
 }
 
