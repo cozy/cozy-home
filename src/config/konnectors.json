@@ -2172,6 +2172,33 @@
     "source": "git://github.com/konnectors/cozy-konnector-sosh.git#latest"
   },
   {
+    "slug": "theoldreader",
+    "name": "The Old Reader",
+    "icon": "theoldreader.png",
+    "editor": "Jérémie Bertrand",
+    "vendorLink": "https://theoldreader.com/",
+    "categories": ["other"],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "testing": true,
+    "source": "git://github.com/cozy/cozy-konnector-theoldreader.git#latest"
+  },
+  {
     "slug": "trainline",
     "name": "Trainline",
     "editor": "Cozy Cloud",
