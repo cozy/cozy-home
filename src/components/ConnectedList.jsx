@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 
-import { Icon, Empty } from 'cozy-ui/react'
+import { ButtonLink } from 'cozy-ui/react/Button'
+import Empty from 'cozy-ui/react/Empty'
+import Icon from 'cozy-ui/react/Icon'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
 import { Route, NavLink } from 'react-router-dom'
 import { getConnectedKonnectors } from '../reducers'
+import { getAppUrl } from '../ducks/apps'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
@@ -35,7 +38,7 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectedKonnectors, wrapper } = this.props
+    const { t, connectedKonnectors, cozyStoreURL, wrapper } = this.props
     const hasConnections = !!connectedKonnectors.length
     return (
       <div className="content">
@@ -67,9 +70,11 @@ class ConnectedList extends Component {
             title={t('connector.no-connectors-connected')}
             text={t('connector.get-info')}
           >
-            <NavLink to="/providers/all" className="col-button">
-              <span>{t('connector.connect-account')}</span>
-            </NavLink>
+            <ButtonLink
+              disabled={!cozyStoreURL}
+              href={cozyStoreURL}
+              label={t('connector.connect-account')}
+            />
           </Empty>
         )}
         <Route
@@ -110,7 +115,8 @@ const mapStateToProps = (state, ownProps) => {
     connectedKonnectors: sortBy(
       getConnectedKonnectors(state),
       ({ konnector }) => konnector.name
-    )
+    ),
+    cozyStoreURL: getAppUrl(state.cozy, 'store')
   }
 }
 
