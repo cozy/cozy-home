@@ -1937,7 +1937,6 @@
         }
       }
     },
-    "testing": true,
     "source": "git://github.com/konnectors/cozy-konnector-pajemploi.git#latest"
   },
   {
