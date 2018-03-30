@@ -3,7 +3,6 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import appEntryPoint from '../components/appEntryPoint'
 
-import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
@@ -44,7 +43,6 @@ class App extends Component {
       </div>
     ) : (
       <div className="col-wrapper coz-sticky">
-        <Sidebar categories={this.store.categories} />
         <main className="col-content">
           <div
             role="contentinfo"
