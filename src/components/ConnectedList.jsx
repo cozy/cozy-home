@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 
+import { ButtonLink } from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
 import { connect } from 'react-redux'
 import { Route, NavLink } from 'react-router-dom'
 import { getConnectedKonnectors } from '../reducers'
+import { getAppUrl } from '../ducks/apps'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
@@ -35,7 +37,7 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectedKonnectors, wrapper } = this.props
+    const { t, connectedKonnectors, cozyStoreURL, wrapper } = this.props
     const hasConnections = !!connectedKonnectors.length
     return (
       <div className="content">
@@ -72,9 +74,11 @@ class ConnectedList extends Component {
             <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
-              <NavLink to="/providers/all" className="col-button">
-                <span>{t('connector.connect-account')}</span>
-              </NavLink>
+              <ButtonLink
+                disabled={!cozyStoreURL}
+                href={cozyStoreURL}
+                label={t('connector.connect-account')}
+              />
             </div>
           </div>
         )}
@@ -116,7 +120,8 @@ const mapStateToProps = (state, ownProps) => {
     connectedKonnectors: sortBy(
       getConnectedKonnectors(state),
       ({ konnector }) => konnector.name
-    )
+    ),
+    cozyStoreURL: getAppUrl(state.cozy, 'store')
   }
 }
 
