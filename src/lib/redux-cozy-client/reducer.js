@@ -7,6 +7,7 @@ import sharings, {
 } from './slices/sharings'
 import synchronization from './slices/synchronization'
 
+const APPS_DOCTYPE = 'io.cozy.apps'
 const FETCH_DOCUMENT = 'FETCH_DOCUMENT'
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
 const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
@@ -15,6 +16,7 @@ const RECEIVE_ERROR = 'RECEIVE_ERROR'
 export const CREATE_DOCUMENT = 'CREATE_DOCUMENT'
 const UPDATE_DOCUMENT = 'UPDATE_DOCUMENT'
 const DELETE_DOCUMENT = 'DELETE_DOCUMENT'
+const RECEIVE_APP = 'RECEIVE_APP'
 const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT'
 const RECEIVE_UPDATED_DOCUMENT = 'RECEIVE_UPDATED_DOCUMENT'
 const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT'
@@ -24,6 +26,16 @@ const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
 
 const documents = (state = {}, action) => {
   switch (action.type) {
+    case RECEIVE_APP:
+      const apps = action.response && action.response.data
+      if (apps.length === 0) return state
+      return {
+        ...state,
+        [APPS_DOCTYPE]: {
+          ...state[APPS_DOCTYPE],
+          ...objectifyDocumentsArray(apps)
+        }
+      }
     case RECEIVE_DATA:
       const { data } = action.response
       if (data.length === 0) return state
@@ -159,6 +171,7 @@ const collection = (state = collectionInitialState, action) => {
         options: action.options,
         fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
       }
+    case RECEIVE_APP:
     case RECEIVE_DATA:
       const response = action.response
       return {
@@ -222,6 +235,7 @@ const collections = (state = {}, action) => {
     case FETCH_REFERENCED_FILES:
     case ADD_REFERENCED_FILES:
     case REMOVE_REFERENCED_FILES:
+    case RECEIVE_APP:
     case RECEIVE_DATA:
     case RECEIVE_ERROR:
       if (!action.collection) {
@@ -250,6 +264,15 @@ export default combineReducers({
   documents,
   sharings,
   synchronization
+})
+
+export const fetchApps = (name, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_APP, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.apps',
+  options,
+  skip,
+  promise: client => client.fetchApps(name, options, skip)
 })
 
 export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
