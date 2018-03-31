@@ -63,19 +63,6 @@ export const getRegistryKonnectorsByDataType = (state, dataType) =>
       )
     : []
 
-export const getRegistryKonnectorsFromSlugs = (state, slugs = []) => {
-  return slugs.reduce((returnedKonnectors, slug) => {
-    if (
-      state.konnectors &&
-      state.konnectors.data &&
-      state.konnectors.data[slug]
-    ) {
-      return returnedKonnectors.concat([state.konnectors.data[slug]])
-    }
-    return returnedKonnectors
-  }, [])
-}
-
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
