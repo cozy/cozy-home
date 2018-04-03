@@ -92,19 +92,18 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
       }
 
-      configureFields(config, defaultAccountNamePlaceholder) {
+      configureFields(config = {}, defaultAccountNamePlaceholder) {
         // it will at least have an accountName field
-        if (!config || !config.konnector.fields) config = { fields: {} }
+        config.fields = (config.konnector && config.konnector.fields) || {}
         const konnectorName = config.konnector.name
         const accountNamePlaceholder =
-          config.konnector.fields.accountName &&
-          config.konnector.fields.accountName.placeholder
+          config.fields.accountName && config.fields.accountName.placeholder
         const accountNameField = {
           type: 'text',
           isRequired: false,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
-        const fieldsFromConfig = Object.assign({}, config.konnector.fields, {
+        const fieldsFromConfig = Object.assign({}, config.fields, {
           accountName: accountNameField
         })
 
