@@ -12,7 +12,6 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from '../../ducks/connections'
-import { isFetchingRegistryKonnector } from '../../ducks/registry'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount
@@ -77,7 +76,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     createdAccount,
     isCreating: isCreatingConnection(state.connections),
-    isWorking: isFetchingRegistryKonnector(state.registry),
     isRunning: isConnectionRunning(state.connections, trigger),
     trigger
   }
