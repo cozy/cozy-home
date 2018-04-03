@@ -4,14 +4,12 @@ import { reducer } from 'redux-cozy-client'
 import * as fromAccounts from '../ducks/accounts'
 import * as fromKonnectors from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
-import registry from '../ducks/registry'
 import connections, * as fromConnections from '../ducks/connections'
 
 export default () =>
   combineReducers({
     connections,
-    cozy: reducer,
-    registry
+    cozy: reducer
   })
 
 // selectors
