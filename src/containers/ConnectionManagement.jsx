@@ -13,10 +13,7 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from '../ducks/connections'
-import {
-  getRegistryKonnector,
-  isFetchingRegistryKonnector
-} from '../ducks/registry'
+import { getRegistryKonnector } from '../ducks/registry'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount,
@@ -60,7 +57,6 @@ class ConnectionManagement extends Component {
     }
 
     this.state = {
-      isWorking: true,
       isClosing: false,
       values: values
     }
@@ -105,9 +101,7 @@ class ConnectionManagement extends Component {
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
-    const { isWorking } = this.props
     const { isClosing, values } = this.state
-    const { t } = this.context
 
     return (
       <Modal
@@ -130,28 +124,19 @@ class ConnectionManagement extends Component {
           </div>
         </ModalHeader>
         <ModalContent>
-          {isWorking ? (
-            <div className={styles['installing']}>
-              <div className={styles['installing-spinner']} />
-              <div>{t('loading.working')}</div>
-            </div>
-          ) : (
-            <AccountConnection
-              alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
-              backRoute={backRoute}
-              displayAccountsCount
-              editing={existingAccount && !createdAccount}
-              onBack={() => this.onBack()}
-              onNext={() => this.gotoParent()}
-              onCancel={() => this.gotoParent()}
-              isUnloading={isClosing}
-              values={values}
-              closeModal={() => this.gotoParent()}
-              {...this.state}
-              {...this.props}
-              {...this.context}
-            />
-          )}
+          <AccountConnection
+            alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+            displayAccountsCount
+            editing={existingAccount && !createdAccount}
+            onNext={() => this.gotoParent()}
+            onCancel={() => this.gotoParent()}
+            isUnloading={isClosing}
+            values={values}
+            closeModal={() => this.gotoParent()}
+            {...this.state}
+            {...this.props}
+            {...this.context}
+          />
         </ModalContent>
       </Modal>
     )
@@ -235,7 +220,6 @@ const mapStateToProps = (state, ownProps) => {
     createdAccount,
     existingAccount,
     isCreating: isCreatingConnection(state.connections),
-    isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
     lastSuccess: getTriggerLastSuccess(state.cozy, trigger),
