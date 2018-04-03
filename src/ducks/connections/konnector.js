@@ -33,11 +33,11 @@ const reducer = (state = {}, action) => {
 
 export default reducer
 
-export const getQueuedConnections = (state, registryKonnector) => {
+export const getQueuedConnections = (state, konnector) => {
   return Object.keys(state).reduce((runningConnections, accountId) => {
-    const label = registryKonnector.name
+    const label = konnector.name
     const status = getConnectionStatus(state[accountId])
-    const icon = getKonnectorIcon(registryKonnector)
+    const icon = getKonnectorIcon(konnector)
     return isEnqueued(state[accountId])
       ? runningConnections.concat({ label, status, icon })
       : runningConnections
