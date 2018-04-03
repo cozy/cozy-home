@@ -14,9 +14,6 @@ class IntentHandler extends Component {
       isInitializing: true
     }
 
-    // TODO: externalize into appEntryPoint
-    props.initializeRegistry(props.initKonnectors)
-
     this.store
       .createIntentService()
       .then(service => {
