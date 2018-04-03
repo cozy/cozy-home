@@ -13,7 +13,7 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from '../ducks/connections'
-import { getRegistryKonnector } from '../ducks/registry'
+import { getKonnector } from '../ducks/konnectors'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount,
@@ -206,7 +206,7 @@ const mapDocumentsToProps = ownProps => ({
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
-  const konnector = getRegistryKonnector(state.registry, konnectorSlug)
+  const konnector = getKonnector(state.cozy, konnectorSlug)
   const existingAccount = getAccount(state.cozy, accountId)
   const createdAccount = getCreatedConnectionAccount(state)
   const trigger = getTriggerByKonnectorAndAccount(
