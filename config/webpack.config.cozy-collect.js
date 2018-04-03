@@ -13,9 +13,6 @@ module.exports = {
     }
   },
   plugins: [
-    new ProvidePlugin({
-      initKonnectors: 'expose-loader?initKonnectors!config/konnectors.json'
-    }),
     new DefinePlugin({
       __PIWIK_SITEID__: 8,
       __PIWIK_DIMENSION_ID_APP__: 1,
