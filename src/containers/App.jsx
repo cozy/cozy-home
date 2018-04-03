@@ -3,14 +3,12 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import appEntryPoint from '../components/appEntryPoint'
 
-import Sidebar from '../components/Sidebar'
 import Notifier from '../components/Notifier'
 
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
-import CategoryList from '../components/CategoryList'
 import ConnectedList from '../components/ConnectedList'
 
 class App extends Component {
@@ -45,7 +43,6 @@ class App extends Component {
       </div>
     ) : (
       <div className="col-wrapper coz-sticky">
-        <Sidebar categories={this.store.categories} />
         <main className="col-content">
           <div
             role="contentinfo"
@@ -60,16 +57,6 @@ class App extends Component {
                   <ConnectedList
                     {...props}
                     base="/connected"
-                    wrapper={this.contentWrapper}
-                  />
-                )}
-              />
-              <Route
-                path="/providers/:filter"
-                render={props => (
-                  <CategoryList
-                    {...props}
-                    categories={this.store.categories}
                     wrapper={this.contentWrapper}
                   />
                 )}
