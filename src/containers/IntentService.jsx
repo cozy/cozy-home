@@ -7,7 +7,6 @@ import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
 import {
   getRegistryKonnector,
-  getRegistryKonnectorsByCategory,
   getRegistryKonnectorsByDataType
 } from '../ducks/registry'
 
@@ -108,11 +107,10 @@ class IntentService extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { data } = ownProps
-  const { category, dataType, slug } = data
+  const { dataType, slug } = data
   return {
     konnectors:
       (slug && [getRegistryKonnector(state.registry, slug)]) ||
-      (category && getRegistryKonnectorsByCategory(state.registry, category)) ||
       (dataType && getRegistryKonnectorsByDataType(state.registry, dataType)) ||
       []
   }
