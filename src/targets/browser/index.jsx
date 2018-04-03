@@ -1,4 +1,4 @@
-/* global cozy, initKonnectors */
+/* global cozy */
 import 'babel-polyfill'
 import 'url-search-params-polyfill'
 import React from 'react'
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, context, {
+  const store = configureStore(client, context, {
     ...collectConfig
   })
 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <CozyProvider store={store} client={client}>
       <I18n lang={lang} dictRequire={dictRequire} context={context}>
         <PiwikHashRouter>
-          <App initKonnectors={initKonnectors} {...collectConfig} />
+          <App {...collectConfig} />
         </PiwikHashRouter>
       </I18n>
     </CozyProvider>,
