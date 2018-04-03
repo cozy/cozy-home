@@ -30,10 +30,6 @@ const reducer = (state = {}, action) => {
 
 export default reducer
 
-// selectors
-export const getRegistryKonnector = (state, slug) => {
-  return state.konnectors.data[slug]
-}
 // action creators sync
 
 export const initializeRegistry = konnectors => {
