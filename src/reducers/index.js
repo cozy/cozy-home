@@ -49,7 +49,10 @@ export const getConnectionStatus = (state, konnector) =>
   )
 
 export const getConnectionsQueue = state =>
-  fromConnections.getQueue(state.connections, state.registry.konnectors)
+  fromConnections.getQueue(
+    state.connections,
+    fromKonnectors.getIndexedKonnectors(state.cozy)
+  )
 
 export const getCreatedConnectionAccount = state =>
   fromAccounts.getAccount(
