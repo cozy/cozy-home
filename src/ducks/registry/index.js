@@ -31,19 +31,12 @@ const reducer = (state = {}, action) => {
 export default reducer
 
 // selectors
-export const getRegistryKonnectors = state =>
-  Object.values(state.konnectors.data) || []
-
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
 
 export const getSlugs = state => {
   return Object.keys(state.konnectors.data)
-}
-
-export const isFetchingRegistryKonnector = state => {
-  return state.konnectors.fetchStatus === 'loading'
 }
 
 // action creators sync
