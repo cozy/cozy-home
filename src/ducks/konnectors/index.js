@@ -25,3 +25,9 @@ export const getKonnectorsByCategory = (state, category) =>
       ? konnectors.concat([state.documents[DOCTYPE][slug]])
       : konnectors
   }, [])
+
+export const getSlugs = state =>
+  !!state &&
+  !!state.documents &&
+  !!state.documents[DOCTYPE] &&
+  Object.values(state.documents[DOCTYPE]).map(konnector => konnector.slug)
