@@ -34,11 +34,6 @@ export default reducer
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
-
-export const getSlugs = state => {
-  return Object.keys(state.konnectors.data)
-}
-
 // action creators sync
 
 export const initializeRegistry = konnectors => {
