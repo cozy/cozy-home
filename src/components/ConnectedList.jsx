@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { ButtonLink } from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
 import { connect } from 'react-redux'
-import { Route, NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { getConnectedKonnectors } from '../reducers'
 import { getAppUrl } from '../ducks/apps'
 import { translate } from 'cozy-ui/react/I18n'
@@ -15,6 +15,13 @@ import AccountPicker from './AccountPicker'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
+
+const ButtonLinkToStore = ({ icon, label, cozyStoreURL }) => (
+  <ButtonLink disabled={!cozyStoreURL} href={cozyStoreURL}>
+    {icon && <Icon icon={addAccountIcon} className="col-icon--add" />}
+    {label}
+  </ButtonLink>
+)
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -43,10 +50,11 @@ class ConnectedList extends Component {
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {hasConnections && (
-            <NavLink to="/providers/all" className="col-button">
-              <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
-              {t('add_account')}
-            </NavLink>
+            <ButtonLinkToStore
+              icon={addAccountIcon}
+              label={t('add_account')}
+              cozyStoreURL={cozyStoreURL}
+            />
           )}
         </div>
         {hasConnections ? (
@@ -70,8 +78,7 @@ class ConnectedList extends Component {
             <div>
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
-              <ButtonLink
-                disabled={!cozyStoreURL}
+              <ButtonLinkToStore
                 href={cozyStoreURL}
                 label={t('connector.connect-account')}
               />
