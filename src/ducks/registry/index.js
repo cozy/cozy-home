@@ -1,7 +1,6 @@
 /* global cozy */
 
 import konnectors from './konnectors'
-import AUTHORIZED_CATEGORIES from 'config/categories'
 
 // constant
 const FETCH_REGISTRY_KONNECTORS = 'FETCH_REGISTRY_KONNECTORS'
@@ -11,14 +10,6 @@ const FETCH_REGISTRY_KONNECTORS_SUCCESS = 'FETCH_REGISTRY_KONNECTORS_SUCCESS'
 export const OTHERS_CATEGORY = 'others'
 
 // helpers
-const getUncategorizedKonnectors = (konnectors, categories) =>
-  konnectors.filter(
-    konnector =>
-      !konnector.categories.length ||
-      (konnector.categories &&
-        !konnector.categories.every(category => categories.includes(category)))
-  )
-
 const sanitizeKonnector = konnector => ({
   categories: [],
   ...konnector
@@ -42,17 +33,6 @@ export default reducer
 // selectors
 export const getRegistryKonnectors = state =>
   Object.values(state.konnectors.data) || []
-
-export const getRegistryKonnectorsByCategory = (state, category) => {
-  const stateKonnectors = getRegistryKonnectors(state)
-  return category
-    ? category === OTHERS_CATEGORY
-      ? getUncategorizedKonnectors(stateKonnectors, AUTHORIZED_CATEGORIES)
-      : stateKonnectors.filter(konnector =>
-          konnector.categories.includes(category)
-        )
-    : stateKonnectors
-}
 
 export const getRegistryKonnectorsByDataType = (state, dataType) =>
   dataType
