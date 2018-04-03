@@ -4,7 +4,7 @@ import { reducer } from 'redux-cozy-client'
 import * as fromAccounts from '../ducks/accounts'
 import * as fromKonnectors from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
-import registry, * as fromRegistry from '../ducks/registry'
+import registry from '../ducks/registry'
 import connections, * as fromConnections from '../ducks/connections'
 
 export default () =>
@@ -23,7 +23,7 @@ export const getConnectedKonnectors = state =>
       fromKonnectors.getSlugs(state.cozy)
     )
     .map(({ slug, hasUserError }) => ({
-      konnector: fromRegistry.getRegistryKonnector(state.registry, slug),
+      konnector: fromKonnectors.getKonnector(state.cozy, slug),
       hasUserError
     }))
 
