@@ -34,15 +34,6 @@ export default reducer
 export const getRegistryKonnectors = state =>
   Object.values(state.konnectors.data) || []
 
-export const getRegistryKonnectorsByDataType = (state, dataType) =>
-  dataType
-    ? Object.values(state.konnectors.data).filter(
-        konnector =>
-          Array.isArray(konnector.dataType) &&
-          konnector.dataType.includes(dataType)
-      )
-    : []
-
 export const getRegistryKonnector = (state, slug) => {
   return state.konnectors.data[slug]
 }
