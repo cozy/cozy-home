@@ -295,7 +295,7 @@ describe('Connections Duck', () => {
     })
 
     describe('getQueue', () => {
-      it.skip('returns one queued connection per queued account', () => {
+      it('returns one queued connection per queued account', () => {
         const state = {
           data: {
             testprovider: {
@@ -314,14 +314,14 @@ describe('Connections Duck', () => {
           }
         }
 
-        const konnectorsRegistry = {
+        const konnectors = {
           testprovider: {
             name: 'Test Provider',
             slug: 'testprovider'
           }
         }
 
-        const result = getQueue(state, konnectorsRegistry)
+        const result = getQueue(state, konnectors)
 
         expect(result).toMatchSnapshot()
       })
