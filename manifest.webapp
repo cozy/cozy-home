@@ -2,7 +2,7 @@
   "name": "Collect",
   "slug": "collect",
   "icon": "cozy_collect.svg",
-  "category": "cozy",
+  "categories": ["cozy"],
   "source": "git://github.com/cozy/cozy-collect.git",
   "editor": "Cozy",
   "developer": {
