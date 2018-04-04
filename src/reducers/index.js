@@ -24,19 +24,6 @@ export const getConnectionsByKonnector = (state, konnectorSlug) =>
     fromKonnectors.getSlugs(state.cozy)
   )
 
-export const getConfiguredKonnectors = state =>
-  fromConnections.getConfiguredKonnectors(
-    state.connections,
-    fromAccounts.getIds(state.cozy)
-  )
-
-export const getConnectionStatus = (state, konnector) =>
-  fromConnections.getConnectionStatus(
-    state.connections,
-    konnector,
-    fromAccounts.getIds(state.cozy)
-  )
-
 export const getConnectionsQueue = state =>
   fromConnections.getQueue(
     state.connections,
@@ -49,25 +36,12 @@ export const getCreatedConnectionAccount = state =>
     fromConnections.getCreatedAccount(state.connections)
   )
 
-export const getCreatedConnectionTrigger = state =>
-  fromTriggers.getTrigger(
-    state.cozy,
-    fromConnections.getCreatedTrigger(state.connections)
-  )
-
 export const getKonnectorTriggersCount = (state, konnector) =>
   fromTriggers.getKonnectorTriggers(
     state.cozy,
     konnector,
     fromAccounts.getIds(state.cozy)
   ).length
-
-export const getKonnectorConnectedAccount = (state, konnector) =>
-  fromTriggers.getKonnectorConnectedAccount(
-    state.cozy,
-    konnector,
-    fromAccounts.getIds(state.cozy)
-  )
 
 export const getKonnectorsInMaintenance = () =>
   fromKonnectors.fetchKonnectorsInMaintenance()
