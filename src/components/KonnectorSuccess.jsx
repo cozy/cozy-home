@@ -11,6 +11,7 @@ export const KonnectorSuccess = ({
   t,
   connector,
   isRunningInQueue,
+  onBack,
   account,
   error,
   folderId,
@@ -65,7 +66,8 @@ export const KonnectorSuccess = ({
           <div className={styles['col-account-form-success-buttons']}>
             <p>
               <NavLink
-                to={`/connected/${connector.slug}/${account._id}`}
+                to={`/connected/${connector.slug}/accounts/${account._id}`}
+                onClick={onBack}
                 className={classNames(styles['coz-btn'], 'col-button')}
               >
                 <span>

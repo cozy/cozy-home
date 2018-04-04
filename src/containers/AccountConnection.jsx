@@ -3,6 +3,8 @@ import styles from '../styles/accountConnection'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+
 import {
   deleteConnection,
   getConnectionError,
@@ -308,6 +310,7 @@ class AccountConnection extends Component {
       disableSuccessTimeout,
       displayAccountsCount,
       isUnloading,
+      onBack,
       onNext,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
@@ -385,6 +388,7 @@ class AccountConnection extends Component {
             accountsCount={accountsCount}
             displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
+            onBack={onBack}
             account={createdAccount}
             connector={konnector}
             isValid={isValid}
@@ -447,5 +451,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  statefulForm()(translate()(AccountConnection))
+  statefulForm()(withRouter(translate()(AccountConnection)))
 )

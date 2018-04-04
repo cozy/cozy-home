@@ -3,7 +3,7 @@ import styles from '../styles/connectionManagement.styl'
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 
 import { getAccount } from '../ducks/accounts'
 import {
@@ -23,10 +23,13 @@ import {
   getKonnectorsInMaintenance
 } from '../reducers'
 
+import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
 import KonnectorHeaderIcon from '../components/KonnectorHeaderIcon'
 import Notifier from '../components/Notifier'
+
+import backIcon from '../assets/sprites/icon-arrow-left.svg'
 
 class ConnectionManagement extends Component {
   constructor(props, context) {
@@ -101,7 +104,7 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const { konnector } = this.props
+    const { konnector, backRoute } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
@@ -116,6 +119,14 @@ class ConnectionManagement extends Component {
       >
         <ModalHeader>
           <div className={styles['col-account-connection-header']}>
+            {backRoute && (
+              <NavLink
+                to={backRoute}
+                className={styles['col-account-connection-back']}
+              >
+                <Icon icon={backIcon} />
+              </NavLink>
+            )}
             <KonnectorHeaderIcon konnector={konnector} />
           </div>
         </ModalHeader>
@@ -128,7 +139,9 @@ class ConnectionManagement extends Component {
           ) : (
             <AccountConnection
               alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+              backRoute={backRoute}
               displayAccountsCount
+              onBack={() => this.onBack()}
               onNext={() => this.gotoParent()}
               onCancel={() => this.gotoParent()}
               isUnloading={isClosing}
@@ -156,6 +169,12 @@ class ConnectionManagement extends Component {
     ])
 
     this.gotoParent()
+  }
+
+  onBack() {
+    if (this.props.isCreating) {
+      this.props.endCreation()
+    }
   }
 
   gotoParent() {
