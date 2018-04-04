@@ -9,7 +9,7 @@ import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
-import ConnectedList from '../components/ConnectedList'
+import InstalledKonnectors from '../components/InstalledKonnectors'
 
 class App extends Component {
   constructor(props, context) {
@@ -51,8 +51,8 @@ class App extends Component {
               <Route
                 path="/connected"
                 render={props => (
-                  <ConnectedList
-                    connectedKonnectors={props.connectedKonnectors}
+                  <InstalledKonnectors
+                    base="/connected"
                     wrapper={this.contentWrapper}
                   />
                 )}

@@ -6,7 +6,7 @@ import Icon from 'cozy-ui/react/Icon'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
-import { getConnectedKonnectors } from '../reducers'
+import { getInstalledKonnectors } from '../reducers'
 import { getAppUrl } from '../ducks/apps'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
@@ -26,7 +26,7 @@ const ButtonLinkToStore = ({ icon, label, cozyStoreURL }) => (
   </ButtonLink>
 )
 
-class ConnectedList extends Component {
+class InstalledKonnectors extends Component {
   componentDidMount() {
     this.launchTutorial()
   }
@@ -45,8 +45,8 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectedKonnectors, cozyStoreURL, wrapper } = this.props
-    const hasConnections = !!connectedKonnectors.length
+    const { t, installedKonnectors, cozyStoreURL, wrapper } = this.props
+    const hasConnections = !!installedKonnectors.length
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
@@ -62,10 +62,9 @@ class ConnectedList extends Component {
         </div>
         {hasConnections ? (
           <div className="connector-list">
-            {connectedKonnectors.map(({ konnector, hasUserError }) => (
+            {installedKonnectors.map(konnector => (
               <KonnectorTile
                 konnector={konnector}
-                markErrored={hasUserError}
                 route={`connected/${konnector.slug}`}
               />
             ))}
@@ -117,12 +116,14 @@ class ConnectedList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connectedKonnectors: sortBy(
-      getConnectedKonnectors(state),
-      ({ konnector }) => konnector.name
+    installedKonnectors: sortBy(
+      getInstalledKonnectors(state),
+      konnector => konnector.name
     ),
     cozyStoreURL: getAppUrl(state.cozy, 'store')
   }
 }
 
-export default withRouter(connect(mapStateToProps)(translate()(ConnectedList)))
+export default withRouter(
+  connect(mapStateToProps)(translate()(InstalledKonnectors))
+)
