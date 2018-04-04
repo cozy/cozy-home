@@ -10,12 +10,10 @@ import { getKonnector } from '../ducks/konnectors'
 
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
-import { NavLink, Route, withRouter } from 'react-router-dom'
+import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
 import AccountPickerItem from './AccountPickerItem'
-import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorHeaderIcon from './KonnectorHeaderIcon'
-
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 
 export const AccountPicker = ({
@@ -26,6 +24,8 @@ export const AccountPicker = ({
   match
 }) => {
   const { konnectorSlug } = match.params
+  if (!connections.length)
+    return <Redirect to={`/connected/${konnector.slug}/new`} />
   return (
     <Modal dismissAction={() => history.push('/connected')}>
       <ModalHeader>
@@ -57,30 +57,6 @@ export const AccountPicker = ({
           </li>
         </ul>
       </ModalContent>
-      <Route
-        path="/connected/:konnectorSlug/new"
-        render={props => (
-          <ConnectionManagement
-            backRoute={`/connected/${
-              props.match.params.konnectorSlug
-            }/accounts`}
-            originPath="/connected"
-            {...props}
-          />
-        )}
-      />
-      <Route
-        path="/connected/:konnectorSlug/accounts/:accountId"
-        render={props => (
-          <ConnectionManagement
-            backRoute={`/connected/${
-              props.match.params.konnectorSlug
-            }/accounts`}
-            originPath="/connected"
-            {...props}
-          />
-        )}
-      />
     </Modal>
   )
 }
