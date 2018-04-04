@@ -1,10 +1,6 @@
 /* eslint-env jest */
 
-import {
-  buildKonnectorTrigger,
-  buildTriggerFrequencyOptions,
-  isTriggerRunning
-} from '../'
+import { buildKonnectorTrigger, buildTriggerFrequencyOptions } from '../'
 
 describe('Trigger Duck', () => {
   const konnector = { slug: 'test' }
@@ -66,27 +62,6 @@ describe('Trigger Duck', () => {
       }
 
       expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
-    })
-  })
-
-  describe('isTriggerRunning', () => {
-    const state = {
-      running: [
-        'cd8426feed174c0e8e5b9c6d5708abc0',
-        '7ab63475e30645b19aedb5cec533a8d6'
-      ]
-    }
-
-    it('returns false', () => {
-      expect(
-        isTriggerRunning(state, { _id: '2fb5cff5edcd43f8ad4fbb2b2fe3c6b9' })
-      ).toBe(false)
-    })
-
-    it('returns true', () => {
-      expect(
-        isTriggerRunning(state, { _id: '7ab63475e30645b19aedb5cec533a8d6' })
-      ).toBe(true)
     })
   })
 })
