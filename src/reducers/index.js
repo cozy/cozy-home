@@ -13,17 +13,8 @@ export default () =>
   })
 
 // selectors
-export const getConnectedKonnectors = state =>
-  fromConnections
-    .getConnectedKonnectors(
-      state.connections,
-      fromAccounts.getIds(state.cozy),
-      fromKonnectors.getSlugs(state.cozy)
-    )
-    .map(({ slug, hasUserError }) => ({
-      konnector: fromKonnectors.getKonnector(state.cozy, slug),
-      hasUserError
-    }))
+export const getInstalledKonnectors = state =>
+  fromKonnectors.getInstalledKonnectors(state.cozy)
 
 export const getConnectionsByKonnector = (state, konnectorSlug) =>
   fromConnections.getConnectionsByKonnector(
