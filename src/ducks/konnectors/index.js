@@ -26,6 +26,11 @@ export const getKonnectorsByCategory = (state, category) =>
       : konnectors
   }, [])
 
+export const getInstalledKonnectors = state =>
+  !!state.documents &&
+  !!state.documents[DOCTYPE] &&
+  Object.values(state.documents[DOCTYPE])
+
 export const getIndexedKonnectors = state =>
   !!state.documents &&
   !!state.documents[DOCTYPE] &&
