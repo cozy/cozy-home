@@ -9,6 +9,7 @@ import { getAppUrl } from '../ducks/apps'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
+import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
@@ -85,8 +86,21 @@ class InstalledKonnectors extends Component {
           </div>
         )}
         <Route
-          path="/connected/:konnectorSlug/"
+          exact
+          path="/connected/:konnectorSlug"
           render={props => <AccountPicker {...props} />}
+        />
+        <Route
+          path="/connected/:konnectorSlug/new"
+          render={props => (
+            <ConnectionManagement originPath="/connected" {...props} />
+          )}
+        />
+        <Route
+          path="/connected/:konnectorSlug/accounts/:accountId"
+          render={props => (
+            <ConnectionManagement originPath="/connected" {...props} />
+          )}
         />
       </div>
     )
