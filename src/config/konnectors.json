@@ -1272,6 +1272,22 @@
     "source": "git://github.com/konnectors/cozy-konnector-enercoop.git#latest"
   },
   {
+    "oauth": true,
+    "slug": "facebook",
+    "name": "Facebook",
+    "editor": "Cozy Cloud",
+    "vendorLink": "facebook.com",
+    "testing": true,
+    "categories": ["other"],
+    "fields": {
+      "access_token": {
+        "type": "hidden"
+      }
+    },
+    "source": "git://github.com/konnectors/cozy-konnector-facebook.git#latest",
+    "oauth_scope": "user_photos"
+  },
+  {
     "slug": "fortuneo84",
     "name": "Fortuneo",
     "editor": "Cozy Cloud",
