@@ -317,7 +317,6 @@ export const deleteConnection = trigger => {
           trigger: trigger
         })
       )
-    // .then(() => dispatch(unlinkFolder(account, folder)))
   }
 }
 
