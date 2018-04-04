@@ -2,11 +2,15 @@
 // with a possible default icon
 
 export const getKonnectorIcon = konnector => {
+  let icon = null
   if (konnector.icon) {
-    return require(`../assets/konnectors/${konnector.icon}`)
+    try {
+      icon = require(`../assets/konnectors/${konnector.icon}`)
+    } catch (error) {
+      console.warn(error)
+    }
   }
   const slug = konnector.slug
-  let icon = ''
   const extensions = ['.svg', '.png', '.gif', '.jpg']
   for (const ext of extensions) {
     try {
