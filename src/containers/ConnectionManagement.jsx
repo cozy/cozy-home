@@ -15,6 +15,7 @@ import {
 } from '../ducks/connections'
 import { getKonnector } from '../ducks/konnectors'
 import {
+  getConnectionsByKonnector,
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount,
   getKonnectorsInMaintenance
@@ -97,7 +98,7 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const { konnector, backRoute } = this.props
+    const { backRoute, connections, getBackRoute, konnector } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
@@ -112,9 +113,9 @@ class ConnectionManagement extends Component {
       >
         <ModalHeader>
           <div className={styles['col-account-connection-header']}>
-            {backRoute && (
+            {(backRoute || getBackRoute) && (
               <NavLink
-                to={backRoute}
+                to={backRoute || getBackRoute(connections)}
                 className={styles['col-account-connection-back']}
               >
                 <Icon icon={backIcon} />
@@ -216,6 +217,7 @@ const mapStateToProps = (state, ownProps) => {
   )
   const maintenance = getKonnectorsInMaintenance()
   return {
+    connections: getConnectionsByKonnector(state, konnectorSlug),
     createdAccount,
     existingAccount,
     isCreating: isCreatingConnection(state.connections),
