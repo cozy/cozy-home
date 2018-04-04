@@ -12,10 +12,10 @@ import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
+import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
-import ConnectionManagement from '../containers/ConnectionManagement'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 
