@@ -10,10 +10,10 @@ import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
+import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
-import ConnectionManagement from '../containers/ConnectionManagement'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
@@ -87,16 +87,19 @@ class InstalledKonnectors extends Component {
           </div>
         )}
         <Route
-          path="/connected/:konnectorSlug/"
+          exact
+          path="/connected/:konnectorSlug"
           render={props => <AccountPicker {...props} />}
         />
         <Route
           path="/connected/:konnectorSlug/new"
           render={props => (
             <ConnectionManagement
-              backRoute={`/connected/${
-                props.match.params.konnectorSlug
-              }/accounts`}
+              getBackRoute={connections =>
+                connections.length
+                  ? `/connected/${props.match.params.konnectorSlug}`
+                  : '/connected'
+              }
               originPath="/connected"
               {...props}
             />
@@ -106,9 +109,7 @@ class InstalledKonnectors extends Component {
           path="/connected/:konnectorSlug/accounts/:accountId"
           render={props => (
             <ConnectionManagement
-              backRoute={`/connected/${
-                props.match.params.konnectorSlug
-              }/accounts`}
+              backRoute={`/connected/${props.match.params.konnectorSlug}`}
               originPath="/connected"
               {...props}
             />
