@@ -82,17 +82,4 @@ Array [
 ]
 `;
 
-exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `
-Array [
-  Object {
-    "icon": "test-file-stub",
-    "label": "Test Provider",
-    "status": "ongoing",
-  },
-  Object {
-    "icon": "test-file-stub",
-    "label": "Test Provider",
-    "status": "error",
-  },
-]
-`;
+exports[`Connections Duck Selectors getQueue returns one queued connection per queued account 1`] = `Array []`;

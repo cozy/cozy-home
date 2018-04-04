@@ -19,7 +19,7 @@ export const CONNECTION_STATUS = {
 const INSTALL_TIMEOUT = 120 * 1000
 
 export default class CollectStore {
-  constructor(connectors, context, options = {}) {
+  constructor(context, options = {}) {
     this.listener = null
     this.options = options
 

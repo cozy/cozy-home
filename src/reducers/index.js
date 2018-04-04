@@ -2,16 +2,14 @@ import { combineReducers } from 'redux'
 
 import { reducer } from 'redux-cozy-client'
 import * as fromAccounts from '../ducks/accounts'
-import { fetchKonnectorsInMaintenance } from '../ducks/konnectors'
+import * as fromKonnectors from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
-import registry, * as fromRegistry from '../ducks/registry'
 import connections, * as fromConnections from '../ducks/connections'
 
 export default () =>
   combineReducers({
     connections,
-    cozy: reducer,
-    registry
+    cozy: reducer
   })
 
 // selectors
@@ -20,10 +18,10 @@ export const getConnectedKonnectors = state =>
     .getConnectedKonnectors(
       state.connections,
       fromAccounts.getIds(state.cozy),
-      fromRegistry.getSlugs(state.registry)
+      fromKonnectors.getSlugs(state.cozy)
     )
     .map(({ slug, hasUserError }) => ({
-      konnector: fromRegistry.getRegistryKonnector(state.registry, slug),
+      konnector: fromKonnectors.getKonnector(state.cozy, slug),
       hasUserError
     }))
 
@@ -32,7 +30,7 @@ export const getConnectionsByKonnector = (state, konnectorSlug) =>
     state.connections,
     konnectorSlug,
     fromAccounts.getIds(state.cozy),
-    fromRegistry.getSlugs(state.registry)
+    fromKonnectors.getSlugs(state.cozy)
   )
 
 export const getConfiguredKonnectors = state =>
@@ -49,7 +47,10 @@ export const getConnectionStatus = (state, konnector) =>
   )
 
 export const getConnectionsQueue = state =>
-  fromConnections.getQueue(state.connections, state.registry.konnectors)
+  fromConnections.getQueue(
+    state.connections,
+    fromKonnectors.getIndexedKonnectors(state.cozy)
+  )
 
 export const getCreatedConnectionAccount = state =>
   fromAccounts.getAccount(
@@ -77,7 +78,8 @@ export const getKonnectorConnectedAccount = (state, konnector) =>
     fromAccounts.getIds(state.cozy)
   )
 
-export const getKonnectorsInMaintenance = () => fetchKonnectorsInMaintenance()
+export const getKonnectorsInMaintenance = () =>
+  fromKonnectors.fetchKonnectorsInMaintenance()
 
 export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   const triggerId = fromConnections.getTriggerIdByKonnectorAndAccount(

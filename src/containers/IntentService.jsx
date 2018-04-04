@@ -5,11 +5,7 @@ import CreateAccountService from '../components/services/CreateAccountService'
 import ServiceBar from '../components/services/ServiceBar'
 import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
-import {
-  getRegistryKonnector,
-  getRegistryKonnectorsByCategory,
-  getRegistryKonnectorsByDataType
-} from '../ducks/registry'
+import { getKonnector } from '../ducks/konnectors'
 
 class IntentService extends Component {
   constructor(props) {
@@ -108,13 +104,9 @@ class IntentService extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { data } = ownProps
-  const { category, dataType, slug } = data
+  const { slug } = data
   return {
-    konnectors:
-      (slug && [getRegistryKonnector(state.registry, slug)]) ||
-      (category && getRegistryKonnectorsByCategory(state.registry, category)) ||
-      (dataType && getRegistryKonnectorsByDataType(state.registry, dataType)) ||
-      []
+    konnectors: (slug && [getKonnector(state.cozy, slug)]) || []
   }
 }
 

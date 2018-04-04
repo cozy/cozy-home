@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import CollectStore from '../lib/CollectStore'
 import getReducers from '../reducers'
 
-const configureStore = (client, initKonnectors, context, options = {}) => {
+const configureStore = (client, context, options = {}) => {
   // Enable Redux dev tools
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose
 
@@ -21,10 +21,7 @@ const configureStore = (client, initKonnectors, context, options = {}) => {
     )
   )
 
-  return Object.assign(
-    new CollectStore(initKonnectors, context, options),
-    reduxStore
-  )
+  return Object.assign(new CollectStore(context, options), reduxStore)
 }
 
 export default configureStore

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
 import { getConnectionsByKonnector } from '../reducers'
-import { getRegistryKonnector } from '../ducks/registry'
+import { getKonnector } from '../ducks/konnectors'
 
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
@@ -81,7 +81,7 @@ const mapStateToProps = (state, ownProps) => {
   const { konnectorSlug } = ownProps.match.params
   return {
     connections: getConnectionsByKonnector(state, konnectorSlug),
-    konnector: getRegistryKonnector(state.registry, konnectorSlug)
+    konnector: getKonnector(state.cozy, konnectorSlug)
   }
 }
 
