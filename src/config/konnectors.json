@@ -2193,7 +2193,7 @@
       "bill"
     ],
     "testing": true,
-    "source": "git://github.com/cozy/cozy-konnector-theoldreader.git#latest"
+    "source": "git://github.com/konnectors/cozy-konnector-theoldreader.git#latest"
   },
   {
     "slug": "trainline",
