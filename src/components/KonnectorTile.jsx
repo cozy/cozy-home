@@ -6,8 +6,9 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
 import { getKonnectorTriggersCount } from '../reducers'
+import { hasAtLeastOneTriggerWithUserError } from '../ducks/connections'
 
-const KonnectorTile = ({ footer, konnector, route, t }) => {
+const KonnectorTile = ({ accountsCount, konnector, markErrored, route, t }) => {
   const categories = konnector.categories
     ? konnector.categories.map(c => t(`category.${c}`))
     : []
@@ -17,13 +18,22 @@ const KonnectorTile = ({ footer, konnector, route, t }) => {
       <header className="item-header">
         <img
           className="item-icon"
-          alt={t('connector.logo.alt', { name })}
+          alt={t('connector.logo.alt', { name: konnector.name })}
           src={getKonnectorIcon(konnector)}
         />
       </header>
-      <h3 className="item-title">{name}</h3>
+      <h3 className="item-title">{konnector.name}</h3>
       {subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {footer}
+      {markErrored
+        ? svgIcon('warning')
+        : !!accountsCount && (
+            <span
+              className="item-count"
+              title={t('connector.accounts_count', { count: accountsCount })}
+            >
+              {accountsCount}
+            </span>
+          )}
     </NavLink>
   )
 }
@@ -36,25 +46,14 @@ const svgIcon = name => (
   </svg>
 )
 
-const buildFooter = (state, props) => {
-  if (props.markErrored) return svgIcon('warning')
-
-  const accountsCount = getKonnectorTriggersCount(state, props.konnector)
-
-  if (accountsCount)
-    return (
-      <span
-        className="item-count"
-        title={props.t('connector.accounts_count', { count: accountsCount })}
-      >
-        {accountsCount}
-      </span>
-    )
-}
-
 const mapStateToProps = (state, props) => {
+  const { konnector } = props
   return {
-    footer: buildFooter(state, props)
+    accountsCount: getKonnectorTriggersCount(state, konnector),
+    markErrored: hasAtLeastOneTriggerWithUserError(
+      state.connections,
+      konnector.slug
+    )
   }
 }
 

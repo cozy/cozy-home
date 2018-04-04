@@ -336,47 +336,18 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
 }
 
 // Helpers
-const slugIsInList = (slugs = []) => slug => slugs.includes(slug)
-const hasAtLeastOneValidAccount = (konnectors, validAccounts) => slug => {
+export const hasAtLeastOneTriggerWithUserError = (state, konnectorSlug) => {
   return (
-    konnectors[slug] &&
-    konnectors[slug].triggers &&
-    Object.values(konnectors[slug].triggers).find(trigger =>
-      slugIsInList(validAccounts)(trigger.account)
-    )
-  )
-}
-
-const hasAtLeastOneTriggerWithUserError = connection => {
-  return (
-    !!connection.triggers &&
-    !!Object.values(connection.triggers).find(
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
       trigger => !!trigger.error && isKonnectorUserError(trigger.error)
     )
   )
 }
 
 // selectors
-
-// Retrieves connected Konnectors
-export const getConnectedKonnectors = (
-  state,
-  validAccounts = [],
-  validKonnectors = []
-) => {
-  const konnectorSlugs = Object.keys(state.konnectors)
-  const validKonnectorSlugs = konnectorSlugs.filter(
-    slugIsInList(validKonnectors)
-  )
-  const connectedKonnectors = validKonnectorSlugs
-    .filter(hasAtLeastOneValidAccount(state.konnectors, validAccounts))
-    .map(slug => ({
-      slug: slug,
-      hasUserError: hasAtLeastOneTriggerWithUserError(state.konnectors[slug])
-    }))
-  return connectedKonnectors
-}
-
 export const getConnectionsByKonnector = (
   state,
   konnectorSlug,
