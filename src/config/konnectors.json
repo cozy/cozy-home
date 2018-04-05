@@ -743,6 +743,33 @@
     }
   },
   {
+    "slug": "cesu",
+    "name": "CESU",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.cesu.urssaf.fr/info/accueil.html",
+    "icon": "cesu.png",
+    "categories": ["public_service"],
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/cozy-konnector-cesu.git#latest"
+  },
+  {
     "slug": "cic45",
     "name": "Crédit Mutuel",
     "editor": "Cozy Cloud",
