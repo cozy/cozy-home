@@ -4,7 +4,7 @@
     "name": "Ameli",
     "editor": "Cozy Cloud",
     "vendorLink": "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure",
-    "categories": ["insurance"],
+    "categories": ["insurance", "public_service"],
     "dataType": [
       "bill"
     ],
@@ -2049,7 +2049,7 @@
     "icon": "pajemploi.gif",
     "editor": "Sébastien Nicouleau",
     "vendorLink": "http://www.pajemploi.urssaf.fr/pajewebinfo/cms/sites/pajewebinfo/accueil.html",
-    "categories": ["other"],
+    "categories": ["public_service"],
     "dataType": [
       "document"
     ],
