@@ -206,7 +206,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         const invalidPasswords = []
         Object.keys(stateFields).forEach(f => {
           const isErrored =
-            (f === field && errors.length) ||
+            (f === field && errors && errors.length) ||
             (f !== field &&
               stateFields[f].errors &&
               stateFields[f].errors.length)
@@ -285,6 +285,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           const isRequiredAndEmpty =
             fields[field].isRequired &&
             fields[field].type !== 'hidden' &&
+            fields[field].value &&
             fields[field].value.length === 0
           if (isRequiredAndEmpty) {
             // TODO use the next line instead when the stack will be
