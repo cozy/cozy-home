@@ -1688,6 +1688,33 @@
     "oauth_scope": "openid+profile+offline_access"
   },
   {
+    "slug": "maifecheancier",
+    "name": "Maif - Echeancier",
+    "editor": "Cozy Cloud",
+    "vendorLink": "maif.fr",
+    "icon": "maif.svg",
+    "categories": ["insurance"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/cozy-konnector-echeancier-maif.git#latest"
+  },
+  {
     "slug": "malakoffmederic",
     "name": "Malakoff Mederic",
     "editor": "Cozy Cloud",
