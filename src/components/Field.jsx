@@ -174,7 +174,7 @@ export const PasswordField = translate()(
 
 export const DropdownField = translate()(props => {
   const { value, options, onChange, onInput } = props
-  let valueInOptions = options.indexOf(value) !== -1
+  let valueInOptions = options && options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
 
   return (
