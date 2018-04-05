@@ -188,6 +188,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           maxLength &&
           minLength &&
           maxLength === minLength &&
+          value &&
           value.length !== maxLength
         ) {
           errors.push(t('validation.exact_length', { length: maxLength }))
@@ -222,8 +223,11 @@ export default function statefulForm(mapPropsToFormConfig) {
           }
         })
         const isValid =
-          invalidFields.length === 0 && invalidPasswords.length === 0
-        const isValidButPasswords = invalidFields.length === 0
+          invalidFields &&
+          invalidFields.length === 0 &&
+          invalidPasswords &&
+          invalidPasswords.length === 0
+        const isValidButPasswords = invalidFields && invalidFields.length === 0
 
         this.setState(prevState => {
           // check and update accountName placeholder
@@ -300,8 +304,11 @@ export default function statefulForm(mapPropsToFormConfig) {
         }
         this.setState({
           allRequiredFieldsAreFilled:
-            unfilled.length === 0 && unfilledPasswords.length === 0,
-          allRequiredFilledButPasswords: unfilled.length === 0,
+            unfilled &&
+            unfilledPasswords &&
+            unfilled.length === 0 &&
+            unfilledPasswords.length === 0,
+          allRequiredFilledButPasswords: unfilled && unfilled.length === 0,
           values: this.getData()
         })
       }
