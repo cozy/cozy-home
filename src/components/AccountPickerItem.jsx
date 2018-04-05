@@ -7,24 +7,29 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { getAccount } from '../ducks/accounts'
-import { getAccountName } from '../lib/helpers'
+import { getAccountLogin, getAccountName } from '../lib/helpers'
 
-export const AccountPickerItem = ({ account, konnectorSlug }) => (
-  <NavLink
-    to={`/connected/${konnectorSlug}/accounts/${account._id}`}
-    className={classNames(
-      styles['col-account-picker-button'],
-      styles['col-account-picker-button-account']
-    )}
-  >
-    <span>
-      <span className={styles['col-account-picker-button-label']}>
-        {getAccountName(account)}
+export const AccountPickerItem = ({ account, konnectorSlug }) => {
+  const accountName = getAccountName(account)
+  const accountLogin = getAccountLogin(account)
+  const nameAndLoginDiffer = accountName !== accountLogin
+  return (
+    <NavLink
+      to={`/connected/${konnectorSlug}/accounts/${account._id}`}
+      className={classNames(
+        styles['col-account-picker-button'],
+        styles['col-account-picker-button-account']
+      )}
+    >
+      <span>
+        <span className={styles['col-account-picker-button-label']}>
+          {getAccountName(account)}
+        </span>
+        {nameAndLoginDiffer && <small>{accountLogin}</small>}
       </span>
-      {!!account.auth.accountName && <small>{account.auth.login}</small>}
-    </span>
-  </NavLink>
-)
+    </NavLink>
+  )
+}
 
 const mapStateToProps = (state, ownProps) => ({
   account: getAccount(state.cozy, ownProps.accountId)
