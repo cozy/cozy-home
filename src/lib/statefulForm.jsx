@@ -131,7 +131,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           let maxLength = fieldsFromConfig[field].max || null
           let minLength = fieldsFromConfig[field].min || null
           let isRequired =
-            fieldsFromConfig[field].isRequired === undefined
+            typeof fieldsFromConfig[field].isRequired === 'undefined'
               ? true
               : fieldsFromConfig[field].isRequired
           let value =
