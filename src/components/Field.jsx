@@ -98,7 +98,8 @@ class FieldWrapperComponent extends Component {
           </label>
         )}
         {children}
-        {errors.length !== 0 &&
+        {errors &&
+          errors.length !== 0 &&
           errors.map((err, i) => (
             <p key={i} className={styles['coz-field-error']}>
               {err}
