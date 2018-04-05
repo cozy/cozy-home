@@ -79,7 +79,7 @@ class FieldWrapperComponent extends Component {
 
   render() {
     const { label, invalid, errors, children, type, isRequired, t } = this.props
-    const hasErrored = errors.length !== 0 || invalid
+    const hasErrored = (errors && errors.length !== 0) || invalid
 
     return (
       <div
@@ -214,7 +214,7 @@ export const CheckboxField = translate()(props => {
     />
   )
 
-  const hasErrored = errors.length > 0
+  const hasErrored = errors && errors.length > 0
 
   return (
     <div
@@ -228,7 +228,8 @@ export const CheckboxField = translate()(props => {
           {input} {label}
         </label>
       )}
-      {errors.length !== 0 &&
+      {errors &&
+        errors.length !== 0 &&
         errors.map((err, i) => (
           <p key={i} className={styles['coz-field-error']}>
             {err}
