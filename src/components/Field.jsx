@@ -190,10 +190,14 @@ export const DropdownField = translate()(props => {
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
-            value={optionValue.value || (props.default && props.default.value)}
-            selected={optionValue.value === { value }}
+            value={
+              (optionValue && optionValue.value) ||
+              (props.default && props.default.value)
+            }
+            selected={optionValue && optionValue.value === { value }}
           >
-            {optionValue.name || (props.default && props.default.name)}
+            {(optionValue && optionValue.name) ||
+              (props.default && props.default.name)}
           </option>
         ))}
       </select>
