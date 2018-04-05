@@ -85,24 +85,26 @@ class KonnectorFolder extends React.Component {
               >
                 <Spinner size="xxlarge" middle="true" />
               </div>
-              {!!fields && (
-                <form onSubmit={this.openModal}>
-                  <Field
-                    label={t('account.form.label.namePath')}
-                    {...fields.namePath}
-                  />
-                  <DropdownField
-                    label={t('account.form.label.folderPath')}
-                    {...fields.folderPath}
-                  />
-                  <Button
-                    theme="secondary"
-                    className={styles['col-account-folder-save-btn']}
-                  >
-                    {t('account.form.button.save')}
-                  </Button>
-                </form>
-              )}
+              {!!fields &&
+                fields.folderPath &&
+                fields.namePath && (
+                  <form onSubmit={this.openModal}>
+                    <Field
+                      label={t('account.form.label.namePath')}
+                      {...fields.namePath}
+                    />
+                    <DropdownField
+                      label={t('account.form.label.folderPath')}
+                      {...fields.folderPath}
+                    />
+                    <Button
+                      theme="secondary"
+                      className={styles['col-account-folder-save-btn']}
+                    >
+                      {t('account.form.button.save')}
+                    </Button>
+                  </form>
+                )}
               {driveUrl && (
                 <a
                   className={styles['col-account-folder-link']}
