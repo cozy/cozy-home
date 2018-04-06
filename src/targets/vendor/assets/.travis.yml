@@ -12,4 +12,4 @@ env:
   - secure: MHkHfyMd8i0cN0iQibgqIUU7NAH/R9noyI9+sq6FXbGy6zd6PhbwUt4xg5a86cdeW3zpMmY0cJYJLn7t/j47djQs/tAPbTv2LuTxStQUiuF9waqx/7h1MpDB06pwnlda72XDEH+W/CnweXBx99OLXOlN8bT77QO6Fx4tSedN0hOSrsOWDxXALChDCELpbO6Pnrshsgvmmy0lOJJsUN8gT468OEWpEsstfEYFGjnnCnVzMj3k28xblRpKccr9TmgU5oLlqd23oHtxNuW993ecrTMrPKsQdWm2ggwaRwC9+bObSsrxArKIJa21GFgsIvrTjQmtQs9aTxPlrRe53q/uV/mH/aRVdgByU9Iq6orFyKj6kEqHWx/tn0XCySMUD4heCpvbq4ErYOe13rT3RbzTRON4N7K/hDcIX48BKOFt9Nvli15dTocQNeFhG71YCWOJY2Y5HiQiEhuzeQX6Ljb0DGoZ55fGT81IdhAskzBvg5D9PxGC2mEKaf0D2F9YHIDsTrOFaoPsL39pPwpi5DNEC8O8sh0vF1qRgz6dHorD0bYByM212TRsNCGHHP8aNWVq3U532xIISuRs6coFfrBGdpY0E1Bqr+qwQtHXqS3muvq4atuLWJCPvognpKVD8jVGt/fcIvP7Syb/jYcVQqxdjfVvFMVZvd2CAomUBqXfSL4=
 script:
 - yarn add cozy-app-publish
-- yarn cozy-app-publish --travis --editor Cozy --token $REGISTRY_TOKEN --build-dir '.' --on-branch build
+- yarn cozy-app-publish --token $REGISTRY_TOKEN --build-dir '.'
