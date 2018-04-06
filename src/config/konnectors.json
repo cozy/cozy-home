@@ -2058,7 +2058,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-redbox.git#build"
+    "source": "git://github.com/cozy/cozy-konnector-redbox.git#latest"
   },
   {
     "slug": "redmobile",
@@ -2083,7 +2083,7 @@
         }
       }
     },
-    "source": "git://github.com/cozy/cozy-konnector-redmobile.git#build"
+    "source": "git://github.com/cozy/cozy-konnector-redmobile.git#latest"
   },
   {
     "slug": "sfrbox",
@@ -2108,7 +2108,7 @@
     "dataType": [
       "bill"
     ],
-    "source": "git://github.com/cozy/cozy-konnector-sfrbox.git#build"
+    "source": "git://github.com/cozy/cozy-konnector-sfrbox.git#latest"
   },
   {
     "slug": "sfrmobile",
@@ -2133,7 +2133,7 @@
     "dataType": [
       "bill"
     ],
-    "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#build"
+    "source": "git://github.com/cozy/cozy-konnector-sfrmobile.git#latest"
   },
   {
     "slug": "sncf",
