@@ -96,7 +96,7 @@
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
-    "cozy-bar": "4.9.4",
+    "cozy-bar": "4.10.0",
     "cozy-client-js": "0.8.0",
     "cozy-ui": "7.10.0",
     "enzyme": "3.3.0",
