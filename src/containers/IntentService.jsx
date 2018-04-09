@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import CreateAccountService from '../components/services/CreateAccountService'
 import ServiceBar from '../components/services/ServiceBar'
-import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
 
 import { getKonnector } from '../ducks/konnectors'
 
@@ -89,13 +88,6 @@ class IntentService extends Component {
               {...this.context}
             />
           )}
-          {!konnector &&
-            konnectors.length > 1 && (
-              <ServiceKonnectorsList
-                konnectorsList={konnectors}
-                showKonnector={konnector => this.showKonnector(konnector)}
-              />
-            )}
         </div>
       </div>
     )
