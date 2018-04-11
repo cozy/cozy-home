@@ -2263,7 +2263,6 @@
     "dataType": [
       "bill"
     ],
-    "testing": true,
     "source": "git://github.com/konnectors/cozy-konnector-theoldreader.git#latest"
   },
   {
