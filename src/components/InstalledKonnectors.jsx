@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-import { ButtonLink } from 'cozy-ui/react/Button'
+import Button from 'cozy-ui/react/Button'
 import Empty from 'cozy-ui/react/Empty'
 import Icon from 'cozy-ui/react/Icon'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
-import { getAppUrl } from '../ducks/apps'
+import { redirectToStore } from '../lib/helpers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
@@ -19,11 +19,11 @@ import AccountPicker from './AccountPicker'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 
-const ButtonLinkToStore = ({ icon, label, cozyStoreURL }) => (
-  <ButtonLink disabled={!cozyStoreURL} href={cozyStoreURL}>
+const StoreButton = ({ icon, label, handleClick }) => (
+  <Button onClick={handleClick}>
     {icon && <Icon icon={addAccountIcon} className="col-icon--add" />}
-    {label}
-  </ButtonLink>
+    <span>{label}</span>
+  </Button>
 )
 
 class InstalledKonnectors extends Component {
@@ -45,18 +45,19 @@ class InstalledKonnectors extends Component {
   }
 
   render() {
-    const { t, installedKonnectors, cozyStoreURL, wrapper } = this.props
+    const { t, installedKonnectors, wrapper } = this.props
     const hasConnections = !!installedKonnectors.length
+
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
           {hasConnections && (
-            <ButtonLinkToStore
+            <StoreButton
               icon={addAccountIcon}
               label={t('add_account')}
-              cozyStoreURL={cozyStoreURL}
+              handleClick={redirectToStore}
             />
           )}
         </div>
@@ -75,8 +76,8 @@ class InstalledKonnectors extends Component {
             title={t('connector.no-connectors-connected')}
             text={t('connector.get-info')}
           >
-            <ButtonLinkToStore
-              href={cozyStoreURL}
+            <StoreButton
+              handleClick={redirectToStore}
               label={t('connector.connect-account')}
             />
           </Empty>
@@ -120,8 +121,7 @@ const mapStateToProps = (state, ownProps) => {
     installedKonnectors: sortBy(
       getInstalledKonnectors(state),
       konnector => konnector.name
-    ),
-    cozyStoreURL: getAppUrl(state.cozy, 'store')
+    )
   }
 }
 
