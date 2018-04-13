@@ -1142,6 +1142,33 @@
     }
   },
   {
+    "slug": "darty",
+    "name": "Darty",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.darty.com",
+    "categories": ["shopping"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": "true",
+    "frequency": "daily",
+    "source": "git://github.com/konnectors/darty.git#latest"
+  },
+  {
     "name": "Debug",
     "slug": "debug",
     "editor": "Cozy Cloud",
