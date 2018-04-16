@@ -251,6 +251,34 @@
     }
   },
   {
+    "slug": "boulanger",
+    "name": "Boulanger",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.boulanger.com",
+    "categories": ["shopping"],
+    "icon": "boulanger.png",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": "true",
+    "frequency": "daily",
+    "source": "git://github.com/konnectors/boulanger.git#latest"
+  },
+  {
     "slug": "boursorama83",
     "name": "Boursorama Banque",
     "editor": "Cozy Cloud",
