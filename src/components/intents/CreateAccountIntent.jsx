@@ -1,23 +1,23 @@
 import React from 'react'
 
 import CreateAccountService from '../services/CreateAccountService'
-import ServiceBar from '../services/ServiceBar'
+import IntentHeader from 'cozy-ui/react/IntentHeader'
 
 const CreateAccountIntent = ({ appData, konnector, onCancel, onTerminate }) => (
   <div className="col-create-account-intent">
-    <ServiceBar
+    <IntentHeader
       appEditor={appData.cozyAppEditor}
       appName={appData.cozyAppName}
-      iconPath={`../${appData.cozyIconPath}`}
-      onCancel={() => onCancel()}
-      closeable
+      appIcon={`../${appData.cozyIconPath}`}
     />
-    { konnector && <CreateAccountService
-      konnector={konnector}
-      onCancel={() => onCancel()}
-      onSuccess={account => onTerminate(account)}
-      closeModal={() => onCancel()}
-    />}
+    {konnector && (
+      <CreateAccountService
+        konnector={konnector}
+        onCancel={() => onCancel()}
+        onSuccess={account => onTerminate(account)}
+        closeModal={() => onCancel()}
+      />
+    )}
   </div>
 )
 
