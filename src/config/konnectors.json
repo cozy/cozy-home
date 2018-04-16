@@ -274,8 +274,6 @@
         }
       }
     },
-    "testing": "true",
-    "frequency": "daily",
     "source": "git://github.com/konnectors/boulanger.git#latest"
   },
   {
@@ -766,7 +764,6 @@
         }
       }
     },
-    "testing": true,
     "source": "git://github.com/konnectors/cozy-konnector-cesu.git#latest"
   },
   {
@@ -1192,8 +1189,6 @@
         }
       }
     },
-    "testing": "true",
-    "frequency": "daily",
     "source": "git://github.com/konnectors/darty.git#latest"
   },
   {
@@ -1598,8 +1593,6 @@
         }
       }
     },
-    "testing": true,
-    "frequency": "daily",
     "source": "git://github.com/konnectors/impots.git#latest"
   },
   {
