@@ -206,6 +206,13 @@
   },
 
   "intent": {
+    "konnector": {
+      "install": {
+        "error": {
+          "message": "The konnector cannot be installed"
+        }
+      }
+    },
     "service": {
       "return": "Back to connectors list",
       "success": {
