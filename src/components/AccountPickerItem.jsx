@@ -3,13 +3,22 @@ import classNames from 'classnames'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { translate } from 'cozy-ui/react/I18n'
 
 import { NavLink } from 'react-router-dom'
+import Icon from 'cozy-ui/react/Icon'
+import Spinner from 'cozy-ui/react/Spinner'
 
 import { getAccount } from '../ducks/accounts'
 import { getAccountLogin, getAccountName } from '../lib/helpers'
 
-export const AccountPickerItem = ({ account, konnectorSlug }) => {
+export const AccountPickerItem = ({
+  t,
+  connection,
+  konnectorSlug,
+  account
+}) => {
+  const { error, hasError, isRunning, isConnected } = connection
   const accountName = getAccountName(account)
   const accountLogin = getAccountLogin(account)
   const nameAndLoginDiffer = accountName !== accountLogin
@@ -21,18 +30,27 @@ export const AccountPickerItem = ({ account, konnectorSlug }) => {
         styles['col-account-picker-button-account']
       )}
     >
-      <span>
-        <span className={styles['col-account-picker-button-label']}>
-          {getAccountName(account)}
-        </span>
+      <div className={styles['col-account-picker-button-infos']}>
+        <div>{accountName}</div>
         {nameAndLoginDiffer && <small>{accountLogin}</small>}
-      </span>
+      </div>
+      {hasError && (
+        <div className={styles['col-account-picker-button-error']}>
+          <span>{t(`connection.error.${error.message}.title`)}</span>
+          <Icon icon="warning" />
+        </div>
+      )}
+      {isConnected && <Icon icon="check-circleless" color="#2BBA40" />}
+      {isRunning && <Spinner />}
     </NavLink>
   )
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  account: getAccount(state.cozy, ownProps.accountId)
+  account: getAccount(
+    state.cozy,
+    ownProps.connection && ownProps.connection.account
+  )
 })
 
-export default connect(mapStateToProps)(AccountPickerItem)
+export default connect(mapStateToProps)(translate()(AccountPickerItem))

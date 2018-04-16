@@ -37,7 +37,7 @@ export const AccountPicker = ({
             <li>
               <AccountPickerItem
                 konnectorSlug={konnectorSlug}
-                accountId={connection.account}
+                connection={connection}
               />
             </li>
           ))}
