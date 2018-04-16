@@ -1547,6 +1547,35 @@
     }
   },
   {
+    "slug": "impots",
+    "name": "Impots.gouv.fr",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://cfspart.impots.gouv.fr/LoginMDP",
+    "categories": ["public_service"],
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "login": {
+        "type": "text",
+        "min": 13,
+        "max": 13
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "frequency": "daily",
+    "source": "git://github.com/konnectors/impots.git#latest"
+  },
+  {
     "slug": "ingdirect95",
     "name": "ING Direct",
     "editor": "Cozy Cloud",
