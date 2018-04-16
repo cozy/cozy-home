@@ -18,7 +18,7 @@ export class StoreButton extends Component {
   async toggleRedirect() {
     this.setState(() => ({ redirecting: true }))
     try {
-      await cozy.client.intents.redirect('io.cozy.konn', { type: 'konnector' })
+      await cozy.client.intents.redirect('io.cozy.apps', { type: 'konnector' })
     } catch (error) {
       console.error(error)
       this.setState({
