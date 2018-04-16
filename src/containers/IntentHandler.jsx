@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import appEntryPoint from '../components/appEntryPoint'
 
-import Loading from '../components/Loading'
 import IntentService from './IntentService'
+import Spinner from 'cozy-ui/react/Spinner'
 
 class IntentHandler extends Component {
   constructor(props, context) {
@@ -73,7 +73,7 @@ class IntentHandler extends Component {
       <div className="coz-service">
         {isInitializing && (
           <div className="coz-service-loading">
-            <Loading />
+            <Spinner size="xxlarge" />
           </div>
         )}
         {error && (

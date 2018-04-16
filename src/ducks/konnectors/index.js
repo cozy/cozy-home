@@ -10,8 +10,23 @@ export const fetchKonnectors = () => fetchCollection('konnectors', DOCTYPE)
 export const fetchKonnectorsInMaintenance = () =>
   require('../../config/maintenance')
 
-// Selectors
+// Action creators
+export const receiveInstalledKonnector = konnector => {
+  const normalized = {
+    ...konnector,
+    ...konnector.attributes,
+    id: `${DOCTYPE}/${konnector.slug}`,
+    _type: DOCTYPE
+  }
 
+  return {
+    type: 'RECEIVE_NEW_DOCUMENT',
+    response: { data: [normalized] },
+    updateCollections: ['konnectors']
+  }
+}
+
+// Selectors
 export const getKonnector = (state, slug) =>
   !!state.documents &&
   !!state.documents[DOCTYPE] &&
