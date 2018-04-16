@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 
-import Button from 'cozy-ui/react/Button'
 import Empty from 'cozy-ui/react/Empty'
-import Icon from 'cozy-ui/react/Icon'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
-import { redirectToStore } from '../lib/helpers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
@@ -16,15 +13,7 @@ import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
-
-import addAccountIcon from '../assets/icons/icon-plus.svg'
-
-const StoreButton = ({ icon, label, handleClick }) => (
-  <Button onClick={handleClick}>
-    {icon && <Icon icon={addAccountIcon} className="col-icon--add" />}
-    <span>{label}</span>
-  </Button>
-)
+import StoreButton from './StoreButton'
 
 class InstalledKonnectors extends Component {
   componentDidMount() {
@@ -53,13 +42,7 @@ class InstalledKonnectors extends Component {
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {hasConnections && (
-            <StoreButton
-              icon={addAccountIcon}
-              label={t('add_account')}
-              handleClick={redirectToStore}
-            />
-          )}
+          {hasConnections && <StoreButton label={t('add_account')} icon />}
         </div>
         {hasConnections ? (
           <div className="connector-list">
@@ -76,10 +59,7 @@ class InstalledKonnectors extends Component {
             title={t('connector.no-connectors-connected')}
             text={t('connector.get-info')}
           >
-            <StoreButton
-              handleClick={redirectToStore}
-              label={t('connector.connect-account')}
-            />
+            <StoreButton label={t('connector.connect-account')} />
           </Empty>
         )}
         <Switch>
