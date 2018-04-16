@@ -19,13 +19,6 @@
         font-size (16/basefont)em
         height (48/basefont)em
 
-        span
-            color charcoalGrey
-
-        small
-            line-height 1rem
-            color coolGrey
-
         // Sad but only way to override :hover style
         &:not([disabled]):not([aria-disabled=true])
             &:active,
@@ -33,8 +26,31 @@
             &:hover
                 background-color paleGrey
 
-    .col-account-picker-button-label
-        margin-top: (4/basefont)em
+    .col-account-picker-button-account
+        text-transform none
+        display flex
+        flex-direction row
+        justify-content space-between
+        align-items center
+
+        .col-account-picker-button-infos
+            color charcoalGrey
+            display flex
+            flex-direction column
+            small
+                line-height 1rem
+                color coolGrey
+                text-align left
+
+        .col-account-picker-button-error
+            display flex
+            flex-direction row
+            align-items center
+            color pomegranate
+
+            span
+                margin-right .5rem
+
 
     .col-account-picker-button-add
         border-style dashed
@@ -49,9 +65,3 @@
             &:focus,
             &:hover
                 color scienceBlue
-
-    .col-account-picker-button-account
-        span
-            align-items start
-            flex-direction column
-            text-transform none
