@@ -2,13 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CreateAccountIntent from '../components/intents/CreateAccountIntent'
-import { getKonnector } from '../ducks/konnectors'
+import InstallKonnectorIntent from '../components/intents/InstallKonnectorIntent'
+import { getKonnector, receiveInstalledKonnector } from '../ducks/konnectors'
 
 class IntentService extends Component {
-  render() {
-    const { appData, konnector, onCancel, onTerminate } = this.props
-    const { error } = this.state
+  handleInstallationSuccess(konnector) {
+    this.props.receiveKonnector(konnector)
+  }
 
+  onError(error) {
+    this.setState({
+      error: error
+    })
+  }
+
+  render() {
+    const { appData, data, konnector, onCancel } = this.props
+    const { error } = this.state
     const { t } = this.context
 
     return (
@@ -16,19 +26,34 @@ class IntentService extends Component {
         {error && (
           <div className="coz-error coz-service-error">
             <p>{t(error.message)}</p>
-            <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+            {error.reason && (
+              <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+            )}
           </div>
         )}
-        <CreateAccountIntent
-          appData={appData}
-          konnector={konnector}
-          onCancel={() => onCancel()}
-          onSuccess={account => onTerminate(account)}
-        />
+        {!error && konnector ? (
+          <CreateAccountIntent
+            appData={appData}
+            konnector={konnector}
+            onCancel={onCancel}
+            onSuccess={account => this.onTerminate(account)}
+          />
+        ) : (
+          <InstallKonnectorIntent
+            data={data}
+            onError={error => this.onError(error)}
+            onCancel={onCancel}
+            onSuccess={konnector => this.handleInstallationSuccess(konnector)}
+          />
+        )}
       </div>
     )
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  receiveKonnector: konnector => dispatch(receiveInstalledKonnector(konnector))
+})
 
 const mapStateToProps = (state, ownProps) => {
   const { data } = ownProps
@@ -38,4 +63,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(IntentService)
+export default connect(mapStateToProps, mapDispatchToProps)(IntentService)
