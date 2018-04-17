@@ -177,14 +177,29 @@ describe('konnectors lib', () => {
       )
     })
 
-    it('returns first segment when no match', () => {
+    it('returns default key when no match', () => {
       const t = key => key
 
       const error = konnectors.buildKonnectorError(
         'LOGIN_FAILED.RANDOM_REASON.DETAIL'
       )
 
-      expect(konnectors.getMostAccurateErrorKey(t, error)).toBe('LOGIN_FAILED')
+      const getKey = key => `prefix.${key}.suffix`
+
+      expect(konnectors.getMostAccurateErrorKey(t, error, getKey)).toBe(
+        'prefix.UNKNOWN_ERROR.suffix'
+      )
+    })
+
+    it('returns default key for totally unexpected error message', () => {
+      const t = key => key
+
+      const error = konnectors.buildKonnectorError('exist status 1')
+      const getKey = key => `prefix.${key}.suffix`
+
+      expect(konnectors.getMostAccurateErrorKey(t, error, getKey)).toBe(
+        'prefix.UNKNOWN_ERROR.suffix'
+      )
     })
   })
 })

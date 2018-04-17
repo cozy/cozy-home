@@ -166,6 +166,10 @@
         "title": "Missing destination folder",
         "description": "It seems that this account's destination folder has been deleted. Please restore it by disconnecting this account and then reconnect again."
       },
+      "UNKNOWN_ERROR": {
+        "title": "Connection error",
+        "description": "An unknown error has occurred."
+      },
       "USER_ACTION_NEEDED": {
         "title": "Action needed on the provider",
         "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
