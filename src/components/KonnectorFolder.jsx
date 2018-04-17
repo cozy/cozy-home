@@ -85,6 +85,14 @@ class KonnectorFolder extends React.Component {
               >
                 <Spinner size="xxlarge" middle="true" />
               </div>
+              {driveUrl && (
+                <a
+                  className={styles['col-account-folder-link']}
+                  href={`${driveUrl}${trigger.message.folder_to_save}`}
+                >
+                  {t('account.folder.link')}
+                </a>
+              )}
               {!!fields && (
                 <form onSubmit={this.openModal}>
                   <Field
@@ -102,14 +110,6 @@ class KonnectorFolder extends React.Component {
                     {t('account.form.button.save')}
                   </Button>
                 </form>
-              )}
-              {driveUrl && (
-                <a
-                  className={styles['col-account-folder-link']}
-                  href={`${driveUrl}${trigger.message.folder_to_save}`}
-                >
-                  {t('account.folder.link')}
-                </a>
               )}
 
               {isModalOpen && (

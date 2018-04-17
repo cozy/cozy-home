@@ -115,6 +115,8 @@ class ConnectionManagement extends Component {
     return (
       <Modal
         dismissAction={() => this.gotoParent()}
+        mobileFullscreen
+        size="large"
         className={styles['col-account-modal']}
       >
         <ModalHeader>
