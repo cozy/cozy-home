@@ -18,7 +18,7 @@ const getErrorDescription = (t, konnector, error) =>
     ),
     {
       name: konnector.name,
-      link: konnector.vendorLink
+      link: konnector.vendor_link
     }
   )
 
