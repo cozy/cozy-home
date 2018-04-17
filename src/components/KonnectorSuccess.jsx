@@ -29,8 +29,8 @@ export const KonnectorSuccess = ({
           title={!error && title}
           messages={!error && messages}
         >
-          {Array.isArray(connector.dataType) &&
-            connector.dataType.includes('bill') && (
+          {Array.isArray(connector.data_types) &&
+            connector.data_types.includes('bill') && (
               <p>
                 {!error &&
                   t(
