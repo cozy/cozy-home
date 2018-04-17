@@ -351,5 +351,5 @@ export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
     fullKey = getKey(tested.join('.'))
   }
 
-  return fullKey || errorSegments[0]
+  return tested.length ? fullKey : getKey('UNKNOWN_ERROR')
 }
