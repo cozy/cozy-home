@@ -35,7 +35,7 @@ export const AccountPickerItem = ({
       )}
     >
       <div className={styles['col-account-picker-button-infos']}>
-        <div>{accountName}</div>
+        <span>{accountName}</span>
         {nameAndLoginDiffer && <small>{accountLogin}</small>}
       </div>
       {hasError && (

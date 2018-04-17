@@ -37,19 +37,30 @@
             color charcoalGrey
             display flex
             flex-direction column
+            overflow hidden
+            span, small
+                text-align left
+                overflow hidden
+                text-overflow ellipsis
+
             small
                 line-height 1rem
                 color coolGrey
-                text-align left
 
         .col-account-picker-button-error
             display flex
             flex-direction row
             align-items center
+            flex-basis 27rem
             color pomegranate
+            overflow hidden
+            justify-content flex-end
 
             span
-                margin-right .5rem
+                margin 0 .5rem
+                overflow hidden
+                text-overflow ellipsis
+                white-space nowrap
 
 
     .col-account-picker-button-add
