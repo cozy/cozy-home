@@ -8,7 +8,7 @@ import DataItem from '../components/DataItem'
 
 const AccountConnectionData = ({ t, connector }) => {
   const { hasDescriptions } = connector
-  const hasDataTypes = !!(connector.dataType && connector.dataType.length)
+  const hasDataTypes = !!(connector.data_types && connector.data_types.length)
 
   return (
     <div className={ClassNames(styles['col-account-connection-data'])}>
@@ -26,7 +26,7 @@ const AccountConnectionData = ({ t, connector }) => {
       <h4>{t('account.config.data.title')}</h4>
       {hasDataTypes && (
         <ul className={styles['col-account-connection-data-access']}>
-          {connector.dataType.map(data => <DataItem dataType={data} />)}
+          {connector.data_types.map(data => <DataItem dataType={data} />)}
         </ul>
       )}
       {!hasDataTypes && <p>{t('dataType.none', { name: connector.name })}</p>}
