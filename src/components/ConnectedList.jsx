@@ -11,6 +11,7 @@ import sortBy from 'lodash/sortBy'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
+import ConnectionManagement from '../containers/ConnectionManagement'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
@@ -80,6 +81,30 @@ class ConnectedList extends Component {
         <Route
           path="/connected/:konnectorSlug/"
           render={props => <AccountPicker {...props} />}
+        />
+        <Route
+          path="/connected/:konnectorSlug/new"
+          render={props => (
+            <ConnectionManagement
+              backRoute={`/connected/${
+                props.match.params.konnectorSlug
+              }/accounts`}
+              originPath="/connected"
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path="/connected/:konnectorSlug/accounts/:accountId"
+          render={props => (
+            <ConnectionManagement
+              backRoute={`/connected/${
+                props.match.params.konnectorSlug
+              }/accounts`}
+              originPath="/connected"
+              {...props}
+            />
+          )}
         />
       </div>
     )

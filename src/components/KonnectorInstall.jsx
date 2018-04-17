@@ -1,6 +1,5 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import Spinner from 'cozy-ui/react/Spinner'
 import styles from '../styles/konnectorInstall'
 
 import AccountConnectionData from './AccountConnectionData'
@@ -86,10 +85,6 @@ export const KonnectorInstall = ({
           )}
         {maintenance && maintenance.longTerm ? (
           <KonnectorMaintenance maintenance={maintenance} lang={lang} />
-        ) : isFetching ? (
-          <div className={styles['col-account-connection-fetching']}>
-            <Spinner size="xxlarge" middle="true" />
-          </div>
         ) : !account || !success || hasLoginError ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
