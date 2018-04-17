@@ -1,61 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import CreateAccountService from '../components/services/CreateAccountService'
-import ServiceBar from '../components/services/ServiceBar'
-import ServiceKonnectorsList from '../components/services/ServiceKonnectorsList'
-
-import { getKonnector } from '../ducks/konnectors'
+import CreateAccountIntent from '../components/intents/CreateAccountIntent'
+import InstallKonnectorIntent from '../components/intents/InstallKonnectorIntent'
+import { getKonnector, receiveInstalledKonnector } from '../ducks/konnectors'
 
 class IntentService extends Component {
-  constructor(props) {
-    super(props)
-
-    if (props.konnectors && props.konnectors.length === 1) {
-      this.state = {
-        konnector: props.konnectors[0],
-        isUnique: true
-      }
-    }
+  handleInstallationSuccess(konnector) {
+    this.props.receiveKonnector(konnector)
   }
 
-  reset() {
+  onError(error) {
     this.setState({
-      konnector: null
-    })
-  }
-
-  onSuccess(account) {
-    const { isUnique } = this.state
-
-    if (isUnique) {
-      this.reset()
-      return this.props.onTerminate(account)
-    }
-
-    this.reset()
-  }
-
-  onCancel() {
-    const { isUnique } = this.state
-
-    if (isUnique) {
-      return this.props.onCancel()
-    }
-
-    this.reset()
-  }
-
-  showKonnector(konnector) {
-    this.setState({
-      konnector: konnector
+      error: error
     })
   }
 
   render() {
-    const { appData, konnectors, onCancel } = this.props
-    const { konnector, error, disableSuccessTimeout, closeable } = this.state
-
+    const { appData, data, konnector, onCancel } = this.props
+    const { error } = this.state
     const { t } = this.context
 
     return (
@@ -63,51 +26,41 @@ class IntentService extends Component {
         {error && (
           <div className="coz-error coz-service-error">
             <p>{t(error.message)}</p>
-            <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+            {error.reason && (
+              <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+            )}
           </div>
         )}
-        <div className="coz-service-layout">
-          <ServiceBar
-            appEditor={appData.cozyAppEditor}
-            appName={appData.cozyAppName}
-            iconPath={`../${appData.cozyIconPath}`}
+        {!error && konnector ? (
+          <CreateAccountIntent
+            appData={appData}
+            konnector={konnector}
             onCancel={onCancel}
-            closeable={closeable}
-            hasReturnToKonnectorsListButton={
-              !error && konnectors.length > 1 && konnector
-            }
-            returnToKonnectorsList={() => this.setState({ konnector: null })}
-            {...this.context}
+            onSuccess={account => this.onTerminate(account)}
           />
-          {konnector && (
-            <CreateAccountService
-              konnector={konnector}
-              onCancel={() => this.onCancel()}
-              onSuccess={account => this.onSuccess(account)}
-              disableSuccessTimeout={disableSuccessTimeout}
-              closeModal={() => this.onCancel()}
-              {...this.context}
-            />
-          )}
-          {!konnector &&
-            konnectors.length > 1 && (
-              <ServiceKonnectorsList
-                konnectorsList={konnectors}
-                showKonnector={konnector => this.showKonnector(konnector)}
-              />
-            )}
-        </div>
+        ) : (
+          <InstallKonnectorIntent
+            data={data}
+            onError={error => this.onError(error)}
+            onCancel={onCancel}
+            onSuccess={konnector => this.handleInstallationSuccess(konnector)}
+          />
+        )}
       </div>
     )
   }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  receiveKonnector: konnector => dispatch(receiveInstalledKonnector(konnector))
+})
+
 const mapStateToProps = (state, ownProps) => {
   const { data } = ownProps
   const { slug } = data
   return {
-    konnectors: (slug && [getKonnector(state.cozy, slug)]) || []
+    konnector: slug && getKonnector(state.cozy, slug)
   }
 }
 
-export default connect(mapStateToProps)(IntentService)
+export default connect(mapStateToProps, mapDispatchToProps)(IntentService)

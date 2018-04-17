@@ -1,6 +1,6 @@
 /* global cozy */
 import * as accounts from './accounts'
-import KONNECTORS_DOCTYPE, * as konnectors from './konnectors'
+import * as konnectors from './konnectors'
 import * as jobs from './jobs'
 import { randomDayTime } from './daytime'
 
@@ -38,12 +38,6 @@ export default class CollectStore {
         console.warn &&
           console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
-
-    konnectors.subscribeAll(cozy.client).then(subscription => {
-      subscription.onCreate(konnector =>
-        this.handleInstalledKonnector(konnector)
-      )
-    })
   }
 
   updateUnfinishedJob(job) {
@@ -58,21 +52,6 @@ export default class CollectStore {
       type: 'RECEIVE_NEW_DOCUMENT',
       response: { data: [normalized] },
       updateCollections: ['jobs']
-    })
-  }
-
-  handleInstalledKonnector(konnector) {
-    const normalized = {
-      ...konnector,
-      ...konnector.attributes,
-      id: `${KONNECTORS_DOCTYPE}/${konnector.slug}`,
-      _type: KONNECTORS_DOCTYPE
-    }
-
-    this.dispatch({
-      type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalized] },
-      updateCollections: ['konnectors']
     })
   }
 
