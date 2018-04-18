@@ -19,12 +19,10 @@
         font-size (16/basefont)em
         height (48/basefont)em
 
-        // Sad but only way to override :hover style
-        &:not([disabled]):not([aria-disabled=true])
-            &:active,
-            &:focus,
-            &:hover
-                background-color paleGrey
+        &:active,
+        &:focus,
+        &:hover
+            background-color paleGrey
 
     .col-account-picker-button-account
         text-transform none
