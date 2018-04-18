@@ -4,7 +4,7 @@ import React, { Component, cloneElement } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-import { Input } from 'cozy-ui/react/'
+import Input from 'cozy-ui/react/Input'
 import statefulComponent from '../lib/statefulComponent'
 
 const Field = props => {
