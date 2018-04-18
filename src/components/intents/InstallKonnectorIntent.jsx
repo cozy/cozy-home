@@ -13,7 +13,7 @@ const InstallKonnectorIntent = ({ data, onCancel, onError, onSuccess, t }) => (
       console.debug('InstallKonnectorIntent.onTerminate', konnector)
       onSuccess(konnector)
     }}
-    type="io.cozy.konnectors"
+    type="io.cozy.apps"
   />
 )
 
