@@ -2255,9 +2255,15 @@ cozy-scripts@0.5.5:
     webpack-dev-server "2.11.2"
     webpack-merge "4.1.2"
 
+<<<<<<< HEAD
 cozy-ui@7.18.0:
   version "7.18.0"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.18.0.tgz#d32ae9b5ad6b1d609cc60a4572e3b290038d128d"
+=======
+cozy-ui@7.14.0:
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.14.0.tgz#dc462e6d0e78fdb3b6fbce4a4ce4c6da377bb4e2"
+>>>>>>> chore: cozy-ui v7.14.0 ⬆️
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
@@ -7525,7 +7531,7 @@ posthtml@^0.9.2:
     posthtml-parser "^0.2.0"
     posthtml-render "^1.0.5"
 
-"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
+"pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
   uid f3ee23009b70209c611435d57491aa77fb88802a
   resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
