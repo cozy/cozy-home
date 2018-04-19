@@ -220,6 +220,32 @@
     }
   },
   {
+    "slug": "blablacar",
+    "name": "Blablacar",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.blablacar.fr",
+    "categories": ["transport"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/blablacar.git#latest"
+  },
+  {
     "slug": "bnpparibas82",
     "name": "BNP Paribas",
     "editor": "Cozy Cloud",
