@@ -251,6 +251,32 @@
     }
   },
   {
+    "slug": "bookingdotcom",
+    "name": "Booking.com",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://secure.booking.com/myreservations.html",
+    "categories": ["shopping"],
+    "icon": "bookingdotcom.svg",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/booking.com.git#latest"
+  },
+  {
     "slug": "boulanger",
     "name": "Boulanger",
     "editor": "Cozy Cloud",
