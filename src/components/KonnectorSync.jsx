@@ -11,6 +11,37 @@ function getDateLabel({ date, t, f }) {
   return f(DateFns.parse(date), t('account.message.synced.date_format'))
 }
 
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]
+const dows = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+const humanCron = cronSpec => {
+  try {
+    const [, minute, hour, , month, dayOfWeek] = cronSpec.split(' ')
+    const timePart =
+      hour !== '*' && minute !== '*'
+        ? `at ${hour}:${minute}`
+        : hour !== '*' ? `${hour}h` : `Any hour on ${minute}minute`
+    const monthPart = month !== '*' ? `during ${months[month]}` : ''
+    const dowPart = dayOfWeek !== '*' ? `on ${dows[dayOfWeek]}` : ''
+    return [timePart, monthPart, dowPart].join(' ')
+  } catch (e) {
+    return JSON.stringify(e)
+  }
+}
+
 export const KonnectorSync = ({
   t,
   f,
@@ -18,7 +49,8 @@ export const KonnectorSync = ({
   lastSuccessDate,
   maintenance,
   submitting,
-  onForceConnection
+  onForceConnection,
+  trigger
 }) => {
   const lastSyncMessage =
     (submitting && t('account.message.synced.syncing')) ||
@@ -26,7 +58,7 @@ export const KonnectorSync = ({
     (lastSuccessDate && getDateLabel({ date: lastSuccessDate, t, f })) ||
     null
   return (
-    <div>
+    <div title={`Scheduled execution : ${humanCron(trigger.arguments)}`}>
       {
         <DescriptionContent
           title={t('account.message.synced.title')}

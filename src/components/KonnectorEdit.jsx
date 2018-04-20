@@ -100,6 +100,7 @@ export const KonnectorEdit = ({
               maintenance={maintenance}
               submitting={submitting}
               onForceConnection={onForceConnection}
+              trigger={trigger}
             />
             {account &&
               trigger &&
