@@ -242,7 +242,6 @@
         }
       }
     },
-    "testing": true,
     "source": "git://github.com/konnectors/blablacar.git#latest"
   },
   {
