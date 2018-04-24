@@ -2416,5 +2416,33 @@
       "bill"
     ],
     "source": "git://github.com/konnectors/cozy-konnector-trainline.git#latest"
+  },
+  {
+    "slug": "vinciautoroute",
+    "name": "Vinci autoroute télépeage",
+    "editor": "Cozy Cloud",
+    "icon": "vinciautoroute.png",
+    "vendorLink": "https://espaceabonnes.vinci-autoroutes.com/Authentification",
+    "categories": ["transport"],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill",
+      "consumption"
+    ],
+    "testing": "true",
+    "source": "git://github.com/konnectors/vinciautoroute.git#latest"
   }
 ]
