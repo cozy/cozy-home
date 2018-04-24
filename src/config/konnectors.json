@@ -2399,7 +2399,6 @@
       "bill",
       "consumption"
     ],
-    "testing": "true",
     "source": "git://github.com/konnectors/vinciautoroute.git#latest"
   }
 ]
