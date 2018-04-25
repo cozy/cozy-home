@@ -268,9 +268,9 @@ class AccountConnection extends Component {
 
     return konnector && konnector.oauth
       ? this.connectAccountOAuth(
-          konnector.slug,
+          konnector.oauth.account_type || konnector.slug,
           valuesToSubmit,
-          konnector.oauth_scope
+          konnector.oauth.scope
         )
       : this.connectAccount(valuesToSubmit)
   }
