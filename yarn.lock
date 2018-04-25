@@ -4688,9 +4688,9 @@ interpret@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
 
-intro.js@2.8.0-alpha.1:
-  version "2.8.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/intro.js/-/intro.js-2.8.0-alpha.1.tgz#0838783af88f6d52254f86c118e60a5d4a39f1fe"
+intro.js@2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/intro.js/-/intro.js-2.9.3.tgz#001d9a7bca66d8f4d2d0253c9b3345e9ae4320c3"
 
 invariant@^2.0.0, invariant@^2.2.1:
   version "2.2.2"
