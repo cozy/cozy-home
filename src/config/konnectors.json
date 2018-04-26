@@ -225,7 +225,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.bipandgo.com",
     "categories": ["transport"],
-    "icon": "bipandgo.svg",
+    "icon": "bipandgo.png",
     "dataType": [
       "bill"
     ],
