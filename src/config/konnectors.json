@@ -243,6 +243,7 @@
         }
       }
     },
+    "testing": true,
     "source": "git://github.com/konnectors/bipandgo.git#latest"
   },
   {
