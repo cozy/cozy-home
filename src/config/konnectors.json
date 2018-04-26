@@ -220,6 +220,33 @@
     }
   },
   {
+    "slug": "bipango",
+    "name": "Bipandgo",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.bipandgo.com",
+    "categories": ["transport"],
+    "icon": "bipandgo.png",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/bipandgo.git#latest"
+  },
+  {
     "slug": "blablacar",
     "name": "Blablacar",
     "editor": "Cozy Cloud",
