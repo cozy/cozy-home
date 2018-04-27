@@ -101,7 +101,7 @@
     "cozy-ui": "7.18.0",
     "enzyme": "3.3.0",
     "eslint-loader": "2.0.0",
-    "file-loader": "1.1.6",
+    "file-loader": "1.1.11",
     "git-directory-deploy": "1.5.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "18.1.0",
