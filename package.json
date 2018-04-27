@@ -68,7 +68,7 @@
     "eslint-plugin-standard": "3.1.0",
     "expose-loader": "0.7.5",
     "husky": "0.14.3",
-    "intro.js": "2.8.0-alpha.1",
+    "intro.js": "2.9.3",
     "lint-staged": "4.3.0",
     "lodash": "4.17.10",
     "piwik-react-router": "0.12.1",
