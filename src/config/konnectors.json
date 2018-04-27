@@ -307,7 +307,7 @@
     "name": "Booking.com",
     "editor": "Cozy Cloud",
     "vendorLink": "https://secure.booking.com/myreservations.html",
-    "categories": ["shopping"],
+    "categories": ["transport"],
     "icon": "bookingdotcom.svg",
     "dataType": [
       "bill"
