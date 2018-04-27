@@ -31,7 +31,7 @@ class KonnectorFolder extends React.Component {
   }
 
   updateFolderPath = () => {
-    const { connector, account, folders } = this.props
+    const { account, folders } = this.props
     const folderId = this.props.trigger.message.folder_to_save
     const { store } = this.context
     const { fields } = this.state
@@ -45,7 +45,7 @@ class KonnectorFolder extends React.Component {
     const dirId = folders.find(folder => folder.path === folderPath)._id
 
     store
-      .updateFolderPath(connector, account, folderId, {
+      .updateFolderPath(account, folderId, {
         namePath: namePath,
         folderPath: fullFolderPath,
         dir_id: dirId
