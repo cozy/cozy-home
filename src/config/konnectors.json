@@ -220,6 +220,58 @@
     }
   },
   {
+    "slug": "bipango",
+    "name": "Bipandgo",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.bipandgo.com",
+    "categories": ["transport"],
+    "icon": "bipandgo.png",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/bipandgo.git#latest"
+  },
+  {
+    "slug": "blablacar",
+    "name": "Blablacar",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.blablacar.fr",
+    "categories": ["transport"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/blablacar.git#latest"
+  },
+  {
     "slug": "bnpparibas82",
     "name": "BNP Paribas",
     "editor": "Cozy Cloud",
@@ -249,6 +301,32 @@
     "parameters": {
       "bankId": "82"
     }
+  },
+  {
+    "slug": "bookingdotcom",
+    "name": "Booking.com",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://secure.booking.com/myreservations.html",
+    "categories": ["shopping"],
+    "icon": "bookingdotcom.svg",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/booking.com.git#latest"
   },
   {
     "slug": "boulanger",
@@ -2365,5 +2443,32 @@
       "bill"
     ],
     "source": "git://github.com/konnectors/cozy-konnector-trainline.git#latest"
+  },
+  {
+    "slug": "vinciautoroute",
+    "name": "Vinci autoroute télépeage",
+    "editor": "Cozy Cloud",
+    "icon": "vinciautoroute.png",
+    "vendorLink": "https://espaceabonnes.vinci-autoroutes.com/Authentification",
+    "categories": ["transport"],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill",
+      "consumption"
+    ],
+    "source": "git://github.com/konnectors/vinciautoroute.git#latest"
   }
 ]
