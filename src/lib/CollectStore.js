@@ -238,17 +238,16 @@ export default class CollectStore {
 
   /**
    * updateAccount : updates an account in a connector in DB with new values
-   * @param {Object} connector The connector to update
    * @param {Object} account   The account to update
    * @param {Object} values    The new values of the updated account
    * @returns {Object} The up to date connector
    */
-  updateAccount(connector, account, values) {
+  updateAccount(account, values) {
     // Save the previous state
     const previousAccount = Object.assign({}, account)
     const newAccount = Object.assign({}, account)
     // merge values in account
-    newAccount.auth = Object.assign(newAccount.auth, values)
+    newAccount.auth = Object.assign({}, newAccount.auth, values)
 
     return accounts
       .update(cozy.client, previousAccount, newAccount)
@@ -257,7 +256,7 @@ export default class CollectStore {
       })
   }
 
-  updateFolderPath(connector, account, folderId, values, t) {
+  updateFolderPath(account, folderId, values, t) {
     // Update file
     return cozy.client.files
       .updateAttributesById(folderId, {
@@ -267,7 +266,7 @@ export default class CollectStore {
       })
       .then(() => {
         // Update Account
-        this.updateAccount(connector, account, values)
+        this.updateAccount(account, values)
       })
       .catch(error => {
         return Promise.reject(error)

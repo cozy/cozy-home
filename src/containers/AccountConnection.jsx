@@ -91,11 +91,10 @@ class AccountConnection extends Component {
   }
 
   connectAccount(auth) {
-    const { konnector } = this.props
     let { account } = this.state
 
     if (account) {
-      return this.updateAccount(konnector, account, {
+      return this.updateAccount(account, {
         ...auth
       })
     }
@@ -139,6 +138,7 @@ class AccountConnection extends Component {
 
     this.props
       .fetchAccount(accountID)
+      .then(account => this.store.updateAccount(account, accountValues))
       .then(account => {
         const { konnector } = this.props
         this.setState({ account: account })
@@ -177,19 +177,19 @@ class AccountConnection extends Component {
       })
   }
 
-  updateAccount(connector, account, values) {
-    Object.assign(account.auth, values)
+  updateAccount(account, values) {
+    account.auth = Object.assign({}, account.auth, values)
 
     this.setState({ submitting: true })
 
     return this.store
-      .updateAccount(connector, account, values)
+      .updateAccount(account, values)
       .then(account => {
         this.setState({ account: account })
         return this.store
           .runAccount(
             this.props.trigger,
-            connector,
+            this.props.konnector,
             account,
             this.props.disableSuccessTimeout
           )
