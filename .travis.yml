@@ -2,16 +2,16 @@ language: node_js
 matrix:
   fast_finish: true
 node_js:
-- '6'
-branches:
-  except:
-  - build
+- '8'
 env:
   global:
   - CXX=g++-4.8
+  # GITHUB_TOKEN
   - secure: r1KjnXjMYKWD9S9oQo2ubG8J0rfADXLJQFgId/L0c16f72Be0YFmpKRq8Zx3haREcydgLUSJEjrdLGp0USY6AqY+iOcKRUrJzxueqRpSWnoF2Lvh9h21zXocRsDzJcwxCUA2y4pxe8e/A9CL4IP8s9DB+DfkBwQB+I6Vm5DOPkYojWFG1uXggrxLhgf8c5AMyAwQGkpBTc9a7PqtIHjSHd5rpSdoRFUNCLJfz0Qow7mf0M8j4fKfeNe8teU7qmkUvPTI1v/SBhU9hebOHjjY9bxfG4kVSpPaCVcVtKqyyemiPU1aZ2vJpgxJ1Y2A3zGe4IA2xJGKDZY4xDz0oGWlJisPWOW6l9BALDLUV8QhVoqhFfyCHYiGEweGcIaZk9t6a1CNhNb3FXlUw8S4XMo91g4hLu2q42PnVX6862fSOGF7FyEHAha20nFOitOpqsEwmfEm8dhyi4wzVEuTEvQlQAHN9x4wRwnE2x56eHftKV0XDVMiJKybO5vpyofFUBeyWzvDxJoV/2vwGyTpG5te7g7VmyT5XzPRioWwWRJryYDHm9zZeuhYSJiG4ARgWmjkluOe5n/WAcdFeDkx+AEQ+kXBfuGuJD9IMartlWL8K4TavgfTEUdYgkCeyHHhXS8o5IMuRIkc/sl4gb3kcNtt+FHQpKV4VYQy+gPcoN51FOU=
+  # TX_PASSWD
   - secure: k+l7JX8xWzDGhgwYie6XNivipMnNyd/uPm3eudNMgOduno9nTLqFkBsJiYOROD2O+HddtlRY2rUJapctH/Mbph2vxxhdsdsu32fB/nkgEj4/NrGsoyAnRWmT9yYYdl93Av1V60M919+xSMpUKwM67PvWlf0KRGb73A2MJH4hN5siOT9Z+I77MPTJegKTh/NsLAjpaz9wFgysjAxs9+MzxWxnncLkcEdTGAQERKeb7iZAczt66Of9XzqkCD+VHrrdO8I5TfpHiWkx5GvRbrnwy/g15ZxBbTYjVR01uU5gNR9qFLt5zSMbkaCy+pu6oWG8k87CfVjqmNgxgWjq4sanjO6lptHn3QAWSutT0Zq7iAHBA+OFR2oiXePLWSjTPXPOo8Bwkm401VgPuXOyQ07xt+VufF+pX6lYIcwx7wqWfElEtpkc3V7vDoF6rdNQDte2sZwQUAqdzkAnXrS7il3q1FWBiGT8x1FVWjrSxs0wagVrdQxM1bSOAD8M/E1BgU/WIsc3qmFh98Ki8YB2JbTAgsxhncVs/OcWj/YSl2AUbIMHfATWPM8VVq9e8alnvhmRcY/oqWvwU7tGMepM1em7pCQIWqMKAx513z5qqHHmhtop3XaUGE8PHmpjWkRorGm2mWC5xtAVywl+2fmXpi8rHAn7WHTwuK/OIcdEqT98bRw=
-  - secure: M7CBcJEfKEF4c4cHwXusWvZel13es9kxsKuxlQkwZxypDuYtrbZpDJq0Ho69tCPjIDI1GUM5wGas1X7wzvMHaog3czmE081m2Z9tRzdoAV4yFV4Lj6eGU3gypgNk/Ousx13FrodC7/FDd+6TcPZj/lUCcKUyTKVoXzGeINMBL7T7BJ51p0UTYjOCjhulGVceT1GkOhrMo92kbwEFGAHbth2CrFK/HvmmcLuc53IZFMP8+c29L1guwCAnt9xOJhEH9I6shpyt6j+/xYXn4brhP2JFOtq4mlWsq/lbx8SEFOyFW5PKvNrIfAlEPTe5T6/+i5hEKX9hsCbzgPH8xr40gTJ8yornqu6Av/BZE4nJr0g077ozyajMo9oXHRz0VgLXZP39/W9T5OeJUF49RSgL5Z8FDlq39m08uu/6X2Gv6tQs5gt/DbGt9TkcMjzxhiu/yiv7rFvqsQsiX/ebYwiaad8xzdiMsbivqXCtwUWuj7MHnL7FK4pd62JIloWCN5X7ZephqupQlyGdVzE8QATtkCmkXtLTJrhJ0plBOjICcg+8tHxh0ZpNjFMHr6Ue9h/FefjsX8GfDAy5qRUsD4PY2HWsBbq+MdBdmbsGAAFcrDJtaPcPavahqDpX0hz0DBSKd09HSD0Ycd6FUde6pC7GNPzasDLnF8gWxpTz6D+f08g=
+  # REGISTRY_TOKEN
+  - secure: MHkHfyMd8i0cN0iQibgqIUU7NAH/R9noyI9+sq6FXbGy6zd6PhbwUt4xg5a86cdeW3zpMmY0cJYJLn7t/j47djQs/tAPbTv2LuTxStQUiuF9waqx/7h1MpDB06pwnlda72XDEH+W/CnweXBx99OLXOlN8bT77QO6Fx4tSedN0hOSrsOWDxXALChDCELpbO6Pnrshsgvmmy0lOJJsUN8gT468OEWpEsstfEYFGjnnCnVzMj3k28xblRpKccr9TmgU5oLlqd23oHtxNuW993ecrTMrPKsQdWm2ggwaRwC9+bObSsrxArKIJa21GFgsIvrTjQmtQs9aTxPlrRe53q/uV/mH/aRVdgByU9Iq6orFyKj6kEqHWx/tn0XCySMUD4heCpvbq4ErYOe13rT3RbzTRON4N7K/hDcIX48BKOFt9Nvli15dTocQNeFhG71YCWOJY2Y5HiQiEhuzeQX6Ljb0DGoZ55fGT81IdhAskzBvg5D9PxGC2mEKaf0D2F9YHIDsTrOFaoPsL39pPwpi5DNEC8O8sh0vF1qRgz6dHorD0bYByM212TRsNCGHHP8aNWVq3U532xIISuRs6coFfrBGdpY0E1Bqr+qwQtHXqS3muvq4atuLWJCPvognpKVD8jVGt/fcIvP7Syb/jYcVQqxdjfVvFMVZvd2CAomUBqXfSL4=
 addons:
   apt:
     sources:
@@ -20,7 +20,6 @@ addons:
     packages:
     - g++-4.8
     - python3.5
-    - pngquant
 cache:
   yarn: true
   directories:
@@ -35,9 +34,36 @@ before_install:
 script:
 - yarn test
 - yarn run build
-after_success:
-- test $TRAVIS_BRANCH = "master" && pngquant build/screenshots/* -f --ext ".png"
-- test $TRAVIS_BRANCH = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build yarn run deploy
-- test $TRAVIS_BRANCH = "feature/one-tile-per-provider" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build_one_tile_per_provider yarn run deploy
-- test $TRAVIS_BRANCH = "orange" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=build_orange yarn run deploy
-- test $TRAVIS_BRANCH = "prod" && test "$TRAVIS_PULL_REQUEST" = "false" && env DEPLOY_BRANCH=latest yarn run deploy
+before_deploy:
+- yarn add cozy-app-publish
+deploy:
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
+    on:
+      branch: master
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=latest && yarn cozyPublish
+    on:
+      tags: true
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=latest && yarn deploy
+    on:
+      branch: prod
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=build_no_more_providers && yarn deploy
+    on:
+      branch: feature/no-more-providers
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=build_orange && yarn deploy
+    on:
+      branch: orange
