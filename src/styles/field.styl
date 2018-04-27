@@ -1,4 +1,5 @@
 @require 'settings/palette.styl'
+@require 'components/forms.styl'
 
 text-button-color = dodgerBlue
 
@@ -42,40 +43,17 @@ text-button-color = dodgerBlue
             display none
             color   pomegranate
 
-        input[type=text]
-        input[type=email]
-        input[type=password]
-        input[type=date]
         select
-            display       inline-block
-            width         100%
-            padding       .75em .75em .9em
-            border-radius 2px
-            box-sizing    border-box
-            background-color transparent
-            border        1px solid silver
-            color         black
-            &::placeholder
-                color     coolGrey
-                font-size 1.05em
-            &:focus
-                border     1px solid dodgerBlue
-            &:hover
-                border 1px solid coolGrey
-            &.error
-                border     1px solid pomegranate
+            @extend $select
 
-        select
-            -moz-appearance     none
-            -webkit-appearance  none
-            appearance          none
-            background-image    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px'><polyline points='14.764,4.966 8.053,11.677 1.342,4.966'/></svg>")
-            background-position right 8px center
-            background-repeat   no-repeat
-            &::-ms-expand
-                display none
-            &[disabled]
-                opacity .5
+        .c-select--tiny
+            @extend $select--tiny
+
+        .c-select--medium
+            @extend $select--medium
+
+        .c-select--fullwidth
+            @extend $select--fullwidth
 
         &.coz-field--error
             input[type=text]

@@ -41,20 +41,21 @@ export const KonnectorSync = ({
         />
       }
       {!maintenance && (
-        <div className={styles['account-forceConnection']}>
-          <button
-            className={
-              submitting
-                ? classNames('coz-btn', styles['submitting'])
-                : classNames('coz-btn')
-            }
-            disabled={submitting}
-            aria-busy={submitting}
-            onClick={onForceConnection}
-          >
-            {t('account.forceConnection')}
-          </button>
-        </div>
+        <button
+          className={
+            submitting
+              ? classNames(
+                  styles['account-forceConnection'],
+                  styles['submitting']
+                )
+              : classNames(styles['account-forceConnection'])
+          }
+          disabled={submitting}
+          aria-busy={submitting}
+          onClick={onForceConnection}
+        >
+          {t('account.forceConnection')}
+        </button>
       )}
     </div>
   )

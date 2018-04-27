@@ -5,29 +5,24 @@
     .col-account-edit-content
         margin-top 1em
 
-        .item-status-icon
-            width 1em
-            height 1em
-            vertical-align baseline
-            margin-left 1em
+    .item-status-icon
+        width 1em
+        height 1em
+        vertical-align baseline
+        margin-left 1em
 
-        .col-account-edit-tabs
-            .col-account-edit-tabpanel
-                padding-top 0
+    .col-account-edit-tabs
+        .col-account-edit-tabpanel
+            padding-top 0
 
-            h4
-                margin-top 1.25rem
-                margin-bottom 1em
+    .col-account-edit-tab
+        @media (max-width: (640/basefont)rem)
+            font-size .7em
 
-            // @stylint off
-            .col-account-edit-tab
-                @media (max-width: (640/basefont)rem)
-                    font-size .7em
-
-                @media (max-width: (512/basefont)rem)
-                    width               calc(100% - 2rem)
-                    border-top          1px solid silver
-                    text-align          center
+        @media (max-width: (512/basefont)rem)
+            width               calc(100% - 2rem)
+            border-top          1px solid silver
+            text-align          center
 
     .col-account-connection-editor
         text-align      center
