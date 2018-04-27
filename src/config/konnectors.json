@@ -1437,6 +1437,12 @@
     "fields": {
       "access_token": {
         "type": "hidden"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
       }
     },
     "source": "git://github.com/konnectors/cozy-konnector-facebook.git#latest",
