@@ -6,6 +6,13 @@
       "en": "EDF's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from EDF.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas)"
     }
   },
+  "blablacar": {
+    "longTerm": true,
+    "message": {
+      "fr": "Blablacar a un captcha à son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par Blablacar.<br/>Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli.",
+      "en": "BlaBlacar's add a captcha in their information system and the related data access doesn't work anymore. This konnector is not currently able to get back your data from Blablacar.<br/>We are trying to restore the situation and we will notice you when it will be fixed."
+    }
+  },
   "redbox": {
     "longTerm": true,
     "message": {
