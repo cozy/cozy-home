@@ -96,6 +96,7 @@ class IntentHandler extends Component {
               data={service.getData()}
               onTerminate={account => this.terminate(account)}
               onCancel={() => this.cancel()}
+              service={service}
             />
           )}
       </div>
