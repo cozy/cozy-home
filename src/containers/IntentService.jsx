@@ -2,12 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CreateAccountIntent from '../components/intents/CreateAccountIntent'
-import InstallKonnectorIntent from '../components/intents/InstallKonnectorIntent'
 import { getKonnector, receiveInstalledKonnector } from '../ducks/konnectors'
 
 class IntentService extends Component {
   handleInstallationSuccess(konnector) {
     this.props.receiveKonnector(konnector)
+  }
+
+  async componentDidMount() {
+    const { data, konnector, receiveKonnector, service } = this.props
+    if (service && !konnector) {
+      const installedKonnector = await service.compose(
+        'INSTALL',
+        'io.cozy.apps',
+        data
+      )
+      receiveKonnector(installedKonnector)
+    }
   }
 
   onError(error) {
@@ -17,7 +28,7 @@ class IntentService extends Component {
   }
 
   render() {
-    const { appData, data, konnector, onCancel } = this.props
+    const { appData, konnector, onCancel } = this.props
     const { error } = this.state
     const { t } = this.context
 
@@ -31,21 +42,15 @@ class IntentService extends Component {
             )}
           </div>
         )}
-        {!error && konnector ? (
-          <CreateAccountIntent
-            appData={appData}
-            konnector={konnector}
-            onCancel={onCancel}
-            onSuccess={account => this.onTerminate(account)}
-          />
-        ) : (
-          <InstallKonnectorIntent
-            data={data}
-            onError={error => this.onError(error)}
-            onCancel={onCancel}
-            onSuccess={konnector => this.handleInstallationSuccess(konnector)}
-          />
-        )}
+        {!error &&
+          konnector && (
+            <CreateAccountIntent
+              appData={appData}
+              konnector={konnector}
+              onCancel={onCancel}
+              onSuccess={account => this.onTerminate(account)}
+            />
+          )}
       </div>
     )
   }
