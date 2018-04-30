@@ -142,6 +142,10 @@
         "title": "An error occured",
         "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations or visit our online help."
       },
+      "DISK_QUOTA_EXCEEDED": {
+        "title": "Cozy Storage full",
+        "description": "This service cannot fetch your documents now. Please remove some files or go to **Settings > Storage** to get more free space."
+      },
       "CHALLENGE_ASKED": {
         "title": "Challenge required",
         "description": "It seems that the website requires a second authentification factor that we don’t support yet. You may try to settle the issue on the [%{name}](%{link}) website before a retry."
