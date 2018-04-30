@@ -17,6 +17,13 @@ class IntentService extends Component {
         'io.cozy.apps',
         data
       )
+
+      // if installedKonnector is null, it means the installation have been
+      // cancelled
+      if (!installedKonnector) {
+        return service.cancel()
+      }
+
       receiveKonnector(installedKonnector)
     }
   }
