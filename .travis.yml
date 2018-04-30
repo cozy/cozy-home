@@ -40,31 +40,36 @@ deploy:
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
+    script: export DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
     on:
       branch: master
-    # We need to fetch the build branch since Travis only clone the job related branch and we don't push new builds on tags
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: DEPLOY_BRANCH=latest && git fetch origin "$DEPLOY_BRANCH:$DEPLOY_BRANCH" && yarn cozyPublish
+    script: export DEPLOY_BRANCH=latest && yarn cozyPublish
     on:
       tags: true
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: DEPLOY_BRANCH=latest && yarn deploy
+    script: export DEPLOY_BRANCH=latest && yarn cozyPublish
+    on:
+      branch: test_publish
+  - provider: script
+    repo: cozy/cozy-collect
+    skip-cleanup: true
+    script: export DEPLOY_BRANCH=latest && yarn deploy
     on:
       branch: prod
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: DEPLOY_BRANCH=build_no_more_providers && yarn deploy
+    script: export DEPLOY_BRANCH=build_no_more_providers && yarn deploy
     on:
       branch: feature/no-more-providers
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: DEPLOY_BRANCH=build_orange && yarn deploy
+    script: export DEPLOY_BRANCH=build_orange && yarn deploy
     on:
       branch: orange

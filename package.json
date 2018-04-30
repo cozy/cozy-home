@@ -12,7 +12,7 @@
     "commons:watch": "cozy-scripts watch",
     "commons:watch:standalone": "cozy-scripts standalone",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-collect.git}",
-    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --build-commit $(git rev-parse ${DEPLOY_BRANCH:-build})",
+    "cozyPublish": "git fetch origin ${DEPLOY_BRANCH:-build}:${DEPLOY_BRANCH:-build} && cozy-app-publish --token $REGISTRY_TOKEN --build-commit $(git rev-parse ${DEPLOY_BRANCH:-build})",
     "tx": "tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
