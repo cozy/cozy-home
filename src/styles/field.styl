@@ -65,6 +65,15 @@ text-button-color = dodgerBlue
             &.error
                 border     1px solid pomegranate
 
+            &[disabled]
+                cursor not-allowed
+                background-color silver
+                opacity .5
+
+                &:focus
+                &:hover
+                    border-color silver
+
         select
             -moz-appearance     none
             -webkit-appearance  none
@@ -74,8 +83,7 @@ text-button-color = dodgerBlue
             background-repeat   no-repeat
             &::-ms-expand
                 display none
-            &[disabled]
-                opacity .5
+
 
         &.coz-field--error
             input[type=text]

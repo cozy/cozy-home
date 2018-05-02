@@ -33,7 +33,6 @@ export const KonnectorEdit = ({
   error,
   fields,
   folderPath,
-  editing,
   isFetching,
   isUnloading,
   lastSuccess,
@@ -138,7 +137,7 @@ export const KonnectorEdit = ({
                 error={hasLoginError}
                 fields={fields}
                 dirty={dirty}
-                editing={editing}
+                editing
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}
