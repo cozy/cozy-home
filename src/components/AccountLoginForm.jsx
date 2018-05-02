@@ -124,6 +124,7 @@ export class AccountLoginForm extends React.Component {
       const hydrate = hydrateFieldValue[name] || identity
       const attributes = {
         ...field, // TODO be more restrictive on what comes in
+        disabled: disabled,
         invalid: !!error,
         onEnterKey,
         giveFocus,
