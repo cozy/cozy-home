@@ -101,6 +101,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         const accountNameField = {
           type: 'text',
           isRequired: false,
+          advanced: true,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
         const fieldsFromConfig = Object.assign({}, config.fields, {
