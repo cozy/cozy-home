@@ -37,6 +37,7 @@ const Field = props => {
       : 'on'
     inputs = (
       <Input
+        aria-disabled={disabled}
         type={type}
         size="medium"
         fullwidth

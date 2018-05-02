@@ -8,48 +8,45 @@ import DescriptionContent from './DescriptionContent'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 
-import { isKonnectorLoginError } from '../lib/konnectors'
+import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
 import ErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
 
-export const KonnectorInstall = ({
-  t,
-  account,
-  connector,
-  deleting,
-  disableSuccessTimeout,
-  driveUrl,
-  error,
-  fields,
-  onBack,
-  queued,
-  isUnloading,
-  oAuthTerminated,
-  onCancel,
-  editing,
-  onDelete,
-  onNext,
-  onSubmit,
-  submit,
-  submitting,
-  success,
-  successMessage,
-  successMessages,
-  trigger,
-  allRequiredFieldsAreFilled,
-  displayAdvanced,
-  toggleAdvanced,
-  isFetching,
-  isValid,
-  isSuccess,
-  dirty,
-  successButtonLabel,
-  accountsCount,
-  maintenance,
-  lang
-}) => {
-  const { hasDescriptions, editor } = connector
+export const KonnectorInstall = props => {
+  const {
+    t,
+    account,
+    connector,
+    disableSuccessTimeout,
+    driveUrl,
+    error,
+    fields,
+    onBack,
+    queued,
+    isUnloading,
+    oAuthTerminated,
+    onCancel,
+    editing,
+    onDone,
+    onSubmit,
+    submitting,
+    success,
+    successMessage,
+    successMessages,
+    trigger,
+    allRequiredFieldsAreFilled,
+    displayAdvanced,
+    toggleAdvanced,
+    isFetching,
+    isValid,
+    isSuccess,
+    dirty,
+    successButtonLabel,
+    maintenance,
+    lang
+  } = props
+  const { editor } = connector
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
   const isRunningInQueue = queued && submitting
@@ -64,11 +61,7 @@ export const KonnectorInstall = ({
           !maintenance && (
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
-              messages={
-                hasDescriptions && hasDescriptions.connector
-                  ? [t(`connector.${connector.slug}.description.connector`)]
-                  : []
-              }
+              messages={[getKonnectorMessage(t, connector, 'terms')]}
             >
               {!connector.oauth &&
                 !error && (
@@ -117,7 +110,7 @@ export const KonnectorInstall = ({
             folderId={trigger && trigger.message.folder_to_save}
             isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
-            onNext={onNext}
+            onDone={onDone}
             onCancel={onCancel}
             success={success}
             title={successMessage}
