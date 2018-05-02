@@ -136,7 +136,7 @@ export const KonnectorEdit = props => {
                 error={hasLoginError}
                 fields={fields}
                 dirty={dirty}
-                editing={editing}
+                editing
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}

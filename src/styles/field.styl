@@ -46,6 +46,15 @@ text-button-color = dodgerBlue
         select
             @extend $select
 
+        &[disabled]
+            cursor not-allowed
+            background-color silver
+            opacity .5
+
+            &:focus
+            &:hover
+                border-color silver
+
         .c-select--tiny
             @extend $select--tiny
 
