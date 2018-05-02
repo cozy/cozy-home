@@ -27,7 +27,7 @@ export const AccountPicker = ({
   if (!connections.length)
     return <Redirect to={`/connected/${konnector.slug}/new`} />
   return (
-    <Modal dismissAction={() => history.push('/connected')}>
+    <Modal dismissAction={() => history.push('/connected')} mobileFullscreen>
       <ModalHeader>
         <KonnectorHeaderIcon konnector={konnector} />
       </ModalHeader>
