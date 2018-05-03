@@ -99,6 +99,10 @@ export default class CozyStackAdapter {
     return { data: [normalized] }
   }
 
+  init(config) {
+    this.config = { ...config }
+  }
+
   async createDocument(doctype, doc) {
     const created = await cozy.client.data.create(doctype, doc)
     // we forge a standard response with a 'data' property
@@ -199,6 +203,31 @@ export default class CozyStackAdapter {
     }
   }
 
+  async fetchKonnectorIcon(konnector) {
+    // Nah thanks we don't want to keep this.
+    if (konnector.attributes) delete konnector.attributes.icon
+    try {
+      const resp = await fetch(
+        `${this.config.cozyURL}${konnector.links.icon}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            Authorization: `Bearer ${this.config.token}`
+          }
+        }
+      )
+      if (resp.status !== 200) {
+        throw new Error(`Unexpected response status ${resp.status}`)
+      }
+      konnector.icon = await resp.blob()
+    } catch (error) {
+      // This one will not have icon attribute. Too bad.
+      console.warn(error.message)
+    }
+    return konnector
+  }
+
   async fetchKonnectors(skip = 0) {
     const { data, meta } = await cozy.client.fetchJSON(
       'GET',
@@ -209,9 +238,15 @@ export default class CozyStackAdapter {
       }
     )
 
+    const konnectorsWithIconPromises =
+      data && data.map(async konnector => this.fetchKonnectorIcon(konnector))
+    const konnectorsWithIcons =
+      konnectorsWithIconPromises &&
+      (await Promise.all(konnectorsWithIconPromises))
+
     return {
       data: data
-        ? data.map(konnector => ({
+        ? konnectorsWithIcons.map(konnector => ({
             ...konnector,
             ...konnector.attributes,
             _type: 'io.cozy.konnectors'
