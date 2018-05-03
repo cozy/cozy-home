@@ -5,9 +5,15 @@ export const getKonnectorIcon = konnector => {
   let icon = null
   if (konnector.icon) {
     try {
-      icon = require(`../assets/konnectors/${konnector.icon}`)
+      // See https://stackoverflow.com/questions/7650587/using-javascript-to-display-blob
+      var urlCreator = window && (window.URL || window.webkitURL)
+      return urlCreator.createObjectURL(konnector.icon)
     } catch (error) {
-      console.warn(error)
+      console.warn(
+        `Cannot create icon url for konnector ${konnector.slug} (${
+          error.message
+        })`
+      )
     }
   }
   const slug = konnector.slug
