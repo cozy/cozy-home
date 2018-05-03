@@ -199,6 +199,30 @@ export default class CozyStackAdapter {
     }
   }
 
+  async fetchKonnectors(skip = 0) {
+    const { data, meta } = await cozy.client.fetchJSON(
+      'GET',
+      `/konnectors/`,
+      null,
+      {
+        processJSONAPI: false
+      }
+    )
+
+    return {
+      data: data
+        ? data.map(konnector => ({
+            ...konnector,
+            ...konnector.attributes,
+            _type: 'io.cozy.konnectors'
+          }))
+        : [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    }
+  }
+
   async fetchTriggers(worker, skip = 0) {
     const { data, meta } = await cozy.client.fetchJSON(
       'GET',

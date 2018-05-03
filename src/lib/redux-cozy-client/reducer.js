@@ -310,6 +310,15 @@ export const fetchTriggers = (name, worker, options = {}, skip = 0) => ({
   promise: client => client.fetchTriggers(name, worker, options, skip)
 })
 
+export const fetchKonnectors = (name, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.konnectors',
+  options,
+  skip,
+  promise: client => client.fetchKonnectors(name, options, skip)
+})
+
 export const createDocument = (doctype, doc, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
   doctype,
