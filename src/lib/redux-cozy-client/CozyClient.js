@@ -5,6 +5,7 @@ import { authenticateWithCordova } from './authentication/mobile'
 const APPS_DOCTYPE = 'io.cozy.apps'
 const FILES_DOCTYPE = 'io.cozy.files'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
+const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 const SHARINGS_DOCTYPE = 'io.cozy.sharings'
 
 export default class CozyClient {
@@ -91,6 +92,10 @@ export default class CozyClient {
 
   fetchTriggers(name, worker, options = {}, skip = 0) {
     return this.getAdapter(TRIGGERS_DOCTYPE).fetchTriggers(worker)
+  }
+
+  fetchKonnectors(name, worker, options = {}, skip = 0) {
+    return this.getAdapter(KONNECTORS_DOCTYPE).fetchKonnectors()
   }
 
   addReferencedFiles(doc, ids) {
