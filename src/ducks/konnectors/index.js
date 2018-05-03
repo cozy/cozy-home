@@ -1,10 +1,12 @@
-import { fetchCollection } from 'redux-cozy-client'
+import * as fromCozyClient from 'redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.konnectors'
+const konnectorsCollectionKey = 'konnectors'
 
 // CRUD
 
-export const fetchKonnectors = () => fetchCollection('konnectors', DOCTYPE)
+export const fetchKonnectors = () =>
+  fromCozyClient.fetchKonnectors(konnectorsCollectionKey)
 
 // TODO: Fetch the registry
 export const fetchKonnectorsInMaintenance = () =>
