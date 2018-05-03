@@ -24,6 +24,7 @@ export default class DataAccessFacade {
   setup(cozyUrl, options) {
     const config = { cozyURL: cozyUrl, ...options }
     cozy.client.init(config) // TODO: For now we let cozy-client-js creates PouchDB instances
+    this.stackAdapter.init(config)
     if (config.offline) {
       this.pouchAdapter.registerDoctypes(config.offline.doctypes)
     }
