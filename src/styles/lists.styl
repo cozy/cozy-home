@@ -89,14 +89,24 @@ $item-margin = .8em
 
 // Dedicated for IE 11 which seems not to take the default 100% into account.
 @media (min-width: 1em)
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(100% - %s * 2)' % $item-margin
-
-@media (min-width: 38em)
     .item-wrapper
         flex-grow  0
         flex-basis 'calc(50% - %s * 2)' % $item-margin
+
+@media (max-width: 43em)
+    .item-wrapper
+        padding .5em .5em 2.5em
+        .item-header
+            height        4em
+            background    white
+            .item-icon
+                max-width         8em
+                max-height        2em
+        .item-title
+            padding     .25em .5em
+            margin      .5em
+            font-size   1rem
+            font-weight normal
 
 @media (min-width: 43em)
     .use-case-dialog
