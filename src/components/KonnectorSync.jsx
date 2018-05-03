@@ -31,12 +31,12 @@ export const KonnectorSync = ({
         <DescriptionContent
           title={t('account.message.synced.title')}
           messages={[
-            `${t('account.message.synced.cron')} ${t(
-              `account.message.synced.cron_${frequency}`
-            )}.`,
             lastSyncMessage
               ? t('account.message.synced.last_sync', { date: lastSyncMessage })
-              : ''
+              : '',
+            t('account.message.synced.cron', {
+              frequency: t(`account.message.synced.cron_${frequency}`)
+            })
           ]}
         />
       }
