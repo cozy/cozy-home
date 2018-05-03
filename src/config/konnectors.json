@@ -1349,6 +1349,31 @@
     "source": "git://github.com/konnectors/cozy-konnector-directenergie.git#latest"
   },
   {
+    "slug": "easyjet",
+    "name": "easyJet",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.easyjet.com",
+    "categories": ["transport"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/easyjet.git#latest"
+  },
+  {
     "slug": "edf",
     "name": "EDF",
     "editor": "Cozy Cloud",
