@@ -105,17 +105,6 @@ export class AccountLoginForm extends React.Component {
       }
       const disabled = name === 'login' && editing
 
-      let fieldPlaceholder = null
-      switch (name) {
-        case 'password':
-          fieldPlaceholder = editing
-            ? t('account.form.placeholder.update_password')
-            : t('account.form.placeholder.password')
-          break
-        default:
-          fieldPlaceholder = placeholder || null
-      }
-
       // Give focus only once
       const giveFocus = !alreadyFocused && !disabled
       if (giveFocus) alreadyFocused = giveFocus
@@ -130,7 +119,7 @@ export class AccountLoginForm extends React.Component {
         giveFocus,
         label: t(`account.form.label.${label || name}`),
         value: isUnloading ? '' : hydrate(value),
-        placeholder: fieldPlaceholder
+        placeholder: placeholder
       }
       return (
         <div>
