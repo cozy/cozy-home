@@ -110,6 +110,7 @@ class ConnectionManagement extends Component {
       <Modal
         dismissAction={() => this.gotoParent()}
         className={styles['col-account-modal']}
+        mobileFullscreen
       >
         <ModalHeader>
           <div className={styles['col-account-connection-header']}>
