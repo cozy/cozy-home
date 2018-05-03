@@ -9,6 +9,7 @@ export {
   fetchCollection,
   fetchDocument,
   fetchReferencedFiles,
+  fetchKonnectors,
   fetchTriggers,
   addReferencedFiles,
   removeReferencedFiles,
