@@ -1561,7 +1561,6 @@
     "name": "Google",
     "editor": "Cozy Cloud",
     "vendorLink": "google.com",
-    "testing": true,
     "categories": ["other"],
     "fields": {
       "access_token": {
