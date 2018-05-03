@@ -80,7 +80,7 @@
       }
     },
     "folder": {
-      "title": "Folder in Cozy Drive",
+      "title": "Related folder settigns",
       "link" : "Open the folder in Cozy Drive",
       "changePath": "change the path",
       "error": "Oops, something went wrong. Don't panic, your files are still there, please try again later",
@@ -116,7 +116,7 @@
       },
       "synced": {
         "title": "Your data synchronization",
-        "cron": "Your data will be synchronized",
+        "cron": "Synchronization frequency: %{frequency}",
         "cron_hourly": "each hour",
         "cron_daily": "once a day",
         "cron_weekly": "once a week",
