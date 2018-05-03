@@ -101,6 +101,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           type: 'text',
           advanced: true,
           isRequired: false,
+          advanced: true,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
 
