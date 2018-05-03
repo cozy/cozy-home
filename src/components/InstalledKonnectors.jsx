@@ -1,9 +1,11 @@
+/* global cozy */
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
+import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
@@ -14,6 +16,8 @@ import AccountPicker from './AccountPicker'
 import StoreButton from './StoreButton'
 
 import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
+
+const { BarCenter } = cozy.bar
 
 class InstalledKonnectors extends Component {
   componentDidMount() {
@@ -34,14 +38,16 @@ class InstalledKonnectors extends Component {
   }
 
   render() {
-    const { t, installedKonnectors, wrapper } = this.props
+    const { t, installedKonnectors, wrapper, breakpoints = {} } = this.props
+    const { isMobile } = breakpoints
     const hasConnections = !!installedKonnectors.length
+    const title = <h2 className="col-view-title">{t('nav.connected')}</h2>
 
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
-          <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
+          {isMobile ? <BarCenter>{title}</BarCenter> : title}
           {hasConnections && <StoreButton label={t('add_account')} icon />}
         </div>
         {hasConnections ? (
@@ -99,4 +105,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(InstalledKonnectors))
+export default connect(mapStateToProps)(
+  translate()(withBreakpoints()(InstalledKonnectors))
+)

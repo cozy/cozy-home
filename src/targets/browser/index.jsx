@@ -8,7 +8,6 @@ import { CozyClient, CozyProvider } from 'redux-cozy-client'
 import I18n from 'cozy-ui/react/I18n'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 
-import App from 'containers/App'
 import collectConfig from 'config/collect'
 import configureStore from 'store/configureStore'
 
@@ -64,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   const dictRequire = lang => require(`locales/${lang}`)
+  const App = require('containers/App').default
 
   render(
     <CozyProvider store={store} client={client}>

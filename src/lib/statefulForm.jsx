@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import advancedFields from '../config/advancedFields'
-
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -94,33 +92,46 @@ export default function statefulForm(mapPropsToFormConfig) {
 
       configureFields(config = {}, defaultAccountNamePlaceholder) {
         // it will at least have an accountName field
-        config.fields = (config.konnector && config.konnector.fields) || {}
-        const konnectorName = config.konnector.name
+        const configFields = (config.konnector && config.konnector.fields) || {}
+
+        // account name field added by the application
         const accountNamePlaceholder =
-          config.fields.accountName && config.fields.accountName.placeholder
+          configFields.accountName && configFields.accountName.placeholder
         const accountNameField = {
           type: 'text',
+          advanced: true,
           isRequired: false,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
-        const fieldsFromConfig = Object.assign({}, config.fields, {
+
+        const fieldsFromConfig = Object.assign({}, configFields, {
           accountName: accountNameField
         })
 
-        // Convert custom fields to fields readable by configureFields
-        if (Object.keys(fieldsFromConfig).includes('advancedFields')) {
-          for (let advancedField in fieldsFromConfig.advancedFields) {
-            for (let k in advancedFields[advancedField]) {
-              // Assign values from advancedFields, and values from konnectors
-              let field = advancedFields[advancedField][k]
-              field = Object.assign(
-                field,
-                fieldsFromConfig.advancedFields[advancedField]
-              )
-              fieldsFromConfig[k] = field
-            }
+        // LEGACY: turn advancedFields to fields with advanced: true
+        if (fieldsFromConfig.advancedFields) {
+          for (let fieldName in fieldsFromConfig.advancedFields) {
+            fieldsFromConfig[fieldName] = Object.assign(
+              {},
+              fieldsFromConfig.advancedFields[fieldName],
+              { advanced: true }
+            )
           }
-          delete fieldsFromConfig['advancedFields']
+          delete fieldsFromConfig.advancedFields
+        }
+
+        // FIXME detect io.cozy.files permission for folderPath field
+        if (fieldsFromConfig.folderPath) {
+          fieldsFromConfig.namePath = Object.assign(
+            {},
+            fieldsFromConfig.folderPath,
+            { type: 'text', advanced: true }
+          )
+          fieldsFromConfig.folderPath = Object.assign(
+            {},
+            fieldsFromConfig.folderPath,
+            { type: 'dropdown', advanced: true }
+          )
         }
 
         let fields = {}
@@ -169,7 +180,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         // Set default values for advanced fields that will not be shown
         // on the initial connection form
         if (fields.calendar && !fields.calendar.default) {
-          fields.calendar.default = konnectorName
+          fields.calendar.default = config.konnector.name
         }
 
         return fields

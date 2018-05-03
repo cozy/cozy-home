@@ -5,7 +5,7 @@
     "long_description": "__Collect__ will allow you to grab all your informations that you have using tons on services on providers websites or applications.\nEnjoy this new way to get control on your daily data :tada:",
     "changes": "### New features :rocket:\n\nConnectors for you bank accounts!!:bank:"
   },
-  "add_account": "Add an account",
+  "add_account": "More services",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
@@ -50,7 +50,7 @@
         "apikey": "Api key",
         "phoneNumber": "Phone number",
         "folderPath": "Folder path",
-        "namePath": "Path name",
+        "namePath": "Folder name",
         "authCode": "Auth code",
         "accountName": "Account name",
         "loginUrl": "Login URL",
