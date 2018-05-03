@@ -36,6 +36,7 @@ const Field = props => {
       : 'on'
     inputs = (
       <input
+        aria-disabled={disabled}
         type={type}
         placeholder={placeholder}
         className={styles['coz-field-input']}
