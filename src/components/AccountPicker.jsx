@@ -51,7 +51,7 @@ export const AccountPicker = ({
             >
               <span>
                 <Icon icon={addAccountIcon} />
-                <span>{t('add_account')}</span>
+                <span>{t('account_picker.add_account_button.label')}</span>
               </span>
             </NavLink>
           </li>
