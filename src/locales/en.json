@@ -5,7 +5,7 @@
     "long_description": "__Collect__ will allow you to grab all your informations that you have using tons on services on providers websites or applications.\nEnjoy this new way to get control on your daily data :tada:",
     "changes": "Two new connectors added:\n- Blablacar\n- Vinci Autoroutes"
   },
-  "add_account": "More services",
+  "add_account": "Add a service",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
@@ -135,7 +135,11 @@
     "forceConnection": "Synchronize now",
     "editor_detail": "Service developed by %{editor}"
   },
-
+  "account_picker": {
+    "add_account_button": {
+      "label": "Add an account"
+    }
+  },
   "connection": {
     "error": {
       "default": {
