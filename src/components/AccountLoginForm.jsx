@@ -13,6 +13,13 @@ import Field, {
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
 
+const probableLoginFieldNames = [
+  'email',
+  'identifier',
+  'login',
+  'new_identifier'
+]
+
 const renderers = {
   password: ({ t }) => <PasswordField noAutoFill />,
   date: () => <Field type="date" />,
@@ -103,7 +110,7 @@ export class AccountLoginForm extends React.Component {
       if (!renderers[type]) {
         throw new Error('Unknown field type ' + type)
       }
-      const disabled = name === 'login' && editing
+      const disabled = probableLoginFieldNames.includes(name) && editing
 
       // Give focus only once
       const giveFocus = !alreadyFocused && !disabled
