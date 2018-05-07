@@ -23,12 +23,14 @@ export const DataItem = ({ t, dataType }) => {
 
   return (
     <li className={styles['col-data-item']}>
-      <Icon
-        className={styles['col-data-item-icon']}
-        icon={icon}
-        width="32px"
-        height="32px"
-      />
+      {icon && (
+        <Icon
+          className={styles['col-data-item-icon']}
+          icon={icon}
+          width="32px"
+          height="32px"
+        />
+      )}
       {t(`dataType.${dataType}`)}
     </li>
   )
