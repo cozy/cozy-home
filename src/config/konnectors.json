@@ -2142,7 +2142,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-payfit.git#latest"
+    "source": "registry://payfit/stable"
   },
   {
     "slug": "redbox",
