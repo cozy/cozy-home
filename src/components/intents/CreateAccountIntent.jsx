@@ -14,7 +14,7 @@ const CreateAccountIntent = ({ konnector, onCancel, onTerminate }) => (
       <CreateAccountService
         konnector={konnector}
         onCancel={() => onCancel()}
-        onSuccess={account => onTerminate(account)}
+        onSuccess={onTerminate}
         closeModal={() => onCancel()}
       />
     )}
