@@ -35,7 +35,7 @@ class IntentService extends Component {
   }
 
   render() {
-    const { appData, konnector, onCancel } = this.props
+    const { appData, konnector, onCancel, service } = this.props
     const { error } = this.state
     const { t } = this.context
 
@@ -55,7 +55,7 @@ class IntentService extends Component {
               appData={appData}
               konnector={konnector}
               onCancel={onCancel}
-              onSuccess={account => this.onTerminate(account)}
+              onTerminate={service.terminate}
             />
           )}
       </div>
