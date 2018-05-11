@@ -1,6 +1,6 @@
 {
   "name": "cozy-collect",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "src/index.jsx",
   "scripts": {
     "build": "npm run build:browser",
