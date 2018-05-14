@@ -1397,6 +1397,7 @@
         }
       }
     },
+    "testing": true,
     "source": "git://github.com/konnectors/easyjet.git#latest"
   },
   {
