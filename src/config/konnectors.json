@@ -2141,6 +2141,37 @@
     "source": "git://github.com/konnectors/cozy-konnector-nef.git#latest"
   },
   {
+    "slug": "netflix",
+    "name": "Netflix",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.netflix.com/login",
+    "categories": ["other"],
+    "data_types": [
+      "bill",
+      "activity",
+      "video_stream"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "profileName": {
+        "type": "text",
+        "isRequired": false
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/netflix.git#latest"
+  },
+  {
     "slug": "numericable",
     "name": "Numéricable",
     "editor": "Cozy Cloud",

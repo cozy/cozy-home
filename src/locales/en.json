@@ -39,6 +39,7 @@
         "password": "Password",
         "email": "Email",
         "bank_identifier": "Bank identifier (optional)",
+        "profileName": "Profile Name",
         "identifier": "Identifier",
         "new_identifier": "Identifier",
         "secret": "Password",
