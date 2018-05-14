@@ -2062,6 +2062,32 @@
     }
   },
   {
+    "slug": "monoprix",
+    "name": "Monoprix",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.monoprix.fr",
+    "categories": ["shopping"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "email": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/monoprix.git#latest"
+  },
+  {
     "slug": "nef",
     "name": "La Nef",
     "editor": "Jeremy Carrier",
