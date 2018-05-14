@@ -27,7 +27,7 @@ describe('Failure component', () => {
   it('should correctly call the reload function on button click', () => {
     window.location.reload = jest.fn()
     const component = shallow(<Failure t={tMock} errorType="initial" />)
-    component.find('button').simulate('click')
+    component.find('DefaultButton').simulate('click')
     expect(window.location.reload.mock.calls.length).toBe(1)
     expect(component.getElement()).toMatchSnapshot()
   })

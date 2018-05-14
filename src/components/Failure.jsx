@@ -1,23 +1,17 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
+import Button from 'cozy-ui/react/Button'
+import Empty from 'cozy-ui/react/Empty'
+import EmptyIcon from '../assets/icons/color/default.svg'
 
 const reload = () => {
   window.location.reload()
 }
 
 export const Failure = ({ t, errorType }) => (
-  <div className="col-error">
-    <h2>{t(`error.${errorType}`)}</h2>
-    <p>
-      <button
-        role="button"
-        className="coz-btn coz-btn--regular"
-        onClick={reload}
-      >
-        {t('error.button.reload')}
-      </button>
-    </p>
-  </div>
+  <Empty title={t(`error.${errorType}`)} icon={EmptyIcon}>
+    <Button label={t('error.button.reload')} onClick={reload} />
+  </Empty>
 )
 
 export default translate()(Failure)
