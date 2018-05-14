@@ -1,5 +1,31 @@
 [
   {
+    "slug": "lucca",
+    "name": "Lucca",
+    "icon": "lucca.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.lucca.fr",
+    "categories": ["other"],
+    "dataType": [
+      "document"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "git://github.com/konnectors/lucca.git#latest"
+  },
+  {
     "slug": "ameli",
     "name": "Ameli",
     "editor": "Cozy Cloud",
