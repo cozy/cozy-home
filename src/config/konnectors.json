@@ -1904,6 +1904,33 @@
     }
   },
   {
+    "slug": "leclercdrive",
+    "name": "Leclerc Drive",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.leclercdrive.fr",
+    "categories": ["shopping"],
+    "icon": "leclercdrive.png",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/leclercdrive.git#build"
+  },
+  {
     "oauth": true,
     "slug": "maif",
     "name": "MAIF",
