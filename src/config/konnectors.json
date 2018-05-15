@@ -1953,8 +1953,7 @@
         }
       }
     },
-    "testing": true,
-    "source": "git://github.com/konnectors/leclercdrive.git#build"
+    "source": "git://github.com/konnectors/leclercdrive.git#latest"
   },
   {
     "oauth": true,
