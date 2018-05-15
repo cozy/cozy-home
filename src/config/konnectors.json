@@ -1904,6 +1904,32 @@
     }
   },
   {
+    "slug": "ldlc",
+    "name": "Ldlc",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.ldlc.com",
+    "categories": ["shopping"],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "testing": true,
+    "source": "git://github.com/konnectors/ldlc.git#latest"
+  },
+  {
     "slug": "leclercdrive",
     "name": "Leclerc Drive",
     "editor": "Cozy Cloud",
