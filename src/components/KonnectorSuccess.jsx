@@ -2,7 +2,7 @@ import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
 
-import { AsButton } from 'cozy-ui/react/Button'
+import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 import { NavLink } from 'react-router-dom'
 
@@ -66,16 +66,13 @@ export const KonnectorSuccess = ({
         <div className={styles['coz-form-controls']}>
           <div className={styles['col-account-form-success-buttons']}>
             <p>
-              <AsButton size="full" isLink>
-                <NavLink
-                  to={`/connected/${connector.slug}/accounts/${account._id}`}
-                  onClick={onBack}
-                >
-                  <span>
-                    {successButtonLabel || t('account.success.button.config')}
-                  </span>
-                </NavLink>
-              </AsButton>
+              <Button
+                label={successButtonLabel || t('account.success.button.config')}
+                onClick={onBack}
+                size="full"
+                tag={NavLink}
+                to={`/connected/${connector.slug}/accounts/${account._id}`}
+              />
             </p>
           </div>
         </div>
