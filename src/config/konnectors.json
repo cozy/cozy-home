@@ -268,7 +268,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/blablacar.git#latest"
+    "source": "registry://blablacar/stable"
   },
   {
     "slug": "bnpparibas82",
@@ -325,7 +325,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/booking.com.git#latest"
+    "source": "registry://bookingdotcom/stable"
   },
   {
     "slug": "boulanger",
@@ -351,7 +351,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/boulanger.git#latest"
+    "source": "registry://boulanger/stable"
   },
   {
     "slug": "boursorama83",
@@ -406,7 +406,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-bouyguesbox.git#latest"
+    "source": "registry://bouyguesbox/stable"
   },
   {
     "slug": "bouyguestelecom",
@@ -431,7 +431,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-bouyguestelecom.git#latest"
+    "source": "registry://bouyguestelecom/stable"
   },
   {
     "slug": "bred",
@@ -841,7 +841,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-cesu.git#latest"
+    "source": "registry://cesu/stable"
   },
   {
     "slug": "cic45",
@@ -1266,7 +1266,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/darty.git#latest"
+    "source": "registry://darty/stable"
   },
   {
     "name": "Debug",
@@ -1321,7 +1321,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-digiposte.git#latest"
+    "source": "registry://digiposte/stable"
   },
   {
     "slug": "directenergie",
@@ -1479,7 +1479,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-free.git#latest"
+    "source": "registry://free/stable"
   },
   {
     "slug": "freemobile",
@@ -1504,7 +1504,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-free-mobile.git#latest"
+    "source": "registry://freemobile/stable"
   },
   {
     "slug": "generali",
@@ -1576,7 +1576,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-harmonie.git#latest"
+    "source": "registry://harmonie/stable"
   },
   {
     "slug": "hellobank145",
@@ -1669,7 +1669,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/impots.git#latest"
+    "source": "registry://impots/stable"
   },
   {
     "slug": "ingdirect95",
@@ -1877,7 +1877,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-malakoffmederic.git#latest"
+    "source": "registry://malakoffmederic/stable"
   },
   {
     "slug": "materielnet",
@@ -1928,7 +1928,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-mgen.git#latest"
+    "source": "registry://mgen/stable"
   },
   {
     "slug": "monabanq96",
@@ -2009,7 +2009,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-numericable.git#latest"
+    "source": "registry://numericable/stable"
   },
   {
     "slug": "orange",
@@ -2117,7 +2117,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-pajemploi.git#latest"
+    "source": "registry://pajemploi/stable"
   },
   {
     "slug": "payfit",
@@ -2267,7 +2267,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-sncf.git#latest"
+    "source": "registry://sncf/stable"
   },
   {
     "slug": "societegenerale",
@@ -2346,7 +2346,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-sosh.git#latest"
+    "source": "registry://sosh/stable"
   },
   {
     "slug": "theoldreader",
@@ -2397,7 +2397,7 @@
     "dataType": [
       "bill"
     ],
-    "source": "git://github.com/konnectors/cozy-konnector-trainline.git#latest"
+    "source": "registry://trainline/stable"
   },
   {
     "slug": "vinciautoroute",
@@ -2424,6 +2424,6 @@
       "bill",
       "consumption"
     ],
-    "source": "git://github.com/konnectors/vinciautoroute.git#latest"
+    "source": "registry://vinciautoroute/stable"
   }
 ]
