@@ -6,8 +6,8 @@
     "build": "npm run build:browser",
     "build:browser": "NODE_ENV=browser:production npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build",
-    "clean:browser": "rm -rf build/*",
-    "clean:mobile": "rm -rf mobile/www/*",
+    "clean:browser": "rm -rf build/",
+    "clean:mobile": "rm -rf mobile/www/",
     "commons:build": "cozy-scripts build",
     "commons:watch": "cozy-scripts watch",
     "commons:watch:standalone": "cozy-scripts standalone",
@@ -24,8 +24,8 @@
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "lint:js": "eslint \"{src,test}/**/*.{js,jsx}\"",
     "precommit": "lint-staged",
-    "test": "jest --verbose --coverage",
-    "test:watch": "jest --verbose --coverage --watch",
+    "test": "cozy-scripts test --verbose --coverage",
+    "test:watch": "cozy-scripts test --verbose --coverage --watch",
     "watch": "npm run watch:browser",
     "watch:browser": "NODE_ENV=browser:development npm run commons:watch",
     "watch:mobile": "NODE_ENV=mobile:development npm run commons:watch",
@@ -54,7 +54,7 @@
   },
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
-    "cozy-scripts": "0.5.5",
+    "cozy-scripts": "0.7.1",
     "date-fns": "1.29.0",
     "enzyme-adapter-react-15": "1.0.5",
     "eslint": "4.9.0",
@@ -93,6 +93,7 @@
     "babel-plugin-transform-react-jsx": "6.24.1",
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-polyfill": "6.26.0",
+    "babel-preset-cozy-app": "^0.7.1",
     "babel-preset-env": "1.7.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
@@ -101,6 +102,7 @@
     "cozy-client-js": "0.9.0",
     "cozy-ui": "9.0.0",
     "enzyme": "3.3.0",
+    "eslint-config-cozy-app": "^0.7.1",
     "eslint-loader": "2.0.0",
     "file-loader": "1.1.6",
     "git-directory-deploy": "1.5.1",
@@ -139,40 +141,6 @@
       "__TARGET__": "browser",
       "__SENTRY_TOKEN__": "token",
       "cozy": {}
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "standard",
-      "standard-react",
-      "prettier",
-      "prettier/react",
-      "prettier/standard"
-    ],
-    "plugins": [
-      "react",
-      "prettier",
-      "standard"
-    ],
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "prettier/prettier": "error",
-      "react/prop-types": [
-        2,
-        {
-          "skipUndeclared": true
-        }
-      ],
-      "react/jsx-no-bind": 1
-    },
-    "env": {
-      "browser": true,
-      "jest": true
     }
   },
   "prettier": {
