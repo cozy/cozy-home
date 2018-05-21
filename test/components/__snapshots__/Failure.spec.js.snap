@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Failure component should be displayed with initial text if errorType is initial 1`] = `
 <Empty
   icon="test-file-stub"
