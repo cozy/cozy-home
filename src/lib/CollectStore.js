@@ -125,7 +125,7 @@ export default class CollectStore {
 
   // Account connection workflow, see
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
-  connectAccount(konnector, account, disableEnqueue, enqueueAfter = 10000) {
+  connectAccount(konnector, account) {
     // return object to store all business object implied in the connection
     const connection = {}
     // detect oauth case
@@ -218,20 +218,7 @@ export default class CollectStore {
     )
   }
 
-  /**
-   * runAccount Runs an account
-   * @param {object}  connector            A connector
-   * @param {object}  account              the account to run, must belong to the connector
-   * @param {Boolean} disableEnqueue Boolean to disable a success timeout in the run method. Used by example by the onboarding
-   * @returns The run result or a resulting error
-   */
-  runAccount(
-    trigger,
-    connector,
-    account,
-    disableEnqueue,
-    enqueueAfter = 10000
-  ) {
+  runAccount(trigger) {
     // TODO: mutualize this part with connectAccount
     return this.dispatch(launchTriggerAndQueue(trigger))
   }
@@ -256,7 +243,7 @@ export default class CollectStore {
       })
   }
 
-  updateFolderPath(account, folderId, values, t) {
+  updateFolderPath(account, folderId, values) {
     // Update file
     return cozy.client.files
       .updateAttributesById(folderId, {

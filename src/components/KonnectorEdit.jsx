@@ -32,7 +32,6 @@ export const KonnectorEdit = ({
   driveUrl,
   error,
   fields,
-  folderPath,
   editing,
   isFetching,
   isUnloading,
@@ -40,19 +39,17 @@ export const KonnectorEdit = ({
   oAuthTerminated,
   folders,
   closeModal,
-  onCancel,
   onDelete,
   onForceConnection,
   onSubmit,
   submitting,
-  success,
   trigger,
   maintenance,
   lang
 }) => {
   const warningIcon = (
     <svg className={styles['item-status-icon']}>
-      <use xlinkHref={`#${warningSvg.id}`} /> }
+      <use xlinkHref={`#${warningSvg.id}`} />
     </svg>
   )
   const hasLoginError = isKonnectorLoginError(error)

@@ -55,6 +55,7 @@ class ConnectedList extends Component {
           <div className="connector-list">
             {connectedKonnectors.map(({ konnector, hasUserError }) => (
               <KonnectorTile
+                key={konnector.slug}
                 konnector={konnector}
                 markErrored={hasUserError}
                 route={`connected/${konnector.slug}`}
@@ -105,7 +106,7 @@ class ConnectedList extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     connectedKonnectors: sortBy(
       getConnectedKonnectors(state),

@@ -1,3 +1,6 @@
 {
-    "extends": ["cozy-app/react"]
+    "extends": ["cozy-app/react"],
+    "rules": {
+      "no-console":0
+    }
 }

@@ -73,7 +73,7 @@ async function connectWebSocket(
       'io.cozy.websocket'
     )
 
-    socket.onopen = event => {
+    socket.onopen = () => {
       try {
         socket.send(
           JSON.stringify({

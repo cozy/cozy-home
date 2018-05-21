@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Trigger Duck buildKonnectorTrigger creates a trigger 1`] = `
 Object {
   "_type": "io.cozy.triggers",

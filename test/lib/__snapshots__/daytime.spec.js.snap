@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`daytime library randomDayTime returns expected hours/minutes values 1`] = `
 Object {
   "hours": 10,

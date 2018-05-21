@@ -91,7 +91,7 @@ export const isFetchingRegistryKonnector = state => {
 // action creators sync
 
 export const initializeRegistry = konnectors => {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch({ type: FETCH_REGISTRY_KONNECTORS })
     return cozy.client
       .fetchJSON('GET', '/settings/context')

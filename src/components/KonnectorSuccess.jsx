@@ -15,8 +15,6 @@ export const KonnectorSuccess = ({
   account,
   error,
   folderId,
-  onCancel,
-  onNext,
   driveUrl,
   title,
   messages,

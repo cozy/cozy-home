@@ -142,7 +142,7 @@ class AccountConnection extends Component {
       .then(account => {
         const { konnector } = this.props
         this.setState({ account: account })
-        return this.runConnection(account).then(connection => {
+        return this.runConnection(account).then(() => {
           this.setState({
             connector: konnector,
             submitting: false
@@ -238,6 +238,7 @@ class AccountConnection extends Component {
     // namePath defined by the user is concatened with the folderPath
     if (valuesToSubmit.folderPath) {
       if (valuesToSubmit.namePath) {
+        // eslint-disable-line
       } else {
         valuesToSubmit.namePath =
           valuesToSubmit.accountName ||

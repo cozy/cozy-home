@@ -133,8 +133,13 @@ class Queue extends Component {
         />
         <div className={styles['queue-content']}>
           <div className={styles['queue-list']}>
-            {queue.map(item => (
-              <Item label={item.label} status={item.status} icon={item.icon} />
+            {queue.map((item, i) => (
+              <Item
+                key={i}
+                label={item.label}
+                status={item.status}
+                icon={item.icon}
+              />
             ))}
           </div>
         </div>

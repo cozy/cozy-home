@@ -96,7 +96,7 @@ describe('accounts library', () => {
   it('should handle account creation', () => {
     return accounts
       .create(cozyMock, konnectorMock, accountMock.auth, folderMock._id, 'mock')
-      .then(account => {
+      .then(() => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
         expect(cozyMock.data.create.mock.calls[0][0]).toBe(
           accounts.ACCOUNTS_DOCTYPE
@@ -113,7 +113,7 @@ describe('accounts library', () => {
   it('should handle account creation without name', () => {
     return accounts
       .create(cozyMock, konnectorMock, accountMock.auth, folderMock._id)
-      .then(account => {
+      .then(() => {
         expect(cozyMock.data.create.mock.calls.length).toBe(1)
         expect(cozyMock.data.create.mock.calls[0][0]).toBe(
           accounts.ACCOUNTS_DOCTYPE
@@ -128,24 +128,22 @@ describe('accounts library', () => {
   })
 
   it('should handle account updating', () => {
-    return accounts
-      .update(cozyMock, accountMock, accountMock2)
-      .then(account => {
-        expect(cozyMock.data.updateAttributes.mock.calls.length).toBe(1)
-        expect(cozyMock.data.updateAttributes.mock.calls[0][0]).toBe(
-          accounts.ACCOUNTS_DOCTYPE
-        )
-        expect(cozyMock.data.updateAttributes.mock.calls[0][1]).toEqual(
-          accountMock.id
-        )
-        expect(cozyMock.data.updateAttributes.mock.calls[0][2]).toEqual({
-          auth: accountMock2.auth
-        })
+    return accounts.update(cozyMock, accountMock, accountMock2).then(() => {
+      expect(cozyMock.data.updateAttributes.mock.calls.length).toBe(1)
+      expect(cozyMock.data.updateAttributes.mock.calls[0][0]).toBe(
+        accounts.ACCOUNTS_DOCTYPE
+      )
+      expect(cozyMock.data.updateAttributes.mock.calls[0][1]).toEqual(
+        accountMock.id
+      )
+      expect(cozyMock.data.updateAttributes.mock.calls[0][2]).toEqual({
+        auth: accountMock2.auth
       })
+    })
   })
 
   it('should handle account deletion', () => {
-    return accounts._delete(cozyMock, accountMock).then(account => {
+    return accounts._delete(cozyMock, accountMock).then(() => {
       expect(cozyMock.data.delete.mock.calls.length).toBe(1)
       expect(cozyMock.data.delete.mock.calls[0][0]).toBe(
         accounts.ACCOUNTS_DOCTYPE

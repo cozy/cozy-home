@@ -67,7 +67,7 @@ export default Field
 class FieldWrapperComponent extends Component {
   componentDidMount() {
     if (this.props.giveFocus)
-      ReactDOM.findDOMNode(this)
+      ReactDOM.findDOMNode(this) // eslint-disable-line
         .querySelector('input')
         .focus()
   }
@@ -187,8 +187,9 @@ export const DropdownField = translate()(props => {
         onChange={onChange}
         onInput={onInput}
       >
-        {dropdownFieldOptions.map(optionValue => (
+        {dropdownFieldOptions.map((optionValue, i) => (
           <option
+            key={i}
             value={optionValue.value || (props.default && props.default.value)}
             selected={optionValue.value === { value }}
           >

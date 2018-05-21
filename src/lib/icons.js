@@ -12,7 +12,7 @@ export const getKonnectorIcon = konnector => {
     try {
       icon = require(`../assets/konnectors/${slug}${ext}`)
       break
-    } catch (e) {}
+    } catch (e) {} // eslint-disable-line
   }
   if (!icon) {
     icon = require('../assets/konnectors/default.svg')

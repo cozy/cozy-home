@@ -45,7 +45,7 @@ const isKonnectorJob = doc =>
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CONNECTION_DELETED:
-    case DELETE_CONNECTION:
+    case DELETE_CONNECTION: {
       if (!action.trigger || !action.trigger._id)
         throw new Error('Missing trigger id')
       if (!action.trigger.message || !action.trigger.message.konnector)
@@ -57,11 +57,12 @@ const reducer = (state = {}, action) => {
           action
         )
       }
+    }
     case CREATE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
-    case LAUNCH_TRIGGER:
+    case LAUNCH_TRIGGER: {
       // Trigger is launched, connection should be running.
       if (!action.trigger || !action.trigger._id)
         throw new Error('Missing trigger id')
@@ -74,9 +75,9 @@ const reducer = (state = {}, action) => {
           action
         )
       }
-
+    }
     case RECEIVE_DATA:
-    case RECEIVE_NEW_DOCUMENT:
+    case RECEIVE_NEW_DOCUMENT: {
       if (
         !action.response ||
         !action.response.data ||
@@ -137,15 +138,15 @@ const reducer = (state = {}, action) => {
           }
         }
       }, state)
-
-    case PURGE_QUEUE:
+    }
+    case PURGE_QUEUE: {
       return Object.keys(state).reduce((konnectors, slug) => {
         return {
           ...konnectors,
           [slug]: konnectorReducer(state[slug], action)
         }
       }, state)
-
+    }
     default:
       return state
   }
@@ -154,7 +155,7 @@ const reducer = (state = {}, action) => {
 const creation = (state = null, action) => {
   switch (action.type) {
     case RECEIVE_DATA:
-    case RECEIVE_NEW_DOCUMENT:
+    case RECEIVE_NEW_DOCUMENT: {
       if (!state) return null
       if (
         !action.response ||
@@ -181,7 +182,7 @@ const creation = (state = null, action) => {
         }
 
       return state
-
+    }
     case START_CONNECTION_CREATION:
       // Store all data related to the creation of a new connection in then
       // property `creation`
@@ -231,6 +232,7 @@ const triggersReducer = (state = {}, action) => {
         }
       }
     case CONNECTION_DELETED:
+      // eslint-disable-next-line
       return (({ [action.trigger._id]: deleted, ...state }) => state)(state)
     case ENQUEUE_CONNECTION:
       return {
@@ -323,8 +325,7 @@ export const deleteConnection = trigger => {
 
 export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   dispatch,
-  getState,
-  options
+  getState
 ) => {
   setTimeout(() => {
     if (isConnectionRunning(getState().connections, trigger)) {

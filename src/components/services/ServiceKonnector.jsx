@@ -6,7 +6,7 @@ import { getKonnectorIcon } from '../../lib/icons'
 
 const ENTER_KEY = 13
 
-const ServiceKonnector = ({ t, status, konnector, showKonnector }) => {
+const ServiceKonnector = ({ t, konnector, showKonnector }) => {
   const categories = konnector.categories.map(category =>
     t(`category.${category}`)
   )

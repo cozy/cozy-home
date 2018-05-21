@@ -16,11 +16,12 @@ const reducer = (state = {}, action) => {
       return { ...state, isEnqueued: true }
     case PURGE_QUEUE:
       return { ...state, isEnqueued: false }
-    case UPDATE_CONNECTION_ERROR:
+    case UPDATE_CONNECTION_ERROR: {
       const { error } = action
       if (error) return { ...state, error }
       return state
-    case UPDATE_CONNECTION_RUNNING_STATUS:
+    }
+    case UPDATE_CONNECTION_RUNNING_STATUS: {
       const { isRunning } = action
       const hasRun = state.hasRun || (!!state.isRunning && !isRunning)
       return {
@@ -29,6 +30,7 @@ const reducer = (state = {}, action) => {
         hasRun,
         error: isRunning ? null : state.error || null
       }
+    }
     default:
       return state
   }
