@@ -33,9 +33,7 @@ const Field = props => {
       isRequired
     } = props
     const autoFill = noAutoFill
-      ? type === 'password'
-        ? 'new-password'
-        : 'off'
+      ? type === 'password' ? 'new-password' : 'off'
       : 'on'
     inputs = (
       <Input
