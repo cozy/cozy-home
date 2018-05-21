@@ -1,33 +1,19 @@
 exports[`Failure component should be displayed with initial text if errorType is initial 1`] = `
-<div
-  className="col-error">
-  <h2>
-    Something went wrong when fetching your connectors and informations. Please refresh the page.
-  </h2>
-  <p>
-    <button
-      className="coz-btn coz-btn--regular"
-      onClick={[Function]}
-      role="button">
-      Refresh now
-    </button>
-  </p>
-</div>
+<Empty
+  icon="test-file-stub"
+  title="Something went wrong when fetching your connectors and informations. Please refresh the page.">
+  <DefaultButton
+    label="Refresh now"
+    onClick={[Function]} />
+</Empty>
 `;
 
 exports[`Failure component should correctly call the reload function on button click 1`] = `
-<div
-  className="col-error">
-  <h2>
-    Something went wrong when fetching your connectors and informations. Please refresh the page.
-  </h2>
-  <p>
-    <button
-      className="coz-btn coz-btn--regular"
-      onClick={[Function]}
-      role="button">
-      Refresh now
-    </button>
-  </p>
-</div>
+<Empty
+  icon="test-file-stub"
+  title="Something went wrong when fetching your connectors and informations. Please refresh the page.">
+  <DefaultButton
+    label="Refresh now"
+    onClick={[Function]} />
+</Empty>
 `;

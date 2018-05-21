@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import Icon from 'cozy-ui/react/Icon'
+import { Icon, Empty } from 'cozy-ui/react'
+import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
 import { Route, NavLink } from 'react-router-dom'
 import { getConnectedKonnectors } from '../reducers'
@@ -14,7 +15,6 @@ import AccountPicker from './AccountPicker'
 import ConnectionManagement from '../containers/ConnectionManagement'
 
 import addAccountIcon from '../assets/icons/icon-plus.svg'
-import pictureForEmtpyList from '../assets/images/connected-accounts.svg'
 
 class ConnectedList extends Component {
   componentDidMount() {
@@ -62,21 +62,15 @@ class ConnectedList extends Component {
             ))}
           </div>
         ) : (
-          <div className="col-picture-for-emtpy-list">
-            <img
-              data-tutorial="empty-view"
-              src={pictureForEmtpyList}
-              className="col-picture-for-emtpy-list--img"
-              alt={t('connector.empty')}
-            />
-            <div>
-              <h2>{t('connector.no-connectors-connected')}</h2>
-              <p>{t('connector.get-info')}</p>
-              <NavLink to="/providers/all" className="col-button">
-                <span>{t('connector.connect-account')}</span>
-              </NavLink>
-            </div>
-          </div>
+          <Empty
+            icon={EmptyIcon}
+            title={t('connector.no-connectors-connected')}
+            text={t('connector.get-info')}
+          >
+            <NavLink to="/providers/all" className="col-button">
+              <span>{t('connector.connect-account')}</span>
+            </NavLink>
+          </Empty>
         )}
         <Route
           path="/connected/:konnectorSlug/"
