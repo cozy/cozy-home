@@ -56,7 +56,7 @@
   "dependencies": {
     "cozy-bar": "5.0.0",
     "cozy-client-js": "0.9.0",
-    "cozy-scripts": "0.7.1",
+    "cozy-scripts": "0.8.0",
     "cozy-ui": "9.0.0",
     "date-fns": "1.29.0",
     "intro.js": "2.9.3",

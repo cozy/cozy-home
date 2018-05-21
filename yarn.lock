@@ -649,14 +649,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-jest@22.4.3:
-  version "22.4.3"
-  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.4.3.tgz#4b7a0b6041691bbd422ab49b3b73654a49a6627a"
-  dependencies:
-    babel-plugin-istanbul "^4.1.5"
-    babel-preset-jest "^22.4.3"
-
-babel-jest@^22.4.4:
+babel-jest@22.4.4, babel-jest@^22.4.4:
   version "22.4.4"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.4.4.tgz#977259240420e227444ebe49e226a61e49ea659d"
   dependencies:
@@ -1052,7 +1045,7 @@ babel-preset-flow@^6.23.0:
   dependencies:
     babel-plugin-transform-flow-strip-types "^6.22.0"
 
-babel-preset-jest@^22.4.3, babel-preset-jest@^22.4.4:
+babel-preset-jest@^22.4.4:
   version "22.4.4"
   resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-22.4.4.tgz#ec9fbd8bcd7dfd24b8b5320e0e688013235b7c39"
   dependencies:
@@ -2039,14 +2032,14 @@ cozy-client-js@^0.3.19:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
 
-cozy-scripts@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-0.7.1.tgz#33f3b95454270b655fc9432b2b9b83c763d114dc"
+cozy-scripts@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-0.8.0.tgz#8980a02d46c4a5b11a9ddd07f3d54947a4914090"
   dependencies:
     autoprefixer "8.5.0"
     babel-core "6.26.3"
     babel-eslint "8.2.3"
-    babel-jest "22.4.3"
+    babel-jest "22.4.4"
     babel-loader "7.1.4"
     chalk "2.4.1"
     commander "2.15.1"
@@ -2056,7 +2049,7 @@ cozy-scripts@0.7.1:
     css-mqpacker "6.0.2"
     csswring "6.0.3"
     eslint "4.19.1"
-    eslint-config-cozy-app "^0.7.1"
+    eslint-config-cozy-app "^0.8.0"
     eslint-loader "2.0.0"
     extract-text-webpack-plugin "3.0.2"
     file-loader "1.1.11"
@@ -2064,7 +2057,7 @@ cozy-scripts@0.7.1:
     html-webpack-plugin "3.2.0"
     identity-obj-proxy "3.0.0"
     imports-loader "0.8.0"
-    jest "22.4.3"
+    jest "22.4.4"
     json-loader "0.5.7"
     postcss "6.0.22"
     postcss-assets-webpack-plugin "1.1.0"
@@ -2081,7 +2074,7 @@ cozy-scripts@0.7.1:
     svg-sprite-loader "3.7.3"
     validate-npm-package-name "3.0.0"
     webpack "3.12.0"
-    webpack-bundle-analyzer "2.11.3"
+    webpack-bundle-analyzer "2.13.0"
     webpack-dev-server "2.11.2"
     webpack-merge "4.1.2"
 
@@ -2920,21 +2913,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-cozy-app@0.8.0:
+eslint-config-cozy-app@0.8.0, eslint-config-cozy-app@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-0.8.0.tgz#e8ddcd40f638e54716b963635b597c2a76c91467"
-  dependencies:
-    babel-eslint "^8.0.1"
-    eslint "^4.9.0"
-    eslint-config-prettier "^2.9.0"
-    eslint-plugin-prettier "^2.6.0"
-    eslint-plugin-react "^7.7.0"
-    eslint-plugin-vue "^4.5.0"
-    prettier "^1.11.1"
-
-eslint-config-cozy-app@^0.7.1:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-0.7.3.tgz#68e9b28dc7de81df86c8e4697cf569072bbcc5e2"
   dependencies:
     babel-eslint "^8.0.1"
     eslint "^4.9.0"
@@ -4979,7 +4960,7 @@ jest-changed-files@^22.2.0:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@^22.4.3:
+jest-cli@^22.4.4:
   version "22.4.4"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-22.4.4.tgz#68cd2a2aae983adb1e6638248ca21082fd6d9e90"
   dependencies:
@@ -5242,12 +5223,12 @@ jest-worker@^22.2.2, jest-worker@^22.4.3:
   dependencies:
     merge-stream "^1.0.1"
 
-jest@22.4.3:
-  version "22.4.3"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-22.4.3.tgz#2261f4b117dc46d9a4a1a673d2150958dee92f16"
+jest@22.4.4:
+  version "22.4.4"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-22.4.4.tgz#ffb36c9654b339a13e10b3d4b338eb3e9d49f6eb"
   dependencies:
     import-local "^1.0.0"
-    jest-cli "^22.4.3"
+    jest-cli "^22.4.4"
 
 js-base64@^2.1.9:
   version "2.4.5"
@@ -9889,9 +9870,9 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-bundle-analyzer@2.11.3:
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.11.3.tgz#4b442c9bd23f1853af4c9af3a90e21646f16afc3"
+webpack-bundle-analyzer@2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.13.0.tgz#8d7db44c3d4844bc911890998e1110514cf12264"
   dependencies:
     acorn "^5.3.0"
     bfj-node4 "^5.2.0"
