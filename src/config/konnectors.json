@@ -1926,7 +1926,6 @@
     "dataType": [
       "bill"
     ],
-    "testing": true,
     "source": "git://github.com/konnectors/ldlc.git#latest"
   },
   {
