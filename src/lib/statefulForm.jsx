@@ -300,8 +300,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           const isRequiredAndEmpty =
             fields[field].isRequired &&
             fields[field].type !== 'hidden' &&
-            fields[field].value &&
-            fields[field].value.length === 0
+            !fields[field].value
           if (isRequiredAndEmpty) {
             // TODO use the next line instead when the stack will be
             // able to encrypt many fields
