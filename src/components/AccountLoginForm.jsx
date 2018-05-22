@@ -187,8 +187,6 @@ export class AccountLoginForm extends React.Component {
                   submitting &&
                   !disableSuccessTimeout &&
                   (editing || !isOAuth || oAuthTerminated)
-                    ? 'true'
-                    : 'false'
                 }
                 onClick={onSubmit}
               >
