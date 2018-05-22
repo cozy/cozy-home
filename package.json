@@ -6,8 +6,8 @@
     "build": "npm run build:browser",
     "build:browser": "NODE_ENV=browser:production npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build",
-    "clean:browser": "rm -rf build/*",
-    "clean:mobile": "rm -rf mobile/www/*",
+    "clean:browser": "rm -rf build/",
+    "clean:mobile": "rm -rf mobile/www/",
     "commons:build": "cozy-scripts build",
     "commons:watch": "cozy-scripts watch",
     "commons:watch:standalone": "cozy-scripts standalone",
@@ -24,8 +24,8 @@
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "lint:js": "eslint \"{src,test}/**/*.{js,jsx}\"",
     "precommit": "lint-staged",
-    "test": "jest --verbose --coverage",
-    "test:watch": "jest --verbose --coverage --watch",
+    "test": "cozy-scripts test --verbose --coverage",
+    "test:watch": "cozy-scripts test --verbose --coverage --watch",
     "watch": "npm run watch:browser",
     "watch:browser": "NODE_ENV=browser:development npm run commons:watch",
     "watch:mobile": "NODE_ENV=mobile:development npm run commons:watch",
@@ -54,23 +54,12 @@
   },
   "homepage": "https://github.com/cozy/cozy-collect#readme",
   "dependencies": {
-    "cozy-scripts": "0.5.5",
+    "cozy-bar": "5.0.0",
+    "cozy-client-js": "0.9.0",
+    "cozy-scripts": "0.8.0",
+    "cozy-ui": "9.0.0",
     "date-fns": "1.29.0",
-    "enzyme-adapter-react-15": "1.0.5",
-    "eslint": "4.9.0",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-config-standard": "10.2.1",
-    "eslint-config-standard-react": "6.0.0",
-    "eslint-plugin-import": "2.12.0",
-    "eslint-plugin-node": "6.0.1",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-promise": "3.7.0",
-    "eslint-plugin-react": "7.8.2",
-    "eslint-plugin-standard": "3.1.0",
-    "expose-loader": "0.7.5",
-    "husky": "0.14.3",
     "intro.js": "2.9.3",
-    "lint-staged": "4.3.0",
     "lodash": "4.17.10",
     "piwik-react-router": "0.12.1",
     "preact": "8.2.7",
@@ -82,102 +71,29 @@
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0",
-    "timeago-react": "2.0.0"
+    "timeago-react": "2.0.0",
+    "url-search-params-polyfill": "4.0.0"
   },
   "devDependencies": {
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.2.3",
-    "babel-loader": "7.1.4",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-plugin-transform-react-jsx": "6.24.1",
-    "babel-plugin-transform-runtime": "6.23.0",
     "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-react": "6.24.1",
-    "babel-runtime": "6.26.0",
-    "cozy-bar": "5.0.1",
-    "cozy-client-js": "0.9.0",
-    "cozy-ui": "9.0.0",
+    "babel-preset-cozy-app": "^0.7.1",
     "enzyme": "3.3.0",
-    "eslint-loader": "2.0.0",
-    "file-loader": "1.1.6",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-config-cozy-app": "0.8.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "expose-loader": "0.7.5",
     "git-directory-deploy": "1.5.1",
+    "husky": "0.14.3",
     "identity-obj-proxy": "3.0.0",
-    "jest": "18.1.0",
+    "lint-staged": "4.3.0",
     "npm-run-all": "4.1.3",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
-    "react-test-renderer": "15.6.1",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "react-test-renderer": "16.3.2",
     "stylint": "1.5.9",
     "stylus": "0.54.5",
-    "url-search-params-polyfill": "4.0.0",
     "webpack": "3.12.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "styl"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleNameMapper": {
-      "^redux-cozy-client$": "<rootDir>/src/lib/redux-cozy-client",
-      "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "styles": "identity-obj-proxy"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!cozy-ui)"
-    ],
-    "globals": {
-      "__ALLOW_HTTP__": false,
-      "__TARGET__": "browser",
-      "__SENTRY_TOKEN__": "token",
-      "cozy": {}
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "standard",
-      "standard-react",
-      "prettier",
-      "prettier/react",
-      "prettier/standard"
-    ],
-    "plugins": [
-      "react",
-      "prettier",
-      "standard"
-    ],
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "prettier/prettier": "error",
-      "react/prop-types": [
-        2,
-        {
-          "skipUndeclared": true
-        }
-      ],
-      "react/jsx-no-bind": 1
-    },
-    "env": {
-      "browser": true,
-      "jest": true
-    }
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "lint-staged": {
     "{src,test}/**/*.{js,jsx}": [

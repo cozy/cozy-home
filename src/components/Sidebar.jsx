@@ -55,7 +55,7 @@ export const Sidebar = ({ t, categories, location }) => {
               </RouterLink>
             </li>
             {i18nCategories.map(category => (
-              <li>
+              <li key={category.slug}>
                 <RouterLink
                   to={`/providers/${category.slug}`}
                   className="col-nav-submenu-link"

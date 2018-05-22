@@ -72,7 +72,7 @@ class KonnectorFolder extends React.Component {
 
   render(
     { t, account, driveUrl, connector, trigger, closeModal, isFetching },
-    { fields, isModalOpen, isFetchingUpdate, changeState, folderUpdateStatus }
+    { fields, isModalOpen, isFetchingUpdate, folderUpdateStatus }
   ) {
     return (
       <div className={styles['col-account-folder']}>

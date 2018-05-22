@@ -213,10 +213,10 @@ class ConnectionManagement extends Component {
   }
 }
 
-const mapActionsToProps = dispatch => ({})
+const mapActionsToProps = () => ({})
 
 // Accéder au state depuis ici ?
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   // konnector: fetchRegistryKonnectorBySlug(ownProps.params.connectorSlug)
   // existingAccount: fetchAccount(ownProps.accountId)
 })

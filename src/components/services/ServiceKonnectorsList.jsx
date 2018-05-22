@@ -2,10 +2,14 @@ import React from 'react'
 
 import ServiceKonnector from './ServiceKonnector'
 
-const ServiceKonnectorsList = ({ t, konnectorsList, showKonnector }) => (
+const ServiceKonnectorsList = ({ konnectorsList, showKonnector }) => (
   <ul className="connector-list">
-    {konnectorsList.map(konnector => (
-      <ServiceKonnector konnector={konnector} showKonnector={showKonnector} />
+    {konnectorsList.map((konnector, i) => (
+      <ServiceKonnector
+        key={i}
+        konnector={konnector}
+        showKonnector={showKonnector}
+      />
     ))}
   </ul>
 )

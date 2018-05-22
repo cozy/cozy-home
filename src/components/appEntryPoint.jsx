@@ -10,7 +10,7 @@ const mapActionsToProps = dispatch => ({
   initializeRegistry: konnectors => dispatch(initializeRegistry(konnectors))
 })
 
-const mapDocumentsToProps = (state, ownProps) => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchAccounts(),
   jobs: fetchKonnectorJobs(),
   konnectors: fetchKonnectors(),

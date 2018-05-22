@@ -1,389 +1,451 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`DataItem component should display correctly the activity data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your activities
 </li>
 `;
 
 exports[`DataItem component should display correctly the appointment data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your appointments
 </li>
 `;
 
 exports[`DataItem component should display correctly the bankAccounts data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your bank accounts
 </li>
 `;
 
 exports[`DataItem component should display correctly the bankTransactions data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your bank transactions
 </li>
 `;
 
 exports[`DataItem component should display correctly the bill data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your bills
 </li>
 `;
 
 exports[`DataItem component should display correctly the bloodPressure data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your blood pressure
 </li>
 `;
 
 exports[`DataItem component should display correctly the calendar data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your calendars
 </li>
 `;
 
 exports[`DataItem component should display correctly the certificate data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your certificates
 </li>
 `;
 
 exports[`DataItem component should display correctly the commit data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your commits
 </li>
 `;
 
 exports[`DataItem component should display correctly the consumption data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your consumption
 </li>
 `;
 
 exports[`DataItem component should display correctly the contact data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your contacts
 </li>
 `;
 
 exports[`DataItem component should display correctly the contract data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your contracts
 </li>
 `;
 
 exports[`DataItem component should display correctly the courseMaterial data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your course materials
 </li>
 `;
 
 exports[`DataItem component should display correctly the event data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your events
 </li>
 `;
 
 exports[`DataItem component should display correctly the family data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your family informations
 </li>
 `;
 
 exports[`DataItem component should display correctly the geopoint data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your geolocations
 </li>
 `;
 
 exports[`DataItem component should display correctly the heartbeat data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your heartbeats
 </li>
 `;
 
 exports[`DataItem component should display correctly the home data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your home informations
 </li>
 `;
 
 exports[`DataItem component should display correctly the phonecommunicationlog data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your phone communications log
 </li>
 `;
 
 exports[`DataItem component should display correctly the podcast data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your podcasts
 </li>
 `;
 
 exports[`DataItem component should display correctly the profile data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your client profile
 </li>
 `;
 
 exports[`DataItem component should display correctly the refund data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your refunds
 </li>
 `;
 
 exports[`DataItem component should display correctly the sinister data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your sinisters
 </li>
 `;
 
 exports[`DataItem component should display correctly the sleepTime data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your sleep time
 </li>
 `;
 
 exports[`DataItem component should display correctly the stepsNumber data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your number of steps
 </li>
 `;
 
 exports[`DataItem component should display correctly the temperature data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your temperature data
 </li>
 `;
 
 exports[`DataItem component should display correctly the travelDate data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your travel dates
 </li>
 `;
 
 exports[`DataItem component should display correctly the tweet data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your tweets
 </li>
 `;
 
 exports[`DataItem component should display correctly the videostream data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your videos
 </li>
 `;
 
 exports[`DataItem component should display correctly the weight data type 1`] = `
 <li
-  className="col-data-item">
+  className="col-data-item"
+>
   <Icon
     className="col-data-item-icon"
     height="32px"
     icon="test-file-stub"
     spin={false}
-    width="32px" />
+    width="32px"
+  />
   Your weights
 </li>
 `;

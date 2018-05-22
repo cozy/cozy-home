@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Sidebar component should be displayed correctly in providers view 1`] = `
 <Sidebar>
   <Nav>
@@ -6,9 +8,11 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         activeClassName="is-active"
         ariaCurrent="true"
         className="c-nav-link"
-        to="/connected">
+        to="/connected"
+      >
         <NavIcon
-          icon="test-file-stub" />
+          icon="test-file-stub"
+        />
         <NavText>
           Connected accounts
         </NavText>
@@ -19,22 +23,26 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
         activeClassName="is-active"
         ariaCurrent="true"
         className="c-nav-link is-active"
-        to="/providers/all">
+        to="/providers/all"
+      >
         <NavIcon
-          icon="test-file-stub" />
+          icon="test-file-stub"
+        />
         <NavText>
           Providers
         </NavText>
       </NavLink>
     </NavItem>
     <ul
-      className="col-nav-submenu">
+      className="col-nav-submenu"
+    >
       <li>
         <NavLink
           activeClassName="active"
           ariaCurrent="true"
           className="col-nav-submenu-link"
-          to="/providers/all">
+          to="/providers/all"
+        >
           All
         </NavLink>
       </li>
@@ -43,7 +51,8 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
           activeClassName="active"
           ariaCurrent="true"
           className="col-nav-submenu-link"
-          to="/providers/isp">
+          to="/providers/isp"
+        >
           ISP
         </NavLink>
       </li>
@@ -52,7 +61,8 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
           activeClassName="active"
           ariaCurrent="true"
           className="col-nav-submenu-link"
-          to="/providers/telecom">
+          to="/providers/telecom"
+        >
           Telecom
         </NavLink>
       </li>
@@ -61,7 +71,8 @@ exports[`Sidebar component should be displayed correctly in providers view 1`] =
           activeClassName="active"
           ariaCurrent="true"
           className="col-nav-submenu-link"
-          to="/providers/others">
+          to="/providers/others"
+        >
           Others
         </NavLink>
       </li>
@@ -78,9 +89,11 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
         activeClassName="is-active"
         ariaCurrent="true"
         className="c-nav-link"
-        to="/connected">
+        to="/connected"
+      >
         <NavIcon
-          icon="test-file-stub" />
+          icon="test-file-stub"
+        />
         <NavText>
           Connected accounts
         </NavText>
@@ -91,9 +104,11 @@ exports[`Sidebar component should be displayed correctly in root view 1`] = `
         activeClassName="is-active"
         ariaCurrent="true"
         className="c-nav-link"
-        to="/providers/all">
+        to="/providers/all"
+      >
         <NavIcon
-          icon="test-file-stub" />
+          icon="test-file-stub"
+        />
         <NavText>
           Providers
         </NavText>

@@ -9,6 +9,7 @@ const KonnectorList = ({ base, t, konnectors, showVoting = false }) => (
   <div className="connector-list">
     {konnectors.map(konnector => (
       <KonnectorTile
+        key={konnector.slug}
         konnector={konnector}
         route={`${base}/${konnector.slug}`}
       />

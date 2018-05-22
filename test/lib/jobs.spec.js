@@ -48,7 +48,7 @@ const jobsMock = [
 
 // just to tests calling, results are tested in cozy-client-js
 let cozyMock = {
-  fetchJSON: jest.fn((method, endpoint) => Promise.resolve(jobsMock))
+  fetchJSON: jest.fn(() => Promise.resolve(jobsMock))
 }
 
 beforeEach(() => {

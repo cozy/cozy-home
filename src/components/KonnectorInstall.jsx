@@ -17,7 +17,6 @@ export const KonnectorInstall = ({
   t,
   account,
   connector,
-  deleting,
   disableSuccessTimeout,
   driveUrl,
   error,
@@ -28,10 +27,8 @@ export const KonnectorInstall = ({
   oAuthTerminated,
   onCancel,
   editing,
-  onDelete,
   onNext,
   onSubmit,
-  submit,
   submitting,
   success,
   successMessage,
@@ -45,7 +42,6 @@ export const KonnectorInstall = ({
   isSuccess,
   dirty,
   successButtonLabel,
-  accountsCount,
   maintenance,
   lang
 }) => {

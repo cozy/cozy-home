@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Jobs Duck getTriggerLastJob returns expected last job 1`] = `
 Object {
   "_id": "cda1ef761d3d4924cd44b3491d476fea",

@@ -32,8 +32,8 @@ export const AccountPicker = ({
       </ModalHeader>
       <ModalContent>
         <ul className={styles[classNames('col-account-picker')]}>
-          {connections.map(connection => (
-            <li>
+          {connections.map((connection, index) => (
+            <li key={index}>
               <AccountPickerItem
                 konnectorSlug={konnectorSlug}
                 connection={connection}

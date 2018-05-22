@@ -26,7 +26,9 @@ const AccountConnectionData = ({ t, connector }) => {
       <h4>{t('account.config.data.title')}</h4>
       {hasDataTypes && (
         <ul className={styles['col-account-connection-data-access']}>
-          {connector.dataType.map(data => <DataItem dataType={data} />)}
+          {connector.dataType.map(data => (
+            <DataItem key={data} dataType={data} />
+          ))}
         </ul>
       )}
       {!hasDataTypes && <p>{t('dataType.none', { name: connector.name })}</p>}

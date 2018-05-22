@@ -102,6 +102,7 @@ export default class Notifier extends Component {
       <div className="coz-notifier">
         {this.state.notifications.map(notif => (
           <Notification
+            key={notif.id}
             type={notif.type}
             message={notif.msg}
             details={notif.details}

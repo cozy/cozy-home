@@ -4,7 +4,6 @@ import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import styles from '../styles/descriptionContent'
 
 export const DescriptionContent = ({
-  t,
   cssClassesObject,
   title,
   messages,
@@ -18,9 +17,10 @@ export const DescriptionContent = ({
       )}
       {messages &&
         messages.length > 0 &&
-        messages.map(m => {
+        messages.map((m, i) => {
           return (
             <p
+              key={i}
               className={classNames(
                 styles['col-account-description-message'],
                 hasError && 'errors'

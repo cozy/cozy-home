@@ -8,7 +8,7 @@ import { configure, shallow } from 'enzyme'
 import { tMock } from '../jestLib/I18n'
 import { Failure } from '../../src/components/Failure'
 
-import Adapter from 'enzyme-adapter-react-15'
+import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 

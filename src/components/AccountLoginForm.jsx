@@ -14,13 +14,20 @@ import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
 
 const renderers = {
-  password: ({ t }) => <PasswordField noAutoFill />,
+  password: () => <PasswordField noAutoFill />,
   date: () => <Field type="date" />,
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
   email: () => <Field type="email" />
 }
+
+renderers.password.displayName = 'Password'
+renderers.date.displayName = 'Date'
+renderers.checkbox.displayName = 'Checkbox'
+renderers.dropdown.displayName = 'Dropdown'
+renderers.text.displayName = 'Text'
+renderers.email.displayName = 'Email'
 
 const hydrateFieldValue = {
   checkbox: value => !!value

@@ -9,8 +9,12 @@ export const reactMarkdownRendererOptions = {
   )
 }
 
+reactMarkdownRendererOptions.Link.displayName = 'Link'
+
 export const ReactMarkdownWrapper = ({ source }) => (
   <ReactMarkdown source={source} renderers={reactMarkdownRendererOptions} />
 )
+
+ReactMarkdownWrapper.displayName = 'ReactMarkdownWrapper'
 
 export default ReactMarkdownWrapper
