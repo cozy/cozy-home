@@ -53,6 +53,32 @@
     "source": "git://github.com/konnectors/cozy-konnector-ameli.git#latest"
   },
   {
+    "slug": "auchandrive",
+    "name": "Auchan Drive",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://auchandrive.fr",
+    "categories": ["shopping"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "git://github.com/konnectors/auchandrive.git#latest"
+  },
+  {
     "slug": "axabanque102",
     "name": "Axa Banque",
     "editor": "Cozy Cloud",
