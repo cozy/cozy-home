@@ -33,7 +33,6 @@ export const KonnectorEdit = props => {
     driveUrl,
     error,
     fields,
-    editing,
     isFetching,
     isUnloading,
     lastSuccess,
@@ -138,7 +137,6 @@ export const KonnectorEdit = props => {
                 error={hasLoginError}
                 fields={fields}
                 dirty={dirty}
-                editing={editing}
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}
