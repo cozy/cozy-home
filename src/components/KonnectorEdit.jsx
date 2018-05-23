@@ -18,38 +18,36 @@ import ErrorDescription from './ErrorDescriptions'
 
 import warningSvg from '../assets/sprites/icon-warning.svg'
 
-export const KonnectorEdit = ({
-  t,
-  account,
-  connector,
-  deleting,
-  disableSuccessTimeout,
-  allRequiredFieldsAreFilled,
-  allRequiredFilledButPasswords,
-  isValid,
-  isValidButPasswords,
-  dirty,
-  driveUrl,
-  error,
-  fields,
-  folderPath,
-  editing,
-  isFetching,
-  isUnloading,
-  lastSuccess,
-  oAuthTerminated,
-  folders,
-  closeModal,
-  onCancel,
-  onDelete,
-  onForceConnection,
-  onSubmit,
-  submitting,
-  success,
-  trigger,
-  maintenance,
-  lang
-}) => {
+export const KonnectorEdit = props => {
+  const {
+    t,
+    account,
+    connector,
+    deleting,
+    disableSuccessTimeout,
+    allRequiredFieldsAreFilled,
+    allRequiredFilledButPasswords,
+    isValid,
+    isValidButPasswords,
+    dirty,
+    driveUrl,
+    error,
+    fields,
+    isFetching,
+    isUnloading,
+    lastSuccess,
+    oAuthTerminated,
+    folders,
+    closeModal,
+    onDelete,
+    onForceConnection,
+    onSubmit,
+    submitting,
+    trigger,
+    maintenance,
+    lang
+  } = props
+
   const warningIcon = (
     <svg className={styles['item-status-icon']}>
       <use xlinkHref={`#${warningSvg.id}`} /> }
