@@ -523,10 +523,6 @@
           {
             "name": "Bred Dispobank",
             "value": "165"
-          },
-          {
-            "name": "Crédit Maritime Outre Mer",
-            "value": "166"
           }
         ]
       }
@@ -1294,6 +1290,60 @@
     "parameters": {
       "bankId": "148"
     }
+  },
+  {
+    "slug": "creditmaritime",
+    "name": "Crédit Maritime",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://www.creditmaritime.fr/",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "icon": "creditmaritime.png",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      },
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "Atlantique",
+            "value": "107"
+          },
+          {
+            "name": "Bretagne Normandie",
+            "value": "105"
+          },
+          {
+            "name": "Littoral du Sud-Ouest",
+            "value": "108"
+          },
+          {
+            "name": "Outre-Mer",
+            "value": "166"
+          },
+          {
+            "name": "Région Nord",
+            "value": "106"
+          }
+        ]
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
     "slug": "darty",
