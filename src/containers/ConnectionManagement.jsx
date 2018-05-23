@@ -136,7 +136,6 @@ class ConnectionManagement extends Component {
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
             editing={existingAccount && !createdAccount}
-            onNext={() => this.gotoParent()}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
