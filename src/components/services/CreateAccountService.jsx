@@ -50,7 +50,6 @@ class CreateAccountService extends React.Component {
       <div className="coz-service-content">
         <AccountConnection
           connector={konnector}
-          onNext={account => this.onSuccess(account)}
           successButtonLabel={t('intent.service.success.button.label')}
           values={values}
           {...this.props}

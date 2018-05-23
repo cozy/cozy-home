@@ -13,42 +13,38 @@ import ErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
 
-export const KonnectorInstall = ({
-  t,
-  account,
-  connector,
-  deleting,
-  disableSuccessTimeout,
-  driveUrl,
-  error,
-  fields,
-  onBack,
-  queued,
-  isUnloading,
-  oAuthTerminated,
-  onCancel,
-  editing,
-  onDelete,
-  onNext,
-  onSubmit,
-  submit,
-  submitting,
-  success,
-  successMessage,
-  successMessages,
-  trigger,
-  allRequiredFieldsAreFilled,
-  displayAdvanced,
-  toggleAdvanced,
-  isFetching,
-  isValid,
-  isSuccess,
-  dirty,
-  successButtonLabel,
-  accountsCount,
-  maintenance,
-  lang
-}) => {
+export const KonnectorInstall = props => {
+  const {
+    t,
+    account,
+    connector,
+    disableSuccessTimeout,
+    driveUrl,
+    error,
+    fields,
+    onBack,
+    queued,
+    isUnloading,
+    oAuthTerminated,
+    onCancel,
+    editing,
+    onSubmit,
+    submitting,
+    success,
+    successMessage,
+    successMessages,
+    trigger,
+    allRequiredFieldsAreFilled,
+    displayAdvanced,
+    toggleAdvanced,
+    isFetching,
+    isValid,
+    isSuccess,
+    dirty,
+    successButtonLabel,
+    maintenance,
+    lang
+  } = props
   const { hasDescriptions, editor } = connector
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
@@ -117,7 +113,6 @@ export const KonnectorInstall = ({
             folderId={trigger && trigger.message.folder_to_save}
             isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
-            onNext={onNext}
             onCancel={onCancel}
             success={success}
             title={successMessage}

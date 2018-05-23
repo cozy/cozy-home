@@ -1,28 +1,26 @@
 import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
-
-import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 import { NavLink } from 'react-router-dom'
+import classNames from 'classnames'
 
 import DescriptionContent from './DescriptionContent'
 
-export const KonnectorSuccess = ({
-  t,
-  connector,
-  isRunningInQueue,
-  onBack,
-  account,
-  error,
-  folderId,
-  onCancel,
-  onNext,
-  driveUrl,
-  title,
-  messages,
-  successButtonLabel
-}) => {
+export const KonnectorSuccess = props => {
+  const {
+    t,
+    connector,
+    isRunningInQueue,
+    onBack,
+    account,
+    error,
+    folderId,
+    driveUrl,
+    title,
+    messages,
+    successButtonLabel
+  } = props
   return (
     account && (
       <div>
@@ -30,8 +28,8 @@ export const KonnectorSuccess = ({
           title={!error && title}
           messages={!error && messages}
         >
-          {Array.isArray(connector.data_types) &&
-            connector.data_types.includes('bill') && (
+          {Array.isArray(connector.data_type) &&
+            connector.data_type.includes('bill') && (
               <p>
                 {!error &&
                   t(
@@ -66,13 +64,15 @@ export const KonnectorSuccess = ({
         <div className={styles['coz-form-controls']}>
           <div className={styles['col-account-form-success-buttons']}>
             <p>
-              <Button
-                label={successButtonLabel || t('account.success.button.config')}
-                onClick={onBack}
-                size="full"
-                tag={NavLink}
+              <NavLink
                 to={`/connected/${connector.slug}/accounts/${account._id}`}
-              />
+                onClick={onBack}
+                className={classNames(styles['coz-btn'], 'col-button')}
+              >
+                <span>
+                  {successButtonLabel || t('account.success.button.config')}
+                </span>
+              </NavLink>
             </p>
           </div>
         </div>
