@@ -367,7 +367,6 @@ class AccountConnection extends Component {
             isUnloading={isUnloading}
             lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
-            onCancel={() => this.cancel()}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
@@ -376,7 +375,6 @@ class AccountConnection extends Component {
             isValid={isValid}
             allRequiredFilledButPasswords={allRequiredFilledButPasswords}
             isValidButPasswords={isValidButPasswords}
-            success={success}
             trigger={trigger}
             closeModal={closeModal}
             dirty={dirty}
