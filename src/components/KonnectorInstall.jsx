@@ -28,6 +28,7 @@ export const KonnectorInstall = props => {
     oAuthTerminated,
     onCancel,
     editing,
+    onDone,
     onSubmit,
     submitting,
     success,
@@ -113,6 +114,7 @@ export const KonnectorInstall = props => {
             folderId={trigger && trigger.message.folder_to_save}
             isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
+            onDone={onDone}
             onCancel={onCancel}
             success={success}
             title={successMessage}

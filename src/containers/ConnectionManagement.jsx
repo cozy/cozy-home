@@ -131,6 +131,7 @@ class ConnectionManagement extends Component {
           <AccountConnection
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
+            onDone={this.onDone}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
@@ -158,9 +159,13 @@ class ConnectionManagement extends Component {
     this.gotoParent()
   }
 
-  onBack() {
-    if (this.props.isCreating) {
-      this.props.endCreation()
+  onDone = account => {
+    const { endCreation, isCreating, konnector, history } = this.props
+    if (isCreating) {
+      typeof endCreation === 'function' && endCreation()
+    }
+    if (account) {
+      history.push(`/connected/${konnector.slug}/accounts/${account._id}`)
     }
   }
 
