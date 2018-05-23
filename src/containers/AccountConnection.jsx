@@ -304,7 +304,6 @@ class AccountConnection extends Component {
       displayAccountsCount,
       isUnloading,
       onBack,
-      onNext,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
       displayAdvanced,
@@ -326,8 +325,7 @@ class AccountConnection extends Component {
       trigger,
       success,
       closeModal,
-      successButtonLabel,
-      accountsCount
+      successButtonLabel
     } = this.props
     const {
       account,
@@ -376,7 +374,6 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
-            accountsCount={accountsCount}
             displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
             onBack={onBack}
@@ -385,7 +382,6 @@ class AccountConnection extends Component {
             isValid={isValid}
             dirty={dirty}
             isSuccess={isSuccess}
-            deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error || oAuthError || connectionError}
@@ -393,9 +389,7 @@ class AccountConnection extends Component {
             queued={queued}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
-            onNext={onNext}
             onCancel={() => this.cancel()}
-            onDelete={() => this.deleteConnection()}
             onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
             success={success || queued}
