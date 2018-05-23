@@ -809,6 +809,37 @@
     }
   },
   {
+    "slug": "carrefour159",
+    "name": "Carrefour Banque",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.carrefour-banque.fr",
+    "icon": "carrefourbanque.svg",
+    "categories": ["banking"],
+    "partner": "Linxo",
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "frequency": "daily",
+    "timeInterval": [5.5, 6.5],
+    "hasDescriptions": {
+      "service": true
+    },
+    "loginDelay": 10000,
+    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "parameters": {
+      "bankId": "159"
+    }
+  },
+  {
     "slug": "cdngroup88",
     "name": "Crédit du Nord (Particuliers)",
     "editor": "Cozy Cloud",
