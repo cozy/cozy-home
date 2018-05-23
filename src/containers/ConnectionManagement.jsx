@@ -128,7 +128,6 @@ class ConnectionManagement extends Component {
           <AccountConnection
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
-            onNext={() => this.gotoParent()}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
