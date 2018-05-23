@@ -1,9 +1,8 @@
 import styles from '../styles/konnectorSuccess'
 
 import React from 'react'
+import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
-import { NavLink } from 'react-router-dom'
-import classNames from 'classnames'
 
 import DescriptionContent from './DescriptionContent'
 
@@ -12,13 +11,13 @@ export const KonnectorSuccess = props => {
     t,
     connector,
     isRunningInQueue,
-    onBack,
     account,
     error,
     folderId,
     driveUrl,
     title,
     messages,
+    onDone,
     successButtonLabel
   } = props
   return (
@@ -64,15 +63,12 @@ export const KonnectorSuccess = props => {
         <div className={styles['coz-form-controls']}>
           <div className={styles['col-account-form-success-buttons']}>
             <p>
-              <NavLink
-                to={`/connected/${connector.slug}/accounts/${account._id}`}
-                onClick={onBack}
-                className={classNames(styles['coz-btn'], 'col-button')}
-              >
-                <span>
-                  {successButtonLabel || t('account.success.button.config')}
-                </span>
-              </NavLink>
+              <Button
+                label={successButtonLabel || t('account.success.button.config')}
+                onClick={() => {
+                  onDone(account)
+                }}
+              />
             </p>
           </div>
         </div>
