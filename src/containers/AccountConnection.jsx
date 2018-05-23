@@ -44,15 +44,10 @@ class AccountConnection extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { existingAccount, success } = nextProps
+    const { existingAccount } = nextProps
 
-    const hasJustSucceed = !this.props.success && success
     const accountHasJustBeenCreated =
       !this.props.existingAccount && !!existingAccount
-
-    if (hasJustSucceed && this.props.onSuccess) {
-      this.props.onSuccess(this.state.account)
-    }
 
     if (accountHasJustBeenCreated) {
       this.setState({
@@ -303,7 +298,6 @@ class AccountConnection extends Component {
       disableSuccessTimeout,
       displayAccountsCount,
       isUnloading,
-      onBack,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
       displayAdvanced,
@@ -319,6 +313,7 @@ class AccountConnection extends Component {
       error,
       forceConnection,
       isRunning,
+      onDone,
       queued,
       t,
       trigger,
@@ -376,7 +371,6 @@ class AccountConnection extends Component {
           <KonnectorInstall
             displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
-            onBack={onBack}
             account={createdAccount}
             connector={konnector}
             isValid={isValid}
@@ -389,6 +383,7 @@ class AccountConnection extends Component {
             queued={queued}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
+            onDone={onDone}
             onCancel={() => this.cancel()}
             onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
