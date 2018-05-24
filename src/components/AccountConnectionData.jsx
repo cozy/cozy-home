@@ -6,23 +6,21 @@ import ClassNames from 'classnames'
 import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import DataItem from '../components/DataItem'
 
-const AccountConnectionData = ({ t, connector }) => {
-  const { hasDescriptions } = connector
-  const hasDataTypes = !!(connector.data_types && connector.data_types.length)
+import { getKonnectorMessage } from '../lib/konnectors'
 
+const AccountConnectionData = ({ t, connector }) => {
+  const hasDataTypes = !!(connector.data_types && connector.data_types.length)
+  const serviceMessage = getKonnectorMessage(t, connector, 'service')
   return (
     <div className={ClassNames(styles['col-account-connection-data'])}>
-      {hasDescriptions &&
-        hasDescriptions.service && (
-          <div>
-            <h4>{t('account.config.data.service.description')}</h4>
-            <p>
-              <ReactMarkdownWrapper
-                source={t(`connector.${connector.slug}.description.service`)}
-              />
-            </p>
-          </div>
-        )}
+      {serviceMessage && (
+        <div>
+          <h4>{t('account.config.data.service.description')}</h4>
+          <p>
+            <ReactMarkdownWrapper source={serviceMessage} />
+          </p>
+        </div>
+      )}
       <h4>{t('account.config.data.title')}</h4>
       {hasDataTypes && (
         <ul className={styles['col-account-connection-data-access']}>
