@@ -22,6 +22,7 @@ export const receiveInstalledKonnector = konnector => {
   }
 
   return {
+    doctype: DOCTYPE,
     type: 'RECEIVE_NEW_DOCUMENT',
     response: { data: [normalized] },
     updateCollections: ['konnectors']

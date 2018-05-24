@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // store
   const store = configureStore(client, context, {
+    lang,
     ...collectConfig
   })
 
