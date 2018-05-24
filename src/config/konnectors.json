@@ -76,7 +76,7 @@
       }
     },
     "testing": true,
-    "source": "git://github.com/konnectors/auchandrive.git#latest"
+    "source": "registry://auchandrive/stable"
   },
   {
     "slug": "axabanque102",
