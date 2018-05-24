@@ -19,7 +19,7 @@ export const DescriptionContent = ({
       {messages &&
         messages.length > 0 &&
         messages.map(m => {
-          return (
+          return m ? (
             <p
               className={classNames(
                 styles['col-account-description-message'],
@@ -28,7 +28,7 @@ export const DescriptionContent = ({
             >
               <ReactMarkdownWrapper source={m} />
             </p>
-          )
+          ) : null
         })}
       {children}
     </div>
