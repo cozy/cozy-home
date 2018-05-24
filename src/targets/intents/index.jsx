@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, context)
+  const store = configureStore(client, context, { lang })
 
   render(
     <CozyProvider store={store} client={client}>

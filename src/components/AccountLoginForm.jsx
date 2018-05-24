@@ -35,6 +35,16 @@ const hydrateFieldValue = {
 
 const identity = x => x
 
+const FieldDescription = props => {
+  const { field, konnectorSlug, t } = props
+  const hasLegacyDescription = field.hasDescription
+  const descriptionKey = hasLegacyDescription
+    ? `connector.${konnectorSlug}.description.field.${field.name}`
+    : `${konnectorSlug}.${field.description}`
+  if (!descriptionKey) return null
+  return <ReactMarkdownWrapper source={t(descriptionKey)} />
+}
+
 export class AccountLoginForm extends React.Component {
   state = {
     submitEnabled: this.props.isOAuth || false
@@ -130,11 +140,7 @@ export class AccountLoginForm extends React.Component {
       }
       return (
         <div>
-          {field.hasDescription && (
-            <ReactMarkdownWrapper
-              source={t(`connector.${connectorSlug}.description.field.${name}`)}
-            />
-          )}
+          <FieldDescription field={field} konnectorSlug={connectorSlug} t={t} />
           {React.cloneElement(renderers[type](this.props), attributes)}
         </div>
       )

@@ -92,3 +92,25 @@ export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
 
   return tested.length ? fullKey : getKey('UNKNOWN_ERROR')
 }
+
+const legacyMessages = {
+  terms: 'connector'
+}
+
+export const getKonnectorMessage = (t, konnector, message) => {
+  const { messages, hasDescriptions } = konnector
+
+  const providesMessage =
+    messages && messages.length && messages.includes(message)
+  if (providesMessage) return t(`${konnector.slug}.messages.${message}`)
+
+  const providesLegacyMessage =
+    hasDescriptions && hasDescriptions[legacyMessages[message] || message]
+  if (providesLegacyMessage)
+    return t(
+      `connector.${konnector.slug}.description.${legacyMessages[message] ||
+        message}`
+    )
+
+  return null
+}

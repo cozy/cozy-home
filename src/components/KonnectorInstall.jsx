@@ -8,7 +8,7 @@ import DescriptionContent from './DescriptionContent'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 
-import { isKonnectorLoginError } from '../lib/konnectors'
+import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
 import ErrorDescription from './ErrorDescriptions'
 
 import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
@@ -46,7 +46,7 @@ export const KonnectorInstall = props => {
     maintenance,
     lang
   } = props
-  const { hasDescriptions, editor } = connector
+  const { editor } = connector
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
   const isRunningInQueue = queued && submitting
@@ -61,11 +61,7 @@ export const KonnectorInstall = props => {
           !maintenance && (
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
-              messages={
-                hasDescriptions && hasDescriptions.connector
-                  ? [t(`connector.${connector.slug}.description.connector`)]
-                  : []
-              }
+              messages={[getKonnectorMessage(t, connector, 'terms')]}
             >
               {!connector.oauth &&
                 !error && (
