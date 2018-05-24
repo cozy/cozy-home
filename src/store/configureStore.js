@@ -1,6 +1,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import { cozyMiddleware } from 'redux-cozy-client'
 import { createLogger } from 'redux-logger'
+import konnectorsI18nMiddleware from '../lib/middlewares/konnectorsI18n'
 import thunkMiddleware from 'redux-thunk'
 
 import CollectStore from '../lib/CollectStore'
@@ -15,6 +16,7 @@ const configureStore = (client, context, options = {}) => {
     composeEnhancers(
       applyMiddleware.apply(this, [
         cozyMiddleware(client),
+        konnectorsI18nMiddleware(options.lang),
         thunkMiddleware,
         createLogger()
       ])
