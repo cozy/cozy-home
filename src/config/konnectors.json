@@ -2107,8 +2107,7 @@
         }
       }
     },
-    "testing": true,
-    "source": "git://github.com/konnectors/cozy-konnector-echeancier-maif.git#latest"
+    "source": "registry://maifecheancier/stable"
   },
   {
     "slug": "malakoffmederic",
