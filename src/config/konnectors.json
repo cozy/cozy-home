@@ -23,7 +23,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/lucca.git#latest"
+    "source": "registry://lucca/stable"
   },
   {
     "slug": "ameli",
@@ -2033,7 +2033,7 @@
     "dataType": [
       "bill"
     ],
-    "source": "git://github.com/konnectors/ldlc.git#latest"
+    "source": "registry://ldlc/stable"
   },
   {
     "slug": "leclercdrive",
@@ -2059,7 +2059,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/leclercdrive.git#latest"
+    "source": "registry://leclercdrive/stable"
   },
   {
     "oauth": true,
@@ -2300,7 +2300,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/netflix.git#latest"
+    "source": "registry://netflix/stable"
   },
   {
     "slug": "numericable",
@@ -2350,7 +2350,7 @@
         }
       }
     },
-    "source": "git://github.com/konnectors/cozy-konnector-orange.git#latest",
+    "source": "registry://orange/stable",
     "timeInterval": [15, 21]
   },
   {
