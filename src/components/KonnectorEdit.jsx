@@ -12,7 +12,7 @@ import KonnectorFolder from './KonnectorFolder'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSync from './KonnectorSync'
 
-import { isKonnectorLoginError } from '../lib/konnectors'
+import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
 import { getAccountName } from '../lib/helpers'
 import ErrorDescription from './ErrorDescriptions'
 
@@ -55,7 +55,7 @@ export const KonnectorEdit = props => {
   )
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
-  const { hasDescriptions, editor } = connector
+  const { editor } = connector
   // assign accountName placeholder
   if (fields.accountName)
     fields.accountName.placeholder = getAccountName(account)
@@ -123,11 +123,7 @@ export const KonnectorEdit = props => {
           >
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
-              messages={
-                hasDescriptions && hasDescriptions.connector
-                  ? [t(`connector.${connector.slug}.description.connector`)]
-                  : []
-              }
+              messages={[getKonnectorMessage(t, connector, 'terms')]}
             />
 
             {
