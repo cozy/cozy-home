@@ -1,5 +1,32 @@
 [
   {
+    "slug": "scaleway",
+    "name": "Scaleway",
+    "icon": "icon.svg",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.scaleway.com/",
+    "categories": ["host_provider"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "registry://scaleway/stable"
+  },
+  {
     "slug": "autolib",
     "name": "Autolib",
     "icon": "autolib.svg",
