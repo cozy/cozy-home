@@ -787,6 +787,33 @@
     }
   },
   {
+    "slug": "digitick",
+    "name": "Digitick",
+    "icon": "icon.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.digitick.com/",
+    "categories": ["others"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "tel"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "testing": true,
+    "source": "registry://digitick/stable"
+  },
+  {
     "name": "Bank Categorization",
     "slug": "bankcategorization",
     "editor": "Cozy Cloud",
