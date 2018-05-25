@@ -58,7 +58,8 @@ class App extends Component {
                   />
                 )}
               />
-              <Route path="/providers" component={StoreRedirection} />
+              <Route exact path="/providers" component={StoreRedirection} />
+              <Route path="/providers/:category" component={StoreRedirection} />
               <Redirect exact from="/" to="/connected" />
               <Redirect from="*" to="/connected" />
             </Switch>
