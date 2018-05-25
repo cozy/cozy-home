@@ -10,6 +10,7 @@ import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import InstalledKonnectors from '../components/InstalledKonnectors'
+import StoreRedirection from '../components/StoreRedirection'
 
 class App extends Component {
   constructor(props, context) {
@@ -57,7 +58,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Redirect exact from="/providers" to="/providers/all" />
+              <Route path="/providers" component={StoreRedirection} />
               <Redirect exact from="/" to="/connected" />
               <Redirect from="*" to="/connected" />
             </Switch>
