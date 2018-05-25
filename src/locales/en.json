@@ -35,6 +35,8 @@
         "firstname": "Firstname",
         "lastname": "Lastname",
         "login": "Login",
+        "consumerKey": "Consumer Key",
+        "consumerSecret": "Consumer Secret",
         "dob": "Date of birth",
         "password": "Password",
         "email": "Email",
