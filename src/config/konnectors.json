@@ -2740,5 +2740,45 @@
       "consumption"
     ],
     "source": "registry://vinciautoroute/stable"
+  },
+  {
+    "slug": "paybyphone",
+    "name": "PayByPhone",
+    "editor": "Cozy Cloud",
+    "icon": "paybyphone.png",
+    "vendorLink": "https://m2.paybyphone.fr/login",
+    "categories": ["transport"],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "registry://paybyphone/stable"
+  },
+  {
+    "slug": "splitwise",
+    "name": "Splitwise",
+    "editor": "Cozy Cloud",
+    "icon": "splitwise.png",
+    "vendorLink": "https://www.splitwise.com",
+    "categories": ["other"],
+    "fields": {
+      "consumerKey": {
+        "type": "text"
+      },
+      "consumerSecret": {
+        "type": "password"
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "registry://splitwise/stable"
   }
 ]
