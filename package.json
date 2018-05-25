@@ -73,7 +73,7 @@
     "lint-staged": "4.3.0",
     "lodash": "4.17.10",
     "piwik-react-router": "0.12.1",
-    "preact": "8.2.7",
+    "preact": "8.2.9",
     "preact-compat": "3.18.0",
     "prettier": "1.11.1",
     "react-markdown": "2.5.1",
