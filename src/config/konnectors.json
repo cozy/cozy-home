@@ -2165,6 +2165,7 @@
   {
     "slug": "mediaprt",
     "name": "Mediapart",
+    "icon": "mediapart.png",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.mediapart.fr/",
     "categories": ["other"],
