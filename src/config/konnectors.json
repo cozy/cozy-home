@@ -2163,6 +2163,31 @@
     "source": "git://github.com/nicofrand/cozy-konnector-materielnet.git#build"
   },
   {
+    "slug": "mediaprt",
+    "name": "Mediapart",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.mediapart.fr/",
+    "categories": ["other"],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "registry://mediapart/stable"
+  },
+  {
     "slug": "mgen",
     "name": "MGEN",
     "editor": "Cozy Cloud",
