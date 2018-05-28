@@ -810,7 +810,6 @@
         }
       }
     },
-    "testing": true,
     "source": "registry://digitick/stable"
   },
   {
