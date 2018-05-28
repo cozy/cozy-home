@@ -2831,5 +2831,31 @@
       "bill"
     ],
     "source": "registry://splitwise/stable"
+  },
+  {
+    "slug": "veoliaeau",
+    "name": "Veolia Eau",
+    "icon": "veoliaeau.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.service.eau.veolia.fr/home.html",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://veoliaeau/stable"
   }
 ]
