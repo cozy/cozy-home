@@ -2188,6 +2188,32 @@
     "source": "registry://malakoffmederic/stable"
   },
   {
+    "slug": "malentille",
+    "name": "Ma lentille",
+    "icon": "malentille.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.malentille.com/authentification",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://malentille/stable"
+  },
+  {
     "slug": "materielnet",
     "name": "Materiel.net",
     "editor": "Cozy Cloud",
