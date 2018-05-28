@@ -1912,6 +1912,31 @@
     }
   },
   {
+    "slug": "justeat",
+    "name": "Just Eat",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.just-eat.fr/",
+    "categories": ["others"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://justeat/stable"
+  },
+  {
     "slug": "labanquepostale44",
     "name": "La Banque Postale (Particuliers)",
     "editor": "Cozy Cloud",
