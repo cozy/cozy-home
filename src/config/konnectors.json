@@ -1,5 +1,31 @@
 [
   {
+    "slug": "scaleway",
+    "name": "Scaleway",
+    "icon": "scaleway.svg",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.scaleway.com/",
+    "categories": ["host_provider"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://scaleway/stable"
+  },
+  {
     "slug": "lucca",
     "name": "Lucca",
     "icon": "lucca.png",
