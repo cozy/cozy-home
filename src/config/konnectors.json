@@ -2,7 +2,7 @@
   {
     "slug": "scaleway",
     "name": "Scaleway",
-    "icon": "icon.svg",
+    "icon": "scaleway.svg",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.scaleway.com/",
     "categories": ["host_provider"],
