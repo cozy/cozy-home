@@ -1615,6 +1615,32 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-edf.git#build"
   },
   {
+    "slug": "edg",
+    "name": "Eaux de Grenoble",
+    "editor": "taratatach",
+    "vendorLink": "https://ael.eauxdegrenoblealpes.fr",
+    "categories": ["energy"],
+    "dataType": [
+      "bill",
+    ],
+    "icon": "edg.png",
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://edg/stable"
+  },
+  {
     "slug": "electricitestrasbourg",
     "name": "ES Strasbourg Électricité",
     "editor": "Cozy Cloud",
