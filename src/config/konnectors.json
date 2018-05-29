@@ -789,7 +789,7 @@
   {
     "slug": "digitick",
     "name": "Digitick",
-    "icon": "icon.png",
+    "icon": "digitick.png",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.digitick.com/",
     "categories": ["others"],
