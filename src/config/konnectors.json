@@ -1806,11 +1806,36 @@
     }
   },
   {
+    "slug": "inulogic",
+    "name": "Inulogic",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.inulogic.fr",
+    "categories": ["other"],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "dataType": [
+      "bill"
+    ],
+    "source": "registry://inulogic/stable"
+  },
+  {
     "slug": "justeat",
     "name": "Just Eat",
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.just-eat.fr/",
-    "categories": ["others"],
+    "categories": ["other"],
     "dataType": [
       "bill"
     ],
