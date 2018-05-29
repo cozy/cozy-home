@@ -800,6 +800,32 @@
     "source": "git://github.com/konnectors/cozy-konnector-bank-categorization.git#latest"
   },
   {
+    "slug": "cdiscount",
+    "name": "Cdiscount",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://clients.cdiscount.com/Account/Login.html",
+    "categories": ["shopping"],
+    "icon": "cdiscount.png",
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "email": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://cdiscount/stable"
+  },
+  {
     "slug": "cdngroup109",
     "name": "Société Marseillaise de Crédit (Particuliers)",
     "editor": "Cozy Cloud",
