@@ -3077,8 +3077,8 @@
       "bill"
     ],
     "fields": {
-      "login": {
-        "type": "text"
+      "email": {
+        "type": "email"
       },
       "password": {
         "type": "password"
