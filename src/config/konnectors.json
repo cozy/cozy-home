@@ -1785,6 +1785,32 @@
     "source": "registry://harmonie/stable"
   },
   {
+    "slug": "helloasso",
+    "name": "Helloasso",
+    "icon": "helloasso.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.helloasso.com",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://helloasso/stable"
+  },
+  {
     "slug": "hellobank145",
     "name": "Hello bank!",
     "editor": "Cozy Cloud",
