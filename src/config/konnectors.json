@@ -1,5 +1,31 @@
 [
   {
+    "slug": "autolib",
+    "name": "Autolib",
+    "icon": "autolib.svg",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.autolib.eu",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://autolib/stable"
+  },
+  {
     "slug": "lucca",
     "name": "Lucca",
     "icon": "lucca.png",
@@ -2908,5 +2934,31 @@
       }
     },
     "source": "registry://veoliaeau/stable"
+  },
+  {
+    "slug": "zooplus",
+    "name": "Zooplus",
+    "icon": "zooplus.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://www.zooplus.fr/",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://zooplus/stable"
   }
 ]
