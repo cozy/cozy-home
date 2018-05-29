@@ -2099,6 +2099,42 @@
     }
   },
   {
+    "slug": "lcl-linxo",
+    "name": "LCL",
+    "categories": ["banking"],
+    "dataType": [
+      "bankAccounts",
+      "bankTransactions"
+    ],
+    "fields": {
+      "bankId": {
+        "type": "dropdown",
+        "label": "branchName",
+        "options": [
+          {
+            "name": "LCL (Particuliers)",
+            "value": "143"
+          },
+          {
+            "name": "e.LCL",
+            "value": "144"
+          },
+          {
+            "name": "LCL (Professionnels)",
+            "value": "146"
+          }
+        ]
+      },
+      "new_identifier": {
+        "type": "text"
+      },
+      "secret": {
+        "type": "password"
+      }
+    },
+    "icon": "lcl.png"
+  },
+  {
     "slug": "lcl143",
     "name": "LCL (Particuliers)",
     "editor": "Cozy Cloud",
