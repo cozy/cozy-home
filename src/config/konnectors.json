@@ -1811,6 +1811,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.inulogic.fr",
     "categories": ["other"],
+    "icon": "inulogic.png",
     "fields": {
       "login": {
         "type": "email"
@@ -1836,6 +1837,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.just-eat.fr/",
     "categories": ["other"],
+    "icon": "justeat.png",
     "dataType": [
       "bill"
     ],
