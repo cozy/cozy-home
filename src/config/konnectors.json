@@ -813,6 +813,35 @@
     }
   },
   {
+    "slug": "cge-ipx800-v4",
+    "name": "CGE-IPX800-V4",
+    "editor": "Cozy Cloud",
+    "vendorLink": "http://gce-electronics.com/fr/",
+    "categories": ["other"],
+    "icon": "cgeipx800v4.png",
+    "dataType": [
+      "documents"
+    ],
+    "fields": {
+      "url": {
+        "type": "text"
+      },
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://cge-ipx800-v4/stable"
+  },
+  {
     "slug": "digitick",
     "name": "Digitick",
     "icon": "digitick.png",
