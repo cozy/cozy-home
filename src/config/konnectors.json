@@ -820,10 +820,10 @@
     "categories": ["other"],
     "icon": "cgeipx800v4.png",
     "dataType": [
-      "documents"
+      "document"
     ],
     "fields": {
-      "url": {
+      "loginUrl": {
         "type": "text"
       },
       "login": {
