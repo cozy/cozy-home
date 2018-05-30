@@ -124,6 +124,7 @@ class ConnectionManagement extends Component {
               <NavLink
                 to={backRoute || getBackRoute(connections)}
                 className={styles['col-account-connection-back']}
+                onClick={this.onDone}
               >
                 <Icon icon={backIcon} />
               </NavLink>
