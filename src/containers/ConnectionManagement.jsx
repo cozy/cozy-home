@@ -36,26 +36,23 @@ class ConnectionManagement extends Component {
     super(props, context)
     this.store = this.context.store
 
+    const account = props.existingAccount || props.createdAccount
+
     // Set values
-    const values =
-      (props.existingAccount &&
-        Object.assign({}, props.existingAccount.auth)) ||
-      {}
+    const values = (account && Object.assign({}, account.auth)) || {}
     // Split the actual folderPath account to get namePath & folderPath values
-    if (props.existingAccount && values.folderPath) {
-      values.folderPath = props.existingAccount.auth.folderPath.substring(
+    if (account && values.folderPath) {
+      values.folderPath = account.auth.folderPath.substring(
         0,
-        props.existingAccount.auth.folderPath.lastIndexOf('/')
+        account.auth.folderPath.lastIndexOf('/')
       )
-      values.namePath = props.existingAccount.auth.namePath
+      values.namePath = account.auth.namePath
     } else if (
-      (!props.existingAccount &&
+      (!account &&
         props.konnector.fields &&
         props.konnector.fields.advancedFields &&
         props.konnector.fields.advancedFields.folderPath) ||
-      (!props.existingAccount &&
-        props.konnector.fields &&
-        props.konnector.folderPath)
+      (!account && props.konnector.fields && props.konnector.folderPath)
     ) {
       values.folderPath = this.context.t('account.config.default_folder', {
         name: props.konnector.name
