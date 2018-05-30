@@ -37,6 +37,7 @@
         "login": "Login",
         "consumerKey": "Consumer Key",
         "consumerSecret": "Consumer Secret",
+        "tricountUrl": "Tricount URL",
         "dob": "Date of birth",
         "password": "Password",
         "email": "Email",

@@ -3039,6 +3039,23 @@
     "source": "registry://trainline/stable"
   },
   {
+    "slug": "tricount",
+    "name": "Tricount",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.tricount.com/fr/",
+    "categories": ["other"],
+    "fields": {
+      "tricountUrl": {
+        "type": "text"
+      }
+    },
+    "dataType": [
+      "refund"
+    ],
+    "source": "registry://tricount/stable",
+    "testing": "true"
+  },
+  {
     "slug": "vinciautoroute",
     "name": "Vinci autoroute télépéage",
     "editor": "Cozy Cloud",
@@ -3101,8 +3118,9 @@
       }
     },
     "dataType": [
-      "bill"
+      "refund"
     ],
+    "testing": "true",
     "source": "registry://splitwise/stable"
   },
   {
