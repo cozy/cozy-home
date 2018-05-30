@@ -120,14 +120,21 @@ export class AccountLoginForm extends React.Component {
       const giveFocus = !alreadyFocused && !disabled
       if (giveFocus) alreadyFocused = giveFocus
 
+      const readonly =
+        submitting &&
+        !disableSuccessTimeout &&
+        (editing || !isOAuth || oAuthTerminated)
+
       // Build common fields
       const hydrate = hydrateFieldValue[name] || identity
       const attributes = {
         ...field, // TODO be more restrictive on what comes in
+        disabled: readonly,
         invalid: !!error,
         onEnterKey,
         giveFocus,
         label: t(`account.form.label.${label || name}`),
+        readonly: readonly,
         value: isUnloading ? '' : hydrate(value),
         placeholder: fieldPlaceholder
       }
