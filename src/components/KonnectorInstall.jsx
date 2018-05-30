@@ -22,7 +22,6 @@ export const KonnectorInstall = props => {
     driveUrl,
     error,
     fields,
-    onBack,
     queued,
     isUnloading,
     oAuthTerminated,
@@ -104,7 +103,6 @@ export const KonnectorInstall = props => {
           <KonnectorSuccess
             connector={connector}
             error={error}
-            onBack={onBack}
             account={account}
             driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
