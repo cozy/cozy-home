@@ -117,7 +117,7 @@ export class AccountLoginForm extends React.Component {
       submitEnabled
     const onEnterKey = canHandleEnterKey && onSubmit
 
-    const renderField = field => {
+    const renderField = konnectorSlug => field => {
       const { name, label, type, value, placeholder } = field
       if (!renderers[type]) {
         console.warn && console.warn('Unknown field type ' + type)
@@ -142,7 +142,9 @@ export class AccountLoginForm extends React.Component {
         invalid: !!error,
         onEnterKey,
         giveFocus,
-        label: t(`account.form.label.${label || name}`),
+        label: t(`${konnectorSlug}.fields.${field.name}.label`, {
+          _: t(`account.form.label.${label || name}`)
+        }),
         readonly: readonly,
         value: isUnloading ? '' : hydrate(value),
         placeholder: placeholder
@@ -167,7 +169,7 @@ export class AccountLoginForm extends React.Component {
         {!!editableFields &&
           !!editableFields.length && (
             <fieldset className={styles['account-form-fieldset']}>
-              {editableFields.map(renderField)}
+              {editableFields.map(renderField(connectorSlug))}
             </fieldset>
           )}
         {editing &&
@@ -187,7 +189,7 @@ export class AccountLoginForm extends React.Component {
           !!advancedFields &&
           !!advancedFields.length && (
             <fieldset className={styles['account-form-fieldset']}>
-              {advancedFields.map(renderField)}
+              {advancedFields.map(renderField(connectorSlug))}
             </fieldset>
           )}
 
