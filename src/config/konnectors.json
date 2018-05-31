@@ -2625,6 +2625,32 @@
     "source": "registry://numericable/stable"
   },
   {
+    "slug": "o2",
+    "name": "O2",
+    "icon": "o2.svg",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://client.o2.fr/connexion/",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://o2/stable"
+  },
+  {
     "slug": "orange",
     "name": "Orange Factures",
     "editor": "Cozy Cloud",
