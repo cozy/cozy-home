@@ -891,7 +891,7 @@
       "bill"
     ],
     "fields": {
-      "email": {
+      "login": {
         "type": "text"
       },
       "password": {
