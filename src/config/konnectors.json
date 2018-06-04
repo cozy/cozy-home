@@ -2453,6 +2453,31 @@
     "source": "git://github.com/konnectors/monoprix.git#latest"
   },
   {
+    "slug": "msf",
+    "name": "Médecins sans frontières",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://don.msf.fr/donateur/index.php",
+    "categories": ["other"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "text"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://msf/stable"
+  },
+  {
     "slug": "nef",
     "name": "La Nef",
     "editor": "Jeremy Carrier",
