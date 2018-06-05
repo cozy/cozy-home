@@ -47,7 +47,9 @@ const mapStateToProps = (state, ownProps) => {
     connectors: getRegistryKonnectorsByCategory(
       state.registry,
       filter !== 'all' && filter
-    )
+    ).sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+    })
   }
 }
 
