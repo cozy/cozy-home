@@ -2534,7 +2534,7 @@
     "editor": "Cozy Cloud",
     "vendorLink": "https://www.netflix.com/login",
     "categories": ["other"],
-    "data_types": [
+    "dataType": [
       "bill",
       "activity",
       "video_stream"
