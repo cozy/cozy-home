@@ -130,7 +130,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://axabanque102/stable",
     "parameters": {
       "bankId": "102"
     }
@@ -227,7 +227,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+    "source": "registry://banquepopulaire/stable"
   },
   {
     "slug": "barclays136",
@@ -258,7 +258,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://barclays136/stable",
     "parameters": {
       "bankId": "136"
     }
@@ -292,7 +292,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://bforbank97/stable",
     "parameters": {
       "bankId": "97"
     }
@@ -374,7 +374,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://bnpparibas82/stable",
     "parameters": {
       "bankId": "82"
     }
@@ -456,7 +456,7 @@
     "hasDescriptions": {
       "service": true
     },
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://boursorama83/stable",
     "parameters": {
       "bankId": "83"
     }
@@ -559,7 +559,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+    "source": "registry://bred/stable"
   },
   {
     "slug": "caatlantica3",
@@ -748,7 +748,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+    "source": "registry://caatlantica3/stable"
   },
   {
     "slug": "caissedepargne1",
@@ -776,7 +776,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://caissedepargne1/stable",
     "parameters": {
       "bankId": "1"
     }
@@ -807,7 +807,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://casden173/stable",
     "parameters": {
       "bankId": "173"
     }
@@ -932,7 +932,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://cdngroup109/stable",
     "parameters": {
       "bankId": "109"
     }
@@ -963,7 +963,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://carrefour159/stable",
     "parameters": {
       "bankId": "159"
     }
@@ -998,7 +998,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://cdngroup88/stable",
     "parameters": {
       "bankId": "88"
     }
@@ -1137,7 +1137,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://cic45/stable",
     "parameters": {
       "bankId": "45"
     }
@@ -1168,7 +1168,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://cic63/stable",
     "parameters": {
       "bankId": "63"
     }
@@ -1199,7 +1199,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://comptenickel168/stable",
     "parameters": {
       "bankId": "168"
     }
@@ -1424,7 +1424,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://creditcooperatif148/stable",
     "parameters": {
       "bankId": "148"
     }
@@ -1481,7 +1481,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+    "source": "registry://creditmaritime/stable"
   },
   {
     "slug": "darty",
@@ -1764,7 +1764,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://fortuneo84/stable",
     "parameters": {
       "bankId": "84"
     }
@@ -1943,7 +1943,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://hellobank145/stable",
     "parameters": {
       "bankId": "145"
     }
@@ -1978,7 +1978,7 @@
       "connector": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://hsbc119/stable",
     "parameters": {
       "bankId": "119"
     }
@@ -2039,7 +2039,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://ingdirect95/stable",
     "parameters": {
       "bankId": "95"
     }
@@ -2122,7 +2122,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://labanquepostale44/stable",
     "parameters": {
       "bankId": "44"
     }
@@ -2421,7 +2421,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest",
+    "source": "registry://monabanq96/stable",
     "parameters": {
       "bankId": "96"
     }
@@ -2920,7 +2920,7 @@
       "service": true
     },
     "loginDelay": 10000,
-    "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
+    "source": "registry://societegenerale/stable"
   },
   {
     "slug": "sosh",
