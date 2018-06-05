@@ -1484,6 +1484,32 @@
     "source": "git+ssh://git@gitlab.cozycloud.cc/labs/cozy-konnector-linxo.git#latest"
   },
   {
+    "slug": "cultura",
+    "name": "Cultura",
+    "icon": "cultura.png",
+    "editor": "Cozy Cloud",
+    "vendorLink": "https://www.cultura.com",
+    "categories": ["shopping"],
+    "dataType": [
+      "bill"
+    ],
+    "fields": {
+      "login": {
+        "type": "email"
+      },
+      "password": {
+        "type": "password"
+      },
+      "advancedFields": {
+        "folderPath": {
+          "advanced": true,
+          "isRequired": false
+        }
+      }
+    },
+    "source": "registry://cultura/stable"
+  },
+  {
     "slug": "darty",
     "name": "Darty",
     "editor": "Cozy Cloud",
