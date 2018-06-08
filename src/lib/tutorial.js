@@ -1,6 +1,5 @@
 import { introJs } from 'intro.js'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
-require('../../node_modules/intro.js/minified/introjs.min.css')
 
 export function isTutorial() {
   return window.location.pathname.endsWith('/intro')
