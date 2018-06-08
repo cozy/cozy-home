@@ -1,6 +1,6 @@
 {
   "name": "cozy-collect",
-  "version": "1.0.6",
+  "version": "1.0.12",
   "main": "src/index.jsx",
   "scripts": {
     "build": "npm run build:browser",
@@ -65,7 +65,7 @@
     "eslint-plugin-node": "6.0.1",
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-promise": "3.8.0",
-    "eslint-plugin-react": "7.8.2",
+    "eslint-plugin-react": "7.9.1",
     "eslint-plugin-standard": "3.1.0",
     "expose-loader": "0.7.5",
     "husky": "0.14.3",
