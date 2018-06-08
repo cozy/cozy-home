@@ -11,6 +11,7 @@ import PiwikHashRouter from 'lib/PiwikHashRouter'
 import collectConfig from 'config/collect'
 import configureStore from 'store/configureStore'
 
+import 'intro.js/minified/introjs.min.css'
 import 'styles/index.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
