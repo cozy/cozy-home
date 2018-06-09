@@ -315,6 +315,7 @@ class AccountConnection extends Component {
       fields,
       isSuccess,
       deleting,
+      editing,
       konnector,
       lastSuccess,
       error,
@@ -331,7 +332,6 @@ class AccountConnection extends Component {
     const {
       account,
       connectionError,
-      editing,
       oAuthError,
       oAuthTerminated,
       submitting,
