@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Icon, Empty } from 'cozy-ui/react'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Switch, withRouter, Redirect } from 'react-router-dom'
 import { getConnectedKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
@@ -72,34 +72,34 @@ class ConnectedList extends Component {
             </NavLink>
           </Empty>
         )}
-        <Route
-          path="/connected/:konnectorSlug/"
-          render={props => <AccountPicker {...props} />}
-        />
-        <Route
-          path="/connected/:konnectorSlug/new"
-          render={props => (
-            <ConnectionManagement
-              backRoute={`/connected/${
-                props.match.params.konnectorSlug
-              }/accounts`}
-              originPath="/connected"
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path="/connected/:konnectorSlug/accounts/:accountId"
-          render={props => (
-            <ConnectionManagement
-              backRoute={`/connected/${
-                props.match.params.konnectorSlug
-              }/accounts`}
-              originPath="/connected"
-              {...props}
-            />
-          )}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/connected/:konnectorSlug"
+            component={AccountPicker}
+          />
+          <Route
+            path="/connected/:konnectorSlug/new"
+            render={props => (
+              <ConnectionManagement
+                backRoute={`/connected/${props.match.params.konnectorSlug}`}
+                originPath="/connected"
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/connected/:konnectorSlug/accounts/:accountId"
+            render={props => (
+              <ConnectionManagement
+                backRoute={`/connected/${props.match.params.konnectorSlug}`}
+                originPath="/connected"
+                {...props}
+              />
+            )}
+          />
+          <Redirect from="/connected/*" to="/connected" />
+        </Switch>
       </div>
     )
   }
@@ -114,4 +114,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(ConnectedList))
+export default withRouter(connect(mapStateToProps)(translate()(ConnectedList)))

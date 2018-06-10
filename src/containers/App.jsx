@@ -56,10 +56,9 @@ class App extends Component {
             <Switch>
               <Route
                 path="/connected"
-                component={props => (
+                render={props => (
                   <ConnectedList
-                    {...props}
-                    base="/connected"
+                    connectedKonnectors={props.connectedKonnectors}
                     wrapper={this.contentWrapper}
                   />
                 )}
