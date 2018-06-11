@@ -6,7 +6,6 @@ describe('Trigger Duck', () => {
   const konnector = { slug: 'test' }
 
   const options = {
-    frequency: 'weekly',
     day: 1,
     hours: 14,
     minutes: 15

@@ -49,14 +49,14 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
     frequency: parseFrequency(konnector.frequency)
   }
 
-  if (frequencyOptions.frequency === 'daily') {
+  if (frequencyOptions.frequency === DAILY_FREQUENCY) {
     return {
       ...frequencyOptions,
       hours
     }
   }
 
-  if (frequencyOptions.frequency === 'weekly') {
+  if (frequencyOptions.frequency === WEEKLY_FREQUENCY) {
     return {
       ...frequencyOptions,
       hours,
