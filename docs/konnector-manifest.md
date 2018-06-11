@@ -14,9 +14,7 @@
 
 # Konnector manifest
 
-This document describes the next version of konnector's manifest. As we will migrating the konnectors to a registry, we need a place to unify all the informations about konnectors. At this time, this information is splitted in two places : the actual konnector's manifest, which is not actually used, and the Cozy-Collect [konnector's configuration file](https://github.com/cozy/cozy-collect/blob/master/src/config/konnectors.json), which contains the actual usable data.
-
-We aim to be able to use and install konnectors the same way we are proceeding with apps and registry. See [this document](https://gist.github.com/CPatchane/1eb3324bb90285b49034835f2de951a0#publish-your-application-on-the-registry) for more details.
+This document describes version 2 of konnector's manifest. We aim to be able to use and install konnectors the same way we are proceeding with apps and registry. See [this document](https://gist.github.com/CPatchane/1eb3324bb90285b49034835f2de951a0#publish-your-application-on-the-registry) for more details.
 
 ## Manifest details
 Every konnector must provide a `manifest.konnector`. A konnector manifest is a JSON file formatted in `snake_case` (like app manifests and JSON documents used in [`cozy-stack`](https://github.com/cozy/cozy-stack)) which provides the same information as an app manifest.
