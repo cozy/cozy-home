@@ -98,11 +98,20 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const { backRoute, createdAccount, existingAccount, konnector } = this.props
+    const {
+      connections,
+      createdAccount,
+      existingAccount,
+      konnector
+    } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
     const { isClosing, values } = this.state
+
+    const backRoute = connections.length
+      ? `/connected/${konnector.slug}`
+      : '/connected'
 
     return (
       <Modal
