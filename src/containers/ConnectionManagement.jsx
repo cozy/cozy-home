@@ -98,14 +98,7 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const {
-      backRoute,
-      connections,
-      createdAccount,
-      existingAccount,
-      getBackRoute,
-      konnector
-    } = this.props
+    const { backRoute, createdAccount, existingAccount, konnector } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
@@ -120,9 +113,9 @@ class ConnectionManagement extends Component {
       >
         <ModalHeader>
           <div className={styles['col-account-connection-header']}>
-            {(backRoute || getBackRoute) && (
+            {backRoute && (
               <NavLink
-                to={backRoute || getBackRoute(connections)}
+                to={backRoute}
                 className={styles['col-account-connection-back']}
                 onClick={this.onDone}
               >
