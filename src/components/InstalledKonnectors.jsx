@@ -77,21 +77,13 @@ class InstalledKonnectors extends Component {
           <Route
             path="/connected/:konnectorSlug/new"
             render={props => (
-              <ConnectionManagement
-                backRoute={`/connected/${props.match.params.konnectorSlug}`}
-                originPath="/connected"
-                {...props}
-              />
+              <ConnectionManagement originPath="/connected" {...props} />
             )}
           />
           <Route
             path="/connected/:konnectorSlug/accounts/:accountId"
             render={props => (
-              <ConnectionManagement
-                backRoute={`/connected/${props.match.params.konnectorSlug}`}
-                originPath="/connected"
-                {...props}
-              />
+              <ConnectionManagement originPath="/connected" {...props} />
             )}
           />
           <Redirect from="/connected/*" to="/connected" />
