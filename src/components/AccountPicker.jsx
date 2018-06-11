@@ -6,16 +6,17 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
 import { getConnectionsByKonnector } from '../reducers'
-import { getRegistryKonnector } from '../ducks/registry'
+import { getKonnector } from '../ducks/konnectors'
 
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
 import AccountPickerItem from './AccountPickerItem'
 import KonnectorHeaderIcon from './KonnectorHeaderIcon'
-
 import addAccountIcon from '../assets/icons/icon-plus.svg'
+
+import backIcon from '../assets/sprites/icon-arrow-left.svg'
 
 export const AccountPicker = ({
   t,
@@ -25,10 +26,17 @@ export const AccountPicker = ({
   match
 }) => {
   const { konnectorSlug } = match.params
+  if (!connections.length)
+    return <Redirect to={`/connected/${konnector.slug}/new`} />
   return (
-    <Modal dismissAction={() => history.push('/connected')}>
+    <Modal dismissAction={() => history.push('/connected')} mobileFullscreen>
       <ModalHeader>
-        <KonnectorHeaderIcon konnector={konnector} />
+        <div className="col-account-connection-header">
+          <NavLink to="/connected" className="col-account-connection-back">
+            <Icon icon={backIcon} />
+          </NavLink>
+          <KonnectorHeaderIcon konnector={konnector} />
+        </div>
       </ModalHeader>
       <ModalContent>
         <ul className={styles[classNames('col-account-picker')]}>
@@ -50,7 +58,7 @@ export const AccountPicker = ({
             >
               <span>
                 <Icon icon={addAccountIcon} />
-                <span>{t('add_account')}</span>
+                <span>{t('account_picker.add_account_button.label')}</span>
               </span>
             </NavLink>
           </li>
@@ -64,7 +72,7 @@ const mapStateToProps = (state, ownProps) => {
   const { konnectorSlug } = ownProps.match.params
   return {
     connections: getConnectionsByKonnector(state, konnectorSlug),
-    konnector: getRegistryKonnector(state.registry, konnectorSlug)
+    konnector: getKonnector(state.cozy, konnectorSlug)
   }
 }
 

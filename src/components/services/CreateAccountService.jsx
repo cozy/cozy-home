@@ -2,7 +2,6 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
 import AccountConnection from '../../containers/AccountConnection'
-import KonnectorHeaderIcon from '../../components/KonnectorHeaderIcon'
 
 import { connect } from 'react-redux'
 
@@ -12,7 +11,6 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from '../../ducks/connections'
-import { isFetchingRegistryKonnector } from '../../ducks/registry'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount
@@ -40,7 +38,7 @@ class CreateAccountService extends React.Component {
     this.props.startCreation(this.props.konnector)
   }
 
-  onSuccess(account) {
+  onSuccess = account => {
     this.props.endCreation()
     this.props.onSuccess(account)
   }
@@ -50,12 +48,9 @@ class CreateAccountService extends React.Component {
     const { values } = this.state
     return (
       <div className="coz-service-content">
-        <header className="coz-service-content-header">
-          <KonnectorHeaderIcon konnector={konnector} />
-        </header>
         <AccountConnection
           connector={konnector}
-          onNext={account => this.onSuccess(account)}
+          onDone={this.onSuccess}
           successButtonLabel={t('intent.service.success.button.label')}
           values={values}
           {...this.props}
@@ -77,7 +72,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     createdAccount,
     isCreating: isCreatingConnection(state.connections),
-    isWorking: isFetchingRegistryKonnector(state.registry),
     isRunning: isConnectionRunning(state.connections, trigger),
     trigger
   }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import advancedFields from '../config/advancedFields'
-
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
@@ -92,36 +90,48 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
       }
 
-      configureFields(config, defaultAccountNamePlaceholder) {
+      configureFields(config = {}, defaultAccountNamePlaceholder) {
         // it will at least have an accountName field
-        if (!config || !config.konnector.fields) config = { fields: {} }
-        const konnectorName = config.konnector.name
+        const configFields = (config.konnector && config.konnector.fields) || {}
+
+        // account name field added by the application
         const accountNamePlaceholder =
-          config.konnector.fields.accountName &&
-          config.konnector.fields.accountName.placeholder
+          configFields.accountName && configFields.accountName.placeholder
         const accountNameField = {
           type: 'text',
+          advanced: true,
           isRequired: false,
           placeholder: accountNamePlaceholder || defaultAccountNamePlaceholder
         }
-        const fieldsFromConfig = Object.assign({}, config.konnector.fields, {
+
+        const fieldsFromConfig = Object.assign({}, configFields, {
           accountName: accountNameField
         })
 
-        // Convert custom fields to fields readable by configureFields
-        if (Object.keys(fieldsFromConfig).includes('advancedFields')) {
-          for (let advancedField in fieldsFromConfig.advancedFields) {
-            for (let k in advancedFields[advancedField]) {
-              // Assign values from advancedFields, and values from konnectors
-              let field = advancedFields[advancedField][k]
-              field = Object.assign(
-                field,
-                fieldsFromConfig.advancedFields[advancedField]
-              )
-              fieldsFromConfig[k] = field
-            }
+        // LEGACY: turn advancedFields to fields with advanced: true
+        if (fieldsFromConfig.advancedFields) {
+          for (let fieldName in fieldsFromConfig.advancedFields) {
+            fieldsFromConfig[fieldName] = Object.assign(
+              {},
+              fieldsFromConfig.advancedFields[fieldName],
+              { advanced: true }
+            )
           }
-          delete fieldsFromConfig['advancedFields']
+          delete fieldsFromConfig.advancedFields
+        }
+
+        // FIXME detect io.cozy.files permission for folderPath field
+        if (fieldsFromConfig.folderPath) {
+          fieldsFromConfig.namePath = Object.assign(
+            {},
+            fieldsFromConfig.folderPath,
+            { type: 'text', advanced: true }
+          )
+          fieldsFromConfig.folderPath = Object.assign(
+            {},
+            fieldsFromConfig.folderPath,
+            { type: 'dropdown', advanced: true }
+          )
         }
 
         let fields = {}
@@ -132,7 +142,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           let maxLength = fieldsFromConfig[field].max || null
           let minLength = fieldsFromConfig[field].min || null
           let isRequired =
-            fieldsFromConfig[field].isRequired === undefined
+            typeof fieldsFromConfig[field].isRequired === 'undefined'
               ? true
               : fieldsFromConfig[field].isRequired
           let value =
@@ -170,7 +180,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         // Set default values for advanced fields that will not be shown
         // on the initial connection form
         if (fields.calendar && !fields.calendar.default) {
-          fields.calendar.default = konnectorName
+          fields.calendar.default = config.konnector.name
         }
 
         return fields
@@ -189,6 +199,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           maxLength &&
           minLength &&
           maxLength === minLength &&
+          value &&
           value.length !== maxLength
         ) {
           errors.push(t('validation.exact_length', { length: maxLength }))
@@ -207,7 +218,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         const invalidPasswords = []
         Object.keys(stateFields).forEach(f => {
           const isErrored =
-            (f === field && errors.length) ||
+            (f === field && errors && errors.length) ||
             (f !== field &&
               stateFields[f].errors &&
               stateFields[f].errors.length)
@@ -223,8 +234,11 @@ export default function statefulForm(mapPropsToFormConfig) {
           }
         })
         const isValid =
-          invalidFields.length === 0 && invalidPasswords.length === 0
-        const isValidButPasswords = invalidFields.length === 0
+          invalidFields &&
+          invalidFields.length === 0 &&
+          invalidPasswords &&
+          invalidPasswords.length === 0
+        const isValidButPasswords = invalidFields && invalidFields.length === 0
 
         this.setState(prevState => {
           // check and update accountName placeholder
@@ -286,7 +300,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           const isRequiredAndEmpty =
             fields[field].isRequired &&
             fields[field].type !== 'hidden' &&
-            fields[field].value.length === 0
+            !fields[field].value
           if (isRequiredAndEmpty) {
             // TODO use the next line instead when the stack will be
             // able to encrypt many fields
@@ -300,8 +314,11 @@ export default function statefulForm(mapPropsToFormConfig) {
         }
         this.setState({
           allRequiredFieldsAreFilled:
-            unfilled.length === 0 && unfilledPasswords.length === 0,
-          allRequiredFilledButPasswords: unfilled.length === 0,
+            unfilled &&
+            unfilledPasswords &&
+            unfilled.length === 0 &&
+            unfilledPasswords.length === 0,
+          allRequiredFilledButPasswords: unfilled && unfilled.length === 0,
           values: this.getData()
         })
       }

@@ -13,33 +13,6 @@ beforeEach(() => {
 })
 
 describe('konnectors lib', () => {
-  describe('createTrigger', () => {
-    const konnector = { slug: 'test' }
-    const account = { _id: '963a51f6cdd34401b0904de32cc5578d' }
-    const folder = { _id: 'daa147092e1c4a1da8c991cb2a194adc' }
-
-    const options = {
-      frequency: 'weekly',
-      day: 1,
-      hours: 14,
-      minutes: 15
-    }
-
-    it('creates a trigger', () => {
-      expect.assertions(1)
-      return konnectors
-        .createTrigger(cozyMock, konnector, account, folder, options)
-        .then(data => expect(data).toMatchSnapshot())
-    })
-
-    it('creates a trigger without folder', () => {
-      expect.assertions(1)
-      return konnectors
-        .createTrigger(cozyMock, konnector, account, null, options)
-        .then(data => expect(data).toMatchSnapshot())
-    })
-  })
-
   describe('isKonnectorLoginError', () => {
     it('returns true', () => {
       expect(
@@ -199,6 +172,78 @@ describe('konnectors lib', () => {
 
       expect(konnectors.getMostAccurateErrorKey(t, error, getKey)).toBe(
         'prefix.UNKNOWN_ERROR.suffix'
+      )
+    })
+  })
+
+  describe('getKonnectorMessage', () => {
+    it('returns expected declared message', () => {
+      const tMock = key => {
+        return {
+          'mykonnector.messages.foo': 'The terms'
+        }[key]
+      }
+
+      const konnector = {
+        messages: ['foo'],
+        slug: 'mykonnector'
+      }
+
+      expect(konnectors.getKonnectorMessage(tMock, konnector, 'foo')).toBe(
+        'The terms'
+      )
+    })
+
+    it('does not return undeclared message', () => {
+      const tMock = key => {
+        return {
+          'mykonnector.messages.foo': 'Bar'
+        }[key]
+      }
+
+      const konnector = {
+        slug: 'mykonnector'
+      }
+
+      expect(konnectors.getKonnectorMessage(tMock, konnector, 'foo')).toBeNull()
+    })
+
+    it('returns legacy message', () => {
+      const tMock = key => {
+        return {
+          'connector.mykonnector.description.foo': 'Bar'
+        }[key]
+      }
+
+      const konnector = {
+        slug: 'mykonnector',
+        hasDescriptions: {
+          foo: true
+        }
+      }
+
+      expect(konnectors.getKonnectorMessage(tMock, konnector, 'foo')).toBe(
+        'Bar'
+      )
+    })
+
+    it('returns legacy mapped message', () => {
+      // 'terms' is mapped to legacy 'connector'
+      const tMock = key => {
+        return {
+          'connector.mykonnector.description.connector': 'The terms'
+        }[key]
+      }
+
+      const konnector = {
+        slug: 'mykonnector',
+        hasDescriptions: {
+          connector: true
+        }
+      }
+
+      expect(konnectors.getKonnectorMessage(tMock, konnector, 'terms')).toBe(
+        'The terms'
       )
     })
   })

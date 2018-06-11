@@ -13,6 +13,13 @@ import Field, {
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
 
+const probableLoginFieldNames = [
+  'email',
+  'identifier',
+  'login',
+  'new_identifier'
+]
+
 const renderers = {
   password: ({ t }) => <PasswordField noAutoFill />,
   date: () => <Field type="date" />,
@@ -27,6 +34,17 @@ const hydrateFieldValue = {
 }
 
 const identity = x => x
+
+const FieldDescription = props => {
+  const { field, konnectorSlug, t } = props
+  const hasLegacyDescription = field.hasDescription
+  const descriptionKey =
+    (hasLegacyDescription &&
+      `connector.${konnectorSlug}.description.field.${field.name}`) ||
+    (!!field.description && `${konnectorSlug}.${field.description}`)
+  if (!descriptionKey) return null
+  return <ReactMarkdownWrapper source={t(descriptionKey)} />
+}
 
 export class AccountLoginForm extends React.Component {
   state = {
@@ -103,18 +121,7 @@ export class AccountLoginForm extends React.Component {
       if (!renderers[type]) {
         throw new Error('Unknown field type ' + type)
       }
-      const disabled = name === 'login' && editing
-
-      let fieldPlaceholder = null
-      switch (name) {
-        case 'password':
-          fieldPlaceholder = editing
-            ? t('account.form.placeholder.update_password')
-            : t('account.form.placeholder.password')
-          break
-        default:
-          fieldPlaceholder = placeholder || null
-      }
+      const disabled = probableLoginFieldNames.includes(name) && editing
 
       // Give focus only once
       const giveFocus = !alreadyFocused && !disabled
@@ -129,22 +136,18 @@ export class AccountLoginForm extends React.Component {
       const hydrate = hydrateFieldValue[name] || identity
       const attributes = {
         ...field, // TODO be more restrictive on what comes in
-        disabled: readonly,
+        disabled: disabled || readonly,
         invalid: !!error,
         onEnterKey,
         giveFocus,
         label: t(`account.form.label.${label || name}`),
         readonly: readonly,
         value: isUnloading ? '' : hydrate(value),
-        placeholder: fieldPlaceholder
+        placeholder: placeholder
       }
       return (
         <div>
-          {field.hasDescription && (
-            <ReactMarkdownWrapper
-              source={t(`connector.${connectorSlug}.description.field.${name}`)}
-            />
-          )}
+          <FieldDescription field={field} konnectorSlug={connectorSlug} t={t} />
           {React.cloneElement(renderers[type](this.props), attributes)}
         </div>
       )

@@ -1,22 +1,25 @@
+/* global cozy */
 import React, { Component } from 'react'
 
-import { Icon, Empty } from 'cozy-ui/react'
+import Empty from 'cozy-ui/react/Empty'
 import EmptyIcon from '../assets/icons/connected-accounts.svg'
 import { connect } from 'react-redux'
-import { Route, NavLink, Switch, withRouter, Redirect } from 'react-router-dom'
-import { getConnectedKonnectors } from '../reducers'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { getInstalledKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
+import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
+import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
-import ConnectionManagement from '../containers/ConnectionManagement'
+import StoreButton from './StoreButton'
 
-import addAccountIcon from '../assets/icons/icon-plus.svg'
+const { BarCenter } = cozy.bar
 
-class ConnectedList extends Component {
+class InstalledKonnectors extends Component {
   componentDidMount() {
     this.launchTutorial()
   }
@@ -35,28 +38,23 @@ class ConnectedList extends Component {
   }
 
   render() {
-    const { t, connectedKonnectors, wrapper } = this.props
-    const hasConnections = !!connectedKonnectors.length
+    const { t, installedKonnectors, wrapper, breakpoints = {} } = this.props
+    const { isMobile } = breakpoints
+    const hasConnections = !!installedKonnectors.length
+    const title = <h2 className="col-view-title">{t('nav.connected')}</h2>
+
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
-          <h1 className="col-top-bar-title">{t('nav.connected')}</h1>
-          {hasConnections && (
-            <NavLink to="/providers/all" className="col-button">
-              <span>
-                <Icon icon={addAccountIcon} className="col-icon--add" />&nbsp;
-                {t('add_account')}
-              </span>
-            </NavLink>
-          )}
+          {isMobile ? <BarCenter>{title}</BarCenter> : title}
+          {hasConnections && <StoreButton label={t('add_account')} icon />}
         </div>
         {hasConnections ? (
           <div className="connector-list">
-            {connectedKonnectors.map(({ konnector, hasUserError }) => (
+            {installedKonnectors.map(konnector => (
               <KonnectorTile
                 konnector={konnector}
-                markErrored={hasUserError}
                 route={`connected/${konnector.slug}`}
               />
             ))}
@@ -67,9 +65,7 @@ class ConnectedList extends Component {
             title={t('connector.no-connectors-connected')}
             text={t('connector.get-info')}
           >
-            <NavLink to="/providers/all" className="col-button">
-              <span>{t('connector.connect-account')}</span>
-            </NavLink>
+            <StoreButton label={t('connector.connect-account')} />
           </Empty>
         )}
         <Switch>
@@ -81,21 +77,13 @@ class ConnectedList extends Component {
           <Route
             path="/connected/:konnectorSlug/new"
             render={props => (
-              <ConnectionManagement
-                backRoute={`/connected/${props.match.params.konnectorSlug}`}
-                originPath="/connected"
-                {...props}
-              />
+              <ConnectionManagement originPath="/connected" {...props} />
             )}
           />
           <Route
             path="/connected/:konnectorSlug/accounts/:accountId"
             render={props => (
-              <ConnectionManagement
-                backRoute={`/connected/${props.match.params.konnectorSlug}`}
-                originPath="/connected"
-                {...props}
-              />
+              <ConnectionManagement originPath="/connected" {...props} />
             )}
           />
           <Redirect from="/connected/*" to="/connected" />
@@ -107,11 +95,13 @@ class ConnectedList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    connectedKonnectors: sortBy(
-      getConnectedKonnectors(state),
-      ({ konnector }) => konnector.name
+    installedKonnectors: sortBy(
+      getInstalledKonnectors(state),
+      konnector => konnector.name
     )
   }
 }
 
-export default withRouter(connect(mapStateToProps)(translate()(ConnectedList)))
+export default withRouter(
+  connect(mapStateToProps)(translate()(withBreakpoints()(InstalledKonnectors)))
+)

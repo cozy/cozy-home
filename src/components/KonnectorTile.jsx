@@ -6,8 +6,15 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
 import { getKonnectorTriggersCount } from '../reducers'
+import { hasAtLeastOneTriggerWithUserError } from '../ducks/connections'
 
-const KonnectorTile = ({ footer, konnector, route, t }) => {
+const KonnectorTile = ({
+  accountsCount,
+  hasUserError,
+  konnector,
+  route,
+  t
+}) => {
   const categories = konnector.categories
     ? konnector.categories.map(c => t(`category.${c}`))
     : []
@@ -17,14 +24,29 @@ const KonnectorTile = ({ footer, konnector, route, t }) => {
       <header className="item-header">
         <img
           className="item-icon"
-          alt={t('connector.logo.alt', { name })}
+          alt={t('connector.logo.alt', { name: konnector.name })}
           src={getKonnectorIcon(konnector)}
         />
       </header>
       <h3 className="item-title">{konnector.name}</h3>
       {subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {footer}
+      <KonnectorTileFooter
+        accountsCount={accountsCount}
+        hasUserError={hasUserError}
+        title={t('connector.accounts_count', { count: accountsCount })}
+      />
     </NavLink>
+  )
+}
+
+const KonnectorTileFooter = ({ accountsCount, hasUserError, title }) => {
+  if (hasUserError) return svgIcon('warning')
+  if (!accountsCount) return svgIcon('new')
+
+  return (
+    <span className="item-count" title={title}>
+      {accountsCount}
+    </span>
   )
 }
 
@@ -36,25 +58,14 @@ const svgIcon = name => (
   </svg>
 )
 
-const buildFooter = (state, props) => {
-  if (props.markErrored) return svgIcon('warning')
-
-  const accountsCount = getKonnectorTriggersCount(state, props.konnector)
-
-  if (accountsCount)
-    return (
-      <span
-        className="item-count"
-        title={props.t('connector.accounts_count', { count: accountsCount })}
-      >
-        {accountsCount}
-      </span>
-    )
-}
-
 const mapStateToProps = (state, props) => {
+  const { konnector } = props
   return {
-    footer: buildFooter(state, props)
+    accountsCount: getKonnectorTriggersCount(state, konnector),
+    hasUserError: hasAtLeastOneTriggerWithUserError(
+      state.connections,
+      konnector.slug
+    )
   }
 }
 

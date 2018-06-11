@@ -7,6 +7,19 @@ export const SHARED_WITH_ME = 'sharedWithMe'
 export const SHARED_WITH_OTHERS = 'sharedWithOthers'
 
 export default class CozyStackAdapter {
+  async fetchApps(skip = 0) {
+    const { data, meta } = await cozy.client.fetchJSON('GET', '/apps/', null, {
+      processJSONAPI: false
+    })
+
+    return {
+      data: data || [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    }
+  }
+
   async fetchDocuments(doctype) {
     // WARN: cozy-client-js lacks a cozy.data.findAll method that uses this route
     try {
@@ -84,6 +97,10 @@ export default class CozyStackAdapter {
     // we normalize again...
     const normalized = { ...doc, id: doc._id, _type: doc._type }
     return { data: [normalized] }
+  }
+
+  init(config) {
+    this.config = { ...config }
   }
 
   async createDocument(doctype, doc) {
@@ -183,6 +200,61 @@ export default class CozyStackAdapter {
       meta,
       next: meta.count > skip + FETCH_LIMIT,
       skip
+    }
+  }
+
+  async fetchKonnectorIcon(konnector) {
+    // Nah thanks we don't want to keep this.
+    if (konnector.attributes) delete konnector.attributes.icon
+    try {
+      const resp = await fetch(
+        `${this.config.cozyURL}${konnector.links.icon}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            Authorization: `Bearer ${this.config.token}`
+          }
+        }
+      )
+      if (resp.status !== 200) {
+        throw new Error(`Unexpected response status ${resp.status}`)
+      }
+      konnector.icon = await resp.blob()
+    } catch (error) {
+      // This one will not have icon attribute. Too bad.
+      console.warn(error.message)
+    }
+    return konnector
+  }
+
+  async fetchKonnectors(skip = 0) {
+    const { data, meta } = await cozy.client.fetchJSON(
+      'GET',
+      `/konnectors/`,
+      null,
+      {
+        processJSONAPI: false
+      }
+    )
+
+    const konnectorsWithIconPromises =
+      data && data.map(async konnector => this.fetchKonnectorIcon(konnector))
+    const konnectorsWithIcons =
+      konnectorsWithIconPromises &&
+      (await Promise.all(konnectorsWithIconPromises))
+
+    return {
+      data: data
+        ? konnectorsWithIcons.map(konnector => ({
+            ...konnector,
+            ...konnector.attributes,
+            _type: 'io.cozy.konnectors'
+          }))
+        : [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
     }
   }
 

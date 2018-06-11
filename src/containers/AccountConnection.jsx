@@ -44,15 +44,10 @@ class AccountConnection extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { existingAccount, success } = nextProps
+    const { existingAccount } = nextProps
 
-    const hasJustSucceed = !this.props.success && success
     const accountHasJustBeenCreated =
       !this.props.existingAccount && !!existingAccount
-
-    if (hasJustSucceed && this.props.onSuccess) {
-      this.props.onSuccess(this.state.account)
-    }
 
     if (accountHasJustBeenCreated) {
       this.setState({
@@ -268,9 +263,9 @@ class AccountConnection extends Component {
 
     return konnector && konnector.oauth
       ? this.connectAccountOAuth(
-          konnector.slug,
+          konnector.oauth.account_type || konnector.slug,
           valuesToSubmit,
-          konnector.oauth_scope
+          konnector.oauth.scope
         )
       : this.connectAccount(valuesToSubmit)
   }
@@ -303,8 +298,6 @@ class AccountConnection extends Component {
       disableSuccessTimeout,
       displayAccountsCount,
       isUnloading,
-      onBack,
-      onNext,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
       displayAdvanced,
@@ -321,13 +314,13 @@ class AccountConnection extends Component {
       error,
       forceConnection,
       isRunning,
+      onDone,
       queued,
       t,
       trigger,
       success,
       closeModal,
-      successButtonLabel,
-      accountsCount
+      successButtonLabel
     } = this.props
     const {
       account,
@@ -349,7 +342,7 @@ class AccountConnection extends Component {
           <KonnectorEdit
             isFetching={isFetching}
             account={account}
-            editing={editing}
+            editing
             connector={konnector}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
@@ -376,16 +369,13 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
-            accountsCount={accountsCount}
             displayAccountsCount={displayAccountsCount}
             isFetching={isFetching}
-            onBack={onBack}
             account={createdAccount}
             connector={konnector}
             isValid={isValid}
             dirty={dirty}
             isSuccess={isSuccess}
-            deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             driveUrl={driveUrl}
             error={error || oAuthError || connectionError}
@@ -393,9 +383,8 @@ class AccountConnection extends Component {
             queued={queued}
             isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
-            onNext={onNext}
+            onDone={onDone}
             onCancel={() => this.cancel()}
-            onDelete={() => this.deleteConnection()}
             onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
             success={success || queued}

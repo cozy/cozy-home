@@ -13,6 +13,16 @@
     @require './loading.styl'
     @require './dialog.styl'
 
+    .coz-service
+        display flex
+        width 100%
+        height 100%
+
+    .col-create-account-intent
+        display flex
+        flex-grow 1
+        flex-direction column
+
     .coz-service-loading
     .coz-service-error
         display         flex
@@ -83,19 +93,14 @@
             // overide default bg position
             background-position  center right
 
-    .coz-service-content-header
-        width 100%
-
     .coz-service-content
-        flex    1
+        width 100%
+        flex-grow 1
         display flex
         max-height      calc(100vh - (32/basefont)em)
         justify-content start
-        padding         (16/basefont)em
+        padding (16/basefont)em 0
         flex-direction column
-        width 70%
-        // width at wich the header "separates" from content to continue its way
-        // to the left.
-        max-width 68rem
         align-items center
-        margin (48/basefont)em auto
+        margin auto
+        overflow-y auto

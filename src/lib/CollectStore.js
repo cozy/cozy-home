@@ -8,18 +8,14 @@ import { createKonnectorTrigger } from '../ducks/triggers'
 import { launchTriggerAndQueue } from '../ducks/connections'
 import { createAccount } from '../ducks/accounts'
 
-const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
-
 export const CONNECTION_STATUS = {
   ERRORED: 'errored',
   RUNNING: 'running',
   CONNECTED: 'connected'
 }
 
-const INSTALL_TIMEOUT = 120 * 1000
-
 export default class CollectStore {
-  constructor(connectors, context, options = {}) {
+  constructor(context, options = {}) {
     this.listener = null
     this.options = options
 
@@ -42,12 +38,6 @@ export default class CollectStore {
         console.warn &&
           console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
-
-    konnectors.subscribeAll(cozy.client).then(subscription => {
-      subscription.onCreate(konnector =>
-        this.handleInstalledKonnector(konnector)
-      )
-    })
   }
 
   updateUnfinishedJob(job) {
@@ -62,21 +52,6 @@ export default class CollectStore {
       type: 'RECEIVE_NEW_DOCUMENT',
       response: { data: [normalized] },
       updateCollections: ['jobs']
-    })
-  }
-
-  handleInstalledKonnector(konnector) {
-    const normalized = {
-      ...konnector,
-      ...konnector.attributes,
-      id: `${KONNECTORS_DOCTYPE}/${konnector.slug}`,
-      _type: KONNECTORS_DOCTYPE
-    }
-
-    this.dispatch({
-      type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalized] },
-      updateCollections: ['konnectors']
     })
   }
 
@@ -127,41 +102,34 @@ export default class CollectStore {
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount(konnector, account, disableEnqueue, enqueueAfter = 10000) {
     // return object to store all business object implied in the connection
-    const connection = {}
+    const connection = {
+      konnector: konnector
+    }
     // detect oauth case
     const isOAuth = !!account.oauth
 
-    // 1. Konnector installation
+    // 1. Create folder, will be replaced by an intent or something else
     return (
-      konnectors
-        .install(cozy.client, konnector, INSTALL_TIMEOUT)
-        .then(completeKonnector => {
-          connection.konnector = { ...konnector, ...completeKonnector }
-        })
-        // 2. Create folder, will be replaced by an intent or something else
-        .then(() =>
-          this.createDirectoryIfNecessary(
-            !!account.auth && account.auth.folderPath
-          ).then(folder => {
-            if (!folder) return Promise.resolve()
-            connection.folder = folder
-            // 3. Reference konnector in folder
-            return konnectors
-              .addFolderPermission(
-                cozy.client,
+      this.createDirectoryIfNecessary(!!account.auth && account.auth.folderPath)
+        .then(folder => {
+          if (!folder) return Promise.resolve()
+          connection.folder = folder
+          // 2. Reference konnector in folder
+          return konnectors
+            .addFolderPermission(
+              cozy.client,
+              connection.konnector,
+              connection.folder._id
+            )
+            .then(permission => {
+              connection.permission = permission
+              return cozy.client.data.addReferencedFiles(
                 connection.konnector,
                 connection.folder._id
               )
-              .then(permission => {
-                connection.permission = permission
-                return cozy.client.data.addReferencedFiles(
-                  connection.konnector,
-                  connection.folder._id
-                )
-              })
-          })
-        )
-        // 4. Creates account
+            })
+        })
+        // 3. Creates account
         .then(() => {
           if (isOAuth) {
             return account
@@ -180,7 +148,7 @@ export default class CollectStore {
         .then(account => {
           connection.account = account
         })
-        // 5. Create trigger
+        // 4. Create trigger
         .then(() =>
           this.dispatch(
             createKonnectorTrigger(
@@ -200,20 +168,20 @@ export default class CollectStore {
             )
           ).then(result => result.data[0])
         )
-        // 6. Launch trigger for the konnector
+        // 5. Launch trigger for the konnector
         .then(trigger =>
           this.dispatch(
             launchTriggerAndQueue(trigger, konnector.loginDelay)
           ).then(result => result.data[0])
         )
-        // 7. Handle job
+        // 6. Handle job
         .then(job => {
           connection.job = job
         })
         .catch(error => {
           connection.error = error
         })
-        // 8. Returns connection
+        // 7. Returns connection
         .then(() => connection)
     )
   }

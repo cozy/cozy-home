@@ -13,11 +13,9 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from '../ducks/connections'
+import { getKonnector } from '../ducks/konnectors'
 import {
-  getRegistryKonnector,
-  isFetchingRegistryKonnector
-} from '../ducks/registry'
-import {
+  getConnectionsByKonnector,
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount,
   getKonnectorsInMaintenance
@@ -60,7 +58,6 @@ class ConnectionManagement extends Component {
     }
 
     this.state = {
-      isWorking: true,
       isClosing: false,
       values: values
     }
@@ -101,13 +98,20 @@ class ConnectionManagement extends Component {
   }
 
   render() {
-    const { createdAccount, existingAccount, konnector, backRoute } = this.props
+    const {
+      connections,
+      createdAccount,
+      existingAccount,
+      konnector
+    } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
-    const { isWorking } = this.props
     const { isClosing, values } = this.state
-    const { t } = this.context
+
+    const backRoute = connections.length
+      ? `/connected/${konnector.slug}`
+      : '/connected'
 
     return (
       <Modal
@@ -117,11 +121,12 @@ class ConnectionManagement extends Component {
         className={styles['col-account-modal']}
       >
         <ModalHeader>
-          <div className={styles['col-account-connection-header']}>
+          <div className="col-account-connection-header">
             {backRoute && (
               <NavLink
                 to={backRoute}
-                className={styles['col-account-connection-back']}
+                className="col-account-connection-back"
+                onClick={this.onEnd}
               >
                 <Icon icon={backIcon} />
               </NavLink>
@@ -130,28 +135,19 @@ class ConnectionManagement extends Component {
           </div>
         </ModalHeader>
         <ModalContent>
-          {isWorking ? (
-            <div className={styles['installing']}>
-              <div className={styles['installing-spinner']} />
-              <div>{t('loading.working')}</div>
-            </div>
-          ) : (
-            <AccountConnection
-              alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
-              backRoute={backRoute}
-              displayAccountsCount
-              editing={existingAccount && !createdAccount}
-              onBack={() => this.onBack()}
-              onNext={() => this.gotoParent()}
-              onCancel={() => this.gotoParent()}
-              isUnloading={isClosing}
-              values={values}
-              closeModal={() => this.gotoParent()}
-              {...this.state}
-              {...this.props}
-              {...this.context}
-            />
-          )}
+          <AccountConnection
+            alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+            displayAccountsCount
+            editing={existingAccount && !createdAccount}
+            onDone={this.onDone}
+            onCancel={() => this.gotoParent()}
+            isUnloading={isClosing}
+            values={values}
+            closeModal={() => this.gotoParent()}
+            {...this.state}
+            {...this.props}
+            {...this.context}
+          />
         </ModalContent>
       </Modal>
     )
@@ -171,9 +167,20 @@ class ConnectionManagement extends Component {
     this.gotoParent()
   }
 
-  onBack() {
-    if (this.props.isCreating) {
-      this.props.endCreation()
+  onEnd = () => {
+    const { endCreation, isCreating } = this.props
+    if (isCreating) {
+      typeof endCreation === 'function' && endCreation()
+    }
+  }
+
+  onDone = account => {
+    this.onEnd()
+
+    const { konnector, history } = this.props
+
+    if (account) {
+      history.push(`/connected/${konnector.slug}/accounts/${account._id}`)
     }
   }
 
@@ -222,7 +229,7 @@ const mapDocumentsToProps = ownProps => ({
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
-  const konnector = getRegistryKonnector(state.registry, konnectorSlug)
+  const konnector = getKonnector(state.cozy, konnectorSlug)
   const existingAccount = getAccount(state.cozy, accountId)
   const createdAccount = getCreatedConnectionAccount(state)
   const trigger = getTriggerByKonnectorAndAccount(
@@ -232,10 +239,10 @@ const mapStateToProps = (state, ownProps) => {
   )
   const maintenance = getKonnectorsInMaintenance()
   return {
+    connections: getConnectionsByKonnector(state, konnectorSlug),
     createdAccount,
     existingAccount,
     isCreating: isCreatingConnection(state.connections),
-    isWorking: isFetchingRegistryKonnector(state.registry),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
     lastSuccess: getTriggerLastSuccess(state.cozy, trigger),

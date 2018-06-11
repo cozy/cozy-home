@@ -37,6 +37,7 @@ const Field = props => {
       : 'on'
     inputs = (
       <Input
+        aria-disabled={disabled}
         type={type}
         size="medium"
         fullwidth
@@ -79,7 +80,7 @@ class FieldWrapperComponent extends Component {
 
   render() {
     const { label, invalid, errors, children, type, isRequired, t } = this.props
-    const hasErrored = errors.length !== 0 || invalid
+    const hasErrored = (errors && errors.length !== 0) || invalid
 
     return (
       <div
@@ -100,7 +101,8 @@ class FieldWrapperComponent extends Component {
           </label>
         )}
         {children}
-        {errors.length !== 0 &&
+        {errors &&
+          errors.length !== 0 &&
           errors.map((err, i) => (
             <p key={i} className={styles['coz-field-error']}>
               {err}
@@ -173,7 +175,7 @@ export const PasswordField = translate()(
 
 export const DropdownField = translate()(props => {
   const { value, options, onChange, onInput } = props
-  let valueInOptions = options.indexOf(value) !== -1
+  let valueInOptions = options && options.indexOf(value) !== -1
   let dropdownFieldOptions = valueInOptions ? options : [value].concat(options)
 
   return (
@@ -189,10 +191,14 @@ export const DropdownField = translate()(props => {
       >
         {dropdownFieldOptions.map(optionValue => (
           <option
-            value={optionValue.value || (props.default && props.default.value)}
-            selected={optionValue.value === { value }}
+            value={
+              (optionValue && optionValue.value) ||
+              (props.default && props.default.value)
+            }
+            selected={optionValue && optionValue.value === { value }}
           >
-            {optionValue.name || (props.default && props.default.name)}
+            {(optionValue && optionValue.name) ||
+              (props.default && props.default.name)}
           </option>
         ))}
       </select>
@@ -213,7 +219,7 @@ export const CheckboxField = translate()(props => {
     />
   )
 
-  const hasErrored = errors.length > 0
+  const hasErrored = errors && errors.length > 0
 
   return (
     <div
@@ -227,7 +233,8 @@ export const CheckboxField = translate()(props => {
           {input} {label}
         </label>
       )}
-      {errors.length !== 0 &&
+      {errors &&
+        errors.length !== 0 &&
         errors.map((err, i) => (
           <p key={i} className={styles['coz-field-error']}>
             {err}

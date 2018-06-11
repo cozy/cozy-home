@@ -5,7 +5,6 @@ import connections, {
   createConnection,
   deleteConnection,
   enqueueConnection,
-  getConnectedKonnectors,
   getConnectionsByKonnector,
   getQueue,
   launchTriggerAndQueue,
@@ -195,76 +194,6 @@ describe('Connections Duck', () => {
   })
 
   describe('Selectors', () => {
-    describe('getConnectedKonnectors', () => {
-      it('returns expected konnectors', () => {
-        const state = {
-          konnectors: {
-            reliable: {
-              triggers: {
-                e632e37a47044314bd62908df07abe1b: {
-                  account: 'ad5531056b5e4c3fa828367c354e4d82'
-                },
-                '9095f43e15514a8c9ccf28764cf51c3c': {
-                  account: '637d16baa5a94488aeacae463b3e8fd5'
-                }
-              }
-            },
-            reliableToo: {
-              triggers: {
-                ee8aae83d53f4825ae9f7b4ee34982d4: {
-                  account: '0306125d1ba14405acee4901fc27f982',
-                  hasError: true,
-                  error: {
-                    code: 'LOGIN_FAILED',
-                    type: 'LOGIN_FAILED',
-                    message: 'LOGIN_FAILED'
-                  }
-                }
-              }
-            },
-            invalid: {
-              triggers: {
-                '7fa88b9040664502a6ea43ff760369f5': {
-                  account: '45dd6d12cc0c40faa1cf7ddafcc5c55c'
-                }
-              }
-            },
-            unexpected: {
-              triggers: {
-                '7b146c811cd24e6e8d3e34dc69473c25': {
-                  account: '69a68c9faaf94dedaa5a53585f676e7a'
-                }
-              }
-            },
-            malformed: {}
-          }
-        }
-
-        const validKonnectors = [
-          'reliable',
-          'reliableToo',
-          'unexpected',
-          'malformed'
-        ]
-
-        const validAccounts = [
-          'ad5531056b5e4c3fa828367c354e4d82',
-          '637d16baa5a94488aeacae463b3e8fd5',
-          '0306125d1ba14405acee4901fc27f982',
-          '45dd6d12cc0c40faa1cf7ddafcc5c55c'
-        ]
-
-        expect(
-          getConnectedKonnectors(state, validAccounts, validKonnectors)
-        ).toEqual(
-          expect.arrayContaining([
-            { slug: 'reliable', hasUserError: false },
-            { slug: 'reliableToo', hasUserError: true }
-          ])
-        )
-      })
-    })
-
     describe('getConnectionsByKonnector', () => {
       it('returns expected connections', () => {
         const state = {
@@ -305,7 +234,7 @@ describe('Connections Duck', () => {
     })
 
     describe('getQueue', () => {
-      it.skip('returns one queued connection per queued account', () => {
+      it('returns one queued connection per queued account', () => {
         const state = {
           data: {
             testprovider: {
@@ -324,14 +253,14 @@ describe('Connections Duck', () => {
           }
         }
 
-        const konnectorsRegistry = {
+        const konnectors = {
           testprovider: {
             name: 'Test Provider',
             slug: 'testprovider'
           }
         }
 
-        const result = getQueue(state, konnectorsRegistry)
+        const result = getQueue(state, konnectors)
 
         expect(result).toMatchSnapshot()
       })

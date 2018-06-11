@@ -1,6 +1,4 @@
 import * as fromCozyClient from 'redux-cozy-client'
-import { getAccount } from '../accounts'
-import * as fromRunning from './running'
 
 export const DOCTYPE = 'io.cozy.triggers'
 const HOURLY_FREQUENCY = 'hourly'
@@ -10,21 +8,6 @@ const VALID_FREQUENCIES = [HOURLY_FREQUENCY, DAILY_FREQUENCY, WEEKLY_FREQUENCY]
 const DEFAULT_FREQUENCY = WEEKLY_FREQUENCY
 
 const triggersCollectionKey = 'triggers'
-
-const reducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'LAUNCH_TRIGGER':
-    case 'RECEIVE_NEW_DOCUMENT':
-      return {
-        ...state,
-        running: fromRunning.reducer(state.running, action)
-      }
-    default:
-      return state
-  }
-}
-
-export default reducer
 
 // CRUD action creators
 
@@ -66,14 +49,14 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
     frequency: parseFrequency(konnector.frequency)
   }
 
-  if (frequencyOptions.frequency === 'daily') {
+  if (frequencyOptions.frequency === DAILY_FREQUENCY) {
     return {
       ...frequencyOptions,
       hours
     }
   }
 
-  if (frequencyOptions.frequency === 'weekly') {
+  if (frequencyOptions.frequency === WEEKLY_FREQUENCY) {
     return {
       ...frequencyOptions,
       hours,
@@ -116,20 +99,6 @@ export function buildKonnectorTrigger(
 }
 
 // selectors
-
-export const getKonnectorConnectedAccount = (
-  state,
-  konnector,
-  existingAccounts = []
-) => {
-  // state is state.cozy
-  const trigger = getTriggerByKonnector(state, konnector, existingAccounts)
-
-  if (!trigger) return null
-
-  return getAccount(state, trigger.message.account)
-}
-
 export const getKonnectorTriggers = (
   state,
   konnector,
@@ -154,26 +123,3 @@ export const getTrigger = (state, id) =>
   !!state.documents &&
   !!state.documents[DOCTYPE] &&
   state.documents[DOCTYPE][id]
-
-export const getTriggerByKonnector = (
-  state,
-  konnector,
-  existingAccountIds = []
-) => {
-  // state is state.cozy
-  if (!konnector || !state.documents || !state.documents[DOCTYPE]) return null
-  const trigger = Object.values(state.documents[DOCTYPE]).find(trigger => {
-    return (
-      trigger.worker === 'konnector' &&
-      trigger.message &&
-      trigger.message.konnector === konnector.slug &&
-      trigger.message.account &&
-      existingAccountIds.includes(trigger.message.account)
-    )
-  })
-  return trigger
-}
-
-export const isTriggerRunning = (state, trigger) => {
-  return fromRunning.isTriggerRunning(state.running, trigger)
-}

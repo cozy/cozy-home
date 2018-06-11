@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import appEntryPoint from '../components/appEntryPoint'
 
-import Loading from '../components/Loading'
 import IntentService from './IntentService'
+import Spinner from 'cozy-ui/react/Spinner'
 
 class IntentHandler extends Component {
   constructor(props, context) {
@@ -13,9 +13,6 @@ class IntentHandler extends Component {
     this.state = {
       isInitializing: true
     }
-
-    // TODO: externalize into appEntryPoint
-    props.initializeRegistry(props.initKonnectors)
 
     this.store
       .createIntentService()
@@ -76,7 +73,7 @@ class IntentHandler extends Component {
       <div className="coz-service">
         {isInitializing && (
           <div className="coz-service-loading">
-            <Loading />
+            <Spinner size="xxlarge" />
           </div>
         )}
         {error && (
@@ -99,6 +96,7 @@ class IntentHandler extends Component {
               data={service.getData()}
               onTerminate={account => this.terminate(account)}
               onCancel={() => this.cancel()}
+              service={service}
             />
           )}
       </div>

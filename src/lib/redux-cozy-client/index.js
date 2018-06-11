@@ -5,9 +5,11 @@ export { default as cozyMiddleware } from './middleware'
 export {
   default as reducer,
   makeActionCreator,
+  fetchApps,
   fetchCollection,
   fetchDocument,
   fetchReferencedFiles,
+  fetchKonnectors,
   fetchTriggers,
   addReferencedFiles,
   removeReferencedFiles,

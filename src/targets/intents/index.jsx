@@ -1,5 +1,3 @@
-/* global initKonnectors */
-
 import 'babel-polyfill'
 
 import React from 'react'
@@ -27,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, initKonnectors, context)
+  const store = configureStore(client, context, { lang })
 
   render(
     <CozyProvider store={store} client={client}>
@@ -37,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         context={context}
       >
         <HashRouter>
-          <IntentHandler initKonnectors={initKonnectors} appData={appData} />
+          <IntentHandler appData={appData} />
         </HashRouter>
       </I18n>
     </CozyProvider>,

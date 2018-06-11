@@ -33,15 +33,17 @@
     padding-right   .5em
 
     @media (max-width: (768/basefont)rem)
-        .col-top-bar-title
-            font-size 24px
-            margin    0
-            position  fixed
-            top       .75rem
-            left      2.5rem
-            right     0
-            z-index   20
-            height    48px
+        margin-top .5rem
+        padding 0
+
+        button
+            width   100%
+
+[role=banner] .col-view-title
+    padding     0
+    margin      0
+    display     flex
+    align-self  center
 
 .col-button
     @extend $button
@@ -50,3 +52,22 @@
 .col-icon--add
     width           16px
     height          16px
+
+
+.col-account-connection-header
+    @media (max-width: (930/basefont)rem)
+        width   100%
+
+    svg
+        max-height (48/basefont)em
+
+.col-account-connection-back
+    height 2em
+    display block
+    float left
+    margin-right 1em
+    padding-top .25em
+
+    svg
+        height 1.5em
+        width 1.5em
