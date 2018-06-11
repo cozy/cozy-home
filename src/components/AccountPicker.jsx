@@ -31,13 +31,12 @@ export const AccountPicker = ({
   return (
     <Modal dismissAction={() => history.push('/connected')} mobileFullscreen>
       <ModalHeader>
-        <NavLink
-          to="/connected"
-          className={styles['col-account-connection-back']}
-        >
-          <Icon icon={backIcon} />
-        </NavLink>
-        <KonnectorHeaderIcon konnector={konnector} />
+        <div className="col-account-connection-header">
+          <NavLink to="/connected" className="col-account-connection-back">
+            <Icon icon={backIcon} />
+          </NavLink>
+          <KonnectorHeaderIcon konnector={konnector} />
+        </div>
       </ModalHeader>
       <ModalContent>
         <ul className={styles[classNames('col-account-picker')]}>

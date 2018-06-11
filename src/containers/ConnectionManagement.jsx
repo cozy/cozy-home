@@ -121,11 +121,11 @@ class ConnectionManagement extends Component {
         className={styles['col-account-modal']}
       >
         <ModalHeader>
-          <div className={styles['col-account-connection-header']}>
+          <div className="col-account-connection-header">
             {backRoute && (
               <NavLink
                 to={backRoute}
-                className={styles['col-account-connection-back']}
+                className="col-account-connection-back"
                 onClick={this.onDone}
               >
                 <Icon icon={backIcon} />
