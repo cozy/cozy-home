@@ -126,7 +126,7 @@ class ConnectionManagement extends Component {
               <NavLink
                 to={backRoute}
                 className="col-account-connection-back"
-                onClick={this.onDone}
+                onClick={this.onEnd}
               >
                 <Icon icon={backIcon} />
               </NavLink>
@@ -139,6 +139,7 @@ class ConnectionManagement extends Component {
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
             editing={existingAccount && !createdAccount}
+            onDone={this.onDone}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
@@ -166,11 +167,18 @@ class ConnectionManagement extends Component {
     this.gotoParent()
   }
 
-  onDone = event => {
-    const { account, endCreation, isCreating, konnector, history } = this.props
+  onEnd = () => {
+    const { endCreation, isCreating } = this.props
     if (isCreating) {
       typeof endCreation === 'function' && endCreation()
     }
+  }
+
+  onDone = account => {
+    this.onEnd()
+
+    const { konnector, history } = this.props
+
     if (account) {
       history.push(`/connected/${konnector.slug}/accounts/${account._id}`)
     }
