@@ -16,6 +16,8 @@ import AccountPickerItem from './AccountPickerItem'
 import KonnectorHeaderIcon from './KonnectorHeaderIcon'
 import addAccountIcon from '../assets/icons/icon-plus.svg'
 
+import backIcon from '../assets/sprites/icon-arrow-left.svg'
+
 export const AccountPicker = ({
   t,
   connections,
@@ -29,6 +31,12 @@ export const AccountPicker = ({
   return (
     <Modal dismissAction={() => history.push('/connected')} mobileFullscreen>
       <ModalHeader>
+        <NavLink
+          to="/connected"
+          className={styles['col-account-connection-back']}
+        >
+          <Icon icon={backIcon} />
+        </NavLink>
         <KonnectorHeaderIcon konnector={konnector} />
       </ModalHeader>
       <ModalContent>
