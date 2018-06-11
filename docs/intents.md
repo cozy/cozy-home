@@ -48,7 +48,7 @@ To filter the konnectors you want to show, you have to pass parameters to the `i
 + `docType`: the type of data you want to access in your intent
 + `data`: an object who can take `slug` or `dataType` key to filter the Konnectors showed by the intent.
 
-See [datatypes.json](https://github.com/cozy/cozy-collect/blob/master/src/config/datatypes.json) for all available dataTypes, and [konnectors.json](https://github.com/cozy/cozy-collect/blob/master/src/config/konnectors.json) for the slug of the connectors
+See [datatypes.json](https://github.com/cozy/cozy-collect/blob/master/src/config/datatypes.json) for all available dataTypes
 
 See below for a full functionnal exemple in React
 
