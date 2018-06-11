@@ -166,8 +166,8 @@ class ConnectionManagement extends Component {
     this.gotoParent()
   }
 
-  onDone = account => {
-    const { endCreation, isCreating, konnector, history } = this.props
+  onDone = event => {
+    const { account, endCreation, isCreating, konnector, history } = this.props
     if (isCreating) {
       typeof endCreation === 'function' && endCreation()
     }
