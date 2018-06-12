@@ -5,12 +5,15 @@ import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 
 export const DataItem = ({ t, dataType }) => {
-  const iconPath = '../assets/sprites/icon-' + dataType + '.svg'
   let icon
   try {
-    icon = require(iconPath).default
+    icon = require(`../assets/sprites/icon-${dataType}.svg`).default
   } catch (error) {
-    console.error(`Unable to load the icon ${iconPath} : ${error.message}`)
+    console.error(
+      `Unable to load the icon ../assets/sprites/icon-${dataType}.svg : ${
+        error.message
+      }`
+    )
   }
 
   if (!icon) {
