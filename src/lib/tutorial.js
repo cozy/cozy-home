@@ -7,7 +7,7 @@ export function isTutorial() {
 
 export function display(t) {
   const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
-  const isEmptyView = !!document.querySelectorAll('[data-tutorial=empty-view]')
+  const isEmptyView = !!document.querySelectorAll('.data-tutorial-empty-view')
     .length
   const cozyBarMenuClass = isSmall
     ? '[data-tutorial=apps-mobile]'
@@ -35,7 +35,7 @@ export function display(t) {
       steps: [
         {
           element: isEmptyView
-            ? document.querySelectorAll('[data-tutorial=empty-view]')[0]
+            ? document.querySelectorAll('.data-tutorial-empty-view')[0]
             : document.querySelectorAll('[data-tutorial=top-bar]')[0],
           intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
             'tutorial.cozy_collect.text'
