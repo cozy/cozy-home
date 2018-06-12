@@ -1,5 +1,6 @@
 exports[`Failure component should be displayed with initial text if errorType is initial 1`] = `
 <Empty
+  className="data-tutorial-empty-view"
   icon="test-file-stub"
   title="Something went wrong when fetching your connectors and informations. Please refresh the page.">
   <DefaultButton
@@ -10,6 +11,7 @@ exports[`Failure component should be displayed with initial text if errorType is
 
 exports[`Failure component should correctly call the reload function on button click 1`] = `
 <Empty
+  className="data-tutorial-empty-view"
   icon="test-file-stub"
   title="Something went wrong when fetching your connectors and informations. Please refresh the page.">
   <DefaultButton

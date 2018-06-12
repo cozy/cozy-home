@@ -64,6 +64,7 @@ class InstalledKonnectors extends Component {
             icon={EmptyIcon}
             title={t('connector.no-connectors-connected')}
             text={t('connector.get-info')}
+            className="data-tutorial-empty-view"
           >
             <StoreButton label={t('connector.connect-account')} />
           </Empty>
