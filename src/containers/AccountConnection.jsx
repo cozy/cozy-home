@@ -346,6 +346,7 @@ class AccountConnection extends Component {
             connector={konnector}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
+            displayAdvanced={displayAdvanced}
             driveUrl={driveUrl}
             error={error || oAuthError || connectionError}
             folders={folders}
@@ -357,6 +358,7 @@ class AccountConnection extends Component {
             onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
+            toggleAdvanced={toggleAdvanced}
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
             isValid={isValid}
             allRequiredFilledButPasswords={allRequiredFilledButPasswords}

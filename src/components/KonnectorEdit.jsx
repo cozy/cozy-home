@@ -25,6 +25,7 @@ export const KonnectorEdit = props => {
     connector,
     deleting,
     disableSuccessTimeout,
+    displayAdvanced,
     allRequiredFieldsAreFilled,
     allRequiredFilledButPasswords,
     isValid,
@@ -43,6 +44,7 @@ export const KonnectorEdit = props => {
     onForceConnection,
     onSubmit,
     submitting,
+    toggleAdvanced,
     trigger,
     maintenance,
     lang
@@ -133,12 +135,14 @@ export const KonnectorEdit = props => {
                 error={hasLoginError}
                 fields={fields}
                 dirty={dirty}
+                displayAdvanced={displayAdvanced}
                 forceEnabled={!!error}
                 isOAuth={connector.oauth}
                 isUnloading={isUnloading}
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
+                toggleAdvanced={toggleAdvanced}
                 isValid={isValid}
                 allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
                 isValidButPasswords={isValidButPasswords}
