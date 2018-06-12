@@ -67,6 +67,14 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
   return frequencyOptions
 }
 
+function isInteger(value) {
+  return (
+    typeof value === 'number' &&
+    Math.floor(value) === value &&
+    parseInt(value, 10) === value
+  )
+}
+
 export function buildKonnectorTrigger(
   konnector,
   account,
@@ -91,7 +99,9 @@ export function buildKonnectorTrigger(
     _type: DOCTYPE,
     attributes: {
       type: '@cron',
-      arguments: `0 ${minutes || 0} ${hours || '*'} * * ${day || '*'}`,
+      arguments: `0 ${isInteger(minutes) ? minutes : 0} ${
+        isInteger(hours) ? hours : '*'
+      } * * ${isInteger(day) ? day : '*'}`,
       worker: 'konnector',
       worker_arguments: workerArguments
     }
