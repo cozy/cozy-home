@@ -44,6 +44,36 @@ Object {
 }
 `;
 
+exports[`Trigger Duck buildKonnectorTrigger creates a trigger with day set to 0 1`] = `
+Object {
+  "_type": "io.cozy.triggers",
+  "attributes": Object {
+    "arguments": "0 15 14 * * *",
+    "type": "@cron",
+    "worker": "konnector",
+    "worker_arguments": Object {
+      "account": "963a51f6cdd34401b0904de32cc5578d",
+      "konnector": "test",
+    },
+  },
+}
+`;
+
+exports[`Trigger Duck buildKonnectorTrigger creates a trigger with hours set to 0 1`] = `
+Object {
+  "_type": "io.cozy.triggers",
+  "attributes": Object {
+    "arguments": "0 15 0 * * *",
+    "type": "@cron",
+    "worker": "konnector",
+    "worker_arguments": Object {
+      "account": "963a51f6cdd34401b0904de32cc5578d",
+      "konnector": "test",
+    },
+  },
+}
+`;
+
 exports[`Trigger Duck buildKonnectorTrigger creates a trigger without folder 1`] = `
 Object {
   "_type": "io.cozy.triggers",
