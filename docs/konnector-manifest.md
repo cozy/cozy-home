@@ -33,7 +33,7 @@ There is an example for a fictive _Trinlane_ konnector.
   },
   "category": ["transportation"],
   "doctypes": ["io.cozy.files"],
-  "data_type": [
+  "data_types": [
     "bill"
   ],
   "fields": {
@@ -93,7 +93,7 @@ App manifest properties not used for konnector manifest:
 
 Additional properties compared to app manifests:
 * oauth
-* data_type
+* data_types
 * doctypes
 * fields
 * frequency
@@ -109,7 +109,7 @@ Here are all properties meaning:
 Field          | Description
 ---------------|-------------------------------------------------------------
 category       | Category of your apps to display grouped in the cozy-bar (see authorized categories), it will be 'others' by default if empty
-dataType       | Array of the data type the konnector will manage
+data_types       | Array of the data type the konnector will manage
 developer      | `name` and `url` for the developer
 editor         | The editor's name
 fields         | JSON object describing the fields need by the konnector. Used to generate a form.
