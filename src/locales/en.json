@@ -1,9 +1,9 @@
 {
   "manifest": {
     "name": "Collect",
-    "short_description": "Configuration application for konnectors. Grab your services data to your Cozy.",
-    "long_description": "__Collect__ will allow you to grab all your informations that you have using tons on services on providers websites or applications.\nEnjoy this new way to get control on your daily data :tada:",
-    "changes": "Two new connectors added:\n- Blablacar\n- Vinci Autoroutes"
+    "short_description": "Cozy Collect is the application that help you gather all your personal data inside Cozy.",
+    "long_description": "With Cozy Collect, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
+    "changes": "You haven't missed it, the Store arrived in your Cozy!\nWe took advantage of it to improve Collect:\n * Store adaptation.\n * Tile merge: when you have several accounts for a single supplier, the former are now merged under the supplier tile.\n * Improvement of some Connectors pages."
   },
   "add_account": "Add a service",
   "account": {
