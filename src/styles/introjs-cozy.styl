@@ -1,3 +1,13 @@
+/* issue about the layout position
+https://github.com/usablica/intro.js/issues/109
+*/
+@media (max-width: 1023px)
+    .introjs-fixParent
+        position: absolute !important; // @stylint ignore
+    .introjs-fixedTooltip
+        top: 0!important; // @stylint ignore
+
+
 .introjs-tooltip
     background-color transparent
     color white
@@ -42,15 +52,18 @@
 .tooltipBottom,
 .tooltipEmptyBottom
     max-width 100%!important // @stylint ignore
+    margin-top 8rem!important // @stylint ignore
 
 /* Fixes for introjs breaking points, larger to smaller */
 @media (max-width: 1118px)
     .tooltipBottom
         top 140px!important // @stylint ignore
+        margin-top -4rem!important // @stylint ignore
 
 @media (max-width: 858px)
     .tooltipEmptyBottom
         top 370px!important // @stylint ignore
+        margin-top -6rem!important // @stylint ignore
 
 @media (max-width: 680px)
     .tooltipBottom
