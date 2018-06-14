@@ -1,10 +1,9 @@
 /* global cozy */
 import React, { Component } from 'react'
 
-import Empty from 'cozy-ui/react/Empty'
-import EmptyIcon from '../assets/icons/connected-accounts.svg'
+import EmptyIcon from '../assets/images/connected-accounts.svg'
 import { connect } from 'react-redux'
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
@@ -60,14 +59,21 @@ class InstalledKonnectors extends Component {
             ))}
           </div>
         ) : (
-          <Empty
-            icon={EmptyIcon}
-            title={t('connector.no-connectors-connected')}
-            text={t('connector.get-info')}
-            className="data-tutorial-empty-view"
-          >
-            <StoreButton label={t('connector.connect-account')} />
-          </Empty>
+          <div className="col-picture-for-emtpy-list">
+            <img
+              data-tutorial="empty-view"
+              src={EmptyIcon}
+              className="col-picture-for-emtpy-list--img"
+              alt={t('connector.empty')}
+            />
+            <div>
+              <h2>{t('connector.no-connectors-connected')}</h2>
+              <p>{t('connector.get-info')}</p>
+              <NavLink to="/providers/all" className="col-button">
+                <span>{t('connector.connect-account')}</span>
+              </NavLink>
+            </div>
+          </div>
         )}
         <Switch>
           <Route
