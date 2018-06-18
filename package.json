@@ -30,6 +30,7 @@
     "pretest": "npm run lint",
     "prewatch:browser": "npm run clean:browser",
     "prewatch:mobile": "npm run clean:mobile",
+    "release": "./scripts/release.sh",
     "test": "jest --verbose --coverage",
     "test:watch": "jest --verbose --coverage --watch",
     "tx": "tx pull --all || true",
