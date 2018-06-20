@@ -49,8 +49,6 @@
         "answer": "Secret Answer",
         "access_token": "Access token",
         "accessTokenSecret": "Access token secret",
-        "consumerKey": "Consumer Key",
-        "consumerSecret": "Consumer Secret",
         "apikey": "Api key",
         "phoneNumber": "Phone number",
         "folderPath": "Folder path",
