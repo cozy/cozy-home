@@ -362,7 +362,6 @@
     "no-connectors-connected": "You have not yet connected connectors",
     "get-info": "Get automatically all your informations in your Cozy",
     "connect-account": "Connect my accounts",
-    "accounts_count": "%{count} connected accounts",
     "logo": {
       "alt": "%{name} logo"
     },
