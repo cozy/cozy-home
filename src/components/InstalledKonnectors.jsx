@@ -47,7 +47,7 @@ class InstalledKonnectors extends Component {
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
-          {hasConnections && <StoreButton label={t('add_account')} icon />}
+          {hasConnections && <StoreButton label={t('add_service')} icon />}
         </div>
         {hasConnections ? (
           <div className="connector-list">
