@@ -5,7 +5,18 @@ import { translate } from 'cozy-ui/react/I18n'
 import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
+import { getKonnectorTriggersCount } from '../reducers'
 import { hasAtLeastOneTriggerWithUserError } from '../ducks/connections'
+
+const KonnectorTileFooter = ({ accountsCount, hasUserError, subtitle, t }) =>
+  accountsCount ? (
+    <div>
+      {!!subtitle && <p className="item-subtitle">{subtitle}</p>}
+      {hasUserError ? svgIcon('warning') : svgIcon('check')}
+    </div>
+  ) : (
+    <span className="item-subtitle-no-account">{t('connector.noAccount')}</span>
+  )
 
 const KonnectorTile = ({
   accountsCount,
@@ -28,8 +39,12 @@ const KonnectorTile = ({
         />
       </header>
       <h3 className="item-title">{konnector.name}</h3>
-      {subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {hasUserError ? svgIcon('warning') : svgIcon('check')}
+      <KonnectorTileFooter
+        accountsCount={accountsCount}
+        hasUserError={hasUserError}
+        subtitle={subtitle}
+        t={t}
+      />
     </NavLink>
   )
 }
@@ -45,6 +60,7 @@ const svgIcon = name => (
 const mapStateToProps = (state, props) => {
   const { konnector } = props
   return {
+    accountsCount: getKonnectorTriggersCount(state, konnector),
     hasUserError: hasAtLeastOneTriggerWithUserError(
       state.connections,
       konnector.slug
