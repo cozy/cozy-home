@@ -10,6 +10,7 @@ import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
 import InstalledKonnectors from '../components/InstalledKonnectors'
+import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
             }}
           >
             <Switch>
+              <Route path="/redirect" component={IntentRedirect} />
               <Route
                 path="/connected"
                 render={props => (
