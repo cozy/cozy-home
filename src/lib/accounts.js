@@ -10,12 +10,8 @@ export const ACCOUNT_ERRORS = {
 }
 
 export function update(cozy, account, newAccount) {
-  // Fetch the current account to get the correct _rev attribute.
-  // It may have changed, if a job has been running for example.
-  return cozy.data.find(ACCOUNTS_DOCTYPE, account._id).then(currentAccount => {
-    return cozy.data.updateAttributes(ACCOUNTS_DOCTYPE, account.id, {
-      auth: newAccount.auth
-    })
+  return cozy.data.updateAttributes(ACCOUNTS_DOCTYPE, account._id, {
+    auth: newAccount.auth
   })
 }
 

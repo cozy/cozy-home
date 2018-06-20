@@ -71,7 +71,7 @@ describe('accounts library', () => {
           accounts.ACCOUNTS_DOCTYPE
         )
         expect(cozyMock.data.updateAttributes.mock.calls[0][1]).toEqual(
-          accountMock.id
+          accountMock._id
         )
         expect(cozyMock.data.updateAttributes.mock.calls[0][2]).toEqual({
           auth: accountMock2.auth
