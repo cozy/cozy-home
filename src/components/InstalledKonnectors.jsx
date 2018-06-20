@@ -40,14 +40,14 @@ class InstalledKonnectors extends Component {
     const { t, installedKonnectors, wrapper, breakpoints = {} } = this.props
     const { isMobile } = breakpoints
     const hasConnections = !!installedKonnectors.length
-    const title = <h2 className="col-view-title">{t('nav.connected')}</h2>
+    const title = <h2 className="col-view-title">{t('nav.services')}</h2>
 
     return (
       <div className="content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
-          {hasConnections && <StoreButton label={t('add_account')} icon />}
+          {hasConnections && <StoreButton label={t('add_service')} icon />}
         </div>
         {hasConnections ? (
           <div className="connector-list">

@@ -5,7 +5,7 @@
     "long_description": "With Cozy Collect, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
     "changes": "You haven't missed it, the Store arrived in your Cozy!\nWe took advantage of it to improve Collect:\n * Store adaptation.\n * Tile merge: when you have several accounts for a single supplier, the former are now merged under the supplier tile.\n * Improvement of some Connectors pages."
   },
-  "add_account": "Add a service",
+  "add_service": "Add a service",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
@@ -165,7 +165,7 @@
         "description": "An additional field must be filled in before checking your credentials."
       },
       "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
-        "title": "Konnector temporarly blocked",
+        "title": "Temporarily blocked",
         "description": "Too many attempts occured. Please update your credentials on [%{name}](%{link}) website and update the konnector later on."
       },
       "MAINTENANCE": {
@@ -254,7 +254,7 @@
   },
 
   "nav": {
-    "connected": "Connected accounts"
+    "services": "Installed services"
   },
 
   "category": {
