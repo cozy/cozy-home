@@ -25,7 +25,7 @@ $item-margin = .8em
     background-color white
     border           1px solid alpha(black, .15)
     margin           $item-real-margin
-    padding-bottom   2.5em
+    padding-bottom   1rem
     cursor           pointer
     text-decoration  none
     text-align       center
@@ -61,22 +61,27 @@ $item-margin = .8em
         margin          0
         color           coolGrey
         box-sizing      border-box
-        position        absolute
         text-overflow   ellipsis
         white-space     nowrap
-    .item-status-icon,
-    .item-count
+    .item-subtitle-no-account
+        font-size       14px
+        font-weight     700
+        text-transform  uppercase
+        padding         .5rem
+        width           auto
+        overflow        hidden
+        margin          0
+        color           dodgerBlue
+        box-sizing      border-box
+        border-radius   3px
+        display         inline-block
+        background      rgba(41, 126, 241, .15)
+    .item-status-icon
         position absolute
         width    24px
         height   24px
         bottom   1em
         right    1em
-    .item-count
-        border-radius 100%
-        color   dodgerBlue
-        font-weight 900
-        background rgba(41, 126, 242, .1)
-        line-height 24px
 
 .col-voting-item
     border      2px dashed alpha(black, .15)
