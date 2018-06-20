@@ -40,7 +40,7 @@ class InstalledKonnectors extends Component {
     const { t, installedKonnectors, wrapper, breakpoints = {} } = this.props
     const { isMobile } = breakpoints
     const hasConnections = !!installedKonnectors.length
-    const title = <h2 className="col-view-title">{t('nav.connected')}</h2>
+    const title = <h2 className="col-view-title">{t('nav.services')}</h2>
 
     return (
       <div className="content">
