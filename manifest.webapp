@@ -81,6 +81,11 @@
     "action": "CREATE",
     "type": ["io.cozy.accounts"],
     "href": "/intents"
+  }, {
+    "action": "REDIRECT",
+    "type": ["io.cozy.accounts"],
+    "href": "/redirect",
+    "data": ["konnector"]
   }],
   "services": {
    "clean-orphan-accounts": {
