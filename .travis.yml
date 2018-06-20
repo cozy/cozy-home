@@ -6,12 +6,15 @@ node_js:
 env:
   global:
   - CXX=g++-4.8
+  # to generate secure ENV VARS : travis encrypt MY_VAR=<value> -r cozy/cozy-collect
   # GITHUB_TOKEN
   - secure: r1KjnXjMYKWD9S9oQo2ubG8J0rfADXLJQFgId/L0c16f72Be0YFmpKRq8Zx3haREcydgLUSJEjrdLGp0USY6AqY+iOcKRUrJzxueqRpSWnoF2Lvh9h21zXocRsDzJcwxCUA2y4pxe8e/A9CL4IP8s9DB+DfkBwQB+I6Vm5DOPkYojWFG1uXggrxLhgf8c5AMyAwQGkpBTc9a7PqtIHjSHd5rpSdoRFUNCLJfz0Qow7mf0M8j4fKfeNe8teU7qmkUvPTI1v/SBhU9hebOHjjY9bxfG4kVSpPaCVcVtKqyyemiPU1aZ2vJpgxJ1Y2A3zGe4IA2xJGKDZY4xDz0oGWlJisPWOW6l9BALDLUV8QhVoqhFfyCHYiGEweGcIaZk9t6a1CNhNb3FXlUw8S4XMo91g4hLu2q42PnVX6862fSOGF7FyEHAha20nFOitOpqsEwmfEm8dhyi4wzVEuTEvQlQAHN9x4wRwnE2x56eHftKV0XDVMiJKybO5vpyofFUBeyWzvDxJoV/2vwGyTpG5te7g7VmyT5XzPRioWwWRJryYDHm9zZeuhYSJiG4ARgWmjkluOe5n/WAcdFeDkx+AEQ+kXBfuGuJD9IMartlWL8K4TavgfTEUdYgkCeyHHhXS8o5IMuRIkc/sl4gb3kcNtt+FHQpKV4VYQy+gPcoN51FOU=
   # TX_PASSWD
   - secure: k+l7JX8xWzDGhgwYie6XNivipMnNyd/uPm3eudNMgOduno9nTLqFkBsJiYOROD2O+HddtlRY2rUJapctH/Mbph2vxxhdsdsu32fB/nkgEj4/NrGsoyAnRWmT9yYYdl93Av1V60M919+xSMpUKwM67PvWlf0KRGb73A2MJH4hN5siOT9Z+I77MPTJegKTh/NsLAjpaz9wFgysjAxs9+MzxWxnncLkcEdTGAQERKeb7iZAczt66Of9XzqkCD+VHrrdO8I5TfpHiWkx5GvRbrnwy/g15ZxBbTYjVR01uU5gNR9qFLt5zSMbkaCy+pu6oWG8k87CfVjqmNgxgWjq4sanjO6lptHn3QAWSutT0Zq7iAHBA+OFR2oiXePLWSjTPXPOo8Bwkm401VgPuXOyQ07xt+VufF+pX6lYIcwx7wqWfElEtpkc3V7vDoF6rdNQDte2sZwQUAqdzkAnXrS7il3q1FWBiGT8x1FVWjrSxs0wagVrdQxM1bSOAD8M/E1BgU/WIsc3qmFh98Ki8YB2JbTAgsxhncVs/OcWj/YSl2AUbIMHfATWPM8VVq9e8alnvhmRcY/oqWvwU7tGMepM1em7pCQIWqMKAx513z5qqHHmhtop3XaUGE8PHmpjWkRorGm2mWC5xtAVywl+2fmXpi8rHAn7WHTwuK/OIcdEqT98bRw=
   # REGISTRY_TOKEN
   - secure: TMRI4sB1BgTq1dXOni3ZBwr24rBBZ/ITCPyuAbbI8RQx75rZVnChDItJyIeVAffx6nW/5MuF4D65eCc2ylx+JyRggYae44pvfWwaSbhI1bW+mVR2acdqoVOpfqYkQBfVCjDsqA8O23RdCi3SXpGpRBtWP4+TpK9MvD+28CxpwLNeZ0i2q19vllRIN1jtWDRkq1CZC6IvypC8I7isWyz3dOsuG10ug6WddzsEpVXD7ZAOiU3+8riDawpQlZ3e6KNKAE10IXTdSGHocyHc51V64o+7Rvl+BmkEqzQ6JgXXi5SKy0wB520FUFfMr1TZJnhjVJn/MJySfwLOsiMYA5zYF4OH0SNbfRTe1U7T/F3xj7vN9CSd4kVXvUE1rMyxCzgtxuRh2GvovpJTiNtFXdSe0Mzck4GPNlZT6EjMD5dEFC96krvB2J4iLK/NxQBr2Mgrbs5cWQB+GZKvAnC5RPOUcn13fsYc+EPaA+Vf9SzkGYAmbmGgeY0e1fopPGjVfdhyUqarrtYJQZDgKRbeaABljTvZcKl/1Sj85AeeKkpsDRHR51zRSQ6VHFhCe+q3uDkVcPOw5G4nzg5btOkT1iK5V4Y0rF1KUY2MwKSryyTJqRr+li8/PorgGsies8m+xvVZgoIECCBcJwvMZ9J7m802KSM6z3gkxuMy2WyyMwn1kWM=
+  # RUNDECK_TOKEN
+  secure: TIuR4l+T3XBBWT1Nz/C93b8DGXO1lom8TbUiWzTcdNXNXAHW2Q/k2qt0KdohYa0m9ULemknxYMewBVyeDbmQIJ1cx/+SrgnrWkcH8Pk6GWkY2ugzicwQPPvLPS/u+MMZC0w7tcOpPdeL1AYF+f+eQxgYvumCnzR/kKWajFaYEHRXWxSQNypsbbkAQmtD4nhtg934MdNamPMMZAV7v7Y7VvmUQeZKV3B63zCr5L28KD2S1yH5l3qFcKm3KFcK5VJgOAjmhUQSg0lBztV2gXMbS/EHecCsUJtu/29EzG/6bGhjP5NSYl6gO2BaemY85oWVK9aWpnuB1fMbnzdJb9+jD4C5NQmVWTLmwlBr1Sf5GrHX0Inc+QNn/XcFe0bUg40FqAjlPPMsNuPSn745QEq+B3IKZGF9o94DIMalZdGoM6CGSqh0hDJ7B6e/7K5vEfw2PZQoVwKfzstrc6EUadkXohtdgv8+b33KHRfOH4A8171LrQn9a4J+SOcns31iGMg/0MXfA+bMZkGrwCQxcnKQ13Epvs3qDaOflbdE0YKOAsUpMDO3zLcY7uVu3FjsBp6x8PL6pYF3iKfp7jD6OSEpGBl39eUMavL8hv+2LFo1O/aiUZJ/9fLPoCqZ/Cbp87T8VMVHHiRfqWs+W0AWRCJs0BpY1qFnOxti/ZrXNo/T1qQ=
 addons:
   apt:
     sources:
@@ -40,36 +43,12 @@ deploy:
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: export DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy
     on:
       branch: master
   - provider: script
     repo: cozy/cozy-collect
     skip-cleanup: true
-    script: export DEPLOY_BRANCH=latest && yarn cozyPublish
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy
     on:
       tags: true
-  - provider: script
-    repo: cozy/cozy-collect
-    skip-cleanup: true
-    script: export DEPLOY_BRANCH=latest && yarn cozyPublish
-    on:
-      branch: test_publish
-  - provider: script
-    repo: cozy/cozy-collect
-    skip-cleanup: true
-    script: export DEPLOY_BRANCH=latest && yarn deploy
-    on:
-      branch: prod
-  - provider: script
-    repo: cozy/cozy-collect
-    skip-cleanup: true
-    script: export DEPLOY_BRANCH=build_no_more_providers && yarn deploy
-    on:
-      branch: feature/no-more-providers
-  - provider: script
-    repo: cozy/cozy-collect
-    skip-cleanup: true
-    script: export DEPLOY_BRANCH=build_orange && yarn deploy
-    on:
-      branch: orange

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -euo pipefail
+
+JOB_UPDATE_INT="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
+
+function executeRundeck {
+  INSTANCE=$1
+  JOB=$2
+  APP_SLUG=$3
+  curl --fail -X POST -H "X-Rundeck-Auth-Token: $RUNDECK_TOKEN" https://rundeck.cozycloud.cc/api/20/job/$JOB/run?argString=-instance+$INSTANCE+-slugs+$APP_SLUG
+
+  echo ""
+}
+
+function sendMattermostMsg {
+  if [[ -z "$MATTERMOST_CHANNEL" ]]; then
+    echo "No Mattermost channel specified";
+  else
+    INSTANCE=$1
+    APP_SLUG=$2
+    MATTERMOST_ICON="https://travis-ci.com/images/logos/TravisCI-Mascot-1.png"
+    MATTERMOST_USERNAME="Travis"
+
+    GIT_LOG=$(git log -1 "--pretty=format:%h %s")
+    MATTERMOST_TEXT="$INSTANCE updated for $APP_SLUG. [$GIT_LOG](https://github.com/$TRAVIS_REPO_SLUG/commit/$TRAVIS_COMMIT)."
+
+    curl -X POST -d "payload=\
+        {\"channel\":\"${MATTERMOST_CHANNEL}\",\
+         \"icon_url\": \"${MATTERMOST_ICON}\",\
+         \"username\": \"${MATTERMOST_USERNAME}\", \
+         \"text\": \"${MATTERMOST_TEXT}\"}" ${MATTERMOST_HOOK_URL}
+
+    echo "";
+  fi
+}
+
+function deploy {
+  INSTANCE=$1
+  JOB=$2
+  APP_SLUG=$3
+
+  executeRundeck $INSTANCE $JOB $APP_SLUG
+  sendMattermostMsg $INSTANCE $APP_SLUG
+
+  sleep 5 # Cannot have the same rundeck job running twice
+}
+
+app_slug=$(cat build/manifest.webapp | jq -rc '.slug')
+echo "Application slug is ${app_slug}"
+
+echo "Deploying ${app_slug} on recette:"
+deploy "recette.cozy.works" $JOB_UPDATE_INT ${app_slug}
