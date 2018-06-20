@@ -167,7 +167,7 @@
         "description": "An additional field must be filled in before checking your credentials."
       },
       "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
-        "title": "Konnector temporarly blocked",
+        "title": "Temporarily blocked",
         "description": "Too many attempts occured. Please update your credentials on [%{name}](%{link}) website and update the konnector later on."
       },
       "MAINTENANCE": {
