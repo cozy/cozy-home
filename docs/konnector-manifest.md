@@ -193,7 +193,7 @@ min             | Minimum length of the value (number of characters)
 options         | When the field is a dropdown, list of available options
 pattern         | Define a regex used to validate the field.
 required        | Boolean indicating if the field is required or not (default `true`)
-type            | *Required*. Field type from `dropdown`, `email`, `hidden`, `password`, `text`.
+type            | *Required*. Field type from `dropdown`, `email`, `hidden`, `password`, `text`, `checkbox`.
 
 ### Categories
 
