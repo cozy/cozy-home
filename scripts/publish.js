@@ -143,7 +143,9 @@ const publish = async (manifestVersion, commitHash, registryVersion) => {
       },
       override,
       manualInterruptionError => {
-        throw manualInterruptionError
+        if (manualInterruptionError) {
+          throw manualInterruptionError
+        }
       }
     )
   } catch (error) {
