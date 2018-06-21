@@ -3,8 +3,6 @@
 @require 'components/button.styl'
 @require 'settings/palette.styl'
 
-.col-wrapper
-    @extend $app-2panes-sticky
 
 .col-content
     top-padded(30px)
@@ -12,10 +10,10 @@
     h1
         margin  .5em 0
 
-    [role=contentinfo]
+    [role=main]
         padding 0 2em
 
-    @media (max-width: (480/basefont)rem)
+    @media (max-width: rem(480))
         top-padded(10px)
 
 .col-initial-error,
@@ -32,7 +30,7 @@
     align-items     center
     padding-right   .5em
 
-    @media (max-width: (768/basefont)rem)
+    +small-screen()
         margin-top .5rem
         padding 0
 
@@ -55,11 +53,11 @@
 
 
 .col-account-connection-header
-    @media (max-width: (930/basefont)rem)
+    @media (max-width: rem(930))
         width   100%
 
     svg
-        max-height (48/basefont)em
+        max-height rem(48)
 
 .col-account-connection-back
     height 2em
