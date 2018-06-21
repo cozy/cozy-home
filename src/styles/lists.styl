@@ -101,6 +101,7 @@ $item-margin = .8em
 @media (max-width: 43em)
     .item-wrapper
         padding .5em .5em 2.5em
+        flex-basis 'calc(100% - %s * 2)' % $item-margin
         .item-header
             height        4em
             background    white

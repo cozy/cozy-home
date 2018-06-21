@@ -13,6 +13,8 @@ import InstalledKonnectors from '../components/InstalledKonnectors'
 import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 
+import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+
 class App extends Component {
   constructor(props, context) {
     super(props, context)
@@ -31,45 +33,50 @@ class App extends Component {
 
     if (hasError) {
       return (
-        <div className="col-initial-error">
-          <Failure errorType="initial" />
-        </div>
+        <Layout monocolumn>
+          <Main>
+            <Content className="col-initial-error">
+              <Failure errorType="initial" />
+            </Content>
+          </Main>
+        </Layout>
       )
     }
+
     return isFetching ? (
-      <div className="col-initial-loading">
-        <Loading loadingType="initial" />
-      </div>
+      <Layout monocolumn>
+        <Main>
+          <Content className="col-initial-loading">
+            <Loading loadingType="initial" />
+          </Content>
+        </Main>
+      </Layout>
     ) : (
-      <div className="col-wrapper coz-sticky">
-        <main className="col-content">
-          <div
-            role="contentinfo"
-            ref={div => {
-              this.contentWrapper = div
-            }}
-          >
-            <Switch>
-              <Route path="/redirect" component={IntentRedirect} />
-              <Route
-                path="/connected"
-                render={props => (
-                  <InstalledKonnectors
-                    base="/connected"
-                    wrapper={this.contentWrapper}
-                  />
-                )}
+      <Layout
+        monoColumn
+        ref={div => {
+          this.contentWrapper = div
+        }}
+      >
+        <Switch>
+          <Route path="/redirect" component={IntentRedirect} />
+          <Route
+            path="/connected"
+            render={props => (
+              <InstalledKonnectors
+                base="/connected"
+                wrapper={this.contentWrapper}
               />
-              <Route exact path="/providers" component={StoreRedirection} />
-              <Route path="/providers/:category" component={StoreRedirection} />
-              <Redirect exact from="/" to="/connected" />
-              <Redirect from="*" to="/connected" />
-            </Switch>
-          </div>
-        </main>
+            )}
+          />
+          <Route exact path="/providers" component={StoreRedirection} />
+          <Route path="/providers/:category" component={StoreRedirection} />
+          <Redirect exact from="/" to="/connected" />
+          <Redirect from="*" to="/connected" />
+        </Switch>
         <Notifier />
         <ConnectionsQueue />
-      </div>
+      </Layout>
     )
   }
 }

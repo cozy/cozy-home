@@ -5,16 +5,10 @@
 
 
 .col-content
-    top-padded(30px)
+    padding 0 2rem
 
-    h1
-        margin  .5em 0
-
-    [role=main]
-        padding 0 2em
-
-    @media (max-width: rem(480))
-        top-padded(10px)
+    +small-screen()
+        padding 0 .5rem
 
 .col-initial-error,
 .col-initial-loading
@@ -28,11 +22,9 @@
     flex-direction  row
     justify-content space-between
     align-items     center
-    padding-right   .5em
 
     +small-screen()
         margin-top .5rem
-        padding 0
 
         button
             width   100%
