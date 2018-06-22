@@ -84,7 +84,7 @@
   }, {
     "action": "REDIRECT",
     "type": ["io.cozy.accounts"],
-    "href": "/redirect",
+    "href": "/#/redirect",
     "data": ["konnector"]
   }],
   "services": {
