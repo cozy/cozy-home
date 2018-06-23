@@ -102,7 +102,7 @@
     "cozy-app-publish": "0.3.6",
     "cozy-bar": "5.0.6",
     "cozy-client-js": "0.11.0",
-    "cozy-ui": "9.7.0",
+    "cozy-ui": "10.0.0",
     "enzyme": "3.3.0",
     "eslint-loader": "2.0.0",
     "file-loader": "1.1.6",
