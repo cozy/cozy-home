@@ -34,6 +34,12 @@ $item-margin = .8em
         box-shadow 0 4px 12px 0 alpha(black, .15)
         transform  scale(1.05)
         transition .2s ease all
+    &.--add-service
+        display flex
+        flex-direction column
+        justify-content center
+        border-style dashed
+        border-width 2px
     .item-header
         position      relative
         border-radius 4px 4px 0 0
@@ -82,6 +88,9 @@ $item-margin = .8em
         height   24px
         bottom   1em
         right    1em
+    .item-add-service-button
+        font-size 16px
+        font-weight bold
 
 .col-voting-item
     border      2px dashed alpha(black, .15)
@@ -100,14 +109,14 @@ $item-margin = .8em
 
 @media (max-width: 43em)
     .item-wrapper
-        padding .5em .5em 2.5em
+        padding .5em
         flex-basis 'calc(100% - %s * 2)' % $item-margin
         .item-header
             height        4em
             background    white
             .item-icon
                 max-width         8em
-                max-height        2em
+                max-height        4em
         .item-title
             padding     .25em .5em
             margin      .5em
@@ -153,7 +162,7 @@ $item-margin = .8em
             height  9em
             .item-icon
                 max-width   14em
-                max-height  4em
+                max-height  6em
 
 @media (min-width: 108em)
     .use-case-dialog

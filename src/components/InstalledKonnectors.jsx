@@ -15,7 +15,7 @@ import ConnectionManagement from '../containers/ConnectionManagement'
 import KonnectorTile from './KonnectorTile'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
-import StoreButton from './StoreButton'
+import StoreTile from './StoreTile'
 
 const { BarCenter } = cozy.bar
 
@@ -48,11 +48,11 @@ class InstalledKonnectors extends Component {
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
-          {hasConnections && <StoreButton label={t('add_service')} icon />}
         </div>
         <Content className="col-content">
           {hasConnections ? (
             <div className="connector-list">
+              <StoreTile label={t('add_service')} />
               {installedKonnectors.map(konnector => (
                 <KonnectorTile
                   konnector={konnector}
