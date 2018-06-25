@@ -15,7 +15,7 @@ function executeRundeck {
 }
 
 function sendMattermostMsg {
-  if [[ -z "$MATTERMOST_CHANNEL" ]]; then
+  if [[ -z "${MATTERMOST_CHANNEL-}" ]]; then
     echo "No Mattermost channel specified";
   else
     INSTANCE=$1
