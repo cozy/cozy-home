@@ -5,6 +5,8 @@
 
 set -e
 
+command -v jq >/dev/null 2>&1 || { echo >&2 "jq is required but it's not installed. Aborting."; exit 1; }
+
 echo "Starting the release process..."
 
 current_version=$(cat package.json | jq -rc '.version')
