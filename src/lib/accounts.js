@@ -10,6 +10,7 @@ export const ACCOUNT_ERRORS = {
 }
 
 export function update(cozy, account, newAccount) {
+  delete newAccount.auth.credentials_encrypted
   return cozy.data.updateAttributes(ACCOUNTS_DOCTYPE, account._id, {
     auth: newAccount.auth
   })
