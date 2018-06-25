@@ -2194,9 +2194,9 @@ cozy-app-publish@0.3.6:
     node-fetch "2.1.2"
     prompt "1.0.0"
 
-cozy-bar@5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-5.0.6.tgz#aea3e4b77536cddedad25b42821555c6ca0ffbbe"
+cozy-bar@5.0.7:
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-5.0.7.tgz#85f0445fe3fb0b82f68cb33f823009b1f6959d0b"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     core-js "^2.5.3"
