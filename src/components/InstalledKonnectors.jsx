@@ -46,7 +46,7 @@ class InstalledKonnectors extends Component {
     return (
       <Main>
         <ScrollToTopOnMount target={wrapper} />
-        <div className="col-top-bar" data-tutorial="top-bar">
+        <div className="col-content col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
         </div>
         <Content className="col-content">
