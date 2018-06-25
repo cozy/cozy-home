@@ -44,13 +44,13 @@ class InstalledKonnectors extends Component {
     const title = <h2 className="col-view-title">{t('nav.services')}</h2>
 
     return (
-      <Main className="col-content">
+      <Main>
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
           {hasConnections && <StoreButton label={t('add_service')} icon />}
         </div>
-        <Content>
+        <Content className="col-content">
           {hasConnections ? (
             <div className="connector-list">
               {installedKonnectors.map(konnector => (
