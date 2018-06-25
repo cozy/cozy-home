@@ -3,29 +3,29 @@
 
 // Onboarding notification styles
 // TODO: use the one in cozy-ui ?
-notification-width = (546/basefont)em
+notification-width = rem(546)
 .coz-notifier
     z-index 100
 
 .coz-notification
     display          block
     position         absolute
-    top              (16/basefont)em
+    top              rem(16)
     left             0
-    margin           0 (16/basefont)em
-    border-radius    (10/basefont)em
+    margin           0 rem(16)
+    border-radius    rem(10)
     background-color emerald
-    box-shadow       0 (6/basefont)em (18/basefont)em 0 rgba(50, 54, 63, .23)
+    box-shadow       0 rem(6) rem(18) 0 rgba(50, 54, 63, .23)
     box-sizing       border-box
     padding          1em
     color            white
 
     //                  When only a title is displayed
-    min-height          (96/basefont)em
-    padding-left        (96/basefont)em
+    min-height          rem(96)
+    padding-left        rem(96)
     background-image    embedurl('../assets/icons/icon-check.svg')
     background-repeat   no-repeat
-    background-position (24/basefont)em center
+    background-position rem(24) center
 
     transition                 top .5s
     transition-timing-function ease-out

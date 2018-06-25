@@ -21,15 +21,15 @@
         margin-top    1.5rem
 
     .col-account-connection-security svg
-        max-height   (24/basefont)em
-        max-width    (24/basefont)em
+        max-height   rem(24)
+        max-width    rem(24)
         float        left
-        margin-right (8/basefont)em
+        margin-right rem(8)
 
     .col-account-connection-form
-        margin 0 (8/basefont)em 0 0
+        margin 0 rem(8) 0 0
 
-    @media (max-width: (768/basefont)rem)
+    +small-screen()
         .col-account-connection-content
             display block
             width   100%

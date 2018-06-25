@@ -7,6 +7,7 @@ import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
+import { Main, Content } from 'cozy-ui/react/Layout'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 import sortBy from 'lodash/sortBy'
 
@@ -43,38 +44,40 @@ class InstalledKonnectors extends Component {
     const title = <h2 className="col-view-title">{t('nav.services')}</h2>
 
     return (
-      <div className="content">
+      <Main className="col-content">
         <ScrollToTopOnMount target={wrapper} />
         <div className="col-top-bar" data-tutorial="top-bar">
           {isMobile ? <BarCenter>{title}</BarCenter> : title}
           {hasConnections && <StoreButton label={t('add_service')} icon />}
         </div>
-        {hasConnections ? (
-          <div className="connector-list">
-            {installedKonnectors.map(konnector => (
-              <KonnectorTile
-                konnector={konnector}
-                route={`connected/${konnector.slug}`}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="col-picture-for-emtpy-list">
-            <img
-              data-tutorial="empty-view"
-              src={EmptyIcon}
-              className="col-picture-for-emtpy-list--img"
-              alt={t('connector.empty')}
-            />
-            <div>
-              <h2>{t('connector.no-connectors-connected')}</h2>
-              <p>{t('connector.get-info')}</p>
-              <NavLink to="/providers/all" className="col-button">
-                <span>{t('connector.connect-account')}</span>
-              </NavLink>
+        <Content>
+          {hasConnections ? (
+            <div className="connector-list">
+              {installedKonnectors.map(konnector => (
+                <KonnectorTile
+                  konnector={konnector}
+                  route={`connected/${konnector.slug}`}
+                />
+              ))}
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="col-picture-for-emtpy-list">
+              <img
+                data-tutorial="empty-view"
+                src={EmptyIcon}
+                className="col-picture-for-emtpy-list--img"
+                alt={t('connector.empty')}
+              />
+              <div>
+                <h2>{t('connector.no-connectors-connected')}</h2>
+                <p>{t('connector.get-info')}</p>
+                <NavLink to="/providers/all" className="col-button">
+                  <span>{t('connector.connect-account')}</span>
+                </NavLink>
+              </div>
+            </div>
+          )}
+        </Content>
         <Switch>
           <Route
             exact
@@ -95,7 +98,7 @@ class InstalledKonnectors extends Component {
           />
           <Redirect from="/connected/*" to="/connected" />
         </Switch>
-      </div>
+      </Main>
     )
   }
 }
