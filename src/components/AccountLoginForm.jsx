@@ -119,7 +119,8 @@ export class AccountLoginForm extends React.Component {
     const renderField = field => {
       const { name, label, type, value, placeholder } = field
       if (!renderers[type]) {
-        throw new Error('Unknown field type ' + type)
+        console.warn && console.warn('Unknown field type ' + type)
+        return null
       }
       const disabled = probableLoginFieldNames.includes(name) && editing
 
