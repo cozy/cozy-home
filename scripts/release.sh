@@ -5,6 +5,8 @@
 
 set -e
 
+command -v jq >/dev/null 2>&1 || { echo >&2 "jq is required but it's not installed. Aborting."; exit 1; }
+
 echo "Starting the release process..."
 
 current_version=$(cat package.json | jq -rc '.version')
@@ -15,6 +17,15 @@ branch_name="release-${version}"
 echo "Checking out to $branch_name"
 git checkout -b $branch_name
 git commit --allow-empty -m "chore: starting release ${version}"
+
+jq '.version = $version' --arg version $version package.json > package.temp.json && mv package.temp.json package.json
+jq '.version = $version' --arg version $version manifest.webapp > manifest.temp.webapp && mv manifest.temp.webapp manifest.webapp
+
+git add package.json
+git add manifest.webapp
+
+git commit -m "📦 chore: bump version ${version}"
+
 git push -u origin HEAD
 
 release_pr_template="./scripts/release-pr-template.txt"
