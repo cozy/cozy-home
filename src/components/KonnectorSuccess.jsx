@@ -65,7 +65,8 @@ export const KonnectorSuccess = props => {
             <p>
               <Button
                 label={successButtonLabel || t('account.success.button.config')}
-                onClick={() => {
+                onClick={event => {
+                  event.preventDefault()
                   onDone(account)
                 }}
               />
