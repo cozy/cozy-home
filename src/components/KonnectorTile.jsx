@@ -8,6 +8,8 @@ import { getKonnectorIcon } from '../lib/icons'
 import { getKonnectorTriggersCount } from '../reducers'
 import { hasAtLeastOneTriggerWithUserError } from '../ducks/connections'
 
+const validCategoriesSet = new Set(require('../config/categories'))
+
 const KonnectorTileFooter = ({ accountsCount, hasUserError, subtitle, t }) =>
   accountsCount ? (
     <div>
@@ -25,10 +27,13 @@ const KonnectorTile = ({
   route,
   t
 }) => {
-  const categories = konnector.categories
-    ? konnector.categories.map(c => t(`category.${c}`))
-    : []
-  const subtitle = categories.join(', ')
+  const categoriesSet = konnector.categories
+    ? konnector.categories
+        .map(c => (validCategoriesSet.has(c) ? c : 'other'))
+        .reduce((acc, c) => acc.add(c), new Set())
+    : new Set()
+  const subtitle =
+    categoriesSet && [...categoriesSet].map(c => t(`category.${c}`)).join(', ')
   return (
     <NavLink className="item-wrapper" to={route}>
       <header className="item-header">
