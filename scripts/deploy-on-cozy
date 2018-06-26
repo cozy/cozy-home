@@ -17,6 +17,8 @@ function executeRundeck {
 function sendMattermostMsg {
   if [[ -z "${MATTERMOST_CHANNEL-}" ]]; then
     echo "No Mattermost channel specified";
+  elif [[ -z "${MATTERMOST_HOOK_URL-}" ]]; then
+    echo "Missing MATTERMOST_HOOK_URL environment variable";
   else
     INSTANCE=$1
     APP_SLUG=$2
