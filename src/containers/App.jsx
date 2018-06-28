@@ -9,7 +9,7 @@ import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
-import InstalledKonnectors from '../components/InstalledKonnectors'
+import InstalledKonnectors from '../components/Services'
 import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 

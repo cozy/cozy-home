@@ -19,7 +19,7 @@ import StoreTile from './StoreTile'
 
 const { BarCenter } = cozy.bar
 
-class InstalledKonnectors extends Component {
+class Services extends Component {
   componentDidMount() {
     this.launchTutorial()
   }
@@ -113,5 +113,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps)(translate()(withBreakpoints()(InstalledKonnectors)))
+  connect(mapStateToProps)(translate()(withBreakpoints()(Services)))
 )
