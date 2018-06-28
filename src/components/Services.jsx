@@ -52,13 +52,13 @@ class Services extends Component {
         <Content className="col-content">
           {hasConnections ? (
             <div className="connector-list">
-              <StoreTile label={t('add_service')} />
               {installedKonnectors.map(konnector => (
                 <KonnectorTile
                   konnector={konnector}
                   route={`connected/${konnector.slug}`}
                 />
               ))}
+              <StoreTile label={t('add_service')} />
             </div>
           ) : (
             <div className="col-picture-for-emtpy-list">
