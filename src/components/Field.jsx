@@ -67,10 +67,13 @@ export default Field
 
 class FieldWrapperComponent extends Component {
   componentDidMount() {
-    if (this.props.giveFocus)
-      ReactDOM.findDOMNode(this)
-        .querySelector('input')
-        .focus()
+    if (this.props.giveFocus) {
+      const thisNode = ReactDOM.findDOMNode(this)
+      const inputNode = thisNode.querySelector('input')
+      if (inputNode && typeof inputNode.focus === 'function') {
+        inputNode.focus()
+      }
+    }
   }
 
   handleKeyUp = ev => {

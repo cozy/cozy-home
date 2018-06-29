@@ -5,7 +5,7 @@ import { Component } from 'react'
 export class ScrollToTopOnMount extends Component {
   componentDidMount() {
     const target = this.props && this.props.target
-    target && target.scrollTo(0, 0)
+    target && typeof target.scrollTo === 'function' && target.scrollTo(0, 0)
   }
 
   render() {
