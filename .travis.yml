@@ -6,6 +6,7 @@ node_js:
 env:
   global:
   - CXX=g++-4.8
+  - MATTERMOST_CHANNEL=Plateformers-release
   # to generate secure ENV VARS : travis encrypt MY_VAR=<value> -r cozy/cozy-collect
   # GITHUB_TOKEN
   - secure: r1KjnXjMYKWD9S9oQo2ubG8J0rfADXLJQFgId/L0c16f72Be0YFmpKRq8Zx3haREcydgLUSJEjrdLGp0USY6AqY+iOcKRUrJzxueqRpSWnoF2Lvh9h21zXocRsDzJcwxCUA2y4pxe8e/A9CL4IP8s9DB+DfkBwQB+I6Vm5DOPkYojWFG1uXggrxLhgf8c5AMyAwQGkpBTc9a7PqtIHjSHd5rpSdoRFUNCLJfz0Qow7mf0M8j4fKfeNe8teU7qmkUvPTI1v/SBhU9hebOHjjY9bxfG4kVSpPaCVcVtKqyyemiPU1aZ2vJpgxJ1Y2A3zGe4IA2xJGKDZY4xDz0oGWlJisPWOW6l9BALDLUV8QhVoqhFfyCHYiGEweGcIaZk9t6a1CNhNb3FXlUw8S4XMo91g4hLu2q42PnVX6862fSOGF7FyEHAha20nFOitOpqsEwmfEm8dhyi4wzVEuTEvQlQAHN9x4wRwnE2x56eHftKV0XDVMiJKybO5vpyofFUBeyWzvDxJoV/2vwGyTpG5te7g7VmyT5XzPRioWwWRJryYDHm9zZeuhYSJiG4ARgWmjkluOe5n/WAcdFeDkx+AEQ+kXBfuGuJD9IMartlWL8K4TavgfTEUdYgkCeyHHhXS8o5IMuRIkc/sl4gb3kcNtt+FHQpKV4VYQy+gPcoN51FOU=
