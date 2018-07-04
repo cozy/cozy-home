@@ -97,6 +97,9 @@ const legacyMessages = {
   terms: 'connector'
 }
 
+export const getErrorTitle = (t, error, getLocaleFn) =>
+  t(getMostAccurateErrorKey(t, error, getLocaleFn))
+
 export const getKonnectorMessage = (t, konnector, message) => {
   const { messages, hasDescriptions } = konnector
 

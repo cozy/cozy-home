@@ -11,10 +11,7 @@ import Spinner from 'cozy-ui/react/Spinner'
 
 import { getAccount } from '../ducks/accounts'
 import { getAccountLogin, getAccountName } from '../lib/helpers'
-import { getMostAccurateErrorKey } from '../lib/konnectors'
-
-const getErrorTitle = (t, error) =>
-  t(getMostAccurateErrorKey(t, error, key => `connection.error.${key}.title`))
+import { getErrorTitle } from '../lib/konnectors'
 
 export const AccountPickerItem = ({
   t,
@@ -40,7 +37,9 @@ export const AccountPickerItem = ({
       </div>
       {hasError && (
         <div className={styles['col-account-picker-button-error']}>
-          <span>{getErrorTitle(t, error)}</span>
+          <span>
+            {getErrorTitle(t, error, key => `connection.error.${key}.title`)}
+          </span>
           <Icon icon="warning" />
         </div>
       )}

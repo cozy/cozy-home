@@ -2,10 +2,10 @@
     <defs>
         <path d="M3.13067847,4.49357124 C2.41919963,5.47985789 2,6.69097429 2,8 C2,11.3137085 4.6862915,14 8,14 C9.30902571,14 10.5201421,13.5808004 11.5064288,12.8693215 L3.13067847,4.49357124 Z M4.49357124,3.13067847 L12.8693215,11.5064288 C13.5808004,10.5201421 14,9.30902571 14,8 C14,4.6862915 11.3137085,2 8,2 C6.69097429,2 5.47985789,2.41919963 4.49357124,3.13067847 Z M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z" id="path-1"></path>
     </defs>
-    <g id="icons/16/forbidden" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="icons/16/forbidden" stroke="none" stroke-width="1" fill-rule="evenodd">
         <mask id="mask-2" fill="white">
             <use xlink:href="#path-1"></use>
         </mask>
-        <use id="Mask" fill="#95999d" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <use id="Mask" fill-rule="nonzero" xlink:href="#path-1"></use>
     </g>
 </svg>

@@ -43,6 +43,7 @@ class App extends Component {
           })
         }
       >
+        <div className="ho-background" />
         {hasError ||
           (isFetching && (
             <Main>

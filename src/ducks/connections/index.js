@@ -334,29 +334,6 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   return dispatch(launchTrigger(trigger))
 }
 
-// Helpers
-export const hasAtLeastOneTriggerWithError = (state, konnectorSlug) => {
-  return (
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
-      trigger => !!trigger.error
-    )
-  )
-}
-
-export const hasAtLeastOneTriggerWithUserError = (state, konnectorSlug) => {
-  return (
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
-      trigger => !!trigger.error && isKonnectorUserError(trigger.error)
-    )
-  )
-}
-
 // selectors
 export const getConnectionsByKonnector = (
   state,
@@ -374,6 +351,28 @@ export const getConnectionsByKonnector = (
   return Object.values(state.konnectors[konnectorSlug].triggers).filter(
     trigger => validAccounts.includes(trigger.account)
   )
+}
+
+export const getFirstError = (state, konnectorSlug) => {
+  const firstTriggerHavingError =
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    Object.values(state.konnectors[konnectorSlug].triggers).find(
+      trigger => !!trigger.error
+    )
+  return !!firstTriggerHavingError && firstTriggerHavingError.error
+}
+
+export const getFirstUserError = (state, konnectorSlug) => {
+  const firstTriggerHavingUserError =
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    Object.values(state.konnectors[konnectorSlug].triggers).find(trigger =>
+      isKonnectorUserError(trigger.error)
+    )
+  return firstTriggerHavingUserError && firstTriggerHavingUserError.error
 }
 
 // Map the trigger status to a status compatible with queue
