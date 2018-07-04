@@ -335,6 +335,17 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
 }
 
 // Helpers
+export const hasAtLeastOneTriggerWithError = (state, konnectorSlug) => {
+  return (
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
+      trigger => !!trigger.error
+    )
+  )
+}
+
 export const hasAtLeastOneTriggerWithUserError = (state, konnectorSlug) => {
   return (
     !!state.konnectors &&
