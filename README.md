@@ -1,7 +1,7 @@
 
-[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-collect.svg?branch=master)](https://travis-ci.org/cozy/cozy-collect)
-[![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-collect.svg)](https://github.com/cozy/cozy-collect/releases)
-[![NPM Licence shield](https://img.shields.io/npm/l/cozy-collect.svg)](https://github.com/cozy/cozy-collect/blob/master/LICENSE)
+[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-home.svg?branch=master)](https://travis-ci.org/cozy/cozy-home)
+[![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-home.svg)](https://github.com/cozy/cozy-home/releases)
+[![NPM Licence shield](https://img.shields.io/npm/l/cozy-home.svg)](https://github.com/cozy/cozy-home/blob/master/LICENSE)
 
 
 [Cozy] Collect
@@ -33,8 +33,8 @@ Hacking the Collect app requires you to [setup a dev environment][setup].
 You can then clone the app repository and install dependencies:
 
 ```sh
-$ git clone https://github.com/cozy/cozy-collect.git
-$ cd cozy-collect
+$ git clone https://github.com/cozy/cozy-home.git
+$ cd cozy-home
 $ yarn install
 ```
 
@@ -53,7 +53,7 @@ yarn link
 then go back to your app project and replace the distributed cozy-ui module with the linked one:
 
 ```sh
-cd cozy-collect
+cd cozy-home
 yarn link cozy-ui
 ```
 
@@ -125,7 +125,7 @@ Cozy Collect is developed by Cozy Cloud and distributed under the [AGPL v3 licen
 [contribute]: CONTRIBUTING.md
 [tx]: https://www.transifex.com/cozy/
 [tx-signin]: https://www.transifex.com/signin/
-[tx-app]: https://www.transifex.com/cozy/cozy-collect/dashboard/
+[tx-app]: https://www.transifex.com/cozy/cozy-home/dashboard/
 [tx-client]: http://docs.transifex.com/client/
 [freenode]: http://webchat.freenode.net/?randomnick=1&channels=%23cozycloud&uio=d4
 [forum]: https://forum.cozy.io/

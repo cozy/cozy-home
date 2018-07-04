@@ -27,7 +27,7 @@ The intent show you a konnector or a list of konnectors.
 
 Cozy collect allow you to create / update / delete an account on a konnector
 
-This is defined in the [`manifest.webapp`](https://github.com/cozy/cozy-collect/blob/master/manifest.webapp)
+This is defined in the [`manifest.webapp`](https://github.com/cozy/cozy-home/blob/master/manifest.webapp)
 
 ```json
   "intents": [{
@@ -40,7 +40,7 @@ This is defined in the [`manifest.webapp`](https://github.com/cozy/cozy-collect/
 
 #### Intent
 
-The intent is started by [IntentService.jsx](https://github.com/cozy/cozy-collect/blob/6cd3ba31952866aea76f3a1e4c6c2e85d4136fcd/src/containers/IntentService.jsx)
+The intent is started by [IntentService.jsx](https://github.com/cozy/cozy-home/blob/6cd3ba31952866aea76f3a1e4c6c2e85d4136fcd/src/containers/IntentService.jsx)
 
 To filter the konnectors you want to show, you have to pass parameters to the `intent.create` function in the client.
 
@@ -48,7 +48,7 @@ To filter the konnectors you want to show, you have to pass parameters to the `i
 + `docType`: the type of data you want to access in your intent
 + `data`: an object who can take `slug` or `dataType` key to filter the Konnectors showed by the intent.
 
-See [datatypes.json](https://github.com/cozy/cozy-collect/blob/master/src/config/datatypes.json) for all available dataTypes
+See [datatypes.json](https://github.com/cozy/cozy-home/blob/master/src/config/datatypes.json) for all available dataTypes
 
 See below for a full functionnal exemple in React
 
