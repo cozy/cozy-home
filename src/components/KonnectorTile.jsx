@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import { translate } from 'cozy-ui/react/I18n'
 
 import Icon from 'cozy-ui/react/Icon'
@@ -7,14 +8,19 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
 import { getErrorTitle } from '../lib/konnectors'
-import { getFirstError, getFirstUserError } from '../ducks/connections'
+import {
+  getFirstError,
+  getFirstUserError,
+  getLastSyncDate
+} from '../ducks/connections'
 
 import forbiddenIcon from '../assets/sprites/icon-forbidden.svg'
 import konnectorIcon from '../assets/icons/icon-konnector.svg'
+import syncIcon from '../assets/sprites/icon-sync.svg'
 
 const validCategoriesSet = new Set(require('../config/categories'))
 
-const KonnectorTileFooter = ({ error, userError, t }) => {
+const KonnectorTileFooter = ({ lastSyncDate, error, userError, t }) => {
   if (userError) {
     return (
       <span className="item-subtitle-user-error">
@@ -33,10 +39,28 @@ const KonnectorTileFooter = ({ error, userError, t }) => {
     )
   }
 
+  if (lastSyncDate) {
+    return (
+      <span className="item-subtitle-last-sync">
+        <Icon icon={syncIcon} className="icon" />
+        {moment
+          .utc(lastSyncDate)
+          .format(t('tile.konnector.lastSyncDate.format'))}
+      </span>
+    )
+  }
+
   return null
 }
 
-const KonnectorTile = ({ firstError, firstUserError, konnector, route, t }) => {
+const KonnectorTile = ({
+  firstError,
+  firstUserError,
+  konnector,
+  lastSyncDate,
+  route,
+  t
+}) => {
   const categoriesSet = konnector.categories
     ? konnector.categories
         .map(c => (validCategoriesSet.has(c) ? c : 'other'))
@@ -63,6 +87,7 @@ const KonnectorTile = ({ firstError, firstUserError, konnector, route, t }) => {
       <KonnectorTileFooter
         error={firstError}
         userError={firstUserError}
+        lastSyncDate={lastSyncDate}
         subtitle={subtitle}
         t={t}
       />
@@ -74,7 +99,8 @@ const mapStateToProps = (state, props) => {
   const { konnector } = props
   return {
     firstError: getFirstError(state.connections, konnector.slug),
-    firstUserError: getFirstUserError(state.connections, konnector.slug)
+    firstUserError: getFirstUserError(state.connections, konnector.slug),
+    lastSyncDate: getLastSyncDate(state.connections, konnector.slug)
   }
 }
 

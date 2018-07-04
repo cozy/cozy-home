@@ -543,5 +543,12 @@
       "maintenance": "EDF's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from EDF. We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](%{supportLink})",
       "support_link": "https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas"
     }
+  },
+  "tile": {
+    "konnector": {
+      "lastSyncDate": {
+        "format": "MMM DD"
+      }
+    }
   }
 }
