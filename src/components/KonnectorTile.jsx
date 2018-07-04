@@ -6,15 +6,26 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
 import { getKonnectorTriggersCount } from '../reducers'
-import { hasAtLeastOneTriggerWithUserError } from '../ducks/connections'
+import {
+  hasAtLeastOneTriggerWithError,
+  hasAtLeastOneTriggerWithUserError
+} from '../ducks/connections'
 
 const validCategoriesSet = new Set(require('../config/categories'))
 
-const KonnectorTileFooter = ({ accountsCount, hasUserError, subtitle, t }) =>
+const KonnectorTileFooter = ({
+  accountsCount,
+  hasError,
+  hasUserError,
+  subtitle,
+  t
+}) =>
   accountsCount ? (
     <div>
       {!!subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {hasUserError ? svgIcon('warning') : svgIcon('check')}
+      {hasUserError
+        ? svgIcon('warning')
+        : hasError ? svgIcon('forbidden') : svgIcon('check')}
     </div>
   ) : (
     <span className="item-subtitle-no-account">{t('connector.noAccount')}</span>
@@ -22,6 +33,7 @@ const KonnectorTileFooter = ({ accountsCount, hasUserError, subtitle, t }) =>
 
 const KonnectorTile = ({
   accountsCount,
+  hasError,
   hasUserError,
   konnector,
   route,
@@ -46,6 +58,7 @@ const KonnectorTile = ({
       <h3 className="item-title">{konnector.name}</h3>
       <KonnectorTileFooter
         accountsCount={accountsCount}
+        hasError={hasError}
         hasUserError={hasUserError}
         subtitle={subtitle}
         t={t}
@@ -66,6 +79,7 @@ const mapStateToProps = (state, props) => {
   const { konnector } = props
   return {
     accountsCount: getKonnectorTriggersCount(state, konnector),
+    hasError: hasAtLeastOneTriggerWithError(state.connections, konnector.slug),
     hasUserError: hasAtLeastOneTriggerWithUserError(
       state.connections,
       konnector.slug
