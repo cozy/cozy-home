@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Button } from 'cozy-ui/react/Button'
 
-export class StoreTile extends Component {
+export class AddServiceTile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,7 +33,7 @@ export class StoreTile extends Component {
         <header className="item-header">
           <img
             className="item-icon"
-            src={require('../assets/images/icon-add-from-store.svg')}
+            src={require('../assets/images/icon-add-service.svg')}
           />
         </header>
         <Button
@@ -49,4 +49,4 @@ export class StoreTile extends Component {
   }
 }
 
-export default StoreTile
+export default AddServiceTile

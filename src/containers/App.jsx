@@ -9,7 +9,7 @@ import Loading from '../components/Loading'
 import Failure from '../components/Failure'
 import ConnectionsQueue from '../ducks/connections/components/queue/index'
 
-import InstalledKonnectors from '../components/Services'
+import Home from '../components/Home'
 import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 
@@ -63,10 +63,7 @@ class App extends Component {
             <Route
               path="/connected"
               render={props => (
-                <InstalledKonnectors
-                  base="/connected"
-                  wrapper={this.contentWrapper}
-                />
+                <Home base="/connected" wrapper={this.contentWrapper} />
               )}
             />
             <Route exact path="/providers" component={StoreRedirection} />

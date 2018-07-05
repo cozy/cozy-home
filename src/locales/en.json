@@ -537,6 +537,9 @@
     },
     "close": "Close"
   },
+  "services": {
+    "title": "My services"
+  },
   "status": {
     "interrupted": "INTERRUPTED SERVICE",
     "edf": {
