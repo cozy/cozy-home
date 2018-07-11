@@ -1,15 +1,13 @@
 import React from 'react'
 
-import CreateAccountService from '../services/CreateAccountService'
-import { getKonnectorIcon } from '../../lib/icons'
-import IntentHeader from 'cozy-ui/react/IntentHeader'
+import CreateAccountService from 'components/services/CreateAccountService'
+import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
+// import { getKonnectorIcon } from '../../lib/icons'
+// import IntentHeader from 'cozy-ui/react/IntentHeader'
 
 const CreateAccountIntent = ({ konnector, onCancel, onTerminate }) => (
   <div className="col-create-account-intent">
-    <IntentHeader
-      appName={konnector.name}
-      appIcon={getKonnectorIcon(konnector)}
-    />
+    <KonnectorHeaderIcon konnector={konnector} center />
     {konnector && (
       <CreateAccountService
         konnector={konnector}

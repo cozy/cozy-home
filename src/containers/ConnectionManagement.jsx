@@ -113,6 +113,8 @@ class ConnectionManagement extends Component {
       ? `/connected/${konnector.slug}`
       : '/connected'
 
+    const editing = existingAccount && !createdAccount
+
     return (
       <Modal
         dismissAction={() => this.gotoParent()}
@@ -131,14 +133,14 @@ class ConnectionManagement extends Component {
                 <Icon icon={backIcon} />
               </NavLink>
             )}
-            <KonnectorHeaderIcon konnector={konnector} />
+            <KonnectorHeaderIcon konnector={konnector} center={!editing} />
           </div>
         </ModalHeader>
         <ModalContent>
           <AccountConnection
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
-            editing={existingAccount && !createdAccount}
+            editing={editing}
             onDone={this.onDone}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
