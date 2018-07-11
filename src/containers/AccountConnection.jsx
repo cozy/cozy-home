@@ -342,7 +342,6 @@ class AccountConnection extends Component {
           <KonnectorEdit
             isFetching={isFetching}
             account={account}
-            editing
             connector={konnector}
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}

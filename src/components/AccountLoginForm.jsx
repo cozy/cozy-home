@@ -169,7 +169,7 @@ export class AccountLoginForm extends React.Component {
               {editableFields.map(renderField)}
             </fieldset>
           )}
-        {!editing &&
+        {editing &&
           !displayAdvanced &&
           !!advancedFields.length && (
             <button
@@ -181,7 +181,7 @@ export class AccountLoginForm extends React.Component {
             </button>
           )}
 
-        {!editing &&
+        {editing &&
           displayAdvanced &&
           !!advancedFields &&
           !!advancedFields.length && (

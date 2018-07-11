@@ -26,7 +26,6 @@ export const KonnectorInstall = props => {
     isUnloading,
     oAuthTerminated,
     onCancel,
-    editing,
     onDone,
     onSubmit,
     submitting,
@@ -84,7 +83,6 @@ export const KonnectorInstall = props => {
             disableSuccessTimeout={disableSuccessTimeout}
             error={hasLoginError}
             fields={fields}
-            editing={editing}
             isValid={isValid}
             dirty={dirty}
             isSuccess={isSuccess}

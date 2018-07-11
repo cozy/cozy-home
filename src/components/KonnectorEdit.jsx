@@ -133,6 +133,7 @@ export const KonnectorEdit = props => {
                 connectorSlug={connector.slug}
                 disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}
+                editing
                 fields={fields}
                 dirty={dirty}
                 displayAdvanced={displayAdvanced}
