@@ -9,12 +9,21 @@ export const DescriptionContent = ({
   title,
   messages,
   children,
-  hasError
+  hasError,
+  centerTitle
 }) => {
   return (
     <div className={classNames(cssClassesObject)}>
       {title && (
-        <h4 className={styles['col-account-description-title']}>{title}</h4>
+        <h4
+          className={
+            centerTitle
+              ? styles['col-account-description-title-centered']
+              : styles['col-account-description-title']
+          }
+        >
+          {title}
+        </h4>
       )}
       {messages &&
         messages.length > 0 &&

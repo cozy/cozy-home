@@ -57,7 +57,6 @@ export const KonnectorEdit = props => {
   )
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
-  const { editor } = connector
   // assign accountName placeholder
   if (fields.accountName)
     fields.accountName.placeholder = getAccountName(account)
@@ -159,11 +158,6 @@ export const KonnectorEdit = props => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      {editor && (
-        <p className={styles['col-account-connection-editor']}>
-          {t('account.editor_detail', { editor })}
-        </p>
-      )}
     </div>
   )
 }

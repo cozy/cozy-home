@@ -10,8 +10,6 @@ import KonnectorSuccess from './KonnectorSuccess'
 import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
 import ErrorDescription from './ErrorDescriptions'
 
-import securityIcon from '../assets/icons/color/icon-cloud-lock.svg'
-
 export const KonnectorInstall = props => {
   const {
     t,
@@ -43,7 +41,6 @@ export const KonnectorInstall = props => {
     maintenance,
     lang
   } = props
-  const { editor } = connector
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
   const isRunningInQueue = queued && submitting
@@ -59,19 +56,8 @@ export const KonnectorInstall = props => {
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={[getKonnectorMessage(t, connector, 'terms')]}
-            >
-              {!connector.oauth &&
-                !error && (
-                  <p className={styles['col-account-connection-security']}>
-                    <svg>
-                      <use xlinkHref={`#${securityIcon.id}`} />
-                    </svg>
-                    {connector.partner
-                      ? t('account.config.security_third_party')
-                      : t('account.config.security')}
-                  </p>
-                )}
-            </DescriptionContent>
+              centerTitle
+            />
           )}
         {maintenance && maintenance.longTerm ? (
           <KonnectorMaintenance maintenance={maintenance} lang={lang} />
@@ -113,12 +99,6 @@ export const KonnectorInstall = props => {
             successButtonLabel={successButtonLabel}
           />
         )}
-        {!isFetching &&
-          editor && (
-            <p className={styles['col-account-connection-editor']}>
-              {t('account.editor_detail', { editor })}
-            </p>
-          )}
       </div>
     </div>
   )
