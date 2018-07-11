@@ -2,7 +2,6 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from '../styles/konnectorInstall'
 
-import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
 import KonnectorMaintenance from './KonnectorMaintenance'
@@ -121,8 +120,6 @@ export const KonnectorInstall = props => {
             </p>
           )}
       </div>
-
-      <AccountConnectionData connector={connector} />
     </div>
   )
 }
