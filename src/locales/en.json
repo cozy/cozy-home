@@ -10,9 +10,7 @@
     "config": {
       "default_folder": "/Administrative/%{name}",
       "optional": "(Optional)",
-      "title": "Connect your %{name} account to your Cozy",
-      "security": "Your login and password will be stored in your Cozy. Nobody will access it!",
-      "security_third_party": "Your login and password will be stored in your Cozy.",
+      "title": "Connect your %{name} account",
       "data": {
         "title": "Collected data:",
         "service": {
