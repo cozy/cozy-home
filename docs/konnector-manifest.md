@@ -9,7 +9,6 @@
   * [Breaking changes from current manifests and Collect config files](#breaking-changes-from-current-manifests-and-collect-config-files)
     + [Fields](#fields)
     + [Properties](#properties)
-    + [Data types](#data-types-1)
     + [UUID](#uuid)
 
 # Konnector manifest
@@ -192,7 +191,7 @@ max             | Maximum length of the value (number of characters)
 min             | Minimum length of the value (number of characters)
 options         | When the field is a dropdown, list of available options
 pattern         | Define a regex used to validate the field.
-required        | Boolean indicating if the field is required or not (default `true`)
+isRequired      | Boolean indicating if the field is required or not (default `true`)
 type            | *Required*. Field type from `dropdown`, `email`, `hidden`, `password`, `text`, `checkbox`.
 
 ### Categories
@@ -205,44 +204,49 @@ Categories are slugs from the following list:
 * `telecom`
 * `transport`
 * `banking`
+* `health`
+* `host_provider`
+* `online_services`
+* `partners`
+* `press`
+* `productivity`
+* `public_service`
+* `social`
 
 ### Data types
 
 Data types are slugs from the following list:
 * `activity`
 * `appointment`
-* `bank_transactions`
-* `bank_accounts`
+* `bankTransactions`
+* `bankAccounts`
 * `bill`
-* `blood_pressure`
+* `bloodPressure`
 * `calendar`
 * `certificate`
 * `commit`
 * `consumption`
 * `contact`
 * `contract`
-* `course_material`
+* `courseMaterial`
+* `document`
 * `event`
 * `family`
 * `geopoint`
 * `heartbeat`
 * `home`
-* `phone_communication_log`
+* `phonecommunicationlog`
 * `podcast`
 * `profile`
 * `refund`
 * `sinister`
 * `sleepTime`
-* `step_count`
+* `stepsNumber`
 * `temperature`
-* `travel_date`
+* `travelDate`
 * `tweet`
-* `video_stream`
+* `videostream`
 * `weight`
-
-## Breaking changes from current manifests and Collect config files
-
-The most part of the breaking changes is related to the use of `snake_case`.
 
 ### Fields
 
@@ -252,23 +256,12 @@ The most part of the breaking changes is related to the use of `snake_case`.
 
 ### Properties
 
-* `oauth` and `oauth_scope` are no merged in one single JSON object
+* `oauth` and `oauth_scope` are now merged in one single JSON object
 * `dataTypes` becomes `data_types`
 * `timeInterval` becomes `time_interval`
 * `vendorLink` becomes `vendor_link`
 * `additionnalSuccessMessage` disappears (replaced by the `messages` mechanism)
 * `hasDescriptions` disappears (replaced by the `messages` mechanism)
-
-### Data types
-
-* `bankTransactions` becomes `bank_transactions`
-* `bankAccounts` becomes `bank_accounts`
-* `bloodPressure` becomes `blood_pressure`
-* `courseMaterial` becomes `course_material`
-* `phonecommunicationlog` becomes `phone_communication_log`
-* `stepsNumber` becomes `step_count`
-* `travelDate` becomes `travel_date`
-* `videostream` becomes `video_stream`
 
 ### UUID
 
