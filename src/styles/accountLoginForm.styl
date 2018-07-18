@@ -2,12 +2,10 @@
 @require 'settings/palette.styl'
 
 :local // @stylint ignore
-    .coz-form-controls
+    .coz-form-controls, .coz-form-controls-success
         margin rem(32) 0 rem(8)
         display flex
         flex-wrap wrap
-
-    .coz-form-controls
         .coz-btn
             // Used to position progress bar
             flex 1 0 auto
@@ -19,6 +17,9 @@
             &:last-of-type
                 margin-right 0
 
+    .coz-form-controls-success
+        margin-top rem(16)
+
     .col-btn--regular
         margin    0
         font-size rem(16)
@@ -26,7 +27,7 @@
         width     100%
 
     .col-account-form-success-buttons
-        width 100%
+        margin auto
 
         button
             width 100%

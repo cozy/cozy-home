@@ -90,14 +90,12 @@
     },
     "success": {
       "title": {
-        "connect": "Your %{name} account is connected!",
-        "timeout": "Your %{name} account is being connected!",
+        "connect": "Successful configuration!",
         "update": "Your %{name} account is updated!"
       },
-      "folderLintText": "Open the folder into Cozy Drive",
-      "button": {
-        "config": "Access my account configuration"
-      }
+      "banksLinkText": "See my accounts into Cozy Banks",
+      "driveLinkText": "Open the folder into Cozy Drive",
+      "button": "Close"
     },
     "message": {
       "folder": {
@@ -105,7 +103,7 @@
         "link": "Open folder on cozy drive"
       },
       "success": {
-        "connect": "Congratulations! Your %{name} account is now linked to your Cozy. So many new opportunities open to you. This may also take several minutes to complete",
+        "connect": "Your current data will be available in your Cozy in a few minutes and the next ones will follow automatically.",
         "update": "Your %{name} account has been updated successfully.",
         "delete": "Account removed succesfully."
       },

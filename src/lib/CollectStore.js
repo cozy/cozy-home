@@ -21,6 +21,7 @@ export default class CollectStore {
 
     this.categories = require('../config/categories')
     this.driveUrl = null
+    this.banksUrl = null
 
     this.initializeRealtime()
   }
@@ -55,17 +56,24 @@ export default class CollectStore {
     })
   }
 
-  // Get the drive application url using the list of application
-  // FIXME this works only because we need the application list permission for the cozy-bar
-  // and this also supposes that the drive application has the 'drive' slug
-  fetchDriveUrl() {
+  // Get the drive and banks application url using the list of application
+  fetchUrls() {
     return cozy.client
       .fetchJSON('GET', '/apps/')
       .then(body => {
-        const driveapp = body.find(item => item.attributes.slug === 'drive')
-        if (driveapp && driveapp.links) {
-          this.driveUrl = `${driveapp.links.related}#/files/`
-        }
+        body.forEach(item => {
+          if (!item.attributes || !item.attributes.slug || !item.links) return
+          switch (item.attributes.slug) {
+            case 'drive':
+              this.driveUrl = `${item.links.related}#/files/`
+              break
+            case 'banks':
+              this.banksUrl = `${item.links.related}`
+              break
+            default:
+              break
+          }
+        })
       })
       .catch(err => {
         console.warn(err)
