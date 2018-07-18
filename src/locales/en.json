@@ -103,7 +103,7 @@
         "link": "Open folder on cozy drive"
       },
       "success": {
-        "connect": "Your current data will be available in your Cozy in a few minutes and the next ones will follow automatically.",
+        "connect": "Your data will be available in your Cozy in a few minutes and the next ones will follow automatically.",
         "update": "Your %{name} account has been updated successfully.",
         "delete": "Account removed succesfully."
       },
