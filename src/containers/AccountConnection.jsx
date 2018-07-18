@@ -301,12 +301,12 @@ class AccountConnection extends Component {
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
       displayAdvanced,
+      handleConnectionSuccess,
       toggleAdvanced,
       dirty,
       isValid,
       isValidButPasswords,
       fields,
-      isSuccess,
       deleting,
       editing,
       konnector,
@@ -374,11 +374,10 @@ class AccountConnection extends Component {
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
+            handleConnectionSuccess={handleConnectionSuccess}
             isValid={isValid}
             dirty={dirty}
-            isSuccess={isSuccess}
             disableSuccessTimeout={disableSuccessTimeout}
-            driveUrl={driveUrl}
             error={error || oAuthError || connectionError}
             fields={fields}
             queued={queued}
@@ -389,12 +388,7 @@ class AccountConnection extends Component {
             onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
             success={success || queued}
-            successMessage={t(
-              queued && !success
-                ? 'account.success.title.timeout'
-                : 'account.success.title.connect',
-              { name: konnector.name }
-            )}
+            successMessage={t('account.success.title.connect')}
             successButtonLabel={successButtonLabel}
             successMessages={successMessages}
             trigger={trigger}

@@ -16,9 +16,9 @@ export const KonnectorInstall = props => {
     account,
     connector,
     disableSuccessTimeout,
-    driveUrl,
     error,
     fields,
+    handleConnectionSuccess,
     queued,
     isUnloading,
     oAuthTerminated,
@@ -35,7 +35,6 @@ export const KonnectorInstall = props => {
     toggleAdvanced,
     isFetching,
     isValid,
-    isSuccess,
     dirty,
     successButtonLabel,
     maintenance,
@@ -70,7 +69,6 @@ export const KonnectorInstall = props => {
             fields={fields}
             isValid={isValid}
             dirty={dirty}
-            isSuccess={isSuccess}
             isFetching={isFetching}
             forceEnabled={!!error}
             isOAuth={connector.oauth}
@@ -87,8 +85,8 @@ export const KonnectorInstall = props => {
             connector={connector}
             error={error}
             account={account}
-            driveUrl={driveUrl}
             folderId={trigger && trigger.message.folder_to_save}
+            handleConnectionSuccess={handleConnectionSuccess}
             isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
             onDone={onDone}

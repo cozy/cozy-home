@@ -59,10 +59,11 @@ class ConnectionManagement extends Component {
 
     this.state = {
       isClosing: false,
+      isSuccess: false,
       values: values
     }
 
-    this.store.fetchDriveUrl()
+    this.store.fetchUrls()
 
     if (!this.props.existingAccount) {
       if (this.props.isCreating) {
@@ -107,7 +108,7 @@ class ConnectionManagement extends Component {
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
-    const { isClosing, values } = this.state
+    const { isClosing, values, isSuccess } = this.state
 
     const backRoute = connections.length
       ? `/connected/${konnector.slug}`
@@ -122,19 +123,23 @@ class ConnectionManagement extends Component {
         size="large"
         className={styles['col-account-modal']}
       >
-        <ModalHeader>
-          <div className="col-account-connection-header">
-            {backRoute && (
-              <NavLink
-                to={backRoute}
-                className="col-account-connection-back"
-                onClick={this.onEnd}
-              >
-                <Icon icon={backIcon} />
-              </NavLink>
-            )}
-            <KonnectorHeaderIcon konnector={konnector} center={!editing} />
-          </div>
+        <ModalHeader
+          className={isSuccess ? styles['col-account-success-header'] : ''}
+        >
+          {!isSuccess && (
+            <div className="col-account-connection-header">
+              {backRoute && (
+                <NavLink
+                  to={backRoute}
+                  className="col-account-connection-back"
+                  onClick={this.onEnd}
+                >
+                  <Icon icon={backIcon} />
+                </NavLink>
+              )}
+              <KonnectorHeaderIcon konnector={konnector} center={!editing} />
+            </div>
+          )}
         </ModalHeader>
         <ModalContent>
           <AccountConnection
@@ -146,7 +151,8 @@ class ConnectionManagement extends Component {
             isUnloading={isClosing}
             values={values}
             closeModal={() => this.gotoParent()}
-            {...this.state}
+            isClosing={isClosing}
+            handleConnectionSuccess={this.handleConnectionSuccess}
             {...this.props}
             {...this.context}
           />
@@ -179,15 +185,17 @@ class ConnectionManagement extends Component {
   onDone = account => {
     this.onEnd()
 
-    const { konnector, history } = this.props
-
     if (account) {
-      history.push(`/connected/${konnector.slug}/accounts/${account._id}`)
+      this.gotoParent()
     }
   }
 
+  handleConnectionSuccess = () => {
+    this.setState({ isSuccess: true })
+  }
+
   gotoParent() {
-    this.setState({ isClosing: true })
+    this.setState({ isClosing: true, isSuccess: false })
 
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
