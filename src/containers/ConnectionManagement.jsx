@@ -146,7 +146,7 @@ class ConnectionManagement extends Component {
             alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
             displayAccountsCount
             editing={editing}
-            onDone={this.onDone}
+            onDone={() => this.gotoParent()}
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
@@ -179,14 +179,6 @@ class ConnectionManagement extends Component {
     const { endCreation, isCreating } = this.props
     if (isCreating) {
       typeof endCreation === 'function' && endCreation()
-    }
-  }
-
-  onDone = account => {
-    this.onEnd()
-
-    if (account) {
-      this.gotoParent()
     }
   }
 
