@@ -20,11 +20,25 @@
       "en": "LDLC added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from LDLC.com.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
-  "darty": {
+  "macif": {
     "longTerm": true,
     "message": {
-      "fr": "Darty a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par Darty. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli.",
-      "en": "Darty's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from Darty.<br/>We are trying to restore the situation and we will notice you when it will be fixed."
+      "fr": "Macif a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Macif.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Macif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Macif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "easyjet" : {
+    "longTerm": true,
+    "message": {
+      "fr": "EasyJet a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par EasyJet.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "EasyJet added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from EasyJet.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "enedis" : {
+    "longTerm": true,
+    "message": {
+      "fr": "Enedis a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Enedis.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Enedis added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Enedis.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
   "redbox": {
