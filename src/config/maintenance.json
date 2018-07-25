@@ -12,19 +12,54 @@
       "fr": "Blablacar a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de trajets détenu par Blablacar.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
       "en": "BlaBlacar added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your journey history back from Blablacar.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
+  }
+  "macif": {
+    "longTerm": true,
+    "message": {
+      "fr": "Macif a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Macif.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Macif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Macif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "easyjet" : {
+    "longTerm": true,
+    "message": {
+      "fr": "EasyJet a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par EasyJet.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "EasyJet added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from EasyJet.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "enedis" : {
+    "longTerm": true,
+    "message": {
+      "fr": "Enedis a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Enedis.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Enedis added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Enedis.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "creditcooperatif148" : {
+    "longTerm": true,
+    "message": {
+      "fr": "Crédit Coopératif a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Crédit Coopératif.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Crédit Coopératif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Crédit Coopératif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "cdngroup88" : {
+    "longTerm": true,
+    "message": {
+      "fr": "Crédit du Nord a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Crédit du Nord.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Crédit du Nord added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Crédit du Nord.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "carrefour159": {
+    "longTerm": true,
+    "message": {
+      "fr": "Carrefour Banque a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Carrefour Banque.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Carrefour Banque added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Carrefour Banque.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
   },
   "ldlc": {
     "longTerm": true,
     "message": {
       "fr": "LDLC a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par LDLC.com.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
       "en": "LDLC added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from LDLC.com.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
-    }
-  },
-  "darty": {
-    "longTerm": true,
-    "message": {
-      "fr": "Darty a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par Darty. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli.",
-      "en": "Darty's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from Darty.<br/>We are trying to restore the situation and we will notice you when it will be fixed."
     }
   },
   "redbox": {
