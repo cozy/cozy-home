@@ -4,7 +4,7 @@
 text-button-color = dodgerBlue
 
 :local // @stylint ignore
-    .coz-field
+    .coz-field-wrapper
         position relative
         margin   1em 0 .5em
         &:last-child
@@ -12,6 +12,8 @@ text-button-color = dodgerBlue
         &:first-child
             margin-top 0
 
+    .coz-field
+        position relative
         // Managing input width with flex
         display         flex
         flex-direction  row
@@ -38,7 +40,6 @@ text-button-color = dodgerBlue
             text-align  right
             white-space nowrap
             cursor      pointer
-            color       text-button-color
             font-weight bold
 
         .error-label
