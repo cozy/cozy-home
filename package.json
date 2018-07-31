@@ -101,7 +101,7 @@
     "babel-runtime": "6.26.0",
     "cozy-app-publish": "0.3.6",
     "cozy-bar": "5.0.8",
-    "cozy-client-js": "0.11.0",
+    "cozy-client-js": "0.12.0",
     "cozy-ui": "10.4.1",
     "enzyme": "3.3.0",
     "eslint-loader": "2.1.0",

@@ -2223,9 +2223,9 @@ cozy-bar@5.0.8:
     redux-persist "^5.4.0"
     redux-thunk "^2.2.0"
 
-cozy-client-js@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.11.0.tgz#4a031e92eafa4a7399b5e17d7dab3b043b984846"
+cozy-client-js@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.12.0.tgz#dbce133f820b0aa48f318d39d40830b8fc9f7827"
   dependencies:
     core-js "^2.5.3"
     isomorphic-fetch "^2.2.1"
