@@ -1,4 +1,5 @@
 import styles from '../styles/accountLoginForm'
+import fieldStyles from '../styles/field.styl'
 
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
@@ -147,7 +148,7 @@ export class AccountLoginForm extends React.Component {
         placeholder: placeholder
       }
       return (
-        <div>
+        <div className={fieldStyles['coz-field-wrapper']}>
           <FieldDescription field={field} konnectorSlug={connectorSlug} t={t} />
           {React.cloneElement(renderers[type](this.props), attributes)}
         </div>
