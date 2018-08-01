@@ -91,7 +91,11 @@ export const KonnectorEdit = props => {
           <TabPanel name="sync" className={styles['col-account-edit-tabpanel']}>
             {maintenance &&
               maintenance.longTerm && (
-                <KonnectorMaintenance maintenance={maintenance} lang={lang} />
+                <KonnectorMaintenance
+                  maintenance={maintenance}
+                  lang={lang}
+                  konnectorName={connector.name}
+                />
               )}
             <KonnectorSync
               frequency={connector.frequency || 'weekly'}

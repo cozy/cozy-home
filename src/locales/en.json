@@ -343,7 +343,7 @@
   "maintenance": {
     "icon": "This connector is under maintenance",
     "service": "Service interrupted",
-    "problem": "We have a problem with this provider",
+    "problem": "%{konnectorName} doesn't allow your Cozy to access your data",
     "title": "What is going on ?"
   },
 
