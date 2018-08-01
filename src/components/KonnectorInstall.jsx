@@ -59,7 +59,11 @@ export const KonnectorInstall = props => {
             />
           )}
         {maintenance && maintenance.longTerm ? (
-          <KonnectorMaintenance maintenance={maintenance} lang={lang} />
+          <KonnectorMaintenance
+            maintenance={maintenance}
+            lang={lang}
+            konnectorName={connector.name}
+          />
         ) : !account || !success || hasLoginError ? (
           <AccountLoginForm
             connectorSlug={connector.slug}

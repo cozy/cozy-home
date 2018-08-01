@@ -6,7 +6,7 @@ import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 
 import styles from '../styles/konnectorMaintenance'
 
-const KonnectorMaintenance = ({ t, maintenance, lang }) => (
+const KonnectorMaintenance = ({ t, maintenance, lang, konnectorName }) => (
   <div className={styles['maintenance']}>
     <div className={styles['maintenance-intro']}>
       <div className={styles['maintenance-icon']} />
@@ -14,7 +14,7 @@ const KonnectorMaintenance = ({ t, maintenance, lang }) => (
         {t('maintenance.service')}
       </h3>
       <p className={styles['maintenance-problem']}>
-        {t('maintenance.problem')}
+        {t('maintenance.problem', { konnectorName })}
       </p>
     </div>
     <h4 className={styles['maintenance-title']}>{t('maintenance.title')}</h4>
