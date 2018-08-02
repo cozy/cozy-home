@@ -2193,7 +2193,7 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-cozy-app-publish@0.4.1-beta5:
+cozy-app-publish@0.4.1-beta.5:
   version "0.4.1-beta.5"
   resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.4.1-beta.5.tgz#1c5eb27bad154c8df378c487a481a516f53916b7"
   dependencies:
@@ -9376,6 +9376,18 @@ tar-stream@^1.1.2:
 tar@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.4.tgz#ec8409fae9f665a4355cc3b4087d0820232bb8cd"
+  dependencies:
+    chownr "^1.0.1"
+    fs-minipass "^1.2.5"
+    minipass "^2.3.3"
+    minizlib "^1.1.0"
+    mkdirp "^0.5.0"
+    safe-buffer "^5.1.2"
+    yallist "^3.0.2"
+
+tar@4.4.6:
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.6.tgz#63110f09c00b4e60ac8bcfe1bf3c8660235fbc9b"
   dependencies:
     chownr "^1.0.1"
     fs-minipass "^1.2.5"
