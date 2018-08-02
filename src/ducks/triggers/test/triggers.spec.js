@@ -6,7 +6,7 @@ describe('Trigger Duck', () => {
   const konnector = { slug: 'test' }
 
   const options = {
-    day: 1,
+    startDate: new Date('2018-01-25T09:00:00'),
     hours: 14,
     minutes: 15
   }
@@ -24,6 +24,13 @@ describe('Trigger Duck', () => {
     it('creates a trigger without folder', () => {
       expect(
         buildKonnectorTrigger(konnector, account, null, options)
+      ).toMatchSnapshot()
+    })
+
+    it('creates a trigger with a monthly frequency', () => {
+      const dailyKonnector = { ...konnector, frequency: 'monthly' }
+      expect(
+        buildKonnectorTrigger(dailyKonnector, account, null, options)
       ).toMatchSnapshot()
     })
 
@@ -62,6 +69,14 @@ describe('Trigger Duck', () => {
 
   describe('buildTriggerFrequencyOptions', () => {
     it('creates default weekly options', () => {
+      expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
+    })
+
+    it('creates monthly options', () => {
+      const konnector = {
+        frequency: 'monthly'
+      }
+
       expect(buildTriggerFrequencyOptions(konnector, options)).toMatchSnapshot()
     })
 

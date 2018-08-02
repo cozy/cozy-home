@@ -167,7 +167,7 @@ export default class CollectStore {
                 // We always pass a default day value,
                 // `createKonnectorTrigger` will
                 // then use it if it needs.
-                day: new Date().getDay(),
+                startDate: new Date(),
                 ...randomDayTime(
                   konnector.timeInterval ||
                     this.options.defaultTriggerTimeInterval

@@ -2,7 +2,7 @@ exports[`Trigger Duck buildKonnectorTrigger creates a trigger 1`] = `
 Object {
   "_type": "io.cozy.triggers",
   "attributes": Object {
-    "arguments": "0 15 14 * * 1",
+    "arguments": "0 15 14 * * 4",
     "type": "@cron",
     "worker": "konnector",
     "worker_arguments": Object {
@@ -19,6 +19,21 @@ Object {
   "_type": "io.cozy.triggers",
   "attributes": Object {
     "arguments": "0 15 14 * * *",
+    "type": "@cron",
+    "worker": "konnector",
+    "worker_arguments": Object {
+      "account": "963a51f6cdd34401b0904de32cc5578d",
+      "konnector": "test",
+    },
+  },
+}
+`;
+
+exports[`Trigger Duck buildKonnectorTrigger creates a trigger with a monthly frequency 1`] = `
+Object {
+  "_type": "io.cozy.triggers",
+  "attributes": Object {
+    "arguments": "0 15 14 25 * *",
     "type": "@cron",
     "worker": "konnector",
     "worker_arguments": Object {
@@ -78,7 +93,7 @@ exports[`Trigger Duck buildKonnectorTrigger creates a trigger without folder 1`]
 Object {
   "_type": "io.cozy.triggers",
   "attributes": Object {
-    "arguments": "0 15 14 * * 1",
+    "arguments": "0 15 14 * * 4",
     "type": "@cron",
     "worker": "konnector",
     "worker_arguments": Object {
@@ -99,7 +114,7 @@ Object {
 
 exports[`Trigger Duck buildTriggerFrequencyOptions creates default weekly options 1`] = `
 Object {
-  "day": 1,
+  "dayOfWeek": 4,
   "frequency": "weekly",
   "hours": 14,
   "minutes": 15,
@@ -109,6 +124,15 @@ Object {
 exports[`Trigger Duck buildTriggerFrequencyOptions creates hourly options 1`] = `
 Object {
   "frequency": "hourly",
+  "minutes": 15,
+}
+`;
+
+exports[`Trigger Duck buildTriggerFrequencyOptions creates monthly options 1`] = `
+Object {
+  "dayOfMonth": 25,
+  "frequency": "monthly",
+  "hours": 14,
   "minutes": 15,
 }
 `;
