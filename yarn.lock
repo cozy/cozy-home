@@ -2193,7 +2193,7 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-cozy-app-publish@0.4.1-beta5:
+cozy-app-publish@0.4.1-beta.5:
   version "0.4.1-beta.5"
   resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.4.1-beta.5.tgz#1c5eb27bad154c8df378c487a481a516f53916b7"
   dependencies:
@@ -2281,9 +2281,9 @@ cozy-scripts@0.5.5:
     webpack-dev-server "2.11.2"
     webpack-merge "4.1.2"
 
-cozy-ui@10.4.4:
-  version "10.4.4"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-10.4.4.tgz#7181cdac814210da37d78735ec63cbde33d920ec"
+cozy-ui@10.6.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-10.6.0.tgz#eb7504fffd44fda1a741d07ed67a80d08f65062c"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
