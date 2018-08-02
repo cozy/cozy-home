@@ -4,7 +4,13 @@ export const DOCTYPE = 'io.cozy.triggers'
 const HOURLY_FREQUENCY = 'hourly'
 const DAILY_FREQUENCY = 'daily'
 const WEEKLY_FREQUENCY = 'weekly'
-const VALID_FREQUENCIES = [HOURLY_FREQUENCY, DAILY_FREQUENCY, WEEKLY_FREQUENCY]
+const MONTHLY_FREQUENCY = 'monthly'
+const VALID_FREQUENCIES = [
+  HOURLY_FREQUENCY,
+  DAILY_FREQUENCY,
+  WEEKLY_FREQUENCY,
+  MONTHLY_FREQUENCY
+]
 const DEFAULT_FREQUENCY = WEEKLY_FREQUENCY
 
 const triggersCollectionKey = 'triggers'
@@ -42,7 +48,7 @@ const parseFrequency = frequency =>
     : DEFAULT_FREQUENCY
 
 export const buildTriggerFrequencyOptions = (konnector, options) => {
-  const { day, hours, minutes } = options
+  const { startDate, hours, minutes } = options
 
   const frequencyOptions = {
     minutes,
@@ -60,7 +66,15 @@ export const buildTriggerFrequencyOptions = (konnector, options) => {
     return {
       ...frequencyOptions,
       hours,
-      day
+      dayOfWeek: startDate.getDay()
+    }
+  }
+
+  if (frequencyOptions.frequency === MONTHLY_FREQUENCY) {
+    return {
+      ...frequencyOptions,
+      hours,
+      dayOfMonth: startDate.getDate()
     }
   }
 
@@ -81,10 +95,12 @@ export function buildKonnectorTrigger(
   folder,
   options = {}
 ) {
-  const { day, hours, minutes } = buildTriggerFrequencyOptions(
-    konnector,
-    options
-  )
+  const {
+    dayOfMonth,
+    dayOfWeek,
+    hours,
+    minutes
+  } = buildTriggerFrequencyOptions(konnector, options)
 
   let workerArguments = {
     konnector: konnector.slug || konnector.attributes.slug,
@@ -101,7 +117,9 @@ export function buildKonnectorTrigger(
       type: '@cron',
       arguments: `0 ${isInteger(minutes) ? minutes : 0} ${
         isInteger(hours) ? hours : '*'
-      } * * ${isInteger(day) ? day : '*'}`,
+      } ${isInteger(dayOfMonth) ? dayOfMonth : '*'} * ${
+        isInteger(dayOfWeek) ? dayOfWeek : '*'
+      }`,
       worker: 'konnector',
       worker_arguments: workerArguments
     }
