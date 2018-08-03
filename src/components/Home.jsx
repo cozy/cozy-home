@@ -4,6 +4,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import { Main, Content } from 'cozy-ui/react/Layout'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
+import Applications from './Applications'
 import ConnectionManagement from '../containers/ConnectionManagement'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
@@ -33,6 +34,7 @@ class Home extends Component {
       <Main>
         <ScrollToTopOnMount target={wrapper} />
         <Content className="col-content">
+          <Applications />
           <Services />
         </Content>
         <Switch>

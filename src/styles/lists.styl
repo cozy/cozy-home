@@ -17,9 +17,6 @@ horizontal-scroll()
             flex-shrink 0
             content ''
 
-.app-list
-    horizontal-scroll()
-
 .connector-list
     horizontal-scroll()
     list-style       none
@@ -34,6 +31,30 @@ horizontal-scroll()
 
     &.col-picture-for-empty-list
         background-color white
+
+.app-list
+    horizontal-scroll()
+
+    // Negative margin ensure correct alignment with 6 items
+    margin 0 -.75rem
+    display flex
+    flex-direction row
+    justify-content flex-start
+    flex-wrap wrap
+
+    .item-wrapper
+        display inline-block
+        margin 0 .75rem 1.5rem
+        width 8.75rem
+        height 8.75rem
+        background white
+
+        .item-header
+            height 5.5rem
+
+            .item-icon
+                width 4rem
+                height 4rem
 
 .item-wrapper
     position         relative
@@ -91,6 +112,8 @@ horizontal-scroll()
                 color coolGrey
 
     .item-title
+        width 80%
+        margin auto
         margin-bottom 0
         color black
         font-size .875rem
