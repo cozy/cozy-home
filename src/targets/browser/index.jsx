@@ -4,6 +4,9 @@ import 'url-search-params-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
+import MostRecentCozyClient, {
+  CozyProvider as MostRecentCozyClientProvider
+} from 'cozy-client'
 
 import I18n from 'cozy-ui/react/I18n'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
@@ -50,6 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     token: data.cozyToken
   })
 
+  // New improvements must be done with CozyClient
+  const cozyClient = new MostRecentCozyClient({
+    uri: `//${data.cozyDomain}`,
+    token: data.cozyToken
+  })
+
   cozy.bar.init({
     appEditor: data.cozyAppEditor,
     appName: data.cozyAppName,
@@ -68,13 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const App = require('containers/App').default
 
   render(
-    <CozyProvider store={store} client={client}>
-      <I18n lang={lang} dictRequire={dictRequire} context={context}>
-        <PiwikHashRouter>
-          <App {...collectConfig} />
-        </PiwikHashRouter>
-      </I18n>
-    </CozyProvider>,
+    <MostRecentCozyClientProvider client={cozyClient}>
+      <CozyProvider store={store} client={cozyClient}>
+        <I18n lang={lang} dictRequire={dictRequire} context={context}>
+          <PiwikHashRouter>
+            <App {...collectConfig} />
+          </PiwikHashRouter>
+        </I18n>
+      </CozyProvider>
+    </MostRecentCozyClientProvider>,
     document.querySelector('[role=application]')
   )
 })
