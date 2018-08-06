@@ -36,6 +36,7 @@
         "consumerKey": "Consumer Key",
         "consumerSecret": "Consumer Secret",
         "tricountUrl": "Tricount URL",
+        "cardNumber": "Card Number",
         "dob": "Date of birth",
         "password": "Password",
         "email": "Email",
