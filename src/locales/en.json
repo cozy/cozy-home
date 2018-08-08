@@ -35,6 +35,8 @@
         "login": "Login",
         "consumerKey": "Consumer Key",
         "consumerSecret": "Consumer Secret",
+        "appKey": "Application Key",
+        "appSecret": "Application Secret",
         "tricountUrl": "Tricount URL",
         "cardNumber": "Card Number",
         "dob": "Date of birth",
