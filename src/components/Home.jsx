@@ -33,9 +33,11 @@ class Home extends Component {
     return (
       <Main>
         <ScrollToTopOnMount target={wrapper} />
-        <Content className="col-content">
-          <Applications />
-          <Services />
+        <Content>
+          <div className="col-content">
+            <Applications />
+            <Services />
+          </div>
         </Content>
         <Switch>
           <Route
