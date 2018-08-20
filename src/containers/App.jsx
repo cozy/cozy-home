@@ -31,49 +31,49 @@ class App extends Component {
       collection => collection.fetchStatus === 'failed'
     )
 
-    if (hasError) {
-      return (
-        <Layout monocolumn>
-          <Main>
-            <Content className="col-initial-error">
-              <Failure errorType="initial" />
-            </Content>
-          </Main>
-        </Layout>
-      )
-    }
+    const isReady = !hasError && !isFetching
 
-    return isFetching ? (
-      <Layout monocolumn>
-        <Main>
-          <Content className="col-initial-loading">
-            <Loading loadingType="initial" />
-          </Content>
-        </Main>
-      </Layout>
-    ) : (
+    return (
       <Layout
         monoColumn
-        ref={div => {
-          this.contentWrapper = div
-        }}
+        ref={
+          isReady &&
+          (div => {
+            this.contentWrapper = div
+          })
+        }
       >
-        <Switch>
-          <Route path="/redirect" component={IntentRedirect} />
-          <Route
-            path="/connected"
-            render={props => (
-              <InstalledKonnectors
-                base="/connected"
-                wrapper={this.contentWrapper}
-              />
-            )}
-          />
-          <Route exact path="/providers" component={StoreRedirection} />
-          <Route path="/providers/:category" component={StoreRedirection} />
-          <Redirect exact from="/" to="/connected" />
-          <Redirect from="*" to="/connected" />
-        </Switch>
+        {hasError ||
+          (isFetching && (
+            <Main>
+              <Content
+                className={
+                  hasError ? 'col-initial-error' : 'col-initial-loading'
+                }
+              >
+                {hasError && <Failure errorType="initial" />}
+                {isFetching && <Loading loadingType="initial" />}
+              </Content>
+            </Main>
+          ))}
+        {isReady && (
+          <Switch>
+            <Route path="/redirect" component={IntentRedirect} />
+            <Route
+              path="/connected"
+              render={props => (
+                <InstalledKonnectors
+                  base="/connected"
+                  wrapper={this.contentWrapper}
+                />
+              )}
+            />
+            <Route exact path="/providers" component={StoreRedirection} />
+            <Route path="/providers/:category" component={StoreRedirection} />
+            <Redirect exact from="/" to="/connected" />
+            <Redirect from="*" to="/connected" />
+          </Switch>
+        )}
         <Notifier />
         <ConnectionsQueue />
       </Layout>
