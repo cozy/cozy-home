@@ -6,26 +6,32 @@ import { NavLink } from 'react-router-dom'
 import { getInstalledKonnectors } from '../reducers'
 import { translate } from 'cozy-ui/react/I18n'
 import sortBy from 'lodash/sortBy'
+import { withBreakpoints } from 'cozy-ui/react'
 
 import KonnectorTile from './KonnectorTile'
 import AddServiceTile from './AddServiceTile'
 
 class Services extends Component {
   render() {
-    const { t, installedKonnectors } = this.props
+    const { breakpoints, t, installedKonnectors } = this.props
     const hasConnections = !!installedKonnectors.length
     return (
       <div className="col-services">
         <h2 className="col-view-title">{t('services.title')}</h2>
         {hasConnections ? (
           <div className="connector-list">
+            {breakpoints.isMobile && (
+              <AddServiceTile label={t('add_service')} />
+            )}
             {installedKonnectors.map(konnector => (
               <KonnectorTile
                 konnector={konnector}
                 route={`connected/${konnector.slug}`}
               />
             ))}
-            <AddServiceTile label={t('add_service')} />
+            {!breakpoints.isMobile && (
+              <AddServiceTile label={t('add_service')} />
+            )}
           </div>
         ) : (
           <div className="col-picture-for-emtpy-list">
@@ -58,4 +64,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(Services))
+export default connect(mapStateToProps)(
+  translate()(withBreakpoints()(Services))
+)
