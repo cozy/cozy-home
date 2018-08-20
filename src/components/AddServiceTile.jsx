@@ -1,6 +1,9 @@
 /* global cozy */
 import React, { Component } from 'react'
-import { Button } from 'cozy-ui/react/Button'
+import Icon from 'cozy-ui/react/Icon'
+import Spinner from 'cozy-ui/react/Spinner'
+
+import addServiceIcon from '../assets/icons/icon-plus.svg'
 
 export class AddServiceTile extends Component {
   constructor(props) {
@@ -29,21 +32,19 @@ export class AddServiceTile extends Component {
     const { label } = this.props
     const { redirecting } = this.state
     return (
-      <div className="item-wrapper --add-service" onClick={this.toggleRedirect}>
+      <div
+        aria-busy={redirecting}
+        className="item-wrapper --add-service"
+        onClick={this.toggleRedirect}
+      >
         <header className="item-header">
-          <img
-            className="item-icon"
-            src={require('../assets/images/icon-add-service.svg')}
-          />
+          {redirecting ? (
+            <Spinner color="grey" size="xlarge" />
+          ) : (
+            <Icon className="item-icon" icon={addServiceIcon} />
+          )}
         </header>
-        <Button
-          busy={redirecting}
-          disabled={redirecting}
-          className="item-add-service-button"
-          subtle
-        >
-          {label}
-        </Button>
+        <span className="item-add-service-label">{label}</span>
       </div>
     )
   }

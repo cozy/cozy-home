@@ -73,11 +73,36 @@ horizontal-scroll()
         background-color white
         transform  scale(1.05)
         transition .2s ease all
+
     &.--add-service
         display flex
         flex-direction column
         justify-content center
-        border 2px dashed silver
+
+        .item-header .item-icon
+            height 2rem
+            width 2rem
+            border 2px dashed silver
+            border-radius 50%
+            padding calc(1rem - 2px) // consider 2px border
+            color coolGrey
+
+        .item-add-service-label
+            color coolGrey
+            text-transform uppercase
+
+        &[aria-busy]
+            opacity .8
+
+            &:hover
+                background-color transparent
+                transform  none
+
+            .item-header
+                // Centers spinner
+                display flex
+                align-items center
+
     .item-header
         margin-bottom .5rem
         border-radius 4px 4px 0 0
@@ -162,7 +187,7 @@ horizontal-scroll()
         height   24px
         bottom   1.25rem
         right    1em
-    .item-add-service-button
+    .item-add-service-label
         font-size 16px
         font-weight bold
 

@@ -14,7 +14,6 @@ import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
 import AccountPickerItem from './AccountPickerItem'
 import KonnectorHeaderIcon from './KonnectorHeaderIcon'
-import addAccountIcon from '../assets/icons/icon-plus.svg'
 
 import backIcon from '../assets/sprites/icon-arrow-left.svg'
 
@@ -57,7 +56,7 @@ export const AccountPicker = ({
               )}
             >
               <span>
-                <Icon icon={addAccountIcon} />
+                <Icon icon="plus" />
                 <span>{t('account_picker.add_account_button.label')}</span>
               </span>
             </NavLink>
