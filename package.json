@@ -100,7 +100,7 @@
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
     "cozy-app-publish": "0.4.1-beta.5",
-    "cozy-bar": "5.0.8",
+    "cozy-bar": "5.1.0",
     "cozy-client-js": "0.12.0",
     "cozy-ui": "10.8.0",
     "enzyme": "3.3.0",
