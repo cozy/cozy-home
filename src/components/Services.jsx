@@ -34,14 +34,14 @@ class Services extends Component {
             )}
           </div>
         ) : (
-          <div className="col-picture-for-emtpy-list">
+          <div className="connector-list col-picture-for-empty-list">
             <img
               data-tutorial="empty-view"
               src={EmptyIcon}
-              className="col-picture-for-emtpy-list--img"
+              className="col-picture-for-empty-list--img"
               alt={t('connector.empty')}
             />
-            <div>
+            <div className="col-picture-for-empty-list--text">
               <h2>{t('connector.no-connectors-connected')}</h2>
               <p>{t('connector.get-info')}</p>
               <NavLink to="/providers/all" className="col-button">
