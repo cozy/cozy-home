@@ -19,7 +19,7 @@ class Services extends Component {
       <div className="col-services">
         <h2 className="col-view-title">{t('services.title')}</h2>
         {hasConnections ? (
-          <div className="connector-list">
+          <div className="connector-list" data-tutorial="home-services">
             {breakpoints.isMobile && (
               <AddServiceTile label={t('add_service')} />
             )}
@@ -36,9 +36,9 @@ class Services extends Component {
         ) : (
           <div className="connector-list col-picture-for-empty-list">
             <img
-              data-tutorial="empty-view"
               src={EmptyIcon}
               className="col-picture-for-empty-list--img"
+              data-tutorial="home-services"
               alt={t('connector.empty')}
             />
             <div className="col-picture-for-empty-list--text">

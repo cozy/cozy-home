@@ -9,6 +9,7 @@ import ConnectionManagement from '../containers/ConnectionManagement'
 import ScrollToTopOnMount from './ScrollToTopOnMount'
 import AccountPicker from './AccountPicker'
 import Services from './Services'
+import { translate } from 'cozy-ui/react/I18n'
 
 class Home extends Component {
   componentDidMount() {
@@ -64,4 +65,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home)
+export default withRouter(translate()(Home))

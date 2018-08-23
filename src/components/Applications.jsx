@@ -40,9 +40,11 @@ export const Applications = props => {
             <LoadingAppTiles num="3" />
           ) : (
             <div className="app-list">
-              {data
-                .filter(app => !ignoredAppSlugs.includes(app.slug))
-                .map(app => <AppTile app={app} />)}
+              <div data-tutorial="home-apps">
+                {data
+                  .filter(app => !ignoredAppSlugs.includes(app.slug))
+                  .map(app => <AppTile app={app} />)}
+              </div>
             </div>
           )
         }}

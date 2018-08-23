@@ -337,12 +337,23 @@
       "reload": "Refresh now"
     }
   },
-
   "tutorial": {
     "cozy_collect": {
       "title": "Automate your data gathering",
       "text": "They will be stored in your Cozy, you won't have to look for them anymore.",
       "button": "Next"
+    },
+    "home": {
+      "apps": {
+        "button": "Next",
+        "text": "Easily manage your digital life (files, pictures, bank accounts, ...)",
+        "title": "Access to all your Cozy applications"
+      },
+      "services": {
+        "button": "Let's configure my accounts",
+        "text": "They will be stored in your Cozy, you won't have to look for them anymore.",
+        "title": "Automate your data gathering"
+      }
     },
     "menu_apps": {
       "title": "Your Cozy is so much more than a simple data aggregator",
