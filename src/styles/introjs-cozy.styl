@@ -18,9 +18,6 @@ https://github.com/usablica/intro.js/issues/109
     border 0
     border-radius 8px
 
-[data-tutorial=empty-view]
-    max-width 400px
-    margin    auto
 
 .introjs-prevbutton, .introjs-arrow, .introjs-helperNumberLayer, .introjs-skipbutton
     display none !important // @stylint ignore
@@ -49,30 +46,6 @@ https://github.com/usablica/intro.js/issues/109
 .introjs-button:hover
     box-shadow none
 
-.tooltipBottom,
-.tooltipEmptyBottom
-    max-width 100%!important // @stylint ignore
-    margin-top 8rem!important // @stylint ignore
-
-/* Fixes for introjs breaking points, larger to smaller */
-@media (max-width: 1118px)
-    .tooltipBottom
-        top 140px!important // @stylint ignore
-        margin-top -4rem!important // @stylint ignore
-
-@media (max-width: 858px)
-    .tooltipEmptyBottom
-        top 370px!important // @stylint ignore
-        margin-top -6rem!important // @stylint ignore
-
-@media (max-width: 680px)
-    .tooltipBottom
-        top 140px!important // @stylint ignore
-
-@media (max-width: 450px)
-    .tooltipEmptyBottom
-        top 150%!important // @stylint ignore
-
 @media (max-width: 360px)
     .tooltipApps
         margin-left 0!important // @stylint ignore
@@ -85,7 +58,5 @@ https://github.com/usablica/intro.js/issues/109
 // hide details in smaller screen
 @media (max-width: 40em)
     .introjs-tooltiptext
-        div
-            display none
         h1
             font-size 1.5em

@@ -1,64 +1,160 @@
+@require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
+horizontal-scroll()
+    // Horizontal scroll
+    +mobile()
+        display flex
+        flex-wrap nowrap
+        height 10.75rem
+        overflow-x auto
+        &::-webkit-scrollbar
+            display none
+
+        // clearfix to let empty space at the right when scrolling
+        &::after
+            width 1rem
+            flex-shrink 0
+            content ''
+
+h2
+    margin 2rem 0 1rem
+
+    +mobile()
+        margin 1rem 0
+
 .connector-list
+    horizontal-scroll()
+    list-style       none
+    display          flex
+    margin 0 0 2rem
+    border-radius .5rem
+    background rgba(255, 255, 255, .7) // .7 until background image (.95)
     display          flex
     flex-wrap        wrap
     justify-content  flex-start
-    margin           0 -.7em 2em
-    list-style       none
+    padding 1rem .53rem
 
-ul.connector-list
-    margin-top       60px
-    padding          0 20px
+    +mobile()
+        margin 2rem -1rem 0
 
-// We differenciate the "real" margin from the "used" margin. The "used" margin
-// allow to use a little higher value for flex-basis calculation. Firefox
-// and Chrome are behaving well but IE11 need it.
-$item-real-margin = .7em
-$item-margin = .8em
+    &.col-picture-for-empty-list
+        background-color white
+
+.app-list
+    horizontal-scroll()
+
+    // Negative margin ensure correct alignment with 6 items
+    margin 0 -.75rem
+    display flex
+    flex-direction row
+    justify-content flex-start
+    flex-wrap wrap
+
+    .item-wrapper
+        display inline-block
+        margin .75rem
+        width 8.75rem
+        height 8.75rem
+        background white
+
+        .item-header
+            height 5.5rem
+
+            .item-icon
+                width 4rem
+                height 4rem
 
 .item-wrapper
-    flex             1 1 'calc(100% - %s * 2)' % $item-margin
     position         relative
     box-sizing       border-box
-    border-radius    4px
-    background-color white
-    border           1px solid alpha(black, .15)
-    margin           $item-real-margin
+    border-radius    .25rem
+    margin           .53rem
     padding-bottom   1rem
+    width 8.75rem
+    height 8.75rem
+    flex-shrink 0
     cursor           pointer
     text-decoration  none
     text-align       center
     transition       .2s ease all
     &:hover
-        box-shadow 0 4px 12px 0 alpha(black, .15)
+        background-color white
         transform  scale(1.05)
         transition .2s ease all
+
     &.--add-service
         display flex
         flex-direction column
         justify-content center
-        border-style dashed
-        border-width 2px
+
+        .item-header .item-icon
+            height 2rem
+            width 2rem
+            border 2px dashed silver
+            border-radius 50%
+            padding calc(1rem - 2px) // consider 2px border
+            color coolGrey
+
+        .item-add-service-label
+            color coolGrey
+            text-transform uppercase
+
+        &[aria-busy]
+            opacity .8
+
+            &:hover
+                background-color transparent
+                transform  none
+
+            .item-header
+                // Centers spinner
+                display flex
+                align-items center
+
     .item-header
-        position      relative
+        margin-bottom .5rem
         border-radius 4px 4px 0 0
-        height        6em
-        background    white
+        height        4.37em
+        display flex
+        justify-content center
+        align-items flex-end
+
         .item-icon
-            position      relative
-            display       block
-            max-width         10em
-            max-height        4.8em
-            margin        0 auto
-            top           55%
-            transform     translateY(-50%)
+            width 3rem
+            height 3rem
+
+        .item-layered-item-icon
+            position relative
+            height 3rem
+            width 3rem
+
+            .item-icon
+                position absolute
+                top 0
+                left 0
+                height 2.25rem
+                width 2.25rem
+
+            .item-layer-icon
+                position absolute
+                bottom 0
+                right 0
+                border-radius 1rem
+                padding .25rem
+                background white
+                color coolGrey
+
     .item-title
-        padding     0 .5em
-        margin      .5em
-        color       black
-        font-size   1.25rem
+        width 80%
+        margin auto
+        margin-bottom 0
+        color black
+        font-size .875rem
         font-weight 700
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
     .item-subtitle
         font-size       14px
         padding         0 3em
@@ -69,6 +165,18 @@ $item-margin = .8em
         box-sizing      border-box
         text-overflow   ellipsis
         white-space     nowrap
+
+    .item-subtitle-error
+    .item-subtitle-last-sync
+    .item-subtitle-user-error
+        font-size .75rem
+        color coolGrey
+        .icon
+            vertical-align bottom
+            margin-right .25rem
+    .item-subtitle-user-error
+        color pomegranate
+
     .item-subtitle-no-account
         font-size       14px
         font-weight     700
@@ -88,7 +196,7 @@ $item-margin = .8em
         height   24px
         bottom   1.25rem
         right    1em
-    .item-add-service-button
+    .item-add-service-label
         font-size 16px
         font-weight bold
 
@@ -102,83 +210,3 @@ $item-margin = .8em
         font-weight 500
 
 // Dedicated for IE 11 which seems not to take the default 100% into account.
-@media (min-width: 1em)
-    .item-wrapper
-        flex-grow  0
-        flex-basis 'calc(50% - %s * 2)' % $item-margin
-
-@media (max-width: 43em)
-    .item-wrapper
-        padding .5em
-        flex-basis 'calc(100% - %s * 2)' % $item-margin
-        .item-header
-            height        4em
-            background    white
-            .item-icon
-                max-width         8em
-                max-height        4em
-        .item-title
-            padding     .25em .5em
-            margin      .5em
-            font-size   1rem
-            font-weight normal
-
-        .item-status-icon
-            bottom   .5rem
-
-@media (min-width: 43em)
-    .use-case-dialog
-        min-width 32em
-
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(50% - %s * 2)' % $item-margin
-
-@media (min-width: 50em)
-    .item-wrapper
-        flex-basis 'calc(33.333% - %s * 2)' % $item-margin
-
-@media (min-width: 60em)
-    .use-case-dialog
-        min-width 48em
-
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(33.33% - %s * 2)' % $item-margin
-
-@media (min-width: 80em)
-    .item-wrapper
-        flex-basis 'calc(25% - %s * 2)' % $item-margin
-
-    .use-case-dialog
-        min-width 64em
-
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(25% - %s * 2)' % $item-margin
-
-@media (min-width: 96em)
-    .item-wrapper
-        flex-basis 'calc(25% - %s * 2)' % $item-margin
-
-        .item-header
-            height  9em
-            .item-icon
-                max-width   14em
-                max-height  6em
-
-@media (min-width: 108em)
-    .use-case-dialog
-        min-width 88em
-
-    .use-case-dialog
-        .item-wrapper
-            flex-basis 'calc(20% - %s * 2)' % $item-margin
-
-@media (min-width: 112em)
-    .item-wrapper
-        flex-basis 'calc(20% - %s * 2)' % $item-margin
-
-@media (min-width: 128em)
-    .item-wrapper
-        flex-basis 'calc(16.666% - %s * 2)' % $item-margin

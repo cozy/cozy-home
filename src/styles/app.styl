@@ -1,14 +1,32 @@
 @require 'objects/layouts.styl'
 @require 'tools/mixins.styl'
 @require 'components/button.styl'
+@require 'settings/breakpoints'
 @require 'settings/palette.styl'
 
+body
+    // Allows horizontal swipe on mobile
+    +mobile()
+        max-width 100vw
+        overflow-x hidden
+
+[role=application]
+    +mobile()
+        overflow auto
+
+.ho-background
+    position fixed
+    height 100vh
+    width 100vw
+    background paleGrey
 
 .col-content
+    margin 0 auto
+    max-width 60rem
     padding 0 2rem
 
     +small-screen()
-        padding 0 .5rem
+        padding 0 1rem
 
 .col-initial-error,
 .col-initial-loading

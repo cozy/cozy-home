@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import moment from 'moment'
 
 import { getKonnectorIcon } from '../../lib/icons'
 import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
@@ -110,6 +111,12 @@ const reducer = (state = {}, action) => {
           (isJob && !!doc.error && buildKonnectorError(doc.error)) ||
           null
 
+        const lastSyncDate =
+          (isTrigger &&
+            !!doc.current_state &&
+            doc.current_state.last_execution) ||
+          (isJob && doc.queued_at)
+
         return {
           ...newState,
           [konnectorSlug]: {
@@ -131,7 +138,8 @@ const reducer = (state = {}, action) => {
                 error,
                 hasError: !!error || currentStatus === 'errored',
                 isRunning: ['queued', 'running'].includes(currentStatus),
-                isConnected: !error && currentStatus === 'done'
+                isConnected: !error && currentStatus === 'done',
+                lastSyncDate: lastSyncDate
               }
             }
           }
@@ -334,29 +342,6 @@ export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   return dispatch(launchTrigger(trigger))
 }
 
-// Helpers
-export const hasAtLeastOneTriggerWithError = (state, konnectorSlug) => {
-  return (
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
-      trigger => !!trigger.error
-    )
-  )
-}
-
-export const hasAtLeastOneTriggerWithUserError = (state, konnectorSlug) => {
-  return (
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    !!Object.values(state.konnectors[konnectorSlug].triggers).find(
-      trigger => !!trigger.error && isKonnectorUserError(trigger.error)
-    )
-  )
-}
-
 // selectors
 export const getConnectionsByKonnector = (
   state,
@@ -374,6 +359,43 @@ export const getConnectionsByKonnector = (
   return Object.values(state.konnectors[konnectorSlug].triggers).filter(
     trigger => validAccounts.includes(trigger.account)
   )
+}
+
+export const getFirstError = (state, konnectorSlug) => {
+  const firstTriggerHavingError =
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    Object.values(state.konnectors[konnectorSlug].triggers).find(
+      trigger => !!trigger.error
+    )
+  return !!firstTriggerHavingError && firstTriggerHavingError.error
+}
+
+export const getFirstUserError = (state, konnectorSlug) => {
+  const firstTriggerHavingUserError =
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    Object.values(state.konnectors[konnectorSlug].triggers).find(trigger =>
+      isKonnectorUserError(trigger.error)
+    )
+  return firstTriggerHavingUserError && firstTriggerHavingUserError.error
+}
+
+export const getLastSyncDate = (state, konnectorSlug) => {
+  const lastExecutions =
+    !!state.konnectors &&
+    !!state.konnectors[konnectorSlug] &&
+    !!state.konnectors[konnectorSlug].triggers &&
+    Object.values(state.konnectors[konnectorSlug].triggers)
+      .map(trigger => trigger.lastSyncDate)
+      .sort((dateA, dateB) => {
+        const momentA = moment.utc(dateA)
+        const momentB = moment.utc(dateB)
+        return momentA.isAfter(momentB) ? -1 : momentA.isBefore(momentB) ? 1 : 0
+      })
+  return lastExecutions.length && lastExecutions[0]
 }
 
 // Map the trigger status to a status compatible with queue

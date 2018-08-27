@@ -10,7 +10,7 @@ import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
 import IntentHandler from 'containers/IntentHandler'
 
-import 'styles/services.styl'
+import 'styles/intents.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'

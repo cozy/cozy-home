@@ -1,6 +1,6 @@
 # Connection state
 
-In this document we'll gather all information and parameters needed to get the connection state in cozy-collect.
+In this document we'll gather all information and parameters needed to get the connection state in cozy-home.
 
 ## Some definitions and context
 

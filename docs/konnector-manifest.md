@@ -125,7 +125,7 @@ parameters     | Additional parameters which should be passed to the konnector. 
 permissions    | Map of permissions needed by the konnector (see [see cozy-stack permissions doc ](https://cozy.github.io/cozy-stack/permissions.html) for more details)
 slug           | The default slug that should never change (alpha-numeric lowercase)
 source         | Where the files of the app can be downloaded (by default it will look for the branch `build`)
-doctypes       | Array of doctype retrieved by the konnector. Example : `['io.cozy.files']`. This property is used to know if specific behaviour related to doctypes should be enabled or not. For example, if this property includes the doctype `io.cozy.files`, Cozy-Collect will provide a way to pick a destination folder for those files.
+doctypes       | Array of doctype retrieved by the konnector. Example : `['io.cozy.files']`. This property is used to know if specific behaviour related to doctypes should be enabled or not. For example, if this property includes the doctype `io.cozy.files`, cozy-home will provide a way to pick a destination folder for those files.
 tags           | List a tags describing your konnector and features (useful for indexing and search)
 time_interval  | By defaults, konnector triggers are scheduled randomly between 00:00 AM and 05:00 AM. Those two values can be overwritten thanks to this property, by passing an array containing two values: first is the interval start hour, second is the interval end hour. Example: `[15, 21]` will randomly schedule the konnector trigger between 15:00 (03:00 PM) and 21:00 (09:00 PM).
 uuid           | Unique UUID generated for the konnector. It will be used for the whole lifetime of the konnector. Instead of a slug, an uuid can never change. It will be used to ensure legacy in case of the modification of the konnector's slug.
@@ -141,11 +141,11 @@ Field             | Description
 name              | The konnector's name.
 short_description | Short description of what the konnector do.
 long_description  | Longer and more complete description of the konnector behaviour.
-changes           | Description of your new version of the konnector or all changes since the last version, this part will be the changelog part of the application page in `cozy-store`/`cozy-collect` (?).
+changes           | Description of your new version of the konnector or all changes since the last version, this part will be the changelog part of the application page in `cozy-store`/`cozy-home` (?).
 
 ### Messages
 
-Messages are a common way to provide custom information to display in application. An app like Cozy-Collect should have some specific area to display custom messages provided by the konnector.
+Messages are a common way to provide custom information to display in application. An app like cozy-home should have some specific area to display custom messages provided by the konnector.
 
 #### <a name="messages-example"></a> Example:
 ```jsx
@@ -250,7 +250,7 @@ Data types are slugs from the following list:
 
 ### Fields
 
-* The folderPath field disappears and is replaced by the use of the property `doctypes`. It's assumed that the application in charge of Konnector (i.e. Cozy-Collect) will handle the management of this folder.
+* The folderPath field disappears and is replaced by the use of the property `doctypes`. It's assumed that the application in charge of Konnector (i.e. cozy-home) will handle the management of this folder.
 * `isRequired` becomes `required`.
 * `hasDescription` becomes `description` and should now contain a locale key.
 

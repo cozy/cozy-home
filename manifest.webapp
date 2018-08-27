@@ -1,20 +1,17 @@
 {
-  "name": "Collect",
+  "name": "Home",
   "name_prefix": "Cozy",
-  "slug": "collect",
-  "icon": "cozy_collect.svg",
-  "categories": [
-    "cozy",
-    "konnectors"
-  ],
+  "slug": "home",
+  "icon": "icon.svg",
+  "categories": ["cozy", "konnectors"],
   "type": "webapp",
-  "source": "git://github.com/cozy/cozy-collect.git",
+  "source": "git://github.com/cozy/cozy-home.git",
   "editor": "Cozy",
   "developer": {
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "2.5.0",
+  "version": "1.0.0",
   "licence": "AGPL-3.0",
   "screenshots": [
     "screenshots/screenshot1.png",

@@ -9,11 +9,7 @@ const reload = () => {
 }
 
 export const Failure = ({ t, errorType }) => (
-  <Empty
-    title={t(`error.${errorType}`)}
-    icon={EmptyIcon}
-    className="data-tutorial-empty-view"
-  >
+  <Empty title={t(`error.${errorType}`)} icon={EmptyIcon}>
     <Button label={t('error.button.reload')} onClick={reload} />
   </Empty>
 )

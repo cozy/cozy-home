@@ -6,13 +6,17 @@ export function isTutorial() {
 }
 
 export function display(t) {
-  const isSmall = document.querySelectorAll('.coz-nav')[0].offsetParent === null
-  const isEmptyView = !!document.querySelectorAll('[data-tutorial=empty-view]')
-    .length
-  const cozyBarMenuClass = isSmall
-    ? '[data-tutorial=apps-mobile]'
-    : '[data-tutorial=apps]'
-  const cozyBarMenuButton = document.querySelectorAll(cozyBarMenuClass)[0]
+  const appsPanel = document.querySelectorAll('[data-tutorial=home-apps]')[0]
+  const servicesPanel = document.querySelectorAll(
+    '[data-tutorial=home-services]'
+  )[0]
+
+  console.debug(appsPanel, servicesPanel)
+
+  for (const element in [appsPanel, servicesPanel]) {
+    if (!element) throw new Error('Missing tutorial element.')
+  }
+
   const trackerInstance = getTracker()
   const shouldTrackTutorial = shouldEnableTracking() && trackerInstance
   const pageURLsForTracking = [
@@ -30,26 +34,23 @@ export function display(t) {
       exitOnEsc: false,
       exitOnOverlayClick: false,
       disableInteraction: true,
-      doneLabel: `${t('tutorial.menu_apps.button')}`,
-      nextLabel: `${t('tutorial.cozy_collect.button')}`,
+      doneLabel: `${t('tutorial.home.services.button')}`,
+      nextLabel: `${t('tutorial.home.apps.button')}`,
       steps: [
         {
-          element: isEmptyView
-            ? document.querySelectorAll('[data-tutorial=empty-view]')[0]
-            : document.querySelectorAll('[data-tutorial=top-bar]')[0],
-          intro: `<h1>${t('tutorial.cozy_collect.title')}</h1><div>${t(
-            'tutorial.cozy_collect.text'
+          element: appsPanel,
+          intro: `<h1>${t('tutorial.home.apps.title')}</h1><div>${t(
+            'tutorial.home.apps.text'
           )}</div>`,
-          tooltipClass: isEmptyView ? 'tooltipEmptyBottom' : 'tooltipBottom',
+          tooltipClass: 'tooltipApps',
           position: 'bottom'
         },
         {
-          element: cozyBarMenuButton,
-          intro: `<h1>${t('tutorial.menu_apps.title')}</h1><div>${t(
-            'tutorial.menu_apps.text'
+          element: servicesPanel,
+          intro: `<h1>${t('tutorial.home.services.title')}</h1><div>${t(
+            'tutorial.home.services.text'
           )}</div>`,
-          tooltipClass: 'tooltipApps',
-          position: isSmall ? 'right' : 'bottom'
+          position: 'bottom'
         }
       ]
     })
@@ -73,7 +74,7 @@ export function display(t) {
       const doneButton = document.querySelectorAll('.introjs-donebutton')[0]
       if (!doneButton) return // step 1, no done button yet
 
-      if (targetElement.className === cozyBarMenuButton.className) {
+      if (targetElement.className === servicesPanel.className) {
         doneButton.classList.remove('introjs-skipbutton')
       } else {
         doneButton.classList.add('introjs-skipbutton')
@@ -93,7 +94,7 @@ export function display(t) {
       // on cozyBarMenuButton. So we must delay a little bit this call. It is
       // really dirty and hackish and we should instead call directly a method
       // on the Cozy-Bar to show the app panel.
-      setTimeout(() => cozyBarMenuButton.click(), 10)
+      setTimeout(() => servicesPanel.click(), 10)
       window.location.hash = '#/connected'
     })
     .start()
