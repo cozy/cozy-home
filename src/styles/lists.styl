@@ -41,12 +41,30 @@ h2
     &.col-picture-for-empty-list
         background-color white
 
+// Tutorial-fit constraint:
+// -------------------
+// When the tutorial is active, (i.e. the route is /intro), we want the
+// tutorial mask to fit perfectly with the number of apps. It leads to two
+// things:
+// * The element .app-list, having also [data-tutorial=home-apps],
+//   cannot be 100hw like it is the case in the horizontal-scroll() mixin.
+// * It still needs to be horizontally scrollable on mobile, so we wrap it
+//   in a .app-list-wrapper element, which keeps the right CSS properties
+//   to have an horizontal scroll.
+
+// Tutorial-fit constraint, keep the properties to scroll horizontally
+// on mobile.
+.app-list-wrapper
+    width 100vw
+    overflow-x auto
+
 .app-list
     horizontal-scroll()
 
     // Negative margin ensure correct alignment with 6 items
     margin 0 -.75rem
-    display flex
+    width auto // Tutorial-fit constraint, override horizontal-scroll()
+    display inline-flex // Tutorial-fit constraint, override horizontal-scroll()
     flex-direction row
     justify-content flex-start
     flex-wrap wrap
