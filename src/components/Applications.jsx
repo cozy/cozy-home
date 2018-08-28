@@ -39,8 +39,8 @@ export const Applications = props => {
           return fetchStatus !== 'loaded' ? (
             <LoadingAppTiles num="3" />
           ) : (
-            <div className="app-list">
-              <div data-tutorial="home-apps">
+            <div className="app-list-wrapper">
+              <div className="app-list" data-tutorial="home-apps">
                 {data
                   .filter(app => !ignoredAppSlugs.includes(app.slug))
                   .map(app => <AppTile app={app} />)}
