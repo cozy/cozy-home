@@ -3,7 +3,10 @@
   "name_prefix": "Cozy",
   "slug": "home",
   "icon": "icon.svg",
-  "categories": ["cozy", "konnectors"],
+  "categories": [
+    "cozy",
+    "konnectors"
+  ],
   "type": "webapp",
   "source": "git://github.com/cozy/cozy-home.git",
   "editor": "Cozy",
@@ -11,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "licence": "AGPL-3.0",
   "screenshots": [
     "screenshots/screenshot1.png",
