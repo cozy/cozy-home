@@ -23,6 +23,26 @@ import KonnectorEdit from '../components/KonnectorEdit'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import statefulForm from '../lib/statefulForm'
 
+import moment from 'moment'
+
+const sanitizeDate = (date, localeFormat) => {
+  const sanitizedFormat = 'YYYY-MM-DD'
+  const isAlreadySanitized = moment(date, sanitizedFormat, true).isValid()
+  if (isAlreadySanitized) return date
+  const momentDate = moment(date, localeFormat)
+  if (!momentDate.isValid()) throw new Error('Invalid date')
+  return momentDate.format(sanitizedFormat)
+}
+
+const sanitizeDates = (values, fields, localeFormat) => {
+  const sanitizedValues = { ...values }
+  Object.keys(fields).forEach(key => {
+    if (fields[key].type !== 'date') return
+    sanitizedValues[key] = sanitizeDate(values[key], localeFormat)
+  })
+  return sanitizedValues
+}
+
 class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
@@ -215,9 +235,10 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   onSubmit = () => {
-    const { values, konnector } = this.props
+    const { fields, values, konnector, t } = this.props
     const { account } = this.state
-    const valuesToSubmit = Object.assign({}, values)
+    let valuesToSubmit = { ...values }
+
     // namePath defined by the user is concatened with the folderPath
     if (valuesToSubmit.folderPath) {
       if (valuesToSubmit.namePath) {
@@ -237,6 +258,9 @@ class AccountConnection extends Component {
         valuesToSubmit.namePath
       }`
     }
+
+    valuesToSubmit = sanitizeDates(valuesToSubmit, fields, t('format.date'))
+
     // Update the path if the name path is the account name
     const folderId =
       this.props.trigger && this.props.trigger.message.folder_to_save
