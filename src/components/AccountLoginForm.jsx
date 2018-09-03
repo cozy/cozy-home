@@ -23,7 +23,7 @@ const probableLoginFieldNames = [
 
 const renderers = {
   password: ({ t }) => <PasswordField noAutoFill />,
-  date: () => <Field type="date" placeholder="YYYY-MM-DD" />,
+  date: ({ t }) => <Field type="date" placeholder={t('format.date')} />,
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
