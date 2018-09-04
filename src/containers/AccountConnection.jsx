@@ -4,7 +4,7 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-
+import collectConfig from 'config/collect'
 import {
   deleteConnection,
   getConnectionError,
@@ -259,7 +259,11 @@ class AccountConnection extends Component {
       }`
     }
 
-    valuesToSubmit = sanitizeDates(valuesToSubmit, fields, t('format.date'))
+    valuesToSubmit = sanitizeDates(
+      valuesToSubmit,
+      fields,
+      t('format.date', { _: collectConfig.defaultDateFormat })
+    )
 
     // Update the path if the name path is the account name
     const folderId =
