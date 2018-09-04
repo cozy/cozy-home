@@ -8,14 +8,16 @@ horizontal-scroll()
         flex-wrap nowrap
         height 10.75rem
         overflow-x auto
-        &::-webkit-scrollbar
-            display none
 
         // clearfix to let empty space at the right when scrolling
         &::after
             width 1rem
             flex-shrink 0
             content ''
+
+    &::-webkit-scrollbar
+        display none
+
 
 h2
     margin 2rem 0 1rem
@@ -64,6 +66,7 @@ h2
     // Negative margin ensure correct alignment with 6 items
     margin 0 -.75rem
     width auto // Tutorial-fit constraint, override horizontal-scroll()
+    max-width 61.5rem // 60rem plus negative margins
     display inline-flex // Tutorial-fit constraint, override horizontal-scroll()
     flex-direction row
     justify-content flex-start
