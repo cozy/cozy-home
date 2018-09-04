@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import collectConfig from 'config/collect'
 import moment from 'moment'
 
 // From https://stackoverflow.com/questions/10193294/how-can-i-tell-if-a-browser-supports-input-type-date
@@ -23,7 +24,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           fields: this.configureFields(
             config,
             t('account.form.placeholder.accountName'),
-            t('format.date')
+            t('format.date', { _: collectConfig.defaultDateFormat })
           ),
           dirty: false,
           oauth: props.onOAuth,

@@ -13,6 +13,7 @@ import Field, {
 } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
+import collectConfig from 'config/collect'
 
 const probableLoginFieldNames = [
   'email',
@@ -23,7 +24,12 @@ const probableLoginFieldNames = [
 
 const renderers = {
   password: ({ t }) => <PasswordField noAutoFill />,
-  date: ({ t }) => <Field type="date" placeholder={t('format.date')} />,
+  date: ({ t }) => (
+    <Field
+      type="date"
+      placeholder={t('format.date', { _: collectConfig.defaultDateFormat })}
+    />
+  ),
   checkbox: () => <CheckboxField />,
   dropdown: () => <DropdownField />,
   text: () => <Field />,
