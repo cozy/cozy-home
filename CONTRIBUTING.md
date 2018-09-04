@@ -1,5 +1,5 @@
-How to contribute to Cozy Collect?
-==================================
+How to contribute to Cozy Home?
+===============================
 
 Thank you for your interest in contributing to Cozy! There are many ways to contribute, and we appreciate all of them.
 

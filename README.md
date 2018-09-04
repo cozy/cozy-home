@@ -1,11 +1,10 @@
-
 [![Travis build status shield](https://img.shields.io/travis/cozy/cozy-home.svg?branch=master)](https://travis-ci.org/cozy/cozy-home)
 [![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-home.svg)](https://github.com/cozy/cozy-home/releases)
 [![NPM Licence shield](https://img.shields.io/npm/l/cozy-home.svg)](https://github.com/cozy/cozy-home/blob/master/LICENSE)
 
 
-[Cozy] Collect
-==============
+[Cozy] Home
+===========
 
 
 What's Cozy?
@@ -16,8 +15,8 @@ What's Cozy?
 [Cozy] is a platform that brings all your web services in the same private space. With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one's tracking you.
 
 
-What is Collect (previously known as MyAccounts, previously known as Konnectors)?
----------------------------------------------------------------------------------
+What is Home (previously known as Collect, MyAccounts, and before that Konnectors)?
+-----------------------------------------------------------------------------------
 
 A cozy client application to configure and run cozy konnectors
 
@@ -28,7 +27,7 @@ _:pushpin: Note:_ we recommend to use [Yarn] instead of NPM for package manageme
 
 ### Install and run in dev mode
 
-Hacking the Collect app requires you to [setup a dev environment][setup].
+Hacking the Home app requires you to [setup a dev environment][setup].
 
 You can then clone the app repository and install dependencies:
 
@@ -73,7 +72,7 @@ Whenever your app needs to use a given `doctype`, you should:
 
 ### Open a Pull-Request
 
-If you want to work on Collect and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about how to properly open pull-requests.
+If you want to work on Home and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about how to properly open pull-requests.
 
 
 Community
@@ -90,7 +89,7 @@ As a _developer_, you must [configure the transifex client][tx-client], and clai
 
 ### Maintainer
 
-The lead maintainer for Cozy Collect is [Greg](https://github.com/gregorylegarec), send him/her a :beers: to say hello!
+The lead maintainer for Cozy Home is [Greg](https://github.com/gregorylegarec), send him/her a :beers: to say hello!
 
 
 ### Get in touch
@@ -106,7 +105,7 @@ You can reach the Cozy Community by:
 License
 -------
 
-Cozy Collect is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
+Cozy Home is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
 
 
 
