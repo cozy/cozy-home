@@ -1,4 +1,7 @@
 {
+  "format": {
+    "date": "MM/DD/YYYY"
+  },
   "manifest": {
     "name": "Collect",
     "short_description": "Cozy Collect is the application that help you gather all your personal data inside Cozy.",

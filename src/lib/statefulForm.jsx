@@ -1,4 +1,14 @@
 import React, { Component } from 'react'
+import moment from 'moment'
+
+// From https://stackoverflow.com/questions/10193294/how-can-i-tell-if-a-browser-supports-input-type-date
+const hasDateInputSupport = () => {
+  const input = document.createElement('input')
+  input.setAttribute('type', 'date')
+  const notADateValue = 'not-a-date'
+  input.setAttribute('value', notADateValue)
+  return input.value !== notADateValue
+}
 
 export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
@@ -12,7 +22,8 @@ export default function statefulForm(mapPropsToFormConfig) {
         this.state = {
           fields: this.configureFields(
             config,
-            t('account.form.placeholder.accountName')
+            t('account.form.placeholder.accountName'),
+            t('format.date')
           ),
           dirty: false,
           oauth: props.onOAuth,
@@ -90,7 +101,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
       }
 
-      configureFields(config = {}, defaultAccountNamePlaceholder) {
+      configureFields(config = {}, defaultAccountNamePlaceholder, dateFormat) {
         // it will at least have an accountName field
         const configFields = (config.konnector && config.konnector.fields) || {}
 
@@ -149,6 +160,12 @@ export default function statefulForm(mapPropsToFormConfig) {
             config.values && config.values[field]
               ? config.values[field]
               : defaut
+          if (
+            fieldsFromConfig[field].type === 'date' &&
+            !hasDateInputSupport()
+          ) {
+            value = moment(value).format(dateFormat)
+          }
           let options = fieldsFromConfig[field].options || []
           fields[field] = Object.assign({}, fieldsFromConfig[field], {
             value: value,
