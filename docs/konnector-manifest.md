@@ -138,6 +138,9 @@ Like for apps some properties can be overwritter using `locales` (we recommand t
 
 Field             | Description
 ------------------|----------------------------------------------------------
+changes           | Description of your new version of the konnector or all changes since the last version, this part will be the changelog part of the application page in `cozy-store`/`cozy-collect` (?).
+fields            | An object containing translations for fields. See [Field locales](#field-locales) below.
+long_description  | Longer and more complete description of the konnector behaviour.
 name              | The konnector's name.
 short_description | Short description of what the konnector do.
 long_description  | Longer and more complete description of the konnector behaviour.
@@ -160,7 +163,7 @@ Messages are a common way to provide custom information to display in applicatio
 ```
 
 
-### Fields property
+### Field properties
 
 The `fields` property is a JSON object describing the input fields needed to generate the konnector's configuration form. A typical example will be:
 
@@ -193,6 +196,37 @@ options         | When the field is a dropdown, list of available options
 pattern         | Define a regex used to validate the field.
 isRequired      | Boolean indicating if the field is required or not (default `true`)
 type            | *Required*. Field type from `dropdown`, `email`, `hidden`, `password`, `text`, `checkbox`.
+
+### <a id="field-locales"></a> Field locales
+
+The `locales` attribute of the manifest may contain an object mapping field properties, use for translations purpose. Here is a functional example:
+
+```json
+{
+  "fields": {
+    "email": {
+      "type": "email"
+    }
+  },
+  "locales": {
+    "en": {
+      "fields": {
+        "email": {
+          "label": "Identifier (your email)"
+        }
+      }
+    },
+    "fr": {
+      "fields": {
+        "email": {
+          "label": "Identifiant (votre adresse mail)"
+        }
+      }
+    }
+  }
+}
+```
+We use a sub attribute `label`, so in the future we will be able to add other locales like `title` for example.
 
 ### Categories
 
