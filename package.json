@@ -75,7 +75,7 @@
     "intro.js": "2.9.3",
     "lint-staged": "4.3.0",
     "lodash": "4.17.10",
-    "moment": "^2.22.2",
+    "moment": "2.22.2",
     "piwik-react-router": "0.12.1",
     "preact": "8.3.0",
     "preact-compat": "3.18.0",
