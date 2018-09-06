@@ -6,7 +6,7 @@
     + [Fields property](#fields-property)
     + [Categories](#categories)
     + [Data types](#data-types)
-  * [Breaking changes from current manifests and Collect config files](#breaking-changes-from-current-manifests-and-collect-config-files)
+  * Breaking changes from current manifests
     + [Fields](#fields)
     + [Properties](#properties)
     + [UUID](#uuid)
@@ -152,7 +152,7 @@ Messages are a common way to provide custom information to display in applicatio
   // The final example will be available after the implementation of the whole mechanism,
   // but here is the global idea:
   {installSuccess &&
-    <p>{t('collect.konnector.install.success.message')}</p>
+    <p>{t('home.konnector.install.success.message')}</p>
   }
   {installSuccess && konnector.manifest.messages.includes('success_message') &&
     <p>{t('konnector.manifest.locales.messages.success_message')}

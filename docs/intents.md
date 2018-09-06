@@ -1,4 +1,4 @@
-# Cozy Collect Intents
+# Cozy Home Intents
 
 ## Overview
 
@@ -6,7 +6,7 @@ A typical Cozy Cloud runs multiple applications, but most of these applications 
 
 However, Cozy Cloud especially shines when data is combined across apps to provide an integrated experience. This is made difficult by the fact that apps have no dedicated back-end and that they have restricted access to documents.
 
-This document outlines the intents available in Cozy Collect.
+This document outlines the intents available in Cozy Home.
 
 See [cozy stack intent](https://github.com/cozy/cozy-stack/blob/master/docs/intents.md) and [cozy client js intent](https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md) for a full documentation about intents.
 
@@ -25,7 +25,7 @@ The intent show you a konnector or a list of konnectors.
 
 #### Manifest
 
-Cozy collect allow you to create / update / delete an account on a konnector
+Cozy home allow you to create / update / delete an account on a konnector
 
 This is defined in the [`manifest.webapp`](https://github.com/cozy/cozy-home/blob/master/manifest.webapp)
 
