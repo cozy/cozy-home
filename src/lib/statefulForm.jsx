@@ -4,11 +4,17 @@ import moment from 'moment'
 
 // From https://stackoverflow.com/questions/10193294/how-can-i-tell-if-a-browser-supports-input-type-date
 const hasDateInputSupport = () => {
-  const input = document.createElement('input')
-  input.setAttribute('type', 'date')
-  const notADateValue = 'not-a-date'
-  input.setAttribute('value', notADateValue)
-  return input.value !== notADateValue
+  let hasSupport
+  return (function() {
+    if (typeof hasSupport === 'undefined') {
+      const input = document.createElement('input')
+      input.setAttribute('type', 'date')
+      const notADateValue = 'not-a-date'
+      input.setAttribute('value', notADateValue)
+      hasSupport = input.value !== notADateValue
+    }
+    return hasSupport
+  })()
 }
 
 export default function statefulForm(mapPropsToFormConfig) {
@@ -233,7 +239,11 @@ export default function statefulForm(mapPropsToFormConfig) {
           errors.push(t('validation.pattern', { pattern }))
         } else if (target.validationMessage) {
           errors.push(target.validationMessage)
-        } else if (isDate && !moment(value, localeFormat).isValid()) {
+        } else if (
+          isDate &&
+          !hasDateInputSupport() &&
+          !moment(value, localeFormat).isValid()
+        ) {
           errors.push(target.validationMessage)
         }
 
