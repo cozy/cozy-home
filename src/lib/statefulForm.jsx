@@ -171,7 +171,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             fieldsFromConfig[field].type === 'date' &&
             !hasDateInputSupport()
           ) {
-            value = moment(value).format(dateFormat)
+            value = value && moment(value).format(dateFormat)
           }
           let options = fieldsFromConfig[field].options || []
           fields[field] = Object.assign({}, fieldsFromConfig[field], {
