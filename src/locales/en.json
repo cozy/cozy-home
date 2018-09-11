@@ -4,8 +4,9 @@
       "alt": "%{name} logo"
     }
   },
-  "format": {
-    "date": "MM/DD/YYYY"
+  "date": {
+    "format": "MM/DD/YYYY",
+    "placeholder": "mm/dd/yyyy"
   },
   "manifest": {
     "name": "Collect",
