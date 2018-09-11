@@ -27,7 +27,9 @@ const renderers = {
   date: ({ t }) => (
     <Field
       type="date"
-      placeholder={t('format.date', { _: collectConfig.defaultDateFormat })}
+      placeholder={t('date.placeholder', {
+        _: collectConfig.defaultDateFormat.toLowerCase()
+      })}
     />
   ),
   checkbox: () => <CheckboxField />,

@@ -24,7 +24,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           fields: this.configureFields(
             config,
             t('account.form.placeholder.accountName'),
-            t('format.date', { _: collectConfig.defaultDateFormat })
+            t('date.format', { _: collectConfig.defaultDateFormat })
           ),
           dirty: false,
           oauth: props.onOAuth,
