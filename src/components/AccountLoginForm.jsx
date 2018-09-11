@@ -27,7 +27,9 @@ const renderers = {
   date: ({ t }) => (
     <Field
       type="date"
-      placeholder={t('format.date', { _: collectConfig.defaultDateFormat })}
+      placeholder={t('date.placeholder', {
+        _: collectConfig.defaultDateFormat.toLowerCase()
+      })}
     />
   ),
   checkbox: () => <CheckboxField />,
@@ -152,9 +154,13 @@ export class AccountLoginForm extends React.Component {
           _: t(`account.form.label.${label || name}`)
         }),
         readonly: readonly,
-        value: isUnloading ? '' : hydrate(value),
-        placeholder: placeholder
+        value: isUnloading ? '' : hydrate(value)
       }
+
+      if (placeholder) {
+        attributes.placeholder = placeholder
+      }
+
       return (
         <div className={fieldStyles['coz-field-wrapper']}>
           <FieldDescription field={field} konnectorSlug={connectorSlug} t={t} />

@@ -4,11 +4,17 @@ import moment from 'moment'
 
 // From https://stackoverflow.com/questions/10193294/how-can-i-tell-if-a-browser-supports-input-type-date
 const hasDateInputSupport = () => {
-  const input = document.createElement('input')
-  input.setAttribute('type', 'date')
-  const notADateValue = 'not-a-date'
-  input.setAttribute('value', notADateValue)
-  return input.value !== notADateValue
+  let hasSupport
+  return (function() {
+    if (typeof hasSupport === 'undefined') {
+      const input = document.createElement('input')
+      input.setAttribute('type', 'date')
+      const notADateValue = 'not-a-date'
+      input.setAttribute('value', notADateValue)
+      hasSupport = input.value !== notADateValue
+    }
+    return hasSupport
+  })()
 }
 
 export default function statefulForm(mapPropsToFormConfig) {
@@ -24,7 +30,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           fields: this.configureFields(
             config,
             t('account.form.placeholder.accountName'),
-            t('format.date', { _: collectConfig.defaultDateFormat })
+            t('date.format', { _: collectConfig.defaultDateFormat })
           ),
           dirty: false,
           oauth: props.onOAuth,
@@ -165,7 +171,7 @@ export default function statefulForm(mapPropsToFormConfig) {
             fieldsFromConfig[field].type === 'date' &&
             !hasDateInputSupport()
           ) {
-            value = moment(value).format(dateFormat)
+            value = value && moment(value).format(dateFormat)
           }
           let options = fieldsFromConfig[field].options || []
           fields[field] = Object.assign({}, fieldsFromConfig[field], {
@@ -207,6 +213,10 @@ export default function statefulForm(mapPropsToFormConfig) {
       handleBlur(field, target) {
         const { t } = this.context
         const stateFields = this.state.fields
+        const isDate = stateFields[field].type === 'date'
+        const localeFormat = t('date.format', {
+          _: collectConfig.defaultDateFormat
+        })
         const value = stateFields[field].value
         const pattern = stateFields[field].pattern || ''
         const patternRx = pattern && new RegExp(pattern)
@@ -228,6 +238,12 @@ export default function statefulForm(mapPropsToFormConfig) {
         } else if (patternRx && !patternRx.test(value)) {
           errors.push(t('validation.pattern', { pattern }))
         } else if (target.validationMessage) {
+          errors.push(target.validationMessage)
+        } else if (
+          isDate &&
+          !hasDateInputSupport() &&
+          !moment(value, localeFormat).isValid()
+        ) {
           errors.push(target.validationMessage)
         }
 

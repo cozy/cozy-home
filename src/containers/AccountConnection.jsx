@@ -262,7 +262,7 @@ class AccountConnection extends Component {
     valuesToSubmit = sanitizeDates(
       valuesToSubmit,
       fields,
-      t('format.date', { _: collectConfig.defaultDateFormat })
+      t('date.format', { _: collectConfig.defaultDateFormat })
     )
 
     // Update the path if the name path is the account name
