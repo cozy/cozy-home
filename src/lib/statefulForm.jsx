@@ -207,6 +207,10 @@ export default function statefulForm(mapPropsToFormConfig) {
       handleBlur(field, target) {
         const { t } = this.context
         const stateFields = this.state.fields
+        const isDate = stateFields[field].type === 'date'
+        const localeFormat = t('date.format', {
+          _: collectConfig.defaultDateFormat
+        })
         const value = stateFields[field].value
         const pattern = stateFields[field].pattern || ''
         const patternRx = pattern && new RegExp(pattern)
@@ -228,6 +232,8 @@ export default function statefulForm(mapPropsToFormConfig) {
         } else if (patternRx && !patternRx.test(value)) {
           errors.push(t('validation.pattern', { pattern }))
         } else if (target.validationMessage) {
+          errors.push(target.validationMessage)
+        } else if (isDate && !moment(value, localeFormat).isValid()) {
           errors.push(target.validationMessage)
         }
 
