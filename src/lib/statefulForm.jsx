@@ -242,7 +242,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         } else if (
           isDate &&
           !hasDateInputSupport() &&
-          !moment(value, localeFormat).isValid()
+          !moment(value, localeFormat, true).isValid()
         ) {
           errors.push(target.validationMessage)
         }

@@ -29,7 +29,7 @@ const sanitizeDate = (date, localeFormat) => {
   const sanitizedFormat = 'YYYY-MM-DD'
   const isAlreadySanitized = moment(date, sanitizedFormat, true).isValid()
   if (isAlreadySanitized) return date
-  const momentDate = moment(date, localeFormat)
+  const momentDate = moment(date, localeFormat, true)
   if (!momentDate.isValid()) throw new Error('Invalid date')
   return momentDate.format(sanitizedFormat)
 }
