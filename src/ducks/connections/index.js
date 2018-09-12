@@ -337,6 +337,9 @@ export const deleteConnection = trigger => {
     const account = getTriggerAccount(getState(), trigger)
     return deleteAccount(account)
       .then(() => {
+        // Stack now deletes the trigger associated with an account, but keep
+        // this call to maintain local state and to ensure that the trigger
+        // is deleted.
         dispatch(deleteTrigger(trigger))
       })
       .then(() =>
