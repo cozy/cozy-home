@@ -45,7 +45,19 @@ const isKonnectorJob = doc =>
   doc._type === JOBS_DOCTYPE && doc.worker === 'konnector'
 
 const deleteAccount = async account => {
-  await cozy.client.data.delete('io.cozy.accounts', account)
+  try {
+    await cozy.client.data.delete('io.cozy.accounts', account)
+  } catch (error) {
+    if (error.status === 409) {
+      const syncedAccount = await cozy.client.data.find(
+        'io.cozy.accounts',
+        account._id
+      )
+      await cozy.client.data.delete('io.cozy.accounts', syncedAccount)
+    } else {
+      throw error
+    }
+  }
 }
 
 // reducers
