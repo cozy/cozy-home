@@ -1,3 +1,4 @@
+/* global cozy */
 import { combineReducers } from 'redux'
 import moment from 'moment'
 
@@ -7,7 +8,7 @@ import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
 import { getTriggerLastJob } from '../jobs'
 
 import { deleteTrigger, launchTrigger } from '../triggers'
-import { deleteAccount, getAccount } from '../accounts'
+import { getAccount } from '../accounts'
 
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
@@ -21,6 +22,7 @@ export const DEFAULT_QUEUE_DELAY = 7000
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const CONNECTION_DELETED = 'CONNECTION_DELETED'
 export const DELETE_CONNECTION = 'DELETE_CONNECTION'
+export const DELETE_CONNECTION_FAILURE = 'DELETE_CONNECTION_FAILURE'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
@@ -42,11 +44,16 @@ const isKonnectorTrigger = doc =>
 const isKonnectorJob = doc =>
   doc._type === JOBS_DOCTYPE && doc.worker === 'konnector'
 
+const deleteAccount = async account => {
+  await cozy.client.data.delete('io.cozy.accounts', account)
+}
+
 // reducers
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CONNECTION_DELETED:
     case DELETE_CONNECTION:
+    case DELETE_CONNECTION_FAILURE:
       if (!action.trigger || !action.trigger._id)
         throw new Error('Missing trigger id')
       if (!action.trigger.message || !action.trigger.message.konnector)
@@ -213,6 +220,7 @@ const konnectorReducer = (state = {}, action) => {
   switch (action.type) {
     case CONNECTION_DELETED:
     case DELETE_CONNECTION:
+    case DELETE_CONNECTION_FAILURE:
     case ENQUEUE_CONNECTION:
     case LAUNCH_TRIGGER:
     case RECEIVE_DATA:
@@ -236,6 +244,14 @@ const triggersReducer = (state = {}, action) => {
         [action.trigger._id]: {
           ...state[action.trigger._id],
           isDeleting: true
+        }
+      }
+    case DELETE_CONNECTION_FAILURE:
+      return {
+        ...state,
+        [action.trigger._id]: {
+          ...state[action.trigger._id],
+          isDeleting: false
         }
       }
     case CONNECTION_DELETED:
@@ -315,7 +331,7 @@ export const deleteConnection = trigger => {
       trigger: trigger
     })
     const account = getTriggerAccount(getState(), trigger)
-    return dispatch(deleteAccount(account))
+    return deleteAccount(account)
       .then(() => {
         dispatch(deleteTrigger(trigger))
       })
@@ -325,6 +341,14 @@ export const deleteConnection = trigger => {
           trigger: trigger
         })
       )
+      .catch(error => {
+        dispatch({
+          type: DELETE_CONNECTION_FAILURE,
+          trigger: trigger,
+          error
+        })
+        throw error
+      })
   }
 }
 
