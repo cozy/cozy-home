@@ -1,6 +1,5 @@
 import {
   createDocument,
-  deleteDocument,
   fetchCollection,
   fetchDocument
 } from 'redux-cozy-client'
@@ -16,8 +15,6 @@ export const createAccount = attributes =>
       updateCollections: [accountCollectionKey]
     }
   )
-
-export const deleteAccount = deleteDocument
 
 export const fetchAccounts = () =>
   fetchCollection(accountCollectionKey, DOCTYPE)
