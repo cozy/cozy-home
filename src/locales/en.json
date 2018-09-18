@@ -85,7 +85,7 @@
       }
     },
     "folder": {
-      "title": "Related folder settings",
+      "title": "Related folder",
       "link" : "Open the folder in Cozy Drive",
       "changePath": "change the path",
       "error": "Oops, something went wrong. Don't panic, your files are still there, please try again later",

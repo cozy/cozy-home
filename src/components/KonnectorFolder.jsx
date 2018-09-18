@@ -1,13 +1,9 @@
 import React from 'react'
-import { Button } from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
-import Modal, { ModalContent } from 'cozy-ui/react/Modal'
-import Spinner from 'cozy-ui/react/Spinner'
 
 import styles from '../styles/konnectorFolder'
 
 import DescriptionContent from './DescriptionContent'
-import Field, { DropdownField } from './Field'
 
 class KonnectorFolder extends React.Component {
   componentDidMount = () => {
@@ -71,7 +67,7 @@ class KonnectorFolder extends React.Component {
   }
 
   render(
-    { t, account, driveUrl, connector, trigger, closeModal, isFetching },
+    { t, account, driveUrl, connector, trigger, closeModal },
     { fields, isModalOpen, isFetchingUpdate, changeState, folderUpdateStatus }
   ) {
     return (
@@ -79,32 +75,6 @@ class KonnectorFolder extends React.Component {
         {account &&
           account.auth && (
             <DescriptionContent title={t('account.folder.title')}>
-              <div
-                style={{ display: isFetching ? 'block' : 'none' }}
-                className={styles['col-account-folder-fetching']}
-              >
-                <Spinner size="xxlarge" middle="true" />
-              </div>
-              {!!fields &&
-                fields.folderPath &&
-                fields.namePath && (
-                  <form onSubmit={this.openModal}>
-                    <Field
-                      label={t('account.form.label.namePath')}
-                      {...fields.namePath}
-                    />
-                    <DropdownField
-                      label={t('account.form.label.folderPath')}
-                      {...fields.folderPath}
-                    />
-                    <Button
-                      theme="secondary"
-                      className={styles['col-account-folder-save-btn']}
-                    >
-                      {t('account.form.button.save')}
-                    </Button>
-                  </form>
-                )}
               {driveUrl && (
                 <a
                   className={styles['col-account-folder-link']}
@@ -112,62 +82,6 @@ class KonnectorFolder extends React.Component {
                 >
                   {t('account.folder.link')}
                 </a>
-              )}
-              {isModalOpen && (
-                <Modal
-                  secondaryAction={() => closeModal()}
-                  title={t('account.folder.warning')}
-                  className={styles['col-account-folder-modal-path']}
-                >
-                  <ModalContent>
-                    <p>{t('account.folder.oldFiles')}</p>
-                    <p>{t('account.folder.newFiles')}</p>
-                    {!isFetchingUpdate &&
-                      folderUpdateStatus === 'ok' && (
-                        <div>
-                          <p>
-                            <b>
-                              {t('account.folder.newPath', {
-                                name: connector.name
-                              })}
-                            </b>
-                          </p>
-                          <p>
-                            <span
-                              className={
-                                styles['col-account-folder-highlighted-data']
-                              }
-                            >
-                              {`${fields.folderPath.value}/${
-                                fields.namePath.value
-                              }`}
-                            </span>
-                          </p>
-                        </div>
-                      )}
-
-                    {!isFetchingUpdate &&
-                      folderUpdateStatus === 'error' && (
-                        <p>{t('account.folder.error')}</p>
-                      )}
-
-                    <p className={styles['col-account-folder-modal-path-btn']}>
-                      {folderUpdateStatus ? (
-                        <Button theme="secondary" onClick={() => closeModal()}>
-                          {t('account.folder.close')}
-                        </Button>
-                      ) : (
-                        <Button
-                          busy={isFetchingUpdate}
-                          theme="regular"
-                          onClick={this.updateFolderPath}
-                        >
-                          {t('account.folder.changePath')}
-                        </Button>
-                      )}
-                    </p>
-                  </ModalContent>
-                </Modal>
               )}
             </DescriptionContent>
           )}
