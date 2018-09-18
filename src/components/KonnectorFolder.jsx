@@ -74,7 +74,9 @@ class KonnectorFolder extends React.Component {
       <div className={styles['col-account-folder']}>
         {account &&
           account.auth && (
-            <DescriptionContent title={t('account.folder.title')}>
+            <DescriptionContent
+              title={t('account.folder.withoutSettings.title')}
+            >
               {driveUrl && (
                 <a
                   className={styles['col-account-folder-link']}
