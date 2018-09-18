@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Connections Duck Action creators createConnection adds new connection 1`] = `
 Object {
   "cozy": Object {
