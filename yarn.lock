@@ -2205,9 +2205,9 @@ cozy-app-publish@0.4.1-beta.5:
     prompt "1.0.0"
     tar "4.4.4"
 
-cozy-bar@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-5.1.0.tgz#7c545237d67ea62cbd043edff9b0707b1525f958"
+cozy-bar@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-5.4.0.tgz#9c7c1cd0079551eef1714ac638e807548e08e728"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     core-js "^2.5.3"
