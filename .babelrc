@@ -1,14 +1,3 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "ie": 10,
-        "chrome": 42,
-        "browsers": ["last 2 versions"]
-      },
-      "useBuiltIns": false
-    }],
-    "react"
-  ],
-  "plugins": ["transform-object-rest-spread", "transform-class-properties"]
+  "presets": ["cozy-app"]
 }
