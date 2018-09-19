@@ -59,8 +59,6 @@ class AccountConnection extends Component {
         this.props.maintenance[this.props.konnector.slug],
       lang: this.context.lang
     }
-    // TODO : Add updateFields
-    if (props.fields.folderPath) this.fetchFolders()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,35 +72,6 @@ class AccountConnection extends Component {
         account: existingAccount
       })
     }
-  }
-
-  fetchFolders() {
-    const { fields, values, editing, t } = this.props
-    fields.namePath.placeholder = t('account.form.placeholder.namePath')
-    // Fetch Folders
-
-    this.setState({ isFetching: true })
-    this.store
-      .fetchFolders()
-      .then(folders => {
-        this.setState({ folders: folders })
-        fields.folderPath.options = []
-        folders.map(folder => {
-          if (`${values.folderPath}/${values.namePath}` !== folder.path) {
-            fields.folderPath.options.push({
-              name: folder.path,
-              path: folder.path
-            })
-          }
-        })
-        // Add default folder path for installation
-        !editing &&
-          fields.folderPath.options.push({
-            name: values.folderPath,
-            path: values.folderPath
-          })
-      })
-      .then(() => this.setState({ isFetching: false }))
   }
 
   connectAccount(auth) {
@@ -238,26 +207,6 @@ class AccountConnection extends Component {
     const { fields, values, konnector, t } = this.props
     const { account } = this.state
     let valuesToSubmit = { ...values }
-
-    // namePath defined by the user is concatened with the folderPath
-    if (valuesToSubmit.folderPath) {
-      if (valuesToSubmit.namePath) {
-      } else {
-        valuesToSubmit.namePath =
-          valuesToSubmit.accountName ||
-          valuesToSubmit.identifier ||
-          valuesToSubmit.login ||
-          valuesToSubmit.email ||
-          konnector.name
-      }
-      valuesToSubmit.namePath = valuesToSubmit.namePath.replace(
-        /[&/\\#,+()$@~%.'":*?<>{}]/g,
-        '_'
-      )
-      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${
-        valuesToSubmit.namePath
-      }`
-    }
 
     valuesToSubmit = sanitizeDates(
       valuesToSubmit,
