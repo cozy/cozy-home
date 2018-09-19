@@ -138,20 +138,6 @@ export default function statefulForm(mapPropsToFormConfig) {
           delete fieldsFromConfig.advancedFields
         }
 
-        // FIXME detect io.cozy.files permission for folderPath field
-        if (fieldsFromConfig.folderPath) {
-          fieldsFromConfig.namePath = Object.assign(
-            {},
-            fieldsFromConfig.folderPath,
-            { type: 'text', advanced: true }
-          )
-          fieldsFromConfig.folderPath = Object.assign(
-            {},
-            fieldsFromConfig.folderPath,
-            { type: 'dropdown', advanced: true }
-          )
-        }
-
         let fields = {}
 
         Object.keys(fieldsFromConfig).forEach(field => {
