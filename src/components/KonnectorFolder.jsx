@@ -26,42 +26,6 @@ class KonnectorFolder extends React.Component {
     this.setState({ isModalOpen: true })
   }
 
-  updateFolderPath = () => {
-    const { account, folders } = this.props
-    const folderId = this.props.trigger.message.folder_to_save
-    const { store } = this.context
-    const { fields } = this.state
-    this.setState({
-      isFetchingUpdateUpdate: true
-    })
-
-    const namePath = fields.namePath.value
-    const folderPath = fields.folderPath.value
-    const fullFolderPath = `${fields.folderPath.value}/${fields.namePath.value}`
-    const dirId = folders.find(folder => folder.path === folderPath)._id
-
-    store
-      .updateFolderPath(account, folderId, {
-        namePath: namePath,
-        folderPath: fullFolderPath,
-        dir_id: dirId
-      })
-      .then(() => {
-        this.setState({
-          isFetchingUpdate: false,
-          folderUpdateStatus: 'ok'
-        })
-      })
-      .catch(error => {
-        if (error) {
-          this.setState({
-            isFetchingUpdate: false,
-            folderUpdateStatus: 'error'
-          })
-        }
-      })
-  }
-
   closeModal = () => {
     this.setState({ isModalOpen: false, folderUpdateStatus: null })
   }
