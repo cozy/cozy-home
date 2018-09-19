@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
+import Icon from 'cozy-ui/react/Icon'
 import { NavLink, withRouter } from 'react-router-dom'
 
 import { getKonnectorIcon } from '../lib/icons'
@@ -23,9 +24,13 @@ const KonnectorTileFooter = ({
   accountsCount ? (
     <div>
       {!!subtitle && <p className="item-subtitle">{subtitle}</p>}
-      {hasUserError
-        ? svgIcon('warning')
-        : hasError ? svgIcon('forbidden') : svgIcon('check')}
+      {hasUserError ? (
+        <Icon className="item-status-icon" icon="warning" />
+      ) : hasError ? (
+        <Icon className="item-status-icon" icon="forbidden" />
+      ) : (
+        <Icon className="item-status-icon" color="#2bba40" icon="check" />
+      )}
     </div>
   ) : (
     <span className="item-subtitle-no-account">{t('connector.noAccount')}</span>
@@ -66,14 +71,6 @@ const KonnectorTile = ({
     </NavLink>
   )
 }
-
-const svgIcon = name => (
-  <svg className="item-status-icon">
-    <use
-      xlinkHref={'#' + require(`../assets/sprites/icon-${name}.svg`).default.id}
-    />
-  </svg>
-)
 
 const mapStateToProps = (state, props) => {
   const { konnector } = props
