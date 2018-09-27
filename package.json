@@ -1,6 +1,6 @@
 {
   "name": "cozy-collect",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "main": "src/index.jsx",
   "scripts": {
     "android:publish": "npm run android:signed && cd mobile ; fastlane supply ; cd ..",
