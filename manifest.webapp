@@ -1,6 +1,5 @@
 {
   "name": "Home",
-  "name_prefix": "Cozy",
   "slug": "home",
   "icon": "icon.svg",
   "categories": [
