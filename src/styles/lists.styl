@@ -1,233 +1,187 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
-horizontal-scroll()
-    // Horizontal scroll
-    +mobile()
-        display flex
-        flex-wrap nowrap
-        height 10.75rem
-        overflow-x auto
+sundown = #ffb3b3
 
-        // clearfix to let empty space at the right when scrolling
-        &::after
-            width 1rem
-            flex-shrink 0
-            content ''
-
-    &::-webkit-scrollbar
-        display none
-
-
-h2
-    margin 2rem 0 1rem
-
-    +mobile()
-        margin 1rem 0
-
-.connector-list
-    horizontal-scroll()
-    list-style       none
-    display          flex
-    margin 0 0 2rem
-    border-radius .5rem
-    background rgba(255, 255, 255, .7) // .7 until background image (.95)
-    display          flex
-    flex-wrap        wrap
-    justify-content  flex-start
-    padding 1rem .53rem
-
-    +mobile()
-        margin 2rem -1rem 0
-
-    &.col-picture-for-empty-list
-        background-color white
-
-// Tutorial-fit constraint:
-// -------------------
-// When the tutorial is active, (i.e. the route is /intro), we want the
-// tutorial mask to fit perfectly with the number of apps. It leads to two
-// things:
-// * The element .app-list, having also [data-tutorial=home-apps],
-//   cannot be 100hw like it is the case in the horizontal-scroll() mixin.
-// * It still needs to be horizontally scrollable on mobile, so we wrap it
-//   in a .app-list-wrapper element, which keeps the right CSS properties
-//   to have an horizontal scroll.
-
-// Tutorial-fit constraint, keep the properties to scroll horizontally
-// on mobile.
 .app-list-wrapper
-    width 100vw
-    overflow-x auto
+    margin-top rem(32)
+    border-radius rem(8)
+    background-color rgba(white, .85)
+    padding rem(16 24)
 
-.app-list
-    horizontal-scroll()
+    @media (max-width: 60rem)
+        margin-top 0
+        border-radius 0
 
-    // Negative margin ensure correct alignment with 6 items
-    margin 0 -.75rem
-    width auto // Tutorial-fit constraint, override horizontal-scroll()
-    max-width 61.5rem // 60rem plus negative margins
-    display inline-flex // Tutorial-fit constraint, override horizontal-scroll()
-    flex-direction row
-    justify-content flex-start
-    flex-wrap wrap
+.services-list-wrapper
+    margin-top rem(24)
+    padding rem(16 24)
 
-    .item-wrapper
-        display inline-block
-        margin .75rem
-        width 8.75rem
-        height 8.75rem
-        background white
+    @media (max-width: rem(466))
+        margin-top rem(16)
 
-        .item-header
-            height 5.5rem
+.services-list-wrapper--empty
+    background-color white
+    border-radius 8px
 
-            .item-icon
-                width 4rem
-                height 4rem
+    @media (max-width: 60rem)
+        margin rem(24) rem(24) 0
+
+    @media (max-width: rem(466))
+        margin rem(16) rem(16) 0
+
+.item-wrapper--ghost
+    width 7.125rem
+    height 0
+    flex-shrink 0
+
+    @media (max-width: rem(466))
+        width rem(72)
 
 .item-wrapper
-    position         relative
-    box-sizing       border-box
-    border-radius    .25rem
-    margin           .53rem
-    padding-bottom   1rem
-    width 8.75rem
-    height 8.75rem
+    position relative
+    box-sizing border-box
+    width 7.125rem
+    height 7.125rem
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
     flex-shrink 0
-    cursor           pointer
-    text-decoration  none
-    text-align       center
-    transition       .2s ease all
-    &:hover
-        background-color white
-        transform  scale(1.05)
-        transition .2s ease all
+    cursor pointer
+    text-decoration none
+    text-align center
+    transition .3s ease all
 
-    &.--add-service
+    @media (max-width: rem(466))
+        width rem(72)
+        height rem(72)
+
+
+.item-icon
+    position relative
+    width 4rem
+    height 4rem
+
+    @media (max-width: rem(466))
+        width rem(40)
+        height rem(40)
+
+.list
+    display flex
+    flex-direction row
+    justify-content space-between
+    flex-wrap wrap
+
+.app-list
+    .item-wrapper
+        &:hover
+        &:focus
+            background-color white
+            box-shadow 0 rem(3) rem(8) 0 rgba(50, 54, 63, .15)
+            transition .3s ease all
+
+.connector-list
+    .item-icon
+        box-sizing border-box
+        background-color white
+        border-radius rem(4)
+        padding  rem(12)
+        transition .3s ease all
+        img
+            width 100%
+            height 100%
+
+        &.konnector-error--connection
+            color sundown
+            border rem(2) solid sundown
+            background-color chablis
+
+        &.konnector-error--blocked
+            color silver
+            border rem(2) solid silver
+
+    .konnector-error .konnector-state
+        display block
+
+    .konnector-state
+        display none
+        position absolute
+        top 0
+        left 0
+        width 100%
+        height 100%
+
+    .item-wrapper
+        &:hover
+        &:focus
+            .item-icon
+                box-shadow 0 rem(3) rem(8) 0 rgba(50, 54, 63, .15)
+                transform  scale(1.05)
+                transition .3s ease all
+
+    .--add-service
         display flex
         flex-direction column
         justify-content center
 
-        .item-header .item-icon
-            height 2rem
-            width 2rem
-            border 2px dashed silver
-            border-radius 50%
-            padding calc(1rem - 2px) // consider 2px border
-            color coolGrey
+        &:hover
+        &:focus
+            .item-icon
+                box-shadow none
 
-        .item-add-service-label
+        .item-icon
+            box-sizing border-box
+            display flex
+            justify-content center
+            align-items center
+            padding rem(4)
+            background-color transparent
             color coolGrey
+            svg
+                width rem(56)
+                height rem(56)
+
+            @media (max-width: rem(466))
+                padding rem(2)
+
+                svg
+                    width rem(36)
+                    height rem(36)
+
+        .item-title
             text-transform uppercase
 
         &[aria-busy]
             opacity .8
 
             &:hover
-                background-color transparent
                 transform  none
 
-            .item-header
-                // Centers spinner
-                display flex
-                align-items center
+.item-title
+    width 80%
+    margin rem(5) auto 0
+    color black
+    font-size .875rem
+    line-height 1.5
+    font-weight 700
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
 
-    .item-header
-        margin-bottom .5rem
-        border-radius 4px 4px 0 0
-        height        4.37em
-        display flex
-        justify-content center
-        align-items flex-end
+    @media (max-width: rem(466))
 
-        .item-icon
-            width 3rem
-            height 3rem
+        font-size rem(10)
+        line-height 1.8
 
-        .item-layered-item-icon
-            position relative
-            height 3rem
-            width 3rem
-
+// Custom background override
+.has-custom-background
+    .connector-list
+        .item-title
+            color white
+            text-shadow 0 0 rem(4) charcoalGrey
+        .--add-service
             .item-icon
-                position absolute
-                top 0
-                left 0
-                height 2.25rem
-                width 2.25rem
-
-            .item-layer-icon
-                position absolute
-                bottom 0
-                right 0
-                border-radius 1rem
-                padding .25rem
-                background white
-                color coolGrey
-
-    .item-title
-        width 80%
-        margin auto
-        margin-bottom 0
-        color black
-        font-size .875rem
-        font-weight 700
-        white-space nowrap
-        overflow hidden
-        text-overflow ellipsis
-    .item-subtitle
-        font-size       14px
-        padding         0 3em
-        width           100%
-        overflow        hidden
-        margin          0
-        color           coolGrey
-        box-sizing      border-box
-        text-overflow   ellipsis
-        white-space     nowrap
-
-    .item-subtitle-error
-    .item-subtitle-last-sync
-    .item-subtitle-user-error
-        font-size .75rem
-        color coolGrey
-        .icon
-            vertical-align bottom
-            margin-right .25rem
-    .item-subtitle-user-error
-        color pomegranate
-
-    .item-subtitle-no-account
-        font-size       14px
-        font-weight     700
-        text-transform  uppercase
-        padding         .25rem .75rem
-        width           auto
-        overflow        hidden
-        margin          0
-        color           dodgerBlue
-        box-sizing      border-box
-        border-radius   3px
-        display         inline-block
-        background      rgba(41, 126, 241, .15)
-    .item-status-icon
-        position absolute
-        width    24px
-        height   24px
-        bottom   1.25rem
-        right    1em
-    .item-add-service-label
-        font-size 16px
-        font-weight bold
-
-.col-voting-item
-    border      2px dashed alpha(black, .15)
-    padding-bottom .5em
-    &:hover
-        box-shadow  none
-    .item-title
-        font-size   1em
-        font-weight 500
-
-// Dedicated for IE 11 which seems not to take the default 100% into account.
+                color white
+                svg
+                    filter: drop-shadow(0 0 rem(2) charcoalGrey)

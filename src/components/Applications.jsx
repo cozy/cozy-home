@@ -2,6 +2,7 @@ import React from 'react'
 
 import AppTile from './AppTile'
 import LoadingPlaceholder from './LoadingPlaceholder'
+import fillWithGhostItems from './helpers/fillWithGhostItems'
 import { Query } from 'cozy-client'
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -21,15 +22,18 @@ const LoadingAppTiles = ({ num }) => {
       </div>
     )
   }
-  return <div className="app-list">{tiles}</div>
+  return (
+    <div className="list app-list">
+      {tiles}
+      {fillWithGhostItems(6)}
+    </div>
+  )
 }
 
 export const Applications = props => {
-  const { t } = props
   const ignoredAppSlugs = ['home', 'onboarding', 'settings']
   return (
-    <div>
-      <h2>{t('apps.title')}</h2>
+    <div className="app-list-wrapper">
       <Query
         query={client => {
           return client.all('io.cozy.apps')
@@ -39,12 +43,11 @@ export const Applications = props => {
           return fetchStatus !== 'loaded' ? (
             <LoadingAppTiles num="3" />
           ) : (
-            <div className="app-list-wrapper">
-              <div className="app-list" data-tutorial="home-apps">
-                {data
-                  .filter(app => !ignoredAppSlugs.includes(app.slug))
-                  .map(app => <AppTile app={app} />)}
-              </div>
+            <div className="list app-list" data-tutorial="home-apps">
+              {data
+                .filter(app => !ignoredAppSlugs.includes(app.slug))
+                .map(app => <AppTile app={app} />)}
+              {fillWithGhostItems(6)}
             </div>
           )
         }}
