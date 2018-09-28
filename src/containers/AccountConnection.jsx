@@ -208,6 +208,26 @@ class AccountConnection extends Component {
     const { account } = this.state
     let valuesToSubmit = { ...values }
 
+    // namePath defined by the user is concatened with the folderPath
+    if (valuesToSubmit.folderPath) {
+      if (valuesToSubmit.namePath) {
+      } else {
+        valuesToSubmit.namePath =
+          valuesToSubmit.accountName ||
+          valuesToSubmit.identifier ||
+          valuesToSubmit.login ||
+          valuesToSubmit.email ||
+          konnector.name
+      }
+      valuesToSubmit.namePath = valuesToSubmit.namePath.replace(
+        /[&/\\#,+()$@~%.'":*?<>{}]/g,
+        '_'
+      )
+      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${
+        valuesToSubmit.namePath
+      }`
+    }
+
     valuesToSubmit = sanitizeDates(
       valuesToSubmit,
       fields,
