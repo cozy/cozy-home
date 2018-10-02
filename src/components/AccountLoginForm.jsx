@@ -13,14 +13,8 @@ import Field, {
 } from './Field'
 import ReactMarkdownWrapper from './ReactMarkdownWrapper'
 import { map, groupBy } from 'lodash'
+import { probableLoginFieldNames } from '../lib/accounts'
 import collectConfig from 'config/collect'
-
-const probableLoginFieldNames = [
-  'email',
-  'identifier',
-  'login',
-  'new_identifier'
-]
 
 const renderers = {
   password: ({ t }) => <PasswordField noAutoFill />,

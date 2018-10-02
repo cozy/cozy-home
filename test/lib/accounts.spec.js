@@ -73,9 +73,32 @@ describe('accounts library', () => {
         expect(cozyMock.data.updateAttributes.mock.calls[0][1]).toEqual(
           accountMock._id
         )
-        expect(cozyMock.data.updateAttributes.mock.calls[0][2]).toEqual({
-          auth: accountMock2.auth
-        })
+        expect(
+          cozyMock.data.updateAttributes.mock.calls[0][2]
+        ).toMatchSnapshot()
+      })
+  })
+
+  it('should not update empty password', () => {
+    const accountMockWithEmptyPassword = {
+      _id: '4d1039c9a419779f70d1dee5f200992a',
+      account_type: 'mock3',
+      auth: {
+        folderPath: '/Administrative/Mock2',
+        frequency: 'week',
+        login: 'test@mock2.cc',
+        password: ''
+      },
+      folderId: '4d1039c9a419779f70d1dee5f2009b8f',
+      name: ''
+    }
+
+    return accounts
+      .update(cozyMock, accountMock, accountMockWithEmptyPassword)
+      .then(account => {
+        expect(
+          cozyMock.data.updateAttributes.mock.calls[0][2]
+        ).toMatchSnapshot()
       })
   })
 
