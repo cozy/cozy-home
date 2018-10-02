@@ -1,0 +1,19 @@
+exports[`accounts library should handle account updating 1`] = `
+Object {
+  "auth": Object {
+    "folderPath": "/Administrative/Mock2",
+    "frequency": "week",
+    "login": "test@mock2.cc",
+    "password": "khf79dzeNEBDX",
+  },
+}
+`;
+
+exports[`accounts library should not update empty password 1`] = `
+Object {
+  "auth": Object {
+    "folderPath": "/Administrative/Mock2",
+    "frequency": "week",
+  },
+}
+`;

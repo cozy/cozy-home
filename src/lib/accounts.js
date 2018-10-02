@@ -9,10 +9,37 @@ export const ACCOUNT_ERRORS = {
   USER_ACTION_NEEDED: 'USER_ACTION_NEEDED'
 }
 
+export const probableLoginFieldNames = [
+  'email',
+  'identifier',
+  'login',
+  'new_identifier'
+]
+
+function ignoreLoginAndPassword(auth) {
+  const sanitized = { ...auth }
+  probableLoginFieldNames.forEach(key => delete sanitized[key])
+  delete sanitized.password
+  return sanitized
+}
+
+function sanitizeAccountAuthForUpdate(auth) {
+  const sanitized = { ...auth }
+  delete sanitized.credentials_encrypted
+  // Always ignore empty passwords on account update
+  const { password } = auth
+  if (typeof password !== 'undefined' && !password) {
+    return ignoreLoginAndPassword(sanitized)
+  }
+  return sanitized
+}
+
 export function update(cozy, account, newAccount) {
-  delete newAccount.auth.credentials_encrypted
   return cozy.data.updateAttributes(ACCOUNTS_DOCTYPE, account._id, {
-    auth: newAccount.auth
+    auth: {
+      ...ignoreLoginAndPassword(account.auth),
+      ...sanitizeAccountAuthForUpdate(newAccount.auth)
+    }
   })
 }
 
