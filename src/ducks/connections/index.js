@@ -6,7 +6,7 @@ import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
 
-import { deleteTrigger, launchTrigger } from '../triggers'
+import { launchTrigger } from '../triggers'
 import { getAccount } from '../accounts'
 
 // constant
@@ -336,12 +336,6 @@ export const deleteConnection = trigger => {
     })
     const account = getTriggerAccount(getState(), trigger)
     return deleteAccount(account)
-      .then(() => {
-        // Stack now deletes the trigger associated with an account, but keep
-        // this call to maintain local state and to ensure that the trigger
-        // is deleted.
-        dispatch(deleteTrigger(trigger))
-      })
       .then(() =>
         dispatch({
           type: CONNECTION_DELETED,
