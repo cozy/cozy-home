@@ -2,6 +2,7 @@
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
+import * as triggers from './triggers'
 import { randomDayTime } from './daytime'
 
 import { createKonnectorTrigger } from '../ducks/triggers'
@@ -12,6 +13,15 @@ export const CONNECTION_STATUS = {
   ERRORED: 'errored',
   RUNNING: 'running',
   CONNECTED: 'connected'
+}
+
+const normalize = (dbObject, doctype) => {
+  return {
+    ...dbObject,
+    ...dbObject.attributes,
+    id: dbObject._id,
+    _type: doctype || dbObject._type
+  }
 }
 
 export default class CollectStore {
@@ -26,7 +36,7 @@ export default class CollectStore {
     this.initializeRealtime()
   }
 
-  initializeRealtime() {
+  async initializeRealtime() {
     jobs
       .subscribeAll(cozy.client)
       .then(subscription => {
@@ -39,19 +49,24 @@ export default class CollectStore {
         console.warn &&
           console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
       })
+
+    // Not really consistent code style but we try to use only async/await now.
+    const realtimeTriggers = await triggers.subscribeAll(cozy.client)
+    realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
+  }
+
+  async deleteTrigger(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_DELETED_DOCUMENT',
+      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      updateCollections: ['triggers']
+    })
   }
 
   updateUnfinishedJob(job) {
-    const normalized = {
-      ...job,
-      ...job.attributes,
-      id: job._id,
-      _type: 'io.cozy.jobs'
-    }
-
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalized] },
+      response: { data: [normalize(job, 'io.cozy.jobs')] },
       updateCollections: ['jobs']
     })
   }
