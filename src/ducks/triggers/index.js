@@ -33,11 +33,6 @@ export const createKonnectorTrigger = (
     }
   )
 
-export const deleteTrigger = trigger =>
-  fromCozyClient.deleteTrigger(trigger, {
-    updateCollections: [triggersCollectionKey]
-  })
-
 export const launchTrigger = trigger => fromCozyClient.launchTrigger(trigger)
 
 // Helpers
