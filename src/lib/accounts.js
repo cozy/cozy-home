@@ -16,9 +16,8 @@ export const probableLoginFieldNames = [
   'new_identifier'
 ]
 
-function ignoreLoginAndPassword(auth) {
+function ignorePassword(auth) {
   const sanitized = { ...auth }
-  probableLoginFieldNames.forEach(key => delete sanitized[key])
   delete sanitized.password
   return sanitized
 }
@@ -29,7 +28,7 @@ function sanitizeAccountAuthForUpdate(auth) {
   // Always ignore empty passwords on account update
   const { password } = auth
   if (typeof password !== 'undefined' && !password) {
-    return ignoreLoginAndPassword(sanitized)
+    return ignorePassword(sanitized)
   }
   return sanitized
 }
@@ -37,7 +36,7 @@ function sanitizeAccountAuthForUpdate(auth) {
 export function update(cozy, account, newAccount) {
   return cozy.data.updateAttributes(ACCOUNTS_DOCTYPE, account._id, {
     auth: {
-      ...ignoreLoginAndPassword(account.auth),
+      ...ignorePassword(account.auth),
       ...sanitizeAccountAuthForUpdate(newAccount.auth)
     }
   })

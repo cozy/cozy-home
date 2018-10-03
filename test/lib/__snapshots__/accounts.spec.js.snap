@@ -14,6 +14,7 @@ Object {
   "auth": Object {
     "folderPath": "/Administrative/Mock2",
     "frequency": "week",
+    "login": "test@mock2.cc",
   },
 }
 `;
