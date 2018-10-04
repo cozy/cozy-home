@@ -9,10 +9,11 @@
     button
         margin  2em auto
 
-.col-picture-for-empty-list
+.col-empty-list
     display flex
     align-items center
-    justify-content center
+    justify-content space-between
+    flex-wrap nowrap
 
     +mobile()
         flex-direction column
@@ -24,24 +25,24 @@
             text-align center
 
     .col-button
-        margin 0 0 1rem
+        margin rem(16) 0 0
 
     h2
     p
-        margin 1rem 0
+        margin rem(8) 0
 
     &--img
-        height 15rem
-        margin 1rem
+        flex 1 0 50%
+        img
+            width 100%
+            max-height rem(240)
 
         +mobile()
-            max-width 80%
+            flex 1 1 100%
+            width 100%
     h2
-        font-size   1.125rem
-        line-height 1.5rem
-    p
-        color       coolGrey
+        font-size   rem(20)
+        line-height 1.2
 
-    +mobile()
-        &.connector-list
-            height auto
+        @media (max-width: rem(466))
+            display none

@@ -22,11 +22,10 @@ body
 
 .col-content
     margin 0 auto
-    max-width 60rem
-    padding 0 2rem
+    width 60rem
 
-    +small-screen()
-        padding 0 1rem
+    @media (max-width: 60rem)
+        width auto
 
 .col-initial-error,
 .col-initial-loading

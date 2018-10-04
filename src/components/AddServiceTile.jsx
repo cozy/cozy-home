@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Icon from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
 
-import addServiceIcon from '../assets/icons/icon-plus.svg'
+import addServiceIcon from '../assets/icons/icon-plus-add-service.svg'
 
 export class AddServiceTile extends Component {
   constructor(props) {
@@ -37,14 +37,14 @@ export class AddServiceTile extends Component {
         className="item-wrapper --add-service"
         onClick={this.toggleRedirect}
       >
-        <header className="item-header">
-          {redirecting ? (
-            <Spinner color="grey" size="xlarge" />
-          ) : (
-            <Icon className="item-icon" icon={addServiceIcon} />
-          )}
-        </header>
-        <span className="item-add-service-label">{label}</span>
+        {redirecting ? (
+          <Spinner color="grey" size="xlarge" />
+        ) : (
+          <div className="item-icon">
+            <Icon icon={addServiceIcon} />
+          </div>
+        )}
+        <span className="item-title">{label}</span>
       </div>
     )
   }

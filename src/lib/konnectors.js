@@ -55,9 +55,13 @@ export function isKonnectorUserError(error) {
   return (
     error &&
     error.type &&
-    [ERROR_TYPES.LOGIN_FAILED, ERROR_TYPES.USER_ACTION_NEEDED].includes(
-      error.type
-    )
+    [
+      ERROR_TYPES.CHALLENGE_ASKED,
+      ERROR_TYPES.DISK_QUOTA_EXCEEDED,
+      ERROR_TYPES.LOGIN_FAILED,
+      ERROR_TYPES.NOT_EXISTING_DIRECTORY,
+      ERROR_TYPES.USER_ACTION_NEEDED
+    ].includes(error.type)
   )
 }
 

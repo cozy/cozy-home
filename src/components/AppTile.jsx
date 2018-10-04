@@ -29,15 +29,13 @@ export class AppTile extends Component {
       : app.name
     return (
       <a className="item-wrapper" href={app.links && app.links.related}>
-        <header className="item-header">
-          <div className="item-icon">
-            <AppIcon
-              alt={t('app.logo.alt', { name: displayName })}
-              app={app}
-              fetchIcon={fetchIcon(client)}
-            />
-          </div>
-        </header>
+        <div className="item-icon">
+          <AppIcon
+            alt={t('app.logo.alt', { name: displayName })}
+            app={app}
+            fetchIcon={fetchIcon(client)}
+          />
+        </div>
         <h3 className="item-title">{displayName}</h3>
       </a>
     )

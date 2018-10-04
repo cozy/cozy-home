@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import classNames from 'classnames'
 import { Main, Content } from 'cozy-ui/react/Layout'
 import { isTutorial, display as displayTutorial } from '../lib/tutorial'
 
@@ -35,7 +36,11 @@ class Home extends Component {
       <Main>
         <ScrollToTopOnMount target={wrapper} />
         <Content>
-          <div className="col-content">
+          <div
+            className={classNames('col-content', {
+              'has-custom-background': false
+            })}
+          >
             <Applications />
             <Services />
           </div>
