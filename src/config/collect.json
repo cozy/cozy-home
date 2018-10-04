@@ -1,5 +1,4 @@
 {
   "defaultDateFormat": "MM/DD/YYYY",
-  "ignoreJobsAfterInSeconds": "7200",
   "defaultTriggerTimeInterval": [0, 5]
 }
