@@ -47,13 +47,6 @@
         "DELETE"
       ]
     },
-    "konnectors results": {
-      "description": "Required to get the list of konnectors results",
-      "type": "io.cozy.konnectors.result",
-      "verbs": [
-        "GET"
-      ]
-    },
     "accounts": {
       "description": "Required to manage accounts associated to konnectors",
       "type": "io.cozy.accounts",
