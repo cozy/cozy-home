@@ -92,9 +92,13 @@ sundown = #ffb3b3
         border-radius rem(4)
         padding  rem(12)
         transition .3s ease all
+        display flex
+        align-items center
+        @media (max-width: rem(466))
+            padding rem(8)
+
         img
             width 100%
-            height 100%
 
         &.konnector-error--connection
             color sundown
