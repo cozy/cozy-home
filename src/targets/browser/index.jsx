@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     appName: data.cozyAppName,
     iconPath: data.cozyIconPath,
     lang: data.cozyLocale,
-    replaceTitleOnMobile: true
+    replaceTitleOnMobile: false
   })
 
   // store
