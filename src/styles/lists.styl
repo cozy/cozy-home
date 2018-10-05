@@ -13,12 +13,16 @@ sundown = #ffb3b3
         margin-top 0
         border-radius 0
 
+    @media (max-width: rem(466))
+        padding rem(16)
+
 .services-list-wrapper
     margin-top rem(24)
     padding rem(16 24)
 
     @media (max-width: rem(466))
         margin-top rem(16)
+        padding rem(16)
 
 .services-list-wrapper--empty
     background-color white
@@ -117,7 +121,7 @@ sundown = #ffb3b3
         &:focus
             .item-icon
                 box-shadow 0 rem(3) rem(8) 0 rgba(50, 54, 63, .15)
-                transform  scale(1.05)
+                transform  scale(1.1)
                 transition .3s ease all
 
     .--add-service
