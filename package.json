@@ -16,7 +16,7 @@
     "commons:build": "cozy-scripts build",
     "commons:watch": "cozy-scripts watch",
     "commons:watch:standalone": "cozy-scripts standalone",
-    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish rundeck,mattermost",
+    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-collect.git}",
     "ios:run": "cd mobile ; cordova run ios --device ; cd ..",
     "ios:run:emulator": "cd mobile ; cordova run ios --emulator ; cd ..",
