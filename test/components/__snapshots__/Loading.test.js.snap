@@ -11,7 +11,7 @@ exports[`Loading component should be displayed with initial text if loadingType 
   className="coz-loading"
 >
   <p>
-    Loading connectors accounts...
+    Loading accounts...
   </p>
 </div>
 `;
