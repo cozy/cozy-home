@@ -1255,11 +1255,12 @@ babel-polyfill@6.26.0, babel-polyfill@^6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-cozy-app@^0.3.1:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-0.3.2.tgz#875bf6fa63c90e97c4ffcdfb2320f7199ed672a6"
-  integrity sha512-kE9mh7HFxAvoIe8DMnK74B+3m74SqFKcqENgO+8S6aoPCHreaJdn5bNrr6ASRl8mG2e8PRheAA/zUNND1jbBXQ==
+babel-preset-cozy-app@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.1.1.tgz#ca53c4b4b005008e8e96054a5a1bb9bb18cd5c51"
+  integrity sha512-R7L99fHlfmywc70Gll6vKSEs4igv4eEwDigY2jaWPSFeiIcRMKp9jaIdMbTSxKQ6beazzTarafoKIeg4+pUK1A==
   dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0-beta.46"
     babel-plugin-transform-class-properties "^6.24.1"
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-plugin-transform-react-jsx "^6.24.1"
@@ -1268,12 +1269,11 @@ babel-preset-cozy-app@^0.3.1:
     babel-preset-react "^6.24.1"
     babel-runtime "^6.26.0"
 
-babel-preset-cozy-app@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.1.1.tgz#ca53c4b4b005008e8e96054a5a1bb9bb18cd5c51"
-  integrity sha512-R7L99fHlfmywc70Gll6vKSEs4igv4eEwDigY2jaWPSFeiIcRMKp9jaIdMbTSxKQ6beazzTarafoKIeg4+pUK1A==
+babel-preset-cozy-app@^0.3.1:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-0.3.2.tgz#875bf6fa63c90e97c4ffcdfb2320f7199ed672a6"
+  integrity sha512-kE9mh7HFxAvoIe8DMnK74B+3m74SqFKcqENgO+8S6aoPCHreaJdn5bNrr6ASRl8mG2e8PRheAA/zUNND1jbBXQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.0.0-beta.46"
     babel-plugin-transform-class-properties "^6.24.1"
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-plugin-transform-react-jsx "^6.24.1"
