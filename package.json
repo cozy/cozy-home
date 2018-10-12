@@ -107,7 +107,6 @@
     "react-test-renderer": "15.6.1",
     "stylint": "1.5.9",
     "stylus": "0.54.5",
-    "tar": "4.4.4",
     "url-search-params-polyfill": "4.0.1",
     "webpack": "3.12.0"
   },
