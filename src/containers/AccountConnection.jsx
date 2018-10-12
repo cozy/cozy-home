@@ -13,7 +13,6 @@ import {
   isConnectionEnqueued,
   launchTriggerAndQueue
 } from '../ducks/connections'
-import { getKonnectorTriggersCount } from '../reducers'
 import { fetchAccount } from '../ducks/accounts'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -385,8 +384,7 @@ const mapStateToProps = (state, ownProps) => ({
   success: isConnectionConnected(state.connections, ownProps.trigger),
   deleting: isConnectionDeleting(state.connections, ownProps.trigger),
   error: getConnectionError(state.connections, ownProps.trigger),
-  queued: isConnectionEnqueued(state.connections, ownProps.trigger),
-  accountsCount: getKonnectorTriggersCount(state, ownProps.konnector)
+  queued: isConnectionEnqueued(state.connections, ownProps.trigger)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
