@@ -91,7 +91,7 @@
   "devDependencies": {
     "babel-polyfill": "6.26.0",
     "babel-preset-cozy-app": "1.1.1",
-    "cozy-app-publish": "0.4.1-beta.5",
+    "cozy-app-publish": "0.9.0",
     "cozy-bar": "5.4.0",
     "cozy-client-js": "0.12.0",
     "cozy-ui": "11.4.0",

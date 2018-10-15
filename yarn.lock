@@ -2237,7 +2237,7 @@ combined-stream@1.0.6, combined-stream@~1.0.5, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2.15.1, commander@2.15.x, commander@^2.11.0, commander@^2.9.0, commander@~2.15.0:
+commander@2.15.x, commander@^2.11.0, commander@^2.9.0, commander@~2.15.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
   integrity sha512-VlfT9F3V0v+jr4yxPc5gg9s62/fIVWsd2Bk2iD435um1NlGMYdVCq+MjcXnhYq2icNOizHr1kK+5TI6H0Hy0ag==
@@ -2246,6 +2246,11 @@ commander@2.18.0, commander@^2.13.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
   integrity sha512-6CYPa+JP2ftfRU2qkDK+UTVeQYosOg/2GbcjIcKPHfinyOLPVGXu/ovN86RP49Re5ndJK1N0kuiidFFuepc4ZQ==
+
+commander@2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
+  integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
 
 commander@~2.17.1:
   version "2.17.1"
@@ -2462,18 +2467,18 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-cozy-app-publish@0.4.1-beta.5:
-  version "0.4.1-beta.5"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.4.1-beta.5.tgz#1c5eb27bad154c8df378c487a481a516f53916b7"
-  integrity sha512-iqiLLT6ZIrEbnA/RJ4vZgiaKKpO3yPIr+tWZG2Xdr5/mA3OpAbIVoIitSPyxQhspwzY4T8nFeDnWfwO5u351Ew==
+cozy-app-publish@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.9.0.tgz#730968c8c2bc8a51919658194f7c3dae35bb6b1e"
+  integrity sha512-9UQLo9O9mufY+m6qkUs1R7JrRpd+/9LowY0ev0Rb1624hTAu5AZZtgbyKlFuLTCYtB4HosLc7/l0ycPFHaDVSw==
   dependencies:
     chalk "2.4.1"
-    commander "2.15.1"
+    commander "2.19.0"
     cross-spawn "6.0.5"
     fs-extra "6.0.1"
     node-fetch "2.2.0"
     prompt "1.0.0"
-    tar "4.4.4"
+    tar "4.4.6"
 
 cozy-bar@5.4.0:
   version "5.4.0"
@@ -3685,6 +3690,7 @@ eslint-loader@2.1.0:
 eslint-loader@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/eslint-loader/-/eslint-loader-2.1.1.tgz#2a9251523652430bfdd643efdb0afc1a2a89546a"
+  integrity sha512-1GrJFfSevQdYpoDzx8mEE2TDWsb/zmFuY09l6hURg1AeFIKQOvZ+vH0UPjzmd1CZIbfTV5HUkMeBmFiDBkgIsQ==
   dependencies:
     loader-fs-cache "^1.0.0"
     loader-utils "^1.0.2"
@@ -11167,6 +11173,19 @@ tar@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.4.tgz#ec8409fae9f665a4355cc3b4087d0820232bb8cd"
   integrity sha512-mq9ixIYfNF9SK0IS/h2HKMu8Q2iaCuhDDsZhdEag/FHv8fOaYld4vN7ouMgcSSt5WKZzPs8atclTcJm36OTh4w==
+  dependencies:
+    chownr "^1.0.1"
+    fs-minipass "^1.2.5"
+    minipass "^2.3.3"
+    minizlib "^1.1.0"
+    mkdirp "^0.5.0"
+    safe-buffer "^5.1.2"
+    yallist "^3.0.2"
+
+tar@4.4.6:
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.6.tgz#63110f09c00b4e60ac8bcfe1bf3c8660235fbc9b"
+  integrity sha512-tMkTnh9EdzxyfW+6GK6fCahagXsnYk6kE6S9Gr9pjVdys769+laCTbodXDhPAjzVtEBazRgP0gYqOjnk9dQzLg==
   dependencies:
     chownr "^1.0.1"
     fs-minipass "^1.2.5"
