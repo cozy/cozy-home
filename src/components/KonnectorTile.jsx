@@ -13,6 +13,7 @@ import {
   getFirstUserError,
   getLastSyncDate
 } from '../ducks/connections'
+import { getKonnectorTriggersCount } from '../reducers'
 
 import brokenIcon from '../assets/icons/broken.svg'
 
@@ -22,7 +23,7 @@ const getKonnectorError = ({ error, t }) => {
     : null
 }
 
-const getErrorClass = ({ error, userError }) => {
+const getErrorClass = ({ accountsCount, error, userError }) => {
   // userError must be checked first as it is also an error.
   if (userError) {
     return 'konnector-error konnector-error--connection'
@@ -32,10 +33,15 @@ const getErrorClass = ({ error, userError }) => {
     return 'konnector-error konnector-error--blocked'
   }
 
+  if (!accountsCount) {
+    return 'konnector-error konnector-error--no-accounts'
+  }
+
   return null
 }
 
 const KonnectorTile = ({
+  accountsCount,
   error,
   userError,
   konnector,
@@ -50,7 +56,10 @@ const KonnectorTile = ({
       title={getKonnectorError({ error, t })}
     >
       <div
-        className={classNames('item-icon', getErrorClass({ error, userError }))}
+        className={classNames(
+          'item-icon',
+          getErrorClass({ accountsCount, error, userError })
+        )}
       >
         <img
           alt={t('connector.logo.alt', { name: konnector.name })}
@@ -69,7 +78,8 @@ const mapStateToProps = (state, props) => {
     // /!\ error can also be a userError.
     error: getFirstError(state.connections, konnector.slug),
     userError: getFirstUserError(state.connections, konnector.slug),
-    lastSyncDate: getLastSyncDate(state.connections, konnector.slug)
+    lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
+    accountsCount: getKonnectorTriggersCount(state, konnector)
   }
 }
 
