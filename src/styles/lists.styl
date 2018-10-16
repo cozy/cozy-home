@@ -1,6 +1,7 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
+<<<<<<< HEAD
 sundown = #ffb3b3
 
 .app-list-wrapper
@@ -8,6 +9,28 @@ sundown = #ffb3b3
     border-radius rem(8)
     background-color rgba(white, .85)
     padding rem(16 24)
+=======
+horizontal-scroll()
+    // Horizontal scroll
+    +mobile()
+        display flex
+        flex-wrap nowrap
+        height 10.75rem
+        overflow-x auto
+
+        // clearfix to let empty space at the right when scrolling
+        &::after
+            width 1rem
+            flex-shrink 0
+            content ''
+
+    &::-webkit-scrollbar
+        display none
+
+
+h2
+    margin 2rem 0 1rem
+>>>>>>> release-1.0.0
 
     @media (max-width: 60rem)
         margin-top 0
