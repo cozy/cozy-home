@@ -33,8 +33,9 @@ class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
+    const { existingAccount, createdAccount, konnector } = props
 
-    const account = props.existingAccount || props.createdAccount
+    const account = existingAccount || createdAccount
 
     // Set values
     const values = (account && Object.assign({}, account.auth)) || {}
@@ -47,13 +48,14 @@ class ConnectionManagement extends Component {
       values.namePath = account.auth.namePath
     } else if (
       (!account &&
-        props.konnector.fields &&
-        props.konnector.fields.advancedFields &&
-        props.konnector.fields.advancedFields.folderPath) ||
-      (!account && props.konnector.fields && props.konnector.folderPath)
+        konnector &&
+        konnector.fields &&
+        konnector.fields.advancedFields &&
+        konnector.fields.advancedFields.folderPath) ||
+      (!account && konnector && konnector.fields && konnector.folderPath)
     ) {
       values.folderPath = this.context.t('account.config.default_folder', {
-        name: props.konnector.name
+        name: konnector.name
       })
     }
 
@@ -62,18 +64,21 @@ class ConnectionManagement extends Component {
       isSuccess: false,
       values: values
     }
+    if (konnector) {
+      this.store.fetchUrls()
 
-    this.store.fetchUrls()
-
-    if (!this.props.existingAccount) {
-      if (this.props.isCreating) {
-        console.warn &&
-          console.warn(
-            'Unexpected state: connection creation already in progress'
-          )
-      } else {
-        this.props.startCreation()
+      if (!this.props.existingAccount) {
+        if (this.props.isCreating) {
+          console.warn &&
+            console.warn(
+              'Unexpected state: connection creation already in progress'
+            )
+        } else {
+          this.props.startCreation()
+        }
       }
+    } else {
+      return this.gotoParent()
     }
   }
 
