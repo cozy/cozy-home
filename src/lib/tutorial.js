@@ -1,4 +1,4 @@
-import { introJs } from 'intro.js'
+import { introJs } from 'intro.js-fix-cozy'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 export function isTutorial() {
