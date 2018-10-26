@@ -21,7 +21,7 @@ export class KonnectorHeaderIcon extends Component {
           className={
             styles[`col-konnector-header-icon${center ? '--center' : ''}`]
           }
-          fetchIcon={fetchIcon(client)}
+          fetchIcon={fetchIcon(client, konnector)}
         />
       </div>
     )

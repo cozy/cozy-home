@@ -17,7 +17,7 @@ export class AppTile extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: displayName })}
             app={app}
-            fetchIcon={fetchIcon(client)}
+            fetchIcon={fetchIcon(client, app)}
           />
         </div>
         <h3 className="item-title">{displayName}</h3>

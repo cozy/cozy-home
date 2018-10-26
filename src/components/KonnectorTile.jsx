@@ -69,7 +69,7 @@ class KonnectorTile extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             app={konnector}
-            fetchIcon={fetchIcon(client)}
+            fetchIcon={fetchIcon(client, konnector)}
           />
           <Icon icon={brokenIcon} className="konnector-state" />
         </div>
