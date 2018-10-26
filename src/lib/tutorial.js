@@ -11,8 +11,6 @@ export function display(t) {
     '[data-tutorial=home-services]'
   )[0]
 
-  console.debug(appsPanel, servicesPanel)
-
   for (const element in [appsPanel, servicesPanel]) {
     if (!element) throw new Error('Missing tutorial element.')
   }
