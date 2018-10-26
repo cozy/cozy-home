@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import classNames from 'classnames'
@@ -23,7 +23,9 @@ const getKonnectorError = ({ error, t }) => {
     : null
 }
 
-const getErrorClass = ({ accountsCount, error, userError }) => {
+const getErrorClass = ({ accountsCount, error, hide, userError }) => {
+  if (hide) return ''
+
   // userError must be checked first as it is also an error.
   if (userError) {
     return 'konnector-error konnector-error--connection'
@@ -40,36 +42,46 @@ const getErrorClass = ({ accountsCount, error, userError }) => {
   return null
 }
 
-const KonnectorTile = ({
-  accountsCount,
-  error,
-  userError,
-  konnector,
-  lastSyncDate,
-  route,
-  t
-}) => {
-  return (
-    <NavLink
-      className="item-wrapper"
-      to={route}
-      title={getKonnectorError({ error, t })}
-    >
-      <div
-        className={classNames(
-          'item-icon',
-          getErrorClass({ accountsCount, error, userError })
-        )}
+class KonnectorTile extends Component {
+  render() {
+    const {
+      accountsCount,
+      error,
+      userError,
+      konnector,
+      lastSyncDate,
+      route,
+      t
+    } = this.props
+    const { features } = this.context
+    const hideKonnectorErrors = features.includes('hide_konnector_errors')
+    return (
+      <NavLink
+        className="item-wrapper"
+        to={route}
+        title={getKonnectorError({ error, t })}
       >
-        <img
-          alt={t('connector.logo.alt', { name: konnector.name })}
-          src={getKonnectorIcon(konnector)}
-        />
-        <Icon icon={brokenIcon} className="konnector-state" />
-      </div>
-      <h3 className="item-title">{konnector.name}</h3>
-    </NavLink>
-  )
+        <div
+          className={classNames(
+            'item-icon',
+            getErrorClass({
+              accountsCount,
+              error,
+              hide: hideKonnectorErrors,
+              userError
+            })
+          )}
+        >
+          <img
+            alt={t('connector.logo.alt', { name: konnector.name })}
+            src={getKonnectorIcon(konnector)}
+          />
+          <Icon icon={brokenIcon} className="konnector-state" />
+        </div>
+        <h3 className="item-title">{konnector.name}</h3>
+      </NavLink>
+    )
+  }
 }
 
 const mapStateToProps = (state, props) => {
