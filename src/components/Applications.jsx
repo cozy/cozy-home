@@ -30,7 +30,7 @@ const LoadingAppTiles = ({ num }) => {
   )
 }
 
-export const Applications = props => {
+export const Applications = () => {
   const ignoredAppSlugs = ['home', 'onboarding', 'settings']
   return (
     <div className="app-list-wrapper">
@@ -50,7 +50,7 @@ export const Applications = props => {
                     app.state !== 'hidden' &&
                     !ignoredAppSlugs.includes(app.slug)
                 )
-                .map(app => <AppTile app={app} />)}
+                .map((app, index) => <AppTile key={index} app={app} />)}
               {fillWithGhostItems(6)}
             </div>
           )
