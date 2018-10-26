@@ -54,7 +54,8 @@ class KonnectorTile extends Component {
       t
     } = this.props
     const { features } = this.context
-    const hideKonnectorErrors = features.includes('hide_konnector_errors')
+    const hideKonnectorErrors =
+      features && features.includes('hide_konnector_errors')
     return (
       <NavLink
         className="item-wrapper"
