@@ -44,15 +44,7 @@ const getErrorClass = ({ accountsCount, error, hide, userError }) => {
 
 class KonnectorTile extends Component {
   render() {
-    const {
-      accountsCount,
-      error,
-      userError,
-      konnector,
-      lastSyncDate,
-      route,
-      t
-    } = this.props
+    const { accountsCount, error, userError, konnector, route, t } = this.props
     const { features } = this.context
     const hideKonnectorErrors =
       features && features.includes('hide_konnector_errors')
