@@ -1,19 +1,31 @@
 import styles from '../styles/konnectorHeaderIcon'
-import React from 'react'
+import React, { Component } from 'react'
 
-import { getKonnectorIcon } from '../lib/icons'
+import { AppIcon } from 'cozy-ui/react/AppIcon'
+import { fetchIcon } from 'lib/icons'
+import { translate } from 'cozy-ui/react/I18n'
 
-export const KonnectorHeaderIcon = ({ konnector, center }) => (
-  <div
-    className={
-      styles[`col-konnector-header-icon-wrapper${center ? '--center' : ''}`]
-    }
-  >
-    <img
-      className={styles[`col-konnector-header-icon${center ? '--center' : ''}`]}
-      src={getKonnectorIcon(konnector)}
-    />
-  </div>
-)
+export class KonnectorHeaderIcon extends Component {
+  render() {
+    const { center, konnector, t } = this.props
+    const { client } = this.context
+    return (
+      <div
+        className={
+          styles[`col-konnector-header-icon-wrapper${center ? '--center' : ''}`]
+        }
+      >
+        <AppIcon
+          alt={t('app.logo.alt', { name: konnector.name })}
+          app={konnector}
+          className={
+            styles[`col-konnector-header-icon${center ? '--center' : ''}`]
+          }
+          fetchIcon={fetchIcon(client)}
+        />
+      </div>
+    )
+  }
+}
 
-export default KonnectorHeaderIcon
+export default translate()(KonnectorHeaderIcon)

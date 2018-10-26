@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import classNames from 'classnames'
 
+import AppIcon from 'cozy-ui/react/AppIcon'
 import Icon from 'cozy-ui/react/Icon'
 import { NavLink, withRouter } from 'react-router-dom'
 
-import { getKonnectorIcon } from '../lib/icons'
+import { fetchIcon } from '../lib/icons'
 import { getErrorTitle } from '../lib/konnectors'
 import {
   getFirstError,
@@ -45,7 +46,7 @@ const getErrorClass = ({ accountsCount, error, hide, userError }) => {
 class KonnectorTile extends Component {
   render() {
     const { accountsCount, error, userError, konnector, route, t } = this.props
-    const { features } = this.context
+    const { client, features } = this.context
     const hideKonnectorErrors =
       features && features.includes('hide_konnector_errors')
     return (
@@ -65,9 +66,10 @@ class KonnectorTile extends Component {
             })
           )}
         >
-          <img
-            alt={t('connector.logo.alt', { name: konnector.name })}
-            src={getKonnectorIcon(konnector)}
+          <AppIcon
+            alt={t('app.logo.alt', { name: konnector.name })}
+            app={konnector}
+            fetchIcon={fetchIcon(client)}
           />
           <Icon icon={brokenIcon} className="konnector-state" />
         </div>
