@@ -33,7 +33,9 @@ const Field = props => {
       isRequired
     } = props
     const autoFill = noAutoFill
-      ? type === 'password' ? 'new-password' : 'off'
+      ? type === 'password'
+        ? 'new-password'
+        : 'off'
       : 'on'
     inputs = (
       <Input
@@ -68,6 +70,7 @@ export default Field
 class FieldWrapperComponent extends Component {
   componentDidMount() {
     if (this.props.giveFocus) {
+      // eslint-disable-next-line react/no-find-dom-node
       const thisNode = ReactDOM.findDOMNode(this)
       const inputNode = thisNode.querySelector('input')
       if (inputNode && typeof inputNode.focus === 'function') {
@@ -192,8 +195,9 @@ export const DropdownField = translate()(props => {
         onChange={onChange}
         onInput={onInput}
       >
-        {dropdownFieldOptions.map(optionValue => (
+        {dropdownFieldOptions.map((optionValue, index) => (
           <option
+            key={index}
             value={
               (optionValue && optionValue.value) ||
               (props.default && props.default.value)

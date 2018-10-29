@@ -181,7 +181,7 @@ const reducer = (state = {}, action) => {
 const creation = (state = null, action) => {
   switch (action.type) {
     case RECEIVE_DATA:
-    case RECEIVE_NEW_DOCUMENT:
+    case RECEIVE_NEW_DOCUMENT: {
       if (!state) return null
       if (
         !action.response ||
@@ -208,7 +208,7 @@ const creation = (state = null, action) => {
         }
 
       return state
-
+    }
     case START_CONNECTION_CREATION:
       // Store all data related to the creation of a new connection in then
       // property `creation`
@@ -267,6 +267,7 @@ const triggersReducer = (state = {}, action) => {
         }
       }
     case CONNECTION_DELETED:
+      // eslint-disable-next-line no-unused-vars
       return (({ [action.trigger._id]: deleted, ...state }) => state)(state)
     case ENQUEUE_CONNECTION:
       return {
@@ -363,8 +364,7 @@ export const deleteConnection = trigger => {
 
 export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   dispatch,
-  getState,
-  options
+  getState
 ) => {
   setTimeout(() => {
     if (isConnectionRunning(getState().connections, trigger)) {

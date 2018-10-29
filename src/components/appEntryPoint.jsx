@@ -5,7 +5,7 @@ import { fetchKonnectorJobs } from '../ducks/jobs'
 import { fetchKonnectors } from '../ducks/konnectors'
 import { fetchTriggers } from '../ducks/triggers'
 
-const mapDocumentsToProps = (state, ownProps) => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchAccounts(),
   jobs: fetchKonnectorJobs(),
   konnectors: fetchKonnectors(),

@@ -60,16 +60,6 @@
     "cozy-scripts": "0.10.6",
     "date-fns": "1.29.0",
     "enzyme-adapter-react-15": "1.1.0",
-    "eslint": "4.9.0",
-    "eslint-config-prettier": "3.1.0",
-    "eslint-config-standard": "10.2.1",
-    "eslint-config-standard-react": "6.0.0",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-node": "7.0.1",
-    "eslint-plugin-prettier": "2.6.2",
-    "eslint-plugin-promise": "3.8.0",
-    "eslint-plugin-react": "7.11.1",
-    "eslint-plugin-standard": "3.1.0",
     "expose-loader": "0.7.5",
     "husky": "0.14.3",
     "intro.js-fix-cozy": "2.9.5",
@@ -79,7 +69,6 @@
     "piwik-react-router": "0.12.1",
     "preact": "8.3.1",
     "preact-compat": "3.18.0",
-    "prettier": "1.11.1",
     "react-markdown": "2.5.1",
     "react-redux": "5.0.7",
     "react-router-dom": "4.3.1",
@@ -95,7 +84,8 @@
     "cozy-client-js": "0.12.0",
     "cozy-ui": "11.4.0",
     "enzyme": "3.3.0",
-    "eslint-loader": "2.1.1",
+    "eslint-config-cozy-app": "1.1.1",
+    "eslint-loader": "2.1.0",
     "git-directory-deploy": "1.5.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
@@ -134,47 +124,9 @@
       "cozy": {}
     }
   },
-  "eslintConfig": {
-    "extends": [
-      "standard",
-      "standard-react",
-      "prettier",
-      "prettier/react",
-      "prettier/standard"
-    ],
-    "plugins": [
-      "react",
-      "prettier",
-      "standard"
-    ],
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "prettier/prettier": "error",
-      "react/prop-types": [
-        2,
-        {
-          "skipUndeclared": true
-        }
-      ],
-      "react/jsx-no-bind": 1
-    },
-    "env": {
-      "browser": true,
-      "jest": true
-    }
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
-  },
   "lint-staged": {
     "{src,test}/**/*.{js,jsx}": [
-      "prettier --write"
+      "eslint"
     ]
   }
 }

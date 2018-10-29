@@ -21,6 +21,7 @@ export class AddServiceTile extends Component {
     try {
       await cozy.client.intents.redirect('io.cozy.apps', { type: 'konnector' })
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error)
       this.setState({
         redirecting: false

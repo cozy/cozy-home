@@ -26,7 +26,7 @@ const documents = (state = [], action) => {
       return action.response.sharings
     case RECEIVE_NEW_SHARING:
       return [...state, action.response]
-    case RECEIVE_SHARING_REVOKE:
+    case RECEIVE_SHARING_REVOKE: {
       const idx = state.findIndex(
         s => s.attributes.sharing_id === action.sharingId
       )
@@ -48,6 +48,7 @@ const documents = (state = [], action) => {
             }
           }
       return [...state.slice(0, idx), newState, ...state.slice(idx + 1)]
+    }
     default:
       return state
   }
@@ -139,10 +140,12 @@ export const fetchSharings = (doctype, id = null, options = {}) => ({
   promise: client => client.fetchSharings(doctype)
 })
 
-export const share = (document, recipients, sharingType, sharingDesc) => async (
-  dispatch,
-  getState
-) => {
+export const share = (
+  document,
+  recipients,
+  sharingType,
+  sharingDesc
+) => async dispatch => {
   const recipientIds = await Promise.all(
     recipients.map(
       recipient =>
@@ -357,7 +360,7 @@ const getDocumentActiveSharings = (state, doctype, id) => {
     .filter(s => !s.attributes.revoked)
 }
 
-export const getSharings = (state, doctype, options = {}) => {
+export const getSharings = (state, doctype) => {
   const perms = getDoctypePermissions(state, doctype)
   const type = doctype === 'io.cozy.files' ? 'files' : 'collection'
   return {
@@ -382,7 +385,7 @@ export const getSharingStatus = (state, doctype, id) => {
   }
 }
 
-export const getSharingDetails = (state, doctype, id, options = {}) => {
+export const getSharingDetails = (state, doctype, id) => {
   const { shared, owner, sharingType, sharings } = getSharingStatus(
     state,
     doctype,

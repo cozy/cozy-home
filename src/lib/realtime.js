@@ -32,8 +32,8 @@ function subscribeWhenReady(doctype, socket) {
         })
       )
     } catch (error) {
-      console.warn &&
-        console.warn(`Cannot subscribe to doctype ${doctype}: ${error.message}`)
+      // eslint-disable-next-line no-console
+      console.warn(`Cannot subscribe to doctype ${doctype}: ${error.message}`)
       throw error
     }
   } else {
@@ -73,7 +73,7 @@ async function connectWebSocket(
       'io.cozy.websocket'
     )
 
-    socket.onopen = event => {
+    socket.onopen = () => {
       try {
         socket.send(
           JSON.stringify({
@@ -95,7 +95,8 @@ async function connectWebSocket(
           onclose(event, numRetries, retryDelay)
       }
       socket.onerror = error =>
-        console.error && console.error(`WebSocket error: ${error.message}`)
+        // eslint-disable-next-line no-console
+        console.error(`WebSocket error: ${error.message}`)
 
       resolve(
         keepAlive(
@@ -146,16 +147,16 @@ function getCozySocket(cozy) {
 
     const onSocketClose = async (event, numRetries, retryDelay) => {
       if (!event.wasClean) {
-        console.warn &&
-          console.warn(
-            `WebSocket closed unexpectedly with code ${event.code} and ${
-              event.reason ? `reason: '${event.reason}'` : 'no reason'
-            }.`
-          )
+        // eslint-disable-next-line no-console
+        console.warn(
+          `WebSocket closed unexpectedly with code ${event.code} and ${
+            event.reason ? `reason: '${event.reason}'` : 'no reason'
+          }.`
+        )
 
         if (numRetries) {
-          console.warn &&
-            console.warn(`Reconnecting ... ${numRetries} tries left.`)
+          // eslint-disable-next-line no-console
+          console.warn(`Reconnecting ... ${numRetries} tries left.`)
           setTimeout(async () => {
             try {
               socket = await connectWebSocket(
@@ -166,10 +167,10 @@ function getCozySocket(cozy) {
                 retryDelay + 1000
               )
             } catch (error) {
-              console.error &&
-                console.error(
-                  `Unable to reconnect to realtime. Error: ${error.message}`
-                )
+              // eslint-disable-next-line no-console
+              console.error(
+                `Unable to reconnect to realtime. Error: ${error.message}`
+              )
             }
           }, retryDelay)
         }

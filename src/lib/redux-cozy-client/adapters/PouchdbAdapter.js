@@ -74,7 +74,7 @@ export default class PouchdbAdapter {
               cozy.client.auth
                 .refreshToken(cozy, client, token)
                 .then(newToken => cozy.client.saveCredentials(client, newToken))
-                .then(credentials => this.syncDoctype(doctype, replicationUrl))
+                .then(() => this.syncDoctype(doctype, replicationUrl))
             })
           } else if (err.status !== 404) {
             // A 404 error on some doctypes is perfectly normal when there is no data
@@ -152,27 +152,27 @@ export default class PouchdbAdapter {
     return this.getDatabase(doctype).createIndex({ index: { fields } })
   }
 
-  fetchFileByPath(path) {
+  fetchFileByPath() {
     throw new Error('Not implemented')
   }
 
-  createFile(file, dirID) {
+  createFile() {
     throw new Error('Not implemented')
   }
 
-  trashFile(file) {
+  trashFile() {
     throw new Error('Not implemented')
   }
 
-  fetchReferencedFiles(doc, skip = 0) {
+  fetchReferencedFiles() {
     throw new Error('Not implemented')
   }
 
-  addReferencedFiles(doc, ids) {
+  addReferencedFiles() {
     throw new Error('Not implemented')
   }
 
-  removeReferencedFiles(doc, ids) {
+  removeReferencedFiles() {
     throw new Error('Not implemented')
   }
 }

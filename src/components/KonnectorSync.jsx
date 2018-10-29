@@ -33,7 +33,9 @@ const humanCron = cronSpec => {
     const timePart =
       hour !== '*' && minute !== '*'
         ? `at ${hour}:${minute}`
-        : hour !== '*' ? `${hour}h` : `Any hour on ${minute}minute`
+        : hour !== '*'
+          ? `${hour}h`
+          : `Any hour on ${minute}minute`
     const monthPart = month !== '*' ? `during ${months[month]}` : ''
     const dowPart = dayOfWeek !== '*' ? `on ${dows[dayOfWeek]}` : ''
     return [timePart, monthPart, dowPart].join(' ')

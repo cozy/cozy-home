@@ -9,6 +9,7 @@ export const getKonnectorIcon = konnector => {
       var urlCreator = window && (window.URL || window.webkitURL)
       return urlCreator.createObjectURL(konnector.icon)
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.warn(
         `Cannot create icon url for konnector ${konnector.slug} (${
           error.message
@@ -22,7 +23,10 @@ export const getKonnectorIcon = konnector => {
     try {
       icon = require(`../assets/konnectors/${slug}${ext}`)
       break
-    } catch (e) {}
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e.message)
+    }
   }
   if (!icon) {
     icon = require('../assets/konnectors/default.svg')

@@ -26,7 +26,7 @@ const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
 
 const documents = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_APP:
+    case RECEIVE_APP: {
       const apps = action.response && action.response.data
       if (apps.length === 0) return state
       return {
@@ -36,7 +36,8 @@ const documents = (state = {}, action) => {
           ...objectifyDocumentsArray(apps)
         }
       }
-    case RECEIVE_DATA:
+    }
+    case RECEIVE_DATA: {
       const { data } = action.response
       if (data.length === 0) return state
       const dataDoctype = getArrayDoctype(data)
@@ -47,8 +48,9 @@ const documents = (state = {}, action) => {
           ...objectifyDocumentsArray(data)
         }
       }
+    }
     case RECEIVE_NEW_DOCUMENT:
-    case RECEIVE_UPDATED_DOCUMENT:
+    case RECEIVE_UPDATED_DOCUMENT: {
       const doc = action.response.data[0]
       return {
         ...state,
@@ -57,12 +59,14 @@ const documents = (state = {}, action) => {
           [doc.id]: doc
         }
       }
-    case RECEIVE_DELETED_DOCUMENT:
+    }
+    case RECEIVE_DELETED_DOCUMENT: {
       const deleted = action.response.data[0]
       return {
         ...state,
         [deleted._type]: removeObjectProperty(state[deleted._type], deleted.id)
       }
+    }
     case ADD_REFERENCED_FILES:
       return {
         ...state,
@@ -178,7 +182,7 @@ const collection = (state = collectionInitialState, action) => {
         fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
       }
     case RECEIVE_APP:
-    case RECEIVE_DATA:
+    case RECEIVE_DATA: {
       const response = action.response
       return {
         ...state,
@@ -193,6 +197,7 @@ const collection = (state = collectionInitialState, action) => {
           ? response.data.map(doc => doc.id)
           : [...state.ids, ...response.data.map(doc => doc.id)]
       }
+    }
     case ADD_REFERENCED_FILES:
       return {
         ...state,

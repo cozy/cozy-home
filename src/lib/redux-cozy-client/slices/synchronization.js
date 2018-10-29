@@ -50,7 +50,7 @@ const synchronization = (state = {}, action) => {
 
 export default synchronization
 
-export const startSync = () => async (dispatch, getState) => {
+export const startSync = () => async dispatch => {
   return dispatch({
     type: START_SYNC,
     promise: client => client.startSync(dispatch)

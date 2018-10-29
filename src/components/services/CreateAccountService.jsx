@@ -82,6 +82,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   endCreation: () => dispatch(endConnectionCreation())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  translate()(CreateAccountService)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(translate()(CreateAccountService))

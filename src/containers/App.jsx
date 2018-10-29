@@ -62,7 +62,7 @@ class App extends Component {
             <Route path="/redirect" component={IntentRedirect} />
             <Route
               path="/connected"
-              render={props => (
+              render={() => (
                 <Home base="/connected" wrapper={this.contentWrapper} />
               )}
             />

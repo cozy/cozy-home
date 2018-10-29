@@ -17,7 +17,9 @@ import { probableLoginFieldNames } from '../lib/accounts'
 import collectConfig from 'config/collect'
 
 const renderers = {
-  password: ({ t }) => <PasswordField noAutoFill />,
+  // eslint-disable-next-line react/display-name
+  password: () => <PasswordField noAutoFill />,
+  // eslint-disable-next-line react/display-name
   date: ({ t }) => (
     <Field
       type="date"
@@ -26,9 +28,13 @@ const renderers = {
       })}
     />
   ),
+  // eslint-disable-next-line react/display-name
   checkbox: () => <CheckboxField />,
+  // eslint-disable-next-line react/display-name
   dropdown: () => <DropdownField />,
+  // eslint-disable-next-line react/display-name
   text: () => <Field />,
+  // eslint-disable-next-line react/display-name
   email: () => <Field type="email" />
 }
 
@@ -53,7 +59,7 @@ export class AccountLoginForm extends React.Component {
   state = {
     submitEnabled: this.props.isOAuth || false
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     const {
       dirty,
       editing,
@@ -122,7 +128,8 @@ export class AccountLoginForm extends React.Component {
     const renderField = konnectorSlug => field => {
       const { name, label, type, value, placeholder } = field
       if (!renderers[type]) {
-        console.warn && console.warn('Unknown field type ' + type)
+        // eslint-disable-next-line no-console
+        console.warn('Unknown field type ' + type)
         return null
       }
       const disabled = probableLoginFieldNames.includes(name) && editing

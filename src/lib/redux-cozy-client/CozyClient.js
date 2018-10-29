@@ -41,7 +41,7 @@ export default class CozyClient {
       if (err.message === 'Failed to fetch') {
         return true
       } else {
-        console.warn(err)
+        console.warn(err) // eslint-disable-line no-console
         return false
       }
     }
@@ -63,7 +63,7 @@ export default class CozyClient {
     return this.facade.getAdapter(doctype)
   }
 
-  async fetchApps(name, options = {}, skip = 0) {
+  async fetchApps() {
     return this.getAdapter(APPS_DOCTYPE).fetchApps()
   }
 
@@ -90,11 +90,11 @@ export default class CozyClient {
     return this.getAdapter(doc._type).fetchReferencedFiles(doc, skip)
   }
 
-  fetchTriggers(name, worker, options = {}, skip = 0) {
+  fetchTriggers(name, worker) {
     return this.getAdapter(TRIGGERS_DOCTYPE).fetchTriggers(worker)
   }
 
-  fetchKonnectors(name, worker, options = {}, skip = 0) {
+  fetchKonnectors() {
     return this.getAdapter(KONNECTORS_DOCTYPE).fetchKonnectors()
   }
 

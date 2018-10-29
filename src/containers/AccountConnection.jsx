@@ -60,7 +60,7 @@ class AccountConnection extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { existingAccount } = nextProps
 
     const accountHasJustBeenCreated =
@@ -113,7 +113,7 @@ class AccountConnection extends Component {
       .then(account => {
         const { konnector } = this.props
         this.setState({ account: account })
-        return this.runConnection(account).then(connection => {
+        return this.runConnection(account).then(() => {
           this.setState({
             connector: konnector,
             submitting: false
@@ -193,6 +193,7 @@ class AccountConnection extends Component {
   }
 
   handleError(error) {
+    // eslint-disable-next-line no-console
     console.error(error)
 
     this.setState({
@@ -209,8 +210,7 @@ class AccountConnection extends Component {
 
     // namePath defined by the user is concatened with the folderPath
     if (valuesToSubmit.folderPath) {
-      if (valuesToSubmit.namePath) {
-      } else {
+      if (!valuesToSubmit.namePath) {
         valuesToSubmit.namePath =
           valuesToSubmit.accountName ||
           valuesToSubmit.identifier ||
@@ -420,6 +420,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  statefulForm()(withRouter(translate()(AccountConnection)))
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(statefulForm()(withRouter(translate()(AccountConnection))))

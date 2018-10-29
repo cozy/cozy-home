@@ -15,7 +15,7 @@ class KonnectorFolder extends React.Component {
     })
   }
 
-  componentWillReceiveProps = newProps => {
+  UNSAFE_componentWillReceiveProps = newProps => {
     this.setState({
       fields: newProps.fields
     })
@@ -30,10 +30,7 @@ class KonnectorFolder extends React.Component {
     this.setState({ isModalOpen: false, folderUpdateStatus: null })
   }
 
-  render(
-    { t, account, driveUrl, connector, trigger, closeModal },
-    { fields, isModalOpen, isFetchingUpdate, changeState, folderUpdateStatus }
-  ) {
+  render({ t, account, driveUrl, trigger }) {
     return (
       <div className={styles['col-account-folder']}>
         {account &&

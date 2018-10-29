@@ -9,6 +9,7 @@ export const DataItem = ({ t, dataType }) => {
   try {
     icon = require(`../assets/sprites/icon-${dataType}.svg`).default
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(
       `Unable to load the icon ../assets/sprites/icon-${dataType}.svg : ${
         error.message
@@ -20,6 +21,7 @@ export const DataItem = ({ t, dataType }) => {
     try {
       icon = require('../assets/sprites/icon-fallback.svg').default
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Default icon icon-fallback.svg cannot be loaded')
     }
   }

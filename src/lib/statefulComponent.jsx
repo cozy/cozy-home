@@ -27,7 +27,7 @@ const statefulComponent = (initialState, eventHandlers) => {
       }
 
       componentDidMount() {
-        this.state = initialState
+        this.setState(initialState)
       }
 
       render() {

@@ -18,7 +18,7 @@ class Item extends Component {
     let elapsedTime = 0
     this.myInterval = setInterval(() => {
       elapsedTime += 10
-      let progress = Math.atan(elapsedTime / 3e3) / (Math.PI / 2) * 90
+      let progress = (Math.atan(elapsedTime / 3e3) / (Math.PI / 2)) * 90
       this.setState({
         progress: progress
       })
@@ -133,8 +133,13 @@ class Queue extends Component {
         />
         <div className={styles['queue-content']}>
           <div className={styles['queue-list']}>
-            {queue.map(item => (
-              <Item label={item.label} status={item.status} icon={item.icon} />
+            {queue.map((item, index) => (
+              <Item
+                key={index}
+                label={item.label}
+                status={item.status}
+                icon={item.icon}
+              />
             ))}
           </div>
         </div>
