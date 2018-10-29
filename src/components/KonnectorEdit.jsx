@@ -52,7 +52,7 @@ export const KonnectorEdit = props => {
 
   const warningIcon = (
     <svg className={styles['item-status-icon']}>
-      <use xlinkHref={`#${warningSvg.id}`} /> }
+      <use xlinkHref={`#${warningSvg.id}`} />
     </svg>
   )
   const hasLoginError = isKonnectorLoginError(error)

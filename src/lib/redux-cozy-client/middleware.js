@@ -1,4 +1,4 @@
-const cozyMiddleware = client => ({ dispatch, getState }) => {
+const cozyMiddleware = client => ({ dispatch }) => {
   return next => action => {
     const { promise, type, types, ...rest } = action
     if (!promise) {
@@ -26,12 +26,12 @@ const cozyMiddleware = client => ({ dispatch, getState }) => {
           return response
         },
         error => {
-          console.log(error)
+          console.log(error) // eslint-disable-line no-console
           next({ ...rest, error, type: FAILURE })
         }
       )
       .catch(error => {
-        console.error('MIDDLEWARE ERROR:', error)
+        console.error('MIDDLEWARE ERROR:', error) // eslint-disable-line no-console
         next({ ...rest, error, type: FAILURE })
       })
   }

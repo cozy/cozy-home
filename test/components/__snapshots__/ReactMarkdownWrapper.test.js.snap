@@ -3,6 +3,7 @@
 exports[`ReactMarkdown options should correctly return an anchor HTML element 1`] = `
 <a
   href="https://testlink.mock"
+  rel="noopener noreferrer"
   target="_blank"
 >
   example link test for test

@@ -63,7 +63,7 @@ class IntentService extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   receiveKonnector: konnector => dispatch(receiveInstalledKonnector(konnector))
 })
 
@@ -75,4 +75,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IntentService)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IntentService)

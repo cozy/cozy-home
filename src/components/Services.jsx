@@ -24,8 +24,9 @@ class Services extends Component {
       >
         {hasConnections ? (
           <div className="list connector-list" data-tutorial="home-services">
-            {installedKonnectors.map(konnector => (
+            {installedKonnectors.map((konnector, index) => (
               <KonnectorTile
+                key={index}
                 konnector={konnector}
                 route={`connected/${konnector.slug}`}
               />
@@ -56,7 +57,7 @@ class Services extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     installedKonnectors: sortBy(
       getInstalledKonnectors(state),

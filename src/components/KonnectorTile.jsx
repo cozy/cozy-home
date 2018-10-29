@@ -45,7 +45,6 @@ const KonnectorTile = ({
   error,
   userError,
   konnector,
-  lastSyncDate,
   route,
   t
 }) => {

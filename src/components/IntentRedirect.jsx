@@ -31,7 +31,7 @@ const IntentRedirect = ({ installedKonnectors, location }) => {
   return <Redirect to={`/connected`} />
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   installedKonnectors: getInstalledKonnectors(state)
 })
 

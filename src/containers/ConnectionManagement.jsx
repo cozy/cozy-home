@@ -69,10 +69,10 @@ class ConnectionManagement extends Component {
 
       if (!this.props.existingAccount) {
         if (this.props.isCreating) {
-          console.warn &&
-            console.warn(
-              'Unexpected state: connection creation already in progress'
-            )
+          // eslint-disable-next-line no-console
+          console.warn(
+            'Unexpected state: connection creation already in progress'
+          )
         } else {
           this.props.startCreation()
         }
@@ -82,14 +82,15 @@ class ConnectionManagement extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const isInvalidKonnectorSlug =
       nextProps.match &&
       nextProps.match.params.konnectorSlug &&
       !nextProps.konnector
 
     if (isInvalidKonnectorSlug) {
-      console.warn && console.warn('Invalid konnector slug')
+      // eslint-disable-next-line no-console
+      console.warn('Invalid konnector slug')
       return this.gotoParent()
     }
 
@@ -98,7 +99,8 @@ class ConnectionManagement extends Component {
       nextProps.match.params.accountId &&
       !nextProps.existingAccount
     if (isInvalidAccountId) {
-      console.warn && console.warn('Invalid account id')
+      // eslint-disable-next-line no-console
+      console.warn('Invalid account id')
       return this.gotoParent()
     }
   }
@@ -225,10 +227,10 @@ class ConnectionManagement extends Component {
   }
 }
 
-const mapActionsToProps = dispatch => ({})
+const mapActionsToProps = () => ({})
 
 // Accéder au state depuis ici ?
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   // konnector: fetchRegistryKonnectorBySlug(ownProps.params.connectorSlug)
   // existingAccount: fetchAccount(ownProps.accountId)
 })
@@ -263,7 +265,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   endCreation: () => dispatch(endConnectionCreation())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   cozyConnect(mapDocumentsToProps, mapActionsToProps)(
     withRouter(ConnectionManagement)
   )

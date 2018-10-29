@@ -61,19 +61,7 @@ class PouchFirstStrategy {
 }
 
 class StackOnlyStrategy {
-  getAdapter(doctype, stackAdapter, pouchAdapter) {
+  getAdapter(doctype, stackAdapter) {
     return stackAdapter
   }
 }
-
-// class OfflineStrategy {
-//   getAdapter(doctype, stackAdapter, pouchAdapter) {
-//     if (isOffline()) {
-//       if (pouchAdapter.getDatabase(doctype) === undefined) {
-//         throw `${doctype} documents cannot be accessed when offline`
-//       }
-//       return pouchAdapter
-//     }
-//     return stackAdapter
-//   }
-// }

@@ -55,7 +55,6 @@ export const authenticateWithCordova = url => {
      * then get the "access_code" url and paste it in the prompt to let the
      * application initialize and redirect to other pages.
      */
-    console.log(url)
     return new Promise(resolve => {
       setTimeout(() => {
         const token = prompt('Paste the url here:')

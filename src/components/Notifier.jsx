@@ -100,8 +100,9 @@ export default class Notifier extends Component {
   render() {
     return (
       <div className="coz-notifier">
-        {this.state.notifications.map(notif => (
+        {this.state.notifications.map((notif, index) => (
           <Notification
+            key={index}
             type={notif.type}
             message={notif.msg}
             details={notif.details}

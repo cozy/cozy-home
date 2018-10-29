@@ -223,7 +223,7 @@ export default class CozyStackAdapter {
       konnector.icon = await resp.blob()
     } catch (error) {
       // This one will not have icon attribute. Too bad.
-      console.warn(error.message)
+      console.warn(error.message) // eslint-disable-line no-console
     }
     return konnector
   }

@@ -4,7 +4,6 @@ import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
 import styles from '../styles/descriptionContent'
 
 export const DescriptionContent = ({
-  t,
   cssClassesObject,
   title,
   messages,

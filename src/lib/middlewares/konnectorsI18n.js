@@ -7,8 +7,8 @@ const extendI18nWithKonnector = lang => konnector => {
 
   const hasLangs = langs && langs.length
   if (!hasLangs) {
-    console.warn &&
-      console.warn(`Konnector ${konnector.name} does not specify any lang`)
+    // eslint-disable-next-line no-console
+    console.warn(`Konnector ${konnector.name} does not specify any lang`)
     return konnector
   }
 
@@ -20,12 +20,12 @@ const extendI18nWithKonnector = lang => konnector => {
     localeKeys && localeKeys.length && localeKeys.includes(actualLang)
 
   if (!providesLocales) {
-    console.warn &&
-      console.warn(
-        `Konnector ${
-          konnector.name
-        } does not specify any locale for lang ${actualLang}`
-      )
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Konnector ${
+        konnector.name
+      } does not specify any locale for lang ${actualLang}`
+    )
     return konnector
   }
 
@@ -33,7 +33,7 @@ const extendI18nWithKonnector = lang => konnector => {
   return konnector
 }
 
-export const konnectorsI18nMiddleware = lang => store => next => action => {
+export const konnectorsI18nMiddleware = lang => () => next => action => {
   const { response } = action
   switch (action.type) {
     case 'RECEIVE_DATA':

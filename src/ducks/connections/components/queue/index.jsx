@@ -5,14 +5,17 @@ import { getConnectionsQueue } from '../../../../reducers'
 
 import { purgeQueue } from '../../'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const queue = getConnectionsQueue(state)
   return {
     queue: queue,
     visible: !!queue.length
   }
 }
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   purgeQueue: () => dispatch(purgeQueue())
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Queue)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Queue)
