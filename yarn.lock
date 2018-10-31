@@ -2170,16 +2170,16 @@ cozy-client-js@^0.3.19:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
 
-cozy-client@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.0.0.tgz#b5a64c9aeab2a3170b78fe2cfe79c49c81f37a80"
+cozy-client@2.24.2:
+  version "2.24.2"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.24.2.tgz#65ca07cc320bf0bdfa9a63cf837792f2bc5c2171"
   dependencies:
-    cozy-stack-client "^2.0.0"
-    lodash "^4.17.5"
-    prop-types "^15.6.0"
-    react "^16.2.0"
-    react-redux "^5.0.6"
-    redux "^3.7.2"
+    cozy-stack-client "^2.24.1"
+    lodash "4.17.10"
+    prop-types "15.6.2"
+    react "16.4.2"
+    react-redux "5.0.7"
+    redux "3.7.2"
 
 cozy-device-helper@^1.4.4:
   version "1.4.14"
@@ -2234,7 +2234,7 @@ cozy-scripts@0.10.6:
     webpack-merge "4.1.4"
     write-file-webpack-plugin "4.4.0"
 
-cozy-stack-client@^2.0.0:
+cozy-stack-client@^2.24.1:
   version "2.24.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.24.1.tgz#18fa5fd43ed0f47da7eae80eb4dcb0954a1ce497"
   dependencies:
@@ -7771,7 +7771,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@*, prop-types@^15.6.0, prop-types@^15.6.2:
+prop-types@*, prop-types@15.6.2, prop-types@^15.6.0, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -8097,14 +8097,14 @@ react@15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@^16.2.0:
-  version "16.6.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.6.0.tgz#b34761cfaf3e30f5508bc732fb4736730b7da246"
+react@16.4.2:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
+    fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.10.0"
+    prop-types "^15.6.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -8610,13 +8610,6 @@ sax@0.5.x:
 sax@^1.2.4, sax@~1.2.1, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-
-scheduler@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 schema-utils@^0.3.0:
   version "0.3.0"
