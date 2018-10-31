@@ -1,4 +1,6 @@
+/* global cozy */
 import React, { Component } from 'react'
+import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import appEntryPoint from '../components/appEntryPoint'
@@ -15,10 +17,45 @@ import StoreRedirection from '../components/StoreRedirection'
 
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 
+const IDLE = 'idle'
+const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
+
 class App extends Component {
+  state = {
+    context: {},
+    error: null,
+    status: IDLE
+  }
+
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
+    this.fetchContext()
+  }
+
+  getChildContext() {
+    const { context } = this.state
+    return context && context.attributes
+  }
+
+  async fetchContext() {
+    this.setState({
+      status: FETCHING_CONTEXT
+    })
+
+    const context = await cozy.client
+      .fetchJSON('GET', '/settings/context')
+      .catch(error => {
+        this.setState({
+          error,
+          status: IDLE
+        })
+      })
+
+    this.setState({
+      context,
+      status: IDLE
+    })
   }
 
   render() {
@@ -31,7 +68,10 @@ class App extends Component {
       collection => collection.fetchStatus === 'failed'
     )
 
-    const isReady = !hasError && !isFetching
+    const { status } = this.state
+    const isFetchingContext = status === FETCHING_CONTEXT
+
+    const isReady = !hasError && !isFetching && !isFetchingContext
 
     return (
       <Layout
@@ -77,6 +117,10 @@ class App extends Component {
       </Layout>
     )
   }
+}
+
+App.childContextTypes = {
+  features: PropTypes.array
 }
 
 /*

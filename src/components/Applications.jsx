@@ -45,7 +45,11 @@ export const Applications = () => {
           ) : (
             <div className="list app-list" data-tutorial="home-apps">
               {data
-                .filter(app => !ignoredAppSlugs.includes(app.slug))
+                .filter(
+                  app =>
+                    app.state !== 'hidden' &&
+                    !ignoredAppSlugs.includes(app.slug)
+                )
                 .map((app, index) => (
                   <AppTile key={index} app={app} />
                 ))}
