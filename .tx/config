@@ -6,3 +6,9 @@ file_filter = src/locales/<lang>.json
 source_file = src/locales/en.json
 source_lang = en
 type = KEYVALUEJSON
+
+[cozy-home.manifest]
+file_filter = manifest.<lang>.json
+source_file = manifest.en.json
+source_lang = en
+type = KEYVALUEJSON

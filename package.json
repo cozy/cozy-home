@@ -34,6 +34,7 @@
     "test": "jest --verbose --coverage",
     "test:watch": "jest --verbose --coverage --watch",
     "tx": "tx pull --all || true",
+    "tx:manifest:push": "jq '.locales.en' manifest.webapp > manifest.en.json && tx push -s -r cozy-home.manifest && rm manifest.en.json",
     "watch": "npm run watch:browser",
     "watch:browser": "NODE_ENV=browser:development npm run commons:watch",
     "watch:mobile": "NODE_ENV=mobile:development npm run commons:watch",
