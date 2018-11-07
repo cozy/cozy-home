@@ -2,7 +2,6 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
 
-import { getKonnectorIcon } from '../../lib/icons'
 import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
 
 import { getTriggerLastJob } from '../jobs'
@@ -452,8 +451,7 @@ export const getQueue = (state, konnectors) =>
               if (triggers[triggerId].isEnqueued) {
                 const label = konnector.name
                 const status = getTriggerQueueStatus(triggers[triggerId])
-                const icon = getKonnectorIcon(konnector)
-                return queuedTriggers.concat({ label, status, icon })
+                return queuedTriggers.concat({ konnector, label, status })
               }
 
               return queuedTriggers

@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
+import AppIcon from 'cozy-ui/react/AppIcon'
+import { fetchIcon } from 'lib/icons'
+
 import styles from './styles'
 
 const Pending = translate()(props => (
@@ -33,7 +36,8 @@ class Item extends Component {
     }
   }
   render() {
-    const { label, status, icon } = this.props
+    const { client } = this.context
+    const { konnector, label, status, t } = this.props
     const { progress } = this.state
     return (
       <div
@@ -43,9 +47,12 @@ class Item extends Component {
         })}
       >
         <div className={classNames(styles['item-icon'])}>
-          {icon && (
-            <img className={classNames(styles['item-icon-img'])} src={icon} />
-          )}
+          <AppIcon
+            alt={t('app.logo.alt', { name: konnector.name })}
+            className="c-"
+            app={konnector}
+            fetchIcon={fetchIcon(client, konnector)}
+          />
         </div>
         <div className={classNames(styles['item-label'])}>{label}</div>
         <div className={styles['item-status']}>
@@ -136,9 +143,10 @@ class Queue extends Component {
             {queue.map((item, index) => (
               <Item
                 key={index}
+                konnector={item.konnector}
                 label={item.label}
                 status={item.status}
-                icon={item.icon}
+                t={t}
               />
             ))}
           </div>
