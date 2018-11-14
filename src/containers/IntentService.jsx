@@ -15,7 +15,7 @@ class IntentService extends Component {
       const installedKonnector = await service.compose(
         'INSTALL',
         'io.cozy.apps',
-        data
+        { data, configure: false }
       )
 
       // if installedKonnector is null, it means the installation have been
