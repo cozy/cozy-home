@@ -56,7 +56,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "babel-cli": "6.26.0",
-    "cozy-client": "2.24.2",
+    "cozy-client": "2.0.0",
     "cozy-scripts": "0.10.6",
     "date-fns": "1.29.0",
     "enzyme-adapter-react-15": "1.1.0",
