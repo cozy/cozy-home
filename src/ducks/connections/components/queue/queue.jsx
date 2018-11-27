@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
-import { fetchIcon } from 'lib/icons'
+import { appIconProps } from 'lib/icons'
 
 import styles from './styles'
 
@@ -36,7 +36,6 @@ class Item extends Component {
     }
   }
   render() {
-    const { client } = this.context
     const { konnector, label, status, t } = this.props
     const { progress } = this.state
     return (
@@ -51,7 +50,7 @@ class Item extends Component {
             alt={t('app.logo.alt', { name: konnector.name })}
             className="c-"
             app={konnector}
-            fetchIcon={fetchIcon(client, konnector)}
+            {...appIconProps}
           />
         </div>
         <div className={classNames(styles['item-label'])}>{label}</div>

@@ -2,13 +2,12 @@ import styles from '../styles/konnectorHeaderIcon'
 import React, { Component } from 'react'
 
 import { AppIcon } from 'cozy-ui/react/AppIcon'
-import { fetchIcon } from 'lib/icons'
+import { appIconProps } from 'lib/icons'
 import { translate } from 'cozy-ui/react/I18n'
 
 export class KonnectorHeaderIcon extends Component {
   render() {
     const { center, konnector, t } = this.props
-    const { client } = this.context
     return (
       <div
         className={
@@ -21,7 +20,7 @@ export class KonnectorHeaderIcon extends Component {
           className={
             styles[`col-konnector-header-icon${center ? '--center' : ''}`]
           }
-          fetchIcon={fetchIcon(client, konnector)}
+          {...appIconProps}
         />
       </div>
     )
