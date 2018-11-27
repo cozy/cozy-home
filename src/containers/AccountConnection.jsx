@@ -60,6 +60,10 @@ class AccountConnection extends Component {
     }
   }
 
+  componentWillReceiveProps(props) {
+    this.UNSAFE_componentWillReceiveProps(props)
+  }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { existingAccount } = nextProps
 

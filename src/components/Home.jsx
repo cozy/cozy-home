@@ -17,6 +17,10 @@ class Home extends Component {
     this.launchTutorial()
   }
 
+  componentWillReceiveProps(props) {
+    this.UNSAFE_componentWillReceiveProps(props)
+  }
+
   UNSAFE_componentWillReceiveProps() {
     this.launchTutorial()
   }

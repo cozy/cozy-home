@@ -43,6 +43,10 @@ export default function statefulForm(mapPropsToFormConfig) {
         })
       }
 
+      componentWillReceiveProps(props) {
+        this.UNSAFE_componentWillReceiveProps(props)
+      }
+
       UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.values !== this.props.values) {
           this.assignValues(nextProps.values)
