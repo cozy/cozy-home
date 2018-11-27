@@ -59,6 +59,11 @@ export class AccountLoginForm extends React.Component {
   state = {
     submitEnabled: this.props.isOAuth || false
   }
+
+  componentWillReceiveProps(props) {
+    this.UNSAFE_componentWillReceiveProps(props)
+  }
+
   UNSAFE_componentWillReceiveProps(newProps) {
     const {
       dirty,

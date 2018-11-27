@@ -15,6 +15,10 @@ class KonnectorFolder extends React.Component {
     })
   }
 
+  componentWillReceiveProps(props) {
+    this.UNSAFE_componentWillReceiveProps(props)
+  }
+
   UNSAFE_componentWillReceiveProps = newProps => {
     this.setState({
       fields: newProps.fields
