@@ -12,3 +12,14 @@ export const getAccountLogin = account => {
     return account.auth.login || account.auth.identifier || account.auth.email
   }
 }
+
+export const getRandomKeyString = () =>
+  Math.random()
+    .toString(36)
+    .substring(2, 15) +
+  Math.random()
+    .toString(36)
+    .substring(2, 15) +
+  Math.random()
+    .toString(36)
+    .substring(2, 15)

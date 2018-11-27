@@ -20,6 +20,7 @@ export function popupCenter(url, title, w, h) {
 
   var left = width / 2 - w / 2 + dualScreenLeft
   var top = height / 2 - h / 2 + dualScreenTop
+  // need to be set here to get from the OAuth opener
   var newWindow = window.open(
     '',
     title,
@@ -35,19 +36,28 @@ export function popupCenter(url, title, w, h) {
   newWindow.location.href = url
 
   // Puts focus on the newWindow
-  if (window.focus) {
+  if (newWindow.focus) {
     newWindow.focus()
   }
   return newWindow
 }
 
-export function waitForClosedPopup(popup, origin) {
+export function waitForClosedPopup(popup, accountType) {
   return new Promise((resolve, reject) => {
     var cb = function(messageEvent) {
       if (!messageEvent.data) return // data shouldn't be empty
-      // if wrong connector oauth window
-      if (messageEvent.data.origin !== origin) return
-      resolve(messageEvent.data.key)
+      // we check the key provided to be sure to handle
+      // the correct OAuth popup response here
+      var OAuthStateKey = messageEvent.data.OAuthStateKey
+      if (OAuthStateKey) {
+        var state =
+          localStorage.getItem(OAuthStateKey) &&
+          JSON.parse(localStorage.getItem(OAuthStateKey))
+        if (state.accountType === accountType) {
+          localStorage.removeItem(OAuthStateKey)
+          resolve(messageEvent.data.key)
+        }
+      }
     }
     window.addEventListener('message', cb)
     // polling to monitor oauth window closing

@@ -26,6 +26,7 @@ const handleOAuthResponse = () => {
   if (queryParams.get('account')) {
     const opener = window.opener
     const accountKey = queryParams.get('account')
+    const OAuthStateKey = queryParams.get('state')
     const targetOrigin =
       window.location.origin ||
       `${window.location.protocol}//${window.location.hostname}${
@@ -34,7 +35,7 @@ const handleOAuthResponse = () => {
     opener.postMessage(
       {
         key: accountKey,
-        origin: window.name
+        OAuthStateKey
       },
       targetOrigin
     )
