@@ -7,7 +7,7 @@ import AppIcon from 'cozy-ui/react/AppIcon'
 import Icon from 'cozy-ui/react/Icon'
 import { NavLink, withRouter } from 'react-router-dom'
 
-import { fetchIcon } from '../lib/icons'
+import { appIconProps } from '../lib/icons'
 import { getErrorTitle } from '../lib/konnectors'
 import {
   getFirstError,
@@ -46,7 +46,7 @@ const getErrorClass = ({ accountsCount, error, hide, userError }) => {
 class KonnectorTile extends Component {
   render() {
     const { accountsCount, error, userError, konnector, route, t } = this.props
-    const { client, features } = this.context
+    const { features } = this.context
     const hideKonnectorErrors =
       features && features.includes('hide_konnector_errors')
     return (
@@ -69,7 +69,7 @@ class KonnectorTile extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             app={konnector}
-            fetchIcon={fetchIcon(client, konnector)}
+            {...appIconProps}
           />
           <Icon icon={brokenIcon} className="konnector-state" />
         </div>
