@@ -20,6 +20,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
+import { getRandomKeyString } from '../lib/helpers'
 import statefulForm from '../lib/statefulForm'
 
 import moment from 'moment'
@@ -91,13 +92,18 @@ class AccountConnection extends Component {
     const cozyUrl = `${window.location.protocol}//${
       document.querySelector('[role=application]').dataset.cozyDomain
     }`
+
+    // We use localStorage to store the account related data
+    const OAuthState = { accountType }
+    const OAuthStateKey = getRandomKeyString()
+    localStorage.setItem(OAuthStateKey, JSON.stringify(OAuthState))
     const newTab = popupCenter(
-      `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=xxx&nonce=${Date.now()}`,
+      `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=${OAuthStateKey}&nonce=${Date.now()}`,
       `${accountType}_oauth`,
       800,
       800
     )
-    return waitForClosedPopup(newTab, `${accountType}_oauth`)
+    return waitForClosedPopup(newTab, accountType)
       .then(accountID => {
         return this.terminateOAuth(accountID, values)
       })
