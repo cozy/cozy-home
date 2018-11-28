@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const { ProvidePlugin, DefinePlugin } = require('webpack')
+const { DefinePlugin } = require('webpack')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
