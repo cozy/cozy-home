@@ -39,7 +39,7 @@
     "cozy-scripts": "1.2.1",
     "date-fns": "1.29.0",
     "enzyme-adapter-react-15": "1.2.0",
-    "husky": "0.14.3",
+    "husky": "1.2.0",
     "intro.js-fix-cozy": "2.9.5",
     "lint-staged": "8.1.0",
     "lodash": "4.17.10",
