@@ -16,6 +16,7 @@ import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -114,6 +115,7 @@ class App extends Component {
         )}
         <Notifier />
         <ConnectionsQueue />
+        <IconSprite />
       </Layout>
     )
   }
