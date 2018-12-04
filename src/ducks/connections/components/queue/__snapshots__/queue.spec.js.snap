@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queue component should render 1`] = `
+<div
+  className="queue"
+>
+  <h4
+    className="queue-header"
+    onDoubleClick={[Function]}
+  >
+    <div
+      className="queue-header-inner"
+    >
+      <span
+        className="coz-desktop"
+      >
+        Syncing accounts:
+      </span>
+      <span
+        className="coz-mobile"
+      >
+        1 of 2
+      </span>
+    </div>
+  </h4>
+  <progress
+    className="queue-progress"
+    max={2}
+    value={1}
+  />
+  <div
+    className="queue-content"
+  >
+    <div
+      className="queue-list"
+    >
+      <Item
+        konnector={
+          Object {
+            "slug": "testk",
+          }
+        }
+        label="Test"
+        status="done"
+        t={[Function]}
+      />
+      <Item
+        konnector={
+          Object {
+            "slug": "testk2",
+          }
+        }
+        label="Test 2"
+        status="ongoing"
+        t={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

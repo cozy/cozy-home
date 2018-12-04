@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -79,7 +80,7 @@ class Item extends Component {
   }
 }
 
-class Queue extends Component {
+export class Queue extends Component {
   state = {
     collapsed: false
   }
@@ -157,6 +158,11 @@ class Queue extends Component {
       </div>
     )
   }
+}
+
+Queue.contextTypes = {
+  domain: PropTypes.string,
+  secure: PropTypes.bool
 }
 
 export default translate()(Queue)
