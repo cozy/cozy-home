@@ -46,7 +46,7 @@ class ProgressBar extends Component {
 
 class Item extends Component {
   render() {
-    const { konnector, label, status, t, triggerId } = this.props
+    const { konnector, label, status, t } = this.props
     const { domain, secure } = this.context
     const isOngoing = status === 'ongoing'
     return (
@@ -143,9 +143,9 @@ class Queue extends Component {
         />
         <div className={styles['queue-content']}>
           <div className={styles['queue-list']}>
-            {queue.map((item, index) => (
+            {queue.map(item => (
               <Item
-                key={index}
+                key={item.triggerId}
                 konnector={item.konnector}
                 label={item.label}
                 status={item.status}

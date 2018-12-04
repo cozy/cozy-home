@@ -451,7 +451,12 @@ export const getQueue = (state, konnectors) =>
               if (triggers[triggerId].isEnqueued) {
                 const label = konnector.name
                 const status = getTriggerQueueStatus(triggers[triggerId])
-                return queuedTriggers.concat({ konnector, label, status })
+                return queuedTriggers.concat({
+                  konnector,
+                  label,
+                  status,
+                  triggerId
+                })
               }
 
               return queuedTriggers
