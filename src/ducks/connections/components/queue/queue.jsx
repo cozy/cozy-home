@@ -13,10 +13,11 @@ const Pending = translate()(props => (
   </span>
 ))
 
-class Item extends Component {
+class ProgressBar extends Component {
   state = {
     progress: 0
   }
+
   componentDidMount() {
     let elapsedTime = 0
     this.myInterval = setInterval(() => {
@@ -27,17 +28,27 @@ class Item extends Component {
       })
     }, 25)
   }
-  componentDidUpdate = () => {
-    // If the status of the konnector is not 'ongoing', we remove the progressBar
-    const updatedStatus = this.props.status
-    if (updatedStatus !== 'ongoing') {
-      clearInterval(this.myInterval)
-      this.progressBar.remove()
-    }
-  }
+
   render() {
-    const { konnector, label, status, t } = this.props
     const { progress } = this.state
+    return (
+      <div
+        role="progressbar"
+        aria-valuenow={progress}
+        aria-valuemin="0"
+        aria-valuemax="100"
+        className={classNames(styles['queue-item-progress-bar'])}
+        style={{ width: `${progress}%` }}
+        ref={progressBar => (this.progressBar = progressBar)}
+      />
+    )
+  }
+}
+
+class Item extends Component {
+  render() {
+    const { key, konnector, label, status, t } = this.props
+    const isOngoing = status === 'ongoing'
     return (
       <div
         className={classNames(styles['queue-item'], {
@@ -61,15 +72,7 @@ class Item extends Component {
             <div className={styles[`item-${status}`]} />
           )}
         </div>
-        <div
-          role="progressbar"
-          aria-valuenow={progress}
-          aria-valuemin="0"
-          aria-valuemax="100"
-          className={classNames(styles['queue-item-progress-bar'])}
-          style={{ width: `${progress}%` }}
-          ref={progressBar => (this.progressBar = progressBar)}
-        />
+        {isOngoing && <ProgressBar />}
       </div>
     )
   }
