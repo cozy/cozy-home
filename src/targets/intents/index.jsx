@@ -1,3 +1,4 @@
+/* global __DEVELOPMENT__ */
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
@@ -26,7 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const store = configureStore(client, context, { lang })
 
   render(
-    <CozyProvider store={store} client={client}>
+    <CozyProvider
+      domain={appData.cozyDomain}
+      store={store}
+      client={client}
+      secure={!__DEVELOPMENT__}
+    >
       <I18n
         lang={lang}
         dictRequire={lang => require(`locales/${lang}`)}

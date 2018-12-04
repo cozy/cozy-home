@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
 import AppIcon from 'cozy-ui/react/AppIcon'
-import { appIconProps } from 'lib/icons'
 
 export class AppTile extends Component {
   render() {
     const { app, t } = this.props
+    const { domain, secure } = this.context
     const displayName = app.name_prefix
       ? `${app.name_prefix} ${app.name}`
       : app.name
@@ -16,7 +16,8 @@ export class AppTile extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: displayName })}
             app={app}
-            {...appIconProps}
+            domain={domain}
+            secure={secure}
           />
         </div>
         <h3 className="item-title">{displayName}</h3>

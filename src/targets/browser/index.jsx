@@ -1,4 +1,4 @@
-/* global cozy */
+/* global cozy, __DEVELOPMENT__ */
 import 'url-search-params-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
@@ -75,10 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const dictRequire = lang => require(`locales/${lang}`)
   const App = require('containers/App').default
-
   render(
     <MostRecentCozyClientProvider client={cozyClient}>
-      <CozyProvider store={store} client={cozyClient}>
+      <CozyProvider
+        store={store}
+        client={cozyClient}
+        domain={data.cozyDomain}
+        secure={!__DEVELOPMENT__}
+      >
         <I18n lang={lang} dictRequire={dictRequire} context={context}>
           <PiwikHashRouter>
             <App {...collectConfig} />
