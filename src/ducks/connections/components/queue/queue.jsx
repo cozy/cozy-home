@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
-import { appIconProps } from 'lib/icons'
 
 import styles from './styles'
 
@@ -47,7 +46,8 @@ class ProgressBar extends Component {
 
 class Item extends Component {
   render() {
-    const { key, konnector, label, status, t } = this.props
+    const { konnector, label, status, t, triggerId } = this.props
+    const { domain, secure } = this.context
     const isOngoing = status === 'ongoing'
     return (
       <div
@@ -60,8 +60,9 @@ class Item extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             className="c-"
+            domain={domain}
             app={konnector}
-            {...appIconProps}
+            secure={secure}
           />
         </div>
         <div className={classNames(styles['item-label'])}>{label}</div>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 export default class CozyProvider extends Component {
   static propTypes = {
+    domain: PropTypes.string,
+    secure: PropTypes.boolean,
     store: PropTypes.shape({
       subscribe: PropTypes.func.isRequired,
       dispatch: PropTypes.func.isRequired,
@@ -23,6 +25,8 @@ export default class CozyProvider extends Component {
 
   getChildContext() {
     return {
+      domain: this.props.domain,
+      secure: this.props.secure,
       store: this.props.store || this.context.store,
       client: this.props.client
     }
