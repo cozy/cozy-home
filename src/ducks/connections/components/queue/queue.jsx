@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -46,7 +47,7 @@ class ProgressBar extends Component {
 
 class Item extends Component {
   render() {
-    const { konnector, label, status, t, triggerId } = this.props
+    const { konnector, label, status, t } = this.props
     const { domain, secure } = this.context
     const isOngoing = status === 'ongoing'
     return (
@@ -79,7 +80,7 @@ class Item extends Component {
   }
 }
 
-class Queue extends Component {
+export class Queue extends Component {
   state = {
     collapsed: false
   }
@@ -143,9 +144,9 @@ class Queue extends Component {
         />
         <div className={styles['queue-content']}>
           <div className={styles['queue-list']}>
-            {queue.map((item, index) => (
+            {queue.map(item => (
               <Item
-                key={index}
+                key={item.triggerId}
                 konnector={item.konnector}
                 label={item.label}
                 status={item.status}
@@ -157,6 +158,11 @@ class Queue extends Component {
       </div>
     )
   }
+}
+
+Queue.contextTypes = {
+  domain: PropTypes.string,
+  secure: PropTypes.bool
 }
 
 export default translate()(Queue)
