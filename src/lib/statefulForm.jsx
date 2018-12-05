@@ -115,6 +115,7 @@ export default function statefulForm(mapPropsToFormConfig) {
       configureFields(config = {}, defaultAccountNamePlaceholder, dateFormat) {
         // it will at least have an accountName field
         const configFields = (config.konnector && config.konnector.fields) || {}
+        const configFolders = config.konnector && config.konnector.folders
 
         // account name field added by the application
         const accountNamePlaceholder =
@@ -140,6 +141,16 @@ export default function statefulForm(mapPropsToFormConfig) {
             )
           }
           delete fieldsFromConfig.advancedFields
+        }
+
+        // FIXME Does not handle folders as form field at all
+        if (Array.isArray(configFolders) && configFolders.length) {
+          const folder = configFolders[0] // we only handle the first one for now
+          if (folder.defaultDir) {
+            fieldsFromConfig.folderPath = {
+              advanded: true
+            }
+          }
         }
 
         let fields = {}

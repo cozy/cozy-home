@@ -101,7 +101,11 @@
       "warning": "You're changing your folder path",
       "oldFiles": "All your olds bills will be moved in your new path.",
       "newFiles": "Your news bills will be downloaded in your new path.",
-      "newPath": "Everything went well, the new path for your %{name} account is:"
+      "newPath": "Everything went well, the new path for your %{name} account is:",
+      "placeholder": {
+        "administrative": "Administrative",
+        "photos": "Photos"
+      }
     },
     "success": {
       "title": {
