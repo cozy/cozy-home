@@ -23,3 +23,15 @@ export const getRandomKeyString = () =>
   Math.random()
     .toString(36)
     .substring(2, 15)
+
+export const getCompleteFolderPath = (defaultDir, konnectorName, t) => {
+  let folderPath = `/${defaultDir}/$konnector`
+  return folderPath
+    .replace(/\/\//g, '/')
+    .replace(/\$konnector/gi, konnectorName)
+    .replace(
+      /\$administrative/gi,
+      t('account.folder.placeholder.administrative')
+    )
+    .replace(/\$photos/gi, t('account.folder.placeholder.photos'))
+}

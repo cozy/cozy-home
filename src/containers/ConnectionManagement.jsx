@@ -28,12 +28,14 @@ import KonnectorHeaderIcon from '../components/KonnectorHeaderIcon'
 import Notifier from '../components/Notifier'
 
 import backIcon from '../assets/sprites/icon-arrow-left.svg'
+import { getCompleteFolderPath } from 'lib/helpers'
 
 class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
     const { existingAccount, createdAccount, konnector } = props
+    const { t } = this.context
 
     const account = existingAccount || createdAccount
 
@@ -54,9 +56,23 @@ class ConnectionManagement extends Component {
         konnector.fields.advancedFields.folderPath) ||
       (!account && konnector && konnector.fields && konnector.folderPath)
     ) {
-      values.folderPath = this.context.t('account.config.default_folder', {
+      values.folderPath = t('account.config.default_folder', {
         name: konnector.name
       })
+    } else if (
+      !account &&
+      konnector &&
+      Array.isArray(konnector.folders) &&
+      konnector.folders.length
+    ) {
+      const folder = konnector.folders[0] // we only handle the first one for now
+      if (folder.defaultDir) {
+        values.folderPath = getCompleteFolderPath(
+          folder.defaultDir,
+          konnector.name,
+          t
+        )
+      }
     }
 
     this.state = {

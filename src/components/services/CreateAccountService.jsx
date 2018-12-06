@@ -16,6 +16,8 @@ import {
   getTriggerByKonnectorAndAccount
 } from '../../reducers'
 
+import { getCompleteFolderPath } from 'lib/helpers'
+
 class CreateAccountService extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -31,6 +33,15 @@ class CreateAccountService extends React.Component {
       values.folderPath = t('account.config.default_folder', {
         name: konnector.name
       })
+    } else if (Array.isArray(konnector.folders) && konnector.folders.length) {
+      const folder = konnector.folders[0] // we only handle the first one for now
+      if (folder.defaultDir) {
+        values.folderPath = getCompleteFolderPath(
+          folder.defaultDir,
+          konnector.name,
+          t
+        )
+      }
     }
 
     this.setState({ values: values })
