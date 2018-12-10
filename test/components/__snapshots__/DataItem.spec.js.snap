@@ -285,6 +285,21 @@ exports[`DataItem component should display correctly the phonecommunicationlog d
 </li>
 `;
 
+exports[`DataItem component should display correctly the picture data type 1`] = `
+<li
+  className="col-data-item"
+>
+  <Icon
+    className="col-data-item-icon"
+    height="32px"
+    icon="test-file-stub"
+    spin={false}
+    width="32px"
+  />
+  Your pictures
+</li>
+`;
+
 exports[`DataItem component should display correctly the podcast data type 1`] = `
 <li
   className="col-data-item"
