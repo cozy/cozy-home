@@ -6,6 +6,7 @@ import { CozyClient, CozyProvider } from 'redux-cozy-client'
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
+import { Application } from 'cozy-doctypes'
 
 import I18n from 'cozy-ui/react/I18n'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
@@ -56,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
     uri: `//${data.cozyDomain}`,
+    schema: {
+      app: Application.schema
+    },
     token: data.cozyToken
   })
 
