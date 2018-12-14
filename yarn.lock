@@ -2792,17 +2792,6 @@ cozy-bar@6.9.3:
     redux-persist "5.10.0"
     redux-thunk "2.3.0"
 
-cozy-client-js@0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.12.0.tgz#dbce133f820b0aa48f318d39d40830b8fc9f7827"
-  integrity sha512-e/iqlccuSqTKNzn9lNayjUOqcskSjRjjfll8NQUUj/AhmREUDbFSpUf/jHnASqh+4Kh9QAY3gv8+oIjwmOOPog==
-  dependencies:
-    core-js "^2.5.3"
-    isomorphic-fetch "^2.2.1"
-    pouchdb "6.4.3"
-    pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-    pouchdb-find "6.4.3"
-
 cozy-client-js@0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.13.0.tgz#3ccb46b79ec1b72495d079e90203d534938e7c75"
@@ -2812,6 +2801,17 @@ cozy-client-js@0.13.0:
     isomorphic-fetch "^2.2.1"
     pouchdb "6.4.3"
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
+    pouchdb-find "6.4.3"
+
+cozy-client-js@0.14.2:
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.14.2.tgz#175f5386ccd02dbc4c78cce13a7bec26715e412c"
+  integrity sha512-08Xd22CfFvc+8tH1iJCQVOz64kJhjsfYC72wKLXqGMnxDtfR70ZCSHPmWAEkrdY1Q8gTv3fT9Qq7UrrnFzrVXw==
+  dependencies:
+    core-js "^2.5.3"
+    isomorphic-fetch "^2.2.1"
+    pouchdb "6.4.3"
+    pouchdb-adapter-cordova-sqlite "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
 cozy-client@5.0.2:
@@ -8606,6 +8606,13 @@ pouchdb-abstract-mapreduce@6.4.3:
     pouchdb-md5 "6.4.3"
     pouchdb-promise "6.4.3"
     pouchdb-utils "6.4.3"
+
+"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
+  version "2.0.2"
+  uid f3ee23009b70209c611435d57491aa77fb88802a
+  resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
+  dependencies:
+    pouchdb-adapter-websql-core "^6.1.1"
 
 "pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
