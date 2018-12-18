@@ -1,4 +1,6 @@
 /* accounts lib ready to be added to cozy-client-js */
+import * as realtime from './realtime'
+
 export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 export const ACCOUNT_ERRORS = {
@@ -44,4 +46,8 @@ export function update(cozy, account, newAccount) {
 
 export function _delete(cozy, account) {
   return cozy.data.delete(ACCOUNTS_DOCTYPE, account)
+}
+
+export function subscribeAll(cozy) {
+  return realtime.subscribeAll(cozy, ACCOUNTS_DOCTYPE)
 }

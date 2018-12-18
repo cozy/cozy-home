@@ -7,7 +7,6 @@ import { randomDayTime } from './daytime'
 
 import { createKonnectorTrigger } from '../ducks/triggers'
 import { launchTriggerAndQueue } from '../ducks/connections'
-import { createAccount } from '../ducks/accounts'
 
 export const CONNECTION_STATUS = {
   ERRORED: 'errored',
@@ -50,8 +49,19 @@ export default class CollectStore {
       })
 
     // Not really consistent code style but we try to use only async/await now.
+    const realtimeAccounts = await accounts.subscribeAll(cozy.client)
+    realtimeAccounts.onCreate(account => this.onAccountCreated(account))
+
     const realtimeTriggers = await triggers.subscribeAll(cozy.client)
     realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
+  }
+
+  async onAccountCreated(account) {
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      updateCollections: ['accounts']
+    })
   }
 
   async deleteTrigger(trigger) {
@@ -126,11 +136,7 @@ export default class CollectStore {
   // https://github.com/cozy/cozy-stack/blob/master/docs/konnectors_workflow_example.md
   connectAccount(konnector, account) {
     // return object to store all business object implied in the connection
-    const connection = {
-      konnector: konnector
-    }
-    // detect oauth case
-    const isOAuth = !!account.oauth
+    const connection = { account, konnector }
 
     // 1. Create folder, will be replaced by an intent or something else
     return (
@@ -152,25 +158,6 @@ export default class CollectStore {
                 connection.folder._id
               )
             })
-        })
-        // 3. Creates account
-        .then(() => {
-          if (isOAuth) {
-            return account
-          }
-
-          return this.dispatch(
-            createAccount({
-              auth: account.auth,
-              account_type: konnector.slug
-            })
-          ).then(result => {
-            // Return account
-            return result.data[0]
-          })
-        })
-        .then(account => {
-          connection.account = account
         })
         // 4. Create trigger
         .then(() =>
