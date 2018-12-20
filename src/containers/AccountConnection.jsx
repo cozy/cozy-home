@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import collectConfig from 'config/collect'
+import { withMutations } from 'cozy-client'
 import {
   deleteConnection,
   getConnectionError,
@@ -14,11 +15,12 @@ import {
   launchTriggerAndQueue
 } from '../ducks/connections'
 import { fetchAccount } from '../ducks/accounts'
-
+import { has } from 'lodash'
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
+import accountsMutations from '../connections/accounts'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import { getRandomKeyString } from '../lib/helpers'
 import statefulForm from '../lib/statefulForm'
@@ -78,8 +80,8 @@ class AccountConnection extends Component {
     }
   }
 
-  connectAccount(auth) {
-    return this.runConnection({ auth }).catch(error => this.handleError(error))
+  connectAccount(account) {
+    return this.runConnection(account).catch(error => this.handleError(error))
   }
 
   connectAccountOAuth(accountType, values, scope) {
@@ -213,8 +215,15 @@ class AccountConnection extends Component {
   }
 
   // @param isUpdate : used to force updating values not related to OAuth
-  onSubmit = () => {
-    const { fields, values, konnector, t } = this.props
+  onSubmit = async () => {
+    const {
+      createAccount,
+      createChildAccount,
+      fields,
+      values,
+      konnector,
+      t
+    } = this.props
     const { account } = this.state
     let valuesToSubmit = { ...values }
 
@@ -267,13 +276,30 @@ class AccountConnection extends Component {
       return this.updateAccount(account, valuesToSubmit)
     }
 
+    const newAccount = {
+      account_type: konnector.slug,
+      auth: {
+        ...valuesToSubmit
+      }
+    }
+
+    let createdAccount
+
+    try {
+      createdAccount = has(konnector, 'aggregator.accountId')
+        ? await createChildAccount(konnector, newAccount)
+        : await createAccount(newAccount)
+    } catch (error) {
+      return this.handleError(error)
+    }
+
     return konnector && konnector.oauth
       ? this.connectAccountOAuth(
           konnector.oauth.account_type || konnector.slug,
           valuesToSubmit,
           konnector.oauth.scope
         )
-      : this.connectAccount(valuesToSubmit)
+      : this.connectAccount(createdAccount)
   }
 
   cancel() {
@@ -430,7 +456,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(statefulForm()(withRouter(translate()(AccountConnection))))
+export default withMutations(accountsMutations)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(statefulForm()(withRouter(translate()(AccountConnection))))
+)

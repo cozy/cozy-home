@@ -20,6 +20,8 @@ import 'styles/index.styl'
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
+const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
+
 const handleOAuthResponse = () => {
   /* global URLSearchParams */
   const queryParams = new URLSearchParams(window.location.search)
@@ -58,7 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const cozyClient = new MostRecentCozyClient({
     uri: `//${data.cozyDomain}`,
     schema: {
-      app: Application.schema
+      app: Application.schema,
+      accounts: {
+        doctype: ACCOUNTS_DOCTYPE,
+        attributes: {},
+        relationships: {
+          master: {
+            type: 'has-one',
+            doctype: ACCOUNTS_DOCTYPE
+          }
+        }
+      },
+      permissions: {
+        doctype: 'io.cozy.permissions',
+        attributes: {}
+      }
     },
     token: data.cozyToken
   })
