@@ -5,11 +5,11 @@ import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-15'
 
 import { tMock } from '../jestLib/I18n'
-import { AccountLoginForm } from '../../src/components/AccountLoginForm'
+import { AccountLoginForm } from '../../src/components/LegacyAccountLoginForm'
 
 configure({ adapter: new Adapter() })
 
-describe('AccountLoginForm component', () => {
+describe('LegacyAccountLoginForm component', () => {
   beforeEach(() => {
     jest.resetModules()
   })
