@@ -23,12 +23,22 @@ const getKonnectorError = ({ error, t }) => {
     : null
 }
 
-const getErrorClass = ({ accountsCount, error, hide, userError }) => {
+const getErrorClass = ({
+  accountsCount,
+  error,
+  hide,
+  userError,
+  hasUpdate
+}) => {
   if (hide) return ''
 
   // userError must be checked first as it is also an error.
   if (userError) {
     return 'konnector-error konnector-error--connection'
+  }
+
+  if (hasUpdate) {
+    return 'konnector-error--update'
   }
 
   if (error) {
@@ -61,7 +71,8 @@ class KonnectorTile extends Component {
               accountsCount,
               error,
               hide: hideKonnectorErrors,
-              userError
+              userError,
+              hasUpdate: !!konnector.available_version
             })
           )}
         >
