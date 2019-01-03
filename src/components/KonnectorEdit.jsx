@@ -133,6 +133,7 @@ export const KonnectorEdit = props => {
 
             {
               <AccountLoginForm
+                account={account}
                 connectorSlug={connector.slug}
                 disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}

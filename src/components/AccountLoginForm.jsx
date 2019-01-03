@@ -9,9 +9,10 @@ import { getKonnector } from 'ducks/konnectors'
 export class AccountLoginForm extends PureComponent {
   render() {
     const { features } = this.context
-    const { konnector } = this.props
+    const { account, konnector } = this.props
+    const initialValues = account ? account.auth : {}
     return features && features.includes('harvest') ? (
-      <AccountForm {...konnector} />
+      <AccountForm initialValues={initialValues} {...konnector} />
     ) : (
       <LegacyAccountLoginForm {...this.props} />
     )
