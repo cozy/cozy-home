@@ -276,30 +276,32 @@ class AccountConnection extends Component {
       return this.updateAccount(account, valuesToSubmit)
     }
 
-    const newAccount = {
-      account_type: konnector.slug,
-      auth: {
-        ...valuesToSubmit
+    if (konnector && konnector.oauth) {
+      return this.connectAccountOAuth(
+        konnector.oauth.account_type || konnector.slug,
+        valuesToSubmit,
+        konnector.oauth.scope
+      )
+    } else {
+      let createdAccount
+
+      const newAccount = {
+        account_type: konnector.slug,
+        auth: {
+          ...valuesToSubmit
+        }
       }
+
+      try {
+        createdAccount = has(konnector, 'aggregator.accountId')
+          ? await createChildAccount(konnector, newAccount)
+          : await createAccount(newAccount)
+      } catch (error) {
+        return this.handleError(error)
+      }
+
+      return this.connectAccount(createdAccount)
     }
-
-    let createdAccount
-
-    try {
-      createdAccount = has(konnector, 'aggregator.accountId')
-        ? await createChildAccount(konnector, newAccount)
-        : await createAccount(newAccount)
-    } catch (error) {
-      return this.handleError(error)
-    }
-
-    return konnector && konnector.oauth
-      ? this.connectAccountOAuth(
-          konnector.oauth.account_type || konnector.slug,
-          valuesToSubmit,
-          konnector.oauth.scope
-        )
-      : this.connectAccount(createdAccount)
   }
 
   cancel() {
