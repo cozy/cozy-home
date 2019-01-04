@@ -341,6 +341,7 @@
   },
 
   "error": {
+    "update": "An update is available for this service. Click on this message to update it and to get the latest features.",
     "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
     "LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
     "UNKNOWN_ERROR": "Something unexpected happened while running the connector",
