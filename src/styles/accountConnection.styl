@@ -1,4 +1,5 @@
 @require 'tools/mixins.styl'
+@require 'settings/palette.styl'
 
 :local // @stylint ignore
     h3
@@ -19,6 +20,11 @@
         display flex
         flex-direction column
         justify-content center
+
+        .col-konnector-update
+            width calc(90% - 1rem)
+            align-self center
+            max-width inherit
 
     @media (max-width: rem(400))
         h4
