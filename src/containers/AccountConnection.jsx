@@ -57,6 +57,7 @@ class AccountConnection extends Component {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       isFetching: false,
+      isRedirecting: false,
       maintenance:
         this.props.maintenance &&
         this.props.maintenance[this.props.konnector.slug],
@@ -326,6 +327,7 @@ class AccountConnection extends Component {
   }
 
   redirectToStore = async () => {
+    this.setState({ isRedirecting: true })
     const { konnector } = this.props
     await cozy.client.intents.redirect('io.cozy.apps', { slug: konnector.slug })
   }
@@ -367,6 +369,7 @@ class AccountConnection extends Component {
       oAuthTerminated,
       submitting,
       isFetching,
+      isRedirecting,
       folders,
       maintenance,
       lang
@@ -381,6 +384,7 @@ class AccountConnection extends Component {
             type="error"
             onClick={this.redirectToStore}
             className={styles['col-konnector-update']}
+            disabled={isRedirecting}
           >
             {t('error.update')}
           </ButtonAction>
