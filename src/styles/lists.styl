@@ -102,13 +102,11 @@ sundown = #ffb3b3
             height auto
             width 100%
 
-        &.konnector-error--connection,
-        &.konnector-error--no-accounts
+        &.konnector-error--major-breaking
             color sundown
             border rem(2) solid sundown
             background-color chablis
-        &.konnector-error--update::before,
-        &.konnector-error--connection::before
+        &.konnector-error--with-badge::before
             content ''
             position absolute
             top 0
@@ -119,11 +117,12 @@ sundown = #ffb3b3
             border-radius 50%
             transform translateX(50%) translateY(-50%)
 
-        &.konnector-error--blocked
+        &.konnector-error--minor-breaking
             color silver
             border rem(2) solid silver
 
-    .konnector-error .konnector-state
+    .konnector-error--minor-breaking .konnector-state,
+    .konnector-error--major-breaking .konnector-state
         display block
 
     .konnector-state

@@ -34,19 +34,19 @@ const getErrorClass = ({
 
   // userError must be checked first as it is also an error.
   if (userError) {
-    return 'konnector-error konnector-error--connection'
+    return 'konnector-error--major-breaking konnector-error--with-badge'
   }
 
   if (hasUpdate) {
-    return 'konnector-error--update'
+    return 'konnector-error--with-badge'
   }
 
   if (error) {
-    return 'konnector-error konnector-error--blocked'
+    return 'konnector-error--minor-breaking'
   }
 
   if (!accountsCount) {
-    return 'konnector-error konnector-error--no-accounts'
+    return 'konnector-error--major-breaking'
   }
 
   return null
