@@ -17,6 +17,7 @@ import {
 import { fetchAccount } from '../ducks/accounts'
 import { has } from 'lodash'
 import { translate } from 'cozy-ui/react/I18n'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorEdit from '../components/KonnectorEdit'
@@ -56,6 +57,7 @@ class AccountConnection extends Component {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       isFetching: false,
+      isRedirecting: false,
       maintenance:
         this.props.maintenance &&
         this.props.maintenance[this.props.konnector.slug],
@@ -326,6 +328,12 @@ class AccountConnection extends Component {
     return messages
   }
 
+  redirectToStore = async () => {
+    this.setState({ isRedirecting: true })
+    const { konnector } = this.props
+    await cozy.client.intents.redirect('io.cozy.apps', { slug: konnector.slug })
+  }
+
   render() {
     const {
       createdAccount,
@@ -363,6 +371,7 @@ class AccountConnection extends Component {
       oAuthTerminated,
       submitting,
       isFetching,
+      isRedirecting,
       folders,
       maintenance,
       lang
@@ -372,6 +381,16 @@ class AccountConnection extends Component {
       success || queued ? this.buildSuccessMessages(konnector) : []
     return (
       <div className={styles['col-account-connection']}>
+        {!!konnector.available_version && (
+          <ButtonAction
+            type="error"
+            onClick={this.redirectToStore}
+            className={styles['col-konnector-update']}
+            disabled={isRedirecting}
+          >
+            {t('error.update')}
+          </ButtonAction>
+        )}
         {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
             isFetching={isFetching}
