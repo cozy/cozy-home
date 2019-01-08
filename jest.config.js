@@ -9,7 +9,7 @@ module.exports = {
     // identity-obj-proxy module is installed by cozy-scripts
     styles: 'identity-obj-proxy'
   },
-  transformIgnorePatterns: ['node_modules/(?!cozy-ui)'],
+  transformIgnorePatterns: ['node_modules/(?!cozy-ui|cozy-harvest-lib)'],
   globals: {
     __ALLOW_HTTP__: false,
     __TARGET__: 'browser',
