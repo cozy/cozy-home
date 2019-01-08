@@ -14,6 +14,7 @@ import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
 import AccountPickerItem from './AccountPickerItem'
 import KonnectorHeaderIcon from './KonnectorHeaderIcon'
+import { hasPendingUpdate } from 'lib/konnectors'
 
 import backIcon from '../assets/sprites/icon-arrow-left.svg'
 
@@ -44,6 +45,7 @@ export const AccountPicker = ({
               <AccountPickerItem
                 konnectorSlug={konnectorSlug}
                 connection={connection}
+                hasUpdate={hasPendingUpdate(konnector)}
               />
             </li>
           ))}

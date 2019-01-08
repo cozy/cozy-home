@@ -80,6 +80,10 @@ const checkLocale = (t, key) => {
   return t(key) !== key
 }
 
+export const hasPendingUpdate = konnector => {
+  return !!konnector.available_version
+}
+
 export const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
   // Legacy. Kind of.
   if (!error.code) return error.message
