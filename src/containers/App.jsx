@@ -15,6 +15,7 @@ import Home from '../components/Home'
 import IntentRedirect from '../components/IntentRedirect'
 import StoreRedirection from '../components/StoreRedirection'
 
+import { enableFlags } from 'cozy-flags'
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 
@@ -52,6 +53,10 @@ class App extends Component {
           status: IDLE
         })
       })
+
+    if (context.attributes && context.attributes.features) {
+      enableFlags(context.attributes.features)
+    }
 
     this.setState({
       context,

@@ -37,6 +37,8 @@
   "dependencies": {
     "cozy-client": "5.2.0",
     "cozy-doctypes": "^1.18.0",
+    "cozy-flags": "^1.5.0",
+    "cozy-harvest-lib": "^0.11.0",
     "cozy-scripts": "1.3.0",
     "date-fns": "1.29.0",
     "enzyme-adapter-react-15": "1.2.0",
@@ -74,32 +76,6 @@
     "stylint": "1.5.9",
     "stylus": "0.54.5",
     "url-search-params-polyfill": "5.0.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "styl"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleNameMapper": {
-      "^redux-cozy-client$": "<rootDir>/src/lib/redux-cozy-client",
-      "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "styles": "identity-obj-proxy"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!cozy-ui)"
-    ],
-    "globals": {
-      "__ALLOW_HTTP__": false,
-      "__TARGET__": "browser",
-      "__SENTRY_TOKEN__": "token",
-      "cozy": {}
-    }
   },
   "lint-staged": {
     "{src,test}/**/*.{js,jsx}": [
