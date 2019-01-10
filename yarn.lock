@@ -3277,7 +3277,7 @@ cozy-client-js@0.14.2:
     core-js "^2.5.3"
     isomorphic-fetch "^2.2.1"
     pouchdb "6.4.3"
-    pouchdb-adapter-cordova-sqlite "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
+    pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
 cozy-client@5.2.0:
@@ -3324,10 +3324,10 @@ cozy-flags@^1.5.0:
   dependencies:
     detect-node "2.0.4"
 
-cozy-harvest-lib@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.11.0.tgz#030895876bd2bec1ce29e48a08abbe144370ac8d"
-  integrity sha512-l23xgKwrAC8h9v4TOi+VIC0hzJ0HsrV+xn2cJYReaE12agHfU6ClaWQ0ry9boNMc8zRjMauEanROVCMtUth8Lw==
+cozy-harvest-lib@0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.14.0.tgz#3b7e980a14b9106d453fc43334b2eefa3c9b9040"
+  integrity sha512-PFPKZCc4U7UKNjK0IVt7qMeG3O60mcUlVH3B0i/VKIBsT51pe3vTgjkFDgqLZKCHnrujxMELAlYyOb2GNzxwPA==
   dependencies:
     cozy-ui "17.17.0"
     final-form "^4.11.0"
