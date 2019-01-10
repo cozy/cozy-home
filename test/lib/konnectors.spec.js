@@ -48,6 +48,38 @@ describe('konnectors lib', () => {
       ).toBe(true)
     })
 
+    it('returns true for CHALLENGE_ASKED', () => {
+      expect(
+        konnectors.isKonnectorUserError(
+          konnectors.buildKonnectorError('CHALLENGE_ASKED')
+        )
+      ).toBe(true)
+    })
+
+    it('returns true for DISK_QUOTA_EXCEEDED', () => {
+      expect(
+        konnectors.isKonnectorUserError(
+          konnectors.buildKonnectorError('DISK_QUOTA_EXCEEDED')
+        )
+      ).toBe(true)
+    })
+
+    it('returns true for NOT_EXISTING_DIRECTORY', () => {
+      expect(
+        konnectors.isKonnectorUserError(
+          konnectors.buildKonnectorError('NOT_EXISTING_DIRECTORY')
+        )
+      ).toBe(true)
+    })
+
+    it('returns true for TERMS_VERSION_MISMATCH', () => {
+      expect(
+        konnectors.isKonnectorUserError(
+          konnectors.buildKonnectorError('TERMS_VERSION_MISMATCH')
+        )
+      ).toBe(true)
+    })
+
     it('returns false for any other error', () => {
       expect(
         konnectors.isKonnectorUserError(
