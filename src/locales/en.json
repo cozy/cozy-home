@@ -389,6 +389,7 @@
     "empty": "No connectors configured",
     "noAccount": "No account",
     "add": "Add a service",
+    "update": "Update",
     "no-connectors-connected": "You have not yet connected connectors",
     "get-info": "Get automatically all your informations in your Cozy",
     "connect-account": "Connect my accounts",
