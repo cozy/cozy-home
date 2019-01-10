@@ -60,7 +60,7 @@
     "timeago-react": "2.0.0"
   },
   "devDependencies": {
-    "babel-preset-cozy-app": "1.2.1",
+    "babel-preset-cozy-app": "1.2.5",
     "cozy-bar": "6.9.3",
     "cozy-client-js": "0.12.0",
     "cozy-ui": "17.3.1",
