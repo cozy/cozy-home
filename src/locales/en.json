@@ -202,6 +202,10 @@
         "title": "Action needed on the provider",
         "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
       },
+      "TERMS_VERSION_MISMATCH": {
+        "title": "Service terms not matched",
+        "description": "Our partner Budget Insight got its terms changed. You must sign them in order to keep using this service. If you encounter any problem, you can contact us at contact@cozycloud.cc."
+      },
       "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
         "title": "Access refresh required",
         "description": "It seems that the [%{name}](%{link}) website requires you to refresh the access you gave to the connector. Please disconnect and reconnect this connector. No data will be lost."
