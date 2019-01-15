@@ -149,7 +149,7 @@
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
     },
-    "forceConnection": "Synchronize now",
+    "forceConnection": "Run again",
     "editor_detail": "Service developed by %{editor}"
   },
   "account_picker": {
@@ -164,7 +164,7 @@
     "error": {
       "default": {
         "title": "An error occured",
-        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations or visit our online help."
+        "description": "Unfortunately, something went wrong when trying to connect to %{name}. Please check again your account informations, visit our online help or contact us at contact@cozycloud.cc."
       },
       "DISK_QUOTA_EXCEEDED": {
         "title": "Cozy Storage full",
