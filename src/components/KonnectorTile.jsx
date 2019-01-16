@@ -14,6 +14,7 @@ import {
   getLastSyncDate
 } from '../ducks/connections'
 import { getKonnectorTriggersCount } from '../reducers'
+import { isInMaintenance } from '../ducks/konnectors'
 
 import brokenIcon from '../assets/icons/broken.svg'
 
@@ -27,10 +28,15 @@ const getErrorClass = ({
   accountsCount,
   error,
   hide,
-  userError,
-  hasUpdate
+  hasUpdate,
+  inMaintenance,
+  userError
 }) => {
   if (hide) return ''
+
+  if (inMaintenance) {
+    return 'konnector-error--minor-breaking'
+  }
 
   // userError must be checked first as it is also an error.
   if (userError) {
@@ -54,7 +60,15 @@ const getErrorClass = ({
 
 class KonnectorTile extends Component {
   render() {
-    const { accountsCount, error, userError, konnector, route, t } = this.props
+    const {
+      accountsCount,
+      error,
+      inMaintenance,
+      userError,
+      konnector,
+      route,
+      t
+    } = this.props
     const { domain, features, secure } = this.context
     const hideKonnectorErrors =
       features && features.includes('hide_konnector_errors')
@@ -72,7 +86,8 @@ class KonnectorTile extends Component {
               error,
               hide: hideKonnectorErrors,
               userError,
-              hasUpdate: !!konnector.available_version
+              hasUpdate: !!konnector.available_version,
+              inMaintenance
             })
           )}
         >
@@ -97,7 +112,8 @@ const mapStateToProps = (state, props) => {
     error: getFirstError(state.connections, konnector.slug),
     userError: getFirstUserError(state.connections, konnector.slug),
     lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
-    accountsCount: getKonnectorTriggersCount(state, konnector)
+    accountsCount: getKonnectorTriggersCount(state, konnector),
+    inMaintenance: isInMaintenance(konnector.slug)
   }
 }
 

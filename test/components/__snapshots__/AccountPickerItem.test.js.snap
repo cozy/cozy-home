@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AccountPickerItem component should display maintenance if it is in maintenance 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="col-account-picker-button col-account-picker-button-account"
+  to="/connected/bouilligue/accounts/123456789"
+>
+  <div
+    className="col-account-picker-button-infos"
+  >
+    <span>
+      123456789
+    </span>
+    <small />
+  </div>
+  <div
+    className="col-account-picker-button-status"
+  >
+    <span>
+      Service interrupted
+    </span>
+  </div>
+</NavLink>
+`;
+
+exports[`AccountPickerItem component should display maintenance if it is in maintenance even if it has an error 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="col-account-picker-button col-account-picker-button-account"
+  to="/connected/bouilligue/accounts/123456789"
+>
+  <div
+    className="col-account-picker-button-infos"
+  >
+    <span>
+      123456789
+    </span>
+    <small />
+  </div>
+  <div
+    className="col-account-picker-button-status"
+  >
+    <span>
+      Service interrupted
+    </span>
+  </div>
+</NavLink>
+`;
+
 exports[`AccountPickerItem component should display the error if it has error 1`] = `
 <NavLink
   activeClassName="active"
@@ -84,6 +134,31 @@ exports[`AccountPickerItem component should display the update message if has up
 `;
 
 exports[`AccountPickerItem component should display the update message if has update even if is connected 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="col-account-picker-button col-account-picker-button-account"
+  to="/connected/bouilligue/accounts/123456789"
+>
+  <div
+    className="col-account-picker-button-infos"
+  >
+    <span>
+      123456789
+    </span>
+    <small />
+  </div>
+  <div
+    className="col-account-picker-button-status"
+  >
+    <span>
+      Update available
+    </span>
+  </div>
+</NavLink>
+`;
+
+exports[`AccountPickerItem component should display the update message if it has update and is in maintenance even if it has error 1`] = `
 <NavLink
   activeClassName="active"
   aria-current="page"
