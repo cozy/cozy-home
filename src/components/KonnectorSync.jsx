@@ -1,9 +1,8 @@
-import styles from '../styles/KonnectorSync'
-
 import React from 'react'
-import classNames from 'classnames'
 import DateFns from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
+import Button from 'cozy-ui/react/Button'
+import Icon from 'cozy-ui/react/Icon'
 
 import DescriptionContent from './DescriptionContent'
 
@@ -75,21 +74,13 @@ export const KonnectorSync = ({
         />
       }
       {!maintenance && (
-        <button
-          className={
-            submitting
-              ? classNames(
-                  styles['account-forceConnection'],
-                  styles['submitting']
-                )
-              : classNames(styles['account-forceConnection'])
-          }
+        <Button
           disabled={submitting}
-          aria-busy={submitting}
           onClick={onForceConnection}
-        >
-          {t('account.forceConnection')}
-        </button>
+          label={t('account.forceConnection')}
+          subtle
+          icon={<Icon focusable="false" icon="sync" spin={submitting} />}
+        />
       )}
     </div>
   )

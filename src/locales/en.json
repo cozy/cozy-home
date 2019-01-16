@@ -149,7 +149,7 @@
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
     },
-    "forceConnection": "Run again",
+    "forceConnection": "Run again now",
     "editor_detail": "Service developed by %{editor}"
   },
   "account_picker": {
@@ -201,10 +201,6 @@
       "USER_ACTION_NEEDED": {
         "title": "Action needed on the provider",
         "description": "It seems that the [%{name}](%{link}) website requires you to log in and to do a specific action. Please rerun the connector once you have settled the issue on the website."
-      },
-      "TERMS_VERSION_MISMATCH": {
-        "title": "Service terms not matched",
-        "description": "Our partner Budget Insight got its terms changed. You must sign them in order to keep using this service. If you encounter any problem, you can contact us at contact@cozycloud.cc."
       },
       "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
         "title": "Access refresh required",
@@ -344,8 +340,14 @@
     "pattern": "The value must match a specific pattern: %{pattern}"
   },
 
+  "update": {
+    "title": "An update is available for this service.",
+    "regular": "Perform this update from the service page to keep fetching your data and to have the latest features",
+    "blocking": "Update it to keep fetching your data",
+    "CTA": "See the page"
+  },
+
   "error": {
-    "update": "An update is available for this service. Click on this message to update it and to get the latest features.",
     "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
     "LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
     "UNKNOWN_ERROR": "Something unexpected happened while running the connector",

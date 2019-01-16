@@ -17,13 +17,14 @@ import {
 import { fetchAccount } from '../ducks/accounts'
 import { has } from 'lodash'
 import { translate } from 'cozy-ui/react/I18n'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
 
 import KonnectorInstall from '../components/KonnectorInstall'
+import UpdateMessage from '../components/UpdateMessage'
 import KonnectorEdit from '../components/KonnectorEdit'
 import accountsMutations from '../connections/accounts'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import { getRandomKeyString } from '../lib/helpers'
+import { isKonnectorUpdateNeededError } from '../lib/konnectors'
 import statefulForm from '../lib/statefulForm'
 
 import moment from 'moment'
@@ -379,17 +380,24 @@ class AccountConnection extends Component {
     const { driveUrl } = this.store
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
+    const konnectorError = error || oAuthError || connectionError
+    // If this is an update needed error AND the service has an update
+    // available, we just display the blocking update banner
+    // so we don't propagate the error to KonnectorEdit/KonnectorInstall
+    const propagateError =
+      isKonnectorUpdateNeededError(konnectorError) &&
+      !!konnector.available_version
+        ? false
+        : true
     return (
       <div className={styles['col-account-connection']}>
         {!!konnector.available_version && (
-          <ButtonAction
-            type="error"
+          <UpdateMessage
             onClick={this.redirectToStore}
-            className={styles['col-konnector-update']}
             disabled={isRedirecting}
-          >
-            {t('error.update')}
-          </ButtonAction>
+            error={konnectorError}
+            isBlocking={isKonnectorUpdateNeededError(konnectorError)}
+          />
         )}
         {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
@@ -400,7 +408,7 @@ class AccountConnection extends Component {
             disableSuccessTimeout={disableSuccessTimeout}
             displayAdvanced={displayAdvanced}
             driveUrl={driveUrl}
-            error={error || oAuthError || connectionError}
+            error={propagateError && konnectorError}
             folders={folders}
             fields={fields}
             isUnloading={isUnloading}
@@ -431,7 +439,7 @@ class AccountConnection extends Component {
             isValid={isValid}
             dirty={dirty}
             disableSuccessTimeout={disableSuccessTimeout}
-            error={error || oAuthError || connectionError}
+            error={propagateError && konnectorError}
             fields={fields}
             queued={queued}
             isUnloading={isUnloading}
