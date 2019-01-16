@@ -32,52 +32,20 @@ describe('konnectors lib', () => {
   })
 
   describe('isKonnectorUserError', () => {
-    it('returns true for LOGIN_FAILED', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('LOGIN_FAILED')
-        )
-      ).toBe(true)
-    })
-
-    it('returns true for USER_ACTION_NEEDED', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('USER_ACTION_NEEDED.CHANGE_PASSWORD')
-        )
-      ).toBe(true)
-    })
-
-    it('returns true for CHALLENGE_ASKED', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('CHALLENGE_ASKED')
-        )
-      ).toBe(true)
-    })
-
-    it('returns true for DISK_QUOTA_EXCEEDED', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('DISK_QUOTA_EXCEEDED')
-        )
-      ).toBe(true)
-    })
-
-    it('returns true for NOT_EXISTING_DIRECTORY', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('NOT_EXISTING_DIRECTORY')
-        )
-      ).toBe(true)
-    })
-
-    it('returns true for TERMS_VERSION_MISMATCH', () => {
-      expect(
-        konnectors.isKonnectorUserError(
-          konnectors.buildKonnectorError('TERMS_VERSION_MISMATCH')
-        )
-      ).toBe(true)
+    ;[
+      'LOGIN_FAILED',
+      'USER_ACTION_NEEDED',
+      'CHALLENGE_ASKED',
+      'DISK_QUOTA_EXCEEDED',
+      'NOT_EXISTING_DIRECTORY'
+    ].forEach(errorType => {
+      it(`returns true for ${errorType}`, () => {
+        expect(
+          konnectors.isKonnectorUserError(
+            konnectors.buildKonnectorError(errorType)
+          )
+        ).toBe(true)
+      })
     })
 
     it('returns false for any other error', () => {
@@ -111,6 +79,16 @@ describe('konnectors lib', () => {
           konnectors.buildKonnectorError('UNEXPECTED_MESSAGE')
         )
       ).toBe(false)
+    })
+  })
+
+  describe('isKonnectorUpdateNeededError', () => {
+    it('returns true for TERMS_VERSION_MISMATCH', () => {
+      expect(
+        konnectors.isKonnectorUpdateNeededError(
+          konnectors.buildKonnectorError('TERMS_VERSION_MISMATCH')
+        )
+      ).toBe(true)
     })
   })
 

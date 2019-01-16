@@ -6,10 +6,13 @@ export const ERROR_TYPES = {
   LOGIN_FAILED: 'LOGIN_FAILED',
   MAINTENANCE: 'MAINTENANCE',
   NOT_EXISTING_DIRECTORY: 'NOT_EXISTING_DIRECTORY',
-  TERMS_VERSION_MISMATCH: 'TERMS_VERSION_MISMATCH',
   USER_ACTION_NEEDED: 'USER_ACTION_NEEDED',
   VENDOR_DOWN: 'VENDOR_DOWN',
   DISK_QUOTA_EXCEEDED: 'DISK_QUOTA_EXCEEDED'
+}
+
+export const UPDATE_NEEDED_ERRORS_TYPES = {
+  TERMS_VERSION_MISMATCH: 'TERMS_VERSION_MISMATCH'
 }
 
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
@@ -61,7 +64,6 @@ export function isKonnectorUserError(error) {
       ERROR_TYPES.DISK_QUOTA_EXCEEDED,
       ERROR_TYPES.LOGIN_FAILED,
       ERROR_TYPES.NOT_EXISTING_DIRECTORY,
-      ERROR_TYPES.TERMS_VERSION_MISMATCH,
       ERROR_TYPES.USER_ACTION_NEEDED
     ].includes(error.type)
   )
@@ -69,6 +71,14 @@ export function isKonnectorUserError(error) {
 
 export function isKonnectorKnownError(error) {
   return error && error.type && Object.keys(ERROR_TYPES).includes(error.type)
+}
+
+export function isKonnectorUpdateNeededError(error) {
+  return (
+    error &&
+    error.type &&
+    Object.keys(UPDATE_NEEDED_ERRORS_TYPES).includes(error.type)
+  )
 }
 
 export function buildKonnectorError(message) {
