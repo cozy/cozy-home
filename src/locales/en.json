@@ -149,7 +149,7 @@
         "delete": "Apologies, our server had an hiccup, do you mind starting again?"
       }
     },
-    "forceConnection": "Run again",
+    "forceConnection": "Run again now",
     "editor_detail": "Service developed by %{editor}"
   },
   "account_picker": {
