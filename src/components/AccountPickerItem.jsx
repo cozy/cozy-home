@@ -36,25 +36,25 @@ export const AccountPickerItem = ({
         <span>{accountName}</span>
         {nameAndLoginDiffer && <small>{accountLogin}</small>}
       </div>
-      {hasError &&
-        !hasUpdate && (
-          <div
-            className={classNames(
-              styles['col-account-picker-button-status'],
-              styles['col-account-picker-button-status--error']
-            )}
-          >
-            <span>
-              {getErrorTitle(t, error, key => `connection.error.${key}.title`)}
-            </span>
-            <Icon icon="warning" />
-          </div>
-        )}
-      {hasUpdate && (
-        <div className={styles['col-account-picker-button-status']}>
-          <span>{t('connector.update')}</span>
+      {hasError && (
+        <div
+          className={classNames(
+            styles['col-account-picker-button-status'],
+            styles['col-account-picker-button-status--error']
+          )}
+        >
+          <span>
+            {getErrorTitle(t, error, key => `connection.error.${key}.title`)}
+          </span>
+          <Icon icon="warning" />
         </div>
       )}
+      {hasUpdate &&
+        !hasError && (
+          <div className={styles['col-account-picker-button-status']}>
+            <span>{t('connector.update')}</span>
+          </div>
+        )}
       {isConnected && <Icon icon="check-circleless" color="#2BBA40" />}
       {isRunning && <Spinner />}
     </NavLink>

@@ -37,12 +37,12 @@ const getErrorClass = ({
     return 'konnector-error--major-breaking konnector-error--with-badge'
   }
 
-  if (hasUpdate) {
-    return 'konnector-error--with-badge'
-  }
-
   if (error) {
     return 'konnector-error--minor-breaking'
+  }
+
+  if (hasUpdate) {
+    return 'konnector-error--with-badge'
   }
 
   if (!accountsCount) {
