@@ -332,7 +332,10 @@ class AccountConnection extends Component {
   redirectToStore = async () => {
     this.setState({ isRedirecting: true })
     const { konnector } = this.props
-    await cozy.client.intents.redirect('io.cozy.apps', { slug: konnector.slug })
+    await cozy.client.intents.redirect('io.cozy.apps', {
+      slug: konnector.slug,
+      step: 'update'
+    })
   }
 
   render() {
