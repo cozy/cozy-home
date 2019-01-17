@@ -55,7 +55,8 @@ export const AccountPickerItem = ({
             <span>{t('connector.update')}</span>
           </div>
         )}
-      {isConnected && <Icon icon="check-circleless" color="#2BBA40" />}
+      {isConnected &&
+        !hasUpdate && <Icon icon="check-circleless" color="#2BBA40" />}
       {isRunning && <Spinner />}
     </NavLink>
   )
