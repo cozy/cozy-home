@@ -3396,6 +3396,20 @@ cozy-ui@18.5.0:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
+cozy-ui@18.8.0:
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.8.0.tgz#9fde1d356bb0acdb053d039961769601dbafd1f6"
+  integrity sha512-WrYKozgs3wz/BKfYtsmVlXH/8xOlFYLVWp0nTq0p08Kvpnb1WkCDxgYQqkVYmNxbi/NArdhUmaPdj5cQg8T7Cw==
+  dependencies:
+    body-scroll-lock "^2.5.8"
+    classnames "^2.2.5"
+    date-fns "^1.28.5"
+    hammerjs "^2.0.8"
+    node-polyglot "^2.2.2"
+    normalize.css "^7.0.0"
+    react-hot-loader "^4.3.11"
+    react-select "2.2.0"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
