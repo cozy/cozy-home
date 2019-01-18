@@ -1346,11 +1346,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@types/jquery@^2.0.40":
-  version "2.0.51"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.51.tgz#d0c728663de8905457a26c8891ac08ad2b3539c9"
-  integrity sha512-+vtCjz+pzr5KkaX/GMnVF0YtQqkm+oVcdBH0Q7zCxdwk42c71xJ9hT1b6Mbn4Kf7CAxSHvkWF1LRdpYwUM+pcg==
-
 "@types/node@*", "@types/node@^10.11.7":
   version "10.12.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
@@ -11485,19 +11480,17 @@ time-stamp@^1.0.0:
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
   integrity sha1-dkpaEa9QVhkhsTPztE5hhofg9cM=
 
-timeago-react@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/timeago-react/-/timeago-react-2.0.0.tgz#01ed7cea809a0e03706c6ec5602bfd29f76d8e49"
-  integrity sha512-XaO7aTKL5Yh6RzQrC9rl5zsSERBIPeAvDJRC7Hs0zwoZH2lj+e8FvQRA6DC+zjaFL3u+oBbeT2KYMIPE/ZMYTQ==
+timeago-react@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/timeago-react/-/timeago-react-2.0.1.tgz#a0dfa99e760e19261140bec0d97d713245663b6f"
+  integrity sha512-wUvBBbDjec9REKvMWpyb7GSH42n4oXMcoNV2OqD6VziR0bOspwlI6QrNqr1SgQ48drCS5s2OFEGV6ioiJZ0Q2Q==
   dependencies:
-    timeago.js "^3.0.1"
+    timeago.js "^4.0.0-beta.2"
 
-timeago.js@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-3.0.2.tgz#32a67e7c0d887ea42ca588d3aae26f77de5e76cc"
-  integrity sha1-MqZ+fA2IfqQspYjTquJvd95edsw=
-  dependencies:
-    "@types/jquery" "^2.0.40"
+timeago.js@^4.0.0-beta.2:
+  version "4.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.0-beta.2.tgz#4e50a7250626b67e168a934d5e15052119366db1"
+  integrity sha512-MQkHiYGoB6qZC4DNWsLc9bav+L9hpdulL6sL7okzKR8r1Ipask/tXKAio8T+4jeby8FbpbDvbnCKGrh1bLop3g==
 
 timers-browserify@^2.0.4:
   version "2.0.10"
