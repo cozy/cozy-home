@@ -3396,10 +3396,10 @@ cozy-ui@18.5.0:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
-cozy-ui@18.8.0:
-  version "18.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.8.0.tgz#9fde1d356bb0acdb053d039961769601dbafd1f6"
-  integrity sha512-WrYKozgs3wz/BKfYtsmVlXH/8xOlFYLVWp0nTq0p08Kvpnb1WkCDxgYQqkVYmNxbi/NArdhUmaPdj5cQg8T7Cw==
+cozy-ui@18.8.1:
+  version "18.8.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.8.1.tgz#9ac35d70645d10b1e89883833ba8429052a64a8f"
+  integrity sha512-gjMup7QU+NaDGve5M/48IvyQ/VMO8TYCqMJNlUA1WMfb4m8+cAi56L9ZuAscCnkYj2qhQscSFfOeMOs5BvsgKw==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
