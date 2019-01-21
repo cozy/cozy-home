@@ -3253,10 +3253,10 @@ cozy-client-js@0.14.2:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
-cozy-client@5.6.3:
-  version "5.6.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.6.3.tgz#cd3a07922b4082fa08af2bf66c4ece4827aaab38"
-  integrity sha512-5ae0wtwl0Y/6UIPEnf6GvscZDXWXtvsbYVe/se9+MuuGuuundkY912FQm4UJcgGqbPI9Uq4RK+q0BUw3jw93mA==
+cozy-client@5.6.4:
+  version "5.6.4"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.6.4.tgz#7abeceb95cb8b943bccd0a656fc4dbf53ef60bc0"
+  integrity sha512-e69hqyKVCqSwTmNFekKsl7crkZaQtC50Qu0iWkkc47ronTFgRlQDY70jV95d42XYHCrt124EGJpWNeDnyIeDbw==
   dependencies:
     cozy-device-helper "1.4.14"
     cozy-stack-client "^5.6.1"
