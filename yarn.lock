@@ -3298,12 +3298,12 @@ cozy-flags@^1.5.0:
   dependencies:
     detect-node "2.0.4"
 
-cozy-harvest-lib@0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.24.0.tgz#c56c633da5b6b47bc6fefb0345d44ba815176ab6"
-  integrity sha512-jHMSGtU1Aqg7H5bxhz9RE0mHH7dsWHLC8syqpSprbv+z3iEaihzoKZ5gKbhT/EGPvWP4YIFrsZUW4Z9kSHLQtQ==
+cozy-harvest-lib@0.24.2:
+  version "0.24.2"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.24.2.tgz#c49b0172a63f6092bec24eb5b7e695e361fb419a"
+  integrity sha512-QeX6VTtWz8fSl8nUYRbFCr4qvbRTv5LWs+/HslZ4n94qV10Sb0WqUurvCF+q24UFGT53BAlSEGbuUKerG4LjLw==
   dependencies:
-    cozy-ui "18.5.0"
+    cozy-ui "18.8.0"
     final-form "^4.11.0"
     lodash "^4.17.11"
     react-final-form "^3.7.0"
@@ -3381,20 +3381,6 @@ cozy-stack-client@^5.6.1:
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
-
-cozy-ui@18.5.0:
-  version "18.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.5.0.tgz#007bd493161273a67a1dd33adc8332d36e90e577"
-  integrity sha512-KezMceeEDCSb+NytHPiO7AknU+qOq8uAsOD6CitdLv3gaY2+qidJYA7oNSW2EP+ES3FSND7yb/zVlltjNNPgKA==
-  dependencies:
-    body-scroll-lock "^2.5.8"
-    classnames "^2.2.5"
-    date-fns "^1.28.5"
-    hammerjs "^2.0.8"
-    node-polyglot "^2.2.2"
-    normalize.css "^7.0.0"
-    react-hot-loader "^4.3.11"
-    react-select "2.2.0"
 
 cozy-ui@18.8.0:
   version "18.8.0"
