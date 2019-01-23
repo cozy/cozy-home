@@ -27,7 +27,6 @@ export class UpdateMessage extends Component {
           className="u-m-0"
           onClick={onClick}
           disabled={disabled}
-          icon="eye"
         />
       </div>
     )
