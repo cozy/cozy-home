@@ -12,6 +12,9 @@ export const fetchKonnectors = () =>
 export const fetchKonnectorsInMaintenance = () =>
   require('../../config/maintenance')
 
+export const isInMaintenance = slug =>
+  fetchKonnectorsInMaintenance().hasOwnProperty(slug)
+
 // Action creators
 export const receiveInstalledKonnector = konnector => {
   const normalized = {

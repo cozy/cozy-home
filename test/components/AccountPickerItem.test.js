@@ -92,4 +92,47 @@ describe('AccountPickerItem component', () => {
     const component = shallow(<AccountPickerItem {...mockProps} />).getElement()
     expect(component).toMatchSnapshot()
   })
+
+  it('should display maintenance if it is in maintenance', () => {
+    const mockProps = {
+      t: tMock,
+      konnectorSlug: 'bouilligue',
+      account: mockAccount,
+      inMaintenance: true,
+      connection: {}
+    }
+    const component = shallow(<AccountPickerItem {...mockProps} />).getElement()
+    expect(component).toMatchSnapshot()
+  })
+
+  it('should display maintenance if it is in maintenance even if it has an error', () => {
+    const mockProps = {
+      t: tMock,
+      konnectorSlug: 'bouilligue',
+      account: mockAccount,
+      inMaintenance: true,
+      connection: {
+        hasError: true,
+        error: new Error('Expected test error')
+      }
+    }
+    const component = shallow(<AccountPickerItem {...mockProps} />).getElement()
+    expect(component).toMatchSnapshot()
+  })
+
+  it('should display the update message if it has update and is in maintenance even if it has error', () => {
+    const mockProps = {
+      t: tMock,
+      hasUpdate: true,
+      konnectorSlug: 'bouilligue',
+      account: mockAccount,
+      inMaintenance: true,
+      connection: {
+        hasError: true,
+        error: new Error('Expected test error')
+      }
+    }
+    const component = shallow(<AccountPickerItem {...mockProps} />).getElement()
+    expect(component).toMatchSnapshot()
+  })
 })
