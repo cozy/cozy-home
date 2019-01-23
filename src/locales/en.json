@@ -342,7 +342,7 @@
 
   "update": {
     "title": "An update is available for this service.",
-    "regular": "Perform this update from the service page to keep fetching your data and to have the latest features",
+    "regular": "Perform this update to keep fetching your data and to have the latest features",
     "blocking": "Update it to keep fetching your data",
     "CTA": "Update"
   },
