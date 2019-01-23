@@ -4,6 +4,7 @@
   "main": "src/index.jsx",
   "scripts": {
     "tx": "tx pull --all || true",
+    "posttx": "./scripts/check-locales.sh",
     "lint": "yarn lint:js && yarn lint:styles",
     "lint:js": "cozy-scripts lint '{src,test}/**/*.{js,jsx}'",
     "lint:styles": "stylint src/styles --config ./.stylintrc",
