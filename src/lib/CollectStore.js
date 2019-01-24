@@ -172,7 +172,7 @@ export default class CollectStore {
                 // then use it if it needs.
                 startDate: new Date(),
                 ...randomDayTime(
-                  konnector.timeInterval ||
+                  konnector.time_interval ||
                     this.options.defaultTriggerTimeInterval
                 )
               }
