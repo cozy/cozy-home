@@ -35,6 +35,7 @@ const getErrorClass = ({
   if (hide) return ''
 
   if (inMaintenance) {
+    if (hasUpdate) return 'konnector-error--with-badge'
     return 'konnector-error--minor-breaking'
   }
 
