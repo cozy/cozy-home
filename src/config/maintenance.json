@@ -55,13 +55,6 @@
       "en": "Macif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Macif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
-  "sncf": {
-    "longTerm": true,
-    "message": {
-      "fr": "Oui.sncf a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Oui.sncf.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
-      "en": "Oui.sncf added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Oui.sncf.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
-    }
-  },
   "redbox": {
     "longTerm": true,
     "message": {
