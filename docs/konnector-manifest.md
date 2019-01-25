@@ -189,7 +189,7 @@ Property        | Description
 advanced        | Indicates if the field should be displayed in the "advanced" area of the form (default: `false`)
 default         | Default value. It can a string for a text field, or an object for a select field (`"default": {"value": "foo","name": "bar"},`)
 description     | Field description, as a locale key.
-label           | Custom label, represented by a locale key. Ex: `fields.identifier.label`. The key must match a path in the `locales` property provided in the manifest.
+label           | Predefined label. This value must match a locale key provided by Cozy-Home. Example: With `label: "identifier"`, Cozy-Home will use the locale key `account.form.label.idenfier`. To provide custom translation for fields, see the [`fields` property in the `locales`](#field-locales) manifest object.
 max             | Maximum length of the value (number of characters)
 min             | Minimum length of the value (number of characters)
 options         | When the field is a dropdown, list of available options
