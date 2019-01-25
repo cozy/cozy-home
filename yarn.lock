@@ -2899,10 +2899,10 @@ cozy-realtime@1.2.5:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.5.tgz#51d4572fdb2569f01f9cf67381687d3990d253e3"
   integrity sha512-rvmxkjOv3V6ZsZOFRIaGfD4Z+uoFD9BV+pBk8h8hH0fzFHObbrrgASWgrKjk9vaojDvTb74opQ5Lr3U8SqPHHQ==
 
-cozy-scripts@1.12.1:
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-1.12.1.tgz#a4155746aec6934b37f73541c92e88fda4768586"
-  integrity sha512-4OgudZ8eYOJQdch21KYTdsttth3RqmknC0nPMomiODaRhNF+ty/hNKCdHV49YRd1R/JkadhY/6p8aX3KH+dGjA==
+cozy-scripts@1.12.2:
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-1.12.2.tgz#3f29a8f2293e753b1ef69dc3132299cd6abcbf99"
+  integrity sha512-Lf7NgPoEi9O1fU6vhkVB8trCYG/eQXNX1f/kRcnzlYA+VXSGiE1mYS5z6Rk7N0i0YuQU7OGhBGke9MVG80FHqQ==
   dependencies:
     "@babel/core" "7.2.2"
     autoprefixer "9.4.6"
@@ -2930,7 +2930,7 @@ cozy-scripts@1.12.1:
     jest "23.6.0"
     json-loader "0.5.7"
     mini-css-extract-plugin "0.5.0"
-    postcss "7.0.13"
+    postcss "7.0.14"
     postcss-assets-webpack-plugin "3.0.0"
     postcss-discard-duplicates "4.0.2"
     postcss-discard-empty "4.0.1"
@@ -8560,10 +8560,10 @@ postcss-value-parser@^3.3.0, postcss-value-parser@^3.3.1:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
 
-postcss@7.0.13:
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.13.tgz#42bf716413e8f1c786ab71dc6e722b3671b16708"
-  integrity sha512-h8SY6kQTd1wISHWjz+E6cswdhMuyBZRb16pSTv3W4zYZ3/YbyWeJdNUeOXB5IdZqE1U76OUEjjjqsC3z2f3hVg==
+postcss@7.0.14, postcss@^7.0.13, postcss@^7.0.5:
+  version "7.0.14"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.14.tgz#4527ed6b1ca0d82c53ce5ec1a2041c2346bbd6e5"
+  integrity sha512-NsbD6XUUMZvBxtQAJuWDJeeC4QFsmWsfozWxCJPWf3M55K9iu2iMDaKqyoOdTJ1R4usBXuxlVFAIo8rZPQD4Bg==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
@@ -8587,15 +8587,6 @@ postcss@^7.0.0:
     chalk "^2.4.1"
     source-map "^0.6.1"
     supports-color "^5.5.0"
-
-postcss@^7.0.13, postcss@^7.0.5:
-  version "7.0.14"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.14.tgz#4527ed6b1ca0d82c53ce5ec1a2041c2346bbd6e5"
-  integrity sha512-NsbD6XUUMZvBxtQAJuWDJeeC4QFsmWsfozWxCJPWf3M55K9iu2iMDaKqyoOdTJ1R4usBXuxlVFAIo8rZPQD4Bg==
-  dependencies:
-    chalk "^2.4.2"
-    source-map "^0.6.1"
-    supports-color "^6.1.0"
 
 postcss@^7.0.6:
   version "7.0.6"
