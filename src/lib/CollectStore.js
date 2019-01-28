@@ -73,9 +73,15 @@ export default class CollectStore {
   }
 
   updateUnfinishedJob(job) {
+    const data = normalize(job, 'io.cozy.jobs')
+    // TODO Filter by worker on the WebSocket when it will be available in the
+    // stack
+    if (data.worker === 'thumbnail') {
+      return
+    }
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalize(job, 'io.cozy.jobs')] },
+      response: { data: [data] },
       updateCollections: ['jobs']
     })
   }
