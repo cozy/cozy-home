@@ -79,7 +79,7 @@ exports[`AccountPickerItem component should display the error if it has error 1`
 </NavLink>
 `;
 
-exports[`AccountPickerItem component should display the error if it has error even if it has update 1`] = `
+exports[`AccountPickerItem component should display the update if it has update even if it has error 1`] = `
 <NavLink
   activeClassName="active"
   aria-current="page"
@@ -95,15 +95,11 @@ exports[`AccountPickerItem component should display the error if it has error ev
     <small />
   </div>
   <div
-    className="col-account-picker-button-status col-account-picker-button-status--error"
+    className="col-account-picker-button-status"
   >
     <span>
-      Expected test error
+      Update available
     </span>
-    <Icon
-      icon="warning"
-      spin={false}
-    />
   </div>
 </NavLink>
 `;
