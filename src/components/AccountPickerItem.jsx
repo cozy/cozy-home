@@ -20,10 +20,9 @@ const HAS_UPDATE = 'HAS_UPDATE'
 const CONNECTED = 'CONNECTED'
 
 const getStatus = ({ hasError, hasUpdate, isConnected, inMaintenance }) => {
-  if (inMaintenance && hasUpdate) return HAS_UPDATE
+  if (hasUpdate) return HAS_UPDATE
   if (inMaintenance) return MAINTENANCE
   if (hasError) return ERRORED
-  if (hasUpdate) return HAS_UPDATE
   if (isConnected) return CONNECTED
 }
 

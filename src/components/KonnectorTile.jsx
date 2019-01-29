@@ -34,6 +34,10 @@ const getErrorClass = ({
 }) => {
   if (hide) return ''
 
+  if (hasUpdate) {
+    return 'konnector-error--with-badge'
+  }
+
   if (inMaintenance) {
     return 'konnector-error--minor-breaking'
   }
@@ -47,10 +51,6 @@ const getErrorClass = ({
     return 'konnector-error--minor-breaking'
   }
 
-  if (hasUpdate) {
-    return 'konnector-error--with-badge'
-  }
-
   if (!accountsCount) {
     return 'konnector-error--major-breaking'
   }
@@ -58,7 +58,7 @@ const getErrorClass = ({
   return null
 }
 
-class KonnectorTile extends Component {
+export class KonnectorTile extends Component {
   render() {
     const {
       accountsCount,

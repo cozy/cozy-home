@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KonnectorTile component should display correct error status if no accounts and no errors 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--major-breaking"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": null,
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct error status if other error but no update and not in maintenance 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title="Expected test user error"
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--minor-breaking"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": null,
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct error status if user error but no update and not in maintenance 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--major-breaking konnector-error--with-badge"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": null,
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct status if in maintenance but no update 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--minor-breaking"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": null,
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct status if update 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--with-badge"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": "5.0.0",
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct status if update even if in maintenance 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--with-badge"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": "5.0.0",
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct status if update even if other error 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title="Expected test error"
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--with-badge"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": "5.0.0",
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should display correct status if update even if user error 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon konnector-error--with-badge"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": "5.0.0",
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;
+
+exports[`KonnectorTile component should render correctly if success 1`] = `
+<NavLink
+  activeClassName="active"
+  aria-current="page"
+  className="item-wrapper"
+  title={null}
+  to="/mock"
+>
+  <div
+    className="item-icon"
+  >
+    <AppIcon
+      alt="Mock logo"
+      app={
+        Object {
+          "available_version": null,
+          "name": "Mock",
+          "slug": "mock",
+        }
+      }
+    />
+    <Icon
+      className="konnector-state"
+      icon="test-file-stub"
+      spin={false}
+    />
+  </div>
+  <h3
+    className="item-title"
+  >
+    Mock
+  </h3>
+</NavLink>
+`;

@@ -78,7 +78,7 @@ describe('AccountPickerItem component', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should display the error if it has error even if it has update', () => {
+  it('should display the update if it has update even if it has error', () => {
     const mockProps = {
       t: tMock,
       hasUpdate: true,
