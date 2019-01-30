@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KonnectorTile component should render maintenance if it is in maintenance without update 1`] = `
+<Connect(withRouter(KonnectorTile))
+  inMaintenance={true}
+/>
+`;
+
+exports[`KonnectorTile component should render updated mark if it is updated, even if it is in maintenance 1`] = `
+<Connect(withRouter(KonnectorTile))
+  inMaintenance={true}
+  konnector={
+    Object {
+      "available_version": true,
+    }
+  }
+/>
+`;
