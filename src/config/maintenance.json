@@ -48,11 +48,53 @@
       "en": "LDLC added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from LDLC.com.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
+  "leclercdrive": {
+    "longTerm": true,
+    "message": {
+      "fr": "Leclerc Drive a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer vos données.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Leclerc Drive added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your data.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
   "macif": {
     "longTerm": true,
     "message": {
       "fr": "Macif a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Macif.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
       "en": "Macif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Macif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "maifecheancier": {
+    "longTerm": true,
+    "message": {
+      "fr": "Maif a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
+      "en": "Maif has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
+    }
+  },
+  "materielnet": {
+    "longTerm": true,
+    "message": {
+      "fr": "Materiel.net a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Materiel.net.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Materiel.net added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Materiel.net.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "orange": {
+    "longTerm": true,
+    "message": {
+    "fr": "Orange a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
+    "en": "Orange has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
+    }
+  },
+  "sncf": {
+    "longTerm": true,
+    "message": {
+      "fr": "Oui.sncf a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Oui.sncf.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+      "en": "Oui.sncf added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Oui.sncf.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
+  "sosh": {
+    "longTerm": true,
+    "message": {
+    "fr": "Sosh a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
+    "en": "Sosh has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
     }
   },
   "redbox": {
