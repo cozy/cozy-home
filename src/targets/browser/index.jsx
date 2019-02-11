@@ -45,7 +45,7 @@ const handleOAuthResponse = () => {
   }
 }
 
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   handleOAuthResponse()
 
   const root = document.querySelector('[role=application]')
