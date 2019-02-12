@@ -54,7 +54,7 @@ class App extends Component {
         })
       })
 
-    if (context.attributes && context.attributes.features) {
+    if (context && context.attributes && context.attributes.features) {
       enableFlags(context.attributes.features)
     }
 
