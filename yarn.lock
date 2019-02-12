@@ -1743,10 +1743,10 @@ babel-preset-cozy-app@1.2.5:
     "@babel/preset-react" "7.0.0"
     "@babel/runtime" "7.2.0"
 
-babel-preset-cozy-app@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.3.0.tgz#cf91ce6e4d8db15bdae81b3581eca7cd86dcc98f"
-  integrity sha512-Eieu21q8y7zwbW3MamjYHDlgpgYmH7s3TCHFtpEzXP0cJhCGeDB/A+lkJuub2zn3Y3FtIyTXVKktQ1b/wxwjBA==
+babel-preset-cozy-app@1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.3.2.tgz#cdd4c7c4ae0bb4e8c6bbce5543aec18645ee10c1"
+  integrity sha512-4WqFjCPBcSn99E3edGrK60PtJN8PXoKyZqaCA9umq7Vp0W01pIrCPRLvPit2QSPID949NdyeIR6aqgyGulCWKg==
   dependencies:
     "@babel/core" "7.2.2"
     "@babel/helper-plugin-utils" "7.0.0"
@@ -1756,6 +1756,7 @@ babel-preset-cozy-app@1.3.0:
     "@babel/preset-env" "7.2.3"
     "@babel/preset-react" "7.0.0"
     "@babel/runtime" "7.2.0"
+    browserslist-config-cozy "^0.2.0"
 
 babel-preset-jest@^23.2.0:
   version "23.2.0"
@@ -2075,6 +2076,11 @@ browserify-zlib@^0.2.0:
   integrity sha512-Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==
   dependencies:
     pako "~1.0.5"
+
+browserslist-config-cozy@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/browserslist-config-cozy/-/browserslist-config-cozy-0.2.0.tgz#6056e7bcfcfe07b04a5319068ea6c12cdcd53d96"
+  integrity sha512-Ma87bBi3cfwA686nMziSxxv+mvGd3kWPQXrqwUeSYcNvXvqcXd8gmvLoMsuo2B4IuwGpVGdNGEcyDy9b7i05tA==
 
 browserslist@^4.3.4:
   version "4.3.7"
