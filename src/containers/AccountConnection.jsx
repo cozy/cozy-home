@@ -8,6 +8,7 @@ import collectConfig from 'config/collect'
 import { withMutations } from 'cozy-client'
 import {
   deleteConnection,
+  enqueueConnection,
   getConnectionError,
   isConnectionConnected,
   isConnectionDeleting,
@@ -64,6 +65,9 @@ class AccountConnection extends Component {
         this.props.maintenance[this.props.konnector.slug],
       lang: this.context.lang
     }
+
+    this.handleConnectionSuccess = this.handleConnectionSuccess.bind(this)
+    this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
   }
 
   componentWillReceiveProps(props) {
@@ -193,6 +197,16 @@ class AccountConnection extends Component {
       .deleteConnection()
       .then(() => this.handleDeleteSuccess())
       .catch(error => this.handleError(error))
+  }
+
+  handleConnectionSuccess() {
+    this.props.handleConnectionSuccess()
+  }
+
+  handleLoginSuccess(trigger) {
+    const { enqueueConnection, handleConnectionSuccess } = this.props
+    handleConnectionSuccess()
+    enqueueConnection(trigger)
   }
 
   handleDeleteSuccess() {
@@ -347,7 +361,6 @@ class AccountConnection extends Component {
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
       displayAdvanced,
-      handleConnectionSuccess,
       toggleAdvanced,
       dirty,
       isValid,
@@ -419,6 +432,8 @@ class AccountConnection extends Component {
             oAuthTerminated={oAuthTerminated}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
+            onDone={onDone}
+            onLoginSuccess={this.onLoginSuccess}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             toggleAdvanced={toggleAdvanced}
@@ -438,7 +453,7 @@ class AccountConnection extends Component {
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
-            handleConnectionSuccess={handleConnectionSuccess}
+            handleConnectionSuccess={this.handleConnectionSuccess}
             isValid={isValid}
             dirty={dirty}
             disableSuccessTimeout={disableSuccessTimeout}
@@ -449,6 +464,7 @@ class AccountConnection extends Component {
             oAuthTerminated={oAuthTerminated}
             onDone={onDone}
             onCancel={() => this.cancel()}
+            onLoginSuccess={this.handleLoginSuccess}
             onSubmit={() => this.onSubmit()}
             submitting={submitting || isRunning}
             success={success || queued}
@@ -484,7 +500,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(
         launchTriggerAndQueue(trigger, !!konnector && konnector.loginDelay)
       ),
-    deleteConnection: () => dispatch(deleteConnection(trigger))
+    deleteConnection: () => dispatch(deleteConnection(trigger)),
+    enqueueConnection: trigger => dispatch(enqueueConnection(trigger))
   }
 }
 

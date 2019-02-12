@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import { AccountForm } from 'cozy-harvest-lib'
+import { TriggerManager } from 'cozy-harvest-lib'
 import flag from 'cozy-flags'
 
 import LegacyAccountLoginForm from './LegacyAccountLoginForm'
@@ -10,9 +10,8 @@ import { getKonnector } from 'ducks/konnectors'
 export class AccountLoginForm extends PureComponent {
   render() {
     const { account, konnector } = this.props
-    const initialValues = account ? account.auth || account.oauth : null
     return flag('harvest') ? (
-      <AccountForm initialValues={initialValues} {...konnector} />
+      <TriggerManager account={account} konnector={konnector} />
     ) : (
       <LegacyAccountLoginForm {...this.props} />
     )
