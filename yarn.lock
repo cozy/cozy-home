@@ -2874,10 +2874,10 @@ cozy-flags@1.5.1:
   dependencies:
     detect-node "2.0.4"
 
-cozy-harvest-lib@0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.28.0.tgz#29ba33f0dca1fb396392582946afb3a57131bff5"
-  integrity sha512-h7qwdoww5IHCx4nxU1csCtdTf2mra3mjU/iuMOYsZcqckrAbQGPLB4YN/iCVV3sLV8J4FKJVvHoRH9DtNLchhQ==
+cozy-harvest-lib@0.29.0:
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.29.0.tgz#bfbc080250bf5852880de906ada346d609853da9"
+  integrity sha512-guqLJjfMcNTjKwAqZhnb9ts1QQbWaCvvNbbMOlLOPg7Ar1YH1A01mm0NY5DKwc9iQg3MuTp/hjquuZVLF0+mrg==
   dependencies:
     cozy-ui "18.12.0"
     final-form "4.11.0"
