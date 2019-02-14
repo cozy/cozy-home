@@ -10,7 +10,7 @@ import { getKonnector } from 'ducks/konnectors'
 export class AccountLoginForm extends PureComponent {
   render() {
     const { account, konnector } = this.props
-    const initialValues = account ? account.auth : {}
+    const initialValues = account ? account.auth || account.oauth : null
     return flag('harvest') ? (
       <AccountForm initialValues={initialValues} {...konnector} />
     ) : (
