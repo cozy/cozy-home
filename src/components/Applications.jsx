@@ -31,7 +31,7 @@ const LoadingAppTiles = ({ num }) => {
 }
 
 export const Applications = () => {
-  const ignoredAppSlugs = ['home', 'onboarding', 'settings']
+  const ignoredAppSlugs = ['home', 'settings']
   return (
     <div className="app-list-wrapper">
       <Query
