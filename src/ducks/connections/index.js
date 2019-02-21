@@ -118,7 +118,6 @@ const reducer = (state = {}, action) => {
         const currentStatus =
           (isTrigger && (doc.current_state && doc.current_state.status)) ||
           (isJob && doc.state)
-        if (!currentStatus) return newState
 
         const error =
           (isTrigger &&

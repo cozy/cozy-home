@@ -1,4 +1,6 @@
 import React from 'react'
+import flag from 'cozy-flags'
+import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from '../styles/konnectorEdit'
 
@@ -41,7 +43,9 @@ export const KonnectorEdit = props => {
     folders,
     closeModal,
     onDelete,
+    onDone,
     onForceConnection,
+    onLoginSuccess,
     onSubmit,
     submitting,
     toggleAdvanced,
@@ -131,7 +135,16 @@ export const KonnectorEdit = props => {
               messages={[getKonnectorMessage(t, connector, 'terms')]}
             />
 
-            {
+            {flag('harvest') ? (
+              <TriggerManager
+                account={account}
+                konnector={connector}
+                trigger={trigger}
+                onDone={onDone}
+                onLoginSuccess={onLoginSuccess}
+                running={submitting}
+              />
+            ) : (
               <AccountLoginForm
                 account={account}
                 connectorSlug={connector.slug}
@@ -153,7 +166,7 @@ export const KonnectorEdit = props => {
                 isValidButPasswords={isValidButPasswords}
                 allRequiredFilledButPasswords={allRequiredFilledButPasswords}
               />
-            }
+            )}
 
             {<AccountLogout deleting={deleting} onDelete={onDelete} />}
           </TabPanel>

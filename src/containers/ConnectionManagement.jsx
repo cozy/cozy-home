@@ -214,7 +214,7 @@ class ConnectionManagement extends Component {
   }
 
   gotoParent() {
-    this.setState({ isClosing: true, isSuccess: false })
+    this.setState({ isClosing: true })
 
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {

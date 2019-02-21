@@ -1,4 +1,6 @@
 /* global cozy */
+import flags from 'cozy-flags'
+
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
@@ -54,6 +56,10 @@ export default class CollectStore {
 
     const realtimeTriggers = await triggers.subscribeAll(cozy.client)
     realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
+
+    if (flags('harvest')) {
+      realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
+    }
   }
 
   async onAccountCreated(account) {
@@ -61,6 +67,14 @@ export default class CollectStore {
       type: 'RECEIVE_NEW_DOCUMENT',
       response: { data: [normalize(account, 'io.cozy.accounts')] },
       updateCollections: ['accounts']
+    })
+  }
+
+  async onTriggerCreated(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      updateCollections: ['triggers']
     })
   }
 
