@@ -69,13 +69,6 @@
       "en": "Maif has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
     }
   },
-  "materielnet": {
-    "longTerm": true,
-    "message": {
-      "fr": "Materiel.net a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Materiel.net.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
-      "en": "Materiel.net added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Materiel.net.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
-    }
-  },
   "orange": {
     "longTerm": true,
     "message": {
