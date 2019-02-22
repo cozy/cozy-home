@@ -2829,13 +2829,13 @@ cozy-client-js@0.14.2:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
-cozy-client@6.3.3:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.3.tgz#53cae88221c5264770b6edb8815582e2fc07f0cc"
-  integrity sha512-J4MJ3jZ6ynKU6SNPZaWcYQ6PqFiOS7UWLUvoqH7StpVtvKVz6hxqq6Fv3H5yBvtrOekTXk7szuFHXK682cjWdQ==
+cozy-client@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.0.tgz#bca41eb8021677b40b01ed6f8de7a5a74144f866"
+  integrity sha512-CPJq6jloRtuRGkj7pSSEeX7vA2aSh9LvYaPQ3prTHbsf2g9V3GKx/pHXdFWZQjqeCJEVXJPW5Il+WYs9f4AaBw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.3.3"
+    cozy-stack-client "^6.3.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -2844,13 +2844,13 @@ cozy-client@6.3.3:
     redux-thunk "2.3.0"
     sift "7.0.1"
 
-cozy-client@6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.0.tgz#bca41eb8021677b40b01ed6f8de7a5a74144f866"
-  integrity sha512-CPJq6jloRtuRGkj7pSSEeX7vA2aSh9LvYaPQ3prTHbsf2g9V3GKx/pHXdFWZQjqeCJEVXJPW5Il+WYs9f4AaBw==
+cozy-client@6.3.3:
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.3.tgz#53cae88221c5264770b6edb8815582e2fc07f0cc"
+  integrity sha512-J4MJ3jZ6ynKU6SNPZaWcYQ6PqFiOS7UWLUvoqH7StpVtvKVz6hxqq6Fv3H5yBvtrOekTXk7szuFHXK682cjWdQ==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.3.0"
+    cozy-stack-client "^6.3.3"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -2971,7 +2971,7 @@ cozy-scripts@1.12.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^6.3.3:
+cozy-stack-client@^6.3.0, cozy-stack-client@^6.3.3:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.3.3.tgz#0111763fc2164518e64f27a259aaec3d9ddaf513"
   integrity sha512-x2zZu1j+QA52jMyNFzJsB2wvaI167xJvILnt7N0Q/+YAiTH+GKKzpF3ZqO13qaeI6COdXt8maQj3myV9NQMj9A==
@@ -2979,18 +2979,10 @@ cozy-stack-client@^6.3.3:
     detect-node "2.0.4"
     mime-types "2.1.20"
 
-cozy-stack-client@^6.3.0:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.3.3.tgz#0111763fc2164518e64f27a259aaec3d9ddaf513"
-  integrity sha512-x2zZu1j+QA52jMyNFzJsB2wvaI167xJvILnt7N0Q/+YAiTH+GKKzpF3ZqO13qaeI6COdXt8maQj3myV9NQMj9A==
-  dependencies:
-    detect-node "2.0.4"
-    mime-types "2.1.20"
-
-cozy-ui@18.12.0:
-  version "18.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.12.0.tgz#19e84aa49282e00b6ed987694ebfd0ea31cd9e9a"
-  integrity sha512-cg6tkrKCVreqrahvKLB4GpM9+A7/NE+XSK7vIY563Usk8qTZuWjKpM5BWG+IZ7ZkDxm/WKeFYHScCeTOvRLdeg==
+cozy-ui@19.1.1:
+  version "19.1.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.1.1.tgz#20c61f163003ede853ce1634103ed611a4805579"
+  integrity sha512-aK4ERwT9lTJy9sGhymLVumXhJcNUD2nO6M74vloz/xSin6apOJeJGToL19cOhlpvYsVDSfpZoDG0oRlj4kLj9g==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
@@ -3001,10 +2993,10 @@ cozy-ui@18.12.0:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
-cozy-ui@19.1.1:
-  version "19.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.1.1.tgz#20c61f163003ede853ce1634103ed611a4805579"
-  integrity sha512-aK4ERwT9lTJy9sGhymLVumXhJcNUD2nO6M74vloz/xSin6apOJeJGToL19cOhlpvYsVDSfpZoDG0oRlj4kLj9g==
+cozy-ui@19.3.0:
+  version "19.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.3.0.tgz#8e215ae1d2d49d5a8a1503f731cbc7963d06ae21"
+  integrity sha512-wROeEYd8+QAcWiQoz9iG5cweFtwMdSQQ+anERI4TLkK+qicCdaOZUNEsTiqe3cKGeWKLbS1Lgt5+Tpn1qs4jpw==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
