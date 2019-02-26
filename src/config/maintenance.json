@@ -13,6 +13,13 @@
       "en": "Booking has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
     }
   },
+  "cultura": {
+    "longTerm": true,
+    "message": {
+    "fr": "Cultura a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
+    "en": "Cultura has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
+    }
+  },
   "easyjet" : {
     "longTerm": true,
     "message": {
@@ -81,13 +88,6 @@
     "message": {
     "fr": "Orange a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
     "en": "Orange has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
-    }
-  },
-  "sncf": {
-    "longTerm": true,
-    "message": {
-      "fr": "Oui.sncf a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Oui.sncf.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
-      "en": "Oui.sncf added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Oui.sncf.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
   "sosh": {
