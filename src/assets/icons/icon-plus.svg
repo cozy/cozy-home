@@ -1,11 +1,1 @@
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <path d="M14,1.99853516 C14,1.99853516 14,-9.09739631e-13 16,-4.54747351e-13 C18,-1.00974196e-28 18,1.99853516 18,1.99853516 L18,14 L30,14 C30,14 32,13.9985352 32,16 C32,18.0014648 30,18 30,18 L18,18 L18,30 C18,30 18,32 16,32 C14,32 14,30 14,30 L14,18 L2,18 C2,18 -8.77520279e-13,18 -8.77520279e-13,15.9992676 C-8.77397769e-13,13.9985352 2,14 2,14 L14,14 L14,1.99853516 Z" id="path-1"></path>
-    </defs>
-    <g id="icons/32/plus" stroke="none" stroke-width="1" fill-rule="evenodd">
-        <mask id="mask-2">
-            <use xlink:href="#path-1"></use>
-        </mask>
-        <use id="Mask" xlink:href="#path-1"></use>
-    </g>
-</svg>
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M14 1.999S14 0 16 0s2 1.999 2 1.999V14h12s2-.001 2 2-2 2-2 2H18v12s0 2-2 2-2-2-2-2V18H2s-2 0-2-2c0-2.001 2-2 2-2h12V1.999z" id="a"/></defs><use xlink:href="#a" fill-rule="evenodd"/></svg>

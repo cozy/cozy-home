@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <g fill="none" fill-rule="evenodd" transform="translate(-288 -96)">
-    <g stroke-width="2" transform="translate(289 97)" stroke-linecap="round" stroke-linejoin="round">
-      <g stroke="#95999D">
-        <polyline points="8 4 0 4 0 46 46 46 46 4 38 4"/>
-        <polygon points="14 8 8 8 8 0 14 0"/>
-        <polygon points="38 8 32 8 32 0 38 0"/>
-        <path d="M14 4L32 4M0 14L46 14"/>
-      </g>
-      <g stroke="currentColor" transform="translate(4 18)">
-        <path d="M8 0L8 24M18 0L18 24M28 0L28 24M0 4L38 4M0 12L38 12M0 20L38 20"/>
-      </g>
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" fill-rule="evenodd"><g stroke="#95999D"><path d="M9 5H1v42h46V5h-8"/><path d="M15 9H9V1h6zM39 9h-6V1h6zM15 5h18M1 15h46"/></g><path d="M13 19v24m10-24v24m10-24v24M5 23h38M5 31h38M5 39h38" stroke="currentColor"/></g></svg>
