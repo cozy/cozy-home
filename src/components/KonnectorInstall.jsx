@@ -8,6 +8,7 @@ import KonnectorMaintenance from './KonnectorMaintenance'
 import LegacyKonnectorInstall from './LegacyKonnectorInstall'
 import { getKonnector } from 'ducks/konnectors'
 import styles from '../styles/konnectorInstall'
+import { translate } from 'cozy-ui/react/I18n'
 
 export class KonnectorInstall extends PureComponent {
   render() {
@@ -17,25 +18,31 @@ export class KonnectorInstall extends PureComponent {
       lang,
       maintenance,
       onDone,
-      onLoginSuccess
+      onLoginSuccess,
+      t
     } = this.props
+
+    if (maintenance && maintenance.longTerm)
+      return (
+        <KonnectorMaintenance
+          maintenance={maintenance}
+          lang={lang}
+          konnectorName={konnector.name}
+        />
+      )
+
     return flag('harvest') ? (
       <div className={styles['col-account-connection-content']}>
         <div className={styles['col-account-connection-form']}>
-          {maintenance && maintenance.longTerm ? (
-            <KonnectorMaintenance
-              maintenance={maintenance}
-              lang={lang}
-              konnectorName={konnector.name}
-            />
-          ) : (
-            <TriggerManager
-              account={account}
-              konnector={konnector}
-              onLoginSuccess={onLoginSuccess}
-              onDone={onDone}
-            />
-          )}
+          <h4 className="u-ta-center">
+            {t('account.config.title', { name: konnector.name })}
+          </h4>
+          <TriggerManager
+            account={account}
+            konnector={konnector}
+            onLoginSuccess={onLoginSuccess}
+            onDone={onDone}
+          />
         </div>
       </div>
     ) : (
@@ -48,4 +55,4 @@ const mapStateToProps = (state, ownProps) => ({
   konnector: getKonnector(state.cozy, ownProps.connector.slug)
 })
 
-export default connect(mapStateToProps)(KonnectorInstall)
+export default translate()(connect(mapStateToProps)(KonnectorInstall))
