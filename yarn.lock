@@ -2769,10 +2769,10 @@ cosmiconfig@^5.0.2, cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-bar@6.14.0:
-  version "6.14.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.14.0.tgz#282424cc3ff874ba47104c2da42d7f1965e4caa8"
-  integrity sha512-K09CUjTXzW3gscNlFE/1KbK2BVLWsj0JyNNhluvs7g9QzaWkTVIS4nHiHJhgx1BgWbZDnoGvxpFn1cYu3FqMwQ==
+cozy-bar@6.15.0:
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.15.0.tgz#216773a2c02277caef4b011d61bdad1a0dc1234a"
+  integrity sha512-2kG2I5ep2FT5bW5bLiWU6Pe2DjsCFZV+gcW3WXrKwobVQOW1iS/8YQFyQ+owU6MrXUYcMj1CJluPvr/XCGby+Q==
   dependencies:
     "@babel/core" "7.2.2"
     babel-core "7.0.0-bridge.0"
