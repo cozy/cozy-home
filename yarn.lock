@@ -2820,20 +2820,20 @@ cozy-client@6.3.0:
     redux-thunk "2.3.0"
     sift "7.0.1"
 
-cozy-client@6.3.3:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.3.tgz#53cae88221c5264770b6edb8815582e2fc07f0cc"
-  integrity sha512-J4MJ3jZ6ynKU6SNPZaWcYQ6PqFiOS7UWLUvoqH7StpVtvKVz6hxqq6Fv3H5yBvtrOekTXk7szuFHXK682cjWdQ==
+cozy-client@6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.5.0.tgz#d38687e5499d5137057120d4eb59cef09c7a42a7"
+  integrity sha512-sVnfF7gyW7sQBmORmE3/IYIUgyGvxj933+mYWwr4a/vGEFIhGn1nvDAjjYvzP1SCOV2P0jW1cMMOPPwUUjTSMw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.3.3"
+    cozy-stack-client "^6.5.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
     react-redux "5.0.7"
     redux "3.7.2"
     redux-thunk "2.3.0"
-    sift "7.0.1"
+    sift "6.0.0"
 
 cozy-device-helper@1.6.3:
   version "1.6.3"
@@ -2947,10 +2947,18 @@ cozy-scripts@1.12.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^6.3.0, cozy-stack-client@^6.3.3:
+cozy-stack-client@^6.3.0:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.3.3.tgz#0111763fc2164518e64f27a259aaec3d9ddaf513"
   integrity sha512-x2zZu1j+QA52jMyNFzJsB2wvaI167xJvILnt7N0Q/+YAiTH+GKKzpF3ZqO13qaeI6COdXt8maQj3myV9NQMj9A==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.20"
+
+cozy-stack-client@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.5.0.tgz#18b247f5c548be726782dc4b5811744e31025a97"
+  integrity sha512-n68szEKn/3gNYqpgC8GosxaO57nvg1Zf9eHqhwnBJaOR56qBNOJq3rnGddvK73t5Ol15dfQmxQzJtw+ud5SsaA==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
@@ -10167,6 +10175,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+
+sift@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sift/-/sift-6.0.0.tgz#f93a778e5cbf05a5024ebc391e6b32511a6d1f82"
+  integrity sha1-+Tp3jly/BaUCTrw5HmsyURptH4I=
 
 sift@7.0.1:
   version "7.0.1"
