@@ -2,6 +2,7 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
+import has from 'lodash/has'
 import styles from '../styles/konnectorEdit'
 
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
@@ -106,16 +107,13 @@ export const KonnectorEdit = props => {
               onForceConnection={onForceConnection}
               trigger={trigger}
             />
-            {account &&
-              trigger &&
-              account.auth.folderPath &&
-              trigger.message.folder_to_save && (
-                <KonnectorFolder
-                  account={account}
-                  driveUrl={driveUrl}
-                  trigger={trigger}
-                />
-              )}
+            {has(trigger, 'message.folder_to_save') && (
+              <KonnectorFolder
+                account={account}
+                driveUrl={driveUrl}
+                trigger={trigger}
+              />
+            )}
           </TabPanel>
 
           <TabPanel
