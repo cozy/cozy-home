@@ -3908,6 +3908,19 @@ eslint-config-cozy-app@1.1.8:
     eslint-plugin-vue "5.1.0"
     prettier "1.14.2"
 
+eslint-config-cozy-app@1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.1.9.tgz#1bf121e1d427adbefb9d7fa814f0c77f6f4b6db3"
+  integrity sha512-xOk2yEtHXRsv36RaV3x+hcM8aCmpvGviOAX2CgdNrU6SZttXQgYtkPdJGMbi7dMD2+5TsaHIZTGX7lamQADO6A==
+  dependencies:
+    babel-eslint "10.0.1"
+    eslint "5.3.0"
+    eslint-config-prettier "3.6.0"
+    eslint-plugin-prettier "3.0.1"
+    eslint-plugin-react "7.12.4"
+    eslint-plugin-vue "5.1.0"
+    prettier "1.14.2"
+
 eslint-config-prettier@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-3.6.0.tgz#8ca3ffac4bd6eeef623a0651f9d754900e3ec217"
