@@ -204,7 +204,7 @@
       },
       "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
         "title": "Access refresh required",
-        "description": "It seems that the [%{name}](%{link}) website requires you to refresh the access you gave to the connector. Please disconnect and reconnect this connector. No data will be lost."
+        "description": "The [%{name}](%{link}) service requires you to allow your access again. Please disconnect and reconnect your account [%{name}] to this application. No data will be lost."
       },
       "USER_ACTION_NEEDED.ACCOUNT_REMOVED": {
         "title": "Unavailable account",
