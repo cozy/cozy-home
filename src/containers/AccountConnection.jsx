@@ -378,7 +378,6 @@ class AccountConnection extends Component {
       t,
       trigger,
       success,
-      closeModal,
       successButtonLabel
     } = this.props
     const {
@@ -389,7 +388,6 @@ class AccountConnection extends Component {
       submitting,
       isFetching,
       isRedirecting,
-      folders,
       maintenance,
       lang
     } = this.state
@@ -417,7 +415,6 @@ class AccountConnection extends Component {
         )}
         {editing ? ( // Properly load the edit view or the initial config view
           <KonnectorEdit
-            isFetching={isFetching}
             account={account}
             connector={konnector}
             deleting={deleting}
@@ -425,7 +422,6 @@ class AccountConnection extends Component {
             displayAdvanced={displayAdvanced}
             driveUrl={driveUrl}
             error={propagateError && konnectorError}
-            folders={folders}
             fields={fields}
             isUnloading={isUnloading}
             lastSuccess={lastSuccess}
@@ -442,7 +438,6 @@ class AccountConnection extends Component {
             allRequiredFilledButPasswords={allRequiredFilledButPasswords}
             isValidButPasswords={isValidButPasswords}
             trigger={trigger}
-            closeModal={closeModal}
             dirty={dirty}
             maintenance={maintenance}
             lang={lang}

@@ -36,12 +36,9 @@ export const KonnectorEdit = props => {
     driveUrl,
     error,
     fields,
-    isFetching,
     isUnloading,
     lastSuccess,
     oAuthTerminated,
-    folders,
-    closeModal,
     onDelete,
     onDone,
     onForceConnection,
@@ -114,14 +111,9 @@ export const KonnectorEdit = props => {
               account.auth.folderPath &&
               trigger.message.folder_to_save && (
                 <KonnectorFolder
-                  connector={connector}
-                  isFetching={isFetching}
                   account={account}
                   driveUrl={driveUrl}
-                  fields={fields}
                   trigger={trigger}
-                  folders={folders}
-                  closeModal={closeModal}
                 />
               )}
           </TabPanel>
