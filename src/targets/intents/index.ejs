@@ -13,7 +13,8 @@
 {{.ThemeCSS}}
 <% if (__STACK_ASSETS__) { %>
 {{.CozyClientJS}}
-<% } else { %>
+<% } %>
+<% if (__TARGET__ !== 'mobile') { %>
   <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
 <% } %>
 </head>
