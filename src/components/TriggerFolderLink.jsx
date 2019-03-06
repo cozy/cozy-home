@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import Icon from 'cozy-ui/react/Icon'
 
-import styles from '../styles/konnectorFolder'
+import styles from '../styles/triggerFolderLink'
 
 import { getApp } from '../ducks/apps'
 
@@ -24,7 +24,7 @@ class MaybeLink extends PureComponent {
   }
 }
 
-export class KonnectorFolder extends PureComponent {
+export class TriggerFolderLink extends PureComponent {
   render() {
     const { driveApp, label, trigger } = this.props
     const disabled = !driveApp
@@ -50,4 +50,4 @@ const mapStateToProps = state => ({
   driveApp: getApp(state.apps, 'drive')
 })
 
-export default connect(mapStateToProps)(KonnectorFolder)
+export default connect(mapStateToProps)(TriggerFolderLink)

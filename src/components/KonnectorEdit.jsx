@@ -11,7 +11,7 @@ import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import AccountLogout from './AccountLogout'
 import DescriptionContent from './DescriptionContent'
-import KonnectorFolder from './KonnectorFolder'
+import TriggerFolderLink from './TriggerFolderLink'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSync from './KonnectorSync'
 
@@ -111,7 +111,7 @@ export const KonnectorEdit = props => {
                 <DescriptionContent
                   title={t('account.folder.withoutSettings.title')}
                 >
-                  <KonnectorFolder
+                  <TriggerFolderLink
                     label={t('account.folder.link')}
                     trigger={trigger}
                   />
