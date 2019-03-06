@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 
 import AppTile from './AppTile'
+import { receiveApps } from '../ducks/apps'
 import LoadingPlaceholder from './LoadingPlaceholder'
 import fillWithGhostItems from './helpers/fillWithGhostItems'
 import { Query } from 'cozy-client'
@@ -36,6 +38,7 @@ class LoadingAppTiles extends PureComponent {
 export class Applications extends PureComponent {
   render() {
     const ignoredAppSlugs = ['home', 'settings']
+    const { receiveApps } = this.props
     return (
       <div className="app-list-wrapper">
         <Query
@@ -44,6 +47,9 @@ export class Applications extends PureComponent {
           }}
         >
           {({ data, fetchStatus }) => {
+            if (fetchStatus === 'loaded') {
+              receiveApps(data)
+            }
             return fetchStatus !== 'loaded' ? (
               <LoadingAppTiles num="3" />
             ) : (
@@ -67,4 +73,13 @@ export class Applications extends PureComponent {
   }
 }
 
-export default translate()(Applications)
+const mapDispatchToProps = dispatch => {
+  return {
+    receiveApps: apps => dispatch(receiveApps(apps))
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(translate()(Applications))
