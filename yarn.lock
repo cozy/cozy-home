@@ -2843,13 +2843,13 @@ cozy-client@6.3.0:
     redux-thunk "2.3.0"
     sift "7.0.1"
 
-cozy-client@6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.5.0.tgz#d38687e5499d5137057120d4eb59cef09c7a42a7"
-  integrity sha512-sVnfF7gyW7sQBmORmE3/IYIUgyGvxj933+mYWwr4a/vGEFIhGn1nvDAjjYvzP1SCOV2P0jW1cMMOPPwUUjTSMw==
+cozy-client@6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.7.0.tgz#31215198247c635439338b9eb94f2e00b5532d9b"
+  integrity sha512-ZXa5Snt0nke24KBFlfQGyoMAiswJ3oVaxkulR21h8BSLFvIPHwUsYigHZrBZK/gV9BDG0wDN6vlIKUf08gwbiw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.5.0"
+    cozy-stack-client "^6.7.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -2980,13 +2980,14 @@ cozy-stack-client@^6.3.0:
     detect-node "2.0.4"
     mime-types "2.1.20"
 
-cozy-stack-client@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.5.0.tgz#18b247f5c548be726782dc4b5811744e31025a97"
-  integrity sha512-n68szEKn/3gNYqpgC8GosxaO57nvg1Zf9eHqhwnBJaOR56qBNOJq3rnGddvK73t5Ol15dfQmxQzJtw+ud5SsaA==
+cozy-stack-client@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.7.0.tgz#cf8963b5cdbbaac92abdaeb302f723f9e3cd9612"
+  integrity sha512-OcqIQ5MEqr5vNL3AnGXceehOMLsbCcfF4Wydf39bqk9fA1LODL4dBNaExgd42A/FxwZ5dfBHarhkkfk/6EAyvw==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
+    qs "6.6.0"
 
 cozy-ui@19.3.0:
   version "19.3.0"
@@ -9249,6 +9250,11 @@ qs@6.5.2, qs@~6.5.1, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+
+qs@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
+  integrity sha512-KIJqT9jQJDQx5h5uAVPimw6yVg2SekOKu959OCtktD3FjzbpvaPr8i4zzg07DOMz+igA4W/aNM7OV8H37pFYfA==
 
 query-string@^4.3.2:
   version "4.3.4"
