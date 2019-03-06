@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { TriggerManager } from 'cozy-harvest-lib'
 import flag from 'cozy-flags'
 
-import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 import LegacyKonnectorInstall from './LegacyKonnectorInstall'
 import { getKonnector } from 'ducks/konnectors'
@@ -40,8 +39,6 @@ export class KonnectorInstall extends PureComponent {
     const {
       account,
       konnector,
-      lang,
-      maintenance,
       onDone,
       successMessage,
       successMessages,
@@ -50,15 +47,6 @@ export class KonnectorInstall extends PureComponent {
     } = this.props
 
     const { trigger, success } = this.state
-
-    if (maintenance && maintenance.longTerm)
-      return (
-        <KonnectorMaintenance
-          maintenance={maintenance}
-          lang={lang}
-          konnectorName={konnector.name}
-        />
-      )
 
     if (flag('harvest')) {
       return success ? (
