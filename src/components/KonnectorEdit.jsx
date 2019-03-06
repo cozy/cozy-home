@@ -107,16 +107,14 @@ export const KonnectorEdit = props => {
               trigger={trigger}
             />
             {has(trigger, 'message.folder_to_save') && (
-              <div className={styles['col-account-folder']}>
-                <DescriptionContent
-                  title={t('account.folder.withoutSettings.title')}
-                >
-                  <TriggerFolderLink
-                    folderId={trigger.message.folder_to_save}
-                    label={t('account.folder.link')}
-                  />
-                </DescriptionContent>
-              </div>
+              <DescriptionContent
+                title={t('account.folder.withoutSettings.title')}
+              >
+                <TriggerFolderLink
+                  folderId={trigger.message.folder_to_save}
+                  label={t('account.folder.link')}
+                />
+              </DescriptionContent>
             )}
           </TabPanel>
 
