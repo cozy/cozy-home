@@ -66,7 +66,6 @@ class AccountConnection extends Component {
       lang: this.context.lang
     }
 
-    this.handleConnectionSuccess = this.handleConnectionSuccess.bind(this)
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
   }
 
@@ -197,10 +196,6 @@ class AccountConnection extends Component {
       .deleteConnection()
       .then(() => this.handleDeleteSuccess())
       .catch(error => this.handleError(error))
-  }
-
-  handleConnectionSuccess() {
-    this.props.handleConnectionSuccess()
   }
 
   handleLoginSuccess(trigger) {
@@ -353,6 +348,7 @@ class AccountConnection extends Component {
       createdAccount,
       disableSuccessTimeout,
       displayAccountsCount,
+      handleConnectionSuccess,
       isUnloading,
       allRequiredFieldsAreFilled,
       allRequiredFilledButPasswords,
@@ -442,7 +438,7 @@ class AccountConnection extends Component {
             isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
-            handleConnectionSuccess={this.handleConnectionSuccess}
+            handleConnectionSuccess={handleConnectionSuccess}
             isValid={isValid}
             dirty={dirty}
             disableSuccessTimeout={disableSuccessTimeout}
@@ -455,6 +451,7 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onLoginSuccess={this.handleLoginSuccess}
             onSubmit={() => this.onSubmit()}
+            onSuccess={handleConnectionSuccess}
             submitting={submitting || isRunning}
             success={success || queued}
             successMessage={t('account.success.title.connect')}
