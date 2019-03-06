@@ -455,6 +455,7 @@ class AccountConnection extends Component {
             onCancel={() => this.cancel()}
             onLoginSuccess={this.handleLoginSuccess}
             onSubmit={() => this.onSubmit()}
+            onSuccess={handleConnectionSuccess}
             submitting={submitting || isRunning}
             success={success || queued}
             successMessage={t('account.success.title.connect')}
