@@ -214,11 +214,7 @@ class AccountConnection extends Component {
       submitting: false
     })
 
-    if (typeof this.props.alertDeleteSuccess === 'function') {
-      this.props.alertDeleteSuccess([
-        { message: 'account.message.success.delete' }
-      ])
-    }
+    this.props.handleDeleteSuccess()
   }
 
   handleError(error) {

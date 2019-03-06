@@ -25,7 +25,7 @@ import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
 import AccountConnection from './AccountConnection'
 import KonnectorHeaderIcon from '../components/KonnectorHeaderIcon'
-import Notifier from '../components/Notifier'
+import Alerter from 'cozy-ui/react/Alerter'
 
 import backIcon from '../assets/sprites/icon-arrow-left.svg'
 import { getCompleteFolderPath } from 'lib/helpers'
@@ -96,6 +96,8 @@ class ConnectionManagement extends Component {
     } else {
       return this.gotoParent()
     }
+
+    this.handleDeleteSuccess = this.handleDeleteSuccess.bind(this)
   }
 
   componentWillReceiveProps(props) {
@@ -170,7 +172,7 @@ class ConnectionManagement extends Component {
         </ModalHeader>
         <ModalContent>
           <AccountConnection
-            alertDeleteSuccess={messages => this.alertDeleteSuccess(messages)}
+            handleDeleteSuccess={this.handleDeleteSuccess}
             displayAccountsCount
             editing={editing}
             onDone={() => this.gotoParent()}
@@ -188,17 +190,9 @@ class ConnectionManagement extends Component {
     )
   }
 
-  alertDeleteSuccess(messages) {
+  handleDeleteSuccess() {
     const { t } = this.context
-
-    Notifier.info([
-      messages
-        .map(item => {
-          return t(item.message, item.params)
-        })
-        .join('.\n')
-    ])
-
+    Alerter.success(t('account.message.success.delete'))
     this.gotoParent()
   }
 

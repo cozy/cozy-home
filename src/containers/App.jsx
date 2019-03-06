@@ -5,7 +5,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 import appEntryPoint from '../components/appEntryPoint'
 
-import Notifier from '../components/Notifier'
+import Alerter from 'cozy-ui/react/Alerter'
 
 import Loading from '../components/Loading'
 import Failure from '../components/Failure'
@@ -89,6 +89,7 @@ class App extends Component {
           })
         }
       >
+        <Alerter />
         <div className="ho-background" />
         {hasError ||
           (isFetching && (
@@ -118,7 +119,6 @@ class App extends Component {
             <Redirect from="*" to="/connected" />
           </Switch>
         )}
-        <Notifier />
         <ConnectionsQueue />
         <IconSprite />
       </Layout>
