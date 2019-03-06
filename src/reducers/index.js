@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { reducer } from 'redux-cozy-client'
+import apps from '../ducks/apps'
 import * as fromAccounts from '../ducks/accounts'
 import * as fromKonnectors from '../ducks/konnectors'
 import * as fromTriggers from '../ducks/triggers'
@@ -8,6 +9,7 @@ import connections, * as fromConnections from '../ducks/connections'
 
 export default () =>
   combineReducers({
+    apps,
     connections,
     cozy: reducer
   })

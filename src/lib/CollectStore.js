@@ -31,7 +31,6 @@ export default class CollectStore {
     this.options = options
 
     this.categories = require('../config/categories')
-    this.driveUrl = null
     this.banksUrl = null
 
     this.initializeRealtime()
@@ -108,9 +107,6 @@ export default class CollectStore {
         body.forEach(item => {
           if (!item.attributes || !item.attributes.slug || !item.links) return
           switch (item.attributes.slug) {
-            case 'drive':
-              this.driveUrl = `${item.links.related}#/files/`
-              break
             case 'banks':
               this.banksUrl = `${item.links.related}`
               break

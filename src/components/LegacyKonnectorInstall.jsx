@@ -89,7 +89,6 @@ export const KonnectorInstall = props => {
             connector={connector}
             error={error}
             account={account}
-            folderId={trigger && trigger.message.folder_to_save}
             handleConnectionSuccess={handleConnectionSuccess}
             isRunningInQueue={isRunningInQueue}
             isUnloading={isUnloading}
@@ -97,6 +96,7 @@ export const KonnectorInstall = props => {
             onCancel={onCancel}
             success={success}
             title={successMessage}
+            trigger={trigger}
             messages={successMessages}
             successButtonLabel={successButtonLabel}
           />

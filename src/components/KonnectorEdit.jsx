@@ -2,6 +2,7 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
+import has from 'lodash/has'
 import styles from '../styles/konnectorEdit'
 
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
@@ -10,7 +11,7 @@ import AccountConnectionData from './AccountConnectionData'
 import AccountLoginForm from './AccountLoginForm'
 import AccountLogout from './AccountLogout'
 import DescriptionContent from './DescriptionContent'
-import KonnectorFolder from './KonnectorFolder'
+import TriggerFolderLink from './TriggerFolderLink'
 import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSync from './KonnectorSync'
 
@@ -33,15 +34,11 @@ export const KonnectorEdit = props => {
     isValid,
     isValidButPasswords,
     dirty,
-    driveUrl,
     error,
     fields,
-    isFetching,
     isUnloading,
     lastSuccess,
     oAuthTerminated,
-    folders,
-    closeModal,
     onDelete,
     onDone,
     onForceConnection,
@@ -109,21 +106,16 @@ export const KonnectorEdit = props => {
               onForceConnection={onForceConnection}
               trigger={trigger}
             />
-            {account &&
-              trigger &&
-              account.auth.folderPath &&
-              trigger.message.folder_to_save && (
-                <KonnectorFolder
-                  connector={connector}
-                  isFetching={isFetching}
-                  account={account}
-                  driveUrl={driveUrl}
-                  fields={fields}
-                  trigger={trigger}
-                  folders={folders}
-                  closeModal={closeModal}
+            {has(trigger, 'message.folder_to_save') && (
+              <DescriptionContent
+                title={t('account.folder.withoutSettings.title')}
+              >
+                <TriggerFolderLink
+                  folderId={trigger.message.folder_to_save}
+                  label={t('account.folder.link')}
                 />
-              )}
+              </DescriptionContent>
+            )}
           </TabPanel>
 
           <TabPanel

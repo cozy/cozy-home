@@ -2,11 +2,14 @@
 
 import styles from '../styles/konnectorSuccess'
 
+import has from 'lodash/has'
 import React, { Component } from 'react'
+
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from './DescriptionContent'
+import TriggerFolderLink from './TriggerFolderLink'
 import connectingIllu from 'assets/images/connecting-data-in-progress.svg'
 
 export class KonnectorSuccess extends Component {
@@ -24,16 +27,15 @@ export class KonnectorSuccess extends Component {
       connector,
       account,
       error,
-      folderId,
       title,
       messages,
       onDone,
-      successButtonLabel
+      successButtonLabel,
+      trigger
     } = this.props
-    const { driveUrl, banksUrl } = this.store
+    const { banksUrl } = this.store
     const displayDriveUrl =
-      driveUrl &&
-      folderId &&
+      has(trigger, 'message.folder_to_save') &&
       Array.isArray(connector.data_types) &&
       connector.data_types.includes('bill')
     const displayBanksUrl =
@@ -58,13 +60,10 @@ export class KonnectorSuccess extends Component {
             {hasLinks && (
               <p className={styles['col-account-success-links']}>
                 {displayDriveUrl && (
-                  <a
-                    className={styles['col-account-success-link']}
-                    href={`${driveUrl}${folderId}`}
-                    target="_parent"
-                  >
-                    {t('account.success.driveLinkText')}
-                  </a>
+                  <TriggerFolderLink
+                    folderId={trigger.message.folder_to_save}
+                    label={t('account.success.driveLinkText')}
+                  />
                 )}
                 {displayBanksUrl &&
                   (banksUrl ? (
