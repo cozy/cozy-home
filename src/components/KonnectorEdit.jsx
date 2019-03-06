@@ -111,7 +111,10 @@ export const KonnectorEdit = props => {
                 <DescriptionContent
                   title={t('account.folder.withoutSettings.title')}
                 >
-                  <KonnectorFolder trigger={trigger} />
+                  <KonnectorFolder
+                    label={t('account.folder.link')}
+                    trigger={trigger}
+                  />
                 </DescriptionContent>
               </div>
             )}

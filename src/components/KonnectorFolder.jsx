@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 
 import Icon from 'cozy-ui/react/Icon'
-import { translate } from 'cozy-ui/react/I18n'
 
 import styles from '../styles/konnectorFolder'
 
@@ -27,7 +26,7 @@ class MaybeLink extends PureComponent {
 
 export class KonnectorFolder extends PureComponent {
   render() {
-    const { driveApp, t, trigger } = this.props
+    const { driveApp, label, trigger } = this.props
     const disabled = !driveApp
     return (
       <MaybeLink
@@ -41,7 +40,7 @@ export class KonnectorFolder extends PureComponent {
         }
       >
         <Icon className="u-mr-half" icon="openwith" />
-        {t('account.folder.link')}
+        {label}
       </MaybeLink>
     )
   }
@@ -51,4 +50,4 @@ const mapStateToProps = state => ({
   driveApp: getApp(state.apps, 'drive')
 })
 
-export default connect(mapStateToProps)(translate()(KonnectorFolder))
+export default connect(mapStateToProps)(KonnectorFolder)
