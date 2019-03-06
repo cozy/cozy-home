@@ -112,8 +112,8 @@ export const KonnectorEdit = props => {
                   title={t('account.folder.withoutSettings.title')}
                 >
                   <TriggerFolderLink
+                    folderId={trigger.message.folder_to_save}
                     label={t('account.folder.link')}
-                    trigger={trigger}
                   />
                 </DescriptionContent>
               </div>

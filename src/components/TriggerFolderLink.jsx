@@ -26,7 +26,7 @@ class MaybeLink extends PureComponent {
 
 export class TriggerFolderLink extends PureComponent {
   render() {
-    const { driveApp, label, trigger } = this.props
+    const { driveApp, label, folderId } = this.props
     const disabled = !driveApp
     return (
       <MaybeLink
@@ -34,10 +34,7 @@ export class TriggerFolderLink extends PureComponent {
           'u-silver': disabled,
           'u-c-not-allowed': disabled
         })}
-        href={
-          driveApp &&
-          `${driveApp.links.related}#/files/${trigger.message.folder_to_save}`
-        }
+        href={driveApp && `${driveApp.links.related}#/files/${folderId}`}
       >
         <Icon className="u-mr-half" icon="openwith" />
         {label}

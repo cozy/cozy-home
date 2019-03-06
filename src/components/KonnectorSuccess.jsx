@@ -61,8 +61,8 @@ export class KonnectorSuccess extends Component {
               <p className={styles['col-account-success-links']}>
                 {displayDriveUrl && (
                   <TriggerFolderLink
+                    folderId={trigger.message.folder_to_save}
                     label={t('account.success.driveLinkText')}
-                    trigger={trigger}
                   />
                 )}
                 {displayBanksUrl &&
