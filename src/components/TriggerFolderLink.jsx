@@ -30,7 +30,7 @@ export class TriggerFolderLink extends PureComponent {
     const disabled = !driveApp
     return (
       <MaybeLink
-        className={classNames(styles['col-account-folder-link'], {
+        className={classNames(styles['col-trigger-folder-link'], {
           'u-silver': disabled,
           'u-c-not-allowed': disabled
         })}
