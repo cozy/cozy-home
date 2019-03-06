@@ -131,7 +131,6 @@ export const KonnectorEdit = props => {
             className={styles['col-account-edit-tabpanel']}
           >
             <DescriptionContent
-              title={t('account.config.title', { name: connector.name })}
               messages={[getKonnectorMessage(t, connector, 'terms')]}
             />
 
