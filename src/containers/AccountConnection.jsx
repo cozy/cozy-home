@@ -391,7 +391,6 @@ class AccountConnection extends Component {
       maintenance,
       lang
     } = this.state
-    const { driveUrl } = this.store
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
     const konnectorError = error || oAuthError || connectionError
@@ -420,7 +419,6 @@ class AccountConnection extends Component {
             deleting={deleting}
             disableSuccessTimeout={disableSuccessTimeout}
             displayAdvanced={displayAdvanced}
-            driveUrl={driveUrl}
             error={propagateError && konnectorError}
             fields={fields}
             isUnloading={isUnloading}

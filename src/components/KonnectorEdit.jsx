@@ -34,7 +34,6 @@ export const KonnectorEdit = props => {
     isValid,
     isValidButPasswords,
     dirty,
-    driveUrl,
     error,
     fields,
     isUnloading,
@@ -108,11 +107,7 @@ export const KonnectorEdit = props => {
               trigger={trigger}
             />
             {has(trigger, 'message.folder_to_save') && (
-              <KonnectorFolder
-                account={account}
-                driveUrl={driveUrl}
-                trigger={trigger}
-              />
+              <KonnectorFolder trigger={trigger} />
             )}
           </TabPanel>
 
