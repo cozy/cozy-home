@@ -177,7 +177,6 @@ class ConnectionManagement extends Component {
             onCancel={() => this.gotoParent()}
             isUnloading={isClosing}
             values={values}
-            closeModal={() => this.gotoParent()}
             isClosing={isClosing}
             handleConnectionSuccess={this.handleConnectionSuccess}
             {...this.props}

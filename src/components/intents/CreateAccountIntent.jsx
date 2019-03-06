@@ -26,7 +26,6 @@ class CreateAccountIntent extends Component {
             konnector={konnector}
             onCancel={() => onCancel()}
             onSuccess={onTerminate}
-            closeModal={() => onCancel()}
             handleConnectionSuccess={this.handleConnectionSuccess}
           />
         )}
