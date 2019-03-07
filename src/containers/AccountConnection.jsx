@@ -20,6 +20,7 @@ import { has } from 'lodash'
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from '../components/KonnectorInstall'
+import KonnectorMaintenance from '../components/KonnectorMaintenance'
 import UpdateMessage from '../components/UpdateMessage'
 import KonnectorEdit from '../components/KonnectorEdit'
 import accountsMutations from '../connections/accounts'
@@ -432,6 +433,12 @@ class AccountConnection extends Component {
             maintenance={maintenance}
             lang={lang}
           />
+        ) : maintenance ? (
+          <KonnectorMaintenance
+            maintenance={maintenance}
+            lang={lang}
+            konnectorName={konnector.name}
+          />
         ) : (
           <KonnectorInstall
             displayAccountsCount={displayAccountsCount}
@@ -461,8 +468,6 @@ class AccountConnection extends Component {
             allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
             displayAdvanced={displayAdvanced}
             toggleAdvanced={toggleAdvanced}
-            maintenance={maintenance}
-            lang={lang}
           />
         )}
       </div>

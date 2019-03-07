@@ -4,7 +4,6 @@ import styles from '../styles/konnectorInstall'
 
 import AccountLoginForm from './AccountLoginForm'
 import DescriptionContent from './DescriptionContent'
-import KonnectorMaintenance from './KonnectorMaintenance'
 import KonnectorSuccess from './KonnectorSuccess'
 
 import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
@@ -36,9 +35,7 @@ export const KonnectorInstall = props => {
     isFetching,
     isValid,
     dirty,
-    successButtonLabel,
-    maintenance,
-    lang
+    successButtonLabel
   } = props
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
@@ -50,21 +47,14 @@ export const KonnectorInstall = props => {
         {hasErrorExceptLogin && ErrorDescription({ t, error, connector })}
         {(!error || hasLoginError) &&
           !isRunningInQueue &&
-          !success &&
-          !maintenance && (
+          !success && (
             <DescriptionContent
               title={t('account.config.title', { name: connector.name })}
               messages={[getKonnectorMessage(t, connector, 'terms')]}
               centerTitle
             />
           )}
-        {maintenance && maintenance.longTerm ? (
-          <KonnectorMaintenance
-            maintenance={maintenance}
-            lang={lang}
-            konnectorName={connector.name}
-          />
-        ) : !account || !success || hasLoginError ? (
+        {!account || !success || hasLoginError ? (
           <AccountLoginForm
             connectorSlug={connector.slug}
             konnectorName={connector.name}
