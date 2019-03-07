@@ -2883,14 +2883,14 @@ cozy-flags@1.5.5:
   dependencies:
     detect-node "2.0.4"
 
-cozy-harvest-lib@0.35.0:
-  version "0.35.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.35.0.tgz#0e432c8bd4e569e53e565095bd5d5fd7b4f093de"
-  integrity sha512-3NCI40trjWh6Po8xM3F+ATLO4Wm5Ig2KVcSdXuuaUv3dpWRCyUHuGPcLfCfXUqmmg9IWuAxrdv5c1GBgD6mH1Q==
+cozy-harvest-lib@0.37.0:
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.37.0.tgz#a284faccd8e0537d79c469915abcd0ea65521fb1"
+  integrity sha512-4vyT3MlfbavdyVOdDr1Ft2HwN3akaeAWTf83CZCrNFTdnY8VttikkHJDAkAgYlwQXnie92DX36yvY9ZcPRZ3kA==
   dependencies:
     cozy-client "6.3.0"
     cozy-realtime "1.2.8"
-    cozy-ui "19.3.0"
+    cozy-ui "19.8.0"
     final-form "4.11.1"
     lodash "4.17.11"
     react-final-form "3.7.0"
@@ -2997,10 +2997,10 @@ cozy-ui@19.10.0:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
-cozy-ui@19.3.0:
-  version "19.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.3.0.tgz#8e215ae1d2d49d5a8a1503f731cbc7963d06ae21"
-  integrity sha512-wROeEYd8+QAcWiQoz9iG5cweFtwMdSQQ+anERI4TLkK+qicCdaOZUNEsTiqe3cKGeWKLbS1Lgt5+Tpn1qs4jpw==
+cozy-ui@19.8.0:
+  version "19.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.8.0.tgz#2568fc1ccfc03c6490266c2fc8855db117cb5aca"
+  integrity sha512-o8mQ6fniXXOyyU67yE+nvLxjwR0Ww6AQMbV3H+zoUHrqXtWU1yXiiXDf77qz/GqvYof8imqYvDX7tnZQnQvFTg==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"

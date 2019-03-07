@@ -132,6 +132,7 @@ export const KonnectorEdit = props => {
               <TriggerManager
                 account={account}
                 konnector={connector}
+                showError={false}
                 trigger={trigger}
                 onDone={onDone}
                 onLoginSuccess={onLoginSuccess}
