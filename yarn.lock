@@ -2752,11 +2752,6 @@ copy-webpack-plugin@4.6.0:
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
 
-core-js@2.6.4:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.4.tgz#b8897c062c4d769dd30a0ac5c73976c47f92ea0d"
-  integrity sha512-05qQ5hXShcqGkPZpXEFLIpxayZscVD2kuMBZewxiIPPEagukO4mqgPA9CWhUvFBJfy3ODdK2p9xyHh7FTU9/7A==
-
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -2792,15 +2787,14 @@ cosmiconfig@^5.0.2, cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-bar@6.15.0:
-  version "6.15.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.15.0.tgz#216773a2c02277caef4b011d61bdad1a0dc1234a"
-  integrity sha512-2kG2I5ep2FT5bW5bLiWU6Pe2DjsCFZV+gcW3WXrKwobVQOW1iS/8YQFyQ+owU6MrXUYcMj1CJluPvr/XCGby+Q==
+cozy-bar@6.15.1:
+  version "6.15.1"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.15.1.tgz#69c854e49c1c4f037c1dbb8e768d89d7aa5a54a2"
+  integrity sha512-PgErwfZfK5+MpKYsmAwnad0JGRlFblyc9bSRbXdQlDGlhrpSEmWUTqIJ839h6BMgkA6OK8OkuN/WBnxuF6NZ+g==
   dependencies:
     "@babel/core" "7.2.2"
     babel-core "7.0.0-bridge.0"
     babel-preset-cozy-app "1.3.2"
-    core-js "2.6.4"
     cozy-client-js "0.14.2"
     cozy-device-helper "1.6.5"
     cozy-realtime "2.0.3"
