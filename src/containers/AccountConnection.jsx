@@ -70,6 +70,17 @@ class AccountConnection extends Component {
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
   }
 
+  componentDidUpdate(prevProps) {
+    const { success, queued } = this.props
+
+    const succeed = !prevProps.success && success
+    const loginSucceed = !prevProps.queued && queued
+
+    if (succeed || loginSucceed) {
+      this.props.handleConnectionSuccess()
+    }
+  }
+
   componentWillReceiveProps(props) {
     this.UNSAFE_componentWillReceiveProps(props)
   }
