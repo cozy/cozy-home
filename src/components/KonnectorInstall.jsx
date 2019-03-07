@@ -39,6 +39,7 @@ export class KonnectorInstall extends PureComponent {
     const {
       account,
       konnector,
+      legacySuccess,
       onDone,
       successMessage,
       successMessages,
@@ -48,8 +49,8 @@ export class KonnectorInstall extends PureComponent {
 
     const { trigger, success } = this.state
 
-    if (flag('harvest')) {
-      return success ? (
+    if (success || legacySuccess) {
+      return (
         <KonnectorSuccess
           account={account}
           connector={konnector}
@@ -60,24 +61,26 @@ export class KonnectorInstall extends PureComponent {
           messages={successMessages}
           successButtonLabel={successButtonLabel}
         />
-      ) : (
-        <div className={styles['col-account-connection-content']}>
-          <div className={styles['col-account-connection-form']}>
-            <h4 className="u-ta-center">
-              {t('account.config.title', { name: konnector.name })}
-            </h4>
-            <TriggerManager
-              account={account}
-              konnector={konnector}
-              onLoginSuccess={this.handleLoginSuccess}
-              onSuccess={this.handleSuccess}
-            />
-          </div>
-        </div>
       )
     }
 
-    return <LegacyKonnectorInstall {...this.props} />
+    return flag('harvest') ? (
+      <div className={styles['col-account-connection-content']}>
+        <div className={styles['col-account-connection-form']}>
+          <h4 className="u-ta-center">
+            {t('account.config.title', { name: konnector.name })}
+          </h4>
+          <TriggerManager
+            account={account}
+            konnector={konnector}
+            onLoginSuccess={this.handleLoginSuccess}
+            onSuccess={this.handleSuccess}
+          />
+        </div>
+      </div>
+    ) : (
+      <LegacyKonnectorInstall {...this.props} />
+    )
   }
 }
 

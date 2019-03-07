@@ -460,7 +460,7 @@ class AccountConnection extends Component {
             onSubmit={() => this.onSubmit()}
             onSuccess={handleConnectionSuccess}
             submitting={submitting || isRunning}
-            success={success || queued}
+            legacySuccess={success || queued}
             successMessage={t('account.success.title.connect')}
             successButtonLabel={successButtonLabel}
             successMessages={successMessages}
