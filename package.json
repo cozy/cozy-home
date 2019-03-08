@@ -64,7 +64,7 @@
     "babel-preset-cozy-app": "1.3.2",
     "cozy-bar": "6.15.1",
     "cozy-client-js": "0.14.2",
-    "cozy-ui": "19.7.1",
+    "cozy-ui": "19.8.0",
     "enzyme": "3.9.0",
     "eslint-config-cozy-app": "1.1.9",
     "eslint-loader": "2.1.2",
