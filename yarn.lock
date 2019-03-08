@@ -2837,10 +2837,10 @@ cozy-client@6.3.0:
     redux-thunk "2.3.0"
     sift "7.0.1"
 
-cozy-client@6.7.0:
-  version "6.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.7.0.tgz#31215198247c635439338b9eb94f2e00b5532d9b"
-  integrity sha512-ZXa5Snt0nke24KBFlfQGyoMAiswJ3oVaxkulR21h8BSLFvIPHwUsYigHZrBZK/gV9BDG0wDN6vlIKUf08gwbiw==
+cozy-client@6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.9.0.tgz#e84caf6a541e68792257442e73ad2ac549374236"
+  integrity sha512-H+rEFRXKCpYDMRBccO/TsFUjRkbWOeUZy/71mXv0G+/Zk8jOn1Js2eliRaetSTYTvIleIohT/sKzRLx9xUR7uA==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^6.7.0"
