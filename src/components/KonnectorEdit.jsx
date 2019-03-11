@@ -110,10 +110,12 @@ export const KonnectorEdit = props => {
               <DescriptionContent
                 title={t('account.folder.withoutSettings.title')}
               >
-                <TriggerFolderLink
-                  folderId={trigger.message.folder_to_save}
-                  label={t('account.folder.link')}
-                />
+                <p className="u-mv-half">
+                  <TriggerFolderLink
+                    folderId={trigger.message.folder_to_save}
+                    label={t('account.folder.link')}
+                  />
+                </p>
               </DescriptionContent>
             )}
           </TabPanel>

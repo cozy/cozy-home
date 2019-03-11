@@ -2,6 +2,7 @@
 
 import styles from '../styles/konnectorSuccess'
 
+import classNames from 'classnames'
 import has from 'lodash/has'
 import React, { Component } from 'react'
 
@@ -55,7 +56,12 @@ export class KonnectorSuccess extends Component {
             messages={!error && messages}
           >
             {hasLinks && (
-              <p className={styles['col-account-success-links']}>
+              <p
+                className={classNames(
+                  styles['col-account-success-links'],
+                  'u-mv-half'
+                )}
+              >
                 {displayDriveUrl && (
                   <TriggerFolderLink
                     folderId={trigger.message.folder_to_save}
