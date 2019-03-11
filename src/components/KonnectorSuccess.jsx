@@ -34,10 +34,7 @@ export class KonnectorSuccess extends Component {
       trigger
     } = this.props
     const { banksUrl } = this.store
-    const displayDriveUrl =
-      has(trigger, 'message.folder_to_save') &&
-      Array.isArray(connector.data_types) &&
-      connector.data_types.includes('bill')
+    const displayDriveUrl = has(trigger, 'message.folder_to_save')
     const displayBanksUrl =
       Array.isArray(connector.data_types) &&
       connector.data_types.includes('bankAccounts')
