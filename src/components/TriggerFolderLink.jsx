@@ -15,7 +15,7 @@ class MaybeLink extends PureComponent {
   render() {
     const { className, href } = this.props
     return href ? (
-      <a className={className} href={href}>
+      <a className={className} href={href} target="_parent">
         {this.props.children}
       </a>
     ) : (
