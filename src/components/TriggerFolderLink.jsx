@@ -6,7 +6,7 @@ import Icon from 'cozy-ui/react/Icon'
 
 import styles from '../styles/triggerFolderLink'
 
-import { getApp } from '../ducks/apps'
+import { getApp, receiveApps } from '../ducks/apps'
 
 /**
  * Renders a link only if href prop is provided
@@ -25,6 +25,15 @@ class MaybeLink extends PureComponent {
 }
 
 export class TriggerFolderLink extends PureComponent {
+  async componentDidMount() {
+    const { driveApp, receiveApps } = this.props
+    const { client } = this.context
+    if (!driveApp) {
+      const { data } = await client.query(client.all('io.cozy.apps'))
+      receiveApps(data)
+    }
+  }
+
   render() {
     const { driveApp, label, folderId } = this.props
     const disabled = !driveApp
@@ -47,4 +56,13 @@ const mapStateToProps = state => ({
   driveApp: getApp(state.apps, 'drive')
 })
 
-export default connect(mapStateToProps)(TriggerFolderLink)
+const mapDispatchToProps = dispatch => {
+  return {
+    receiveApps: apps => dispatch(receiveApps(apps))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TriggerFolderLink)
