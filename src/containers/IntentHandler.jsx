@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import appEntryPoint from '../components/appEntryPoint'
 
 import IntentService from './IntentService'
+import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
 
 class IntentHandler extends Component {
@@ -99,6 +100,7 @@ class IntentHandler extends Component {
               service={service}
             />
           )}
+        <IconSprite />
       </div>
     )
   }

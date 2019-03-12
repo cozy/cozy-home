@@ -2,6 +2,7 @@
 
 import styles from '../styles/konnectorSuccess'
 
+import classNames from 'classnames'
 import has from 'lodash/has'
 import React, { Component } from 'react'
 
@@ -34,10 +35,7 @@ export class KonnectorSuccess extends Component {
       trigger
     } = this.props
     const { banksUrl } = this.store
-    const displayDriveUrl =
-      has(trigger, 'message.folder_to_save') &&
-      Array.isArray(connector.data_types) &&
-      connector.data_types.includes('bill')
+    const displayDriveUrl = has(trigger, 'message.folder_to_save')
     const displayBanksUrl =
       Array.isArray(connector.data_types) &&
       connector.data_types.includes('bankAccounts')
@@ -58,7 +56,12 @@ export class KonnectorSuccess extends Component {
             messages={!error && messages}
           >
             {hasLinks && (
-              <p className={styles['col-account-success-links']}>
+              <p
+                className={classNames(
+                  styles['col-account-success-links'],
+                  'u-mv-half'
+                )}
+              >
                 {displayDriveUrl && (
                   <TriggerFolderLink
                     folderId={trigger.message.folder_to_save}

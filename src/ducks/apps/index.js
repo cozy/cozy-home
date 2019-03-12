@@ -3,7 +3,7 @@ const RECEIVE_APPS = 'RECEIVE_APPS'
 const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_APPS:
-      return action.apps
+      return action.apps || state
     default:
       return state
   }
