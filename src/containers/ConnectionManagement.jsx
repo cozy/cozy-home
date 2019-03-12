@@ -144,7 +144,7 @@ class ConnectionManagement extends Component {
       : '/connected'
 
     const editing = existingAccount && !createdAccount
-
+    const isInstallSuccess = !editing && isSuccess
     return (
       <Modal
         dismissAction={() => this.gotoParent()}
@@ -153,9 +153,11 @@ class ConnectionManagement extends Component {
         className={styles['col-account-modal']}
       >
         <ModalHeader
-          className={isSuccess ? styles['col-account-success-header'] : ''}
+          className={
+            isInstallSuccess ? styles['col-account-success-header'] : ''
+          }
         >
-          {!isSuccess && (
+          {!isInstallSuccess && (
             <div className="col-account-connection-header">
               {backRoute && (
                 <NavLink
