@@ -430,8 +430,6 @@ class AccountConnection extends Component {
             oAuthTerminated={oAuthTerminated}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
-            onDone={onDone}
-            onLoginSuccess={this.onLoginSuccess}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             toggleAdvanced={toggleAdvanced}
