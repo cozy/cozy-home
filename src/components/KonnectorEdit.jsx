@@ -40,9 +40,7 @@ export const KonnectorEdit = props => {
     lastSuccess,
     oAuthTerminated,
     onDelete,
-    onDone,
     onForceConnection,
-    onLoginSuccess,
     onSubmit,
     submitting,
     toggleAdvanced,
@@ -134,8 +132,6 @@ export const KonnectorEdit = props => {
                 konnector={connector}
                 showError={false}
                 trigger={trigger}
-                onDone={onDone}
-                onLoginSuccess={onLoginSuccess}
                 running={submitting}
               />
             ) : (
