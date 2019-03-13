@@ -58,12 +58,21 @@ export default class CollectStore {
 
     if (flags('harvest')) {
       realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
+      realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
     }
   }
 
   async onAccountCreated(account) {
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
+      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      updateCollections: ['accounts']
+    })
+  }
+
+  async onAccountUpdated(account) {
+    this.dispatch({
+      type: 'RECEIVE_UPDATED_DOCUMENT',
       response: { data: [normalize(account, 'io.cozy.accounts')] },
       updateCollections: ['accounts']
     })
