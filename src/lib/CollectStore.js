@@ -86,6 +86,14 @@ export default class CollectStore {
     })
   }
 
+  async onTriggerUpdated(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_UPDATED_DOCUMENT',
+      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      updateCollections: ['triggers']
+    })
+  }
+
   async deleteTrigger(trigger) {
     this.dispatch({
       type: 'RECEIVE_DELETED_DOCUMENT',
@@ -94,18 +102,20 @@ export default class CollectStore {
     })
   }
 
-  updateUnfinishedJob(job) {
-    const data = normalize(job, 'io.cozy.jobs')
+  async updateUnfinishedJob(job) {
+    const normlalizedJob = normalize(job, 'io.cozy.jobs')
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    if (data.worker === 'thumbnail') {
+    if (normlalizedJob.worker === 'thumbnail') {
       return
     }
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [data] },
+      response: { data: [normlalizedJob] },
       updateCollections: ['jobs']
     })
+    const trigger = await triggers.fetch(cozy.client, normlalizedJob.trigger_id)
+    this.onTriggerUpdated(trigger)
   }
 
   // Get the drive and banks application url using the list of application
