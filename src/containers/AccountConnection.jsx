@@ -4,8 +4,6 @@ import styles from '../styles/accountConnection'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import collectConfig from 'config/collect'
-import { withMutations } from 'cozy-client'
 import {
   deleteConnection,
   enqueueConnection,
@@ -16,38 +14,16 @@ import {
   launchTriggerAndQueue
 } from '../ducks/connections'
 import { fetchAccount } from '../ducks/accounts'
-import { has } from 'lodash'
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from '../components/KonnectorInstall'
 import KonnectorMaintenance from '../components/KonnectorMaintenance'
 import UpdateMessage from '../components/UpdateMessage'
 import KonnectorEdit from '../components/KonnectorEdit'
-import accountsMutations from '../connections/accounts'
 import { popupCenter, waitForClosedPopup } from '../lib/popup'
 import { getRandomKeyString } from '../lib/helpers'
 import { isKonnectorUpdateNeededError } from '../lib/konnectors'
 import statefulForm from '../lib/statefulForm'
-
-import moment from 'moment'
-
-const sanitizeDate = (date, localeFormat) => {
-  const sanitizedFormat = 'YYYY-MM-DD'
-  const isAlreadySanitized = moment(date, sanitizedFormat, true).isValid()
-  if (isAlreadySanitized) return date
-  const momentDate = moment(date, localeFormat, true)
-  if (!momentDate.isValid()) throw new Error('Invalid date')
-  return momentDate.format(sanitizedFormat)
-}
-
-const sanitizeDates = (values, fields, localeFormat) => {
-  const sanitizedValues = { ...values }
-  Object.keys(fields).forEach(key => {
-    if (fields[key].type !== 'date') return
-    sanitizedValues[key] = sanitizeDate(values[key], localeFormat)
-  })
-  return sanitizedValues
-}
 
 class AccountConnection extends Component {
   constructor(props, context) {
@@ -96,10 +72,6 @@ class AccountConnection extends Component {
         account: existingAccount
       })
     }
-  }
-
-  connectAccount(account) {
-    return this.runConnection(account).catch(error => this.handleError(error))
   }
 
   connectAccountOAuth(accountType, values, scope) {
@@ -178,31 +150,6 @@ class AccountConnection extends Component {
       })
   }
 
-  updateAccount(account, values) {
-    account.auth = Object.assign({}, account.auth, values)
-
-    this.setState({ submitting: true })
-
-    return this.store
-      .updateAccount(account, values)
-      .then(account => {
-        this.setState({ account: account })
-        return this.store
-          .runAccount(
-            this.props.trigger,
-            this.props.konnector,
-            account,
-            this.props.disableSuccessTimeout
-          )
-          .then(() => {
-            this.setState({
-              submitting: false
-            })
-          })
-      })
-      .catch(error => this.handleError(error))
-  }
-
   deleteConnection() {
     return this.props
       .deleteConnection()
@@ -236,96 +183,17 @@ class AccountConnection extends Component {
 
   // @param isUpdate : used to force updating values not related to OAuth
   onSubmit = async () => {
-    const {
-      createAccount,
-      createChildAccount,
-      fields,
-      values,
-      konnector,
-      t
-    } = this.props
-    const { account } = this.state
+    const { values, konnector } = this.props
     let valuesToSubmit = { ...values }
 
-    // namePath defined by the user is concatened with the folderPath
-    if (valuesToSubmit.folderPath) {
-      if (!valuesToSubmit.namePath) {
-        valuesToSubmit.namePath =
-          valuesToSubmit.accountName ||
-          valuesToSubmit.identifier ||
-          valuesToSubmit.login ||
-          valuesToSubmit.email ||
-          konnector.name
-      }
-      valuesToSubmit.namePath = valuesToSubmit.namePath.replace(
-        /[&/\\#,+()$@~%.'":*?<>{}]/g,
-        '_'
-      )
-      valuesToSubmit.folderPath = `${valuesToSubmit.folderPath}/${
-        valuesToSubmit.namePath
-      }`
-    }
-
-    valuesToSubmit = sanitizeDates(
-      valuesToSubmit,
-      fields,
-      t('date.format', { _: collectConfig.defaultDateFormat })
-    )
-
     // Update the path if the name path is the account name
-    const folderId =
-      this.props.trigger && this.props.trigger.message.folder_to_save
-    const accountName = account && account.auth && account.auth.accountName
-    if (
-      accountName &&
-      accountName.replace(/[&/\\#,+()$@~%.'":*?<>{}]/g, '_') ===
-        account.auth.namePath &&
-      accountName !== valuesToSubmit.accountName
-    ) {
-      cozy.client.files.updateAttributesById(folderId, {
-        name: valuesToSubmit.accountName
-      })
-      valuesToSubmit.namePath = valuesToSubmit.accountName.replace(
-        /[&/\\#,+()$@~%.'":*?<>{}]/g,
-        '_'
-      )
-    }
-
-    // Update account
-    if (account) {
-      return this.updateAccount(account, valuesToSubmit)
-    }
-
     if (konnector && konnector.oauth) {
       return this.connectAccountOAuth(
         konnector.oauth.account_type || konnector.slug,
         valuesToSubmit,
         konnector.oauth.scope
       )
-    } else {
-      let createdAccount
-
-      const newAccount = {
-        account_type: konnector.slug,
-        auth: {
-          ...valuesToSubmit
-        }
-      }
-
-      try {
-        createdAccount = has(konnector, 'aggregator.accountId')
-          ? await createChildAccount(konnector, newAccount)
-          : await createAccount(newAccount)
-      } catch (error) {
-        return this.handleError(error)
-      }
-
-      return this.connectAccount(createdAccount)
     }
-  }
-
-  cancel() {
-    this.props.onCancel()
   }
 
   buildSuccessMessages(konnector) {
@@ -472,9 +340,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default withMutations(accountsMutations)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(statefulForm()(withRouter(translate()(AccountConnection))))
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(statefulForm()(withRouter(translate()(AccountConnection))))
