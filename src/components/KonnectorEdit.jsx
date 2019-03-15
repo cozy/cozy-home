@@ -1,5 +1,4 @@
 import React from 'react'
-import flag from 'cozy-flags'
 import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
 import has from 'lodash/has'
@@ -8,7 +7,7 @@ import styles from '../styles/konnectorEdit'
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 
 import AccountConnectionData from './AccountConnectionData'
-import AccountLoginForm from './AccountLoginForm'
+import LegacyAccountLoginForm from './LegacyAccountLoginForm'
 import AccountLogout from './AccountLogout'
 import DescriptionContent from './DescriptionContent'
 import TriggerFolderLink from './TriggerFolderLink'
@@ -126,16 +125,8 @@ export const KonnectorEdit = props => {
               messages={[getKonnectorMessage(t, connector, 'terms')]}
             />
 
-            {flag('harvest') ? (
-              <TriggerManager
-                account={account}
-                konnector={connector}
-                showError={false}
-                trigger={trigger}
-                running={submitting}
-              />
-            ) : (
-              <AccountLoginForm
+            {connector.oauth ? (
+              <LegacyAccountLoginForm
                 account={account}
                 connectorSlug={connector.slug}
                 disableSuccessTimeout={disableSuccessTimeout}
@@ -155,6 +146,14 @@ export const KonnectorEdit = props => {
                 allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
                 isValidButPasswords={isValidButPasswords}
                 allRequiredFilledButPasswords={allRequiredFilledButPasswords}
+              />
+            ) : (
+              <TriggerManager
+                account={account}
+                konnector={connector}
+                showError={false}
+                trigger={trigger}
+                running={submitting}
               />
             )}
 
