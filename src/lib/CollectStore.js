@@ -1,6 +1,4 @@
 /* global cozy */
-import flags from 'cozy-flags'
-
 import * as accounts from './accounts'
 import * as konnectors from './konnectors'
 import * as jobs from './jobs'
@@ -56,10 +54,8 @@ export default class CollectStore {
     const realtimeTriggers = await triggers.subscribeAll(cozy.client)
     realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
 
-    if (flags('harvest')) {
-      realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
-      realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
-    }
+    realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
+    realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
   }
 
   async onAccountCreated(account) {

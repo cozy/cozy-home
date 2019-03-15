@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import { TriggerManager } from 'cozy-harvest-lib'
-import flag from 'cozy-flags'
 
 import KonnectorSuccess from './KonnectorSuccess'
 import LegacyKonnectorInstall from './LegacyKonnectorInstall'
@@ -64,7 +63,9 @@ export class KonnectorInstall extends PureComponent {
       )
     }
 
-    return flag('harvest') ? (
+    return konnector.oauth ? (
+      <LegacyKonnectorInstall {...this.props} />
+    ) : (
       <div className={styles['col-account-connection-content']}>
         <div className={styles['col-account-connection-form']}>
           <h4 className="u-ta-center">
@@ -78,8 +79,6 @@ export class KonnectorInstall extends PureComponent {
           />
         </div>
       </div>
-    ) : (
-      <LegacyKonnectorInstall {...this.props} />
     )
   }
 }
