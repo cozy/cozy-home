@@ -358,17 +358,7 @@ class AccountConnection extends Component {
   render() {
     const {
       createdAccount,
-      disableSuccessTimeout,
-      displayAccountsCount,
       handleConnectionSuccess,
-      isUnloading,
-      allRequiredFieldsAreFilled,
-      allRequiredFilledButPasswords,
-      displayAdvanced,
-      toggleAdvanced,
-      dirty,
-      isValid,
-      isValidButPasswords,
       fields,
       deleting,
       editing,
@@ -390,7 +380,6 @@ class AccountConnection extends Component {
       oAuthError,
       oAuthTerminated,
       submitting,
-      isFetching,
       isRedirecting,
       maintenance,
       lang
@@ -421,24 +410,15 @@ class AccountConnection extends Component {
             account={account}
             connector={konnector}
             deleting={deleting}
-            disableSuccessTimeout={disableSuccessTimeout}
-            displayAdvanced={displayAdvanced}
             error={propagateError && konnectorError}
             fields={fields}
-            isUnloading={isUnloading}
             lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
             onDelete={() => this.deleteConnection()}
             onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
-            toggleAdvanced={toggleAdvanced}
-            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
-            isValid={isValid}
-            allRequiredFilledButPasswords={allRequiredFilledButPasswords}
-            isValidButPasswords={isValidButPasswords}
             trigger={trigger}
-            dirty={dirty}
             maintenance={maintenance}
             lang={lang}
           />
@@ -450,21 +430,12 @@ class AccountConnection extends Component {
           />
         ) : (
           <KonnectorInstall
-            displayAccountsCount={displayAccountsCount}
-            isFetching={isFetching}
             account={createdAccount}
             connector={konnector}
-            handleConnectionSuccess={handleConnectionSuccess}
-            isValid={isValid}
-            dirty={dirty}
-            disableSuccessTimeout={disableSuccessTimeout}
             error={propagateError && konnectorError}
-            fields={fields}
             queued={queued}
-            isUnloading={isUnloading}
             oAuthTerminated={oAuthTerminated}
             onDone={onDone}
-            onCancel={() => this.cancel()}
             onLoginSuccess={this.handleLoginSuccess}
             onSubmit={() => this.onSubmit()}
             onSuccess={handleConnectionSuccess}
@@ -473,10 +444,6 @@ class AccountConnection extends Component {
             successMessage={t('account.success.title.connect')}
             successButtonLabel={successButtonLabel}
             successMessages={successMessages}
-            trigger={trigger}
-            allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
-            displayAdvanced={displayAdvanced}
-            toggleAdvanced={toggleAdvanced}
           />
         )}
       </div>
