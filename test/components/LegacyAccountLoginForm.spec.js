@@ -4,6 +4,8 @@ import React from 'react'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-15'
 
+import { Button } from 'cozy-ui/react/Button'
+
 import { tMock } from '../jestLib/I18n'
 import { AccountLoginForm } from '../../src/components/LegacyAccountLoginForm'
 
@@ -15,15 +17,12 @@ describe('LegacyAccountLoginForm component', () => {
   })
 
   it('should enable connection button for valid OAuth account', () => {
-    const component = shallow(
-      <AccountLoginForm
-        t={tMock}
-        onSubmit={jest.fn()}
-        isOAuth
-        isValid
-        allRequiredFieldsAreFilled
-      />
+    const wrapper = shallow(
+      <AccountLoginForm t={tMock} onSubmit={jest.fn()} isOAuth />
     )
-    expect(component.state().submitEnabled).toBe(true)
+
+    const button = wrapper.find(Button)
+
+    expect(button.props().disabled).toBe(false)
   })
 })

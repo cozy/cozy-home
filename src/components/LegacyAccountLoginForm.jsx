@@ -31,7 +31,7 @@ export class AccountLoginForm extends React.Component {
           {!editing && (
             <Button
               className={styles['coz-btn']}
-              disabled={oAuthTerminated || submitting}
+              disabled={!!oAuthTerminated || !!submitting}
               busy={submitting && (editing || oAuthTerminated)}
               onClick={onSubmit}
             >
