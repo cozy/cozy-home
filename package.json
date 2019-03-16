@@ -54,7 +54,7 @@
     "react-markdown": "2.5.1",
     "react-proptypes": "1.0.0",
     "react-redux": "5.1.1",
-    "react-router-dom": "4.3.1",
+    "react-router-dom": "4.4.0",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.3.0",
