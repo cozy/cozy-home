@@ -76,7 +76,6 @@ class ConnectionManagement extends Component {
     }
 
     this.state = {
-      isClosing: false,
       isSuccess: false,
       values: values
     }
@@ -137,7 +136,7 @@ class ConnectionManagement extends Component {
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
-    const { isClosing, values, isSuccess } = this.state
+    const { values, isSuccess } = this.state
 
     const backRoute = connections.length
       ? `/connected/${konnector.slug}`
@@ -175,13 +174,9 @@ class ConnectionManagement extends Component {
         <ModalContent>
           <AccountConnection
             handleDeleteSuccess={this.handleDeleteSuccess}
-            displayAccountsCount
             editing={editing}
             onDone={() => this.gotoParent()}
-            onCancel={() => this.gotoParent()}
-            isUnloading={isClosing}
             values={values}
-            isClosing={isClosing}
             handleConnectionSuccess={this.handleConnectionSuccess}
             {...this.props}
             {...this.context}
@@ -209,8 +204,6 @@ class ConnectionManagement extends Component {
   }
 
   gotoParent() {
-    this.setState({ isClosing: true })
-
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
       const { router } = this.context

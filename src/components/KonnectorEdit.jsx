@@ -26,23 +26,14 @@ export const KonnectorEdit = props => {
     account,
     connector,
     deleting,
-    disableSuccessTimeout,
-    displayAdvanced,
-    allRequiredFieldsAreFilled,
-    allRequiredFilledButPasswords,
-    isValid,
-    isValidButPasswords,
-    dirty,
     error,
     fields,
-    isUnloading,
     lastSuccess,
     oAuthTerminated,
     onDelete,
     onForceConnection,
     onSubmit,
     submitting,
-    toggleAdvanced,
     trigger,
     maintenance,
     lang
@@ -127,25 +118,11 @@ export const KonnectorEdit = props => {
 
             {connector.oauth ? (
               <LegacyAccountLoginForm
-                account={account}
-                connectorSlug={connector.slug}
-                disableSuccessTimeout={disableSuccessTimeout}
                 error={hasLoginError}
                 editing
-                fields={fields}
-                dirty={dirty}
-                displayAdvanced={displayAdvanced}
-                forceEnabled={!!error}
-                isOAuth={connector.oauth}
-                isUnloading={isUnloading}
                 oAuthTerminated={oAuthTerminated}
                 onSubmit={onSubmit}
                 submitting={submitting}
-                toggleAdvanced={toggleAdvanced}
-                isValid={isValid}
-                allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
-                isValidButPasswords={isValidButPasswords}
-                allRequiredFilledButPasswords={allRequiredFilledButPasswords}
               />
             ) : (
               <TriggerManager

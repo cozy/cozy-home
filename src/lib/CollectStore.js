@@ -137,24 +137,6 @@ export default class CollectStore {
       })
   }
 
-  // FIXME: should be handled in a cozy-drive inter-app
-  fetchFolders() {
-    return cozy.client.data
-      .findAll('io.cozy.files')
-      .then(result => {
-        // if path contains '/.', it contains an hidden folder
-        const folders = result
-          .filter(f => f.type === 'directory' && !f.path.match(/(?:\/\.)/))
-          .sort((a, b) => a.path > b.path)
-        return folders
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.warn(err.message)
-        return []
-      })
-  }
-
   createDirectoryIfNecessary(folderPath) {
     if (folderPath) {
       return cozy.client.files.createDirectoryByPath(folderPath)
@@ -255,23 +237,6 @@ export default class CollectStore {
 
     return accounts
       .update(cozy.client, previousAccount, newAccount)
-      .catch(error => {
-        return Promise.reject(error)
-      })
-  }
-
-  updateFolderPath(account, folderId, values) {
-    // Update file
-    return cozy.client.files
-      .updateAttributesById(folderId, {
-        name: values.namePath,
-        path: `${values.folderPath}/${values.namePath}`,
-        dir_id: values.dir_id
-      })
-      .then(() => {
-        // Update Account
-        this.updateAccount(account, values)
-      })
       .catch(error => {
         return Promise.reject(error)
       })

@@ -2,31 +2,22 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from '../styles/konnectorInstall'
 
-import AccountLoginForm from './AccountLoginForm'
+import LegacyAccountLoginForm from './LegacyAccountLoginForm'
 import DescriptionContent from './DescriptionContent'
 
 import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
 import ErrorDescription from './ErrorDescriptions'
 
-export const KonnectorInstall = props => {
+export const LegacyKonnectorInstall = props => {
   const {
     t,
     connector,
-    disableSuccessTimeout,
     error,
-    fields,
     queued,
-    isUnloading,
     oAuthTerminated,
     onSubmit,
     submitting,
-    success,
-    allRequiredFieldsAreFilled,
-    displayAdvanced,
-    toggleAdvanced,
-    isFetching,
-    isValid,
-    dirty
+    success
   } = props
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
@@ -45,28 +36,15 @@ export const KonnectorInstall = props => {
               centerTitle
             />
           )}
-        <AccountLoginForm
-          connectorSlug={connector.slug}
-          konnectorName={connector.name}
-          disableSuccessTimeout={disableSuccessTimeout}
+        <LegacyAccountLoginForm
           error={hasLoginError}
-          fields={fields}
-          isValid={isValid}
-          dirty={dirty}
-          isFetching={isFetching}
-          forceEnabled={!!error}
-          isOAuth={connector.oauth}
-          isUnloading={isUnloading}
           oAuthTerminated={oAuthTerminated}
           onSubmit={onSubmit}
           submitting={submitting}
-          allRequiredFieldsAreFilled={allRequiredFieldsAreFilled}
-          displayAdvanced={displayAdvanced}
-          toggleAdvanced={toggleAdvanced}
         />
       </div>
     </div>
   )
 }
 
-export default translate()(KonnectorInstall)
+export default translate()(LegacyKonnectorInstall)
