@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
-    uri: `//${data.cozyDomain}`,
+    uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema: {
       app: Application.schema,
       accounts: {
@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   cozy.bar.init({
     appEditor: data.cozyAppEditor,
     appName: data.cozyAppName,
+    cozyClient,
     iconPath: data.cozyIconPath,
     lang: data.cozyLocale,
     replaceTitleOnMobile: false
