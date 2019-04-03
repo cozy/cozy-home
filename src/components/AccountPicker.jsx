@@ -1,22 +1,19 @@
-import styles from '../styles/accountPicker'
-import classNames from 'classnames'
-
 import React from 'react'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
-
-import { getConnectionsByKonnector } from '../reducers'
-import { getKonnector } from '../ducks/konnectors'
-
-import Icon from 'cozy-ui/react/Icon'
-import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
 import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
-import AccountPickerItem from './AccountPickerItem'
-import KonnectorHeaderIcon from './KonnectorHeaderIcon'
-import { hasPendingUpdate } from 'lib/konnectors'
+import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
+import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
 
-import backIcon from '../assets/sprites/icon-arrow-left.svg'
+import AccountPickerItem from 'components/AccountPickerItem'
+import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
+import backIcon from 'assets/sprites/icon-arrow-left.svg'
+import { getKonnector } from 'ducks/konnectors'
+import { hasPendingUpdate } from 'lib/konnectors'
+import styles from 'styles/accountPicker'
+import { getConnectionsByKonnector } from 'reducers'
 
 export const AccountPicker = ({
   t,

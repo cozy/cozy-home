@@ -1,6 +1,6 @@
 /* global cozy */
-
 import React, { Component } from 'react'
+
 import Spinner from 'cozy-ui/react/Spinner'
 
 export class StoreRedirection extends Component {

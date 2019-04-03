@@ -1,8 +1,10 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+
 import Button from 'cozy-ui/react/Button'
 import Empty from 'cozy-ui/react/Empty'
-import EmptyIcon from '../assets/icons/color/default.svg'
+import { translate } from 'cozy-ui/react/I18n'
+
+import EmptyIcon from 'assets/icons/color/default.svg'
 
 const reload = () => {
   window.location.reload()

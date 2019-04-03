@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-import appEntryPoint from '../components/appEntryPoint'
-
-import IntentService from './IntentService'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
+
+import appEntryPoint from 'components/appEntryPoint'
+import IntentService from 'containers/IntentService'
 
 class IntentHandler extends Component {
   constructor(props, context) {

@@ -1,7 +1,9 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+
 import { Button } from 'cozy-ui/react/Button'
-import styles from '../styles/accountLogout'
+import { translate } from 'cozy-ui/react/I18n'
+
+import styles from 'styles/accountLogout'
 
 export const AccountLogout = ({ t, deleting, onDelete }) => {
   return (

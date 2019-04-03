@@ -1,12 +1,11 @@
 /* global cozy */
-import * as accounts from './accounts'
-import * as konnectors from './konnectors'
-import * as jobs from './jobs'
-import * as triggers from './triggers'
-import { randomDayTime } from './daytime'
-
-import { createKonnectorTrigger } from '../ducks/triggers'
-import { launchTriggerAndQueue } from '../ducks/connections'
+import { createKonnectorTrigger } from 'ducks/triggers'
+import { launchTriggerAndQueue } from 'ducks/connections'
+import * as accounts from 'lib/accounts'
+import * as konnectors from 'lib/konnectors'
+import * as jobs from 'lib/jobs'
+import * as triggers from 'lib/triggers'
+import { randomDayTime } from 'lib/daytime'
 
 export const CONNECTION_STATUS = {
   ERRORED: 'errored',

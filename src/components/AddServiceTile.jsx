@@ -1,8 +1,9 @@
 /* global cozy */
 import React, { Component } from 'react'
+
 import Icon from 'cozy-ui/react/Icon'
 
-import addServiceIcon from '../assets/icons/icon-plus-add-service.svg'
+import addServiceIcon from 'assets/icons/icon-plus-add-service.svg'
 
 export class AddServiceTile extends Component {
   constructor(props) {

@@ -1,7 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
-import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
-import styles from '../styles/descriptionContent'
+
+import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
+import styles from 'styles/descriptionContent'
 
 export const DescriptionContent = ({
   cssClassesObject,

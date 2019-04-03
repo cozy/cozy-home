@@ -1,6 +1,6 @@
 /* global cozy */
 
-import styles from '../styles/konnectorSuccess'
+import styles from 'styles/konnectorSuccess'
 
 import classNames from 'classnames'
 import has from 'lodash/has'
@@ -9,8 +9,8 @@ import React, { Component } from 'react'
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 
-import DescriptionContent from './DescriptionContent'
-import TriggerFolderLink from './TriggerFolderLink'
+import DescriptionContent from 'components/DescriptionContent'
+import TriggerFolderLink from 'components/TriggerFolderLink'
 import connectingIllu from 'assets/images/connecting-data-in-progress.svg'
 
 export class KonnectorSuccess extends Component {

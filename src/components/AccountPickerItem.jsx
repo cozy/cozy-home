@@ -1,18 +1,17 @@
-import styles from '../styles/accountPicker'
-import classNames from 'classnames'
-
 import React, { PureComponent } from 'react'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
-
 import { NavLink } from 'react-router-dom'
+
+import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
 
-import { getAccount } from '../ducks/accounts'
-import { getAccountLogin, getAccountName } from '../lib/helpers'
-import { getErrorTitle } from '../lib/konnectors'
-import { isInMaintenance } from '../ducks/konnectors'
+import { getAccount } from 'ducks/accounts'
+import { getAccountLogin, getAccountName } from 'lib/helpers'
+import { getErrorTitle } from 'lib/konnectors'
+import { isInMaintenance } from 'ducks/konnectors'
+import styles from 'styles/accountPicker'
 
 const MAINTENANCE = 'MAINTENANCE'
 const ERRORED = 'ERRORED'

@@ -1,12 +1,13 @@
 import React from 'react'
+
 import { translate } from 'cozy-ui/react/I18n'
-import styles from '../styles/konnectorInstall'
 
-import LegacyAccountLoginForm from './LegacyAccountLoginForm'
-import DescriptionContent from './DescriptionContent'
+import DescriptionContent from 'components/DescriptionContent'
+import ErrorDescription from 'components/ErrorDescriptions'
+import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
+import { getKonnectorMessage, isKonnectorLoginError } from 'lib/konnectors'
 
-import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
-import ErrorDescription from './ErrorDescriptions'
+import styles from 'styles/konnectorInstall'
 
 export const LegacyKonnectorInstall = props => {
   const {

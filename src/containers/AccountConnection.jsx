@@ -1,9 +1,15 @@
 /* global cozy */
-import styles from '../styles/accountConnection'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
+import { translate } from 'cozy-ui/react/I18n'
+
+import KonnectorInstall from 'components/KonnectorInstall'
+import KonnectorMaintenance from 'components/KonnectorMaintenance'
+import UpdateMessage from 'components/UpdateMessage'
+import KonnectorEdit from 'components/KonnectorEdit'
+import { fetchAccount } from 'ducks/accounts'
 import {
   deleteConnection,
   enqueueConnection,
@@ -12,18 +18,12 @@ import {
   isConnectionDeleting,
   isConnectionEnqueued,
   launchTriggerAndQueue
-} from '../ducks/connections'
-import { fetchAccount } from '../ducks/accounts'
-import { translate } from 'cozy-ui/react/I18n'
-
-import KonnectorInstall from '../components/KonnectorInstall'
-import KonnectorMaintenance from '../components/KonnectorMaintenance'
-import UpdateMessage from '../components/UpdateMessage'
-import KonnectorEdit from '../components/KonnectorEdit'
-import { popupCenter, waitForClosedPopup } from '../lib/popup'
-import { getRandomKeyString } from '../lib/helpers'
-import { isKonnectorUpdateNeededError } from '../lib/konnectors'
-import statefulForm from '../lib/statefulForm'
+} from 'ducks/connections'
+import { isKonnectorUpdateNeededError } from 'lib/konnectors'
+import { getRandomKeyString } from 'lib/helpers'
+import { popupCenter, waitForClosedPopup } from 'lib/popup'
+import statefulForm from 'lib/statefulForm'
+import styles from 'styles/accountConnection'
 
 class AccountConnection extends Component {
   constructor(props, context) {

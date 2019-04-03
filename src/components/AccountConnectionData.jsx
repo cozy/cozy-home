@@ -1,12 +1,12 @@
-import styles from '../styles/accountConnectionData'
-
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import ClassNames from 'classnames'
-import ReactMarkdownWrapper from '../components/ReactMarkdownWrapper'
-import DataItem from '../components/DataItem'
 
-import { getKonnectorMessage } from '../lib/konnectors'
+import { translate } from 'cozy-ui/react/I18n'
+
+import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
+import DataItem from 'components/DataItem'
+import { getKonnectorMessage } from 'lib/konnectors'
+import styles from 'styles/accountConnectionData'
 
 const AccountConnectionData = ({ t, connector }) => {
   const hasDataTypes = !!(connector.data_types && connector.data_types.length)

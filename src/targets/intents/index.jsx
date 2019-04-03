@@ -3,12 +3,13 @@ import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 
-import { I18n } from 'cozy-ui/react/I18n'
-import configureStore from 'store/configureStore'
-import { CozyClient, CozyProvider } from 'redux-cozy-client'
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
+import { I18n } from 'cozy-ui/react/I18n'
+
+import configureStore from 'store/configureStore'
+import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
 import { Application } from 'cozy-doctypes'
 

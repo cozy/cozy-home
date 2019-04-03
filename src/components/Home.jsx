@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import classNames from 'classnames'
-import { Main, Content } from 'cozy-ui/react/Layout'
-import { isTutorial, display as displayTutorial } from '../lib/tutorial'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
-import Applications from './Applications'
-import ConnectionManagement from '../containers/ConnectionManagement'
-import ScrollToTopOnMount from './ScrollToTopOnMount'
-import AccountPicker from './AccountPicker'
-import Services from './Services'
 import { translate } from 'cozy-ui/react/I18n'
+import { Main, Content } from 'cozy-ui/react/Layout'
+
+import AccountPicker from 'components/AccountPicker'
+import Applications from 'components/Applications'
+import ConnectionManagement from 'containers/ConnectionManagement'
+import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
+import Services from 'components/Services'
+import { isTutorial, display as displayTutorial } from 'lib/tutorial'
 
 class Home extends Component {
   componentDidMount() {

@@ -3,21 +3,18 @@ import React, { Component } from 'react'
 import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
-import appEntryPoint from '../components/appEntryPoint'
-
-import Alerter from 'cozy-ui/react/Alerter'
-
-import Loading from '../components/Loading'
-import Failure from '../components/Failure'
-import ConnectionsQueue from '../ducks/connections/components/queue/index'
-
-import Home from '../components/Home'
-import IntentRedirect from '../components/IntentRedirect'
-import StoreRedirection from '../components/StoreRedirection'
-
 import { enableFlags } from 'cozy-flags'
-import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
+import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+
+import appEntryPoint from 'components/appEntryPoint'
+import Failure from 'components/Failure'
+import Home from 'components/Home'
+import IntentRedirect from 'components/IntentRedirect'
+import Loading from 'components/Loading'
+import StoreRedirection from 'components/StoreRedirection'
+import ConnectionsQueue from 'ducks/connections/components/queue/index'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'

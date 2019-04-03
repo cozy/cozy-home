@@ -1,10 +1,11 @@
 import React from 'react'
 import DateFns from 'date-fns'
-import { translate } from 'cozy-ui/react/I18n'
+
 import Button from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 
-import DescriptionContent from './DescriptionContent'
+import DescriptionContent from 'components/DescriptionContent'
 
 function getDateLabel({ date, t, f }) {
   return f(DateFns.parse(date), t('account.message.synced.date_format'))

@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import AppTile from './AppTile'
-import { receiveApps } from '../ducks/apps'
-import LoadingPlaceholder from './LoadingPlaceholder'
-import fillWithGhostItems from './helpers/fillWithGhostItems'
 import { Query } from 'cozy-client'
 import { translate } from 'cozy-ui/react/I18n'
+
+import AppTile from 'components/AppTile'
+import LoadingPlaceholder from 'components/LoadingPlaceholder'
+import fillWithGhostItems from 'components/helpers/fillWithGhostItems'
+import { receiveApps } from 'ducks/apps'
 
 class LoadingAppTiles extends PureComponent {
   render() {

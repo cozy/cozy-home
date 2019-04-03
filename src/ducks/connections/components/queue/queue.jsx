@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import PropTypes from 'prop-types'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
+import { translate } from 'cozy-ui/react/I18n'
 
-import styles from './styles'
+import styles from 'styles'
 
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>

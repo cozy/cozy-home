@@ -1,8 +1,8 @@
-import styles from '../styles/konnectorHeaderIcon'
 import React, { Component } from 'react'
-
 import { AppIcon } from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
+
+import styles from 'styles/konnectorHeaderIcon'
 
 export class KonnectorHeaderIcon extends Component {
   render() {

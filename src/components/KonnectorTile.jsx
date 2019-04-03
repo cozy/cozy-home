@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
 import classNames from 'classnames'
-
-import AppIcon from 'cozy-ui/react/AppIcon'
-import Icon from 'cozy-ui/react/Icon'
+import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 
-import { getErrorTitle } from '../lib/konnectors'
+import AppIcon from 'cozy-ui/react/AppIcon'
+import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
+
+import brokenIcon from 'assets/icons/broken.svg'
 import {
   getFirstError,
   getFirstUserError,
   getLastSyncDate
-} from '../ducks/connections'
-import { getKonnectorTriggersCount } from '../reducers'
-import { isInMaintenance } from '../ducks/konnectors'
-
-import brokenIcon from '../assets/icons/broken.svg'
+} from 'ducks/connections'
+import { isInMaintenance } from 'ducks/konnectors'
+import { getErrorTitle } from 'lib/konnectors'
+import { getKonnectorTriggersCount } from 'reducers'
 
 const getKonnectorError = ({ error, t }) => {
   return error

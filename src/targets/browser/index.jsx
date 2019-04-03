@@ -1,19 +1,18 @@
 /* global cozy, __DEVELOPMENT__ */
-import 'url-search-params-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
+import 'url-search-params-polyfill'
+
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
 import { Application } from 'cozy-doctypes'
-
 import I18n from 'cozy-ui/react/I18n'
-import PiwikHashRouter from 'lib/PiwikHashRouter'
 
 import collectConfig from 'config/collect'
+import PiwikHashRouter from 'lib/PiwikHashRouter'
 import configureStore from 'store/configureStore'
-
 import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
 

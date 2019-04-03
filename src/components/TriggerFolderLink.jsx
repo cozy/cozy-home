@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import classNames from 'classnames'
+import { connect } from 'react-redux'
 
 import Icon from 'cozy-ui/react/Icon'
 
-import styles from '../styles/triggerFolderLink'
-
-import { getApp, receiveApps } from '../ducks/apps'
+import { getApp, receiveApps } from 'ducks/apps'
+import styles from 'styles/triggerFolderLink'
 
 /**
  * Renders a link only if href prop is provided
