@@ -7,6 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import AppTile from 'components/AppTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import fillWithGhostItems from 'components/helpers/fillWithGhostItems'
+import homeConfig from 'config/collect'
 import { receiveApps } from 'ducks/apps'
 
 class LoadingAppTiles extends PureComponent {
@@ -38,7 +39,6 @@ class LoadingAppTiles extends PureComponent {
 
 export class Applications extends PureComponent {
   render() {
-    const ignoredAppSlugs = ['home', 'settings']
     const { receiveApps } = this.props
     return (
       <div className="app-list-wrapper">
@@ -59,7 +59,7 @@ export class Applications extends PureComponent {
                   .filter(
                     app =>
                       app.state !== 'hidden' &&
-                      !ignoredAppSlugs.includes(app.slug)
+                      !homeConfig.filteredApps.includes(app.slug)
                   )
                   .map((app, index) => (
                     <AppTile key={index} app={app} />
