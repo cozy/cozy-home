@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-
-import classNames from 'classnames'
-import EmptyIcon from '../assets/images/connected-accounts.svg'
-import fillWithGhostItems from './helpers/fillWithGhostItems'
+import sortBy from 'lodash/sortBy'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getInstalledKonnectors } from '../reducers'
-import { translate } from 'cozy-ui/react/I18n'
-import sortBy from 'lodash/sortBy'
 
-import KonnectorTile from './KonnectorTile'
-import AddServiceTile from './AddServiceTile'
+import { translate } from 'cozy-ui/react/I18n'
+
+import EmptyIcon from 'assets/images/connected-accounts.svg'
+import AddServiceTile from 'components/AddServiceTile'
+import KonnectorTile from 'components/KonnectorTile'
+import classNames from 'classnames'
+import fillWithGhostItems from 'components/helpers/fillWithGhostItems'
+import { getInstalledKonnectors } from 'reducers/index'
 
 class Services extends Component {
   render() {

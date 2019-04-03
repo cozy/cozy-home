@@ -1,11 +1,11 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import { cozyMiddleware } from 'redux-cozy-client'
 import { createLogger } from 'redux-logger'
-import konnectorsI18nMiddleware from '../lib/middlewares/konnectorsI18n'
+import konnectorsI18nMiddleware from 'lib/middlewares/konnectorsI18n'
 import thunkMiddleware from 'redux-thunk'
 
-import CollectStore from '../lib/CollectStore'
-import getReducers from '../reducers'
+import CollectStore from 'lib/CollectStore'
+import getReducers from 'reducers'
 
 const configureStore = (client, context, options = {}) => {
   // Enable Redux dev tools

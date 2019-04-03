@@ -1,5 +1,5 @@
 /* triggers lib ready to be added to cozy-client-js */
-import * as realtime from './realtime'
+import * as realtime from 'lib/realtime'
 
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 

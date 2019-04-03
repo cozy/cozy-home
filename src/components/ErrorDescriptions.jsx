@@ -1,10 +1,7 @@
 import React from 'react'
 
-import DescriptionContent from './DescriptionContent'
-import {
-  getMostAccurateErrorKey,
-  isKonnectorKnownError
-} from '../lib/konnectors'
+import DescriptionContent from 'components/DescriptionContent'
+import { getMostAccurateErrorKey, isKonnectorKnownError } from 'lib/konnectors'
 
 const getErrorTitle = (t, error) =>
   t(getMostAccurateErrorKey(t, error, key => `connection.error.${key}.title`))

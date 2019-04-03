@@ -1,8 +1,9 @@
-import styles from '../styles/dataItem'
-
 import React from 'react'
+
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+
+import styles from 'styles/dataItem'
 
 export const DataItem = ({ t, dataType }) => {
   let icon

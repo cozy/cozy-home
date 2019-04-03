@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 
-import { translate } from 'cozy-ui/react/I18n'
 import Button from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/react/I18n'
 import { SubTitle } from 'cozy-ui/react/Text'
 
-import styles from '../styles/updateMessage'
+import styles from 'styles/updateMessage'
 
 export class UpdateMessage extends Component {
   render() {

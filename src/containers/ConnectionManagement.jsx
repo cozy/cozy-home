@@ -1,34 +1,32 @@
-import styles from '../styles/connectionManagement.styl'
-
 import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 
-import { getAccount } from '../ducks/accounts'
+import Alerter from 'cozy-ui/react/Alerter'
+import Icon from 'cozy-ui/react/Icon'
+import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
+
+import backIcon from 'assets/sprites/icon-arrow-left.svg'
+import AccountConnection from 'containers/AccountConnection'
+import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
+import { getAccount } from 'ducks/accounts'
 import {
   endConnectionCreation,
   getTriggerLastSuccess,
   isConnectionRunning,
   isCreatingConnection,
   startConnectionCreation
-} from '../ducks/connections'
-import { getKonnector } from '../ducks/konnectors'
+} from 'ducks/connections'
+import { getKonnector } from 'ducks/konnectors'
+import { getCompleteFolderPath } from 'lib/helpers'
 import {
   getConnectionsByKonnector,
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount,
   getKonnectorsInMaintenance
-} from '../reducers'
-
-import Icon from 'cozy-ui/react/Icon'
-import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
-import AccountConnection from './AccountConnection'
-import KonnectorHeaderIcon from '../components/KonnectorHeaderIcon'
-import Alerter from 'cozy-ui/react/Alerter'
-
-import backIcon from '../assets/sprites/icon-arrow-left.svg'
-import { getCompleteFolderPath } from 'lib/helpers'
+} from 'reducers'
+import styles from 'styles/connectionManagement.styl'
 
 class ConnectionManagement extends Component {
   constructor(props, context) {

@@ -1,5 +1,4 @@
 /* eslint-env jest */
-
 import client from 'cozy-client'
 
 jest.mock('cozy-client', () => ({

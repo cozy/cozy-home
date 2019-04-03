@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import { TriggerManager } from 'cozy-harvest-lib'
-
-import KonnectorSuccess from './KonnectorSuccess'
-import LegacyKonnectorInstall from './LegacyKonnectorInstall'
-import { getKonnector } from 'ducks/konnectors'
-import styles from '../styles/konnectorInstall'
 import { translate } from 'cozy-ui/react/I18n'
+
+import KonnectorSuccess from 'components/KonnectorSuccess'
+import LegacyKonnectorInstall from 'components/LegacyKonnectorInstall'
+import { getKonnector } from 'ducks/konnectors'
+import styles from 'styles/konnectorInstall'
 
 export class KonnectorInstall extends PureComponent {
   constructor(props) {

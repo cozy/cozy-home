@@ -2,9 +2,8 @@ import React from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
 
-import ReactMarkdownWrapper from './ReactMarkdownWrapper'
-
-import styles from '../styles/konnectorMaintenance'
+import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
+import styles from 'styles/konnectorMaintenance'
 
 const KonnectorMaintenance = ({ t, maintenance, lang, konnectorName }) => (
   <div className={styles['maintenance']}>

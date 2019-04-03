@@ -2,12 +2,12 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
 
-import { buildKonnectorError, isKonnectorUserError } from '../../lib/konnectors'
+import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
-import { getTriggerLastJob } from '../jobs'
+import { getTriggerLastJob } from 'ducks/jobs'
 
-import { launchTrigger } from '../triggers'
-import { getAccount } from '../accounts'
+import { launchTrigger } from 'ducks/triggers'
+import { getAccount } from 'ducks/accounts'
 
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'

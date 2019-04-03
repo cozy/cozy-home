@@ -1,9 +1,9 @@
 /* global cozy */
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-
 import { connect } from 'react-redux'
-import { getInstalledKonnectors } from '../reducers'
+
+import { getInstalledKonnectors } from 'reducers'
 
 const IntentRedirect = ({ installedKonnectors, location }) => {
   const queryString = !!location && location.search

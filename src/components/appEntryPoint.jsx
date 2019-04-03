@@ -1,9 +1,9 @@
 import { cozyConnect } from 'redux-cozy-client'
 
-import { fetchAccounts } from '../ducks/accounts'
-import { fetchKonnectorJobs } from '../ducks/jobs'
-import { fetchKonnectors } from '../ducks/konnectors'
-import { fetchTriggers } from '../ducks/triggers'
+import { fetchAccounts } from 'ducks/accounts'
+import { fetchKonnectorJobs } from 'ducks/jobs'
+import { fetchKonnectors } from 'ducks/konnectors'
+import { fetchTriggers } from 'ducks/triggers'
 
 const mapDocumentsToProps = () => ({
   accounts: fetchAccounts(),

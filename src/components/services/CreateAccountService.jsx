@@ -1,22 +1,20 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
-
-import AccountConnection from '../../containers/AccountConnection'
-
 import { connect } from 'react-redux'
 
+import { translate } from 'cozy-ui/react/I18n'
+
+import AccountConnection from 'containers/AccountConnection'
 import {
   endConnectionCreation,
   isConnectionRunning,
   isCreatingConnection,
   startConnectionCreation
-} from '../../ducks/connections'
+} from 'ducks/connections'
+import { getCompleteFolderPath } from 'lib/helpers'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount
-} from '../../reducers'
-
-import { getCompleteFolderPath } from 'lib/helpers'
+} from 'reducers/index'
 
 class CreateAccountService extends React.Component {
   constructor(props, context) {

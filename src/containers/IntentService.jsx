@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import CreateAccountIntent from '../components/intents/CreateAccountIntent'
-import { getKonnector, receiveInstalledKonnector } from '../ducks/konnectors'
+import CreateAccountIntent from 'components/intents/CreateAccountIntent'
+import { getKonnector, receiveInstalledKonnector } from 'ducks/konnectors'
 
 class IntentService extends Component {
   handleInstallationSuccess(konnector) {

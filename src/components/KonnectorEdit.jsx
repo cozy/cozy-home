@@ -1,24 +1,22 @@
 import React from 'react'
+import has from 'lodash/has'
+
 import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
-import has from 'lodash/has'
-import styles from '../styles/konnectorEdit'
-
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from 'cozy-ui/react/Tabs'
 
-import AccountConnectionData from './AccountConnectionData'
-import LegacyAccountLoginForm from './LegacyAccountLoginForm'
-import AccountLogout from './AccountLogout'
-import DescriptionContent from './DescriptionContent'
-import TriggerFolderLink from './TriggerFolderLink'
-import KonnectorMaintenance from './KonnectorMaintenance'
-import KonnectorSync from './KonnectorSync'
-
-import { getKonnectorMessage, isKonnectorLoginError } from '../lib/konnectors'
-import { getAccountName } from '../lib/helpers'
-import ErrorDescription from './ErrorDescriptions'
-
-import warningSvg from '../assets/sprites/icon-warning.svg'
+import warningSvg from 'assets/sprites/icon-warning.svg'
+import AccountConnectionData from 'components/AccountConnectionData'
+import AccountLogout from 'components/AccountLogout'
+import DescriptionContent from 'components/DescriptionContent'
+import ErrorDescription from 'components/ErrorDescriptions'
+import KonnectorMaintenance from 'components/KonnectorMaintenance'
+import KonnectorSync from 'components/KonnectorSync'
+import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
+import TriggerFolderLink from 'components/TriggerFolderLink'
+import styles from 'styles/konnectorEdit'
+import { getKonnectorMessage, isKonnectorLoginError } from 'lib/konnectors'
+import { getAccountName } from 'lib/helpers'
 
 export const KonnectorEdit = props => {
   const {

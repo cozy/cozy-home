@@ -1,8 +1,8 @@
-import styles from '../styles/accountLoginForm'
-
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/react/I18n'
+
+import styles from 'styles/accountLoginForm'
 
 /**
  * AccountLoginForm is now aimed to deal only with OAuth konnectors
