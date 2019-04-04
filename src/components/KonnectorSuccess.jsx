@@ -8,6 +8,7 @@ import React, { Component } from 'react'
 
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
 
 import DescriptionContent from 'components/DescriptionContent'
 import TriggerFolderLink from 'components/TriggerFolderLink'
@@ -75,6 +76,7 @@ export class KonnectorSuccess extends Component {
                       href={banksUrl}
                       target="_parent"
                     >
+                      <Icon className="u-mr-half" icon="openwith" />
                       {t('account.success.banksLinkText')}
                     </a>
                   ) : (
@@ -90,6 +92,7 @@ export class KonnectorSuccess extends Component {
                         )
                       }
                     >
+                      <Icon className="u-mr-half" icon="openwith" />
                       {t('account.success.banksLinkText')}
                     </a>
                   ))}
