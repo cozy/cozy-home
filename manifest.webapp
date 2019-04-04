@@ -71,7 +71,8 @@
     },
     "triggers": {
       "description": "Required to run the konnectors",
-      "type": "io.cozy.triggers"
+      "type": "io.cozy.triggers",
+      "verbs": ["ALL"]
     },
     "permissions": {
       "description": "Required to run the konnectors",
