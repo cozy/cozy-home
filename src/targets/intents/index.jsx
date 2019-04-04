@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
-    uri: `//${appData.cozyDomain}`,
+    uri: `${window.location.protocol}//${appData.cozyDomain}`,
     schema: {
       app: Application.schema,
       accounts: {
