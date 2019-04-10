@@ -20,7 +20,7 @@ import {
   launchTriggerAndQueue
 } from 'ducks/connections'
 import { isKonnectorUpdateNeededError } from 'lib/konnectors'
-import { getRandomKeyString } from 'lib/helpers'
+import uuid from 'uuid/v4'
 import { popupCenter, waitForClosedPopup } from 'lib/popup'
 import statefulForm from 'lib/statefulForm'
 import styles from 'styles/accountConnection'
@@ -87,7 +87,7 @@ class AccountConnection extends Component {
 
     // We use localStorage to store the account related data
     const OAuthState = { accountType }
-    const OAuthStateKey = getRandomKeyString()
+    const OAuthStateKey = uuid()
     localStorage.setItem(OAuthStateKey, JSON.stringify(OAuthState))
     const newTab = popupCenter(
       `${cozyUrl}/accounts/${accountType}/start?scope=${scope}&state=${OAuthStateKey}&nonce=${Date.now()}`,

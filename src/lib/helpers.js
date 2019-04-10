@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4'
+
 export const getAccountName = account => {
   if (!account) return null
   if (account.auth) {
@@ -13,19 +15,8 @@ export const getAccountLogin = account => {
   }
 }
 
-export const getRandomKeyString = () =>
-  Math.random()
-    .toString(36)
-    .substring(2, 15) +
-  Math.random()
-    .toString(36)
-    .substring(2, 15) +
-  Math.random()
-    .toString(36)
-    .substring(2, 15)
-
 export const getCompleteFolderPath = (defaultDir, konnectorName, t) => {
-  let folderPath = `/${defaultDir}/$konnector`
+  let folderPath = `/${defaultDir}/$konnector/${uuid()}`
   return folderPath
     .replace(/\/\//g, '/')
     .replace(/\$konnector/gi, konnectorName)
