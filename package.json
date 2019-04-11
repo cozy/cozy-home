@@ -58,7 +58,8 @@
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.3.0",
-    "timeago-react": "2.0.1"
+    "timeago-react": "2.0.1",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "babel-preset-cozy-app": "1.5.1",
