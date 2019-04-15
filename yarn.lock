@@ -3070,10 +3070,10 @@ cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-ui@19.18.0:
-  version "19.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.18.0.tgz#4e1732c0d0c9ccb7ae80a2219007da9a66bbfdd0"
-  integrity sha512-KumFMWaR1P+7pIHhH/oEmNUUYDUJ7aZZiNlKgEhBsfTkQlvaxa9MVZw3teKuNtnUy16FqOD48aXd4mpCgIdWvw==
+cozy-ui@19.22.2:
+  version "19.22.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.22.2.tgz#ce2ebca4800aad8c71c2c6a1413b33eb7e77fd96"
+  integrity sha512-vlJdTNR6oX49yaRjGPC569CBtXJpGQ5kqYRInm0rH7s0f4uL0QlQ3WLiernuZzGW8zt7L8taK9hAmXfjRFFRGQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
