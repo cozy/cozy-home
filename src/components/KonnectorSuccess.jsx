@@ -18,6 +18,9 @@ export class KonnectorSuccess extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
+  }
+
+  componentDidMount() {
     if (typeof this.props.handleConnectionSuccess === 'function') {
       this.props.handleConnectionSuccess()
     }
