@@ -5,6 +5,7 @@ import styles from 'styles/konnectorSuccess'
 import classNames from 'classnames'
 import has from 'lodash/has'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
@@ -118,6 +119,16 @@ export class KonnectorSuccess extends Component {
       )
     )
   }
+}
+
+KonnectorSuccess.propTypes = {
+  account: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.string),
+  onDone: PropTypes.func.isRequired,
+  successButtonLabel: PropTypes.string.isRequired,
+  trigger: PropTypes.object.isRequired
 }
 
 export default translate()(KonnectorSuccess)
