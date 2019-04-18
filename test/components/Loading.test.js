@@ -3,13 +3,10 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { configure, shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15'
+import { shallow } from 'enzyme'
 
 import { tMock } from '../jestLib/I18n'
 import { Loading } from '../../src/components/Loading'
-
-configure({ adapter: new Adapter() })
 
 describe('Loading component', () => {
   beforeEach(() => {
