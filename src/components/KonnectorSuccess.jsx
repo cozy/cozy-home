@@ -22,6 +22,43 @@ const SuccessImage = () => (
   </div>
 )
 
+const BanksLink = translate()(
+  ({ banksUrl, t }) =>
+    banksUrl ? (
+      <AppLinker slug="banks" href={banksUrl}>
+        {({ href, onClick, name }) => (
+          <a
+            className={styles['col-account-success-link']}
+            href={href}
+            target="_parent"
+            onClick={onClick}
+          >
+            <Icon className="u-mr-half" icon="openwith" />
+            {t('account.success.banksLinkText', {
+              appName: name
+            })}
+          </a>
+        )}
+      </AppLinker>
+    ) : (
+      <a
+        className={styles['col-account-success-link']}
+        onClick={() =>
+          cozy.client.intents.redirect(
+            'io.cozy.apps',
+            { slug: 'banks' },
+            url => {
+              window.top.location.href = url
+            }
+          )
+        }
+      >
+        <Icon className="u-mr-half" icon="openwith" />
+        {t('account.success.banksLinkText')}
+      </a>
+    )
+)
+
 export class KonnectorSuccess extends Component {
   constructor(props, context) {
     super(props, context)
@@ -73,41 +110,8 @@ export class KonnectorSuccess extends Component {
                     label={t('account.success.driveLinkText')}
                   />
                 )}
-                {displayBanksUrl &&
-                  (banksUrl ? (
-                    <AppLinker slug="banks" href={banksUrl}>
-                      {({ href, onClick, name }) => (
-                        <a
-                          className={styles['col-account-success-link']}
-                          href={href}
-                          target="_parent"
-                          onClick={onClick}
-                        >
-                          <Icon className="u-mr-half" icon="openwith" />
-                          {t('account.success.banksLinkText', {
-                            appName: name
-                          })}
-                        </a>
-                      )}
-                    </AppLinker>
-                  ) : (
-                    <a
-                      className={styles['col-account-success-link']}
-                      onClick={() =>
-                        cozy.client.intents.redirect(
-                          'io.cozy.apps',
-                          { slug: 'banks' },
-                          url => {
-                            window.top.location.href = url
-                          }
-                        )
-                      }
-                    >
-                      <Icon className="u-mr-half" icon="openwith" />
-                      {t('account.success.banksLinkText')}
-                    </a>
-                  ))}
               </p>
+                {displayBanksUrl && <BanksLink banksUrl={banksUrl} />}
             )}
           </DescriptionContent>
 
