@@ -16,6 +16,12 @@ import DescriptionContent from 'components/DescriptionContent'
 import TriggerFolderLink from 'components/TriggerFolderLink'
 import connectingIllu from 'assets/images/connecting-data-in-progress.svg'
 
+const SuccessImage = () => (
+  <div className={styles['col-account-success-illu-wrapper']}>
+    <img src={connectingIllu} className={styles['col-account-success-illu']} />
+  </div>
+)
+
 export class KonnectorSuccess extends Component {
   constructor(props, context) {
     super(props, context)
@@ -49,14 +55,7 @@ export class KonnectorSuccess extends Component {
     return (
       account && (
         <div className={styles['col-account-success']}>
-          {!error && (
-            <div className={styles['col-account-success-illu-wrapper']}>
-              <img
-                src={connectingIllu}
-                className={styles['col-account-success-illu']}
-              />
-            </div>
-          )}
+          {!error && <SuccessImage />}
           <DescriptionContent
             title={!error && title}
             messages={!error && messages}
