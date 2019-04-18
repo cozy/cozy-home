@@ -31,6 +31,12 @@ const DriveLink = translate()(({ folderId, t }) => (
   />
 ))
 
+const SuccessFooter = translate()(({ children }) => (
+  <div className={styles['coz-form-controls-success']}>
+    <div className={styles['col-account-form-success-buttons']}>{children}</div>
+  </div>
+))
+
 export class KonnectorSuccess extends Component {
   constructor(props, context) {
     super(props, context)
@@ -77,17 +83,15 @@ export class KonnectorSuccess extends Component {
             )}
           </DescriptionContent>
 
-          <div className={styles['coz-form-controls-success']}>
-            <div className={styles['col-account-form-success-buttons']}>
-              <Button
-                label={successButtonLabel || t('account.success.button')}
-                onClick={event => {
-                  event.preventDefault()
-                  onDone(account)
-                }}
-              />
-            </div>
-          </div>
+          <SuccessFooter>
+            <Button
+              label={successButtonLabel || t('account.success.button')}
+              onClick={event => {
+                event.preventDefault()
+                onDone(account)
+              }}
+            />
+          </SuccessFooter>
         </div>
       )
     )
