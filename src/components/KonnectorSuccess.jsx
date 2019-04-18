@@ -1,7 +1,3 @@
-/* global cozy */
-
-import styles from 'styles/konnectorSuccess'
-
 import classNames from 'classnames'
 import has from 'lodash/has'
 import React, { Component } from 'react'
@@ -9,11 +5,11 @@ import PropTypes from 'prop-types'
 
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
-import Icon from 'cozy-ui/react/Icon'
-import AppLinker from 'cozy-ui/react/AppLinker'
 
+import styles from 'styles/konnectorSuccess'
 import DescriptionContent from 'components/DescriptionContent'
 import TriggerFolderLink from 'components/TriggerFolderLink'
+import BanksLink from 'components/BanksLink'
 import connectingIllu from 'assets/images/connecting-data-in-progress.svg'
 
 const SuccessImage = () => (
@@ -73,41 +69,8 @@ export class KonnectorSuccess extends Component {
                     label={t('account.success.driveLinkText')}
                   />
                 )}
-                {displayBanksUrl &&
-                  (banksUrl ? (
-                    <AppLinker slug="banks" href={banksUrl}>
-                      {({ href, onClick, name }) => (
-                        <a
-                          className={styles['col-account-success-link']}
-                          href={href}
-                          target="_parent"
-                          onClick={onClick}
-                        >
-                          <Icon className="u-mr-half" icon="openwith" />
-                          {t('account.success.banksLinkText', {
-                            appName: name
-                          })}
-                        </a>
-                      )}
-                    </AppLinker>
-                  ) : (
-                    <a
-                      className={styles['col-account-success-link']}
-                      onClick={() =>
-                        cozy.client.intents.redirect(
-                          'io.cozy.apps',
-                          { slug: 'banks' },
-                          url => {
-                            window.top.location.href = url
-                          }
-                        )
-                      }
-                    >
-                      <Icon className="u-mr-half" icon="openwith" />
-                      {t('account.success.banksLinkText')}
-                    </a>
-                  ))}
               </p>
+                {displayBanksUrl && <BanksLink banksUrl={banksUrl} />}
             )}
           </DescriptionContent>
 
