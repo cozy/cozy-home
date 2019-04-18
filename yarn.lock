@@ -2956,6 +2956,13 @@ cozy-device-helper@1.7.0:
   dependencies:
     lodash "4.17.11"
 
+cozy-device-helper@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.1.tgz#56c57a14b423de2700a0a695c3f7710cf6a2383d"
+  integrity sha512-CTEJOzRK+AtrGN/Wqjj5n0DM1mMMvNGSZDxKlTCvY0FNYYko05vX5qIEb9vFVm7UhH7GFZjZ+S73g3Kwq/hF4Q==
+  dependencies:
+    lodash "4.17.11"
+
 cozy-doctypes@1.39.0:
   version "1.39.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.39.0.tgz#edbd8b7575d858ce5305c0e7c6d14cf6c44b6d83"
@@ -3070,10 +3077,10 @@ cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-ui@19.18.0:
-  version "19.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.18.0.tgz#4e1732c0d0c9ccb7ae80a2219007da9a66bbfdd0"
-  integrity sha512-KumFMWaR1P+7pIHhH/oEmNUUYDUJ7aZZiNlKgEhBsfTkQlvaxa9MVZw3teKuNtnUy16FqOD48aXd4mpCgIdWvw==
+cozy-ui@19.23.0:
+  version "19.23.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.23.0.tgz#ca1cb312ecaac526ae04648e9b6f5c368e004cf4"
+  integrity sha512-Ydd69qKyjv+Ug0g1Vnxe1lkI7jVU7+dlpO4qiDjckg5YCj5Fw09lZzkb6Di6UPGbBi0YIaoRWfdnrdpEQ+TbPg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"

@@ -112,8 +112,8 @@
         "connect": "Successful configuration!",
         "update": "Your %{name} account is updated!"
       },
-      "banksLinkText": "See my accounts into Cozy Banks",
-      "driveLinkText": "Open the folder into Cozy Drive",
+      "banksLinkText": "See my accounts in %{appName}",
+      "driveLinkText": "Open the folder in Cozy Drive",
       "button": "Close"
     },
     "message": {
