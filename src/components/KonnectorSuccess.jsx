@@ -4,6 +4,7 @@ import styles from 'styles/konnectorSuccess'
 
 import classNames from 'classnames'
 import has from 'lodash/has'
+import sortBy from 'lodash/sortBy'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
@@ -79,11 +80,6 @@ const SuccessFooter = translate()(({ children }) => (
 ))
 
 export class KonnectorSuccess extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.store = this.context.store
-  }
-
   componentDidMount() {
     if (typeof this.props.handleConnectionSuccess === 'function') {
       this.props.handleConnectionSuccess()
@@ -91,23 +87,14 @@ export class KonnectorSuccess extends Component {
   }
 
   render() {
-    const {
-      t,
-      connector,
-      account,
-      error,
-      title,
-      messages,
-      onDone,
-      successButtonLabel,
-      trigger
-    } = this.props
-    const { banksUrl } = this.store
-    const displayDriveUrl = has(trigger, 'message.folder_to_save')
-    const displayBanksUrl =
-      Array.isArray(connector.data_types) &&
-      connector.data_types.includes('bankAccounts')
-    const hasLinks = displayDriveUrl || displayBanksUrl
+    const { account, error, title, messages } = this.props
+
+    const relatedApps = sortBy(Object.values(KonnectorSuccess.apps).filter(app =>
+      app.predicate(this.props)
+    ), app => -app.priority)
+
+    const hasLinks = relatedApps.length > 0
+
     return (
       account && (
         <div className={styles['col-account-success']}>
@@ -118,24 +105,57 @@ export class KonnectorSuccess extends Component {
           >
             {hasLinks && (
               <SuccessLinks>
-                {displayDriveUrl && <DriveLink folderId={trigger.message.folder_to_save} />}
-                {displayBanksUrl && <BanksLink banksUrl={banksUrl} />}
+                {relatedApps.map(x => x.successLink(this.props, this.context))}
               </SuccessLinks>
             )}
           </DescriptionContent>
 
           <SuccessFooter>
-            <Button
-              label={successButtonLabel || t('account.success.button')}
-              onClick={event => {
-                event.preventDefault()
-                onDone(account)
-              }}
-            />
+            {relatedApps[0].footerLink(this.props, this.context)}
           </SuccessFooter>
         </div>
       )
     )
+  }
+}
+
+KonnectorSuccess.apps = {
+  drive: {
+    priority: 1,
+    predicate: props => {
+      const trigger = props.trigger
+      return has(trigger, 'message.folder_to_save')
+    },
+    successLink: props => {
+      return <DriveLink folderId={props.trigger.message.folder_to_save} />
+    },
+    footerLink: props => {
+      const { t, onDone, account, successButtonLabel } = props
+      return (
+        <Button
+          label={successButtonLabel || t('account.success.button')}
+          onClick={event => {
+            event.preventDefault()
+            onDone(account)
+          }}
+        />
+      )
+    }
+  },
+
+  banks: {
+    priority: 0,
+    predicate: props => {
+      const connector = props.connector
+      return (
+        Array.isArray(connector.data_types) &&
+        connector.data_types.includes('bankAccounts')
+      )
+    },
+    successLink: (props, context) => {
+      return <BanksLink banksUrl={context.store.banksUrl} />
+    },
+    footerLink: () => null
   }
 }
 
@@ -147,6 +167,13 @@ KonnectorSuccess.propTypes = {
   onDone: PropTypes.func.isRequired,
   successButtonLabel: PropTypes.string.isRequired,
   trigger: PropTypes.object.isRequired
+}
+
+export {
+  SuccessImage,
+  SuccessLinks,
+  BanksLink,
+  DriveLink
 }
 
 export default translate()(KonnectorSuccess)
