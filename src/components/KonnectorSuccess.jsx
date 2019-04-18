@@ -18,6 +18,14 @@ const SuccessImage = () => (
   </div>
 )
 
+
+const DriveLink = translate()(({ folderId, t }) => (
+  <TriggerFolderLink
+    folderId={folderId}
+    label={t('account.success.driveLinkText')}
+  />
+))
+
 export class KonnectorSuccess extends Component {
   constructor(props, context) {
     super(props, context)
@@ -63,13 +71,8 @@ export class KonnectorSuccess extends Component {
                   'u-mv-half'
                 )}
               >
-                {displayDriveUrl && (
-                  <TriggerFolderLink
-                    folderId={trigger.message.folder_to_save}
-                    label={t('account.success.driveLinkText')}
-                  />
-                )}
               </p>
+                {displayDriveUrl && <DriveLink folderId={trigger.message.folder_to_save} />}
                 {displayBanksUrl && <BanksLink banksUrl={banksUrl} />}
             )}
           </DescriptionContent>
