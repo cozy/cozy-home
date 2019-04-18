@@ -22,6 +22,12 @@ const SuccessImage = () => (
   </div>
 )
 
+const SuccessLinks = ({ children }) => (
+  <p className={classNames(styles['col-account-success-links'], 'u-mv-half')}>
+    {children}
+  </p>
+)
+
 const BanksLink = translate()(
   ({ banksUrl, t }) =>
     banksUrl ? (
@@ -105,15 +111,10 @@ export class KonnectorSuccess extends Component {
             messages={!error && messages}
           >
             {hasLinks && (
-              <p
-                className={classNames(
-                  styles['col-account-success-links'],
-                  'u-mv-half'
-                )}
-              >
-              </p>
+              <SuccessLinks>
                 {displayDriveUrl && <DriveLink folderId={trigger.message.folder_to_save} />}
                 {displayBanksUrl && <BanksLink banksUrl={banksUrl} />}
+              </SuccessLinks>
             )}
           </DescriptionContent>
 
