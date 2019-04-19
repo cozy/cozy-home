@@ -3,14 +3,10 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { configure, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 
 import { tMock } from '../jestLib/I18n'
 import { Failure } from '../../src/components/Failure'
-
-import Adapter from 'enzyme-adapter-react-15'
-
-configure({ adapter: new Adapter() })
 
 describe('Failure component', () => {
   beforeEach(() => {
