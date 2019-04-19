@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import KonnectorSuccess, { BanksLink, DriveLink } from './KonnectorSuccess'
-import AppLike from './AppLike'
+import AppLike from '../../test/AppLike'
 
 describe('KonnectorSuccess', () => {
   let trigger, connector, root
