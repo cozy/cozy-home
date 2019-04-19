@@ -145,12 +145,7 @@ KonnectorSuccess.propTypes = {
   trigger: PropTypes.object.isRequired
 }
 
-export {
-  SuccessImage,
-  SuccessLinks,
-  BanksLink,
-  DriveLink
-}
+export { SuccessImage, SuccessLinks, BanksLink, DriveLink }
 
 const provideStoreAsProp = connect(
   null,
