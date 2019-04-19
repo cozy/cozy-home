@@ -68,8 +68,8 @@ export class KonnectorSuccess extends Component {
           >
             {hasLinks && (
               <SuccessLinks>
-                {relatedApps.map((x, i) =>
-                  x.successLink(this.props, this.context, i)
+                {relatedApps.map((app, i) =>
+                  app.successLink(this.props, this.context, i)
                 )}
               </SuccessLinks>
             )}
