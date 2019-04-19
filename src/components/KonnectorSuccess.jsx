@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import has from 'lodash/has'
 import sortBy from 'lodash/sortBy'
-import compose from 'lodash/flowRight'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -152,7 +151,4 @@ const provideStoreAsProp = connect(
   (dispatch, store) => ({ store })
 )
 
-export default compose(
-  translate(),
-  provideStoreAsProp
-)(KonnectorSuccess)
+export default translate()(provideStoreAsProp(KonnectorSuccess))
