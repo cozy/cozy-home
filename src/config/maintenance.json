@@ -83,13 +83,6 @@
       "en": "Macif added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Macif.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
-  "sosh": {
-    "longTerm": true,
-    "message": {
-    "fr": "Sosh a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
-    "en": "Sosh has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
-    }
-  },
   "redbox": {
     "longTerm": true,
     "message": {
