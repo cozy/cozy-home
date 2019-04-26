@@ -218,6 +218,14 @@
         "title": "New permissions validation needed",
         "description": "You connector was updated and the permissions changed. Please validate them before launching the connector again."
       },
+      "USER_ACTION_NEEDED.TWOFA_EXPIRED": {
+        "title": "Two Factor code expired",
+        "description": "The two factor code has expired, please start again."
+      },
+      "USER_ACTION_NEEDED.WRONG_TWOFA_CODE": {
+        "title": "Wrong two factore code provided",
+        "description": "The two factor code provided is wrong, please start again."
+      },
       "VENDOR_DOWN": {
         "title": "Unavailable service",
         "description": "It seems that the [%{name}](%{link}) service is unavailable at the moment. Please rerun the connector later."
