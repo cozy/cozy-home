@@ -1,4 +1,3 @@
-/* global cozy */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -7,7 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from 'components/KonnectorInstall'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
-import UpdateMessage from 'components/UpdateMessage'
+import UpdateMessage from 'components/Banners/UpdateMessage'
 import KonnectorEdit from 'components/KonnectorEdit'
 import { fetchAccount } from 'ducks/accounts'
 import {
@@ -36,7 +35,6 @@ class AccountConnection extends Component {
       account: this.props.existingAccount,
       editing: !!this.props.existingAccount,
       isFetching: false,
-      isRedirecting: false,
       maintenance:
         this.props.maintenance &&
         this.props.maintenance[this.props.konnector.slug],
@@ -214,15 +212,6 @@ class AccountConnection extends Component {
     return messages
   }
 
-  redirectToStore = async () => {
-    this.setState({ isRedirecting: true })
-    const { konnector } = this.props
-    await cozy.client.intents.redirect('io.cozy.apps', {
-      slug: konnector.slug,
-      step: 'update'
-    })
-  }
-
   render() {
     const {
       createdAccount,
@@ -248,7 +237,6 @@ class AccountConnection extends Component {
       oAuthError,
       oAuthTerminated,
       submitting,
-      isRedirecting,
       maintenance,
       lang
     } = this.state
@@ -267,8 +255,6 @@ class AccountConnection extends Component {
       <div className={styles['col-account-connection']}>
         {!!konnector.available_version && (
           <UpdateMessage
-            onClick={this.redirectToStore}
-            disabled={isRedirecting}
             error={konnectorError}
             isBlocking={isKonnectorUpdateNeededError(konnectorError)}
           />

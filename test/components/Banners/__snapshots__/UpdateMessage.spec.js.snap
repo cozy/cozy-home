@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateMessage component Should be render correctly if blocking update 1`] = `
+<div
+  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+>
+  <SubTitle
+    className="u-pomegranate"
+    ellipsis={false}
+    tag="div"
+  >
+    An update is available for this service.
+  </SubTitle>
+  <Text
+    className="u-mv-1"
+    ellipsis={false}
+    tag="div"
+  >
+    Update it to keep fetching your data
+  </Text>
+  <DefaultButton
+    className="u-m-0"
+    disabled={false}
+    label="Update"
+    onClick={[Function]}
+    theme="danger"
+  />
+</div>
+`;
+
+exports[`UpdateMessage component Should be render correctly if not blocking update 1`] = `
+<div
+  className="u-bdrs-4 u-p-1-half u-bg-paleGrey"
+>
+  <SubTitle
+    className=""
+    ellipsis={false}
+    tag="div"
+  >
+    An update is available for this service.
+  </SubTitle>
+  <Text
+    className="u-mv-1"
+    ellipsis={false}
+    tag="div"
+  >
+    Perform this update to keep fetching your data and to have the latest features
+  </Text>
+  <DefaultButton
+    className="u-m-0"
+    disabled={false}
+    label="Update"
+    onClick={[Function]}
+    theme="danger"
+  />
+</div>
+`;
