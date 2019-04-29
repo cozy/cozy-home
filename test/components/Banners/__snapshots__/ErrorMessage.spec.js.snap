@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage component Should render correctly 1`] = `
+<div
+  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+>
+  <SubTitle
+    className="u-pomegranate"
+    ellipsis={false}
+    tag="div"
+  >
+    Bad credentials
+  </SubTitle>
+  <Text
+    className="u-mv-1"
+    ellipsis={false}
+    tag="div"
+  >
+    Bad credentials. Check the konnector fields and run the connection again.
+  </Text>
+</div>
+`;
+
+exports[`ErrorMessage component Should render correctly if two session expired 1`] = `
+<div
+  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+>
+  <SubTitle
+    className="u-pomegranate"
+    ellipsis={false}
+    tag="div"
+  >
+    Relaunch the connexion to the service to fetch your data
+  </SubTitle>
+  <Text
+    className="u-mv-1"
+    ellipsis={false}
+    tag="div"
+  >
+    The last connexion to the service failed; please launch it again. You may have to provide a validation code.
+  </Text>
+  <DefaultButton
+    className="u-m-0"
+    icon="sync"
+    label="Run again now"
+    onClick={[Function]}
+    theme="danger"
+  />
+</div>
+`;
+
+exports[`ErrorMessage component Should render correctly if wrong twofa code error 1`] = `
+<div
+  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+>
+  <SubTitle
+    className="u-pomegranate"
+    ellipsis={false}
+    tag="div"
+  >
+    Wrong two-factore code provided
+  </SubTitle>
+  <Text
+    className="u-mv-1"
+    ellipsis={false}
+    tag="div"
+  >
+    The two-factor code provided is wrong, please start again.
+  </Text>
+  <DefaultButton
+    className="u-m-0"
+    icon="sync"
+    label="Run again now"
+    onClick={[Function]}
+    theme="danger"
+  />
+</div>
+`;

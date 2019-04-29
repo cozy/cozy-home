@@ -15,6 +15,11 @@ export const UPDATE_NEEDED_ERRORS_TYPES = {
   TERMS_VERSION_MISMATCH: 'TERMS_VERSION_MISMATCH'
 }
 
+export const TWO_FA_ERRORS = [
+  'USER_ACTION_NEEDED.TWOFA_EXPIRED',
+  'USER_ACTION_NEEDED.WRONG_TWOFA_CODE'
+]
+
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
 export const KONNECTOR_RESULT_STATE = {
@@ -53,6 +58,10 @@ export function addFolderPermission(cozy, konnector, folderId) {
 
 export function isKonnectorLoginError(error) {
   return error && error.type && error.type === ERROR_TYPES.LOGIN_FAILED
+}
+
+export function isKonnectorTwoFAError(error) {
+  return error && error.type && TWO_FA_ERRORS.includes(error.code)
 }
 
 export function isKonnectorUserError(error) {

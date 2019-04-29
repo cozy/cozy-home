@@ -9,7 +9,7 @@ import warningSvg from 'assets/sprites/icon-warning.svg'
 import AccountConnectionData from 'components/AccountConnectionData'
 import AccountLogout from 'components/AccountLogout'
 import DescriptionContent from 'components/DescriptionContent'
-import ErrorDescription from 'components/ErrorDescriptions'
+import ErrorMessage from 'components/Banners/ErrorMessage'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import KonnectorSync from 'components/KonnectorSync'
 import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
@@ -53,8 +53,14 @@ export const KonnectorEdit = props => {
   return (
     <div className={styles['col-account-edit-content']}>
       {!maintenance &&
-        hasErrorExceptLogin &&
-        ErrorDescription({ t, error, connector })}
+        !!error && (
+          <ErrorMessage
+            konnector={connector}
+            error={error}
+            onForceConnection={onForceConnection}
+            disabled={submitting}
+          />
+        )}
 
       <Tabs
         initialActiveTab={hasLoginError ? 'account' : 'sync'}

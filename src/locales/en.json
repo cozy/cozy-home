@@ -161,6 +161,9 @@
     "title": "My apps"
   },
   "connection": {
+    "CTA": {
+      "twofa_failed": "Run again now"
+    },
     "error": {
       "default": {
         "title": "An error occured",
@@ -219,12 +222,12 @@
         "description": "You connector was updated and the permissions changed. Please validate them before launching the connector again."
       },
       "USER_ACTION_NEEDED.TWOFA_EXPIRED": {
-        "title": "Two Factor code expired",
-        "description": "The two factor code has expired, please start again."
+        "title": "Relaunch the connexion to the service to fetch your data",
+        "description": "The last connexion to the service failed; please launch it again. You may have to provide a validation code."
       },
       "USER_ACTION_NEEDED.WRONG_TWOFA_CODE": {
-        "title": "Wrong two factore code provided",
-        "description": "The two factor code provided is wrong, please start again."
+        "title": "Wrong two-factore code provided",
+        "description": "The two-factor code provided is wrong, please start again."
       },
       "VENDOR_DOWN": {
         "title": "Unavailable service",
