@@ -19,10 +19,16 @@ export class UpdateMessage extends Component {
   async redirectToStore() {
     this.setState({ isRedirecting: true })
     const { konnector } = this.props
-    await cozy.client.intents.redirect('io.cozy.apps', {
-      slug: konnector.slug,
-      step: 'update'
-    })
+    try {
+      await cozy.client.intents.redirect('io.cozy.apps', {
+        slug: konnector.slug,
+        step: 'update'
+      })
+    } catch (error) {
+      /* eslint-disable-next-line no-console */
+      console.error(error)
+      this.setState({ isRedirecting: false })
+    }
   }
 
   render() {
