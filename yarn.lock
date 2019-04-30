@@ -2994,10 +2994,10 @@ cozy-harvest-lib@0.38.3:
     react-markdown "4.0.6"
     react-proptypes "1.0.0"
 
-cozy-harvest-lib@0.40.3:
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.40.3.tgz#0538e6e8020be4f03756ede91d7623fe1f0bc37f"
-  integrity sha512-0WlVVFi16XC2MjPi+rbTYk7YuO9LrjaxK4iwrffBds8TgD5BN0UVJnUqJ/VRyBCVG8177Op9Z/bJ67i+8+YR+A==
+cozy-harvest-lib@0.40.4:
+  version "0.40.4"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.40.4.tgz#fe02abf1a2f7e20899caa434e0a4d8a8c2a07a9a"
+  integrity sha512-/aUnI5MhPAT/exT3jdwtM8FZ6NNt9F/lwzd0b2UxwWefE/E6WAtyd3Lk55MvbrKODbvrH6cqMxKVEY7Kp90HWw==
   dependencies:
     final-form "4.11.1"
     lodash "4.17.11"
