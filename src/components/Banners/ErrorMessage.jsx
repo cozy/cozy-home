@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { isKonnectorTwoFAError } from 'lib/konnectors'
 import Button from 'cozy-ui/react/Button'
+import Infos from 'cozy-ui/react/Infos'
 import PropTypes from 'prop-types'
 
-import Banner from 'components/Banners/Banner'
 import { getMostAccurateErrorKey, isKonnectorKnownError } from 'lib/konnectors'
 
 export class ErrorMessage extends Component {
@@ -60,8 +60,9 @@ export class ErrorMessage extends Component {
 
     if (!isKonnectorKnownError(error)) {
       return (
-        <Banner
-          description={t('connection.error.default.description', {
+        <Infos
+          className="u-maw-none"
+          text={t('connection.error.default.description', {
             name: konnector.name
           })}
           title={t('connection.error.default.title')}
@@ -73,8 +74,9 @@ export class ErrorMessage extends Component {
     // FIXME temporarily, only for EDF
     if (konnector.slug === 'edf') {
       return (
-        <Banner
-          description={t('status.edf.maintenance', {
+        <Infos
+          className="u-maw-none"
+          text={t('status.edf.maintenance', {
             supportLink: t('status.edf.support_link')
           })}
           title={t('status.interrupted')}
@@ -84,9 +86,10 @@ export class ErrorMessage extends Component {
     }
 
     return (
-      <Banner
+      <Infos
         actionButton={this.renderButton(error)}
-        description={this.getErrorDescription(error)}
+        className="u-maw-none"
+        text={this.getErrorDescription(error)}
         isImportant
         title={this.getErrorTitle(error)}
       />

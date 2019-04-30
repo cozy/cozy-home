@@ -2,7 +2,7 @@
 
 exports[`ErrorMessage component Should render correctly 1`] = `
 <div
-  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
     className="u-pomegranate"
@@ -11,19 +11,26 @@ exports[`ErrorMessage component Should render correctly 1`] = `
   >
     Bad credentials
   </SubTitle>
-  <Text
-    className="u-mv-1"
-    ellipsis={false}
-    tag="div"
+  <div
+    className="u-flex u-w-100 u-mt-1"
   >
-    Bad credentials. Check the konnector fields and run the connection again.
-  </Text>
+    <Text
+      className="u-ta-left"
+      ellipsis={false}
+      tag="div"
+    >
+      Bad credentials. Check the konnector fields and run the connection again.
+    </Text>
+  </div>
+  <div
+    className="u-flex-shrink-0"
+  />
 </div>
 `;
 
-exports[`ErrorMessage component Should render correctly if two session expired 1`] = `
+exports[`ErrorMessage component Should render correctly if two fa session expired 1`] = `
 <div
-  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
     className="u-pomegranate"
@@ -32,26 +39,34 @@ exports[`ErrorMessage component Should render correctly if two session expired 1
   >
     Relaunch the connexion to the service to fetch your data
   </SubTitle>
-  <Text
-    className="u-mv-1"
-    ellipsis={false}
-    tag="div"
+  <div
+    className="u-flex u-w-100 u-mt-1 u-mb-1"
   >
-    The last connexion to the service failed; please launch it again. You may have to provide a validation code.
-  </Text>
-  <DefaultButton
-    className="u-m-0"
-    icon="sync"
-    label="Run again now"
-    onClick={[Function]}
-    theme="danger"
-  />
+    <Text
+      className="u-ta-left"
+      ellipsis={false}
+      tag="div"
+    >
+      The last connexion to the service failed; please launch it again. You may have to provide a validation code.
+    </Text>
+  </div>
+  <div
+    className="u-flex-shrink-0"
+  >
+    <DefaultButton
+      className="u-m-0"
+      icon="sync"
+      label="Run again now"
+      onClick={[Function]}
+      theme="danger"
+    />
+  </div>
 </div>
 `;
 
 exports[`ErrorMessage component Should render correctly if wrong twofa code error 1`] = `
 <div
-  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
     className="u-pomegranate"
@@ -60,19 +75,27 @@ exports[`ErrorMessage component Should render correctly if wrong twofa code erro
   >
     Wrong two-factore code provided
   </SubTitle>
-  <Text
-    className="u-mv-1"
-    ellipsis={false}
-    tag="div"
+  <div
+    className="u-flex u-w-100 u-mt-1 u-mb-1"
   >
-    The two-factor code provided is wrong, please start again.
-  </Text>
-  <DefaultButton
-    className="u-m-0"
-    icon="sync"
-    label="Run again now"
-    onClick={[Function]}
-    theme="danger"
-  />
+    <Text
+      className="u-ta-left"
+      ellipsis={false}
+      tag="div"
+    >
+      The two-factor code provided is wrong, please start again.
+    </Text>
+  </div>
+  <div
+    className="u-flex-shrink-0"
+  >
+    <DefaultButton
+      className="u-m-0"
+      icon="sync"
+      label="Run again now"
+      onClick={[Function]}
+      theme="danger"
+    />
+  </div>
 </div>
 `;

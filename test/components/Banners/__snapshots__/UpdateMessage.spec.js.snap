@@ -2,7 +2,7 @@
 
 exports[`UpdateMessage component Should be render correctly if blocking update 1`] = `
 <div
-  className="u-bdrs-4 u-p-1-half u-bg-paleGrey u-bg-chablis"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
     className="u-pomegranate"
@@ -11,26 +11,34 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
   >
     An update is available for this service.
   </SubTitle>
-  <Text
-    className="u-mv-1"
-    ellipsis={false}
-    tag="div"
+  <div
+    className="u-flex u-w-100 u-mt-1 u-mb-1"
   >
-    Update it to keep fetching your data
-  </Text>
-  <DefaultButton
-    className="u-m-0"
-    disabled={false}
-    label="Update"
-    onClick={[Function]}
-    theme="danger"
-  />
+    <Text
+      className="u-ta-left"
+      ellipsis={false}
+      tag="div"
+    >
+      Update it to keep fetching your data
+    </Text>
+  </div>
+  <div
+    className="u-flex-shrink-0"
+  >
+    <DefaultButton
+      className="u-m-0"
+      disabled={false}
+      label="Update"
+      onClick={[Function]}
+      theme="danger"
+    />
+  </div>
 </div>
 `;
 
 exports[`UpdateMessage component Should be render correctly if not blocking update 1`] = `
 <div
-  className="u-bdrs-4 u-p-1-half u-bg-paleGrey"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-maw-none"
 >
   <SubTitle
     className=""
@@ -39,19 +47,27 @@ exports[`UpdateMessage component Should be render correctly if not blocking upda
   >
     An update is available for this service.
   </SubTitle>
-  <Text
-    className="u-mv-1"
-    ellipsis={false}
-    tag="div"
+  <div
+    className="u-flex u-w-100 u-mt-1 u-mb-1"
   >
-    Perform this update to keep fetching your data and to have the latest features
-  </Text>
-  <DefaultButton
-    className="u-m-0"
-    disabled={false}
-    label="Update"
-    onClick={[Function]}
-    theme="danger"
-  />
+    <Text
+      className="u-ta-left"
+      ellipsis={false}
+      tag="div"
+    >
+      Perform this update to keep fetching your data and to have the latest features
+    </Text>
+  </div>
+  <div
+    className="u-flex-shrink-0"
+  >
+    <DefaultButton
+      className="u-m-0"
+      disabled={false}
+      label="Update"
+      onClick={[Function]}
+      theme="danger"
+    />
+  </div>
 </div>
 `;

@@ -44,7 +44,7 @@ describe('ErrorMessage component', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it(`Should render correctly if two session expired`, () => {
+  it(`Should render correctly if two fa session expired`, () => {
     const component = shallow(
       <ErrorMessage
         konnector={konnectorMock}

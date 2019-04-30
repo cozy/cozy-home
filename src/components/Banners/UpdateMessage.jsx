@@ -3,9 +3,8 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import Button from 'cozy-ui/react/Button'
+import Infos from 'cozy-ui/react/Infos'
 import PropTypes from 'prop-types'
-
-import Banner from 'components/Banners/Banner'
 
 export class UpdateMessage extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ export class UpdateMessage extends Component {
     const { isRedirecting } = this.state
 
     return (
-      <Banner
+      <Infos
         actionButton={
           <Button
             label={t('update.CTA')}
@@ -46,7 +45,8 @@ export class UpdateMessage extends Component {
             disabled={isRedirecting}
           />
         }
-        description={isBlocking ? t('update.blocking') : t('update.regular')}
+        className="u-maw-none"
+        text={isBlocking ? t('update.blocking') : t('update.regular')}
         isImportant={isBlocking}
         title={t('update.title')}
       />
