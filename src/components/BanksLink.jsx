@@ -15,7 +15,7 @@ const BanksLink = translate()(
           <a
             className={styles['col-account-success-link']}
             href={href}
-            target="_parent"
+            target="_top"
             onClick={onClick}
           >
             <Icon className="u-mr-half" icon="openwith" />
