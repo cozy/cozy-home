@@ -18,7 +18,10 @@ import {
   isConnectionEnqueued,
   launchTriggerAndQueue
 } from 'ducks/connections'
-import { isKonnectorUpdateNeededError } from 'lib/konnectors'
+import {
+  isKonnectorUpdateNeededError,
+  isKonnectorTwoFAError
+} from 'lib/konnectors'
 import uuid from 'uuid/v4'
 import { popupCenter, waitForClosedPopup } from 'lib/popup'
 import statefulForm from 'lib/statefulForm'
@@ -46,11 +49,14 @@ class AccountConnection extends Component {
 
   componentDidUpdate(prevProps) {
     const { success, queued } = this.props
+    const { connectionError } = this.state
 
     const succeed = !prevProps.success && success
     const loginSucceed = !prevProps.queued && queued
 
     if (succeed || loginSucceed) {
+      // we reset the error in case of persisted errors
+      if (succeed && connectionError) this.setState({ connectionError: null })
       this.props.handleConnectionSuccess()
     }
   }
@@ -124,7 +130,16 @@ class AccountConnection extends Component {
   }
 
   runConnection(account) {
-    this.setState({ submitting: true, connectionError: null })
+    const { connectionError } = this.state
+    if (isKonnectorTwoFAError(connectionError)) {
+      /**
+       * TWO FA Errors must be persisted to continue displaying harvest
+       * for 2FA process
+       */
+      this.setState({ submitting: true })
+    } else {
+      this.setState({ submitting: true, connectionError: null })
+    }
 
     return this.store
       .connectAccount(

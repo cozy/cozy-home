@@ -53,13 +53,11 @@ exports[`ErrorMessage component Should render correctly if two fa session expire
   <div
     className="u-flex-shrink-0"
   >
-    <DefaultButton
-      className="u-m-0"
-      icon="sync"
-      label="Run again now"
-      onClick={[Function]}
-      theme="danger"
-    />
+    <ComponentWithLocales
+      trigger={Object {}}
+    >
+      [Function]
+    </ComponentWithLocales>
   </div>
 </div>
 `;
@@ -89,13 +87,11 @@ exports[`ErrorMessage component Should render correctly if wrong twofa code erro
   <div
     className="u-flex-shrink-0"
   >
-    <DefaultButton
-      className="u-m-0"
-      icon="sync"
-      label="Run again now"
-      onClick={[Function]}
-      theme="danger"
-    />
+    <ComponentWithLocales
+      trigger={Object {}}
+    >
+      [Function]
+    </ComponentWithLocales>
   </div>
 </div>
 `;

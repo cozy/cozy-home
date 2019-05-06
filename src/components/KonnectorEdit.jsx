@@ -57,8 +57,8 @@ export const KonnectorEdit = props => {
           <ErrorMessage
             konnector={connector}
             error={error}
-            onForceConnection={onForceConnection}
             disabled={submitting}
+            trigger={trigger}
           />
         )}
 

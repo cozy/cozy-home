@@ -27,48 +27,31 @@ const twoFaWrongErrorMock = {
   code: 'USER_ACTION_NEEDED.WRONG_TWOFA_CODE'
 }
 
-const onForceConnectionMock = () => jest.fn()
+const triggerMock = {}
+
+const getComponent = error => {
+  return shallow(
+    <ErrorMessage
+      konnector={konnectorMock}
+      t={tMock}
+      error={error}
+      trigger={triggerMock}
+    />
+  )
+    .dive()
+    .getElement()
+}
 
 describe('ErrorMessage component', () => {
   it(`Should render correctly`, () => {
-    const component = shallow(
-      <ErrorMessage
-        konnector={konnectorMock}
-        t={tMock}
-        error={errorMock}
-        onForceConnection={onForceConnectionMock}
-      />
-    )
-      .dive()
-      .getElement()
-    expect(component).toMatchSnapshot()
+    expect(getComponent(errorMock)).toMatchSnapshot()
   })
 
   it(`Should render correctly if two fa session expired`, () => {
-    const component = shallow(
-      <ErrorMessage
-        konnector={konnectorMock}
-        t={tMock}
-        error={twoFaExpiredErrorMock}
-        onForceConnection={onForceConnectionMock}
-      />
-    )
-      .dive()
-      .getElement()
-    expect(component).toMatchSnapshot()
+    expect(getComponent(twoFaExpiredErrorMock)).toMatchSnapshot()
   })
 
   it(`Should render correctly if wrong twofa code error`, () => {
-    const component = shallow(
-      <ErrorMessage
-        konnector={konnectorMock}
-        t={tMock}
-        error={twoFaWrongErrorMock}
-        onForceConnection={onForceConnectionMock}
-      />
-    )
-      .dive()
-      .getElement()
-    expect(component).toMatchSnapshot()
+    expect(getComponent(twoFaWrongErrorMock)).toMatchSnapshot()
   })
 })

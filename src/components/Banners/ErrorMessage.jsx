@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { isKonnectorTwoFAError } from 'lib/konnectors'
 import Button from 'cozy-ui/react/Button'
+import Icon from 'cozy-ui/react/Icon'
 import Infos from 'cozy-ui/react/Infos'
 import PropTypes from 'prop-types'
+import { TriggerLauncher } from 'cozy-harvest-lib'
 
 import { getMostAccurateErrorKey, isKonnectorKnownError } from 'lib/konnectors'
 
@@ -16,17 +18,21 @@ export class ErrorMessage extends Component {
   }
 
   renderButton(error) {
-    const { t, onForceConnection, disabled } = this.props
+    const { t, disabled, trigger } = this.props
     if (isKonnectorTwoFAError(error)) {
       return (
-        <Button
-          label={t('connection.CTA.twofa_failed')}
-          icon="sync"
-          theme="danger"
-          className="u-m-0"
-          onClick={onForceConnection}
-          disabled={disabled}
-        />
+        <TriggerLauncher trigger={trigger}>
+          {({ launch, running }) => (
+            <Button
+              label={t('connection.CTA.twofa_failed')}
+              icon={<Icon focusable="false" icon="sync" spin={running} />}
+              theme="secondary"
+              className="u-m-0"
+              disabled={disabled || running}
+              onClick={launch}
+            />
+          )}
+        </TriggerLauncher>
       )
     } else {
       return null
@@ -101,8 +107,11 @@ ErrorMessage.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.object.isRequired,
   konnector: PropTypes.object.isRequired,
-  onForceConnection: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
+  /**
+   * The trigger to launch
+   */
+  trigger: PropTypes.object.isRequired
 }
 
 export default translate()(ErrorMessage)
