@@ -32,19 +32,19 @@ class AccountConnection extends Component {
     super(props, context)
     this.store = this.context.store
 
-    if (this.props.error) this.handleError({ message: this.props.error })
-
     this.state = {
-      account: this.props.existingAccount,
-      editing: !!this.props.existingAccount,
+      account: props.existingAccount,
+      editing: !!props.existingAccount,
       isFetching: false,
-      maintenance:
-        this.props.maintenance &&
-        this.props.maintenance[this.props.konnector.slug],
+      maintenance: props.maintenance && props.maintenance[props.konnector.slug],
       lang: this.context.lang
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.error) this.handleError({ message: this.props.error })
   }
 
   componentDidUpdate(prevProps) {
