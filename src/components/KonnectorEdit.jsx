@@ -29,7 +29,6 @@ export const KonnectorEdit = props => {
     lastSuccess,
     oAuthTerminated,
     onDelete,
-    onForceConnection,
     onSubmit,
     submitting,
     trigger,
@@ -57,7 +56,7 @@ export const KonnectorEdit = props => {
           <ErrorMessage
             konnector={connector}
             error={error}
-            disabled={submitting}
+            isKonnectorRunning={submitting}
             trigger={trigger}
           />
         )}
@@ -95,7 +94,6 @@ export const KonnectorEdit = props => {
               lastSuccessDate={lastSuccess}
               maintenance={maintenance}
               submitting={submitting}
-              onForceConnection={onForceConnection}
               trigger={trigger}
             />
             {has(trigger, 'message.folder_to_save') && (

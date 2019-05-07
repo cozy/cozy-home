@@ -18,17 +18,23 @@ export class ErrorMessage extends Component {
   }
 
   renderButton(error) {
-    const { t, disabled, trigger } = this.props
+    const { t, isKonnectorRunning, trigger } = this.props
     if (isKonnectorTwoFAError(error)) {
       return (
         <TriggerLauncher trigger={trigger}>
           {({ launch, running }) => (
             <Button
               label={t('connection.CTA.twofa_failed')}
-              icon={<Icon focusable="false" icon="sync" spin={running} />}
+              icon={
+                <Icon
+                  focusable="false"
+                  icon="sync"
+                  spin={isKonnectorRunning || running}
+                />
+              }
               theme="secondary"
               className="u-m-0"
-              disabled={disabled || running}
+              disabled={isKonnectorRunning || running}
               onClick={launch}
             />
           )}
@@ -104,7 +110,7 @@ export class ErrorMessage extends Component {
 }
 
 ErrorMessage.propTypes = {
-  disabled: PropTypes.bool,
+  isKonnectorRunning: PropTypes.bool,
   error: PropTypes.object.isRequired,
   konnector: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,

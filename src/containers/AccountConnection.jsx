@@ -15,8 +15,7 @@ import {
   getConnectionError,
   isConnectionConnected,
   isConnectionDeleting,
-  isConnectionEnqueued,
-  launchTriggerAndQueue
+  isConnectionEnqueued
 } from 'ducks/connections'
 import {
   isKonnectorUpdateNeededError,
@@ -237,7 +236,6 @@ class AccountConnection extends Component {
       konnector,
       lastSuccess,
       error,
-      forceConnection,
       isRunning,
       onDone,
       queued,
@@ -284,7 +282,6 @@ class AccountConnection extends Component {
             lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
             onDelete={() => this.deleteConnection()}
-            onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             trigger={trigger}
@@ -328,14 +325,10 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { konnector, trigger } = ownProps
+  const { trigger } = ownProps
   return {
     fetchAccount: accountId =>
       dispatch(fetchAccount(accountId)).then(response => response.data[0]),
-    forceConnection: () =>
-      dispatch(
-        launchTriggerAndQueue(trigger, !!konnector && konnector.loginDelay)
-      ),
     deleteConnection: () => dispatch(deleteConnection(trigger)),
     enqueueConnection: trigger => dispatch(enqueueConnection(trigger))
   }
