@@ -9,7 +9,7 @@ import warningSvg from 'assets/sprites/icon-warning.svg'
 import AccountConnectionData from 'components/AccountConnectionData'
 import AccountLogout from 'components/AccountLogout'
 import DescriptionContent from 'components/DescriptionContent'
-import ErrorDescription from 'components/ErrorDescriptions'
+import ErrorMessage from 'components/Banners/ErrorMessage'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import KonnectorSync from 'components/KonnectorSync'
 import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
@@ -29,7 +29,6 @@ export const KonnectorEdit = props => {
     lastSuccess,
     oAuthTerminated,
     onDelete,
-    onForceConnection,
     onSubmit,
     submitting,
     trigger,
@@ -53,8 +52,14 @@ export const KonnectorEdit = props => {
   return (
     <div className={styles['col-account-edit-content']}>
       {!maintenance &&
-        hasErrorExceptLogin &&
-        ErrorDescription({ t, error, connector })}
+        !!error && (
+          <ErrorMessage
+            konnector={connector}
+            error={error}
+            isKonnectorRunning={submitting}
+            trigger={trigger}
+          />
+        )}
 
       <Tabs
         initialActiveTab={hasLoginError ? 'account' : 'sync'}
@@ -89,7 +94,6 @@ export const KonnectorEdit = props => {
               lastSuccessDate={lastSuccess}
               maintenance={maintenance}
               submitting={submitting}
-              onForceConnection={onForceConnection}
               trigger={trigger}
             />
             {has(trigger, 'message.folder_to_save') && (

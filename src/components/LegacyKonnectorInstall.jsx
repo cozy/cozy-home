@@ -3,7 +3,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
 import DescriptionContent from 'components/DescriptionContent'
-import ErrorDescription from 'components/ErrorDescriptions'
+import ErrorMessage from 'components/Banners/ErrorMessage'
 import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
 import { getKonnectorMessage, isKonnectorLoginError } from 'lib/konnectors'
 
@@ -27,7 +27,9 @@ export const LegacyKonnectorInstall = props => {
   return (
     <div className={styles['col-account-connection-content']}>
       <div className={styles['col-account-connection-form']}>
-        {hasErrorExceptLogin && ErrorDescription({ t, error, connector })}
+        {hasErrorExceptLogin && (
+          <ErrorMessage konnector={connector} error={error} />
+        )}
         {(!error || hasLoginError) &&
           !isRunningInQueue &&
           !success && (

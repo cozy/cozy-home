@@ -1,4 +1,3 @@
-/* global cozy */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -7,7 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorInstall from 'components/KonnectorInstall'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
-import UpdateMessage from 'components/UpdateMessage'
+import UpdateMessage from 'components/Banners/UpdateMessage'
 import KonnectorEdit from 'components/KonnectorEdit'
 import { fetchAccount } from 'ducks/accounts'
 import {
@@ -16,10 +15,12 @@ import {
   getConnectionError,
   isConnectionConnected,
   isConnectionDeleting,
-  isConnectionEnqueued,
-  launchTriggerAndQueue
+  isConnectionEnqueued
 } from 'ducks/connections'
-import { isKonnectorUpdateNeededError } from 'lib/konnectors'
+import {
+  isKonnectorUpdateNeededError,
+  isKonnectorTwoFAError
+} from 'lib/konnectors'
 import uuid from 'uuid/v4'
 import { popupCenter, waitForClosedPopup } from 'lib/popup'
 import statefulForm from 'lib/statefulForm'
@@ -30,29 +31,31 @@ class AccountConnection extends Component {
     super(props, context)
     this.store = this.context.store
 
-    if (this.props.error) this.handleError({ message: this.props.error })
-
     this.state = {
-      account: this.props.existingAccount,
-      editing: !!this.props.existingAccount,
+      account: props.existingAccount,
+      editing: !!props.existingAccount,
       isFetching: false,
-      isRedirecting: false,
-      maintenance:
-        this.props.maintenance &&
-        this.props.maintenance[this.props.konnector.slug],
+      maintenance: props.maintenance && props.maintenance[props.konnector.slug],
       lang: this.context.lang
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
   }
 
+  componentDidMount() {
+    if (this.props.error) this.handleError({ message: this.props.error })
+  }
+
   componentDidUpdate(prevProps) {
     const { success, queued } = this.props
+    const { connectionError } = this.state
 
     const succeed = !prevProps.success && success
     const loginSucceed = !prevProps.queued && queued
 
     if (succeed || loginSucceed) {
+      // we reset the error in case of persisted errors
+      if (succeed && connectionError) this.setState({ connectionError: null })
       this.props.handleConnectionSuccess()
     }
   }
@@ -126,7 +129,16 @@ class AccountConnection extends Component {
   }
 
   runConnection(account) {
-    this.setState({ submitting: true, connectionError: null })
+    const { connectionError } = this.state
+    if (isKonnectorTwoFAError(connectionError)) {
+      /**
+       * TWO FA Errors must be persisted to continue displaying harvest
+       * for 2FA process
+       */
+      this.setState({ submitting: true })
+    } else {
+      this.setState({ submitting: true, connectionError: null })
+    }
 
     return this.store
       .connectAccount(
@@ -214,15 +226,6 @@ class AccountConnection extends Component {
     return messages
   }
 
-  redirectToStore = async () => {
-    this.setState({ isRedirecting: true })
-    const { konnector } = this.props
-    await cozy.client.intents.redirect('io.cozy.apps', {
-      slug: konnector.slug,
-      step: 'update'
-    })
-  }
-
   render() {
     const {
       createdAccount,
@@ -233,7 +236,6 @@ class AccountConnection extends Component {
       konnector,
       lastSuccess,
       error,
-      forceConnection,
       isRunning,
       onDone,
       queued,
@@ -248,7 +250,6 @@ class AccountConnection extends Component {
       oAuthError,
       oAuthTerminated,
       submitting,
-      isRedirecting,
       maintenance,
       lang
     } = this.state
@@ -267,8 +268,6 @@ class AccountConnection extends Component {
       <div className={styles['col-account-connection']}>
         {!!konnector.available_version && (
           <UpdateMessage
-            onClick={this.redirectToStore}
-            disabled={isRedirecting}
             error={konnectorError}
             isBlocking={isKonnectorUpdateNeededError(konnectorError)}
           />
@@ -283,7 +282,6 @@ class AccountConnection extends Component {
             lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
             onDelete={() => this.deleteConnection()}
-            onForceConnection={forceConnection}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             trigger={trigger}
@@ -327,14 +325,10 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { konnector, trigger } = ownProps
+  const { trigger } = ownProps
   return {
     fetchAccount: accountId =>
       dispatch(fetchAccount(accountId)).then(response => response.data[0]),
-    forceConnection: () =>
-      dispatch(
-        launchTriggerAndQueue(trigger, !!konnector && konnector.loginDelay)
-      ),
     deleteConnection: () => dispatch(deleteConnection(trigger)),
     enqueueConnection: trigger => dispatch(enqueueConnection(trigger))
   }
