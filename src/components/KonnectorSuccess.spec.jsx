@@ -5,9 +5,15 @@ import AppLike from '../../test/AppLike'
 
 describe('KonnectorSuccess', () => {
   let trigger, connector, root
+  const fakeStore = {
+    banksUrl: 'https://example-banks.mycozy.cloud',
+    getState: () => ({}),
+    subscribe: () => ({}),
+    dispatch: () => ({})
+  }
   const setup = () => {
     root = mount(
-      <AppLike>
+      <AppLike store={fakeStore}>
         <KonnectorSuccess
           account={{}}
           title="Fake title"
