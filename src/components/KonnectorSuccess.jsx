@@ -3,7 +3,6 @@ import has from 'lodash/has'
 import sortBy from 'lodash/sortBy'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
@@ -48,7 +47,6 @@ export class KonnectorSuccess extends Component {
 
   render() {
     const { account, error, title, messages } = this.props
-
     const relatedApps = sortBy(
       Object.values(KonnectorSuccess.apps).filter(app =>
         app.predicate(this.props)
@@ -128,10 +126,14 @@ KonnectorSuccess.apps = {
     },
     // eslint-disable-next-line react/display-name
     successLink: (props, context, i) => {
-      return <BanksLink key={i} banksUrl={props.store.banksUrl} />
+      return <BanksLink key={i} banksUrl={context.store.banksUrl} />
     },
     footerLink: () => null
   }
+}
+
+KonnectorSuccess.contextTypes = {
+  store: PropTypes.object
 }
 
 KonnectorSuccess.propTypes = {
@@ -146,9 +148,4 @@ KonnectorSuccess.propTypes = {
 
 export { SuccessImage, SuccessLinks, BanksLink, DriveLink }
 
-const provideStoreAsProp = connect(
-  null,
-  (dispatch, store) => ({ store })
-)
-
-export default translate()(provideStoreAsProp(KonnectorSuccess))
+export default translate()(KonnectorSuccess)
