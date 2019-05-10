@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4'
+import { probableLoginFieldNames } from './accounts'
 
 export const getAccountName = account => {
   if (!account) return null
@@ -11,7 +12,9 @@ export const getAccountName = account => {
 
 export const getAccountLogin = account => {
   if (account && account.auth) {
-    return account.auth.login || account.auth.identifier || account.auth.email
+    for (const fieldName of probableLoginFieldNames) {
+      if (account.auth[fieldName]) return account.auth[fieldName]
+    }
   }
 }
 

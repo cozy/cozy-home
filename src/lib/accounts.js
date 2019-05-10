@@ -11,11 +11,12 @@ export const ACCOUNT_ERRORS = {
   USER_ACTION_NEEDED: 'USER_ACTION_NEEDED'
 }
 
+// Order matters
 export const probableLoginFieldNames = [
-  'email',
-  'identifier',
   'login',
-  'new_identifier'
+  'identifier',
+  'new_identifier',
+  'email'
 ]
 
 function ignorePassword(auth) {
