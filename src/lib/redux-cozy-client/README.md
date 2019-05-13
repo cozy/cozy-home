@@ -38,7 +38,7 @@ client.fetchCollection('timeline', 'io.cozy.files', {
 ```
 ## Install
 `npm install --save cozy-client`
-or 
+or
 `yarn add cozy-client`
 
 ## Usage
@@ -139,7 +139,7 @@ Then you must manually trigger the synchronization with the server, for instance
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { isSynced, isFirstSync, startSync } from 'cozy-client'
-import Loading from 'components/Loading'
+import Spinner from 'cozy-ui/react/Spinner'
 
 class App extends Component {
   state = {
@@ -154,7 +154,7 @@ class App extends Component {
     const { hasSyncStarted } = this.state
     const { isSynced, isFirstSync, children } = this.props
     if (!hasSyncStarted || isFirstSync) {
-      return <Loading />
+      return <Spinner middle size="xxlarge" />
     }
     return children
   }

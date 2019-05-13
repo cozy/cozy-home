@@ -2,17 +2,17 @@
 
 exports[`ErrorMessage component Should render correctly 1`] = `
 <div
-  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-ph-1 u-pt-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
-    className="u-pomegranate"
+    className="u-mb-1 u-pomegranate"
     ellipsis={false}
     tag="div"
   >
     Bad credentials
   </SubTitle>
   <div
-    className="u-flex u-w-100 u-mt-1"
+    className="u-flex u-w-100 u-mb-1"
   >
     <Text
       className="u-ta-left"
@@ -22,25 +22,22 @@ exports[`ErrorMessage component Should render correctly 1`] = `
       Bad credentials. Check the konnector fields and run the connection again.
     </Text>
   </div>
-  <div
-    className="u-flex-shrink-0"
-  />
 </div>
 `;
 
 exports[`ErrorMessage component Should render correctly if two fa session expired 1`] = `
 <div
-  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-ph-1 u-pt-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
-    className="u-pomegranate"
+    className="u-mb-1 u-pomegranate"
     ellipsis={false}
     tag="div"
   >
     Relaunch the connexion to the service to fetch your data
   </SubTitle>
   <div
-    className="u-flex u-w-100 u-mt-1 u-mb-1"
+    className="u-flex u-w-100 u-mb-1"
   >
     <Text
       className="u-ta-left"
@@ -51,7 +48,7 @@ exports[`ErrorMessage component Should render correctly if two fa session expire
     </Text>
   </div>
   <div
-    className="u-flex-shrink-0"
+    className="u-flex-shrink-0 u-mb-1"
   >
     <ComponentWithLocales
       trigger={Object {}}
@@ -64,17 +61,17 @@ exports[`ErrorMessage component Should render correctly if two fa session expire
 
 exports[`ErrorMessage component Should render correctly if wrong twofa code error 1`] = `
 <div
-  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-p-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
+  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-ph-1 u-pt-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
 >
   <SubTitle
-    className="u-pomegranate"
+    className="u-mb-1 u-pomegranate"
     ellipsis={false}
     tag="div"
   >
     Wrong two-factore code provided
   </SubTitle>
   <div
-    className="u-flex u-w-100 u-mt-1 u-mb-1"
+    className="u-flex u-w-100 u-mb-1"
   >
     <Text
       className="u-ta-left"
@@ -85,7 +82,7 @@ exports[`ErrorMessage component Should render correctly if wrong twofa code erro
     </Text>
   </div>
   <div
-    className="u-flex-shrink-0"
+    className="u-flex-shrink-0 u-mb-1"
   >
     <ComponentWithLocales
       trigger={Object {}}

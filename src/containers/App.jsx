@@ -7,12 +7,12 @@ import { enableFlags } from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+import Spinner from 'cozy-ui/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
 import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
-import Loading from 'components/Loading'
 import StoreRedirection from 'components/StoreRedirection'
 import ConnectionsQueue from 'ducks/connections/components/queue/index'
 
@@ -97,7 +97,9 @@ class App extends Component {
                 }
               >
                 {hasError && <Failure errorType="initial" />}
-                {isFetching && <Loading loadingType="initial" />}
+                {isFetching && (
+                  <Spinner middle size="xxlarge" loadingType="initial" />
+                )}
               </Content>
             </Main>
           ))}

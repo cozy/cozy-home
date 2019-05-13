@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
-import AppIcon from 'cozy-ui/react/AppIcon'
+import { AppIcon, Icon, Spinner } from 'cozy-ui/react'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import { translate } from 'cozy-ui/react/I18n'
 
 import styles from 'ducks/connections/components/queue/styles'
@@ -50,6 +51,38 @@ class Item extends Component {
     const { konnector, label, status, t } = this.props
     const { domain, secure } = this.context
     const isOngoing = status === 'ongoing'
+    let statusIcon
+    switch (status) {
+      case 'ongoing':
+        statusIcon = (
+          <Spinner noMargin class="u-ml-half" color={palette['dodgerBlue']} />
+        )
+        break
+      case 'canceled':
+        statusIcon = (
+          <Icon class="u-ml-half" icon="cross" color={palette['monza']} />
+        )
+        break
+      case 'error':
+      case 'conflict':
+        statusIcon = (
+          <Icon class="u-ml-half" icon="warning" color={palette['monza']} />
+        )
+        break
+      case 'done':
+        statusIcon = (
+          <Icon
+            class="u-ml-half"
+            icon="check-circleless"
+            color={palette['emerald']}
+          />
+        )
+        break
+      case 'pending':
+      default:
+        statusIcon = <Pending />
+        break
+    }
     return (
       <div
         className={classNames(styles['queue-item'], {
@@ -67,13 +100,7 @@ class Item extends Component {
           />
         </div>
         <div className={classNames(styles['item-label'])}>{label}</div>
-        <div className={styles['item-status']}>
-          {status === 'pending' ? (
-            <Pending />
-          ) : (
-            <div className={styles[`item-${status}`]} />
-          )}
-        </div>
+        <div className={styles['item-status']}>{statusIcon}</div>
         {isOngoing && <ProgressBar />}
       </div>
     )
