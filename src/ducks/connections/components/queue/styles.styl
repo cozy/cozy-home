@@ -142,30 +142,6 @@
         font-weight: bold
         line-height: 2em
 
-    .item-ongoing
-        @extend $icon-16
-        @extend $icon-spinner-blue
-
-    .item-canceled
-        @extend $icon-16
-        @extend $icon
-        background-image: embedurl('./assets/icons/icon-cross.svg')
-
-    .item-error
-        @extend $icon-16
-        @extend $icon
-        background-image: embedurl('./assets/icons/icon-warning.svg')
-
-    .item-conflict
-        @extend $icon-16
-        @extend $icon
-        background-image: embedurl('./assets/icons/icon-warning.svg')
-
-    .item-done
-        @extend $icon-16
-        @extend $icon
-        background-image: embedurl('./assets/icons/icon-checked.svg')
-
 +medium-screen()
     // we need to cover the border-bottom of the cozy-bar
     $coz-bar-size = 48px
