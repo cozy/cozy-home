@@ -21,20 +21,14 @@ export class ErrorMessage extends Component {
     const { t, isKonnectorRunning, trigger } = this.props
     if (isKonnectorTwoFAError(error)) {
       return (
-        <TriggerLauncher trigger={trigger}>
+        <TriggerLauncher trigger={trigger} submitting={isKonnectorRunning}>
           {({ launch, running }) => (
             <Button
               label={t('connection.CTA.twofa_failed')}
-              icon={
-                <Icon
-                  focusable="false"
-                  icon="sync"
-                  spin={isKonnectorRunning || running}
-                />
-              }
+              icon={<Icon focusable="false" icon="sync" spin={running} />}
               theme="secondary"
               className="u-m-0"
-              disabled={isKonnectorRunning || running}
+              disabled={running}
               onClick={launch}
             />
           )}

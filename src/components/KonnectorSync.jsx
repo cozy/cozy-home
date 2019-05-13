@@ -75,7 +75,7 @@ export const KonnectorSync = ({
         />
       }
       {!maintenance && (
-        <TriggerLauncher trigger={trigger}>
+        <TriggerLauncher trigger={trigger} submitting={submitting}>
           {({ launch, running }) => (
             <Button
               label={t('account.forceConnection')}
