@@ -20,6 +20,13 @@
     "en": "Cultura has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
     }
   },
+  "darty": {
+    "longTerm": true,
+    "message": {
+    "fr": "Darty a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer vos factures détenues par Darty.<br/>Nous tentons de rétablir le service et vous informerons si la situation évolue.",
+    "en": "Darty added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bills back from Darty.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
+    }
+  },
   "deezer" : {
     "longTerm": true,
     "message": {
