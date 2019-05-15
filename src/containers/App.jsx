@@ -88,21 +88,16 @@ class App extends Component {
       >
         <Alerter />
         <div className="ho-background" />
-        {hasError ||
-          (isFetching && (
-            <Main>
-              <Content
-                className={
-                  hasError ? 'col-initial-error' : 'col-initial-loading'
-                }
-              >
-                {hasError && <Failure errorType="initial" />}
-                {isFetching && (
-                  <Spinner middle size="xxlarge" loadingType="initial" />
-                )}
-              </Content>
-            </Main>
-          ))}
+        {hasError && (
+          <Main>
+            <Content
+              className={hasError ? 'col-initial-error' : 'col-initial-loading'}
+            >
+              {hasError && <Failure errorType="initial" />}
+            </Content>
+          </Main>
+        )}
+        {isFetching && <Spinner middle size="xxlarge" loadingType="initial" />}
         {isReady && (
           <Switch>
             <Route path="/redirect" component={IntentRedirect} />
