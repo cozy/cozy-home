@@ -23,12 +23,12 @@ export const KonnectorEdit = props => {
     t,
     account,
     connector,
-    deleting,
     error,
     fields,
     lastSuccess,
     oAuthTerminated,
-    onDelete,
+    onDeleteError,
+    onDeleteSuccess,
     onSubmit,
     submitting,
     trigger,
@@ -136,7 +136,13 @@ export const KonnectorEdit = props => {
               />
             )}
 
-            {<AccountLogout deleting={deleting} onDelete={onDelete} />}
+            {
+              <AccountLogout
+                account={account}
+                onError={onDeleteError}
+                onSuccess={onDeleteSuccess}
+              />
+            }
           </TabPanel>
 
           <TabPanel name="data" className={styles['col-account-edit-tabpanel']}>

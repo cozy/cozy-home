@@ -1,4 +1,3 @@
-/* global cozy */
 import { combineReducers } from 'redux'
 import moment from 'moment'
 
@@ -20,8 +19,6 @@ export const DEFAULT_QUEUE_DELAY = 7000
 
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const CONNECTION_DELETED = 'CONNECTION_DELETED'
-export const DELETE_CONNECTION = 'DELETE_CONNECTION'
-export const DELETE_CONNECTION_FAILURE = 'DELETE_CONNECTION_FAILURE'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
@@ -43,39 +40,10 @@ const isKonnectorTrigger = doc =>
 const isKonnectorJob = doc =>
   doc._type === JOBS_DOCTYPE && doc.worker === 'konnector'
 
-const deleteAccount = async account => {
-  try {
-    await cozy.client.data.delete('io.cozy.accounts', account)
-  } catch (error) {
-    if (error.status === 409) {
-      const syncedAccount = await cozy.client.data.find(
-        'io.cozy.accounts',
-        account._id
-      )
-      await cozy.client.data.delete('io.cozy.accounts', syncedAccount)
-    } else {
-      throw error
-    }
-  }
-}
-
 // reducers
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case CONNECTION_DELETED:
-    case DELETE_CONNECTION:
-    case DELETE_CONNECTION_FAILURE:
-      if (!action.trigger || !action.trigger._id)
-        throw new Error('Missing trigger id')
-      if (!action.trigger.message || !action.trigger.message.konnector)
-        throw new Error('Malformed trigger message')
-      return {
-        ...state,
-        [getTriggerKonnectorSlug(action.trigger)]: konnectorReducer(
-          state[getTriggerKonnectorSlug(action.trigger)],
-          action
-        )
-      }
     case CREATE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
@@ -229,8 +197,6 @@ export default combineReducers({
 const konnectorReducer = (state = {}, action) => {
   switch (action.type) {
     case CONNECTION_DELETED:
-    case DELETE_CONNECTION:
-    case DELETE_CONNECTION_FAILURE:
     case ENQUEUE_CONNECTION:
     case LAUNCH_TRIGGER:
     case RECEIVE_DATA:
@@ -248,22 +214,6 @@ const konnectorReducer = (state = {}, action) => {
 
 const triggersReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_CONNECTION:
-      return {
-        ...state,
-        [action.trigger._id]: {
-          ...state[action.trigger._id],
-          isDeleting: true
-        }
-      }
-    case DELETE_CONNECTION_FAILURE:
-      return {
-        ...state,
-        [action.trigger._id]: {
-          ...state[action.trigger._id],
-          isDeleting: false
-        }
-      }
     case CONNECTION_DELETED:
       // eslint-disable-next-line no-unused-vars
       return (({ [action.trigger._id]: deleted, ...state }) => state)(state)
@@ -333,32 +283,6 @@ export const startConnectionCreation = konnector => ({
 export const endConnectionCreation = () => ({
   type: END_CONNECTION_CREATION
 })
-
-// action creators async
-export const deleteConnection = trigger => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: DELETE_CONNECTION,
-      trigger: trigger
-    })
-    const account = getTriggerAccount(getState(), trigger)
-    return deleteAccount(account)
-      .then(() =>
-        dispatch({
-          type: CONNECTION_DELETED,
-          trigger: trigger
-        })
-      )
-      .catch(error => {
-        dispatch({
-          type: DELETE_CONNECTION_FAILURE,
-          trigger: trigger,
-          error
-        })
-        throw error
-      })
-  }
-}
 
 export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
   dispatch,
@@ -515,9 +439,6 @@ export const isCreatingConnection = state => !!state.creation
 
 export const isConnectionConnected = (state, trigger) =>
   getTriggerState(state, trigger).isConnected
-
-export const isConnectionDeleting = (state, trigger) =>
-  getTriggerState(state, trigger).isDeleting
 
 export const isConnectionEnqueued = (state, trigger) =>
   getTriggerState(state, trigger).isEnqueued
