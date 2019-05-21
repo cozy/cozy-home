@@ -98,18 +98,18 @@ export default class CollectStore {
   }
 
   async updateUnfinishedJob(job) {
-    const normlalizedJob = normalize(job, 'io.cozy.jobs')
+    const normalizedJob = normalize(job, 'io.cozy.jobs')
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    if (normlalizedJob.worker !== 'konnector') {
+    if (normalizedJob.worker !== 'konnector') {
       return
     }
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normlalizedJob] },
+      response: { data: [normalizedJob] },
       updateCollections: ['jobs']
     })
-    const trigger = await triggers.fetch(cozy.client, normlalizedJob.trigger_id)
+    const trigger = await triggers.fetch(cozy.client, normalizedJob.trigger_id)
     this.onTriggerUpdated(trigger)
   }
 
