@@ -101,9 +101,12 @@ export default class CollectStore {
     const normalizedJob = normalize(job, 'io.cozy.jobs')
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    if (normalizedJob.worker !== 'konnector') {
+    const isKonnectorJob = normalizedJob.worker === 'konnector'
+    const isDeletedAccountHookJob = !!normalizedJob.account_deleted
+    if (!isKonnectorJob || isDeletedAccountHookJob) {
       return
     }
+
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
       response: { data: [normalizedJob] },
