@@ -101,7 +101,7 @@ export default class CollectStore {
     const normlalizedJob = normalize(job, 'io.cozy.jobs')
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    if (normlalizedJob.worker === 'thumbnail') {
+    if (normlalizedJob.worker !== 'konnector') {
       return
     }
     this.dispatch({
