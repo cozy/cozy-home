@@ -18,7 +18,6 @@ const JOBS_DOCTYPE = 'io.cozy.jobs'
 export const DEFAULT_QUEUE_DELAY = 7000
 
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
-export const CONNECTION_DELETED = 'CONNECTION_DELETED'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
@@ -43,7 +42,6 @@ const isKonnectorJob = doc =>
 // reducers
 const reducer = (state = {}, action) => {
   switch (action.type) {
-    case CONNECTION_DELETED:
     case CREATE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
@@ -196,7 +194,6 @@ export default combineReducers({
 // sub(?) reducers
 const konnectorReducer = (state = {}, action) => {
   switch (action.type) {
-    case CONNECTION_DELETED:
     case ENQUEUE_CONNECTION:
     case LAUNCH_TRIGGER:
     case RECEIVE_DATA:
@@ -214,9 +211,6 @@ const konnectorReducer = (state = {}, action) => {
 
 const triggersReducer = (state = {}, action) => {
   switch (action.type) {
-    case CONNECTION_DELETED:
-      // eslint-disable-next-line no-unused-vars
-      return (({ [action.trigger._id]: deleted, ...state }) => state)(state)
     case ENQUEUE_CONNECTION:
       return {
         ...state,
