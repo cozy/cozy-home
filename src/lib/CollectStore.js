@@ -49,12 +49,12 @@ export default class CollectStore {
     // Not really consistent code style but we try to use only async/await now.
     const realtimeAccounts = await accounts.subscribeAll(cozy.client)
     realtimeAccounts.onCreate(account => this.onAccountCreated(account))
+    realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
+    realtimeAccounts.onDelete(trigger => this.onAccountDeleted(trigger))
 
     const realtimeTriggers = await triggers.subscribeAll(cozy.client)
-    realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
-
     realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
-    realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
+    realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
   }
 
   async onAccountCreated(account) {
@@ -68,6 +68,14 @@ export default class CollectStore {
   async onAccountUpdated(account) {
     this.dispatch({
       type: 'RECEIVE_UPDATED_DOCUMENT',
+      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      updateCollections: ['accounts']
+    })
+  }
+
+  async onAccountDeleted(account) {
+    this.dispatch({
+      type: 'RECEIVE_DELETED_DOCUMENT',
       response: { data: [normalize(account, 'io.cozy.accounts')] },
       updateCollections: ['accounts']
     })

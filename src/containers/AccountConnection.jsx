@@ -10,11 +10,9 @@ import UpdateMessage from 'components/Banners/UpdateMessage'
 import KonnectorEdit from 'components/KonnectorEdit'
 import { fetchAccount } from 'ducks/accounts'
 import {
-  deleteConnection,
   enqueueConnection,
   getConnectionError,
   isConnectionConnected,
-  isConnectionDeleting,
   isConnectionEnqueued
 } from 'ducks/connections'
 import {
@@ -40,6 +38,8 @@ class AccountConnection extends Component {
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
+    this.handleError = this.handleError.bind(this)
+    this.handleDeleteSuccess = this.handleDeleteSuccess.bind(this)
   }
 
   componentDidMount() {
@@ -162,13 +162,6 @@ class AccountConnection extends Component {
       })
   }
 
-  deleteConnection() {
-    return this.props
-      .deleteConnection()
-      .then(() => this.handleDeleteSuccess())
-      .catch(error => this.handleError(error))
-  }
-
   handleLoginSuccess(trigger) {
     const { enqueueConnection, handleConnectionSuccess } = this.props
     handleConnectionSuccess()
@@ -231,7 +224,6 @@ class AccountConnection extends Component {
       createdAccount,
       handleConnectionSuccess,
       fields,
-      deleting,
       editing,
       konnector,
       lastSuccess,
@@ -276,12 +268,12 @@ class AccountConnection extends Component {
           <KonnectorEdit
             account={account}
             connector={konnector}
-            deleting={deleting}
             error={propagateError && konnectorError}
             fields={fields}
             lastSuccess={lastSuccess}
             oAuthTerminated={oAuthTerminated}
-            onDelete={() => this.deleteConnection()}
+            onDeleteSuccess={this.handleDeleteSuccess}
+            onDeleteError={this.handleError}
             onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             trigger={trigger}
@@ -319,17 +311,14 @@ class AccountConnection extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   success: isConnectionConnected(state.connections, ownProps.trigger),
-  deleting: isConnectionDeleting(state.connections, ownProps.trigger),
   error: getConnectionError(state.connections, ownProps.trigger),
   queued: isConnectionEnqueued(state.connections, ownProps.trigger)
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const { trigger } = ownProps
+const mapDispatchToProps = dispatch => {
   return {
     fetchAccount: accountId =>
       dispatch(fetchAccount(accountId)).then(response => response.data[0]),
-    deleteConnection: () => dispatch(deleteConnection(trigger)),
     enqueueConnection: trigger => dispatch(enqueueConnection(trigger))
   }
 }

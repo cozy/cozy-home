@@ -57,6 +57,3 @@ export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   )
   return fromTriggers.getTrigger(state.cozy, triggerId)
 }
-
-export const isConnectionDeleting = state =>
-  fromConnections.isConnectionDeleting(state.connections)
