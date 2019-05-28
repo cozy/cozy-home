@@ -260,6 +260,7 @@ class AccountConnection extends Component {
       <div className={styles['col-account-connection']}>
         {!!konnector.available_version && (
           <UpdateMessage
+            konnector={konnector}
             error={konnectorError}
             isBlocking={isKonnectorUpdateNeededError(konnectorError)}
           />
