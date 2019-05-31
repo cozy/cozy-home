@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
 import AppIcon from 'cozy-ui/react/AppIcon'
+import AppLinker from 'cozy-ui/react/AppLinker'
 
 export class AppTile extends Component {
   render() {
@@ -10,18 +11,23 @@ export class AppTile extends Component {
     const displayName = app.name_prefix
       ? `${app.name_prefix} ${app.name}`
       : app.name
+    const appHref = app.links && app.links.related
     return (
-      <a className="item-wrapper" href={app.links && app.links.related}>
-        <div className="item-icon">
-          <AppIcon
-            alt={t('app.logo.alt', { name: displayName })}
-            app={app}
-            domain={domain}
-            secure={secure}
-          />
-        </div>
-        <h3 className="item-title">{displayName}</h3>
-      </a>
+      <AppLinker slug={app.slug} href={appHref}>
+        {({ onClick, href }) => (
+          <a onClick={onClick} href={href} className="item-wrapper">
+            <div className="item-icon">
+              <AppIcon
+                alt={t('app.logo.alt', { name: displayName })}
+                app={app}
+                domain={domain}
+                secure={secure}
+              />
+            </div>
+            <h3 className="item-title">{displayName}</h3>
+          </a>
+        )}
+      </AppLinker>
     )
   }
 }
