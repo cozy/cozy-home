@@ -8,6 +8,7 @@ import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
 import { Application } from 'cozy-doctypes'
+import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
 
 import collectConfig from 'config/collect'
@@ -20,29 +21,6 @@ const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
 
 const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
-
-const handleOAuthResponse = () => {
-  /* global URLSearchParams */
-  const queryParams = new URLSearchParams(window.location.search)
-  if (queryParams.get('account')) {
-    const opener = window.opener
-    const accountKey = queryParams.get('account')
-    const OAuthStateKey = queryParams.get('state')
-    const targetOrigin =
-      window.location.origin ||
-      `${window.location.protocol}//${window.location.hostname}${
-        window.location.port ? ':' + window.location.port : ''
-      }`
-    opener.postMessage(
-      {
-        key: accountKey,
-        OAuthStateKey
-      },
-      targetOrigin
-    )
-    window.close()
-  }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   handleOAuthResponse()
