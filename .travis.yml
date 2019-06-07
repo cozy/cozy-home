@@ -37,7 +37,7 @@ before_install:
 - 'if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then eval "$(ssh-agent -s)"; fi'
 - 'if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then chmod 600 /tmp/deploy_rsa; fi'
 - 'if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then ssh-add /tmp/deploy_rsa; fi'
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.2.1
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.16.0
 - export PATH="$HOME/.yarn/bin:$PATH"
 - curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.5 - --user
 - travis_retry pip3.5 install --user transifex-client==0.12.5
