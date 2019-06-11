@@ -3014,10 +3014,10 @@ cozy-harvest-lib@0.38.3:
     react-markdown "4.0.6"
     react-proptypes "1.0.0"
 
-cozy-harvest-lib@0.46.1:
-  version "0.46.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.46.1.tgz#0ba5549565bf9c3276c98028f2222af17779506b"
-  integrity sha512-wR+ZZUe13brdbxQQYuJm/RXSE/Qz6sxRWmbjWtAZp0odpN/TElBMMbgZOp8R2tCniN0GOPz3d8DO+AJ+gGVZwA==
+cozy-harvest-lib@0.51.0:
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.51.0.tgz#9091a2102228503ae91b360691acdff16f4aed35"
+  integrity sha512-0GjwBvpBt8xQ0XFYQWpAduHB/5O0VkQdfwKxxx0gDqsbjGm6sjjO7H1TQiBGKKKTLNJmk/bupLXhmCaQmWkFIA==
   dependencies:
     final-form "4.11.1"
     lodash "4.17.11"
@@ -3025,6 +3025,7 @@ cozy-harvest-lib@0.46.1:
     preact-portal "^1.1.3"
     react-final-form "3.7.0"
     react-markdown "4.0.8"
+    uuid "^3.3.2"
 
 cozy-interapp@0.4.4:
   version "0.4.4"
