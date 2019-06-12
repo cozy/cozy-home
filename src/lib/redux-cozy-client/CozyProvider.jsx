@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export default class CozyProvider extends Component {
   static propTypes = {
     domain: PropTypes.string,
-    secure: PropTypes.boolean,
+    secure: PropTypes.bool,
     store: PropTypes.shape({
       subscribe: PropTypes.func.isRequired,
       dispatch: PropTypes.func.isRequired,
@@ -15,6 +15,8 @@ export default class CozyProvider extends Component {
   }
 
   static childContextTypes = {
+    domain: PropTypes.string,
+    secure: PropTypes.bool,
     store: PropTypes.object,
     client: PropTypes.object.isRequired
   }
