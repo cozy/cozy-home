@@ -35,6 +35,6 @@ export default class CozyProvider extends Component {
   }
 
   render() {
-    return (this.props.children && this.props.children[0]) || null
+    return this.props.children || null
   }
 }
