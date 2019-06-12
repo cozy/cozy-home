@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
-import { enableFlags } from 'cozy-flags'
+import { enable as enableFlags } from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
