@@ -21,7 +21,6 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 
 class App extends Component {
   state = {
-    context: {},
     error: null,
     status: IDLE
   }
@@ -33,11 +32,6 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchContext()
-  }
-
-  getChildContext() {
-    const { context } = this.state
-    return context && context.attributes
   }
 
   async fetchContext() {
@@ -59,7 +53,6 @@ class App extends Component {
     }
 
     this.setState({
-      context,
       status: IDLE
     })
   }
@@ -126,10 +119,6 @@ class App extends Component {
 
 App.contextTypes = {
   store: PropTypes.object
-}
-
-App.childContextTypes = {
-  features: PropTypes.array
 }
 
 /*
