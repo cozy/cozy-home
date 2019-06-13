@@ -50,11 +50,11 @@ exports[`ErrorMessage component Should render correctly if two fa session expire
   <div
     className="u-flex-shrink-0 u-mb-1"
   >
-    <ComponentWithLocales
+    <ComponentWithKonnectorJob
       trigger={Object {}}
     >
       [Function]
-    </ComponentWithLocales>
+    </ComponentWithKonnectorJob>
   </div>
 </div>
 `;
@@ -84,11 +84,11 @@ exports[`ErrorMessage component Should render correctly if wrong twofa code erro
   <div
     className="u-flex-shrink-0 u-mb-1"
   >
-    <ComponentWithLocales
+    <ComponentWithKonnectorJob
       trigger={Object {}}
     >
       [Function]
-    </ComponentWithLocales>
+    </ComponentWithKonnectorJob>
   </div>
 </div>
 `;
