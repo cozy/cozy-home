@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { TriggerManager } from 'cozy-harvest-lib'
@@ -9,9 +9,13 @@ import LegacyKonnectorInstall from 'components/LegacyKonnectorInstall'
 import { getKonnector } from 'ducks/konnectors'
 import styles from 'styles/konnectorInstall'
 
-export class KonnectorInstall extends PureComponent {
+export class KonnectorInstall extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      trigger: null,
+      success: false
+    }
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
     this.handleSuccess = this.handleSuccess.bind(this)
   }
