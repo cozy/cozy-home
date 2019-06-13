@@ -23,11 +23,9 @@ const connect = (
     }
 
     render() {
-      const { t, f, client, store } = this.context
+      const { client, store } = this.context
       const { fetchActions } = this.props
       const props = {
-        t,
-        f,
         client,
         ...this.props,
         ...enhancePropsForActions(this.props, fetchActions, store.dispatch)

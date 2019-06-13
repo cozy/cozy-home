@@ -35,7 +35,7 @@ class AccountConnection extends Component {
       editing: !!props.existingAccount,
       isFetching: false,
       maintenance: props.maintenance && props.maintenance[props.konnector.slug],
-      lang: this.context.lang
+      lang: props.lang
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
@@ -203,7 +203,7 @@ class AccountConnection extends Component {
   }
 
   buildSuccessMessages(konnector) {
-    const { t } = this.context
+    const { t } = this.props
     const messages = [
       t('account.message.success.connect', {
         name: konnector.name

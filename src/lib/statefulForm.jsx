@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import collectConfig from 'config/collect'
 import moment from 'moment'
 
+import { translate } from 'cozy-ui/react/I18n'
+
 // From https://stackoverflow.com/questions/10193294/how-can-i-tell-if-a-browser-supports-input-type-date
 const hasDateInputSupport = () => {
   let hasSupport
@@ -21,8 +23,8 @@ export default function statefulForm(mapPropsToFormConfig) {
   return function wrapForm(WrappedForm) {
     class StatefulForm extends Component {
       constructor(props, context) {
-        super(props)
-        const { t } = context
+        super(props, context)
+        const { t } = props
         const config = mapPropsToFormConfig
           ? mapPropsToFormConfig(props)
           : props
@@ -212,7 +214,7 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
 
       handleBlur(field, target) {
-        const { t } = this.context
+        const { t } = this.props
         const stateFields = this.state.fields
         const isDate = stateFields[field].type === 'date'
         const localeFormat = t('date.format', {
@@ -367,6 +369,6 @@ export default function statefulForm(mapPropsToFormConfig) {
       }
     }
 
-    return StatefulForm
+    return translate()(StatefulForm)
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import { translate } from 'cozy-ui/react/I18n'
 import Alerter from 'cozy-ui/react/Alerter'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
@@ -32,9 +33,8 @@ import styles from 'styles/connectionManagement.styl'
 class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
-    const { existingAccount, createdAccount, konnector } = props
-    const { t } = this.context
+    this.store = context.store
+    const { existingAccount, createdAccount, konnector, t } = props
 
     const account = existingAccount || createdAccount
 
@@ -186,7 +186,7 @@ class ConnectionManagement extends Component {
   }
 
   handleDeleteSuccess() {
-    const { t } = this.context
+    const { t } = this.props
     Alerter.success(t('account.message.success.delete'))
     this.gotoParent()
   }
@@ -280,6 +280,6 @@ export default connect(
   mapDispatchToProps
 )(
   cozyConnect(mapDocumentsToProps, mapActionsToProps)(
-    withRouter(ConnectionManagement)
+    withRouter(translate()(ConnectionManagement))
   )
 )

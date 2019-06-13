@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { translate } from 'cozy-ui/react/I18n'
 import CreateAccountIntent from 'components/intents/CreateAccountIntent'
 import { getKonnector, receiveInstalledKonnector } from 'ducks/konnectors'
 
@@ -40,9 +41,8 @@ class IntentService extends Component {
   }
 
   render() {
-    const { appData, konnector, onCancel, service } = this.props
+    const { appData, konnector, onCancel, service, t } = this.props
     const { error } = this.state
-    const { t } = this.context
 
     return (
       <div className="coz-service">
@@ -83,4 +83,4 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(IntentService)
+)(translate()(IntentService))
