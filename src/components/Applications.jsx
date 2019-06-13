@@ -16,7 +16,7 @@ class LoadingAppTiles extends PureComponent {
     const tiles = []
     for (let i = 0; i < num; i++) {
       tiles.push(
-        <div className="item-wrapper">
+        <div className="item-wrapper" key={i}>
           <header className="item-header">
             <div className="item-icon">
               <LoadingPlaceholder />
