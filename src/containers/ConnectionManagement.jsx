@@ -205,8 +205,7 @@ class ConnectionManagement extends Component {
   gotoParent() {
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
-      const { router } = this.context
-      const { originPath } = this.props
+      const { originPath, history } = this.props
 
       if (originPath) {
         const params = this.props.match.params
@@ -221,10 +220,10 @@ class ConnectionManagement extends Component {
             (path, param) => path.replace(`:${param}`, params[param]),
             originPath
           )
-        router.history.push(resolvedOriginPath)
+        history.push(resolvedOriginPath)
       } else {
-        let url = router.history.location.pathname
-        router.history.push(url.substring(0, url.lastIndexOf('/')))
+        let url = history.location.pathname
+        history.push(url.substring(0, url.lastIndexOf('/')))
       }
 
       if (this.props.isCreating) {
