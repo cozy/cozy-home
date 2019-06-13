@@ -29,6 +29,9 @@ class App extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = this.context.store
+  }
+
+  componentDidMount() {
     this.fetchContext()
   }
 

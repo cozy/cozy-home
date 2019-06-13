@@ -42,7 +42,7 @@ class CreateAccountService extends React.Component {
       }
     }
 
-    this.setState({ values: values })
+    this.state = { values }
 
     this.props.startCreation(this.props.konnector)
   }

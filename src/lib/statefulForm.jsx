@@ -26,7 +26,7 @@ export default function statefulForm(mapPropsToFormConfig) {
         const config = mapPropsToFormConfig
           ? mapPropsToFormConfig(props)
           : props
-        this.setState({
+        this.state = {
           fields: this.configureFields(
             config,
             t('account.form.placeholder.accountName'),
@@ -40,7 +40,7 @@ export default function statefulForm(mapPropsToFormConfig) {
           allRequiredFieldsAreFilled: false,
           allRequiredFilledButPasswords: false,
           values: props.values
-        })
+        }
       }
 
       componentWillReceiveProps(props) {

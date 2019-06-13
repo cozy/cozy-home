@@ -5,6 +5,11 @@ import CreateAccountIntent from 'components/intents/CreateAccountIntent'
 import { getKonnector, receiveInstalledKonnector } from 'ducks/konnectors'
 
 class IntentService extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { error: null }
+  }
+
   handleInstallationSuccess(konnector) {
     this.props.receiveKonnector(konnector)
   }
