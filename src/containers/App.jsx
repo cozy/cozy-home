@@ -83,10 +83,11 @@ class App extends Component {
       <Layout
         monoColumn
         ref={
-          isReady &&
-          (div => {
-            this.contentWrapper = div
-          })
+          isReady
+            ? div => {
+                this.contentWrapper = div
+              }
+            : null
         }
       >
         <Alerter />
