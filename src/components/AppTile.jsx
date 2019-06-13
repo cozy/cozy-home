@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import AppIcon from 'cozy-ui/react/AppIcon'
@@ -30,6 +31,11 @@ export class AppTile extends Component {
       </AppLinker>
     )
   }
+}
+
+AppTile.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
 }
 
 export default translate()(AppTile)

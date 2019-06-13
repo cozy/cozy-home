@@ -28,7 +28,7 @@ class App extends Component {
 
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
+    this.store = context.store
   }
 
   componentDidMount() {
@@ -121,6 +121,10 @@ class App extends Component {
       </Layout>
     )
   }
+}
+
+App.contextTypes = {
+  store: PropTypes.object
 }
 
 App.childContextTypes = {

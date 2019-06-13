@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Alerter from 'cozy-ui/react/Alerter'
 import Icon from 'cozy-ui/react/Icon'
@@ -231,6 +232,10 @@ class ConnectionManagement extends Component {
       }
     }, 0)
   }
+}
+
+ConnectionManagement.contextTypes = {
+  store: PropTypes.object
 }
 
 const mapActionsToProps = () => ({})

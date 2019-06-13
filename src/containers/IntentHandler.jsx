@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
@@ -104,6 +105,10 @@ class IntentHandler extends Component {
       </div>
     )
   }
+}
+
+IntentHandler.contextTypes = {
+  store: PropTypes.object
 }
 
 export default appEntryPoint(IntentHandler)

@@ -107,6 +107,11 @@ class Item extends Component {
   }
 }
 
+Item.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.string
+}
+
 export class Queue extends Component {
   state = {
     collapsed: false

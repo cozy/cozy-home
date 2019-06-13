@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { applySelectorForAction, enhancePropsForActions } from '.'
 import { mapValues, filterValues } from './utils'
@@ -15,6 +16,10 @@ const connect = (
       for (const propName in fetchActions) {
         dispatch(fetchActions[propName])
       }
+    }
+
+    static contextTypes = {
+      store: PropTypes.object
     }
 
     render() {

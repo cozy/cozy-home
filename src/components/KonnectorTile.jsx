@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
@@ -102,6 +103,11 @@ export class KonnectorTile extends Component {
       </NavLink>
     )
   }
+}
+
+KonnectorTile.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
 }
 
 const mapStateToProps = (state, props) => {

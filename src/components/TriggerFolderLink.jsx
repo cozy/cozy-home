@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Icon from 'cozy-ui/react/Icon'
 
@@ -49,6 +50,10 @@ export class TriggerFolderLink extends PureComponent {
       </MaybeLink>
     )
   }
+}
+
+TriggerFolderLink.contextTypes = {
+  client: PropTypes.object
 }
 
 const mapStateToProps = state => ({

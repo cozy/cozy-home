@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -27,7 +28,7 @@ import styles from 'styles/accountConnection'
 class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
+    this.store = context.store
 
     this.state = {
       account: props.existingAccount,
@@ -308,6 +309,10 @@ class AccountConnection extends Component {
       </div>
     )
   }
+}
+
+AccountConnection.contextTypes = {
+  store: PropTypes.object
 }
 
 const mapStateToProps = (state, ownProps) => ({
