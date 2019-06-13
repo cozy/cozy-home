@@ -22,20 +22,20 @@ exports[`DescriptionContent component should be displayed correctly with two mes
   >
     A title mock
   </h4>
-  <p
+  <div
     className="col-account-description-message"
   >
     <ReactMarkdownWrapper
       source="**First** message \`here\`"
     />
-  </p>
-  <p
+  </div>
+  <div
     className="col-account-description-message"
   >
     <ReactMarkdownWrapper
       source="second message with [link](https://examplelink.mock)"
     />
-  </p>
+  </div>
   Test description component children
 </div>
 `;
