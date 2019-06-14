@@ -30,6 +30,10 @@ class ProgressBar extends Component {
     }, 25)
   }
 
+  componentWillUnmount() {
+    clearInterval(this.myInterval)
+  }
+
   render() {
     const { progress } = this.state
     return (
