@@ -116,8 +116,11 @@ class ConnectionManagement extends Component {
 
     const isInvalidAccountId =
       nextProps.match &&
+      // an account id is provided but not existingAccount
       nextProps.match.params.accountId &&
-      !nextProps.existingAccount
+      !nextProps.existingAccount &&
+      // we check that it was not a deletion
+      !this.props.existingAccount
     if (isInvalidAccountId) {
       // eslint-disable-next-line no-console
       console.warn('Invalid account id')
