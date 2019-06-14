@@ -142,7 +142,7 @@ KonnectorSuccess.propTypes = {
   title: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   onDone: PropTypes.func.isRequired,
-  successButtonLabel: PropTypes.string.isRequired,
+  successButtonLabel: PropTypes.string,
   trigger: PropTypes.object.isRequired
 }
 

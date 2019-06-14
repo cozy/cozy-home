@@ -109,7 +109,7 @@ class Item extends Component {
 
 Item.contextTypes = {
   domain: PropTypes.string.isRequired,
-  secure: PropTypes.string
+  secure: PropTypes.bool
 }
 
 export class Queue extends Component {
@@ -190,11 +190,6 @@ export class Queue extends Component {
       </div>
     )
   }
-}
-
-Queue.contextTypes = {
-  domain: PropTypes.string,
-  secure: PropTypes.bool
 }
 
 export default translate()(Queue)
