@@ -67,6 +67,7 @@ export class KonnectorSuccess extends Component {
             {hasLinks && (
               <SuccessLinks>
                 {relatedApps.map((app, i) =>
+                  // Should always pass context, since it's used for customisation
                   app.successLink(this.props, this.context, i)
                 )}
               </SuccessLinks>
@@ -75,7 +76,8 @@ export class KonnectorSuccess extends Component {
 
           <SuccessFooter>
             {relatedApps.length > 0
-              ? relatedApps[0].footerLink(this.props, this.context)
+              ? // Should always pass context, since it's used for customisation
+                relatedApps[0].footerLink(this.props, this.context)
               : null}
           </SuccessFooter>
         </div>
