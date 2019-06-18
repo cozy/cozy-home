@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "babel-preset-cozy-app": "1.5.1",
-    "cozy-bar": "6.19.1",
+    "cozy-bar": "6.28.6",
     "cozy-client-js": "0.14.2",
     "enzyme": "3.9.0",
     "eslint-config-cozy-app": "1.1.9",
