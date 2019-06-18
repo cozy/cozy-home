@@ -34,8 +34,7 @@ class AccountConnection extends Component {
       account: props.existingAccount,
       editing: !!props.existingAccount,
       isFetching: false,
-      maintenance: props.maintenance && props.maintenance[props.konnector.slug],
-      lang: props.lang
+      maintenance: props.maintenance && props.maintenance[props.konnector.slug]
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
@@ -233,6 +232,7 @@ class AccountConnection extends Component {
       onDone,
       queued,
       t,
+      lang,
       trigger,
       success,
       successButtonLabel
@@ -243,8 +243,7 @@ class AccountConnection extends Component {
       oAuthError,
       oAuthTerminated,
       submitting,
-      maintenance,
-      lang
+      maintenance
     } = this.state
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
