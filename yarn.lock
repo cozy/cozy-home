@@ -3362,13 +3362,13 @@ cozy-client-js@0.14.2:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
-cozy-client@6.29.0:
-  version "6.29.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.29.0.tgz#70101cdc6aa22b98182f73faeddd3a120966f894"
-  integrity sha512-+L9XVftaU2B8duWflBztLE9a8KC4n2aJ9Axn46+G2u0PzPX8AKmze+UJXmOndn0GBSrl6AdlsxSS5LELzPXerw==
+cozy-client@6.45.2:
+  version "6.45.2"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.45.2.tgz#65b9535669aee1e8ab2846e7034773fc86aee602"
+  integrity sha512-FhaVhcbBUO7arhShF9Wb6Ouupsl4u9cTR5UoLU7nC96OGCimwPIGpkSCVYgxAKgWTy9qqbdvuvU9d5GV8QJSOQ==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.25.0"
+    cozy-stack-client "^6.44.0"
     lodash "4.17.11"
     microee "0.0.6"
     prop-types "15.6.2"
@@ -3377,6 +3377,7 @@ cozy-client@6.29.0:
     redux "3.7.2"
     redux-thunk "2.3.0"
     sift "6.0.0"
+    url-search-params-polyfill "^6.0.0"
 
 cozy-device-helper@1.6.3:
   version "1.6.3"
@@ -3410,10 +3411,10 @@ cozy-flags@1.6.1:
     detect-node "2.0.4"
     microee "^0.0.6"
 
-cozy-harvest-lib@0.55.0:
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.51.0.tgz#9091a2102228503ae91b360691acdff16f4aed35"
-  integrity sha512-0GjwBvpBt8xQ0XFYQWpAduHB/5O0VkQdfwKxxx0gDqsbjGm6sjjO7H1TQiBGKKKTLNJmk/bupLXhmCaQmWkFIA==
+cozy-harvest-lib@0.57.2:
+  version "0.57.2"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.57.2.tgz#2b6d390d5c49c3b0e43c212c03becfe99f887443"
+  integrity sha512-zo8XlRCW/lpnr3aFU/kgovucCWaHPsG7op7fUgCRmIwJCf2e8pKnjdcH0QNGJgXtORzXPjkv7naCXygnYwLKjQ==
   dependencies:
     final-form "4.11.1"
     lodash "4.17.11"
@@ -3501,19 +3502,19 @@ cozy-scripts@1.13.0:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^6.25.0:
-  version "6.25.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.25.0.tgz#4fc50087d900be4b0976ceca3606c77703cf5f52"
-  integrity sha512-SY7450Yg9n9HDcPsMaNgfTcId5rXOR7hpzyCo1OUZoLINOGlG9Crd10p01aiOLSbvw8z1piKJnGyxYSSrmBOXA==
+cozy-stack-client@^6.44.0:
+  version "6.44.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.44.0.tgz#e462d978c7024aa523551aa33df2d5dbd3f85cf5"
+  integrity sha512-Vys+YedYsdGvJ1xOlv2e/+Cki/iLDTOe7JYsdkSV7rq/rYczhOmE+/lkcBEC6luTVF5Itv/8c7Dkx+OXC7skaw==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.24"
     qs "6.7.0"
 
-cozy-ui@20.16.1:
-  version "20.16.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-20.16.1.tgz#4e72146b7e932de6ef7812bb26939adf615ab914"
-  integrity sha512-+aqZdaEnZ2Ki9NY9tkQFJsm1QZCWtrSzhZ0L3fRYqG0BQ7iDYAr3PIXXGIhj9CTtZETiHTZEbnaWkFbRb+spxw==
+cozy-ui@20.18.0:
+  version "20.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-20.18.0.tgz#ef97f1d9e046a4a83bb1a44958355b3718d1e424"
+  integrity sha512-462QAaG68Zn1Xu6F8h/B+vp1WLJLZR/7U7o79URTpC2BowfsYHGV61sdbTvFTElqpk9VIu7B0pYbMp14i4x+DA==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -13385,6 +13386,11 @@ url-search-params-polyfill@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-5.1.0.tgz#f0405dcc2e921bf7f5fdf8c4e616f1e8088ef31b"
   integrity sha512-yjFY7uw2xRf9e8Mg4ZVkZwtp8dMCC4cbBkEIZiTDpuSY2WJ9+Quw0wRhxncv32qaMQwmBQT+P847rO8PrFhhDA==
+
+url-search-params-polyfill@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-6.0.0.tgz#f5e5fc230d56125f5b0ba67d9cbcd6555fa347e3"
+  integrity sha512-69Bl5s3SiEgcHe8SMpzLGOyag27BQeTeSaP/CfVHkKc/VdUHtNjaP2PnhshFVC021221ItueOzuMMGofZ/HDmQ==
 
 url-slug@2.0.0:
   version "2.0.0"
