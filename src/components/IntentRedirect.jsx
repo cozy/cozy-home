@@ -18,17 +18,25 @@ const IntentRedirect = ({ installedKonnectors, location }) => {
         return accumulator
       }, {})
 
-  if (query.konnector) {
-    if (
-      installedKonnectors.find(konnector => konnector.slug === query.konnector)
-    ) {
-      return <Redirect to={`/connected/${query.konnector}`} />
-    } else {
-      cozy.client.intents.redirect('io.cozy.apps', { slug: query.konnector })
-    }
+  if (!query.konnector) {
+    return <Redirect to={`/connected`} />
   }
 
-  return <Redirect to={`/connected`} />
+  if (
+    !installedKonnectors.find(konnector => konnector.slug === query.konnector)
+  ) {
+    return cozy.client.intents.redirect('io.cozy.apps', {
+      slug: query.konnector
+    })
+  }
+
+  let redirectRoute = `/connected/${query.konnector}`
+
+  if (query.account) {
+    redirectRoute = `${redirectRoute}/accounts/${query.account}`
+  }
+
+  return <Redirect to={redirectRoute} />
 }
 
 const mapStateToProps = state => ({
