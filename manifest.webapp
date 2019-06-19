@@ -116,6 +116,7 @@
       ],
       "href": "/#/redirect",
       "data": [
+        "account",
         "konnector"
       ]
     }

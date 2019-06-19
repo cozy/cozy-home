@@ -30,7 +30,13 @@ const IntentRedirect = ({ installedKonnectors, location }) => {
     })
   }
 
-  return <Redirect to={`/connected/${query.konnector}`} />
+  let redirectRoute = `/connected/${query.konnector}`
+
+  if (query.account) {
+    redirectRoute = `${redirectRoute}/accounts/${query.account}`
+  }
+
+  return <Redirect to={redirectRoute} />
 }
 
 const mapStateToProps = state => ({
