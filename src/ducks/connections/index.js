@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
+import omit from 'lodash/omit'
 
 import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
@@ -23,6 +24,7 @@ export const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
 export const RECEIVE_DATA = 'RECEIVE_DATA'
 export const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT'
+export const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT'
 export const UPDATE_CONNECTION_RUNNING_STATUS =
   'UPDATE_CONNECTION_RUNNING_STATUS'
 export const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR'
@@ -130,6 +132,7 @@ const reducer = (state = {}, action) => {
       }, state)
 
     case PURGE_QUEUE:
+    case RECEIVE_DELETED_DOCUMENT:
       return Object.keys(state).reduce((konnectors, slug) => {
         return {
           ...konnectors,
@@ -198,6 +201,7 @@ const konnectorReducer = (state = {}, action) => {
     case LAUNCH_TRIGGER:
     case RECEIVE_DATA:
     case RECEIVE_NEW_DOCUMENT:
+    case RECEIVE_DELETED_DOCUMENT:
     case PURGE_QUEUE:
       // We assume that document being a trigger has already been validated.
       return {
@@ -240,6 +244,13 @@ const triggersReducer = (state = {}, action) => {
             }
           }, state)
         : state
+    case RECEIVE_DELETED_DOCUMENT: {
+      const { data } = action.response
+      const { _id, _type } = data[0]
+      if (_type === TRIGGERS_DOCTYPE) {
+        return omit(state, _id)
+      } else return state
+    }
     default:
       return state
   }
