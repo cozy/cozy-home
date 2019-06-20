@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { AppIcon } from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
+import PropTypes from 'prop-types'
 
 import styles from 'styles/konnectorHeaderIcon'
 
@@ -26,6 +27,11 @@ export class KonnectorHeaderIcon extends Component {
       </div>
     )
   }
+}
+
+KonnectorHeaderIcon.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
 }
 
 export default translate()(KonnectorHeaderIcon)

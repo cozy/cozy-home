@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
+import { translate } from 'cozy-ui/react/I18n'
 import Alerter from 'cozy-ui/react/Alerter'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
@@ -31,9 +33,8 @@ import styles from 'styles/connectionManagement.styl'
 class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
-    const { existingAccount, createdAccount, konnector } = props
-    const { t } = this.context
+    this.store = context.store
+    const { existingAccount, createdAccount, konnector, t } = props
 
     const account = existingAccount || createdAccount
 
@@ -115,8 +116,11 @@ class ConnectionManagement extends Component {
 
     const isInvalidAccountId =
       nextProps.match &&
+      // an account id is provided but not existingAccount
       nextProps.match.params.accountId &&
-      !nextProps.existingAccount
+      !nextProps.existingAccount &&
+      // we check that it was not a deletion
+      !this.props.existingAccount
     if (isInvalidAccountId) {
       // eslint-disable-next-line no-console
       console.warn('Invalid account id')
@@ -185,7 +189,7 @@ class ConnectionManagement extends Component {
   }
 
   handleDeleteSuccess() {
-    const { t } = this.context
+    const { t } = this.props
     Alerter.success(t('account.message.success.delete'))
     this.gotoParent()
   }
@@ -204,8 +208,7 @@ class ConnectionManagement extends Component {
   gotoParent() {
     // The setTimeout allows React to perform setState related actions
     setTimeout(() => {
-      const { router } = this.context
-      const { originPath } = this.props
+      const { originPath, history } = this.props
 
       if (originPath) {
         const params = this.props.match.params
@@ -220,10 +223,10 @@ class ConnectionManagement extends Component {
             (path, param) => path.replace(`:${param}`, params[param]),
             originPath
           )
-        router.history.push(resolvedOriginPath)
+        history.push(resolvedOriginPath)
       } else {
-        let url = router.history.location.pathname
-        router.history.push(url.substring(0, url.lastIndexOf('/')))
+        let url = history.location.pathname
+        history.push(url.substring(0, url.lastIndexOf('/')))
       }
 
       if (this.props.isCreating) {
@@ -231,6 +234,10 @@ class ConnectionManagement extends Component {
       }
     }, 0)
   }
+}
+
+ConnectionManagement.contextTypes = {
+  store: PropTypes.object
 }
 
 const mapActionsToProps = () => ({})
@@ -276,6 +283,6 @@ export default connect(
   mapDispatchToProps
 )(
   cozyConnect(mapDocumentsToProps, mapActionsToProps)(
-    withRouter(ConnectionManagement)
+    withRouter(translate()(ConnectionManagement))
   )
 )

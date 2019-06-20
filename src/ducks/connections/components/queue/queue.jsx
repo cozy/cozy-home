@@ -21,13 +21,17 @@ class ProgressBar extends Component {
 
   componentDidMount() {
     let elapsedTime = 0
-    this.myInterval = setInterval(() => {
+    this.progressInterval = setInterval(() => {
       elapsedTime += 10
       let progress = (Math.atan(elapsedTime / 3e3) / (Math.PI / 2)) * 90
       this.setState({
         progress: progress
       })
     }, 25)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.progressInterval)
   }
 
   render() {
@@ -55,24 +59,28 @@ class Item extends Component {
     switch (status) {
       case 'ongoing':
         statusIcon = (
-          <Spinner noMargin class="u-ml-half" color={palette['dodgerBlue']} />
+          <Spinner
+            noMargin
+            className="u-ml-half"
+            color={palette['dodgerBlue']}
+          />
         )
         break
       case 'canceled':
         statusIcon = (
-          <Icon class="u-ml-half" icon="cross" color={palette['monza']} />
+          <Icon className="u-ml-half" icon="cross" color={palette['monza']} />
         )
         break
       case 'error':
       case 'conflict':
         statusIcon = (
-          <Icon class="u-ml-half" icon="warning" color={palette['monza']} />
+          <Icon className="u-ml-half" icon="warning" color={palette['monza']} />
         )
         break
       case 'done':
         statusIcon = (
           <Icon
-            class="u-ml-half"
+            className="u-ml-half"
             icon="check-circleless"
             color={palette['emerald']}
           />
@@ -105,6 +113,11 @@ class Item extends Component {
       </div>
     )
   }
+}
+
+Item.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
 }
 
 export class Queue extends Component {
@@ -185,11 +198,6 @@ export class Queue extends Component {
       </div>
     )
   }
-}
-
-Queue.contextTypes = {
-  domain: PropTypes.string,
-  secure: PropTypes.bool
 }
 
 export default translate()(Queue)

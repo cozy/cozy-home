@@ -8,7 +8,7 @@ import { tMock } from '../../../../../test/jestLib/I18n'
 
 import { Queue } from './queue'
 
-import Adapter from 'enzyme-adapter-react-15'
+import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 

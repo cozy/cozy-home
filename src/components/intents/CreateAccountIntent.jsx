@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import CreateAccountService from 'components/services/CreateAccountService'
 import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
@@ -6,7 +7,7 @@ import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
 class CreateAccountIntent extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
+    this.store = context.store
     this.state = { isSuccess: false }
     this.store.fetchUrls()
   }
@@ -32,6 +33,10 @@ class CreateAccountIntent extends Component {
       </div>
     )
   }
+}
+
+CreateAccountIntent.contextTypes = {
+  store: PropTypes.object
 }
 
 export default CreateAccountIntent

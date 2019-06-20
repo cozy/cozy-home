@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import flag from 'cozy-flags'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
@@ -68,9 +70,8 @@ export class KonnectorTile extends Component {
       route,
       t
     } = this.props
-    const { domain, features, secure } = this.context
-    const hideKonnectorErrors =
-      features && features.includes('hide_konnector_errors')
+    const { domain, secure } = this.context
+    const hideKonnectorErrors = flag('hide_konnector_errors')
     return (
       <NavLink
         className="item-wrapper"
@@ -102,6 +103,11 @@ export class KonnectorTile extends Component {
       </NavLink>
     )
   }
+}
+
+KonnectorTile.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
 }
 
 const mapStateToProps = (state, props) => {

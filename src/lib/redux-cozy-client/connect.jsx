@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { applySelectorForAction, enhancePropsForActions } from '.'
 import { mapValues, filterValues } from './utils'
@@ -17,13 +18,14 @@ const connect = (
       }
     }
 
+    static contextTypes = {
+      store: PropTypes.object
+    }
+
     render() {
-      const { t, f, client, store } = this.context
+      const { store } = this.context
       const { fetchActions } = this.props
       const props = {
-        t,
-        f,
-        client,
         ...this.props,
         ...enhancePropsForActions(this.props, fetchActions, store.dispatch)
       }

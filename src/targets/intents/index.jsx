@@ -2,6 +2,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider

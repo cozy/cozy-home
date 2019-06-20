@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
+import { translate } from 'cozy-ui/react/I18n'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import Spinner from 'cozy-ui/react/Spinner'
 
@@ -57,11 +59,8 @@ class IntentHandler extends Component {
 
   render() {
     // const { data } = this.props
-    const { appData, accounts, konnectors, triggers } = this.props
+    const { appData, accounts, konnectors, triggers, t } = this.props
     const { error, service } = this.state
-
-    const { t } = this.context
-
     let { isInitializing } = this.state
 
     isInitializing =
@@ -106,4 +105,8 @@ class IntentHandler extends Component {
   }
 }
 
-export default appEntryPoint(IntentHandler)
+IntentHandler.contextTypes = {
+  store: PropTypes.object
+}
+
+export default appEntryPoint(translate()(IntentHandler))

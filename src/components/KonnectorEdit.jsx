@@ -52,6 +52,7 @@ export const KonnectorEdit = props => {
   return (
     <div className={styles['col-account-edit-content']}>
       {!maintenance &&
+        trigger &&
         !!error && (
           <ErrorMessage
             konnector={connector}

@@ -21,20 +21,17 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 
 class App extends Component {
   state = {
-    context: {},
     error: null,
     status: IDLE
   }
 
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
-    this.fetchContext()
+    this.store = context.store
   }
 
-  getChildContext() {
-    const { context } = this.state
-    return context && context.attributes
+  componentDidMount() {
+    this.fetchContext()
   }
 
   async fetchContext() {
@@ -56,7 +53,6 @@ class App extends Component {
     }
 
     this.setState({
-      context,
       status: IDLE
     })
   }
@@ -80,10 +76,11 @@ class App extends Component {
       <Layout
         monoColumn
         ref={
-          isReady &&
-          (div => {
-            this.contentWrapper = div
-          })
+          isReady
+            ? div => {
+                this.contentWrapper = div
+              }
+            : null
         }
       >
         <Alerter />
@@ -120,8 +117,8 @@ class App extends Component {
   }
 }
 
-App.childContextTypes = {
-  features: PropTypes.array
+App.contextTypes = {
+  store: PropTypes.object
 }
 
 /*

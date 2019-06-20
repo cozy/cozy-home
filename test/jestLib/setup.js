@@ -1,5 +1,8 @@
 import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15'
+import Adapter from 'enzyme-adapter-react-16'
+
+// for cozy-ui components
+process.env.USE_REACT = true
 
 configure({ adapter: new Adapter() })
 

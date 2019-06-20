@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -27,14 +28,13 @@ import styles from 'styles/accountConnection'
 class AccountConnection extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = this.context.store
+    this.store = context.store
 
     this.state = {
       account: props.existingAccount,
       editing: !!props.existingAccount,
       isFetching: false,
-      maintenance: props.maintenance && props.maintenance[props.konnector.slug],
-      lang: this.context.lang
+      maintenance: props.maintenance && props.maintenance[props.konnector.slug]
     }
 
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
@@ -202,7 +202,7 @@ class AccountConnection extends Component {
   }
 
   buildSuccessMessages(konnector) {
-    const { t } = this.context
+    const { t } = this.props
     const messages = [
       t('account.message.success.connect', {
         name: konnector.name
@@ -232,6 +232,7 @@ class AccountConnection extends Component {
       onDone,
       queued,
       t,
+      lang,
       trigger,
       success,
       successButtonLabel
@@ -242,8 +243,7 @@ class AccountConnection extends Component {
       oAuthError,
       oAuthTerminated,
       submitting,
-      maintenance,
-      lang
+      maintenance
     } = this.state
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
@@ -308,6 +308,10 @@ class AccountConnection extends Component {
       </div>
     )
   }
+}
+
+AccountConnection.contextTypes = {
+  store: PropTypes.object
 }
 
 const mapStateToProps = (state, ownProps) => ({
