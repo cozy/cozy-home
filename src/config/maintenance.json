@@ -55,6 +55,13 @@
       "en": "Enedis added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Enedis.<br/>We are trying to clear the situation and you will be noticed when it is fixed."
     }
   },
+  "engie": {
+    "longTerm": true,
+    "message": {
+      "fr": "Engie a ajouté un mécanisme bloquant l'accès à vos données par votre Cozy. Le connecteur n'est donc pas actuellement en mesure de récupérer votre historique de factures détenu par Engie.<br/>Nous tentons de rétablir le service dès que possible.",
+      "en": "Engie added a protection system that blocks your Cozy's access to your data. As a result the connector is not able to get your bill history back from Engie.<br/>We are trying to clear the situation as soon as possible."
+    }
+  },
   "electricitestrasbourg" : {
     "longTerm": true,
     "message": {
@@ -116,6 +123,13 @@
     "message": {
       "fr": "SFR Mobile a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par SFR Mobile. Nous tentons de rétablir la situation et vous informerons dès que le service sera rétabli. [En savoir plus](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)",
       "en": "SFR Mobile's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from SFR Mobile.<br/>We are trying to restore the situation and we will notice you when it will be fixed. [Learn more](https://support.cozy.io/article/176-pourquoi-les-connecteurs-sfr-et-red-ne-fonctionnent-plus)"
+    }
+  },
+  "zalando": {
+    "longTerm": true,
+    "message": {
+      "fr": "Zalando a modifié son système d'information et son accès à vos données ne fonctionne plus. Ce connecteur n'est donc pas actuellement en mesure de récupérer vos données personnelles détenues par Zalando. Nous tentons de rétablir la situation dès que possible.",
+      "en": "Zalando's information system has changed and the related data access doesn't work anymore. This konnector is not currently able to get back your data from Zalando.<br/>We are trying to restore the situation as soon as possible."
     }
   }
 }
