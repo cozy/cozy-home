@@ -21,7 +21,7 @@ class ProgressBar extends Component {
 
   componentDidMount() {
     let elapsedTime = 0
-    this.myInterval = setInterval(() => {
+    this.progressInterval = setInterval(() => {
       elapsedTime += 10
       let progress = (Math.atan(elapsedTime / 3e3) / (Math.PI / 2)) * 90
       this.setState({
@@ -31,7 +31,7 @@ class ProgressBar extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.myInterval)
+    clearInterval(this.progressInterval)
   }
 
   render() {
