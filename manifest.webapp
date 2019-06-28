@@ -69,6 +69,15 @@
         "ALL"
       ]
     },
+    "contacts": {
+      "description": "Required for the service to update the myself contact",
+      "type": "io.cozy.contacts",
+      "selector": "me",
+      "values": [true],
+      "verbs": [
+        "ALL"
+      ]
+    },
     "triggers": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.triggers",
@@ -120,5 +129,12 @@
         "konnector"
       ]
     }
-  ]
+  ],
+  "services": {
+    "myselfFromIdentities": {
+      "type": "node",
+      "file": "services/myselfFromIdenties/home.js",
+      "trigger": "@event io.cozy.identities:CREATED @event io.cozy.identities:UPDATED"
+    }
+  }
 }
