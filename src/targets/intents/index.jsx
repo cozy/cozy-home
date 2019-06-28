@@ -2,12 +2,13 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
-import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
 import { I18n } from 'cozy-ui/react/I18n'
+import 'cozy-ui/dist/cozy-ui.utils.min.css'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import configureStore from 'store/configureStore'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'

@@ -3,7 +3,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 import 'url-search-params-polyfill'
-import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
@@ -11,6 +10,8 @@ import MostRecentCozyClient, {
 import { Application } from 'cozy-doctypes'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
+import 'cozy-ui/dist/cozy-ui.utils.min.css'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import collectConfig from 'config/collect'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
