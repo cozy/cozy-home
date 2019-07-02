@@ -24,7 +24,7 @@ const context = window.context || 'cozy'
 const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 document.addEventListener('DOMContentLoaded', () => {
-  handleOAuthResponse()
+  if (handleOAuthResponse()) return
 
   const root = document.querySelector('[role=application]')
   const data = root.dataset
