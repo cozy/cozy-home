@@ -9,7 +9,6 @@ import KonnectorInstall from 'components/KonnectorInstall'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import UpdateMessage from 'components/Banners/UpdateMessage'
 import KonnectorEdit from 'components/KonnectorEdit'
-import { fetchAccount } from 'ducks/accounts'
 import {
   enqueueConnection,
   getConnectionError,
@@ -209,8 +208,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchAccount: accountId =>
-      dispatch(fetchAccount(accountId)).then(response => response.data[0]),
     enqueueConnection: trigger => dispatch(enqueueConnection(trigger))
   }
 }
