@@ -241,7 +241,6 @@ class AccountConnection extends Component {
       account,
       connectionError,
       oAuthError,
-      oAuthTerminated,
       submitting,
       maintenance
     } = this.state
@@ -272,10 +271,8 @@ class AccountConnection extends Component {
             error={propagateError && konnectorError}
             fields={fields}
             lastSuccess={lastSuccess}
-            oAuthTerminated={oAuthTerminated}
             onDeleteSuccess={this.handleDeleteSuccess}
             onDeleteError={this.handleError}
-            onSubmit={this.onSubmit}
             submitting={submitting || isRunning}
             trigger={trigger}
             maintenance={maintenance}
@@ -291,14 +288,9 @@ class AccountConnection extends Component {
           <KonnectorInstall
             account={createdAccount}
             connector={konnector}
-            error={propagateError && konnectorError}
-            queued={queued}
-            oAuthTerminated={oAuthTerminated}
             onDone={onDone}
             onLoginSuccess={this.handleLoginSuccess}
-            onSubmit={() => this.onSubmit()}
             onSuccess={handleConnectionSuccess}
-            submitting={submitting || isRunning}
             legacySuccess={success || queued}
             successMessage={t('account.success.title.connect')}
             successButtonLabel={successButtonLabel}
