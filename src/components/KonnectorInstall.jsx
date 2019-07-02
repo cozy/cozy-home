@@ -5,7 +5,6 @@ import { TriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorSuccess from 'components/KonnectorSuccess'
-import LegacyKonnectorInstall from 'components/LegacyKonnectorInstall'
 import { getKonnector } from 'ducks/konnectors'
 import styles from 'styles/konnectorInstall'
 
@@ -67,9 +66,7 @@ export class KonnectorInstall extends Component {
       )
     }
 
-    return konnector.oauth ? (
-      <LegacyKonnectorInstall {...this.props} />
-    ) : (
+    return (
       <div className={styles['col-account-connection-content']}>
         <div className={styles['col-account-connection-form']}>
           <h4 className="u-ta-center">
