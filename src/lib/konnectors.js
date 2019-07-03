@@ -22,11 +22,6 @@ export const TWO_FA_ERRORS = [
 
 export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 
-export const KONNECTOR_RESULT_STATE = {
-  ERRORED: 'errored',
-  CONNECTED: 'done'
-}
-
 export function subscribeAll(cozy) {
   return realtime.subscribeAll(cozy, KONNECTORS_DOCTYPE)
 }
