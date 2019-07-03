@@ -1,42 +1,14 @@
 /* eslint-env jest */
 
 import connections, {
-  createConnection,
   enqueueConnection,
   getConnectionsByKonnector,
   getQueue,
-  purgeQueue,
-  updateConnectionError
+  purgeQueue
 } from '../'
 
 describe('Connections Duck', () => {
   describe('Action creators', () => {
-    describe('createConnection', () => {
-      it.skip('adds new connection in empty state', () => {
-        const state = undefined
-        const konnector = { slug: 'cozy' }
-        const account = { _id: '9bf93550308311c59f0a0047fc00fa1b' }
-
-        const result = connections(state, createConnection(konnector, account))
-
-        expect(result).toMatchSnapshot()
-      })
-
-      it.skip('adds new connection', () => {
-        const state = {
-          testprovider: {
-            '17375ac5a59e4d6585fc7d1e1c75ec74': {}
-          }
-        }
-        const konnector = { slug: 'cozy' }
-        const account = { _id: '9bf93550308311c59f0a0047fc00fa1b' }
-
-        const result = connections(state, createConnection(konnector, account))
-
-        expect(result).toMatchSnapshot()
-      })
-    })
-
     describe('enqueueConnection', () => {
       it.skip('marks account as queued', () => {
         const state = {
@@ -70,26 +42,6 @@ describe('Connections Duck', () => {
         }
 
         const result = connections(state, purgeQueue())
-
-        expect(result).toMatchSnapshot()
-      })
-    })
-
-    describe('updateConnectionError', () => {
-      it.skip('set an error', () => {
-        const state = {
-          testprovider: {
-            '17375ac5a59e4d6585fc7d1e1c75ec74': {}
-          }
-        }
-        const konnector = { slug: 'testprovider' }
-        const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
-        const error = new Error('test error')
-
-        const result = connections(
-          state,
-          updateConnectionError(konnector, account, error)
-        )
 
         expect(result).toMatchSnapshot()
       })

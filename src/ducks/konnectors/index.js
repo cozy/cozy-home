@@ -38,15 +38,6 @@ export const getKonnector = (state, slug) =>
   !!state.documents[DOCTYPE] &&
   state.documents[DOCTYPE][`${DOCTYPE}/${slug}`]
 
-export const getKonnectorsByCategory = (state, category) =>
-  !!state.documents &&
-  !!state.documents[DOCTYPE] &&
-  Object.keys(state.documents[DOCTYPE]).reduce((konnectors, slug) => {
-    return state.documents[DOCTYPE][slug].category === category
-      ? konnectors.concat([state.documents[DOCTYPE][slug]])
-      : konnectors
-  }, [])
-
 export const getInstalledKonnectors = state =>
   !!state.documents &&
   !!state.documents[DOCTYPE] &&

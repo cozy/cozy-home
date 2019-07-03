@@ -199,12 +199,6 @@ ConnectionManagement.contextTypes = {
 
 const mapActionsToProps = () => ({})
 
-// Accéder au state depuis ici ?
-const mapDocumentsToProps = () => ({
-  // konnector: fetchRegistryKonnectorBySlug(ownProps.params.connectorSlug)
-  // existingAccount: fetchAccount(ownProps.accountId)
-})
-
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
@@ -239,7 +233,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  cozyConnect(mapDocumentsToProps, mapActionsToProps)(
+  cozyConnect(() => {}, mapActionsToProps)(
     withRouter(translate()(ConnectionManagement))
   )
 )

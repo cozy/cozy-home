@@ -6,14 +6,11 @@ import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
 import { getTriggerLastJob } from 'ducks/jobs'
 
-import { getAccount } from 'ducks/accounts'
-
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 const JOBS_DOCTYPE = 'io.cozy.jobs'
 
-export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
 export const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 export const PURGE_QUEUE = 'PURGE_QUEUE'
@@ -39,7 +36,6 @@ const isKonnectorJob = doc =>
 // reducers
 const reducer = (state = {}, action) => {
   switch (action.type) {
-    case CREATE_CONNECTION:
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
@@ -252,13 +248,6 @@ const triggersReducer = (state = {}, action) => {
 }
 
 // action creators sync
-export const createConnection = (konnector, account, folder) => ({
-  type: CREATE_CONNECTION,
-  konnector,
-  account,
-  folder
-})
-
 export const enqueueConnection = trigger => ({
   type: ENQUEUE_CONNECTION,
   trigger
@@ -382,10 +371,6 @@ export const getConnectionError = (state, trigger) =>
 
 export const getCreatedAccount = state =>
   !!state.creation && state.creation.account
-
-export const getTriggerAccount = (state, trigger) => {
-  return getAccount(state.cozy, trigger.message.account)
-}
 
 export const getTriggerIdByKonnectorAndAccount = (
   state,
