@@ -16,7 +16,6 @@ import {
   isConnectionEnqueued
 } from 'ducks/connections'
 import { isKonnectorUpdateNeededError } from 'lib/konnectors'
-import statefulForm from 'lib/statefulForm'
 import styles from 'styles/accountConnection'
 
 class AccountConnection extends Component {
@@ -215,4 +214,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(statefulForm()(withRouter(translate()(AccountConnection))))
+)(withRouter(translate()(AccountConnection)))
