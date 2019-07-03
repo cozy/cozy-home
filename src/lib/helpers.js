@@ -1,4 +1,3 @@
-import uuid from 'uuid/v4'
 import { probableLoginFieldNames } from './accounts'
 
 export const getAccountName = account => {
@@ -16,16 +15,4 @@ export const getAccountLogin = account => {
       if (account.auth[fieldName]) return account.auth[fieldName]
     }
   }
-}
-
-export const getCompleteFolderPath = (defaultDir, konnectorName, t) => {
-  let folderPath = `/${defaultDir}/$konnector/${uuid()}`
-  return folderPath
-    .replace(/\/\//g, '/')
-    .replace(/\$konnector/gi, konnectorName)
-    .replace(
-      /\$administrative/gi,
-      t('account.folder.placeholder.administrative')
-    )
-    .replace(/\$photos/gi, t('account.folder.placeholder.photos'))
 }
