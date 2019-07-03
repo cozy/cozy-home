@@ -20,21 +20,6 @@ const triggersCollectionKey = 'triggers'
 export const fetchTriggers = () =>
   fromCozyClient.fetchTriggers(triggersCollectionKey, 'konnector')
 
-export const createKonnectorTrigger = (
-  konnector,
-  account,
-  folder,
-  options = {}
-) =>
-  fromCozyClient.createTrigger(
-    buildKonnectorTrigger(konnector, account, folder, options),
-    {
-      updateCollections: [triggersCollectionKey]
-    }
-  )
-
-export const launchTrigger = trigger => fromCozyClient.launchTrigger(trigger)
-
 // Helpers
 
 const parseFrequency = frequency =>

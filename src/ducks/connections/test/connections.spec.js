@@ -1,12 +1,10 @@
 /* eslint-env jest */
 
 import connections, {
-  DEFAULT_QUEUE_DELAY,
   createConnection,
   enqueueConnection,
   getConnectionsByKonnector,
   getQueue,
-  launchTriggerAndQueue,
   purgeQueue,
   updateConnectionError
 } from '../'
@@ -52,83 +50,6 @@ describe('Connections Duck', () => {
         const result = connections(state, enqueueConnection(konnector, account))
 
         expect(result).toMatchSnapshot()
-      })
-    })
-
-    describe('launchTriggerAndQueue', () => {
-      jest.useFakeTimers()
-
-      it('enqueues the trigger after defautl delay', () => {
-        const trigger = {
-          _id: '17375ac5a59e4d6585fc7d1e1c75ec74',
-          message: {
-            konnector: 'testprovider'
-          }
-        }
-
-        const connections = {
-          konnectors: {
-            testprovider: {
-              triggers: {
-                '17375ac5a59e4d6585fc7d1e1c75ec74': {
-                  isRunning: true
-                }
-              }
-            }
-          }
-        }
-
-        const dispatch = jest.fn()
-        const getState = () => ({ connections })
-        launchTriggerAndQueue(trigger)(dispatch, getState)
-
-        expect(setTimeout).toHaveBeenCalled()
-        expect(setTimeout).toHaveBeenCalledWith(
-          expect.any(Function),
-          DEFAULT_QUEUE_DELAY
-        )
-
-        jest.runOnlyPendingTimers()
-
-        expect(dispatch).toHaveBeenLastCalledWith({
-          type: 'ENQUEUE_CONNECTION',
-          trigger: trigger
-        })
-      })
-
-      it('enqueues the trigger after given delay', () => {
-        const trigger = {
-          _id: '17375ac5a59e4d6585fc7d1e1c75ec74',
-          message: {
-            konnector: 'testprovider'
-          }
-        }
-
-        const connections = {
-          konnectors: {
-            testprovider: {
-              triggers: {
-                '17375ac5a59e4d6585fc7d1e1c75ec74': {
-                  isRunning: true
-                }
-              }
-            }
-          }
-        }
-
-        const dispatch = jest.fn()
-        const getState = () => ({ connections })
-        launchTriggerAndQueue(trigger, 350)(dispatch, getState)
-
-        expect(setTimeout).toHaveBeenCalled()
-        expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 350)
-
-        jest.runOnlyPendingTimers()
-
-        expect(dispatch).toHaveBeenLastCalledWith({
-          type: 'ENQUEUE_CONNECTION',
-          trigger: trigger
-        })
       })
     })
 

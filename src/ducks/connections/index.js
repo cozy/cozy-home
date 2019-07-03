@@ -6,17 +6,12 @@ import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
 import { getTriggerLastJob } from 'ducks/jobs'
 
-import { launchTrigger } from 'ducks/triggers'
 import { getAccount } from 'ducks/accounts'
 
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 const JOBS_DOCTYPE = 'io.cozy.jobs'
-
-// Delay until the konnector is queued. It is used to compensate the fact that
-// we cannot determine when a login is OK for the konnector.
-export const DEFAULT_QUEUE_DELAY = 7000
 
 export const CREATE_CONNECTION = 'CREATE_CONNECTION'
 export const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION'
@@ -288,19 +283,6 @@ export const startConnectionCreation = konnector => ({
 export const endConnectionCreation = () => ({
   type: END_CONNECTION_CREATION
 })
-
-export const launchTriggerAndQueue = (trigger, delay = DEFAULT_QUEUE_DELAY) => (
-  dispatch,
-  getState
-) => {
-  setTimeout(() => {
-    if (isConnectionRunning(getState().connections, trigger)) {
-      dispatch(enqueueConnection(trigger))
-    }
-  }, delay)
-
-  return dispatch(launchTrigger(trigger))
-}
 
 // selectors
 export const getConnectionsByKonnector = (
