@@ -10,7 +10,6 @@ import {
   isCreatingConnection,
   startConnectionCreation
 } from 'ducks/connections'
-import { getCompleteFolderPath } from 'lib/helpers'
 import {
   getCreatedConnectionAccount,
   getTriggerByKonnectorAndAccount
@@ -19,31 +18,6 @@ import {
 class CreateAccountService extends React.Component {
   constructor(props, context) {
     super(props, context)
-    const { t, konnector } = props
-    const values = {}
-
-    if (
-      (konnector.fields &&
-        konnector.fields.advancedFields &&
-        konnector.fields.advancedFields.folderPath) ||
-      (konnector.fields && konnector.folderPath)
-    ) {
-      values.folderPath = t('account.config.default_folder', {
-        name: konnector.name
-      })
-    } else if (Array.isArray(konnector.folders) && konnector.folders.length) {
-      const folder = konnector.folders[0] // we only handle the first one for now
-      if (folder.defaultDir) {
-        values.folderPath = getCompleteFolderPath(
-          folder.defaultDir,
-          konnector.name,
-          t
-        )
-      }
-    }
-
-    this.state = { values }
-
     this.props.startCreation(this.props.konnector)
   }
 
@@ -53,15 +27,12 @@ class CreateAccountService extends React.Component {
   }
 
   render() {
-    const { konnector, t } = this.props
-    const { values } = this.state
+    const { t } = this.props
     return (
       <div className="coz-service-content">
         <AccountConnection
-          connector={konnector}
           onDone={this.onSuccess}
           successButtonLabel={t('intent.service.success.button.label')}
-          values={values}
           {...this.props}
         />
       </div>

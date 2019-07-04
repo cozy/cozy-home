@@ -12,11 +12,9 @@ import DescriptionContent from 'components/DescriptionContent'
 import ErrorMessage from 'components/Banners/ErrorMessage'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import KonnectorSync from 'components/KonnectorSync'
-import LegacyAccountLoginForm from 'components/LegacyAccountLoginForm'
 import TriggerFolderLink from 'components/TriggerFolderLink'
 import styles from 'styles/konnectorEdit'
 import { getKonnectorMessage, isKonnectorLoginError } from 'lib/konnectors'
-import { getAccountName } from 'lib/helpers'
 
 export const KonnectorEdit = props => {
   const {
@@ -24,12 +22,9 @@ export const KonnectorEdit = props => {
     account,
     connector,
     error,
-    fields,
     lastSuccess,
-    oAuthTerminated,
     onDeleteError,
     onDeleteSuccess,
-    onSubmit,
     submitting,
     trigger,
     maintenance,
@@ -43,11 +38,6 @@ export const KonnectorEdit = props => {
   )
   const hasLoginError = isKonnectorLoginError(error)
   const hasErrorExceptLogin = !!error && !hasLoginError
-  // assign accountName placeholder
-  if (fields.accountName)
-    fields.accountName.placeholder = getAccountName(account)
-  if (account && account.oauth)
-    account.auth = Object.assign({}, account.auth, account.oauth)
 
   return (
     <div className={styles['col-account-edit-content']}>
@@ -118,25 +108,13 @@ export const KonnectorEdit = props => {
             <DescriptionContent
               messages={[getKonnectorMessage(t, connector, 'terms')]}
             />
-
-            {connector.oauth ? (
-              <LegacyAccountLoginForm
-                error={hasLoginError}
-                editing
-                oAuthTerminated={oAuthTerminated}
-                onSubmit={onSubmit}
-                submitting={submitting}
-              />
-            ) : (
-              <TriggerManager
-                account={account}
-                konnector={connector}
-                showError={false}
-                trigger={trigger}
-                running={submitting}
-              />
-            )}
-
+            <TriggerManager
+              account={account}
+              konnector={connector}
+              showError={false}
+              trigger={trigger}
+              running={submitting}
+            />
             {
               <AccountLogout
                 account={account}

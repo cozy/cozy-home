@@ -1,24 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Connections Duck Action creators createConnection adds new connection 1`] = `
-Object {
-  "cozy": Object {
-    "9bf93550308311c59f0a0047fc00fa1b": Object {},
-  },
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {},
-  },
-}
-`;
-
-exports[`Connections Duck Action creators createConnection adds new connection in empty state 1`] = `
-Object {
-  "cozy": Object {
-    "9bf93550308311c59f0a0047fc00fa1b": Object {},
-  },
-}
-`;
-
 exports[`Connections Duck Action creators enqueueConnection marks account as queued 1`] = `
 Object {
   "testprovider": Object {
@@ -42,16 +23,6 @@ Object {
     },
     "63c670ea9d7b11e7b5888c88b1c12d46": Object {
       "isEnqueued": false,
-    },
-  },
-}
-`;
-
-exports[`Connections Duck Action creators updateConnectionError set an error 1`] = `
-Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "error": [Error: test error],
     },
   },
 }

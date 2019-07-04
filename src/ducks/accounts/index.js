@@ -1,29 +1,10 @@
-import {
-  createDocument,
-  fetchCollection,
-  fetchDocument
-} from 'redux-cozy-client'
+import { fetchCollection } from 'redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.accounts'
 const accountCollectionKey = 'accounts'
 
-export const createAccount = attributes =>
-  createDocument(
-    DOCTYPE,
-    { type: DOCTYPE, ...attributes },
-    {
-      updateCollections: [accountCollectionKey]
-    }
-  )
-
 export const fetchAccounts = () =>
   fetchCollection(accountCollectionKey, DOCTYPE)
-
-export const fetchAccount = id => {
-  return fetchDocument(DOCTYPE, id, {
-    collection: [accountCollectionKey]
-  })
-}
 
 // selectors
 export const getAccount = (state, id) => {

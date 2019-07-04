@@ -21,7 +21,6 @@ import {
   startConnectionCreation
 } from 'ducks/connections'
 import { getKonnector } from 'ducks/konnectors'
-import { getCompleteFolderPath } from 'lib/helpers'
 import {
   getConnectionsByKonnector,
   getCreatedConnectionAccount,
@@ -34,62 +33,21 @@ class ConnectionManagement extends Component {
   constructor(props, context) {
     super(props, context)
     this.store = context.store
-    const { existingAccount, createdAccount, konnector, t } = props
-
-    const account = existingAccount || createdAccount
-
-    // Set values
-    const values = (account && Object.assign({}, account.auth)) || {}
-    // Split the actual folderPath account to get namePath & folderPath values
-    if (account && values.folderPath) {
-      values.folderPath = account.auth.folderPath.substring(
-        0,
-        account.auth.folderPath.lastIndexOf('/')
-      )
-      values.namePath = account.auth.namePath
-    } else if (
-      (!account &&
-        konnector &&
-        konnector.fields &&
-        konnector.fields.advancedFields &&
-        konnector.fields.advancedFields.folderPath) ||
-      (!account && konnector && konnector.fields && konnector.folderPath)
-    ) {
-      values.folderPath = t('account.config.default_folder', {
-        name: konnector.name
-      })
-    } else if (
-      !account &&
-      konnector &&
-      Array.isArray(konnector.folders) &&
-      konnector.folders.length
-    ) {
-      const folder = konnector.folders[0] // we only handle the first one for now
-      if (folder.defaultDir) {
-        values.folderPath = getCompleteFolderPath(
-          folder.defaultDir,
-          konnector.name,
-          t
-        )
-      }
-    }
+    const { konnector } = props
 
     this.state = {
-      isSuccess: false,
-      values: values
+      isSuccess: false
     }
+
     if (konnector) {
       this.store.fetchUrls()
-
-      if (!this.props.existingAccount) {
-        if (this.props.isCreating) {
-          // eslint-disable-next-line no-console
-          console.warn(
-            'Unexpected state: connection creation already in progress'
-          )
-        } else {
-          this.props.startCreation()
-        }
+      if (this.props.isCreating) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'Unexpected state: connection creation already in progress'
+        )
+      } else {
+        this.props.startCreation()
       }
     } else {
       return this.gotoParent()
@@ -138,7 +96,7 @@ class ConnectionManagement extends Component {
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
-    const { values, isSuccess } = this.state
+    const { isSuccess } = this.state
 
     const backRoute = connections.length
       ? `/connected/${konnector.slug}`
@@ -178,7 +136,6 @@ class ConnectionManagement extends Component {
             handleDeleteSuccess={this.handleDeleteSuccess}
             editing={editing}
             onDone={() => this.gotoParent()}
-            values={values}
             handleConnectionSuccess={this.handleConnectionSuccess}
             {...this.props}
             {...this.context}
@@ -242,12 +199,6 @@ ConnectionManagement.contextTypes = {
 
 const mapActionsToProps = () => ({})
 
-// Accéder au state depuis ici ?
-const mapDocumentsToProps = () => ({
-  // konnector: fetchRegistryKonnectorBySlug(ownProps.params.connectorSlug)
-  // existingAccount: fetchAccount(ownProps.accountId)
-})
-
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
@@ -282,7 +233,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  cozyConnect(mapDocumentsToProps, mapActionsToProps)(
+  cozyConnect(() => {}, mapActionsToProps)(
     withRouter(translate()(ConnectionManagement))
   )
 )
