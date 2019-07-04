@@ -69,6 +69,13 @@
       "en": "Helloasso has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
     }
   },
+  "foncia" : {
+    "longTerm": true,
+    "message": {
+      "fr": "Foncia a modifié son système d'information et la récupération de vos données ne fonctionne plus. Nous tentons de rétablir la situation au plus vite.",
+      "en": "Foncia has modified his website and the related data access doesn't work anymore. We are trying to restore the situation."
+    }
+  },
   "ldlc": {
     "longTerm": true,
     "message": {
