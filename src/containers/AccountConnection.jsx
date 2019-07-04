@@ -116,7 +116,6 @@ class AccountConnection extends Component {
     const {
       createdAccount,
       handleConnectionSuccess,
-      fields,
       editing,
       konnector,
       lastSuccess,
@@ -162,7 +161,6 @@ class AccountConnection extends Component {
             account={account}
             connector={konnector}
             error={propagateError && konnectorError}
-            fields={fields}
             lastSuccess={lastSuccess}
             onDeleteSuccess={this.handleDeleteSuccess}
             onDeleteError={this.handleError}
