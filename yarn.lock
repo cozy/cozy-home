@@ -986,6 +986,13 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.5.2":
+  version "7.5.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
+  integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.44.tgz#f8832f4fdcee5d59bf515e595fc5106c529b394f"
@@ -3411,13 +3418,15 @@ cozy-flags@1.6.1:
     detect-node "2.0.4"
     microee "^0.0.6"
 
-cozy-harvest-lib@0.57.2:
-  version "0.57.2"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.57.2.tgz#2b6d390d5c49c3b0e43c212c03becfe99f887443"
-  integrity sha512-zo8XlRCW/lpnr3aFU/kgovucCWaHPsG7op7fUgCRmIwJCf2e8pKnjdcH0QNGJgXtORzXPjkv7naCXygnYwLKjQ==
+cozy-harvest-lib@0.67.5:
+  version "0.67.5"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.67.5.tgz#535b056e12cd7293fa32156e398c09e64631962e"
+  integrity sha512-JBkYoEuyyE/Qyg471yZE3gY5VZm6zXFWeAASDzlbv8bf9xsYAa3JA/gA5LE6HLyQesUfUS7aT73241BPeZsFEQ==
   dependencies:
+    "@babel/runtime" "^7.5.2"
+    date-fns "^1.30.1"
     final-form "4.11.1"
-    lodash "4.17.11"
+    lodash "4.17.15"
     microee "^0.0.6"
     preact-portal "^1.1.3"
     react-final-form "3.7.0"
@@ -3896,7 +3905,7 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@1.30.1:
+date-fns@1.30.1, date-fns@^1.30.1:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
@@ -8013,6 +8022,11 @@ lodash@4.17.13:
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
   integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
+
+lodash@4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log-symbols@^1.0.2:
   version "1.0.2"
