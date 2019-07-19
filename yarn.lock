@@ -3443,10 +3443,10 @@ cozy-realtime@3.0.0-beta.11:
   dependencies:
     minilog "3.1.0"
 
-cozy-realtime@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.0.1.tgz#be244b4b810992b915920fd10be3c765da5bed6d"
-  integrity sha512-nlSJtIkl29Syq5RW6Y49XvVUp3gJ7Q8Y6J+qHgxinc2ftCXHWpEBvYkvsH5LN+KdHSLIbywy94cO7BHv29pZEQ==
+cozy-realtime@3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.3.tgz#5799ae6bc1a04bf9a60e57a0fa4f3690cd602c0a"
+  integrity sha512-ShC8yeyLiHIuz8Kt2TPyy9x7imrgeAatVv2YFjjzL/JarkAVC7rip32Dpebx3GzziHbHctNi9g1tsutiEIoSbw==
   dependencies:
     minilog "3.1.0"
 
