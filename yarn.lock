@@ -3403,12 +3403,11 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-flags@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.6.1.tgz#27e8bed076f0676e512beda0f4532548862df0f4"
-  integrity sha512-L0Nh8DdgqRBAu4UkSWTbfJZAlcVYQPX2G09nSiOgsgBzr002txXRz1899r9jHoLJPFFR+Ep9zkSmnOnPzMHUwA==
+cozy-flags@1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.9.3.tgz#654569eb1db6454417725d8509ad3d14d3b5c2e4"
+  integrity sha512-3FaqsfvaVRZjIvra3TgS6s/nR2ylXxUl3VabquguaZD3uVcnj3znlm6B7nRPG9KP7bzzgZTdw7tqF8MX88hbMg==
   dependencies:
-    detect-node "2.0.4"
     microee "^0.0.6"
 
 cozy-harvest-lib@0.57.2:
