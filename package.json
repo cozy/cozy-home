@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "babel-preset-cozy-app": "1.5.1",
-    "cozy-bar": "7.2.0",
+    "cozy-bar": "7.6.0",
     "cozy-client-js": "0.14.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
