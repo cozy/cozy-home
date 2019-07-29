@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
       permissions: {
         doctype: 'io.cozy.permissions',
         attributes: {}
+      },
+      triggers: {
+        doctype: 'io.cozy.triggers'
       }
     },
     token: data.cozyToken

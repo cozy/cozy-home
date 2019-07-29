@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, Redirect, withRouter } from 'react-router-dom'
 
+import flow from 'lodash/flow'
+
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
@@ -15,17 +17,20 @@ import { hasPendingUpdate } from 'lib/konnectors'
 import styles from 'styles/accountPicker'
 import { getConnectionsByKonnector } from 'reducers'
 
+import { withTriggersAndAccounts, KonnectorModal } from 'cozy-harvest-lib'
 export const AccountPicker = ({
   t,
   connections,
   history,
   konnector,
-  match
+  match,
+  konnectorWithTriggers
 }) => {
   const { konnectorSlug } = match.params
   if (!connections.length)
     return <Redirect to={`/connected/${konnector.slug}/new`} />
-  return (
+  return <KonnectorModal konnector={konnectorWithTriggers} />
+  /*return (
     <Modal dismissAction={() => history.push('/connected')} mobileFullscreen>
       <ModalHeader>
         <div className="col-account-connection-header">
@@ -63,7 +68,7 @@ export const AccountPicker = ({
         </ul>
       </ModalContent>
     </Modal>
-  )
+  )*/
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -74,4 +79,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(withRouter(AccountPicker)))
+export default flow(
+  connect(mapStateToProps),
+  withTriggersAndAccounts,
+  withRouter,
+  translate()
+)(AccountPicker)
+
+//export default (translate()(withRouter()))
