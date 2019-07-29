@@ -3407,15 +3407,16 @@ cozy-device-helper@1.7.5:
   dependencies:
     lodash "4.17.15"
 
-cozy-doctypes@1.39.0:
-  version "1.39.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.39.0.tgz#edbd8b7575d858ce5305c0e7c6d14cf6c44b6d83"
-  integrity sha512-k/GgUs1K120hAtCdBRSE50L+wDHWn/HDErGNvzqXCSpQKicMrjVvFpD6EHie4thc5oNPzHn0RqWuT4gBFcfY9Q==
+cozy-doctypes@1.57.1:
+  version "1.57.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.57.1.tgz#781136d86a777014d7c0e5864b0312fd391a3f39"
+  integrity sha512-zSi7RHKWo16oY9SPJrZZn/TQp6JsDuo0BRDVDyIBddRauf1IyC4MGpHLQNk5UVUit0mPbixX0B3kz83HaCOSHQ==
   dependencies:
     "@babel/runtime" "7.3.1"
-    cozy-logger "1.3.1"
+    cozy-logger "^1.4.0"
     es6-promise-pool "2.5.0"
-    lodash "4.17.11"
+    lodash "4.17.15"
+    prop-types "^15.7.2"
 
 cozy-flags@1.9.3:
   version "1.9.3"
@@ -3444,10 +3445,10 @@ cozy-interapp@0.4.5:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.5.tgz#115912a389448ebb8dc532972270b46e15010063"
   integrity sha512-CuiZ4PIrDj+jcK1sCizFNCC9r8+/sgKXLtDgkpKHRHk+q0lhvqz/fQAVPWiIsZAr9WdbfxaBfsJCoHP/41+G1Q==
 
-cozy-logger@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.3.1.tgz#27d9578756b318b1460a135cda94475c734b9f39"
-  integrity sha512-oa2h6wkLuCTucUeeFQKOYE0hGtP6VZ+tRMxV/MKqIRKMq8xngareUusQX03jXP3C+O1GeaEhSmaboHlIDJnH7A==
+cozy-logger@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.4.0.tgz#0b3ccce97654aa2257aaf1d606d7e0c950655acf"
+  integrity sha512-MMUVPytfgTLK3lxRD26X1Ty6s2969g55G+CIe3UM9rULnLLLGmFQh5A/QmjmQuIDg+jQfvO67U6PuloPFVTjcQ==
   dependencies:
     json-stringify-safe "5.0.1"
 
