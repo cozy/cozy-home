@@ -33,10 +33,14 @@ export const receiveInstalledKonnector = konnector => {
 }
 
 // Selectors
-export const getKonnector = (state, slug) =>
-  !!state.documents &&
-  !!state.documents[DOCTYPE] &&
-  state.documents[DOCTYPE][`${DOCTYPE}/${slug}`]
+export const getKonnector = (state, slug) => {
+  console.log('state', state)
+  return (
+    !!state.documents &&
+    !!state.documents[DOCTYPE] &&
+    state.documents[DOCTYPE][`${DOCTYPE}/${slug}`]
+  )
+}
 
 export const getInstalledKonnectors = state =>
   !!state.documents &&
