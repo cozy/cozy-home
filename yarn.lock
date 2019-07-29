@@ -2197,22 +2197,6 @@ babel-polyfill@6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-cozy-app@1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.5.1.tgz#a70baeeac71d59a8c87c2e75437e281a328cbb71"
-  integrity sha512-EJkp1gBY0EsUj+bkdGHSAhZua7odKQQQkrSCq1EJDgT3RiLdCwu7XFibUdjH/qNVfYhuNldYjXqI7nGeP5Lr4g==
-  dependencies:
-    "@babel/core" "7.2.2"
-    "@babel/helper-plugin-utils" "7.0.0"
-    "@babel/plugin-proposal-class-properties" "7.3.0"
-    "@babel/plugin-proposal-object-rest-spread" "7.3.2"
-    "@babel/plugin-transform-runtime" "7.2.0"
-    "@babel/preset-env" "7.3.1"
-    "@babel/preset-react" "7.0.0"
-    "@babel/runtime" "7.2.0"
-    browserslist-config-cozy "0.2.0"
-    lodash "4.17.11"
-
 babel-preset-cozy-app@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.5.2.tgz#56ecfa524b33ee89022f122079eedc6d8da59448"
@@ -2228,6 +2212,22 @@ babel-preset-cozy-app@1.5.2:
     "@babel/runtime" "7.2.0"
     browserslist-config-cozy "0.2.0"
     lodash "4.17.13"
+
+babel-preset-cozy-app@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.6.0.tgz#588362c0e8aac5f3468ff07a96312e9bfc8f8319"
+  integrity sha512-aWCopE9ilqgt25hsPdsAq8flUxWNU2Pk0L49Jm50ec17T4DmZSdH4NobmfK6VmA6f2huacA95D5XVqObPmr98A==
+  dependencies:
+    "@babel/core" "7.2.2"
+    "@babel/helper-plugin-utils" "7.0.0"
+    "@babel/plugin-proposal-class-properties" "7.3.0"
+    "@babel/plugin-proposal-object-rest-spread" "7.3.2"
+    "@babel/plugin-transform-runtime" "7.2.0"
+    "@babel/preset-env" "7.3.1"
+    "@babel/preset-react" "7.0.0"
+    "@babel/runtime" "7.2.0"
+    browserslist-config-cozy "0.2.0"
+    lodash "4.17.15"
 
 babel-preset-jest@^23.2.0:
   version "23.2.0"
