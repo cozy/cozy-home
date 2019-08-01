@@ -56,6 +56,9 @@ class AccountPicker extends Component {
         dismissAction={() => {
           history.push('/')
         }}
+        createAction={() => {
+          history.push(`/connected/${konnector.slug}/new`)
+        }}
       />
     )
   }

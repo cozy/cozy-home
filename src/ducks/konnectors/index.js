@@ -34,7 +34,6 @@ export const receiveInstalledKonnector = konnector => {
 
 // Selectors
 export const getKonnector = (state, slug) => {
-  console.log('state', state)
   return (
     !!state.documents &&
     !!state.documents[DOCTYPE] &&
