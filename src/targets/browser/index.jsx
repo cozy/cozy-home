@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       triggers: {
         doctype: 'io.cozy.triggers'
+      },
+      jobs: {
+        doctype: 'io.cozy.jobs'
       }
     },
     token: data.cozyToken
