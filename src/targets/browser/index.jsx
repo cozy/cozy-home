@@ -4,7 +4,8 @@ import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 import 'url-search-params-polyfill'
 import 'cozy-ui/transpiled/react/stylesheet.css'
-
+import 'cozy-ui/transpiled/react/stylesheet.css'
+import 'cozy-ui/dist/cozy-ui.min.css'
 import MostRecentCozyClient, {
   CozyProvider as MostRecentCozyClientProvider
 } from 'cozy-client'
