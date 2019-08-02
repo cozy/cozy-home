@@ -3512,6 +3512,17 @@ cozy-doctypes@1.57.1:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
+cozy-doctypes@^1.59.0:
+  version "1.59.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.59.0.tgz#6a3dee4beeb0e7f93fb76acdcd7de9b7553b2d31"
+  integrity sha512-3xJb0+dnXgF2H6nrXFjZDKC8rp1AVcREH0ImAODPCK6wWBbwrL7cdmrRhRhw5BqnfIiPsFMZcILbwKiXomjePg==
+  dependencies:
+    "@babel/runtime" "7.3.1"
+    cozy-logger "^1.5.0"
+    es6-promise-pool "2.5.0"
+    lodash "4.17.15"
+    prop-types "^15.7.2"
+
 cozy-flags@1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.9.3.tgz#654569eb1db6454417725d8509ad3d14d3b5c2e4"
@@ -3519,12 +3530,13 @@ cozy-flags@1.9.3:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.68.0.tgz#f353c7ebb5c40f6ef1a95f121b864fe7d61f8ce0"
-  integrity sha512-QBvLOM/jbK/uWuav5cEIB0WCp1yo5TEaN9vKzDukBujTxxXmF9ldbrwswQZhTselA9aPgtZS7NXeW4coY5Y3QA==
+cozy-harvest-lib@0.69.0:
+  version "0.69.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.69.0.tgz#bc1224865e4506abc2c493ae476788b01d718c96"
+  integrity sha512-Ude1GH83ioVdGZSrN6NAtRVD74+rvf7YBk8aVNcOI11vJo2OdS9uSb6aUWLmYXR3gJf/wEyNGLHPjK/hEXgtOg==
   dependencies:
     "@babel/runtime" "^7.5.2"
+    cozy-doctypes "^1.59.0"
     date-fns "^1.30.1"
     final-form "4.11.1"
     lodash "4.17.15"
@@ -3544,6 +3556,14 @@ cozy-logger@^1.4.0:
   resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.4.0.tgz#0b3ccce97654aa2257aaf1d606d7e0c950655acf"
   integrity sha512-MMUVPytfgTLK3lxRD26X1Ty6s2969g55G+CIe3UM9rULnLLLGmFQh5A/QmjmQuIDg+jQfvO67U6PuloPFVTjcQ==
   dependencies:
+    json-stringify-safe "5.0.1"
+
+cozy-logger@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.5.0.tgz#76c619f8371354b627600db1006bd5e118263370"
+  integrity sha512-ekgFSGbJepAmppZ5Kd/osthdKnneLPDsI5ouAj/me6sOUcklwPhhlaKdMw68FP9oFcfE4+ZGnMM70ep4CwZSKA==
+  dependencies:
+    chalk "^2.4.2"
     json-stringify-safe "5.0.1"
 
 cozy-realtime@3.1.0:
