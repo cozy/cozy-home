@@ -19,7 +19,7 @@
     "cozyPublish": "cozy-scripts publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-home.git}",
     "precommit": "lint-staged",
-    "test": "cozy-scripts test --verbose --coverage"
+    "test": "cozy-scripts test"
   },
   "repository": {
     "type": "git",
