@@ -100,7 +100,11 @@ const reducer = (state = {}, action) => {
             triggers: {
               ...get(newState, [konnectorSlug, 'triggers'], []),
               data: [
-                ...get(newState, [konnectorSlug, 'triggers', 'data'], []),
+                ...get(
+                  newState,
+                  [konnectorSlug, 'triggers', 'data'],
+                  []
+                ).filter(({ _id }) => _id !== doc._id),
                 doc
               ],
               [triggerId]: {
