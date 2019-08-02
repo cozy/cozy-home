@@ -1,13 +1,197 @@
 /* eslint-env jest */
+import get from 'lodash/get'
 
 import connections, {
   enqueueConnection,
   getConnectionsByKonnector,
   getQueue,
-  purgeQueue
+  purgeQueue,
+  RECEIVE_DATA
 } from '../'
 
 describe('Connections Duck', () => {
+  describe('Reducer', () => {
+    describe('Receiving data', () => {
+      it('should ignore actions without data', () => {
+        const initialState = { creation: null, konnectors: {} }
+
+        expect(
+          connections(initialState, {
+            type: RECEIVE_DATA
+          })
+        ).toEqual(initialState)
+        expect(
+          connections(initialState, {
+            type: RECEIVE_DATA,
+            response: {
+              data: { yo: 1 }
+            }
+          })
+        ).toEqual(initialState)
+        expect(
+          connections(initialState, {
+            type: RECEIVE_DATA,
+            response: {
+              data: []
+            }
+          })
+        ).toEqual(initialState)
+      })
+
+      it('should add a new trigger', () => {
+        const initialState = { creation: null, konnectors: {} }
+        const data = [
+          {
+            _id: 'trigger-id',
+            _type: 'io.cozy.triggers',
+            message: {
+              konnector: 'my-kon',
+              account: 'account 1'
+            },
+            current_state: {
+              status: 'done',
+              last_error: null,
+              last_execution: '2019-01-01'
+            }
+          }
+        ]
+        const newState = connections(initialState, {
+          type: RECEIVE_DATA,
+          response: {
+            data
+          }
+        })
+
+        expect(Object.keys(newState.konnectors).length).toEqual(1)
+        const triggerState = get(
+          newState,
+          'konnectors.my-kon.triggers.trigger-id'
+        )
+        expect(triggerState).toBeDefined()
+        expect(triggerState.account).toBe('account 1')
+        expect(triggerState.hasError).toBe(false)
+        expect(triggerState.isRunning).toBe(false)
+        expect(triggerState.lastSyncDate).toBe('2019-01-01')
+      })
+
+      it('should add a new job', () => {
+        const initialState = { creation: null, konnectors: {} }
+        const data = [
+          {
+            _id: 'job-id',
+            _type: 'io.cozy.jobs',
+            worker: 'konnector',
+            trigger_id: 'job-trigger-id',
+            state: 'done',
+            error: null,
+            queued_at: '2019-01-01',
+            message: {
+              konnector: 'my-kon'
+            }
+          }
+        ]
+        const newState = connections(initialState, {
+          type: RECEIVE_DATA,
+          response: {
+            data
+          }
+        })
+
+        expect(Object.keys(newState.konnectors).length).toEqual(1)
+        const triggerState = get(
+          newState,
+          'konnectors.my-kon.triggers.job-trigger-id'
+        )
+        expect(triggerState).toBeDefined()
+        expect(triggerState.account).toBe(undefined)
+        expect(triggerState.hasError).toBe(false)
+        expect(triggerState.isRunning).toBe(false)
+        expect(triggerState.lastSyncDate).toBe('2019-01-01')
+      })
+    })
+
+    describe('full trigger informations', () => {
+      it('should add a new trigger', () => {
+        const initialState = { creation: null, konnectors: {} }
+        const data = [
+          {
+            _id: 'trigger-id',
+            _type: 'io.cozy.triggers',
+            message: {
+              konnector: 'my-kon',
+              account: 'account 1'
+            },
+            current_state: {
+              status: 'done',
+              last_error: null,
+              last_execution: '2019-01-01'
+            }
+          }
+        ]
+        const newState = connections(initialState, {
+          type: RECEIVE_DATA,
+          response: {
+            data
+          }
+        })
+
+        expect(get(newState, 'konnectors.my-kon.triggers.data')).toEqual(data)
+      })
+
+      it('should keep the latest version of a trigger', () => {
+        const initialState = {
+          creation: null,
+          konnectors: {
+            'my-kon': {
+              triggers: {
+                data: [
+                  {
+                    _id: 'trigger-id',
+                    _type: 'io.cozy.triggers',
+                    message: {
+                      konnector: 'my-kon',
+                      account: 'account 1'
+                    },
+                    current_state: {
+                      status: 'done',
+                      last_error: null,
+                      last_execution: '2019-01-01'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+
+        const newConnectorData = {
+          _id: 'trigger-id',
+          _type: 'io.cozy.triggers',
+          message: {
+            konnector: 'my-kon',
+            account: 'account 1'
+          },
+          current_state: {
+            status: 'done',
+            last_error: null,
+            last_execution: '2019-02-01'
+          }
+        }
+
+        const newState = connections(initialState, {
+          type: RECEIVE_DATA,
+          response: {
+            data: [newConnectorData]
+          }
+        })
+
+        const triggerState = get(newState, 'konnectors.my-kon.triggers.data')
+        expect(triggerState.length).toEqual(1)
+        expect(triggerState[0]).toEqual(newConnectorData)
+      })
+    })
+  })
+
   describe('Action creators', () => {
     describe('enqueueConnection', () => {
       it.skip('marks account as queued', () => {
