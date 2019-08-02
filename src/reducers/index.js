@@ -58,6 +58,11 @@ export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   return fromTriggers.getTrigger(state.cozy, triggerId)
 }
 
+/**
+ * If the konnector doesn't have triggers, konnectors[slug] doesn't not exist
+ */
 export const getTriggersByKonnector = (state, konnectorSlug) => {
-  return state.connections.konnectors[konnectorSlug].triggers
+  return state.connections.konnectors[konnectorSlug]
+    ? state.connections.konnectors[konnectorSlug].triggers
+    : []
 }
