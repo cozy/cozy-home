@@ -57,3 +57,7 @@ export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   )
   return fromTriggers.getTrigger(state.cozy, triggerId)
 }
+
+export const getTriggersByKonnector = (state, konnectorSlug) => {
+  return state.connections.konnectors[konnectorSlug].triggers
+}
