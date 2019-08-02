@@ -100,6 +100,12 @@ const reducer = (state = {}, action) => {
               ...((newState[konnectorSlug] &&
                 newState[konnectorSlug].triggers) ||
                 {}),
+              data: [
+                ...((newState[konnectorSlug] &&
+                  newState[konnectorSlug].triggers.data) ||
+                  []),
+                doc
+              ],
               [triggerId]: {
                 ...((newState[konnectorSlug] &&
                   newState[konnectorSlug].triggers &&
