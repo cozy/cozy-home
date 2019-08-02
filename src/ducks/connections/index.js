@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
 import omit from 'lodash/omit'
+import get from 'lodash/get'
 
 import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
@@ -97,26 +98,21 @@ const reducer = (state = {}, action) => {
           ...newState,
           [konnectorSlug]: {
             triggers: {
-              ...((newState[konnectorSlug] &&
-                newState[konnectorSlug].triggers) ||
-                {}),
+              ...get(newState, [konnectorSlug, 'triggers'], []),
               data: [
-                ...((newState[konnectorSlug] &&
-                  newState[konnectorSlug].triggers.data) ||
-                  []),
+                ...get(newState, [konnectorSlug, 'triggers', 'data'], []),
                 doc
               ],
               [triggerId]: {
-                ...((newState[konnectorSlug] &&
-                  newState[konnectorSlug].triggers &&
-                  newState[konnectorSlug].triggers[triggerId]) ||
-                  {}),
+                ...get(newState, [konnectorSlug, 'triggers', triggerId], {}),
                 account:
                   account ||
-                  (newState[konnectorSlug] &&
-                    newState[konnectorSlug].triggers &&
-                    newState[konnectorSlug].triggers[triggerId] &&
-                    newState[konnectorSlug].triggers[triggerId].account),
+                  get(newState, [
+                    konnectorSlug,
+                    'triggers',
+                    triggerId,
+                    'account'
+                  ]),
                 error,
                 hasError: !!error || currentStatus === 'errored',
                 isRunning: ['queued', 'running'].includes(currentStatus),
