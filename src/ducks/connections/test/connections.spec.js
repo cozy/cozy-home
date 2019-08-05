@@ -189,6 +189,57 @@ describe('Connections Duck', () => {
         expect(triggerState.length).toEqual(1)
         expect(triggerState[0]).toEqual(newConnectorData)
       })
+
+      it('should not add jobs to the list', () => {
+        const initialState = {
+          creation: null,
+          konnectors: {
+            'my-kon': {
+              triggers: {
+                data: [
+                  {
+                    _id: 'trigger-id',
+                    _type: 'io.cozy.triggers',
+                    message: {
+                      konnector: 'my-kon',
+                      account: 'account 1'
+                    },
+                    current_state: {
+                      status: 'done',
+                      last_error: null,
+                      last_execution: '2019-01-01'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+
+        const newConnectorData = {
+          _id: 'job-id',
+          _type: 'io.cozy.jobs',
+          worker: 'konnector',
+          trigger_id: 'trigger-id',
+          state: 'done',
+          error: null,
+          queued_at: '2019-02-01',
+          message: {
+            konnector: 'my-kon'
+          }
+        }
+
+        const newState = connections(initialState, {
+          type: RECEIVE_DATA,
+          response: {
+            data: [newConnectorData]
+          }
+        })
+
+        const triggerState = get(newState, 'konnectors.my-kon.triggers.data')
+        expect(triggerState.length).toEqual(1)
+        expect(triggerState[0].current_state).toBeDefined()
+      })
     })
   })
 

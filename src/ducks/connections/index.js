@@ -94,19 +94,24 @@ const reducer = (state = {}, action) => {
             doc.current_state.last_execution) ||
           (isJob && doc.queued_at)
 
+        const existingTriggers = get(
+          newState,
+          [konnectorSlug, 'triggers', 'data'],
+          []
+        )
+        let rawTriggers = existingTriggers
+
+        if (isTrigger) {
+          rawTriggers = existingTriggers.filter(({ _id }) => _id !== doc._id)
+          rawTriggers.push(doc)
+        }
+
         return {
           ...newState,
           [konnectorSlug]: {
             triggers: {
               ...get(newState, [konnectorSlug, 'triggers'], []),
-              data: [
-                ...get(
-                  newState,
-                  [konnectorSlug, 'triggers', 'data'],
-                  []
-                ).filter(({ _id }) => _id !== doc._id),
-                doc
-              ],
+              data: rawTriggers,
               [triggerId]: {
                 ...get(newState, [konnectorSlug, 'triggers', triggerId], {}),
                 account:
