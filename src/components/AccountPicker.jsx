@@ -20,7 +20,7 @@ class AccountPicker extends Component {
       <KonnectorModal
         konnector={konnectorWithtriggers}
         dismissAction={() => {
-          history.push('/')
+          history.push('/connected')
         }}
         createAction={() => {
           history.push(`/connected/${konnector.slug}/new`)
