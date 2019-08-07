@@ -3470,13 +3470,13 @@ cozy-client-js@0.14.2:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "6.4.3"
 
-cozy-client@6.56.0:
-  version "6.56.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.56.0.tgz#acc35f2d624f49fd576ffde119e52dbd12edee42"
-  integrity sha512-iK3lY9DAS3MjMI1ZpwoFHOQxVgkyVuuYhgvqi4FUL6tZAltrB60uk/rhMQhmfXhDLOqHLlEYirWq2dVTR50kIg==
+cozy-client@6.57.0:
+  version "6.57.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.57.0.tgz#96b72ab00ce28c1bfe0e5fcf8ff32d78dbb1dbb9"
+  integrity sha512-QF+TJ9sp6RrIURFB9yJMP4b6ifX+7qapfy/Hlj+ThZJAQoLIoe3DaGri2MBYNqbkSYXvUlmG50HFa1NC3/5OZA==
   dependencies:
     cozy-device-helper "1.7.3"
-    cozy-stack-client "^6.56.0"
+    cozy-stack-client "^6.57.0"
     lodash "4.17.14"
     microee "0.0.6"
     prop-types "15.6.2"
@@ -3613,10 +3613,10 @@ cozy-scripts@1.13.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^6.56.0:
-  version "6.56.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.56.0.tgz#f5a317f8dd2bb4a9539e8bc9b7a81d8dd2f55f68"
-  integrity sha512-cSkpd93SHgk/MRQd7L4o72731PoN+Ut/G76KvTsB2wUKV4R8bS8+MZo7V/+oc/q+sOWVnoMElN/3s1vE3iOusw==
+cozy-stack-client@^6.57.0:
+  version "6.57.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.57.0.tgz#dc14a795ae403247e232c60d143ab199a123ff18"
+  integrity sha512-mFELDIAd6Yb11inB0ZjBVd8xCQy1euPWf6qHi5A9qs2HMFmK4fkQgIQq2brZOqxfaCmBq/I1jP3OppKcM83K+A==
   dependencies:
     detect-node "2.0.4"
     mime "2.4.0"
