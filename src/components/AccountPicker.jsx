@@ -11,19 +11,25 @@ import { withClient } from 'cozy-client/dist/hoc'
 
 class AccountPicker extends Component {
   render() {
-    const { connections, konnector, history, triggers } = this.props
+    const { connections, konnector, history, match, triggers } = this.props
     const konnectorWithtriggers = { ...konnector, triggers: triggers }
+    const selectedAccountId = match.params.accountId
+
     if (!connections.length)
       return <Redirect to={`/connected/${konnector.slug}/new`} />
 
     return (
       <KonnectorModal
         konnector={konnectorWithtriggers}
+        accountId={selectedAccountId}
         dismissAction={() => {
           history.push('/connected')
         }}
         createAction={() => {
           history.push(`/connected/${konnector.slug}/new`)
+        }}
+        onAccountChange={account => {
+          history.push(`/connected/${konnector.slug}/accounts/${account._id}`)
         }}
       />
     )
