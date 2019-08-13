@@ -12,7 +12,6 @@ import Modal, { ModalContent, ModalHeader } from 'cozy-ui/react/Modal'
 import backIcon from 'assets/sprites/icon-arrow-left.svg'
 import AccountConnection from 'containers/AccountConnection'
 import KonnectorHeaderIcon from 'components/KonnectorHeaderIcon'
-import { getAccount } from 'ducks/accounts'
 import {
   endConnectionCreation,
   getTriggerLastSuccess,
@@ -71,28 +70,10 @@ class ConnectionManagement extends Component {
       console.warn('Invalid konnector slug')
       return this.gotoParent()
     }
-
-    const isInvalidAccountId =
-      nextProps.match &&
-      // an account id is provided but not existingAccount
-      nextProps.match.params.accountId &&
-      !nextProps.existingAccount &&
-      // we check that it was not a deletion
-      !this.props.existingAccount
-    if (isInvalidAccountId) {
-      // eslint-disable-next-line no-console
-      console.warn('Invalid account id')
-      return this.gotoParent()
-    }
   }
 
   render() {
-    const {
-      connections,
-      createdAccount,
-      existingAccount,
-      konnector
-    } = this.props
+    const { connections, konnector } = this.props
     // Do not even render if there is no konnector (in case of wrong URL)
     if (!konnector) return
 
@@ -102,8 +83,7 @@ class ConnectionManagement extends Component {
       ? `/connected/${konnector.slug}`
       : '/connected'
 
-    const editing = existingAccount && !createdAccount
-    const isInstallSuccess = !editing && isSuccess
+    const isInstallSuccess = isSuccess
     return (
       <Modal
         dismissAction={() => this.gotoParent()}
@@ -127,14 +107,13 @@ class ConnectionManagement extends Component {
                   <Icon icon={backIcon} />
                 </NavLink>
               )}
-              <KonnectorHeaderIcon konnector={konnector} center={!editing} />
+              <KonnectorHeaderIcon konnector={konnector} center />
             </div>
           )}
         </ModalHeader>
         <ModalContent>
           <AccountConnection
             handleDeleteSuccess={this.handleDeleteSuccess}
-            editing={editing}
             onDone={() => this.gotoParent()}
             handleConnectionSuccess={this.handleConnectionSuccess}
             {...this.props}
@@ -201,20 +180,18 @@ const mapActionsToProps = () => ({})
 
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
-  const { accountId, konnectorSlug } = ownProps.match && ownProps.match.params
+  const { konnectorSlug } = ownProps.match && ownProps.match.params
   const konnector = getKonnector(state.cozy, konnectorSlug)
-  const existingAccount = getAccount(state.cozy, accountId)
   const createdAccount = getCreatedConnectionAccount(state)
   const trigger = getTriggerByKonnectorAndAccount(
     state,
     konnector,
-    existingAccount || createdAccount
+    createdAccount
   )
   const maintenance = getKonnectorsInMaintenance()
   return {
     connections: getConnectionsByKonnector(state, konnectorSlug),
     createdAccount,
-    existingAccount,
     isCreating: isCreatingConnection(state.connections),
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),

@@ -8,7 +8,6 @@ import { translate } from 'cozy-ui/react/I18n'
 import KonnectorInstall from 'components/KonnectorInstall'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import UpdateMessage from 'components/Banners/UpdateMessage'
-import KonnectorEdit from 'components/KonnectorEdit'
 import {
   enqueueConnection,
   getConnectionError,
@@ -24,8 +23,6 @@ class AccountConnection extends Component {
     this.store = context.store
 
     this.state = {
-      account: props.existingAccount,
-      editing: !!props.existingAccount,
       isFetching: false,
       maintenance: props.maintenance && props.maintenance[props.konnector.slug]
     }
@@ -50,23 +47,6 @@ class AccountConnection extends Component {
       // we reset the error in case of persisted errors
       if (succeed && connectionError) this.setState({ connectionError: null })
       this.props.handleConnectionSuccess()
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    this.UNSAFE_componentWillReceiveProps(props)
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { existingAccount } = nextProps
-
-    const accountHasJustBeenCreated =
-      !this.props.existingAccount && !!existingAccount
-
-    if (accountHasJustBeenCreated) {
-      this.setState({
-        account: existingAccount
-      })
     }
   }
 
@@ -116,37 +96,19 @@ class AccountConnection extends Component {
     const {
       createdAccount,
       handleConnectionSuccess,
-      editing,
       konnector,
-      lastSuccess,
       error,
-      isRunning,
       onDone,
       queued,
       t,
       lang,
-      trigger,
       success,
       successButtonLabel
     } = this.props
-    const {
-      account,
-      connectionError,
-      oAuthError,
-      submitting,
-      maintenance
-    } = this.state
+    const { connectionError, oAuthError, maintenance } = this.state
     const successMessages =
       success || queued ? this.buildSuccessMessages(konnector) : []
     const konnectorError = error || oAuthError || connectionError
-    // If this is an update needed error AND the service has an update
-    // available, we just display the blocking update banner
-    // so we don't propagate the error to KonnectorEdit/KonnectorInstall
-    const propagateError =
-      isKonnectorUpdateNeededError(konnectorError) &&
-      !!konnector.available_version
-        ? false
-        : true
     return (
       <div className={styles['col-account-connection']}>
         {!!konnector.available_version && (
@@ -156,20 +118,7 @@ class AccountConnection extends Component {
             isBlocking={isKonnectorUpdateNeededError(konnectorError)}
           />
         )}
-        {editing ? ( // Properly load the edit view or the initial config view
-          <KonnectorEdit
-            account={account}
-            connector={konnector}
-            error={propagateError && konnectorError}
-            lastSuccess={lastSuccess}
-            onDeleteSuccess={this.handleDeleteSuccess}
-            onDeleteError={this.handleError}
-            submitting={submitting || isRunning}
-            trigger={trigger}
-            maintenance={maintenance}
-            lang={lang}
-          />
-        ) : maintenance ? (
+        {maintenance ? (
           <KonnectorMaintenance
             maintenance={maintenance}
             lang={lang}
