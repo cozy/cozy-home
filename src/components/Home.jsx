@@ -63,9 +63,7 @@ class Home extends Component {
           />
           <Route
             path="/connected/:konnectorSlug/accounts/:accountId"
-            render={props => (
-              <ConnectionManagement originPath="/connected" {...props} />
-            )}
+            component={AccountPicker}
           />
           <Redirect from="/connected/*" to="/connected" />
         </Switch>
