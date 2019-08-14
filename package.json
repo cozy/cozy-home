@@ -37,7 +37,7 @@
   "dependencies": {
     "cozy-client": "6.57.0",
     "cozy-device-helper": "1.7.5",
-    "cozy-doctypes": "1.60.0",
+    "cozy-doctypes": "1.61.0",
     "cozy-flags": "1.9.3",
     "cozy-harvest-lib": "0.71.0",
     "cozy-realtime": "3.1.3",
