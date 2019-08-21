@@ -6,6 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import { Main, Content } from 'cozy-ui/react/Layout'
 
 import AccountPicker from 'components/AccountPicker'
+import Konnector from 'components/Konnector'
 import Applications from 'components/Applications'
 import ConnectionManagement from 'containers/ConnectionManagement'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
@@ -35,7 +36,7 @@ class Home extends Component {
   }
 
   render() {
-    const { wrapper } = this.props
+    const { wrapper, match } = this.props
     return (
       <Main>
         <ScrollToTopOnMount target={wrapper} />
@@ -49,7 +50,8 @@ class Home extends Component {
             <Services />
           </div>
         </Content>
-        <Switch>
+        <Route path="/connected/:konnectorSlug" component={Konnector} />
+        {/* <Switch>
           <Route
             exact
             path="/connected/:konnectorSlug"
@@ -65,8 +67,7 @@ class Home extends Component {
             path="/connected/:konnectorSlug/accounts/:accountId"
             component={AccountPicker}
           />
-          <Redirect from="/connected/*" to="/connected" />
-        </Switch>
+        </Switch> */}
       </Main>
     )
   }
