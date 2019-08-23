@@ -20,8 +20,9 @@ class Konnector extends Component {
 
     return (
       <HarvestRoutes
-        base="/connected/:konnectorSlug"
+        konnectorRoot="/connected/:konnectorSlug"
         konnector={konnectorWithtriggers}
+        onDismiss={() => history.push('/connected')}
       />
     )
   }
