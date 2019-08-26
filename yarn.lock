@@ -2190,22 +2190,6 @@ babel-polyfill@6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-cozy-app@1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.5.2.tgz#56ecfa524b33ee89022f122079eedc6d8da59448"
-  integrity sha512-aACixVXDcQBhh1ewL6bs5PJJdV+CHIUfSOysyP0C0qv05ffOFRrhPQlrM3RBGN9qvTt+Ov/6+rsFJ+R1ZG1nEA==
-  dependencies:
-    "@babel/core" "7.2.2"
-    "@babel/helper-plugin-utils" "7.0.0"
-    "@babel/plugin-proposal-class-properties" "7.3.0"
-    "@babel/plugin-proposal-object-rest-spread" "7.3.2"
-    "@babel/plugin-transform-runtime" "7.2.0"
-    "@babel/preset-env" "7.3.1"
-    "@babel/preset-react" "7.0.0"
-    "@babel/runtime" "7.2.0"
-    browserslist-config-cozy "0.2.0"
-    lodash "4.17.13"
-
 babel-preset-cozy-app@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.6.0.tgz#588362c0e8aac5f3468ff07a96312e9bfc8f8319"
@@ -3424,14 +3408,14 @@ cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-bar@7.7.2:
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.7.2.tgz#ffb1cdff7246889d9c177ed7da2bf763e6a75b45"
-  integrity sha512-vg+YaMm8HhDyBRhNkcDS5AshTkLu/miU8dvR1VzMpIQRiuoObZCiZOn7i7g61GTNXtvHDaeFf7M0GPQtR47f3A==
+cozy-bar@7.7.3:
+  version "7.7.3"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.7.3.tgz#fc27e1fa1cdc9ea8053e3796f752bf2ae807e088"
+  integrity sha512-sxa6OG+mn1D5mugX6ryF0EMvCzg2PqMyBTM1ttHWqQHXxEpaAWhuSUh7y5nJYaSsJKqp2Z0uqXqldxWAuGOfLw==
   dependencies:
     "@babel/core" "7.5.5"
     babel-core "7.0.0-bridge.0"
-    babel-preset-cozy-app "1.5.2"
+    babel-preset-cozy-app "1.6.0"
     cozy-device-helper "1.7.3"
     cozy-interapp "0.4.9"
     cozy-realtime "3.1.3"
