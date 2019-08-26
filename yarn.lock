@@ -3548,6 +3548,13 @@ cozy-realtime@3.1.3:
   dependencies:
     minilog "3.1.0"
 
+cozy-realtime@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.4.tgz#bfc0cc03b2fb2e16c475361069884a7cb50e77c4"
+  integrity sha512-sdkLoEtdLj0EqhUf1aDCxvYL6u4x9x8m7r6w/+jrv1cDh3ioc6Yr9inihldoiwZylnEU9fTT/7AIrnlrpXRi6w==
+  dependencies:
+    minilog "3.1.0"
+
 cozy-scripts@1.13.2:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-1.13.2.tgz#f8f3858d2bfc7f2c76fc715c12106ea963c76c59"
