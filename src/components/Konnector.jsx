@@ -15,9 +15,6 @@ class Konnector extends Component {
     const konnectorWithtriggers = { ...konnector, triggers: triggers }
     const selectedAccountId = match.params.accountId
 
-    if (!connections.length)
-      return <Redirect to={`/connected/${konnector.slug}/new`} />
-
     return (
       <HarvestRoutes
         konnectorRoot="/connected/:konnectorSlug"
