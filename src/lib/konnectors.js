@@ -1,6 +1,4 @@
 /* konnector lib ready to be added to cozy-client-js */
-import * as realtime from 'lib/realtime'
-
 export const ERROR_TYPES = {
   CHALLENGE_ASKED: 'CHALLENGE_ASKED',
   LOGIN_FAILED: 'LOGIN_FAILED',
@@ -19,12 +17,6 @@ export const TWO_FA_ERRORS = [
   'USER_ACTION_NEEDED.TWOFA_EXPIRED',
   'USER_ACTION_NEEDED.WRONG_TWOFA_CODE'
 ]
-
-export const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
-
-export function subscribeAll(cozy) {
-  return realtime.subscribeAll(cozy, KONNECTORS_DOCTYPE)
-}
 
 function patchFolderPermission(cozy, konnector, folderId = null) {
   const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
