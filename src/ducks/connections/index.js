@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
 import omit from 'lodash/omit'
-import get from 'lodash/get'
 
 import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
@@ -94,34 +93,24 @@ const reducer = (state = {}, action) => {
             doc.current_state.last_execution) ||
           (isJob && doc.queued_at)
 
-        const existingTriggers = get(
-          newState,
-          [konnectorSlug, 'triggers', 'data'],
-          []
-        )
-        let rawTriggers = existingTriggers
-
-        if (isTrigger) {
-          rawTriggers = existingTriggers.filter(({ _id }) => _id !== doc._id)
-          rawTriggers.push(doc)
-        }
-
         return {
           ...newState,
           [konnectorSlug]: {
             triggers: {
-              ...get(newState, [konnectorSlug, 'triggers'], []),
-              data: rawTriggers,
+              ...((newState[konnectorSlug] &&
+                newState[konnectorSlug].triggers) ||
+                {}),
               [triggerId]: {
-                ...get(newState, [konnectorSlug, 'triggers', triggerId], {}),
+                ...((newState[konnectorSlug] &&
+                  newState[konnectorSlug].triggers &&
+                  newState[konnectorSlug].triggers[triggerId]) ||
+                  {}),
                 account:
                   account ||
-                  get(newState, [
-                    konnectorSlug,
-                    'triggers',
-                    triggerId,
-                    'account'
-                  ]),
+                  (newState[konnectorSlug] &&
+                    newState[konnectorSlug].triggers &&
+                    newState[konnectorSlug].triggers[triggerId] &&
+                    newState[konnectorSlug].triggers[triggerId].account),
                 error,
                 hasError: !!error || currentStatus === 'errored',
                 isRunning: ['queued', 'running'].includes(currentStatus),
