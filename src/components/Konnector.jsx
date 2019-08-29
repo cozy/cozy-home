@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
 
 import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
@@ -11,9 +11,8 @@ import { withClient } from 'cozy-client/dist/hoc'
 
 class Konnector extends Component {
   render() {
-    const { connections, konnector, history, match, triggers } = this.props
-    const konnectorWithtriggers = { ...konnector, triggers: triggers }
-    const selectedAccountId = match.params.accountId
+    const { konnector, history, triggers } = this.props
+    const konnectorWithtriggers = { ...konnector, triggers: { data: triggers } }
 
     return (
       <HarvestRoutes

@@ -58,11 +58,19 @@ export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   return fromTriggers.getTrigger(state.cozy, triggerId)
 }
 
-/**
- * If the konnector doesn't have triggers, konnectors[slug] doesn't not exist
- */
 export const getTriggersByKonnector = (state, konnectorSlug) => {
-  return state.connections.konnectors[konnectorSlug]
-    ? state.connections.konnectors[konnectorSlug].triggers
-    : []
+  const triggers = Object.keys(state.cozy.documents['io.cozy.triggers']).reduce(
+    (acc, key) => {
+      const document = state.cozy.documents['io.cozy.triggers'][key]
+      if (
+        document.worker === 'konnector' &&
+        document.message.konnector === konnectorSlug
+      ) {
+        acc.push(document)
+      }
+      return acc
+    },
+    []
+  )
+  return triggers
 }
