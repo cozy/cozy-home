@@ -29,7 +29,6 @@ export default class CollectStore {
     this.options = options
 
     this.categories = require('../config/categories')
-    this.banksUrl = null
 
     this.updateUnfinishedJob = this.updateUnfinishedJob.bind(this)
     this.onAccountCreated = this.onAccountCreated.bind(this)
@@ -120,29 +119,6 @@ export default class CollectStore {
     })
     const trigger = await triggers.fetch(cozy.client, normalizedJob.trigger_id)
     this.onTriggerUpdated(trigger)
-  }
-
-  // Get the drive and banks application url using the list of application
-  fetchUrls() {
-    return cozy.client
-      .fetchJSON('GET', '/apps/')
-      .then(body => {
-        body.forEach(item => {
-          if (!item.attributes || !item.attributes.slug || !item.links) return
-          switch (item.attributes.slug) {
-            case 'banks':
-              this.banksUrl = `${item.links.related}`
-              break
-            default:
-              break
-          }
-        })
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.warn(err.message)
-        return false
-      })
   }
 
   createIntentService(intent, window) {
