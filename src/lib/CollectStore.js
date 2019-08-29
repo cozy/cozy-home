@@ -9,6 +9,10 @@ export const CONNECTION_STATUS = {
   CONNECTED: 'connected'
 }
 
+const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
+const JOBS_DOCTYPE = 'io.cozy.jobs'
+const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
+
 const normalize = (dbObject, doctype) => {
   return {
     ...dbObject,
@@ -56,7 +60,7 @@ export default class CollectStore {
   async onAccountCreated(account) {
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -64,7 +68,7 @@ export default class CollectStore {
   async onAccountUpdated(account) {
     this.dispatch({
       type: 'RECEIVE_UPDATED_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -72,7 +76,7 @@ export default class CollectStore {
   async onAccountDeleted(account) {
     this.dispatch({
       type: 'RECEIVE_DELETED_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -80,7 +84,7 @@ export default class CollectStore {
   async onTriggerCreated(trigger) {
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
@@ -88,7 +92,7 @@ export default class CollectStore {
   async onTriggerUpdated(trigger) {
     this.dispatch({
       type: 'RECEIVE_UPDATED_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
@@ -96,13 +100,13 @@ export default class CollectStore {
   async deleteTrigger(trigger) {
     this.dispatch({
       type: 'RECEIVE_DELETED_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
 
   async updateUnfinishedJob(job) {
-    const normalizedJob = normalize(job, 'io.cozy.jobs')
+    const normalizedJob = normalize(job, JOBS_DOCTYPE)
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
     const isKonnectorJob = normalizedJob.worker === 'konnector'
