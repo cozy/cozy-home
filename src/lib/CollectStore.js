@@ -1,13 +1,17 @@
 /* global cozy */
-import * as accounts from 'lib/accounts'
-import * as jobs from 'lib/jobs'
 import * as triggers from 'lib/triggers'
+
+import CozyRealtime from 'cozy-realtime'
 
 export const CONNECTION_STATUS = {
   ERRORED: 'errored',
   RUNNING: 'running',
   CONNECTED: 'connected'
 }
+
+const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
+const JOBS_DOCTYPE = 'io.cozy.jobs'
+const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
 
 const normalize = (dbObject, doctype) => {
   return {
@@ -19,44 +23,42 @@ const normalize = (dbObject, doctype) => {
 }
 
 export default class CollectStore {
-  constructor(context, options = {}) {
+  constructor(context, client, options = {}) {
+    this.client = client
     this.listener = null
     this.options = options
 
     this.categories = require('../config/categories')
     this.banksUrl = null
 
+    this.updateUnfinishedJob = this.updateUnfinishedJob.bind(this)
+    this.onAccountCreated = this.onAccountCreated.bind(this)
+    this.onAccountUpdated = this.onAccountUpdated.bind(this)
+    this.onAccountDeleted = this.onAccountDeleted.bind(this)
+    this.onTriggerCreated = this.onTriggerCreated.bind(this)
+    this.onTriggerDeleted = this.onTriggerDeleted.bind(this)
+
     this.initializeRealtime()
   }
 
-  async initializeRealtime() {
-    jobs
-      .subscribeAll(cozy.client)
-      .then(subscription => {
-        subscription
-          .onCreate(job => this.updateUnfinishedJob(job))
-          .onUpdate(job => this.updateUnfinishedJob(job))
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-console
-        console.warn(`Cannot initialize realtime for jobs: ${error.message}`)
-      })
+  initializeRealtime() {
+    this.realtime = new CozyRealtime({ client: this.client })
 
-    // Not really consistent code style but we try to use only async/await now.
-    const realtimeAccounts = await accounts.subscribeAll(cozy.client)
-    realtimeAccounts.onCreate(account => this.onAccountCreated(account))
-    realtimeAccounts.onUpdate(account => this.onAccountUpdated(account))
-    realtimeAccounts.onDelete(trigger => this.onAccountDeleted(trigger))
+    this.realtime.subscribe('created', JOBS_DOCTYPE, this.updateUnfinishedJob)
+    this.realtime.subscribe('updated', JOBS_DOCTYPE, this.updateUnfinishedJob)
 
-    const realtimeTriggers = await triggers.subscribeAll(cozy.client)
-    realtimeTriggers.onCreate(trigger => this.onTriggerCreated(trigger))
-    realtimeTriggers.onDelete(trigger => this.deleteTrigger(trigger))
+    this.realtime.subscribe('created', ACCOUNTS_DOCTYPE, this.onAccountCreated)
+    this.realtime.subscribe('updated', ACCOUNTS_DOCTYPE, this.onAccountUpdated)
+    this.realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted)
+
+    this.realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated)
+    this.realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted)
   }
 
   async onAccountCreated(account) {
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -64,7 +66,7 @@ export default class CollectStore {
   async onAccountUpdated(account) {
     this.dispatch({
       type: 'RECEIVE_UPDATED_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -72,7 +74,7 @@ export default class CollectStore {
   async onAccountDeleted(account) {
     this.dispatch({
       type: 'RECEIVE_DELETED_DOCUMENT',
-      response: { data: [normalize(account, 'io.cozy.accounts')] },
+      response: { data: [normalize(account, ACCOUNTS_DOCTYPE)] },
       updateCollections: ['accounts']
     })
   }
@@ -80,7 +82,7 @@ export default class CollectStore {
   async onTriggerCreated(trigger) {
     this.dispatch({
       type: 'RECEIVE_NEW_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
@@ -88,21 +90,21 @@ export default class CollectStore {
   async onTriggerUpdated(trigger) {
     this.dispatch({
       type: 'RECEIVE_UPDATED_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
 
-  async deleteTrigger(trigger) {
+  async onTriggerDeleted(trigger) {
     this.dispatch({
       type: 'RECEIVE_DELETED_DOCUMENT',
-      response: { data: [normalize(trigger, 'io.cozy.triggers')] },
+      response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
     })
   }
 
   async updateUnfinishedJob(job) {
-    const normalizedJob = normalize(job, 'io.cozy.jobs')
+    const normalizedJob = normalize(job, JOBS_DOCTYPE)
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
     const isKonnectorJob = normalizedJob.worker === 'konnector'
