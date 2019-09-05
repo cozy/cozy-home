@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import get from 'lodash/get'
 
 import { reducer } from 'redux-cozy-client'
 import apps from 'ducks/apps'
@@ -64,7 +65,7 @@ export const getTriggersByKonnector = (state, konnectorSlug) => {
       const document = state.cozy.documents['io.cozy.triggers'][key]
       if (
         document.worker === 'konnector' &&
-        document.message.konnector === konnectorSlug
+        get(document, 'message.konnector') === konnectorSlug
       ) {
         acc.push(document)
       }
