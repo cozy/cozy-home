@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import moment from 'moment'
 import omit from 'lodash/omit'
-
+import get from 'lodash/get'
 import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
 import { getTriggerLastJob } from 'ducks/jobs'
@@ -92,25 +92,33 @@ const reducer = (state = {}, action) => {
             !!doc.current_state &&
             doc.current_state.last_execution) ||
           (isJob && doc.queued_at)
+        const existingTriggers = get(
+          newState,
+          [konnectorSlug, 'triggers', 'data'],
+          []
+        )
+        let rawTriggers = existingTriggers
 
+        if (isTrigger) {
+          rawTriggers = existingTriggers.filter(({ _id }) => _id !== doc._id)
+          rawTriggers.push(doc)
+        }
         return {
           ...newState,
           [konnectorSlug]: {
             triggers: {
-              ...((newState[konnectorSlug] &&
-                newState[konnectorSlug].triggers) ||
-                {}),
+              ...get(newState, [konnectorSlug, 'triggers'], []),
+              data: rawTriggers,
               [triggerId]: {
-                ...((newState[konnectorSlug] &&
-                  newState[konnectorSlug].triggers &&
-                  newState[konnectorSlug].triggers[triggerId]) ||
-                  {}),
+                ...get(newState, [konnectorSlug, 'triggers', triggerId], {}),
                 account:
                   account ||
-                  (newState[konnectorSlug] &&
-                    newState[konnectorSlug].triggers &&
-                    newState[konnectorSlug].triggers[triggerId] &&
-                    newState[konnectorSlug].triggers[triggerId].account),
+                  get(newState, [
+                    konnectorSlug,
+                    'triggers',
+                    triggerId,
+                    'account'
+                  ]),
                 error,
                 hasError: !!error || currentStatus === 'errored',
                 isRunning: ['queued', 'running'].includes(currentStatus),
