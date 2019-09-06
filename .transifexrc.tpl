@@ -1,4 +1,4 @@
 [https://www.transifex.com]
 hostname = https://www.transifex.com
-username = gregorylegarec
+username = api
 token =
