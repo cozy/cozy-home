@@ -6,7 +6,7 @@ import flow from 'lodash/flow'
 import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 import { getKonnector } from 'ducks/konnectors'
 
-import { getConnectionsByKonnector, getTriggersByKonnector } from 'reducers'
+import { getTriggersByKonnector } from 'reducers'
 import { withClient } from 'cozy-client/dist/hoc'
 
 class Konnector extends Component {
@@ -27,7 +27,6 @@ class Konnector extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { konnectorSlug } = ownProps.match.params
   return {
-    connections: getConnectionsByKonnector(state, konnectorSlug),
     konnector: getKonnector(state.cozy, konnectorSlug),
     triggers: getTriggersByKonnector(state, konnectorSlug)
   }
