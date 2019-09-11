@@ -1024,13 +1024,6 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@7.5.5", "@babel/runtime@^7.5.2":
-  version "7.5.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
-  integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.3.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
@@ -3503,18 +3496,6 @@ cozy-doctypes@1.63.3:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.63.2:
-  version "1.63.2"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.63.2.tgz#fc5666fe7b7ac37e3695ed0317bec35f1a0c9afa"
-  integrity sha512-+LIlM8ND7JwALpw8wbQjtpn0kOmQRE0doR9iDbf0DQHKGVl29Iit9R2bQElQi55JrtZ2aFsQy3qnGmpujKvbYg==
-  dependencies:
-    "@babel/runtime" "7.5.5"
-    cozy-logger "^1.5.1"
-    date-fns "1.30.1"
-    es6-promise-pool "2.5.0"
-    lodash "4.17.15"
-    prop-types "^15.7.2"
-
 cozy-doctypes@^1.64.0:
   version "1.64.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.64.0.tgz#c745ffc5859a35dff574f02b9b7495b167a00f11"
@@ -3571,13 +3552,6 @@ cozy-logger@^1.6.0:
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
-
-cozy-realtime@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.0.tgz#ae06ef1c8174408aae70f5171820275880a4a587"
-  integrity sha512-4rLsIFAGlUQWSiMm1jgkzoPqnbH4iSDndeNLFCLhVmM93eJBztWIfXSwFQ2utvOuIvMjHeT5iw7v6GQvwzfBFA==
-  dependencies:
-    minilog "3.1.0"
 
 cozy-realtime@3.1.3:
   version "3.1.3"
@@ -3654,10 +3628,10 @@ cozy-stack-client@^6.58.1:
     mime "2.4.0"
     qs "6.7.0"
 
-cozy-ui@22.12.0:
-  version "22.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.12.0.tgz#47897386301638997503f6104e1efca3c4e91e71"
-  integrity sha512-xwEyxEQE2SNP7UQI4/mB+3nTZlWrfIphfMuHMj/0LZlbwSY7chndShVN+oIzOYPdUGZ4R/Akp+kWZPdj9ZnHcw==
+cozy-ui@22.3.1:
+  version "22.3.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.1.tgz#9bd22099255e88ab2a9694a8b18d21cde3f627f5"
+  integrity sha512-yK4XO7RkV2lTbmYIgXHNBl7mw69VrB3VQMFIkSZWdzI27XIxTTT2jDUQYuIornKd0BFw81mmL2yp4um3KJuCsQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
