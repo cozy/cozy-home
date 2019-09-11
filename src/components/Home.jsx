@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { Route, withRouter } from 'react-router-dom'
+import { Route, withRouter, Redirect } from 'react-router'
 
 import { translate } from 'cozy-ui/react/I18n'
 import { Main, Content } from 'cozy-ui/react/Layout'
@@ -49,6 +49,7 @@ class Home extends Component {
           </div>
         </Content>
         <Route path="/connected/:konnectorSlug" component={Konnector} />
+        <Redirect from="/connected/*" to="/connected" />
       </Main>
     )
   }
