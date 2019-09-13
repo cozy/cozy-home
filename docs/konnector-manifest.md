@@ -186,7 +186,7 @@ Each fields may also have the following properties:
 
 Property        | Description
 ----------------|---------------------------------------------------------------
-identifier      | (Boolean) indicating if the field is the main identier. By default, the `login` field is the identifier. Default value is false and there can be only one identifier
+identifier      | (Boolean) indicating if the field is the main identifier. By default, the `login` field is the identifier. Default value is false and there can be only one identifier
 advanced        | Indicates if the field should be displayed in the "advanced" area of the form (default: `false`)
 default         | Default value. It can a string for a text field, or an object for a select field (`"default": {"value": "foo","name": "bar"},`)
 description     | Field description, as a locale key.
