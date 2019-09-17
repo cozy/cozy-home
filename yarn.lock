@@ -3415,15 +3415,15 @@ cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-bar@7.7.5:
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.7.5.tgz#79f00c3ba062e7ca6099816a3e40b1e9314f4fb0"
-  integrity sha512-L3n6w5JWYnKbGDoQaqMiNiJEqy0kVn0AiwtfkXhuMxa08FTyiOY3+faVNtH9O04rdlVSRw29aeo+5FQdPsQtlw==
+cozy-bar@7.7.6:
+  version "7.7.6"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.7.6.tgz#a0127bd8df953d3e0a2b16f846db02aac0b4c296"
+  integrity sha512-TaFOmt/W0D7ltPEuoSnSfLx3O4KWAbt1c/thQtgGdirI//I6tl+4DbSd9uPpf7JMSrJUOfuH2pqy3wCWr/a0Kw==
   dependencies:
     "@babel/core" "7.5.5"
     babel-core "7.0.0-bridge.0"
     babel-preset-cozy-app "1.6.0"
-    cozy-device-helper "1.7.3"
+    cozy-device-helper "1.8.0"
     cozy-interapp "0.4.9"
     cozy-realtime "3.2.1"
     cozy-ui "22.3.1"
@@ -3481,6 +3481,13 @@ cozy-device-helper@1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.5.tgz#7e1ad1937c5c34d4e8df2ebcae6bd6cb88a49d3a"
   integrity sha512-5L6QdsJYcE+UpKjJGL6Uk5Lc2sSpDS8KQTf7mvIVrd7IOg/UJIEp9rt1aHQnTRevGShe5ANkmGQmlTfI1uKzUg==
+  dependencies:
+    lodash "4.17.15"
+
+cozy-device-helper@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.8.0.tgz#17b41d0ea28a504b906669a43449952e72615abb"
+  integrity sha512-XomsjdCCWcS01x1QK/Wc4EI4zTxJN8Ouh7956wm2AEQyjj4lN+7cj8tqEBlb8fLWm68/3S3Z4V3iSJDgnJHu6A==
   dependencies:
     lodash "4.17.15"
 
