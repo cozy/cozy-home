@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import FormData from 'form-data'
+import { URL } from 'url'
 import log from 'cozy-logger'
 import NodeVaultClient from 'cozy-keys-lib/transpiled/NodeVaultClient'
 import CozyClient from 'cozy-client'
@@ -24,6 +25,7 @@ global.Headers = fetch.Headers
 global.Response = fetch.Response
 global.Request = fetch.Request
 global.FormData = FormData
+global.URL = URL
 
 const main = async () => {
   const vaultClient = new NodeVaultClient(COZY_URL)
