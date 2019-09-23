@@ -3,7 +3,7 @@ import { AppIcon } from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
 import PropTypes from 'prop-types'
 
-import styles from 'styles/konnectorHeaderIcon'
+import styles from 'styles/konnectorHeaderIcon.styl'
 
 export class KonnectorHeaderIcon extends Component {
   render() {

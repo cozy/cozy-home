@@ -6,7 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorSuccess from 'components/KonnectorSuccess'
 import { getKonnector } from 'ducks/konnectors'
-import styles from 'styles/konnectorInstall'
+import styles from 'styles/konnectorInstall.styl'
 
 export class KonnectorInstall extends Component {
   constructor(props) {
