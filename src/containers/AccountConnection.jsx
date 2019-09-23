@@ -15,7 +15,7 @@ import {
   isConnectionEnqueued
 } from 'ducks/connections'
 import { isKonnectorUpdateNeededError } from 'lib/konnectors'
-import styles from 'styles/accountConnection'
+import styles from 'styles/accountConnection.styl'
 
 class AccountConnection extends Component {
   constructor(props, context) {
