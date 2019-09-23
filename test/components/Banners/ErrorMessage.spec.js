@@ -8,6 +8,10 @@ import { shallow } from 'enzyme'
 import { tMock } from '../../jestLib/I18n'
 import { ErrorMessage } from 'components/Banners/ErrorMessage'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 const konnectorMock = {
   slug: 'mocK'
 }

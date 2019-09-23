@@ -6,7 +6,7 @@ import { withClient } from 'cozy-client'
 import Icon from 'cozy-ui/react/Icon'
 
 import { getApp, receiveApps } from 'ducks/apps'
-import styles from 'styles/triggerFolderLink'
+import styles from 'styles/triggerFolderLink.styl'
 
 /**
  * Renders a link only if href prop is provided

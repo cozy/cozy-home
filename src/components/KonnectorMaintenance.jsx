@@ -3,7 +3,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
-import styles from 'styles/konnectorMaintenance'
+import styles from 'styles/konnectorMaintenance.styl'
 
 const KonnectorMaintenance = ({ t, maintenance, lang, konnectorName }) => (
   <div className={styles['maintenance']}>

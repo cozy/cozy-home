@@ -8,11 +8,12 @@ module.exports = {
     '^cozy-doctypes$': 'cozy-logger/dist/index.js',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
     // identity-obj-proxy module is installed by cozy-scripts
-    styles: 'identity-obj-proxy',
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index'
   },
-  transformIgnorePatterns: ['node_modules/(?!cozy-ui|cozy-harvest-lib)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib)'
+  ],
   globals: {
     __ALLOW_HTTP__: false,
     __TARGET__: 'browser',

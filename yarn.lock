@@ -3629,10 +3629,10 @@ cozy-doctypes@1.63.3:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.64.0:
-  version "1.64.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.64.0.tgz#c745ffc5859a35dff574f02b9b7495b167a00f11"
-  integrity sha512-BB8cxr89G59Vb7R+N679Fuinf2C5oRc1OiZrU3PeNB9ltIA9IyBCzq/1KQoTGjsoh8LpjX6IZTNGXyFQY0dnMw==
+cozy-doctypes@^1.63.7:
+  version "1.66.2"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.66.2.tgz#c0add9d128da146a6cd2d440cb6d186a5533cf1f"
+  integrity sha512-u2OJ1vd2WC0hYJm2YVzIpBEFKlK0t+F6nBH0FZHkLhHeC3IVCyLgyU4BVABGW9uXmqd99yBCvGVe3dMtOOks/Q==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
@@ -3648,13 +3648,14 @@ cozy-flags@1.9.3:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.3.0.tgz#2c93ad90cf5e780bd59a120c1b452db23654fdd2"
-  integrity sha512-REyU84fGvc1188Gldb7goD8+3tEnFML8X1TkgEu2WTV2e5RydzwkgrSYg/3wGTpOMdvwI7xuv3yREsAO4IYUOA==
+cozy-harvest-lib@1.4.0-beta.0:
+  version "1.4.0-beta.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.4.0-beta.0.tgz#fb22ca02c7fc4b33c5b21d487ee6517de098e134"
+  integrity sha512-xHz2r0PPi7aLwhZaFoIV7Ymt7TDWO2+b1f3BKcvAnhu4tbUij10I2Iq0IDdxHh6ruJqGH/lu5dS0OAYuhR7s0A==
   dependencies:
     "@babel/runtime" "^7.5.2"
-    cozy-doctypes "^1.64.0"
+    "@material-ui/core" "3"
+    cozy-doctypes "^1.63.7"
     date-fns "^1.30.1"
     final-form "4.18.5"
     lodash "4.17.15"
@@ -3670,21 +3671,21 @@ cozy-interapp@0.4.9:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
   integrity sha512-skyjrewnMu5zMfST7vTNGl3jsuWae1Iwfdev6pW9RLgb58M7oBSpsIa3ofRANv5tx0XVQDVSEzWvbFQ84WJPSg==
 
-cozy-keys-lib@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-1.3.0.tgz#96ae77e9fa56c719d1b4fde87ede870b34d9c34d"
-  integrity sha512-GiTI4i0ZUO4tT2n2p3fVvYAKEo2BUUzmddTdUOkgQ7OBIudHzUtFoifW/tT8OoCY+lwgaMMqJzhJhDk3SQqX8w==
+cozy-keys-lib@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-1.8.0.tgz#01e298897650648b4142e60ca819b13460b92dcc"
+  integrity sha512-jfx3uvo0E3ZU3ZKg/8j+sfXMKP6VtMi+WBkUXKXFAB9v5ohVV3wLr+PlY8z3G83e9coDPR+j7DmEVtnSYFz/ew==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
     big-integer "^1.6.44"
     classnames "^2.2.6"
     cozy-device-helper "^1.7.5"
-    cozy-ui "^22.12.0"
+    cozy-ui "^24.0.0"
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
-    node-forge "^0.8.5"
+    node-forge "^0.9.0"
     prop-types "^15.7.2"
     react "^16.8.3"
     react-dom "^16.9.0"
@@ -3817,10 +3818,10 @@ cozy-ui@24.0.0:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@^22.12.0:
-  version "22.14.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.14.1.tgz#3a975825667a4524cbe5099f8a92966e45de4557"
-  integrity sha512-zuZ4dkfRdAs+MFvllD/UQiwRx9+Q3Ym+8bgc1sVr5XjFbB+uOI1hY/fXHbiWjX1JL7/LGwrE+Lvr0+gLkzrf8Q==
+cozy-ui@^24.0.0:
+  version "24.2.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-24.2.2.tgz#df3682b5aa188154b7a33fd0f52a983246be2204"
+  integrity sha512-0qy4HE0FWGZsvfrbDtFFAKPDk6E81pa9lzVF2G+RTK8zW+TeJNT612AUD2aZNJ0/WpYMew6kuotOYqpBHJrohw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -5759,6 +5760,15 @@ forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
+
+form-data@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.5.1.tgz#f2cbec57b5e59e23716e128fe44d4e5dd23895f4"
+  integrity sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.6"
+    mime-types "^2.1.12"
 
 form-data@~2.3.1, form-data@~2.3.2:
   version "2.3.3"
@@ -9174,10 +9184,10 @@ node-forge@^0.7.1:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.6.tgz#fdf3b418aee1f94f0ef642cd63486c77ca9724ac"
   integrity sha512-sol30LUpz1jQFBjOKwbjxijiE3b6pjd74YwfD0fJOKPjF+fONKb2Yg8rYgS6+bK6VDl+/wfr4IYpC7jDzLUIfw==
 
-node-forge@^0.8.5:
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.8.5.tgz#57906f07614dc72762c84cef442f427c0e1b86ee"
-  integrity sha512-vFMQIWt+J/7FLNyKouZ9TazT74PRV3wgv9UT4cRjC8BffxFbKXkgIWR42URCPSnHm/QDz6BOlb2Q0U4+VQT67Q==
+node-forge@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
+  integrity sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
 
 node-int64@^0.4.0:
   version "0.4.0"

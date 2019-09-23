@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import Button from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 
-import styles from 'styles/konnectorSuccess'
+import styles from 'styles/konnectorSuccess.styl'
 import DescriptionContent from 'components/DescriptionContent'
 import TriggerFolderLink from 'components/TriggerFolderLink'
 import BanksLink from 'components/BanksLink'
