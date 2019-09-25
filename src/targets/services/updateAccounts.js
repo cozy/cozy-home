@@ -1,11 +1,13 @@
 import fetch from 'node-fetch'
 import FormData from 'form-data'
 import { URL } from 'url'
-import log from 'cozy-logger'
 import NodeVaultClient from 'cozy-keys-lib/transpiled/NodeVaultClient'
 import CozyClient from 'cozy-client'
+import logger from 'cozy-logger'
 
 import updateAccountsPassword from 'cozy-harvest-lib/dist/services/updateAccountsPassword'
+
+const log = logger.namespace('updateAccounts')
 
 global.fetch = fetch
 global.Headers = fetch.Headers
@@ -21,11 +23,23 @@ const main = async () => {
     uri: process.env.COZY_URL.trim(),
     token: process.env.COZY_CREDENTIALS.trim()
   })
-  await updateAccountsPassword(
-    cozyClient,
-    vaultClient,
-    JSON.parse(process.env.COZY_COUCH_DOC)
-  )
+
+  try {
+    await updateAccountsPassword(
+      cozyClient,
+      vaultClient,
+      JSON.parse(process.env.COZY_COUCH_DOC)
+    )
+  } catch (err) {
+    if (err.message === 'DECRYPT_FAILED') {
+      log(
+        'warning',
+        'Login/password decrypt failed. The cipher may not be shared with the Cozy organization'
+      )
+    } else {
+      throw err
+    }
+  }
 }
 ;(async () => {
   try {
