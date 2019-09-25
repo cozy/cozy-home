@@ -41,6 +41,7 @@
     "cozy-flags": "1.11.0",
     "cozy-harvest-lib": "1.16.0",
     "cozy-keys-lib": "1.8.0",
+    "cozy-logger": "1.6.0",
     "cozy-realtime": "3.4.0",
     "cozy-scripts": "1.13.2",
     "cozy-ui": "29.9.0",
