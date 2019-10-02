@@ -2,6 +2,16 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
+// overriding the general layout to allow a sticky footer
+html,
+body
+    height 100%
+    +medium-screen()
+        height 100%
+
+        main > [role=main].u-flex
+            display flex
+
 body
     // Allows horizontal swipe on mobile
     +mobile()

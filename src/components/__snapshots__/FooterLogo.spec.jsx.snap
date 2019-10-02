@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FooterLogo should render multiple logos 1`] = `
+<div
+  className="u-maw-7 u-m-auto u-pv-1 u-mt-1 u-ta-center"
+>
+  <img
+    alt="alt text 1"
+    className="u-ph-1 u-pv-half"
+    src="http://cozy.example.com/path1/cozy.svg"
+  />
+  <img
+    alt="alt text 2"
+    className="u-ph-1 u-pv-half"
+    src="http://cozy.example.com/path/2/cozy-with_complex-name.svg"
+  />
+</div>
+`;

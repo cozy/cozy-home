@@ -10,6 +10,7 @@ import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import { isTutorial, display as displayTutorial } from 'lib/tutorial'
+import FooterLogo from 'components/FooterLogo'
 
 class Home extends Component {
   componentDidMount() {
@@ -38,15 +39,16 @@ class Home extends Component {
     return (
       <Main>
         <ScrollToTopOnMount target={wrapper} />
-        <Content>
+        <Content className="u-flex">
           <div
-            className={classNames('col-content', {
+            className={classNames('col-content', 'u-flex-grow-1', {
               'has-custom-background': false
             })}
           >
             <Applications />
             <Services />
           </div>
+          <FooterLogo />
         </Content>
         <Route path="/connected/:konnectorSlug" component={Konnector} />
         <Redirect from="/connected/*" to="/connected" />
