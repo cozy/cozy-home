@@ -75,6 +75,7 @@ class App extends Component {
     return (
       <Layout
         monoColumn
+        className="u-flex u-flex-column"
         ref={
           isReady
             ? div => {
