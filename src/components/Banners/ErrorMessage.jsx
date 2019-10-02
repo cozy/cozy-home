@@ -77,20 +77,6 @@ export class ErrorMessage extends Component {
       )
     }
 
-    // FIXME temporarily, only for EDF
-    if (konnector.slug === 'edf') {
-      return (
-        <Infos
-          className="u-maw-none"
-          text={t('status.edf.maintenance', {
-            supportLink: t('status.edf.support_link')
-          })}
-          title={t('status.interrupted')}
-          isImportant
-        />
-      )
-    }
-
     return (
       <Infos
         actionButton={this.renderButton(error)}
