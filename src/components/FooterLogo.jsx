@@ -12,7 +12,7 @@ const fetchHomeLogos = async client => {
     const logos = get(context, 'data.attributes.home_logos', {})
 
     return Object.keys(logos).reduce((acc, logoSrc) => {
-      acc[`${rootURL}${logoSrc}`] = logos[logoSrc]
+      acc[`${rootURL}/assets${logoSrc}`] = logos[logoSrc]
       return acc
     }, {})
   } catch (error) {

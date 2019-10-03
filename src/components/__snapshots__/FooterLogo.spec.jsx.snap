@@ -7,12 +7,12 @@ exports[`FooterLogo should render multiple logos 1`] = `
   <img
     alt="alt text 1"
     className="u-ph-1 u-pv-half"
-    src="http://cozy.example.com/path1/cozy.svg"
+    src="http://cozy.example.com/assets/path1/cozy.svg"
   />
   <img
     alt="alt text 2"
     className="u-ph-1 u-pv-half"
-    src="http://cozy.example.com/path/2/cozy-with_complex-name.svg"
+    src="http://cozy.example.com/assets/path/2/cozy-with_complex-name.svg"
   />
 </div>
 `;
