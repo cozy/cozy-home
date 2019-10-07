@@ -3506,22 +3506,10 @@ cozy-device-helper@1.8.0:
   dependencies:
     lodash "4.17.15"
 
-cozy-doctypes@1.67.0:
+cozy-doctypes@1.67.0, cozy-doctypes@^1.67.0:
   version "1.67.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.67.0.tgz#2e26cf43556cff298d0eec2f06091d15dc1758da"
   integrity sha512-+3w6YplviaaYxfwyQOV+FjB7siYvFaPtXuBwlIjCxITrzvKoZTw5tPd4hNW/BgRJjoT5HUCbVMhrsDu27xYr8Q==
-  dependencies:
-    "@babel/runtime" "7.5.5"
-    cozy-logger "^1.6.0"
-    date-fns "1.30.1"
-    es6-promise-pool "2.5.0"
-    lodash "4.17.15"
-    prop-types "^15.7.2"
-
-cozy-doctypes@^1.64.0:
-  version "1.64.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.64.0.tgz#c745ffc5859a35dff574f02b9b7495b167a00f11"
-  integrity sha512-BB8cxr89G59Vb7R+N679Fuinf2C5oRc1OiZrU3PeNB9ltIA9IyBCzq/1KQoTGjsoh8LpjX6IZTNGXyFQY0dnMw==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
@@ -3537,17 +3525,18 @@ cozy-flags@1.9.3:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.3.0.tgz#2c93ad90cf5e780bd59a120c1b452db23654fdd2"
-  integrity sha512-REyU84fGvc1188Gldb7goD8+3tEnFML8X1TkgEu2WTV2e5RydzwkgrSYg/3wGTpOMdvwI7xuv3yREsAO4IYUOA==
+cozy-harvest-lib@1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.8.1.tgz#cb6809f3bf7e32e7661ebcd430df5e75c0dfdb01"
+  integrity sha512-rRoyHigglmMuaC38i4B4sBOaL7y4vqiWEsiWuFafLxWazZ2DcbcDWirhHwMsc/P/3Fvk7yp49vsGm/SRK4Wz9Q==
   dependencies:
     "@babel/runtime" "^7.5.2"
-    cozy-doctypes "^1.64.0"
+    cozy-doctypes "^1.67.0"
     date-fns "^1.30.1"
     final-form "4.18.5"
     lodash "4.17.15"
     microee "^0.0.6"
+    node-polyglot "^2.4.0"
     preact-portal "^1.1.3"
     react-final-form "3.7.0"
     react-markdown "4.2.2"
@@ -8997,6 +8986,16 @@ node-polyglot@^2.2.2:
     string.prototype.trim "^1.1.2"
     warning "^4.0.1"
 
+node-polyglot@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/node-polyglot/-/node-polyglot-2.4.0.tgz#0d2717ed06640d9ff48a2aebe8d13e39ef03518f"
+  integrity sha512-KRzKwzMWm3wSAjOSop7/WwNyzaMkCe9ddkwXTQsIZEJmvEnqy/bCqLpAVw6xBszKfy4iLdYVA0d83L+cIkYPbA==
+  dependencies:
+    for-each "^0.3.3"
+    has "^1.0.3"
+    string.prototype.trim "^1.1.2"
+    warning "^4.0.3"
+
 node-pre-gyp@^0.10.0:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.10.3.tgz#3070040716afdc778747b61b6887bf78880b80fc"
@@ -13920,6 +13919,13 @@ warning@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.2.tgz#aa6876480872116fa3e11d434b0d0d8d91e44607"
   integrity sha512-wbTp09q/9C+jJn4KKJfJfoS6VleK/Dti0yqWSm6KMvJ4MRCXFQNapHuJXutJIrWV0Cf4AhTdeIe4qdKHR1+Hug==
+  dependencies:
+    loose-envify "^1.0.0"
+
+warning@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
+  integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   dependencies:
     loose-envify "^1.0.0"
 
