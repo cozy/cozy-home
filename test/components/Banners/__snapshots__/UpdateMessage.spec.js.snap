@@ -2,17 +2,17 @@
 
 exports[`UpdateMessage component Should be render correctly if blocking update 1`] = `
 <div
-  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-ph-1 u-pt-1 u-bg-paleGrey u-ta-left u-bg-chablis u-maw-none"
+  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-chablis u-maw-none"
 >
   <SubTitle
-    className="u-mb-1 u-pomegranate"
+    className="u-pomegranate"
     ellipsis={false}
     tag="div"
   >
     An update is available for this service.
   </SubTitle>
   <div
-    className="u-flex u-w-100 u-mb-1"
+    className="u-flex u-w-100"
   >
     <Text
       className="u-ta-left"
@@ -23,7 +23,7 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
     </Text>
   </div>
   <div
-    className="u-flex-shrink-0 u-mb-1"
+    className="u-flex-shrink-0"
   >
     <DefaultButton
       className="u-m-0"
@@ -38,17 +38,17 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
 
 exports[`UpdateMessage component Should be render correctly if not blocking update 1`] = `
 <div
-  className="u-flex u-flex-column u-maw-6 u-mih-2 u-bdrs-4 u-ph-1 u-pt-1 u-bg-paleGrey u-ta-left u-maw-none"
+  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-paleGrey u-maw-none"
 >
   <SubTitle
-    className="u-mb-1"
+    className=""
     ellipsis={false}
     tag="div"
   >
     An update is available for this service.
   </SubTitle>
   <div
-    className="u-flex u-w-100 u-mb-1"
+    className="u-flex u-w-100"
   >
     <Text
       className="u-ta-left"
@@ -59,7 +59,7 @@ exports[`UpdateMessage component Should be render correctly if not blocking upda
     </Text>
   </div>
   <div
-    className="u-flex-shrink-0 u-mb-1"
+    className="u-flex-shrink-0"
   >
     <DefaultButton
       className="u-m-0"
