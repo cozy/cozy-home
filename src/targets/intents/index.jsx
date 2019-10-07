@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
   const appData = root.dataset
 
-  const client = new CozyClient({
+  const legacyClient = new CozyClient({
     cozyURL: `//${appData.cozyDomain}`,
     token: appData.cozyToken
   })
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(client, context, {
+  const store = configureStore(legacyClient, cozyClient, context, {
     lang
   })
 
