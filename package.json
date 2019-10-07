@@ -73,7 +73,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-test-renderer": "15.6.2",
-    "stylint": "1.5.9",
+    "stylint": "2.0.0",
     "stylus": "0.54.7",
     "url-search-params-polyfill": "5.1.0"
   },
