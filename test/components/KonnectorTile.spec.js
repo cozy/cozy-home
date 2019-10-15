@@ -18,12 +18,12 @@ const getMockProps = (
   error,
   userError,
   konnector = mockKonnector,
-  inMaintenance = false
+  isInMaintenance = false
 ) => ({
   t: tMock,
   accountsCount: 2,
   error,
-  inMaintenance,
+  isInMaintenance,
   userError,
   konnector,
   route: `/${konnector.slug}`

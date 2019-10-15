@@ -10,8 +10,6 @@ const mapDocumentsToProps = () => ({
   jobs: fetchKonnectorJobs(),
   konnectors: fetchKonnectors(),
   triggers: fetchTriggers()
-  // TODO: fetch registry
-  // registry: fetchRegistry()
 })
 
 const appEntryPoint = (WrappedComponent, selectData) =>
