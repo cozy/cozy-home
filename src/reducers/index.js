@@ -46,9 +46,6 @@ export const getKonnectorTriggersCount = (state, konnector) =>
     fromAccounts.getIds(state.cozy)
   ).length
 
-export const getKonnectorsInMaintenance = () =>
-  fromKonnectors.fetchKonnectorsInMaintenance()
-
 export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   const triggerId = fromConnections.getTriggerIdByKonnectorAndAccount(
     state.connections,

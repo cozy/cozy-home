@@ -15,7 +15,6 @@ import {
   getFirstUserError,
   getLastSyncDate
 } from 'ducks/connections'
-import { isInMaintenance } from 'ducks/konnectors'
 import { getErrorTitle } from 'lib/konnectors'
 import { getKonnectorTriggersCount } from 'reducers'
 
@@ -30,7 +29,7 @@ const getErrorClass = ({
   error,
   hide,
   hasUpdate,
-  inMaintenance,
+  isInMaintenance,
   userError
 }) => {
   if (hide) return ''
@@ -39,7 +38,7 @@ const getErrorClass = ({
     return 'konnector-error--with-badge'
   }
 
-  if (inMaintenance) {
+  if (isInMaintenance) {
     return 'konnector-error--minor-breaking'
   }
 
@@ -64,7 +63,7 @@ export class KonnectorTile extends Component {
     const {
       accountsCount,
       error,
-      inMaintenance,
+      isInMaintenance,
       userError,
       konnector,
       route,
@@ -87,7 +86,7 @@ export class KonnectorTile extends Component {
               hide: hideKonnectorErrors,
               userError,
               hasUpdate: !!konnector.available_version,
-              inMaintenance
+              isInMaintenance
             })
           )}
         >
@@ -117,8 +116,7 @@ const mapStateToProps = (state, props) => {
     error: getFirstError(state.connections, konnector.slug),
     userError: getFirstUserError(state.connections, konnector.slug),
     lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
-    accountsCount: getKonnectorTriggersCount(state, konnector),
-    inMaintenance: isInMaintenance(konnector.slug)
+    accountsCount: getKonnectorTriggersCount(state, konnector)
   }
 }
 

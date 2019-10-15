@@ -23,8 +23,7 @@ import { getKonnector } from 'ducks/konnectors'
 import {
   getConnectionsByKonnector,
   getCreatedConnectionAccount,
-  getTriggerByKonnectorAndAccount,
-  getKonnectorsInMaintenance
+  getTriggerByKonnectorAndAccount
 } from 'reducers'
 import styles from 'styles/connectionManagement.styl'
 
@@ -188,7 +187,6 @@ const mapStateToProps = (state, ownProps) => {
     konnector,
     createdAccount
   )
-  const maintenance = getKonnectorsInMaintenance()
   return {
     connections: getConnectionsByKonnector(state, konnectorSlug),
     createdAccount,
@@ -196,8 +194,7 @@ const mapStateToProps = (state, ownProps) => {
     konnector: konnector,
     isRunning: isConnectionRunning(state.connections, trigger),
     lastSuccess: getTriggerLastSuccess(state.cozy, trigger),
-    trigger,
-    maintenance: maintenance
+    trigger
   }
 }
 

@@ -8,13 +8,6 @@ const konnectorsCollectionKey = 'konnectors'
 export const fetchKonnectors = () =>
   fromCozyClient.fetchKonnectors(konnectorsCollectionKey)
 
-// TODO: Fetch the registry
-export const fetchKonnectorsInMaintenance = () =>
-  require('../../config/maintenance')
-
-export const isInMaintenance = slug =>
-  fetchKonnectorsInMaintenance().hasOwnProperty(slug)
-
 // Action creators
 export const receiveInstalledKonnector = konnector => {
   const normalized = {
