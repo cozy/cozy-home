@@ -9,9 +9,9 @@
     max-height: 11.5625rem
     width: 30rem
     max-width: 90%
-    border: 1px solid silver
+    border: 1px solid var(--silver)
     border-radius: 4px
-    background-color: white
+    background-color: var(--white)
     display: flex
     flex-direction: column
     transition: 0.5s
@@ -41,7 +41,7 @@
         background: 0
         margin: 0
         padding: .4em 0 .4em .8em
-        color: dodger-blue
+        color: var(--dodgerBlue)
         text-transform: uppercase
         font-size: .8em
 
@@ -60,11 +60,11 @@
 .queue-progress::-webkit-progress-value
     border-radius: 0
 .queue-progress::-webkit-progress-bar
-    background-color: silver
+    background-color: var(--silver)
 .queue-progress::-webkit-progress-value
-    background-color: dodger-blue
+    background-color: var(--dodgerBlue)
 .queue-progress::-moz-progress-bar
-    background-color: dodger-blue
+    background-color: var(--dodgerBlue)
 
 .queue-content
     overflow: auto
@@ -96,7 +96,7 @@
     flex: 0 0 auto
     width: 100%
     max-width: 'calc(100vw - %s)' % 13.75rem
-    border-bottom: 1px solid silver
+    border-bottom: 1px solid var(--silver)
     position: relative
 
     &-progress-bar
@@ -138,7 +138,7 @@
 
     .item-pending
         text-transform: uppercase
-        color: dodger-blue
+        color: var(--dodgerBlue)
         font-size: 0.75rem
         font-weight: bold
         line-height: 2em
@@ -168,7 +168,7 @@
             width: 100%
             height: $coz-bar-border-size
             content: ''
-            background: white
+            background: var(--white)
 
     .queue--visible
         max-height: 30%
@@ -178,5 +178,5 @@
 
     .queue-header
         background: 0
-        color: dodger-blue
+        color: var(--dodgerBlue)
         text-transform: uppercase
