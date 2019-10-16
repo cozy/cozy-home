@@ -11,6 +11,7 @@ const regexpLocales = new RegExp(`/(${supportedLocales.join('|')})`)
 
 module.exports = {
   resolve: {
+    modules: [SRC_DIR, 'node_modules'],
     alias: {
       config: path.resolve(SRC_DIR, './config'),
       'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client'),
@@ -25,6 +26,6 @@ module.exports = {
     }),
     new ContextReplacementPlugin(/moment[\/\\]locale$/, regexpLocales),
     new ContextReplacementPlugin(/date-fns[\/\\]locale$/, regexpLocales),
-    new ContextReplacementPlugin(/src[\/\\]locales/, regexpLocales),
+    new ContextReplacementPlugin(/src[\/\\]locales/, regexpLocales)
   ]
 }
