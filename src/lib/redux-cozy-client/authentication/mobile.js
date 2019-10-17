@@ -1,5 +1,3 @@
-/* global prompt */
-
 const hasCordovaPlugin = () => {
   return (
     window.cordova !== undefined && window.cordova.InAppBrowser !== undefined

@@ -19,7 +19,9 @@ export default class CozyAPI {
       // WARN: the JSON response from the stack is not homogenous with other routes (offset? rows? total_rows?)
       // see https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#list-all-the-documents
       // WARN: looks like this route returns something looking like a couchDB design doc, we need to filter it:
-      const rows = resp.rows.filter(row => !row.doc.hasOwnProperty('views'))
+      const rows = resp.rows.filter(
+        row => !Object.prototype.hasOwnProperty.call(row.doc, 'views')
+      )
       // we normalize the data (note that we add _type so that cozy.client.data.listReferencedFiles works...)
       const docs = rows.map(row =>
         Object.assign({}, row.doc, {

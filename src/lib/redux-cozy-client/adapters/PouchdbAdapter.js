@@ -96,7 +96,7 @@ export default class PouchdbAdapter {
     const resp = await this.getDatabase(doctype).allDocs({ include_docs: true })
     return {
       data: resp.rows
-        .filter(row => !row.doc.hasOwnProperty('views'))
+        .filter(row => !Object.prototype.hasOwnProperty.call(row.doc, 'views'))
         .map(row => ({ ...row.doc, id: row.id, _type: doctype })),
       meta: { count: resp.total_rows },
       skip: resp.offset,
