@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
-import { enable as enableFlags } from 'cozy-flags'
+import flag, { enable as enableFlags } from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
@@ -18,6 +18,8 @@ import ConnectionsQueue from 'ducks/connections/components/queue/index'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
+
+window.flag = window.flag || flag
 
 class App extends Component {
   state = {
