@@ -10,11 +10,10 @@ const useAppsInMaintenance = client => {
   useEffect(() => {
     const fetchData = async () => {
       const newAppsInMaintenance = await registry.fetchAppsInMaintenance()
-      if (newAppsInMaintenance.length !== appsInMaintenance.length)
-        setAppsInMaintenance(newAppsInMaintenance)
+      setAppsInMaintenance(newAppsInMaintenance)
     }
     fetchData()
-  })
+  }, [])
 
   return appsInMaintenance
 }
