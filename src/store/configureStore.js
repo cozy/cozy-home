@@ -5,6 +5,7 @@ import konnectorsI18nMiddleware from 'lib/middlewares/konnectorsI18n'
 import thunkMiddleware from 'redux-thunk'
 
 import CollectStore from 'lib/CollectStore'
+import flag from 'cozy-flags'
 import getReducers from 'reducers'
 
 const configureStore = (legacyClient, cozyClient, context, options = {}) => {
@@ -14,12 +15,15 @@ const configureStore = (legacyClient, cozyClient, context, options = {}) => {
   const reduxStore = createStore(
     getReducers(),
     composeEnhancers(
-      applyMiddleware.apply(this, [
-        cozyMiddleware(legacyClient),
-        konnectorsI18nMiddleware(options.lang),
-        thunkMiddleware,
-        createLogger()
-      ])
+      applyMiddleware.apply(
+        this,
+        [
+          cozyMiddleware(legacyClient),
+          konnectorsI18nMiddleware(options.lang),
+          thunkMiddleware,
+          flag('redux-logger') ? createLogger() : null
+        ].filter(Boolean)
+      )
     )
   )
 
