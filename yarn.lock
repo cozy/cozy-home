@@ -3459,10 +3459,22 @@ cozy-device-helper@1.8.0, cozy-device-helper@^1.7.3:
   dependencies:
     lodash "4.17.15"
 
-cozy-doctypes@1.67.0, cozy-doctypes@^1.67.0:
+cozy-doctypes@1.67.0:
   version "1.67.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.67.0.tgz#2e26cf43556cff298d0eec2f06091d15dc1758da"
   integrity sha512-+3w6YplviaaYxfwyQOV+FjB7siYvFaPtXuBwlIjCxITrzvKoZTw5tPd4hNW/BgRJjoT5HUCbVMhrsDu27xYr8Q==
+  dependencies:
+    "@babel/runtime" "7.5.5"
+    cozy-logger "^1.6.0"
+    date-fns "1.30.1"
+    es6-promise-pool "2.5.0"
+    lodash "4.17.15"
+    prop-types "^15.7.2"
+
+cozy-doctypes@^1.67.1:
+  version "1.67.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.67.1.tgz#1c6ea55c1798f0b019e636933e83a3b3c2a95ea3"
+  integrity sha512-X0HzUeq6Pplz5WkS8wNqUn3Qt4Bi2LrNcToXuXe4Smm38jWCod8imvIRPEt+I09cb7ginRQjFMquKPgium46nw==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
@@ -3478,13 +3490,13 @@ cozy-flags@1.10.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.11.0.tgz#e81e161ed9b8a590881c72b112e811566243a693"
-  integrity sha512-BpEkk6vBVjKXsWiHPr1hMkaG4gt93lP2wH5lu0iVuoHw/tPJS+j8ePjeYmM4ImVujc9qh1KGE7+YhJyxNqoT7Q==
+cozy-harvest-lib@1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.12.1.tgz#7875475e164c44d99b6b55bfc3ca5ac64195cc4b"
+  integrity sha512-m7fwPgAk9yJBMTq+voW39Ds8OfzVNFINkiLVKNVJGYOOhB9xbuUuRIZYgbOnxmDhsqj3lGsYNoaboKYzyp1Jjg==
   dependencies:
     "@babel/runtime" "^7.5.2"
-    cozy-doctypes "^1.67.0"
+    cozy-doctypes "^1.67.1"
     date-fns "^1.30.1"
     final-form "4.18.5"
     lodash "4.17.15"
@@ -3601,10 +3613,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@25.2.0:
-  version "25.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-25.2.0.tgz#3401cb578a9430966aa9439ddc7aa00c9910be46"
-  integrity sha512-nYNvJZMVUKKQUzumQDt82YBabYKpdWlHKi2Uq/46GNjxClUbm3vqP0yI9jz1bcJ7cMSZ0hPiBpVuR50xXMCfqw==
+cozy-ui@25.10.0:
+  version "25.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-25.10.0.tgz#05094390fba5195544064f1d733bce9d182d092d"
+  integrity sha512-4PfKQMIdOUT51vacYOwakPE4YBCt6JO8dxFJb7yGGm7QcbHa9pX2vC3LethjuG6d5L+r9b8ctJpdd0RPu9yuaw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
