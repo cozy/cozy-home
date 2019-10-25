@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.19.0",
+  "version": "1.20.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "apps": {
