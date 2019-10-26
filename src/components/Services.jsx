@@ -62,9 +62,8 @@ const Services = ({ t, installedKonnectors, client }) => {
 
 const mapStateToProps = state => {
   return {
-    installedKonnectors: sortBy(
-      getInstalledKonnectors(state),
-      konnector => konnector.name
+    installedKonnectors: sortBy(getInstalledKonnectors(state), konnector =>
+      konnector.name.toLowerCase()
     )
   }
 }
