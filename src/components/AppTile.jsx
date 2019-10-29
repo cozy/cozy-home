@@ -9,9 +9,10 @@ export class AppTile extends Component {
   render() {
     const { app, t } = this.props
     const { domain, secure } = this.context
-    const displayName = app.name_prefix
-      ? `${app.name_prefix} ${app.name}`
-      : app.name
+    const displayName =
+      app.name_prefix && app.name_prefix.toLowerCase() !== 'cozy'
+        ? `${app.name_prefix} ${app.name}`
+        : app.name
     const appHref = app.links && app.links.related
     return (
       <AppLinker slug={app.slug} href={appHref}>
