@@ -2,8 +2,7 @@
 import React, { Component } from 'react'
 
 import Icon from 'cozy-ui/react/Icon'
-
-import addServiceIcon from 'assets/icons/icon-plus-add-service.svg'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 export class AddServiceTile extends Component {
   constructor(props) {
@@ -42,7 +41,7 @@ export class AddServiceTile extends Component {
           <Icon icon="spinner" className="item-icon" color="grey" spin />
         ) : (
           <div className="item-icon">
-            <Icon icon={addServiceIcon} />
+            <Icon icon="plus" size={16} color={palette['dodgerBlue']} />
           </div>
         )}
         <span className="item-title">{label}</span>
