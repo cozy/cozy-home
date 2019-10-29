@@ -1,5 +1,5 @@
 {
   "defaultDateFormat": "MM/DD/YYYY",
   "defaultTriggerTimeInterval": [0, 5],
-  "filteredApps": ["home", "settings"]
+  "filteredApps": ["home"]
 }
