@@ -11,7 +11,6 @@ import EmptyIcon from 'assets/images/connected-accounts.svg'
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
 import classNames from 'classnames'
-import fillWithGhostItems from 'components/helpers/fillWithGhostItems'
 import { getInstalledKonnectors } from 'reducers/index'
 import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
 
@@ -19,43 +18,40 @@ const Services = ({ t, installedKonnectors, client }) => {
   const hasConnections = !!installedKonnectors.length
   const appsInMaintenance = useAppsInMaintenance(client)
   const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
-  return (
+
+  return hasConnections ? (
     <div
-      className={classNames('services-list-wrapper', {
+      className={classNames('services-list', {
         'services-list-wrapper--empty': !hasConnections
       })}
+      data-tutorial="home-services"
     >
-      {hasConnections ? (
-        <div className="list connector-list" data-tutorial="home-services">
-          {installedKonnectors.map((konnector, index) => (
-            <KonnectorTile
-              key={index}
-              konnector={konnector}
-              route={`connected/${konnector.slug}`}
-              isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
-            />
-          ))}
-          {<AddServiceTile label={t('add_service')} />}
-          {fillWithGhostItems(6)}
-        </div>
-      ) : (
-        <div className="connector-list col-empty-list">
-          <div className="col-empty-list--img">
-            <img
-              src={EmptyIcon}
-              data-tutorial="home-services"
-              alt={t('connector.empty')}
-            />
-          </div>
-          <div className="col-empty-list--text">
-            <h2>{t('connector.no-connectors-connected')}</h2>
-            <p>{t('connector.get-info')}</p>
-            <NavLink to="/providers/all" className="col-button">
-              <span>{t('connector.connect-account')}</span>
-            </NavLink>
-          </div>
-        </div>
-      )}
+      {installedKonnectors.map((konnector, index) => (
+        <KonnectorTile
+          key={index}
+          konnector={konnector}
+          route={`connected/${konnector.slug}`}
+          isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
+        />
+      ))}
+      {<AddServiceTile label={t('add_service')} />}
+    </div>
+  ) : (
+    <div className="connector-list col-empty-list">
+      <div className="col-empty-list--img">
+        <img
+          src={EmptyIcon}
+          data-tutorial="home-services"
+          alt={t('connector.empty')}
+        />
+      </div>
+      <div className="col-empty-list--text">
+        <h2>{t('connector.no-connectors-connected')}</h2>
+        <p>{t('connector.get-info')}</p>
+        <NavLink to="/providers/all" className="col-button">
+          <span>{t('connector.connect-account')}</span>
+        </NavLink>
+      </div>
     </div>
   )
 }

@@ -15,6 +15,8 @@
     align-items center
     justify-content space-between
     flex-wrap nowrap
+    max-width: rem(BP-small)
+    margin: 2rem auto
 
     +mobile()
         flex-direction column
@@ -34,9 +36,10 @@
 
     &--img
         flex 1 0 50%
+        max-height rem(240)
+
         img
             width 100%
-            max-height rem(240)
 
         +mobile()
             flex 1 1 100%
