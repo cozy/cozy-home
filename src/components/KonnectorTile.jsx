@@ -3,13 +3,12 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import flag from 'cozy-flags'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
-import brokenIcon from 'assets/icons/broken.svg'
 import {
   getFirstError,
   getFirstUserError,
@@ -24,38 +23,12 @@ const getKonnectorError = ({ error, t }) => {
     : null
 }
 
-const getErrorClass = ({
-  accountsCount,
-  error,
-  hide,
-  hasUpdate,
-  isInMaintenance,
-  userError
-}) => {
-  if (hide) return ''
-
-  if (hasUpdate) {
-    return 'konnector-error--with-badge'
-  }
-
-  if (isInMaintenance) {
-    return 'konnector-error--minor-breaking'
-  }
-
-  // userError must be checked first as it is also an error.
-  if (userError) {
-    return 'konnector-error--major-breaking konnector-error--with-badge'
-  }
-
-  if (error) {
-    return 'konnector-error--minor-breaking'
-  }
-
-  if (!accountsCount) {
-    return 'konnector-error--major-breaking'
-  }
-
-  return null
+const STATUS = {
+  OK: 0,
+  UPDATE: 1,
+  MAINTENANCE: 2,
+  ERROR: 3,
+  NO_ACCOUNT: 4
 }
 
 export class KonnectorTile extends Component {
@@ -70,33 +43,45 @@ export class KonnectorTile extends Component {
       t
     } = this.props
     const { domain, secure } = this.context
-    const hideKonnectorErrors = flag('hide_konnector_errors')
+
+    let status
+
+    if (konnector.available_version) status = STATUS.UPDATE
+    else if (isInMaintenance) status = STATUS.MAINTENANCE
+    else if (error || userError) status = STATUS.ERROR
+    else if (!accountsCount) status = STATUS.NO_ACCOUNT
+    else status = STATUS.OK
+
     return (
       <NavLink
-        className="item-wrapper"
+        className={classNames('item-wrapper', {
+          '--ghost': status === STATUS.NO_ACCOUNT,
+          '--maintenance': status === STATUS.MAINTENANCE
+        })}
         to={route}
         title={getKonnectorError({ error, t })}
       >
-        <div
-          className={classNames(
-            'item-icon',
-            getErrorClass({
-              accountsCount,
-              error,
-              hide: hideKonnectorErrors,
-              userError,
-              hasUpdate: !!konnector.available_version,
-              isInMaintenance
-            })
-          )}
-        >
+        <div className="item-icon">
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             app={konnector}
             domain={domain}
             secure={secure}
           />
-          <Icon icon={brokenIcon} className="konnector-state" />
+          {status === STATUS.MAINTENANCE && (
+            <Icon
+              icon="wrench-circle"
+              className="item-status"
+              color={palette.coolGrey}
+            />
+          )}
+          {status === STATUS.ERROR && (
+            <Icon
+              icon="warning-circle"
+              className="item-status"
+              color={palette.pomegranate}
+            />
+          )}
         </div>
         <h3 className="item-title">{konnector.name}</h3>
       </NavLink>
