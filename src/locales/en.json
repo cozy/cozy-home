@@ -2,7 +2,8 @@
   "app": {
     "logo": {
       "alt": "%{name} logo"
-    }
+    },
+    "logout": "Log out"
   },
   "date": {
     "format": "MM/DD/YYYY",
@@ -94,7 +95,7 @@
       "withoutSettings": {
         "title": "Related folder"
       },
-      "link" : "Open the folder in Cozy Drive",
+      "link": "Open the folder in Cozy Drive",
       "changePath": "change the path",
       "error": "Oops, something went wrong. Don't panic, your files are still there, please try again later",
       "close": "close",
@@ -415,7 +416,8 @@
     },
     "enedis": {
       "description": {
-        "service": "Recover your Linky data by connecting your Enedis account. You must have a Linky meter and have first created your Enedis account (on the [Enedis website](https://espace-client-connexion.enedis.fr/auth/UI/Login?realm=particuliers). This connector is provided by Fing for the MesInfos project. It retrieves the data from your electricity contract and downloads your electricity consumption the day before. This connector is running on your Cozy and the Fing will have no access to this data."      }
+        "service": "Recover your Linky data by connecting your Enedis account. You must have a Linky meter and have first created your Enedis account (on the [Enedis website](https://espace-client-connexion.enedis.fr/auth/UI/Login?realm=particuliers). This connector is provided by Fing for the MesInfos project. It retrieves the data from your electricity contract and downloads your electricity consumption the day before. This connector is running on your Cozy and the Fing will have no access to this data."
+      }
     },
     "orange": {
       "message": {

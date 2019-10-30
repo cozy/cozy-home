@@ -10,6 +10,7 @@ import { Main, Content } from 'cozy-ui/react/Layout'
 import Spinner from 'cozy-ui/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
+import HeroHeader from 'components/HeroHeader'
 import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
@@ -86,7 +87,7 @@ class App extends Component {
         }
       >
         <Alerter />
-        <div className="ho-background" />
+        <HeroHeader />
         {hasError && (
           <Main>
             <Content
