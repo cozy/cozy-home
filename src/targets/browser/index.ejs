@@ -14,7 +14,6 @@
 {{.ThemeCSS}}
 <% if (__STACK_ASSETS__) { %>
 {{.CozyClientJS}}
-{{.CozyBar}}
 <% } else { %>
   <%/* Perf: we don't load the font twice as it is already provided by the CozyBar */%>
   <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
