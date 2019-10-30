@@ -4,12 +4,12 @@ exports[`KonnectorTile component should display correct error status if no accou
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item-wrapper --ghost"
   title={null}
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--major-breaking"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -20,11 +20,6 @@ exports[`KonnectorTile component should display correct error status if no accou
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3
@@ -44,7 +39,7 @@ exports[`KonnectorTile component should display correct error status if other er
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--minor-breaking"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -57,8 +52,9 @@ exports[`KonnectorTile component should display correct error status if other er
       }
     />
     <Icon
-      className="konnector-state"
-      icon="test-file-stub"
+      className="item-status"
+      color="var(--pomegranate)"
+      icon="warning-circle"
       spin={false}
     />
   </div>
@@ -79,7 +75,7 @@ exports[`KonnectorTile component should display correct error status if user err
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--major-breaking konnector-error--with-badge"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -92,8 +88,9 @@ exports[`KonnectorTile component should display correct error status if user err
       }
     />
     <Icon
-      className="konnector-state"
-      icon="test-file-stub"
+      className="item-status"
+      color="var(--pomegranate)"
+      icon="warning-circle"
       spin={false}
     />
   </div>
@@ -109,12 +106,12 @@ exports[`KonnectorTile component should display correct status if in maintenance
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item-wrapper --maintenance"
   title={null}
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--minor-breaking"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -127,8 +124,9 @@ exports[`KonnectorTile component should display correct status if in maintenance
       }
     />
     <Icon
-      className="konnector-state"
-      icon="test-file-stub"
+      className="item-status"
+      color="var(--coolGrey)"
+      icon="wrench-circle"
       spin={false}
     />
   </div>
@@ -149,7 +147,7 @@ exports[`KonnectorTile component should display correct status if update 1`] = `
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--with-badge"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -160,11 +158,6 @@ exports[`KonnectorTile component should display correct status if update 1`] = `
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3
@@ -184,7 +177,7 @@ exports[`KonnectorTile component should display correct status if update even if
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--with-badge"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -195,11 +188,6 @@ exports[`KonnectorTile component should display correct status if update even if
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3
@@ -219,7 +207,7 @@ exports[`KonnectorTile component should display correct status if update even if
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--with-badge"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -230,11 +218,6 @@ exports[`KonnectorTile component should display correct status if update even if
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3
@@ -254,7 +237,7 @@ exports[`KonnectorTile component should display correct status if update even if
   to="/mock"
 >
   <div
-    className="item-icon konnector-error--with-badge"
+    className="item-icon"
   >
     <AppIcon
       alt="Mock logo"
@@ -265,11 +248,6 @@ exports[`KonnectorTile component should display correct status if update even if
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3
@@ -300,11 +278,6 @@ exports[`KonnectorTile component should render correctly if success 1`] = `
           "slug": "mock",
         }
       }
-    />
-    <Icon
-      className="konnector-state"
-      icon="test-file-stub"
-      spin={false}
     />
   </div>
   <h3

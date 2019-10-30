@@ -1,208 +1,177 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
-sundown = #ffb3b3
-
-.app-list-wrapper
-    margin-top rem(32)
-    border-radius rem(8)
-    background-color rgba(255, 255, 255, .85)
-    padding rem(16 24)
-
-    @media (max-width: 60rem)
-        margin-top 0
-        border-radius 0
-
-    @media (max-width: rem(466))
-        padding rem(16)
-
-.services-list-wrapper
-    margin-top rem(24)
-    padding rem(16 24)
-
-    @media (max-width: rem(466))
-        margin-top rem(16)
-        padding rem(16)
-
-.services-list-wrapper--empty
-    background-color var(--white)
-    border-radius 8px
-
-    @media (max-width: 60rem)
-        margin rem(24) rem(24) 0
-
-    @media (max-width: rem(466))
-        margin rem(16) rem(16) 0
-
-.item-wrapper--ghost
-    width 7.125rem
-    height 0
-    flex-shrink 0
-
-    @media (max-width: rem(466))
-        width rem(72)
-
-.item-wrapper
-    position relative
-    box-sizing border-box
-    width 7.125rem
-    height 7.125rem
-    display flex
-    flex-direction column
-    justify-content center
-    align-items center
-    flex-shrink 0
-    cursor pointer
-    text-decoration none
-    text-align center
-    transition .3s ease all
-
-    @media (max-width: rem(466))
-        width rem(72)
-        height rem(72)
-
-
-.item-icon
-    position relative
-    width 4rem
-    height 4rem
-
-    @media (max-width: rem(466))
-        width rem(40)
-        height rem(40)
-
-.list
-    display flex
-    flex-direction row
-    justify-content space-between
-    flex-wrap wrap
+appTileSize = 6rem
+serviceTileSize = 5rem
+mobileTileSize = 4rem
 
 .app-list
-    .item-wrapper
-        border-radius rem(4)
-        &:hover
-        &:focus
-            background-color var(--white)
-            box-shadow 0 rem(3) rem(8) 0 rgba(50, 54, 63, .15)
-            transition .3s ease all
+  position: relative
+  margin-top: -(appTileSize / 2)
+  display: grid
+  grid-template-columns: repeat(auto-fit, appTileSize)
+  grid-auto-rows: appTileSize
+  grid-gap: rem(8)
+  justify-content: center
 
-.connector-list
-    .item-icon
-        box-sizing border-box
-        background-color var(--white)
-        border-radius rem(4)
-        padding  rem(12)
-        transition .3s ease all
-        display flex
-        align-items center
-        @media (max-width: rem(466))
-            padding rem(8)
+  +tiny-screen()
+    margin-top: -(mobileTileSize / 2)
+    grid-template-columns: repeat(auto-fit, mobileTileSize)
+    grid-auto-rows: mobileTileSize
+    grid-gap: rem(4)
 
-        img
-            height auto
-            width 100%
 
-        &.konnector-error--major-breaking
-            color sundown
-            border rem(2) solid sundown
-            background-color var(--chablis)
-        &.konnector-error--with-badge::before
-            content ''
-            position absolute
-            top 0
-            right 0
-            width rem(16)
-            height rem(16)
-            background-color var(--pomegranate)
-            border-radius 50%
-            transform translateX(50%) translateY(-50%)
+.services-list
+    width: 100%
+    max-width: "calc(%s * 7 + 16px * 6)" % serviceTileSize // 7 columns + 6 column gaps@
+    margin: auto
+    margin-top rem(48)
+    display: grid
+    grid-template-columns: repeat(auto-fit, serviceTileSize)
+    grid-auto-rows: serviceTileSize
+    grid-gap: rem(16)
+    justify-content: center
 
-        &.konnector-error--minor-breaking
-            color var(--silver)
-            border rem(2) solid var(--silver)
+    +tiny-screen()
+      margin-top rem(24)
+      grid-template-columns: repeat(auto-fit, mobileTileSize)
+      grid-auto-rows: mobileTileSize
+      grid-gap: rem(2)
 
-    .konnector-error--minor-breaking .konnector-state,
-    .konnector-error--major-breaking .konnector-state
-        display block
 
-    .konnector-state
-        display none
-        position absolute
-        top 0
-        left 0
-        width 100%
-        height 100%
+.item-wrapper
+  box-sizing border-box
+  border-radius rem(8)
+  width 100%
+  height 100%
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  flex-shrink 0
+  cursor pointer
+  text-decoration none
+  text-align center
+  transition .3s ease all
 
-    .item-wrapper
-        &:hover
-        &:focus
-            .item-icon
-                box-shadow 0 rem(3) rem(8) 0 rgba(50, 54, 63, .15)
-                transform  scale(1.2)
-                transition .3s ease all
+.item-icon
+  margin-bottom: rem(8)
 
-    .--add-service
-        display flex
-        flex-direction column
-        justify-content center
-
-        &:hover
-        &:focus
-            .item-icon
-                box-shadow none
-
-        .item-icon
-            box-sizing border-box
-            display flex
-            justify-content center
-            align-items center
-            padding rem(4)
-            background-color transparent
-            color var(--coolGrey)
-            svg
-                width rem(56)
-                height rem(56)
-
-            @media (max-width: rem(466))
-                padding rem(2)
-
-                svg
-                    width rem(36)
-                    height rem(36)
-
-        .item-title
-            text-transform uppercase
-
-        &[aria-busy]
-            opacity .8
-
-            &:hover
-                transform  none
+  +tiny-screen()
+      margin-bottom: rem(4)
 
 .item-title
-    width 80%
-    margin rem(5) auto 0
-    color var(--black)
-    font-size .875rem
-    line-height 1.5
-    font-weight 700
-    white-space nowrap
-    overflow hidden
-    text-overflow ellipsis
+  width 80%
+  margin 0
+  color var(--charcoalGrey)
+  font-size .875rem
+  font-weight normal
+  line-height 1
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
 
-    @media (max-width: rem(466))
+  +tiny-screen()
+    font-size: .625rem
+    line-height: 1.2
 
-        font-size rem(10)
-        line-height 1.8
+.app-list
+  .item-wrapper
+    background-color var(--white)
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08)
+    border: solid 1px rgba(0, 0, 0, 0.08)
+    padding 20px 4px 12px
+    transition .2s ease all
 
-// Custom background override
-.has-custom-background
-    .connector-list
-        .item-title
-            color var(--white)
-            text-shadow 0 0 rem(4) var(--charcoalGrey)
-        .--add-service
-            .item-icon
-                color var(--white)
-                svg
-                    filter: drop-shadow(0 0 rem(2) var(--charcoalGrey))
+    &:active
+    &:focus
+      background-color: var(--paleGrey)
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08), 0 4px 24px 0 rgba(50, 54, 63, 0.08)
+
+    &:hover
+      transform: scale(1.1)
+      transition .2s ease all
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08), 0 4px 24px 0 rgba(50, 54, 63, 0.08)
+
+    @media (pointer: coarse)
+      &:hover
+        transform:none
+
+    +tiny-screen()
+      padding 10px 4px 6px
+
+  .item-icon
+    width rem(40)
+    height rem(40)
+
+    +tiny-screen()
+      width rem(32)
+      height rem(32)
+
+.services-list
+  .item-wrapper
+    padding 12px 8px 12px
+    border-radius: 8px
+    border-width: 1px
+    border-style: solid
+    border-color: transparent
+    position: relative
+    z-index: 13
+
+    &:hover
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08)
+      border-color: rgba(0, 0, 0, 0.08)
+      background-color: var(--white)
+      transform: scale(1.1)
+
+    &:active
+    &:focus
+      background-color: var(--paleGrey)
+      border-color: rgba(0, 0, 0, 0.08)
+
+    @media (pointer: coarse)
+      &:hover
+        transform:none
+
+    +tiny-screen()
+      padding 12px 4px
+
+    &.--maintenance .item-icon
+      filter: grayscale(1)
+      opacity: .64
+
+    &.--ghost
+      background: var(--zircon)
+      border: dashed 1px var(--frenchPass)
+
+      .item-icon
+        filter: sepia(1) hue-rotate(-180deg)
+
+  .item-icon
+    width rem(32)
+    height rem(32)
+    position: relative
+
+  .item-status
+    position: absolute
+    bottom: -6px
+    right: -6px
+    border: 2px solid var(--white)
+    border-radius: 50%
+    background var(--white)
+
+  .item-wrapper.--add-service
+    .item-icon
+      box-sizing: border-box
+      display: flex
+      justify-content: center
+      align-items: center
+      background: var(--zircon)
+      border: dashed 1px var(--frenchPass)
+      border-radius: 4px
+
+    &[aria-busy]
+      opacity .8
+
+    &[aria-busy]:hover
+      transform none
