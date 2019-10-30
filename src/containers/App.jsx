@@ -6,7 +6,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
-import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+import { Main, Content } from 'cozy-ui/react/Layout'
 import Spinner from 'cozy-ui/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
@@ -75,9 +75,8 @@ class App extends Component {
     const isReady = !hasError && !isFetching && !isFetchingContext
 
     return (
-      <Layout
-        monoColumn
-        className="u-flex u-flex-column"
+      <div
+        className="layout"
         ref={
           isReady
             ? div => {
@@ -97,7 +96,11 @@ class App extends Component {
             </Content>
           </Main>
         )}
-        {isFetching && <Spinner middle size="xxlarge" loadingType="initial" />}
+        {isFetching && (
+          <Main className="main-loader">
+            <Spinner size="xxlarge" />
+          </Main>
+        )}
         {isReady && (
           <Switch>
             <Route path="/redirect" component={IntentRedirect} />
@@ -115,7 +118,7 @@ class App extends Component {
         )}
         <ConnectionsQueue />
         <IconSprite />
-      </Layout>
+      </div>
     )
   }
 }
