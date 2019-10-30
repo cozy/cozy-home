@@ -22,11 +22,6 @@ body
     +mobile()
         overflow auto
 
-.ho-background
-    position fixed
-    height 100vh
-    width 100vw
-    background var(--paleGrey)
 .layout
   display: flex
   flex-direction: column;
@@ -40,6 +35,13 @@ body
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+
+.main-content
+  flex-grow: 1;
+
+.lists-wrapper
+  display: flex;
+  flex-direction: column;
 
 .col-content
     margin 0 auto

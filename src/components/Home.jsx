@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
 import { Route, withRouter } from 'react-router'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -37,17 +36,11 @@ class Home extends Component {
   render() {
     const { wrapper } = this.props
     return (
-      <Main>
+      <Main className="main-content">
         <ScrollToTopOnMount target={wrapper} />
-        <Content className="u-flex">
-          <div
-            className={classNames('col-content', 'u-flex-grow-1', {
-              'has-custom-background': false
-            })}
-          >
-            <Applications />
-            <Services />
-          </div>
+        <Content className="lists-wrapper">
+          <Applications />
+          <Services />
           <FooterLogo />
         </Content>
         <Route path="/connected/:konnectorSlug" component={Konnector} />
