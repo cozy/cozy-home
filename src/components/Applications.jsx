@@ -6,7 +6,6 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import AppTile from 'components/AppTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
-import fillWithGhostItems from 'components/helpers/fillWithGhostItems'
 import homeConfig from 'config/collect'
 import { receiveApps } from 'ducks/apps'
 
@@ -28,12 +27,7 @@ class LoadingAppTiles extends PureComponent {
         </div>
       )
     }
-    return (
-      <div className="list app-list">
-        {tiles}
-        {fillWithGhostItems(6)}
-      </div>
-    )
+    return <>{tiles}</>
   }
 }
 
@@ -41,7 +35,7 @@ export class Applications extends PureComponent {
   render() {
     const { receiveApps } = this.props
     return (
-      <div className="app-list-wrapper">
+      <div className="app-list" data-tutorial="home-apps">
         <Query
           query={client => {
             return client.all('io.cozy.apps')
@@ -54,18 +48,13 @@ export class Applications extends PureComponent {
             return fetchStatus !== 'loaded' ? (
               <LoadingAppTiles num="3" />
             ) : (
-              <div className="list app-list" data-tutorial="home-apps">
-                {data
-                  .filter(
-                    app =>
-                      app.state !== 'hidden' &&
-                      !homeConfig.filteredApps.includes(app.slug)
-                  )
-                  .map((app, index) => (
-                    <AppTile key={index} app={app} />
-                  ))}
-                {fillWithGhostItems(6)}
-              </div>
+              data
+                .filter(
+                  app =>
+                    app.state !== 'hidden' &&
+                    !homeConfig.filteredApps.includes(app.slug)
+                )
+                .map((app, index) => <AppTile key={index} app={app} />)
             )
           }}
         </Query>

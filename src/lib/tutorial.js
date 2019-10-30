@@ -41,7 +41,7 @@ export function display(t) {
             'tutorial.home.apps.text'
           )}</div>`,
           tooltipClass: 'tooltipApps',
-          position: 'bottom'
+          position: 'bottom-middle-aligned'
         },
         {
           element: servicesPanel,
