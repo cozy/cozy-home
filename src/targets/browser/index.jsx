@@ -1,4 +1,4 @@
-/* global cozy, __DEVELOPMENT__ */
+/* global __DEVELOPMENT__ */
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
@@ -62,15 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     token: data.cozyToken
-  })
-
-  cozy.bar.init({
-    appEditor: data.cozyAppEditor,
-    appName: data.cozyAppName,
-    cozyClient,
-    iconPath: data.cozyIconPath,
-    lang: data.cozyLocale,
-    replaceTitleOnMobile: false
   })
 
   // store
