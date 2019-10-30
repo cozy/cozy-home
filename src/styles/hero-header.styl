@@ -2,68 +2,68 @@
 @require 'settings/palette.styl'
 
 .hero-header
-  box-sizing: border-box;
-  background-color var(--silver)
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 50%;
-  flex-shrink: 0;
-  position: relative;
-  padding 3rem 4rem calc(3rem + 3rem) //3rem of own padding bottom, and another 3rem for the app icons that are floating
+    box-sizing border-box
+    background-color var(--silver)
+    background-repeat no-repeat
+    background-size cover
+    background-position center
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    min-height 50%
+    flex-shrink 0
+    position relative
+    padding 3rem 4rem calc(3rem + 3rem) // 3rem of own padding bottom, and another 3rem for the app icons that are floating
 
-  .corner
-    position: absolute;
-    top: 0px;
-    right: 0px;
+    .corner
+        position absolute
+        top 0
+        right 0
 
-    .corner-button
-        opacity: 0.64;
-        text-shadow: 0 2px 16px rgba(50, 54, 63, 0.24), 0 1px 4px rgba(50, 54, 63, 0.24), 1px 0 0 rgba(50, 54, 63, 0.16), -1px 0 0 rgba(50, 54, 63, 0.16), 0 1px 0 rgba(50, 54, 63, 0.16);
-        color: var(--primaryContrastTextColor)
-        transition .3s ease all
+        .corner-button
+            opacity .64
+            text-shadow 0 2px 16px rgba(50, 54, 63, .24), 0 1px 4px rgba(50, 54, 63, .24), 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 rgba(50, 54, 63, .16), 0 1px 0 rgba(50, 54, 63, .16)
+            color var(--primaryContrastTextColor)
+            transition .3s ease all
 
-        &:hover
-          opacity: 1
+            &:hover
+                opacity 1
 
-  .hero-avatar
-    width: 8rem
-    height: 8rem
-    border-radius: 50%;
-    border: 4px solid var(--white);
-    box-shadow: 0 2px 16px 0 rgba(50, 54, 63, 0.32);
-    margin-bottom: 1rem;
+    .hero-avatar
+        width 8rem
+        height 8rem
+        border-radius 50%
+        border 4px solid var(--white)
+        box-shadow 0 2px 16px 0 rgba(50, 54, 63, .32)
+        margin-bottom 1rem
 
-    +tiny-screen()
-        width: 4rem
-        height: 4rem
-        border-width: 2px
-        margin-bottom: .25rem;
+        +tiny-screen()
+            width 4rem
+            height 4rem
+            border-width 2px
+            margin-bottom .25rem
 
-  .hero-title
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 1.25;
-    color: var(--primaryContrastTextColor);
-    margin: 0
-    text-shadow: 0 2px 16px rgba(50, 54, 63, 0.32), 0 1px 4px rgba(50, 54, 63, 0.32);
+    .hero-title
+        font-size 2rem
+        font-weight bold
+        line-height 1.25
+        color var(--primaryContrastTextColor)
+        margin 0
+        text-shadow 0 2px 16px rgba(50, 54, 63, .32), 0 1px 4px rgba(50, 54, 63, .32)
 
-    +tiny-screen()
-        font-size: 1.5rem;
-        line-height: 1.33;
+        +tiny-screen()
+            font-size 1.5rem
+            line-height 1.33
 
-  .hero-subtitle
-    color: var(--primaryContrastTextColor);
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1.13;
-    margin: 0;
-    text-shadow: 0 2px 16px rgba(50, 54, 63, 0.24), 0 1px 4px rgba(50, 54, 63, 0.24), 1px 0 0 rgba(50, 54, 63, 0.16), -1px 0 0 rgba(50, 54, 63, 0.16), 0 1px 0 rgba(50, 54, 63, 0.16);
+    .hero-subtitle
+        color var(--primaryContrastTextColor)
+        font-size 16px
+        font-weight normal
+        line-height 1.13
+        margin 0
+        text-shadow 0 2px 16px rgba(50, 54, 63, .24), 0 1px 4px rgba(50, 54, 63, .24), 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 rgba(50, 54, 63, .16), 0 1px 0 rgba(50, 54, 63, .16)
 
-    +tiny-screen()
-        font-size: .875rem;
-        line-height: 1.14;
+        +tiny-screen()
+            font-size .875rem
+            line-height 1.14
