@@ -9,10 +9,10 @@ const useInstanceSettings = client => {
     const fetchData = async () => {
       try {
         setFetchStatus('loading')
-        const response = await client
-          .getStackClient()
-          .fetchJSON('GET', '/settings/instance')
-        setSettings(get(response, 'data.attributes'), {})
+        const response = await client.query(
+          client.all('io.cozy.settings').getById('instance')
+        )
+        setSettings(get(response, 'attributes'), {})
         setFetchStatus('loaded')
       } catch (error) {
         setFetchStatus('failed')
