@@ -4,7 +4,7 @@ exports[`KonnectorTile component should display correct error status if no accou
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper --ghost"
+  className="item item--ghost"
   title={null}
   to="/mock"
 >
@@ -34,7 +34,7 @@ exports[`KonnectorTile component should display correct error status if other er
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title="Expected test user error"
   to="/mock"
 >
@@ -70,7 +70,7 @@ exports[`KonnectorTile component should display correct error status if user err
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title={null}
   to="/mock"
 >
@@ -106,7 +106,7 @@ exports[`KonnectorTile component should display correct status if in maintenance
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper --maintenance"
+  className="item item--maintenance"
   title={null}
   to="/mock"
 >
@@ -142,7 +142,7 @@ exports[`KonnectorTile component should display correct status if update 1`] = `
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title={null}
   to="/mock"
 >
@@ -172,7 +172,7 @@ exports[`KonnectorTile component should display correct status if update even if
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title={null}
   to="/mock"
 >
@@ -202,7 +202,7 @@ exports[`KonnectorTile component should display correct status if update even if
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title="Expected test error"
   to="/mock"
 >
@@ -232,7 +232,7 @@ exports[`KonnectorTile component should display correct status if update even if
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title={null}
   to="/mock"
 >
@@ -262,7 +262,7 @@ exports[`KonnectorTile component should render correctly if success 1`] = `
 <NavLink
   activeClassName="active"
   aria-current="page"
-  className="item-wrapper"
+  className="item"
   title={null}
   to="/mock"
 >

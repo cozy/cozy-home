@@ -17,7 +17,7 @@ export class AppTile extends Component {
     return (
       <AppLinker slug={app.slug} href={appHref}>
         {({ onClick, href }) => (
-          <a onClick={onClick} href={href} className="item-wrapper">
+          <a onClick={onClick} href={href} className="item">
             <div className="item-icon">
               <AppIcon
                 alt={t('app.logo.alt', { name: displayName })}

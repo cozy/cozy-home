@@ -34,7 +34,7 @@ export class AddServiceTile extends Component {
     return (
       <div
         aria-busy={redirecting}
-        className="item-wrapper --add-service"
+        className="item item--add-service"
         onClick={this.toggleRedirect}
       >
         {redirecting ? (
