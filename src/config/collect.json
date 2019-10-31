@@ -1,5 +1,7 @@
 {
   "defaultDateFormat": "MM/DD/YYYY",
   "defaultTriggerTimeInterval": [0, 5],
-  "filteredApps": ["home"]
+  "filteredApps": ["home"],
+  "defaultWallpaperPath": "/assets/images/default-wallpaper.jpg",
+  "customWallpaperPath": "/Photos/Settings/Wallpaper.jpg"
 }
