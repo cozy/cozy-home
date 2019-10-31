@@ -1,6 +1,10 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
+textShadowLight = rgba(50, 54, 63, .16)
+textShadowMedium = rgba(50, 54, 63, .24)
+textShadowHeavy = rgba(50, 54, 63, .32)
+
 .hero-header
     box-sizing border-box
     background-color var(--silver)
@@ -23,7 +27,7 @@
 
         .corner-button
             opacity .64
-            text-shadow 0 2px 16px rgba(50, 54, 63, .24), 0 1px 4px rgba(50, 54, 63, .24), 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 rgba(50, 54, 63, .16), 0 1px 0 rgba(50, 54, 63, .16)
+            text-shadow 0 2px 16px textShadowMedium, 0 1px 4px textShadowMedium, 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 textShadowLight, 0 1px 0 textShadowLight
             color var(--primaryContrastTextColor)
             transition .3s ease all
 
@@ -35,7 +39,7 @@
         height 8rem
         border-radius 50%
         border 4px solid var(--white)
-        box-shadow 0 2px 16px 0 rgba(50, 54, 63, .32)
+        box-shadow 0 2px 16px 0 textShadowHeavy
         margin-bottom 1rem
 
         +tiny-screen()
@@ -50,7 +54,7 @@
         line-height 1.25
         color var(--primaryContrastTextColor)
         margin 0
-        text-shadow 0 2px 16px rgba(50, 54, 63, .32), 0 1px 4px rgba(50, 54, 63, .32)
+        text-shadow 0 2px 16px textShadowHeavy, 0 1px 4px textShadowHeavy
 
         +tiny-screen()
             font-size 1.5rem
@@ -62,7 +66,7 @@
         font-weight normal
         line-height 1.13
         margin 0
-        text-shadow 0 2px 16px rgba(50, 54, 63, .24), 0 1px 4px rgba(50, 54, 63, .24), 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 rgba(50, 54, 63, .16), 0 1px 0 rgba(50, 54, 63, .16)
+        text-shadow 0 2px 16px textShadowMedium, 0 1px 4px textShadowMedium, 1px 0 0 textShadowLight, -1px 0 0 textShadowLight, 0 1px 0 textShadowLight
 
         +tiny-screen()
             font-size .875rem
