@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-
-const WALLPAPER_PATH = '/Photos/Settings/Wallpaper.jpg'
+import homeConfig from 'config/collect'
 
 const useCustomWallpaper = client => {
   const [wallpaperLink, setWallpaperLink] = useState(null)
@@ -12,7 +11,7 @@ const useCustomWallpaper = client => {
         setFetchStatus('loading')
         const response = await client
           .collection('io.cozy.files')
-          .getDownloadLinkByPath(WALLPAPER_PATH)
+          .getDownloadLinkByPath(homeConfig.customWallpaperPath)
         setWallpaperLink(response)
         setFetchStatus('loaded')
       } catch (error) {
