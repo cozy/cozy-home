@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import get from 'lodash/get'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
@@ -31,6 +32,20 @@ const STATUS = {
   NO_ACCOUNT: 4
 }
 
+const getKonnectorStatus = ({
+  konnector,
+  isInMaintenance,
+  error,
+  userError,
+  accountsCount
+}) => {
+  if (konnector.available_version) return STATUS.UPDATE
+  else if (isInMaintenance) return STATUS.MAINTENANCE
+  else if (error || userError) return STATUS.ERROR
+  else if (!accountsCount) return STATUS.NO_ACCOUNT
+  else return STATUS.OK
+}
+
 export class KonnectorTile extends Component {
   render() {
     const {
@@ -44,20 +59,40 @@ export class KonnectorTile extends Component {
     } = this.props
     const { domain, secure } = this.context
 
-    let status
+    const statusThemes = {
+      [STATUS.NO_ACCOUNT]: {
+        className: 'item--ghost',
+        icon: null,
+        color: null
+      },
+      [STATUS.MAINTENANCE]: {
+        className: 'item--maintenance',
+        icon: 'wrench-circle',
+        color: palette.coolGrey
+      },
+      [STATUS.ERROR]: {
+        className: null,
+        icon: 'warning-circle',
+        color: palette.pomegranate
+      }
+    }
 
-    if (konnector.available_version) status = STATUS.UPDATE
-    else if (isInMaintenance) status = STATUS.MAINTENANCE
-    else if (error || userError) status = STATUS.ERROR
-    else if (!accountsCount) status = STATUS.NO_ACCOUNT
-    else status = STATUS.OK
+    const status = getKonnectorStatus({
+      konnector,
+      isInMaintenance,
+      error,
+      userError,
+      accountsCount
+    })
+    const { className: statusClassName, icon, color } = get(
+      statusThemes,
+      status,
+      {}
+    )
 
     return (
       <NavLink
-        className={classNames('item', {
-          'item--ghost': status === STATUS.NO_ACCOUNT,
-          'item--maintenance': status === STATUS.MAINTENANCE
-        })}
+        className={classNames('item', statusClassName)}
         to={route}
         title={getKonnectorError({ error, t })}
       >
@@ -68,20 +103,7 @@ export class KonnectorTile extends Component {
             domain={domain}
             secure={secure}
           />
-          {status === STATUS.MAINTENANCE && (
-            <Icon
-              icon="wrench-circle"
-              className="item-status"
-              color={palette.coolGrey}
-            />
-          )}
-          {status === STATUS.ERROR && (
-            <Icon
-              icon="warning-circle"
-              className="item-status"
-              color={palette.pomegranate}
-            />
-          )}
+          {icon && <Icon icon={icon} className="item-status" color={color} />}
         </div>
         <h3 className="item-title">{konnector.name}</h3>
       </NavLink>
