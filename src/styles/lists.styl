@@ -20,7 +20,7 @@ mobileTileSize = 4rem
         grid-auto-rows mobileTileSize
         grid-gap rem(4)
 
-    .item-wrapper
+    .item
         background-color var(--white)
         box-shadow 0 4px 12px 0 rgba(0, 0, 0, .08)
         border solid 1px rgba(0, 0, 0, .08)
@@ -70,7 +70,7 @@ mobileTileSize = 4rem
         grid-auto-rows mobileTileSize
         grid-gap rem(2)
 
-    .item-wrapper
+    .item
         padding 12px 8px
         border-radius 8px
         border-width 1px
@@ -95,11 +95,11 @@ mobileTileSize = 4rem
         +tiny-screen()
                 padding 12px 4px
 
-        &.--maintenance .item-icon
+        &.item--maintenance .item-icon
                 filter grayscale(1)
                 opacity .64
 
-        &.--ghost
+        &.item--ghost
                 background var(--zircon)
                 border dashed 1px var(--frenchPass)
 
@@ -119,23 +119,23 @@ mobileTileSize = 4rem
         border-radius 50%
         background var(--white)
 
-        .item-wrapper.--add-service
-            .item-icon
-                box-sizing border-box
-                display flex
-                justify-content center
-                align-items center
-                background var(--zircon)
-                border dashed 1px var(--frenchPass)
-                border-radius 4px
+    .item--add-service
+        .item-icon
+            box-sizing border-box
+            display flex
+            justify-content center
+            align-items center
+            background var(--zircon)
+            border dashed 1px var(--frenchPass)
+            border-radius 4px
 
-            &[aria-busy]
-                opacity .8
+        &[aria-busy]
+            opacity .8
 
-            &[aria-busy]:hover
-                transform none
+        &[aria-busy]:hover
+            transform none
 
-.item-wrapper
+.item
     box-sizing border-box
     border-radius rem(8)
     width 100%

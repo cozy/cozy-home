@@ -54,9 +54,9 @@ export class KonnectorTile extends Component {
 
     return (
       <NavLink
-        className={classNames('item-wrapper', {
-          '--ghost': status === STATUS.NO_ACCOUNT,
-          '--maintenance': status === STATUS.MAINTENANCE
+        className={classNames('item', {
+          'item--ghost': status === STATUS.NO_ACCOUNT,
+          'item--maintenance': status === STATUS.MAINTENANCE
         })}
         to={route}
         title={getKonnectorError({ error, t })}
