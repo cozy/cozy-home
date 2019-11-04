@@ -1,25 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Failure component should be displayed with initial text if errorType is initial 1`] = `
-<Empty
-  icon="test-file-stub"
-  title="Something went wrong when fetching your connectors and informations. Please refresh the page."
+<Stack
+  className="u-flex u-flex-column u-flex-items-center"
+  spacing="m"
 >
+  <Icon
+    icon="test-file-stub"
+    size={64}
+    spin={false}
+  />
+  <MainTitle
+    className="u-ta-center"
+    ellipsis={false}
+    tag="h2"
+  >
+    Something went wrong when fetching your connectors and informations. Please refresh the page.
+  </MainTitle>
   <DefaultButton
     label="Refresh now"
     onClick={[Function]}
   />
-</Empty>
+</Stack>
 `;
 
 exports[`Failure component should correctly call the reload function on button click 1`] = `
-<Empty
-  icon="test-file-stub"
-  title="Something went wrong when fetching your connectors and informations. Please refresh the page."
+<Stack
+  className="u-flex u-flex-column u-flex-items-center"
+  spacing="m"
 >
+  <Icon
+    icon="test-file-stub"
+    size={64}
+    spin={false}
+  />
+  <MainTitle
+    className="u-ta-center"
+    ellipsis={false}
+    tag="h2"
+  >
+    Something went wrong when fetching your connectors and informations. Please refresh the page.
+  </MainTitle>
   <DefaultButton
     label="Refresh now"
     onClick={[Function]}
   />
-</Empty>
+</Stack>
 `;

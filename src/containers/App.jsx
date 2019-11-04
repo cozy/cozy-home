@@ -6,7 +6,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
-import { Main, Content } from 'cozy-ui/react/Layout'
+import { Main } from 'cozy-ui/react/Layout'
 import Spinner from 'cozy-ui/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
@@ -89,12 +89,8 @@ class App extends Component {
         <Alerter />
         <HeroHeader />
         {hasError && (
-          <Main>
-            <Content
-              className={hasError ? 'col-initial-error' : 'col-initial-loading'}
-            >
-              {hasError && <Failure errorType="initial" />}
-            </Content>
+          <Main className="main-loader">
+            <Failure errorType="initial" />
           </Main>
         )}
         {isFetching && (
