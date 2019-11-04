@@ -62,14 +62,15 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     display grid
     grid-template-columns repeat(auto-fit, serviceTileSize)
     grid-auto-rows serviceTileSize
-    grid-gap rem(16)
+    grid-gap rem(17)
     justify-content center
+    opacity .99 // required for the blend mode difference to work
 
     +tiny-screen()
         margin-top rem(24)
         grid-template-columns repeat(auto-fit, mobileTileSize)
         grid-auto-rows mobileTileSize
-        grid-gap rem(2)
+        grid-gap rem(3)
 
     .item
         padding 12px 8px
@@ -77,6 +78,30 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
         border-width 1px
         border-style solid
         border-color transparent
+        position relative
+
+        &:before,
+        &:after
+            content ''
+            display block
+            position absolute
+            top 30%
+            bottom 30%
+            width 1px
+            opacity .32
+            mix-blend-mode difference
+            background white
+
+        &:before
+            left -10px
+        &:after
+            right -10px
+
+        +tiny-screen()
+            &:before
+                left -3px
+            &:after
+                right -3px
 
         &:hover
             border-color rgba(0, 0, 0, .1)
