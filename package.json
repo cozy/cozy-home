@@ -81,5 +81,8 @@
     "{src,test}/**/*.{js,jsx}": [
       "eslint"
     ]
+  },
+  "resolutions": {
+    "scheduler": "0.15.0"
   }
 }
