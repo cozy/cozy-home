@@ -1,14 +1,13 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
-appTileSize = 6rem
-serviceTileSize = 5rem
 mobileTileSize = 4rem
 outsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)
 lightShadow = 0 4px 12px 0 rgba(0, 0, 0, .08)
 heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
 
 .app-list
+    appTileSize = 6rem
     position relative
     margin-top -(appTileSize / 2)
     display grid
@@ -55,13 +54,16 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
 
 
 .services-list
+    serviceTileSize = 5rem
+    serviceGridGutter = 17px
     width 100%
-    max-width 'calc(%s * 7 + 16px * 6)' % serviceTileSize // 7 columns + 6 column gaps@
-    margin rem(48) auto
+    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps@
+    margin auto
+    margin-top rem(48)
     display grid
     grid-template-columns repeat(auto-fit, serviceTileSize)
     grid-auto-rows serviceTileSize
-    grid-gap rem(17)
+    grid-gap (serviceGridGutter)
     justify-content center
     opacity .99 // required for the blend mode difference to work
 
