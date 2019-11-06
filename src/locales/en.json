@@ -404,7 +404,10 @@
     "debug": {
       "successMessage": "This konnector is for debug purpose only, this is an additionnal custom success message."
     },
-    "empty": "No connectors configured",
+    "empty": {
+      "title": "Start gathering your data!",
+      "text": "Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)"
+    },
     "noAccount": "No account",
     "add": "Add a service",
     "update": "Update available",
