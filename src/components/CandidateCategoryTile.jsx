@@ -23,7 +23,7 @@ class CandidateCategoryTile extends React.Component {
             ))}
           </IconGrid>
         </div>
-        <span className="item-title">{label}</span>
+        <span className="item-title">{t(`category.${label}`)}</span>
       </div>
     )
   }
