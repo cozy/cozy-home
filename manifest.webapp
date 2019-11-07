@@ -3,10 +3,7 @@
   "name_prefix": "Cozy",
   "slug": "home",
   "icon": "icon.svg",
-  "categories": [
-    "cozy",
-    "konnectors"
-  ],
+  "categories": ["cozy", "konnectors"],
   "type": "webapp",
   "source": "git://github.com/cozy/cozy-home.git",
   "editor": "Cozy",
@@ -14,80 +11,52 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.20.0",
+  "version": "1.21.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "apps": {
       "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT"
-      ]
+      "verbs": ["GET", "POST", "PUT"]
     },
     "settings": {
       "description": "Required by the cozy-bar display Claudy and to know which applications are coming soon",
       "type": "io.cozy.settings",
-      "verbs": [
-        "GET"
-      ]
+      "verbs": ["GET"]
     },
     "konnectors": {
       "description": "Required to get the list of konnectors",
       "type": "io.cozy.konnectors",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "accounts": {
       "description": "Required to manage accounts associated to konnectors",
       "type": "io.cozy.accounts",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "files": {
       "description": "Required to access folders",
       "type": "io.cozy.files",
-      "verbs": [
-        "GET",
-        "PATCH",
-        "POST"
-      ]
+      "verbs": ["GET", "PATCH", "POST"]
     },
     "jobs": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.jobs",
-      "verbs": [
-        "ALL"
-      ]
+      "verbs": ["ALL"]
     },
     "contacts": {
       "description": "Required for the service to update the myself contact",
       "type": "io.cozy.contacts",
-      "verbs": [
-        "ALL"
-      ]
+      "verbs": ["ALL"]
     },
     "triggers": {
       "description": "Required to run the konnectors",
       "type": "io.cozy.triggers",
-      "verbs": [
-        "ALL"
-      ]
+      "verbs": ["ALL"]
     },
     "permissions": {
       "description": "Required to run the konnectors",
-      "verbs": [
-        "ALL"
-      ],
+      "verbs": ["ALL"],
       "type": "io.cozy.permissions"
     }
   },
@@ -111,21 +80,14 @@
   "intents": [
     {
       "action": "CREATE",
-      "type": [
-        "io.cozy.accounts"
-      ],
+      "type": ["io.cozy.accounts"],
       "href": "/intents"
     },
     {
       "action": "REDIRECT",
-      "type": [
-        "io.cozy.accounts"
-      ],
+      "type": ["io.cozy.accounts"],
       "href": "/#/redirect",
-      "data": [
-        "account",
-        "konnector"
-      ]
+      "data": ["account", "konnector"]
     }
   ],
   "services": {
