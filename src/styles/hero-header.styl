@@ -1,9 +1,7 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
 
-textShadowLight = rgba(50, 54, 63, .16)
-textShadowMedium = rgba(50, 54, 63, .24)
-textShadowHeavy = rgba(50, 54, 63, .32)
+whiteOnWhiteShadow = drop-shadow(0 1px 1px rgba(50, 54, 63, .32)) drop-shadow(0 2px 8px rgba(50, 54, 63, .08)) drop-shadow(0 1px 4px rgba(50, 54, 63, .16))
 
 .hero-header
     box-sizing border-box
@@ -27,8 +25,8 @@ textShadowHeavy = rgba(50, 54, 63, .32)
 
         .corner-button
             opacity .64
-            text-shadow 0 2px 16px textShadowMedium, 0 1px 4px textShadowMedium, 1px 0 0 rgba(50, 54, 63, .16), -1px 0 0 textShadowLight, 0 1px 0 textShadowLight
             color var(--primaryContrastTextColor)
+            filter whiteOnWhiteShadow
 
             &:hover
                 opacity 1
@@ -53,7 +51,7 @@ textShadowHeavy = rgba(50, 54, 63, .32)
         line-height 1.25
         color var(--primaryContrastTextColor)
         margin 0
-        text-shadow 0 2px 16px textShadowHeavy, 0 1px 4px textShadowHeavy
+        filter whiteOnWhiteShadow
 
         +tiny-screen()
             font-size 1.5rem
@@ -65,7 +63,7 @@ textShadowHeavy = rgba(50, 54, 63, .32)
         font-weight normal
         line-height 1.13
         margin 0
-        text-shadow 0 2px 16px textShadowMedium, 0 1px 4px textShadowMedium, 1px 0 0 textShadowLight, -1px 0 0 textShadowLight, 0 1px 0 textShadowLight
+        filter whiteOnWhiteShadow
 
         +tiny-screen()
             font-size .875rem
