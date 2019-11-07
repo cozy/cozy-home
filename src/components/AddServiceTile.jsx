@@ -1,53 +1,38 @@
-/* global cozy */
 import React, { Component } from 'react'
+import { withClient } from 'cozy-client'
 
 import Icon from 'cozy-ui/react/Icon'
+import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 export class AddServiceTile extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      redirecting: false
-    }
-
-    this.toggleRedirect = this.toggleRedirect.bind(this)
-  }
-
-  async toggleRedirect() {
-    if (this.state.redirecting) return // don't toggle twice
-    this.setState(() => ({ redirecting: true }))
-    try {
-      await cozy.client.intents.redirect('io.cozy.apps', { type: 'konnector' })
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error)
-      this.setState({
-        redirecting: false
-      })
-    }
-  }
-
   render() {
-    const { label } = this.props
-    const { redirecting } = this.state
+    const { label, client } = this.props
+    const nativePath = '/discover/?type=konnector'
+    const slug = 'store'
+    const cozyURL = new URL(client.getStackClient().uri)
+
     return (
-      <div
-        aria-busy={redirecting}
-        className="item item--add-service"
-        onClick={this.toggleRedirect}
+      <AppLinker
+        slug={'store'}
+        nativePath={nativePath}
+        href={generateWebLink({
+          cozyUrl: cozyURL.origin,
+          slug: slug,
+          nativePath: nativePath
+        })}
       >
-        {redirecting ? (
-          <Icon icon="spinner" className="item-icon" color="grey" spin />
-        ) : (
-          <div className="item-icon">
-            <Icon icon="plus" size={16} color={palette['dodgerBlue']} />
-          </div>
+        {({ onClick, href }) => (
+          <a onClick={onClick} href={href} className="item item--add-service">
+            <div className="item-icon">
+              <Icon icon="plus" size={16} color={palette['dodgerBlue']} />
+            </div>
+            <span className="item-title">{label}</span>
+          </a>
         )}
-        <span className="item-title">{label}</span>
-      </div>
+      </AppLinker>
     )
   }
 }
 
-export default AddServiceTile
+export default withClient(AddServiceTile)
