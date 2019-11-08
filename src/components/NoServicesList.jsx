@@ -2,7 +2,6 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { Title, Text } from 'cozy-ui/react/Text'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
-import { withClient } from 'cozy-client'
 
 import CandidateServiceTile from 'components/CandidateServiceTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
@@ -10,7 +9,7 @@ import AddServiceTile from 'components/AddServiceTile'
 import candidatesConfig from 'config/candidates'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 
-const NoServicesList = ({ t }) => (
+export const NoServicesList = ({ t }) => (
   <>
     <div className="services-list">
       {candidatesConfig.konnectors.map(({ slug, name }) => (
@@ -37,4 +36,4 @@ const NoServicesList = ({ t }) => (
   </>
 )
 
-export default translate()(withClient(NoServicesList))
+export default translate()(NoServicesList)
