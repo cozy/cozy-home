@@ -4,10 +4,14 @@ import Icon from 'cozy-ui/react/Icon'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
+import useAppDataset from 'hooks/useAppDataset'
+
 const AddServiceTile = ({ label, client }) => {
   const nativePath = '/discover/?type=konnector'
   const slug = 'store'
   const cozyURL = new URL(client.getStackClient().uri)
+  const { cozySubdomainType } = useAppDataset()
+  const subDomainType = cozySubdomainType === '1' ? 'flat' : 'nested'
 
   return (
     <AppLinker
@@ -15,8 +19,9 @@ const AddServiceTile = ({ label, client }) => {
       nativePath={nativePath}
       href={generateWebLink({
         cozyUrl: cozyURL.origin,
-        slug: slug,
-        nativePath: nativePath
+        slug,
+        nativePath,
+        subDomainType
       })}
     >
       {({ onClick, href }) => (
