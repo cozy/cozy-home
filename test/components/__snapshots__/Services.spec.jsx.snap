@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Services component should display a list of services 1`] = `
+<div
+  className="services-list"
+  data-tutorial="home-services"
+>
+  <Wrapper
+    isInMaintenance={false}
+    konnector={
+      Object {
+        "slug": "test1",
+      }
+    }
+    route="connected/test1"
+  />
+  <Wrapper
+    isInMaintenance={false}
+    konnector={
+      Object {
+        "slug": "test2",
+      }
+    }
+    route="connected/test2"
+  />
+  <Wrapper
+    isInMaintenance={false}
+    konnector={
+      Object {
+        "slug": "test3",
+      }
+    }
+    route="connected/test3"
+  />
+  <withClient(AddServiceTile)
+    label="Add"
+  />
+</div>
+`;
+
+exports[`Services component should display the empty component when there are no services 1`] = `<Wrapper />`;
