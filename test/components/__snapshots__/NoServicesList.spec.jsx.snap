@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoServicesList component should render service suggestions 1`] = `
+<React.Fragment>
+  <div
+    className="services-list"
+  >
+    <Wrapper
+      name="Ameli"
+      slug="ameli"
+    />
+    <Wrapper
+      name="Impôts.gouv.fr"
+      slug="impots"
+    />
+    <Wrapper
+      category="banking"
+      slugs={
+        Array [
+          "hsbc119",
+          "caissedepargne1",
+          "ing",
+          "cic45",
+        ]
+      }
+    />
+    <Wrapper
+      category="isp"
+      slugs={
+        Array [
+          "sfr",
+          "free",
+          "orange",
+          "bouygues",
+        ]
+      }
+    />
+    <Wrapper
+      category="insurance"
+      slugs={
+        Array [
+          "maifecheancier",
+          "alan",
+          "harmonie",
+          "macif",
+        ]
+      }
+    />
+    <Wrapper
+      category="energy"
+      slugs={
+        Array [
+          "engie",
+          "planeteoui",
+          "veoliaeau",
+          "ekwateur",
+        ]
+      }
+    />
+    <withClient(AddServiceTile)
+      label="Add"
+    />
+  </div>
+  <Media
+    align="top"
+    className="empty-services-list-tip"
+  >
+    <Img>
+      <img
+        src="test-file-stub"
+      />
+    </Img>
+    <Bd
+      className="empty-services-list-text"
+    >
+      <Title
+        ellipsis={false}
+        tag="div"
+      >
+        Start gathering your data!
+      </Title>
+      <Text
+        ellipsis={false}
+        tag="p"
+      >
+        Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)
+      </Text>
+    </Bd>
+  </Media>
+</React.Fragment>
+`;
