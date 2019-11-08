@@ -13,7 +13,7 @@ import classNames from 'classnames'
 import { getInstalledKonnectors } from 'reducers/index'
 import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
 
-const Services = ({ t, installedKonnectors, client }) => {
+export const Services = ({ t, installedKonnectors, client }) => {
   const hasConnections = !!installedKonnectors.length
   const appsInMaintenance = useAppsInMaintenance(client)
   const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
