@@ -17,7 +17,11 @@ const NoServicesList = ({ t }) => (
         <CandidateServiceTile key={slug} slug={slug} name={name} />
       ))}
       {Object.entries(candidatesConfig.categories).map(([category, slugs]) => (
-        <CandidateCategoryTile key={category} slugs={slugs} label={category} />
+        <CandidateCategoryTile
+          key={category}
+          slugs={slugs}
+          category={category}
+        />
       ))}
       <AddServiceTile label={t('add_service')} />
     </div>
