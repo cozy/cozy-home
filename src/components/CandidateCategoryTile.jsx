@@ -33,6 +33,7 @@ class CandidateCategoryTile extends React.Component {
                     alt={t('app.logo.alt', { name: category })}
                     app={slug}
                     key={slug}
+                    className="item-grid-icon"
                     domain={domain}
                     secure={secure}
                   />
