@@ -12,11 +12,9 @@
   <link rel="stylesheet" href="<%- file %>">
 <% }); %>
 {{.ThemeCSS}}
+<link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
 <% if (__STACK_ASSETS__) { %>
 {{.CozyClientJS}}
-<% } else { %>
-  <%/* Perf: we don't load the font twice as it is already provided by the CozyBar */%>
-  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
 <% } %>
 </head>
 <body>
