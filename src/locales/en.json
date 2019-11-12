@@ -411,9 +411,6 @@
     "noAccount": "No account",
     "add": "Add a service",
     "update": "Update available",
-    "no-connectors-connected": "You have no account connected yet",
-    "get-info": "Get automatically all your informations in your Cozy",
-    "connect-account": "Connect my accounts",
     "logo": {
       "alt": "%{name} logo"
     },
