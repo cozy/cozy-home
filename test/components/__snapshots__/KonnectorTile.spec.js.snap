@@ -11,7 +11,7 @@ exports[`KonnectorTile component should display correct error status if no accou
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -41,7 +41,7 @@ exports[`KonnectorTile component should display correct error status if other er
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -77,7 +77,7 @@ exports[`KonnectorTile component should display correct error status if user err
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -113,7 +113,7 @@ exports[`KonnectorTile component should display correct status if in maintenance
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -149,7 +149,7 @@ exports[`KonnectorTile component should display correct status if update 1`] = `
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -179,7 +179,7 @@ exports[`KonnectorTile component should display correct status if update even if
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -209,7 +209,7 @@ exports[`KonnectorTile component should display correct status if update even if
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -239,7 +239,7 @@ exports[`KonnectorTile component should display correct status if update even if
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {
@@ -269,7 +269,7 @@ exports[`KonnectorTile component should render correctly if success 1`] = `
   <div
     className="item-icon"
   >
-    <AppIcon
+    <withClient(AppIcon)
       alt="Mock logo"
       app={
         Object {

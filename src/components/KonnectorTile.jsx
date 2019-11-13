@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import flag from 'cozy-flags'
 
-import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
+import AppIcon from 'components/AppIcon'
 import {
   getFirstError,
   getFirstUserError,
@@ -58,7 +58,6 @@ export class KonnectorTile extends Component {
       route,
       t
     } = this.props
-    const { domain, secure } = this.context
 
     const statusThemes = {
       [STATUS.NO_ACCOUNT]: {
@@ -104,8 +103,6 @@ export class KonnectorTile extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             app={konnector}
-            domain={domain}
-            secure={secure}
           />
           {icon && <Icon icon={icon} className="item-status" color={color} />}
         </div>
@@ -115,9 +112,14 @@ export class KonnectorTile extends Component {
   }
 }
 
-KonnectorTile.contextTypes = {
-  domain: PropTypes.string.isRequired,
-  secure: PropTypes.bool
+KonnectorTile.propTypes = {
+  accountsCount: PropTypes.number,
+  error: PropTypes.object,
+  isInMaintenance: PropTypes.bool.isRequired,
+  userError: PropTypes.object,
+  konnector: PropTypes.object,
+  route: PropTypes.string.isRequired,
+  t: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, props) => {

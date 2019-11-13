@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react/I18n'
-import AppIcon from 'cozy-ui/react/AppIcon'
 import IconGrid from 'cozy-ui/react/Labs/IconGrid'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
+import AppIcon from 'components/AppIcon'
 
 class CandidateCategoryTile extends React.Component {
   render() {
     const { t, slugs, category, client } = this.props
-    const { domain, secure } = this.context
     const cozyURL = new URL(client.getStackClient().uri)
     const app = 'store'
     const nativePath = `/discover?type=konnector&category=${category}`
@@ -34,8 +33,6 @@ class CandidateCategoryTile extends React.Component {
                     app={slug}
                     key={slug}
                     className="item-grid-icon"
-                    domain={domain}
-                    secure={secure}
                   />
                 ))}
               </IconGrid>
@@ -46,11 +43,6 @@ class CandidateCategoryTile extends React.Component {
       </AppLinker>
     )
   }
-}
-
-CandidateCategoryTile.contextTypes = {
-  domain: PropTypes.string.isRequired,
-  secure: PropTypes.bool
 }
 
 CandidateCategoryTile.propTypes = {
