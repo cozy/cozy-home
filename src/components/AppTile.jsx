@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
-import AppIcon from 'cozy-ui/react/AppIcon'
 import AppLinker from 'cozy-ui/react/AppLinker'
+import AppIcon from 'components/AppIcon'
 
 export class AppTile extends Component {
   render() {
     const { app, t } = this.props
-    const { domain, secure } = this.context
     const displayName =
       app.name_prefix && app.name_prefix.toLowerCase() !== 'cozy'
         ? `${app.name_prefix} ${app.name}`
@@ -22,8 +21,6 @@ export class AppTile extends Component {
               <AppIcon
                 alt={t('app.logo.alt', { name: displayName })}
                 app={app}
-                domain={domain}
-                secure={secure}
               />
             </div>
             <h3 className="item-title">{displayName}</h3>
@@ -34,9 +31,9 @@ export class AppTile extends Component {
   }
 }
 
-AppTile.contextTypes = {
-  domain: PropTypes.string.isRequired,
-  secure: PropTypes.bool
+AppTile.propTypes = {
+  app: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired
 }
 
 export default translate()(AppTile)

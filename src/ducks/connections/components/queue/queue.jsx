@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import PropTypes from 'prop-types'
 
-import { AppIcon, Icon, Spinner } from 'cozy-ui/react'
+import { Icon, Spinner } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { translate } from 'cozy-ui/react/I18n'
 
 import styles from 'ducks/connections/components/queue/styles'
+import AppIcon from 'components/AppIcon'
 
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>
@@ -53,7 +53,6 @@ class ProgressBar extends Component {
 class Item extends Component {
   render() {
     const { konnector, label, status, t } = this.props
-    const { domain, secure } = this.context
     const isOngoing = status === 'ongoing'
     let statusIcon
     switch (status) {
@@ -102,9 +101,7 @@ class Item extends Component {
           <AppIcon
             alt={t('app.logo.alt', { name: konnector.name })}
             className="c-"
-            domain={domain}
             app={konnector}
-            secure={secure}
           />
         </div>
         <div className={classNames(styles['item-label'])}>{label}</div>
@@ -113,11 +110,6 @@ class Item extends Component {
       </div>
     )
   }
-}
-
-Item.contextTypes = {
-  domain: PropTypes.string.isRequired,
-  secure: PropTypes.bool
 }
 
 export class Queue extends Component {
