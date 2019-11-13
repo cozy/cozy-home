@@ -11,7 +11,6 @@ const AddServiceTile = ({ label, client }) => {
   const slug = 'store'
   const cozyURL = new URL(client.getStackClient().uri)
   const { cozySubdomainType } = useAppDataset()
-  const subDomainType = cozySubdomainType === '1' ? 'flat' : 'nested'
 
   return (
     <AppLinker
@@ -21,7 +20,7 @@ const AddServiceTile = ({ label, client }) => {
         cozyUrl: cozyURL.origin,
         slug,
         nativePath,
-        subDomainType
+        cozySubdomainType
       })}
     >
       {({ onClick, href }) => (
