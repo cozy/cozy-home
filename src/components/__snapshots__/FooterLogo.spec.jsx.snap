@@ -2,16 +2,16 @@
 
 exports[`FooterLogo should render multiple logos 1`] = `
 <div
-  className="u-maw-7 u-m-auto u-pv-1 u-mt-1 u-ta-center"
+  className="u-maw-7 u-mh-auto u-mt-1 u-pv-1 u-flex u-flex-row u-flex-items-center u-flex-justify-center u-flex-wrap"
 >
   <img
     alt="alt text 1"
-    className="u-ph-1 u-pv-half"
+    className="u-ph-1 u-pv-half u-mah-5"
     src="http://cozy.example.com/assets/path1/cozy.svg"
   />
   <img
     alt="alt text 2"
-    className="u-ph-1 u-pv-half"
+    className="u-ph-1 u-pv-half u-mah-5"
     src="http://cozy.example.com/assets/path/2/cozy-with_complex-name.svg"
   />
 </div>
