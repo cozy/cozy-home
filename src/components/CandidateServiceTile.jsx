@@ -4,11 +4,13 @@ import { translate } from 'cozy-ui/react/I18n'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
+import useAppDataset from 'hooks/useAppDataset'
 
 const CandidateServiceTile = ({ t, slug, name, client }) => {
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover/${slug}`
+  const { cozySubdomainType: subDomainType } = useAppDataset()
 
   return (
     <AppLinker
@@ -17,7 +19,8 @@ const CandidateServiceTile = ({ t, slug, name, client }) => {
       href={generateWebLink({
         cozyUrl: cozyURL.origin,
         slug: app,
-        nativePath: nativePath
+        nativePath,
+        subDomainType
       })}
     >
       {({ onClick, href }) => (
