@@ -63,7 +63,7 @@ exports[`NoServicesList component should render service suggestions 1`] = `
   </div>
   <Media
     align="top"
-    className="empty-services-list-tip"
+    className="EmptyServicesListTip"
   >
     <Img>
       <img
@@ -71,7 +71,7 @@ exports[`NoServicesList component should render service suggestions 1`] = `
       />
     </Img>
     <Bd
-      className="empty-services-list-text"
+      className="EmptyServicesListTip-text"
     >
       <Title
         ellipsis={false}

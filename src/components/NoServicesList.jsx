@@ -24,11 +24,11 @@ export const NoServicesList = ({ t }) => (
       ))}
       <AddServiceTile label={t('add_service')} />
     </div>
-    <Media align="top" className="empty-services-list-tip">
+    <Media align="top" className="EmptyServicesListTip">
       <Img>
         <img src={ArrowIllustration} />
       </Img>
-      <Bd className="empty-services-list-text">
+      <Bd className="EmptyServicesListTip-text">
         <Title>{t('connector.empty.title')}</Title>
         <Text tag="p">{t('connector.empty.text')}</Text>
       </Bd>
