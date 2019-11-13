@@ -42,11 +42,14 @@ class CandidateServiceTile extends React.Component {
 }
 
 CandidateServiceTile.contextTypes = {
+  domain: PropTypes.string.isRequired,
+  secure: PropTypes.bool
+}
+
+CandidateServiceTile.propTypes = {
   slug: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  domain: PropTypes.string.isRequired,
-  client: PropTypes.object.isRequired,
-  secure: PropTypes.bool
+  client: PropTypes.object.isRequired
 }
 
 export default translate()(withClient(CandidateServiceTile))

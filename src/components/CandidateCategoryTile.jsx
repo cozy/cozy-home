@@ -49,11 +49,14 @@ class CandidateCategoryTile extends React.Component {
 }
 
 CandidateCategoryTile.contextTypes = {
-  slugs: PropTypes.arrayOf(PropTypes.string).isRequired,
-  category: PropTypes.string.isRequired,
-  client: PropTypes.object.isRequired,
   domain: PropTypes.string.isRequired,
   secure: PropTypes.bool
+}
+
+CandidateCategoryTile.propTypes = {
+  slugs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  category: PropTypes.string.isRequired,
+  client: PropTypes.object.isRequired
 }
 
 export default translate()(withClient(CandidateCategoryTile))
