@@ -7,7 +7,7 @@ import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import { translate } from 'cozy-ui/react/I18n'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
-import homeConfig from 'config/collect'
+import useAppDataset from 'hooks/useAppDataset'
 
 const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
   const {
@@ -16,10 +16,11 @@ const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
   } = useCustomWallpaper(client)
   const rootURL = client.getStackClient().uri
   const { host } = new URL(rootURL)
+  const { cozyDefaultWallpaper } = useAppDataset()
+
   let backgroundURL = null
   if (fetchStatus !== 'loading')
-    backgroundURL =
-      wallpaperLink || `${rootURL}${homeConfig.defaultWallpaperPath}`
+    backgroundURL = wallpaperLink || cozyDefaultWallpaper
 
   const { data: instanceSettings } = useInstanceSettings(client)
   const publicName = get(instanceSettings, 'public_name', '')
