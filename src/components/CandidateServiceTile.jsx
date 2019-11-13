@@ -5,34 +5,31 @@ import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
 
-class CandidateServiceTile extends React.Component {
-  render() {
-    const { t, slug, name, client } = this.props
-    const cozyURL = new URL(client.getStackClient().uri)
-    const app = 'store'
-    const nativePath = `/discover/${slug}`
+const CandidateServiceTile = ({ t, slug, name, client }) => {
+  const cozyURL = new URL(client.getStackClient().uri)
+  const app = 'store'
+  const nativePath = `/discover/${slug}`
 
-    return (
-      <AppLinker
-        slug={app}
-        nativePath={nativePath}
-        href={generateWebLink({
-          cozyUrl: cozyURL.origin,
-          slug: app,
-          nativePath: nativePath
-        })}
-      >
-        {({ onClick, href }) => (
-          <a onClick={onClick} href={href} className="item item--ghost">
-            <div className="item-icon">
-              <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
-            </div>
-            <span className="item-title">{name}</span>
-          </a>
-        )}
-      </AppLinker>
-    )
-  }
+  return (
+    <AppLinker
+      slug={app}
+      nativePath={nativePath}
+      href={generateWebLink({
+        cozyUrl: cozyURL.origin,
+        slug: app,
+        nativePath: nativePath
+      })}
+    >
+      {({ onClick, href }) => (
+        <a onClick={onClick} href={href} className="item item--ghost">
+          <div className="item-icon">
+            <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
+          </div>
+          <span className="item-title">{name}</span>
+        </a>
+      )}
+    </AppLinker>
+  )
 }
 
 CandidateServiceTile.propTypes = {
