@@ -9,7 +9,10 @@ import { tMock } from '../jestLib/I18n'
 
 describe('NoServicesList component', () => {
   it('should render service suggestions', () => {
-    const component = shallow(<NoServicesList t={tMock} />)
+    const appSuggestions = { data: [{ slug: 'test1' }, { slug: 'test2' }] }
+    const component = shallow(
+      <NoServicesList t={tMock} appSuggestions={appSuggestions} />
+    )
     expect(component.getElement()).toMatchSnapshot()
   })
 })

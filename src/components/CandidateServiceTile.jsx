@@ -1,16 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import get from 'lodash/get'
 import { translate } from 'cozy-ui/react/I18n'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
 import useAppDataset from 'hooks/useAppDataset'
+import useRegistryInformation from 'hooks/useRegistryInformation'
 
-const CandidateServiceTile = ({ t, slug, name, client }) => {
+const CandidateServiceTile = ({ t, slug, client }) => {
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover/${slug}`
   const { cozySubdomainType: subDomainType } = useAppDataset()
+  const registryData = useRegistryInformation(client, slug)
+  const name = registryData
+    ? get(registryData, 'latest_version.manifest.name', slug)
+    : ''
 
   return (
     <AppLinker
@@ -37,7 +43,6 @@ const CandidateServiceTile = ({ t, slug, name, client }) => {
 
 CandidateServiceTile.propTypes = {
   slug: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   client: PropTypes.object.isRequired
 }
 

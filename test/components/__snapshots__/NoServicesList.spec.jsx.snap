@@ -6,12 +6,10 @@ exports[`NoServicesList component should render service suggestions 1`] = `
     className="services-list"
   >
     <Wrapper
-      name="Ameli"
-      slug="ameli"
+      slug="test1"
     />
     <Wrapper
-      name="CAF"
-      slug="caf"
+      slug="test2"
     />
     <Wrapper
       category="banking"
