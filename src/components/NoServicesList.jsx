@@ -30,7 +30,9 @@ export const NoServicesList = ({ t }) => (
       </Img>
       <Bd className="EmptyServicesListTip-text">
         <Title>{t('connector.empty.title')}</Title>
-        <Text tag="p">{t('connector.empty.text')}</Text>
+        <Text tag="p" className="u-mv-half">
+          {t('connector.empty.text')}
+        </Text>
       </Bd>
     </Media>
   </>
