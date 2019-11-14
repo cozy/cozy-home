@@ -48,7 +48,7 @@ export function display(t) {
           intro: `<h1>${t('tutorial.home.services.title')}</h1><div>${t(
             'tutorial.home.services.text'
           )}</div>`,
-          position: 'bottom'
+          position: 'bottom-middle-aligned'
         }
       ]
     })

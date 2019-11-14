@@ -36,7 +36,9 @@ export const Services = ({ t, installedKonnectors, client }) => {
       {<AddServiceTile label={t('add_service')} />}
     </div>
   ) : (
-    <NoServicesList />
+    <div data-tutorial="home-services">
+      <NoServicesList />
+    </div>
   )
 }
 
