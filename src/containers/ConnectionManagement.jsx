@@ -54,10 +54,6 @@ class ConnectionManagement extends Component {
     this.handleDeleteSuccess = this.handleDeleteSuccess.bind(this)
   }
 
-  componentWillReceiveProps(props) {
-    this.UNSAFE_componentWillReceiveProps(props)
-  }
-
   UNSAFE_componentWillReceiveProps(nextProps) {
     const isInvalidKonnectorSlug =
       nextProps.match &&
