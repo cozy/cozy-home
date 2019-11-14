@@ -1,11 +1,11 @@
 {
   "konnectors": [
     { "slug": "ameli", "name": "Ameli" },
-    { "slug": "impots", "name": "Impôts.gouv.fr" }
+    { "slug": "caf", "name": "CAF" }
   ],
   "categories": {
-    "banking": ["hsbc119", "caissedepargne1", "ing", "cic45"],
-    "isp": ["sfr", "free", "orange", "bouygues"],
+    "banking": ["hsbc119", "caissedepargne1", "ingdirect95", "cic45"],
+    "isp": ["sfr", "free", "orange", "bouyguestelecom"],
     "insurance": ["maifecheancier", "alan", "harmonie", "macif"],
     "energy": ["engie", "planeteoui", "veoliaeau", "ekwateur"]
   }
