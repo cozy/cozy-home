@@ -1,8 +1,4 @@
 {
-  "konnectors": [
-    { "slug": "ameli", "name": "Ameli" },
-    { "slug": "caf", "name": "CAF" }
-  ],
   "categories": {
     "banking": ["hsbc119", "caissedepargne1", "ingdirect95", "cic45"],
     "isp": ["sfr", "free", "orange", "bouyguestelecom"],

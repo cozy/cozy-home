@@ -58,6 +58,11 @@
       "description": "Required to run the konnectors",
       "verbs": ["ALL"],
       "type": "io.cozy.permissions"
+    },
+    "appSuggestions": {
+      "description": "Required to display konnector suggestions",
+      "verbs": ["GET", "PUT"],
+      "type": "io.cozy.apps.suggestions"
     }
   },
   "routes": {

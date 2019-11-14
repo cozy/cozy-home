@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { Title, Text } from 'cozy-ui/react/Text'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import { queryConnect } from 'cozy-client'
 
 import CandidateServiceTile from 'components/CandidateServiceTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
@@ -9,11 +10,11 @@ import AddServiceTile from 'components/AddServiceTile'
 import candidatesConfig from 'config/candidates'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 
-export const NoServicesList = ({ t }) => (
+export const NoServicesList = ({ t, appSuggestions }) => (
   <>
     <div className="services-list">
-      {candidatesConfig.konnectors.map(({ slug, name }) => (
-        <CandidateServiceTile key={slug} slug={slug} name={name} />
+      {appSuggestions.data.map(({ slug }) => (
+        <CandidateServiceTile key={slug} slug={slug} />
       ))}
       {Object.entries(candidatesConfig.categories).map(([category, slugs]) => (
         <CandidateCategoryTile
@@ -38,4 +39,11 @@ export const NoServicesList = ({ t }) => (
   </>
 )
 
-export default translate()(NoServicesList)
+const query = client =>
+  client.find('io.cozy.apps.suggestions').where({ silenced: false })
+
+const queryOpts = { appSuggestions: { query } }
+
+const ConnectedNoServicesList = queryConnect(queryOpts)(NoServicesList)
+
+export default translate()(ConnectedNoServicesList)
