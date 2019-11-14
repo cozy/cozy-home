@@ -3,7 +3,6 @@
 exports[`Services component should display a list of services 1`] = `
 <div
   className="services-list"
-  data-tutorial="home-services"
 >
   <Wrapper
     isInMaintenance={false}

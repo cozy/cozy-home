@@ -23,7 +23,6 @@ export const Services = ({ t, installedKonnectors, client }) => {
       className={classNames('services-list', {
         'services-list-wrapper--empty': !hasConnections
       })}
-      data-tutorial="home-services"
     >
       {installedKonnectors.map((konnector, index) => (
         <KonnectorTile
@@ -36,9 +35,7 @@ export const Services = ({ t, installedKonnectors, client }) => {
       {<AddServiceTile label={t('add_service')} />}
     </div>
   ) : (
-    <div data-tutorial="home-services">
-      <NoServicesList />
-    </div>
+    <NoServicesList />
   )
 }
 
