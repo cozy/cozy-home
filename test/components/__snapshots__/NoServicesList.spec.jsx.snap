@@ -80,6 +80,7 @@ exports[`NoServicesList component should render service suggestions 1`] = `
         Start gathering your data!
       </Title>
       <Text
+        className="u-mv-half"
         ellipsis={false}
         tag="p"
       >
