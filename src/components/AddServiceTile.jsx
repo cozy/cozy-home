@@ -24,7 +24,11 @@ const AddServiceTile = ({ label, client }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a onClick={onClick} href={href} className="item item--add-service">
+        <a
+          onClick={onClick}
+          href={href}
+          className="item item--ghost item--add-service"
+        >
           <div className="item-icon">
             <Icon icon="plus" size={16} color={palette['dodgerBlue']} />
           </div>
