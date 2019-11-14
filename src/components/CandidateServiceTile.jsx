@@ -1,43 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { translate } from 'cozy-ui/react/I18n'
-import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
-import useAppDataset from 'hooks/useAppDataset'
 import useRegistryInformation from 'hooks/useRegistryInformation'
+import CandidateModal from 'components/CandidateModal'
 
 const CandidateServiceTile = ({ t, slug, client }) => {
-  const cozyURL = new URL(client.getStackClient().uri)
-  const app = 'store'
-  const nativePath = `/discover/${slug}`
-  const { cozySubdomainType: subDomainType } = useAppDataset()
   const registryData = useRegistryInformation(client, slug)
   const name = registryData
     ? get(registryData, 'latest_version.manifest.name', slug)
     : ''
+  const [isModalDisplayed, setModalDisplay] = useState(true)
 
   return (
-    <AppLinker
-      slug={app}
-      nativePath={nativePath}
-      href={generateWebLink({
-        cozyUrl: cozyURL.origin,
-        slug: app,
-        nativePath,
-        subDomainType
-      })}
-    >
-      {({ onClick, href }) => (
-        <a onClick={onClick} href={href} className="item item--ghost">
-          <div className="item-icon">
-            <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
-          </div>
-          <span className="item-title">{name}</span>
-        </a>
-      )}
-    </AppLinker>
+    <div className="item item--ghost" onClick={() => setModalDisplay(true)}>
+      {isModalDisplayed && <CandidateModal slug={slug} />}
+      <div className="item-icon">
+        <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
+      </div>
+      <span className="item-title">{name}</span>
+    </div>
   )
 }
 
