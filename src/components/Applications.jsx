@@ -35,7 +35,7 @@ export class Applications extends PureComponent {
   render() {
     const { receiveApps } = this.props
     return (
-      <div className="app-list" data-tutorial="home-apps">
+      <div className="app-list">
         <Query
           query={client => {
             return client.all('io.cozy.apps')
