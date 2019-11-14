@@ -10,8 +10,8 @@ exports[`NoServicesList component should render service suggestions 1`] = `
       slug="ameli"
     />
     <Wrapper
-      name="Impôts.gouv.fr"
-      slug="impots"
+      name="CAF"
+      slug="caf"
     />
     <Wrapper
       category="banking"
@@ -19,7 +19,7 @@ exports[`NoServicesList component should render service suggestions 1`] = `
         Array [
           "hsbc119",
           "caissedepargne1",
-          "ing",
+          "ingdirect95",
           "cic45",
         ]
       }
@@ -31,7 +31,7 @@ exports[`NoServicesList component should render service suggestions 1`] = `
           "sfr",
           "free",
           "orange",
-          "bouygues",
+          "bouyguestelecom",
         ]
       }
     />
