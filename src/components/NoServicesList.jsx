@@ -10,11 +10,11 @@ import AddServiceTile from 'components/AddServiceTile'
 import candidatesConfig from 'config/candidates'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 
-export const NoServicesList = ({ t, appSuggestions }) => (
+export const NoServicesList = ({ t, konnectorSuggestions }) => (
   <>
     <div className="services-list">
-      {appSuggestions.data.map(({ slug }) => (
-        <CandidateServiceTile key={slug} slug={slug} />
+      {konnectorSuggestions.data.map(suggestion => (
+        <CandidateServiceTile key={suggestion.slug} konnector={suggestion} />
       ))}
       {Object.entries(candidatesConfig.categories).map(([category, slugs]) => (
         <CandidateCategoryTile
@@ -42,7 +42,7 @@ export const NoServicesList = ({ t, appSuggestions }) => (
 const query = client =>
   client.find('io.cozy.apps.suggestions').where({ silenced: false })
 
-const queryOpts = { appSuggestions: { query } }
+const queryOpts = { konnectorSuggestions: { query } }
 
 const ConnectedNoServicesList = queryConnect(queryOpts)(NoServicesList)
 

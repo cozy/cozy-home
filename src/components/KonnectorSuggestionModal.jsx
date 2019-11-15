@@ -10,9 +10,10 @@ import Text, { SubTitle } from 'cozy-ui/react/Text'
 
 import useAppDataset from 'hooks/useAppDataset'
 
-const CandidateModal = ({ client, slug }) => {
+const KonnectorSuggestionModal = ({ client, konnector }) => {
+  const { slug } = konnector
   const cozyURL = new URL(client.getStackClient().uri)
-  const app = 'store'
+  const storeAppName = 'store'
   const nativePath = `/discover/${slug}`
   const { cozySubdomainType: subDomainType } = useAppDataset()
 
@@ -24,11 +25,11 @@ const CandidateModal = ({ client, slug }) => {
       </ModalContent>
       <ModalFooter>
         <AppLinker
-          slug={app}
+          slug={storeAppName}
           nativePath={nativePath}
           href={generateWebLink({
             cozyUrl: cozyURL.origin,
-            slug: app,
+            slug: storeAppName,
             nativePath,
             subDomainType
           })}
@@ -43,4 +44,4 @@ const CandidateModal = ({ client, slug }) => {
   )
 }
 
-export default withClient(CandidateModal)
+export default withClient(KonnectorSuggestionModal)

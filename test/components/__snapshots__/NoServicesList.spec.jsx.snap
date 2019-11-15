@@ -6,10 +6,18 @@ exports[`NoServicesList component should render service suggestions 1`] = `
     className="services-list"
   >
     <Wrapper
-      slug="test1"
+      konnector={
+        Object {
+          "slug": "test1",
+        }
+      }
     />
     <Wrapper
-      slug="test2"
+      konnector={
+        Object {
+          "slug": "test2",
+        }
+      }
     />
     <Wrapper
       category="banking"
