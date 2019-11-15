@@ -17,7 +17,12 @@ const CandidateServiceTile = ({ t, client, konnector }) => {
 
   return (
     <div className="item item--ghost" onClick={() => setModalDisplayed(true)}>
-      {isModalDisplayed && <KonnectorSuggestionModal konnector={konnector} />}
+      {isModalDisplayed && (
+        <KonnectorSuggestionModal
+          konnector={konnector}
+          closeModal={() => setModalDisplayed(false)}
+        />
+      )}
       <div className="item-icon">
         <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
       </div>
