@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withClient } from 'cozy-client'
 import Modal, {
   ModalContent,
@@ -10,12 +10,20 @@ import Text, { SubTitle } from 'cozy-ui/react/Text'
 
 import useAppDataset from 'hooks/useAppDataset'
 
-const KonnectorSuggestionModal = ({ client, konnector }) => {
+const KonnectorSuggestionModal = ({ client, konnector, closeModal }) => {
   const { slug } = konnector
   const cozyURL = new URL(client.getStackClient().uri)
   const storeAppName = 'store'
   const nativePath = `/discover/${slug}`
   const { cozySubdomainType: subDomainType } = useAppDataset()
+  const [isSilencing, setIsSilencing] = useState(false)
+
+  const silenceSuggestion = async () => {
+    setIsSilencing(true)
+    await client.save({ ...konnector, silenced: true })
+    setIsSilencing(false)
+    closeModal()
+  }
 
   return (
     <Modal mobileFullscreen>
@@ -38,7 +46,12 @@ const KonnectorSuggestionModal = ({ client, konnector }) => {
             <ButtonLink onClick={onClick} href={href} label="store" />
           )}
         </AppLinker>
-        <Button theme="secondary" label="nope" />
+        <Button
+          theme="secondary"
+          label="nope"
+          onClick={silenceSuggestion}
+          busy={isSilencing}
+        />
       </ModalFooter>
     </Modal>
   )
