@@ -5,18 +5,19 @@ import { translate } from 'cozy-ui/react/I18n'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
-import CandidateModal from 'components/CandidateModal'
+import KonnectorSuggestionModal from 'components/KonnectorSuggestionModal'
 
-const CandidateServiceTile = ({ t, slug, client }) => {
+const CandidateServiceTile = ({ t, client, konnector }) => {
+  const { slug } = konnector
   const registryData = useRegistryInformation(client, slug)
   const name = registryData
     ? get(registryData, 'latest_version.manifest.name', slug)
     : ''
-  const [isModalDisplayed, setModalDisplay] = useState(true)
+  const [isModalDisplayed, setModalDisplayed] = useState(true)
 
   return (
-    <div className="item item--ghost" onClick={() => setModalDisplay(true)}>
-      {isModalDisplayed && <CandidateModal slug={slug} />}
+    <div className="item item--ghost" onClick={() => setModalDisplayed(true)}>
+      {isModalDisplayed && <KonnectorSuggestionModal konnector={konnector} />}
       <div className="item-icon">
         <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
       </div>
@@ -26,8 +27,11 @@ const CandidateServiceTile = ({ t, slug, client }) => {
 }
 
 CandidateServiceTile.propTypes = {
-  slug: PropTypes.string.isRequired,
-  client: PropTypes.object.isRequired
+  t: PropTypes.func.isRequired,
+  client: PropTypes.object.isRequired,
+  app: PropTypes.shape({
+    slug: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default translate()(withClient(CandidateServiceTile))
