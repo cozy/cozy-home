@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { Query } from 'cozy-client'
 import { translate } from 'cozy-ui/react/I18n'
+import flag from 'cozy-flags'
 
 import AppTile from 'components/AppTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
@@ -52,7 +53,8 @@ export class Applications extends PureComponent {
                 .filter(
                   app =>
                     app.state !== 'hidden' &&
-                    !homeConfig.filteredApps.includes(app.slug)
+                    !homeConfig.filteredApps.includes(app.slug) &&
+                    !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
                 )
                 .map((app, index) => <AppTile key={index} app={app} />)
             )
