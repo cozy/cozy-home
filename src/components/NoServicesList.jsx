@@ -25,17 +25,19 @@ export const NoServicesList = ({ t, konnectorSuggestions }) => (
       ))}
       <AddServiceTile label={t('add_service')} />
     </div>
-    <Media align="top" className="EmptyServicesListTip">
-      <Img>
-        <img src={ArrowIllustration} />
-      </Img>
-      <Bd className="EmptyServicesListTip-text">
-        <Title>{t('connector.empty.title')}</Title>
-        <Text tag="p" className="u-mv-half">
-          {t('connector.empty.text')}
-        </Text>
-      </Bd>
-    </Media>
+    {konnectorSuggestions.data.length >= 1 && (
+      <Media align="top" className="EmptyServicesListTip">
+        <Img>
+          <img src={ArrowIllustration} />
+        </Img>
+        <Bd className="EmptyServicesListTip-text">
+          <Title>{t('connector.empty.title')}</Title>
+          <Text tag="p" className="u-mv-half">
+            {t('connector.empty.text')}
+          </Text>
+        </Bd>
+      </Media>
+    )}
   </>
 )
 
