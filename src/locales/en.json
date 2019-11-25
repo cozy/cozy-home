@@ -372,6 +372,7 @@
       "title": "Start gathering your data!",
       "text": "Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)"
     },
+    "silenced": "%{name} won't be suggested anymore. You can always find a provider by clicking the \"Add\" button.",
     "noAccount": "No account",
     "add": "Add a service",
     "update": "Update available",
