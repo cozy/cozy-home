@@ -7,6 +7,10 @@ import { shallow } from 'enzyme'
 import { Services } from '../../src/components/Services'
 import { tMock } from '../jestLib/I18n'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 describe('Services component', () => {
   it('should display a list of services', () => {
     const installedKonnectors = [

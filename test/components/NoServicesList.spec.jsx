@@ -7,6 +7,10 @@ import { shallow } from 'enzyme'
 import { NoServicesList } from '../../src/components/NoServicesList'
 import { tMock } from '../jestLib/I18n'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 describe('NoServicesList component', () => {
   it('should render service suggestions', () => {
     const konnectorSuggestions = {
