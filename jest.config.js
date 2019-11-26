@@ -8,7 +8,6 @@ module.exports = {
     '^cozy-doctypes$': 'cozy-logger/dist/index.js',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
     // identity-obj-proxy module is installed by cozy-scripts
-    styles: 'identity-obj-proxy',
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index'
   },
