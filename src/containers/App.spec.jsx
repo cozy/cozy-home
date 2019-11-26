@@ -1,5 +1,9 @@
 import { toFlagNames } from './App'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 describe('toFlagNames', () => {
   it('should convert a data structure to flag names', () => {
     const initialData = [
