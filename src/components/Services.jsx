@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { connect } from 'react-redux'
 import { withClient } from 'cozy-client'
@@ -58,6 +59,17 @@ export const Services = ({
         suggestedKonnectors.length >= 1 && <EmptyServicesListTip />}
     </>
   )
+}
+
+Services.propTypes = {
+  t: PropTypes.func.isRequired,
+  installedKonnectors: PropTypes.arrayOf(
+    PropTypes.shape({ slug: PropTypes.string })
+  ).isRequired,
+  suggestedKonnectorsQuery: PropTypes.shape({
+    data: PropTypes.array.isRequired
+  }).isRequired,
+  client: PropTypes.object.isRequired
 }
 
 const query = client =>
