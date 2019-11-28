@@ -22,6 +22,7 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
+        konnectorSuggestions={{ data: [] }}
         client={{}}
       />
     )
@@ -34,6 +35,26 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
+        konnectorSuggestions={{ data: [{ slug: 'suggestion-1' }] }}
+        client={{}}
+      />
+    )
+    expect(component.getElement()).toMatchSnapshot()
+  })
+
+  it('should display suggestions after installed services', () => {
+    const installedKonnectors = [
+      { slug: 'test1' },
+      { slug: 'test2' },
+      { slug: 'test3' }
+    ]
+    const component = shallow(
+      <Services
+        t={tMock}
+        installedKonnectors={installedKonnectors}
+        konnectorSuggestions={{
+          data: [{ slug: 'suggestion-1' }, { slug: 'suggestion-2' }]
+        }}
         client={{}}
       />
     )
