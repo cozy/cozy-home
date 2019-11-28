@@ -1,40 +1,157 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Services component should display a list of services 1`] = `
-<div
-  className="services-list"
->
-  <Wrapper
-    isInMaintenance={false}
-    konnector={
-      Object {
-        "slug": "test1",
+<React.Fragment>
+  <div
+    className="services-list"
+  >
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test1",
+        }
       }
-    }
-    route="connected/test1"
-  />
-  <Wrapper
-    isInMaintenance={false}
-    konnector={
-      Object {
-        "slug": "test2",
+      route="connected/test1"
+    />
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test2",
+        }
       }
-    }
-    route="connected/test2"
-  />
-  <Wrapper
-    isInMaintenance={false}
-    konnector={
-      Object {
-        "slug": "test3",
+      route="connected/test2"
+    />
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test3",
+        }
       }
-    }
-    route="connected/test3"
-  />
-  <withClient(AddServiceTile)
-    label="Add"
-  />
-</div>
+      route="connected/test3"
+    />
+    <withClient(AddServiceTile)
+      label="Add"
+    />
+  </div>
+</React.Fragment>
 `;
 
-exports[`Services component should display the empty component when there are no services 1`] = `<Wrapper />`;
+exports[`Services component should display suggestions after installed services 1`] = `
+<React.Fragment>
+  <div
+    className="services-list"
+  >
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test1",
+        }
+      }
+      route="connected/test1"
+    />
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test2",
+        }
+      }
+      route="connected/test2"
+    />
+    <Wrapper
+      isInMaintenance={false}
+      konnector={
+        Object {
+          "slug": "test3",
+        }
+      }
+      route="connected/test3"
+    />
+    <Wrapper
+      konnector={
+        Object {
+          "slug": "suggestion-1",
+        }
+      }
+    />
+    <Wrapper
+      konnector={
+        Object {
+          "slug": "suggestion-2",
+        }
+      }
+    />
+    <withClient(AddServiceTile)
+      label="Add"
+    />
+  </div>
+</React.Fragment>
+`;
+
+exports[`Services component should display the empty component when there are no services 1`] = `
+<React.Fragment>
+  <div
+    className="services-list"
+  >
+    <Wrapper
+      konnector={
+        Object {
+          "slug": "suggestion-1",
+        }
+      }
+    />
+    <Wrapper
+      category="banking"
+      slugs={
+        Array [
+          "hsbc119",
+          "caissedepargne1",
+          "ingdirect95",
+          "cic45",
+        ]
+      }
+    />
+    <Wrapper
+      category="isp"
+      slugs={
+        Array [
+          "sfr",
+          "free",
+          "orange",
+          "bouyguestelecom",
+        ]
+      }
+    />
+    <Wrapper
+      category="insurance"
+      slugs={
+        Array [
+          "maifecheancier",
+          "alan",
+          "harmonie",
+          "macif",
+        ]
+      }
+    />
+    <Wrapper
+      category="energy"
+      slugs={
+        Array [
+          "engie",
+          "planeteoui",
+          "veoliaeau",
+          "ekwateur",
+        ]
+      }
+    />
+    <withClient(AddServiceTile)
+      label="Add"
+    />
+  </div>
+  <Wrapper />
+</React.Fragment>
+`;
