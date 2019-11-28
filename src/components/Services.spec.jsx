@@ -49,16 +49,20 @@ describe('Services component', () => {
 
   it('should display suggestions after installed services', () => {
     const installedKonnectors = [
-      { slug: 'test1' },
-      { slug: 'test2' },
-      { slug: 'test3' }
+      { slug: 'test-1' },
+      { slug: 'test-2' },
+      { slug: 'test-3' }
     ]
     const component = shallow(
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
         suggestedKonnectorsQuery={{
-          data: [{ slug: 'suggestion-1' }, { slug: 'suggestion-2' }]
+          data: [
+            { slug: 'suggestion-1' },
+            { slug: 'suggestion-2' },
+            { slug: 'test-1' }
+          ]
         }}
         client={{}}
       />
