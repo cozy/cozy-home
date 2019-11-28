@@ -22,7 +22,7 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
-        konnectorSuggestions={{ data: [] }}
+        suggestedKonnectorsQuery={{ data: [] }}
         client={{}}
       />
     )
@@ -35,7 +35,7 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
-        konnectorSuggestions={{ data: [{ slug: 'suggestion-1' }] }}
+        suggestedKonnectorsQuery={{ data: [{ slug: 'suggestion-1' }] }}
         client={{}}
       />
     )
@@ -52,7 +52,7 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={installedKonnectors}
-        konnectorSuggestions={{
+        suggestedKonnectorsQuery={{
           data: [{ slug: 'suggestion-1' }, { slug: 'suggestion-2' }]
         }}
         client={{}}
