@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyServicesListTip should math the snapshot 1`] = `
+<Media
+  align="top"
+  className="EmptyServicesListTip"
+>
+  <Img>
+    <img
+      src="test-file-stub"
+    />
+  </Img>
+  <Bd
+    className="EmptyServicesListTip-text"
+  >
+    <Title
+      ellipsis={false}
+      tag="div"
+    >
+      Start gathering your data!
+    </Title>
+    <Text
+      className="u-mv-half"
+      ellipsis={false}
+      tag="p"
+    >
+      Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)
+    </Text>
+  </Bd>
+</Media>
+`;

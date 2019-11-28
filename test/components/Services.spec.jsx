@@ -40,6 +40,11 @@ describe('Services component', () => {
       />
     )
     expect(component.getElement()).toMatchSnapshot()
+    const emptyServicesListTip = component
+      .children()
+      .last()
+      .dive()
+    expect(emptyServicesListTip.getElement()).toMatchSnapshot()
   })
 
   it('should display suggestions after installed services', () => {

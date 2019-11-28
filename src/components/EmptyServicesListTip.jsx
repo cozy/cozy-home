@@ -5,7 +5,7 @@ import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import { translate } from 'cozy-ui/react/I18n'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 
-const EmptyServicesListTip = ({ t }) => (
+export const EmptyServicesListTip = ({ t }) => (
   <Media align="top" className="EmptyServicesListTip">
     <Img>
       <img src={ArrowIllustration} />

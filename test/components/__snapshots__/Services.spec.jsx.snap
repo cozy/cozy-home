@@ -155,3 +155,5 @@ exports[`Services component should display the empty component when there are no
   <Wrapper />
 </React.Fragment>
 `;
+
+exports[`Services component should display the empty component when there are no services 2`] = `<EmptyServicesListTip />`;
