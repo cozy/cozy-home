@@ -48,28 +48,28 @@ exports[`Services component should display suggestions after installed services 
       isInMaintenance={false}
       konnector={
         Object {
-          "slug": "test1",
+          "slug": "test-1",
         }
       }
-      route="connected/test1"
+      route="connected/test-1"
     />
     <Wrapper
       isInMaintenance={false}
       konnector={
         Object {
-          "slug": "test2",
+          "slug": "test-2",
         }
       }
-      route="connected/test2"
+      route="connected/test-2"
     />
     <Wrapper
       isInMaintenance={false}
       konnector={
         Object {
-          "slug": "test3",
+          "slug": "test-3",
         }
       }
-      route="connected/test3"
+      route="connected/test-3"
     />
     <Wrapper
       konnector={
