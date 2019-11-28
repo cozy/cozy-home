@@ -4,8 +4,8 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Services } from '../../src/components/Services'
-import { tMock } from '../jestLib/I18n'
+import { Services } from './Services'
+import { tMock } from '../../test/jestLib/I18n'
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
   getCssVariableValue: () => '#fff'
