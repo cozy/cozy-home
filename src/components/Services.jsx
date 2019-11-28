@@ -20,12 +20,13 @@ import candidatesConfig from 'config/candidates'
 export const Services = ({
   t,
   installedKonnectors,
-  konnectorSuggestions,
+  suggestedKonnectorsQuery,
   client
 }) => {
   const hasConnections = !!installedKonnectors.length
   const appsInMaintenance = useAppsInMaintenance(client)
   const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
+  const suggestedKonnectors = suggestedKonnectorsQuery.data
 
   return (
     <>
@@ -38,7 +39,7 @@ export const Services = ({
             isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
           />
         ))}
-        {konnectorSuggestions.data.map(suggestion => (
+        {suggestedKonnectors.map(suggestion => (
           <CandidateServiceTile key={suggestion.slug} konnector={suggestion} />
         ))}
         {!hasConnections &&
@@ -54,7 +55,7 @@ export const Services = ({
         {<AddServiceTile label={t('add_service')} />}
       </div>
       {!hasConnections &&
-        konnectorSuggestions.data.length >= 1 && <EmptyServicesListTip />}
+        suggestedKonnectors.length >= 1 && <EmptyServicesListTip />}
     </>
   )
 }
@@ -73,6 +74,6 @@ const mapStateToProps = state => {
 export default flow(
   connect(mapStateToProps),
   translate(),
-  queryConnect({ konnectorSuggestions: { query } }),
+  queryConnect({ suggestedKonnectorsQuery: { query } }),
   withClient
 )(Services)
