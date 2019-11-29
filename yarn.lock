@@ -3219,10 +3219,10 @@ cozy-flags@1.10.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.15.0.tgz#76c8ffea15c54ab498ad7619fa0133ee706dc38d"
-  integrity sha512-yOfNiJqSQTnqVmpxTXBMmPIM1Fi5LV1epBmU/mNWHb1FdGzH7lB3/JYFm5HQjl4OyPsQ00jcoSUqBA0KMQ0qrg==
+cozy-harvest-lib@1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.15.2.tgz#e12439352c0f8a776725f891da576d085446ae79"
+  integrity sha512-0CH9kWwscQQfIla3vlxuBwcT1pcbEtS0ssaV782UGIM/pMT83TyIrlxu0+p90HULAsSujlJlUIKS0pCmUm8Ulw==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
@@ -3232,7 +3232,6 @@ cozy-harvest-lib@1.15.0:
     lodash "4.17.15"
     microee "^0.0.6"
     node-polyglot "^2.4.0"
-    preact-portal "^1.1.3"
     react-final-form "3.7.0"
     react-markdown "4.2.2"
     react-router-dom "^5.0.1"
@@ -9921,11 +9920,6 @@ pouchdb-utils@7.0.0:
     pouchdb-errors "7.0.0"
     pouchdb-md5 "7.0.0"
     uuid "3.2.1"
-
-preact-portal@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/preact-portal/-/preact-portal-1.1.3.tgz#22cdd3ecf6ad9aaa3f830607a9c6591de90aedb7"
-  integrity sha512-rE0KG2b7ggIly4VVsSm7+WmQmG/EoUZzBOed2IbycyaFIArOvz+yab/8RBoDogA0JWZuTsbMTStR41Ghc+5m7Q==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
