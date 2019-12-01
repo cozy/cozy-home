@@ -3188,19 +3188,7 @@ cozy-device-helper@1.8.0, cozy-device-helper@^1.7.3:
   dependencies:
     lodash "4.17.15"
 
-cozy-doctypes@1.67.1:
-  version "1.67.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.67.1.tgz#1c6ea55c1798f0b019e636933e83a3b3c2a95ea3"
-  integrity sha512-X0HzUeq6Pplz5WkS8wNqUn3Qt4Bi2LrNcToXuXe4Smm38jWCod8imvIRPEt+I09cb7ginRQjFMquKPgium46nw==
-  dependencies:
-    "@babel/runtime" "7.5.5"
-    cozy-logger "^1.6.0"
-    date-fns "1.30.1"
-    es6-promise-pool "2.5.0"
-    lodash "4.17.15"
-    prop-types "^15.7.2"
-
-cozy-doctypes@^1.69.0:
+cozy-doctypes@1.69.0, cozy-doctypes@^1.69.0:
   version "1.69.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.69.0.tgz#6718f016206f2afff75b9976d6f429e45f966bdc"
   integrity sha512-VsC/E1liapUuLXXAjd18o2b2pLEgO57KEh+L5qGVHjleoefaBzVH05HFBFpQ05BwyxbGl7XOAJt+jBGcQaco6g==
