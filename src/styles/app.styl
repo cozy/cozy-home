@@ -22,13 +22,22 @@ body
     +mobile()
         overflow auto
 
-.layout
+.App
+    display flex
+    min-width 100%
+    width 100%
+
+.App-MainCol
     display flex
     flex-direction column
     justify-content flex-start
     align-items stretch
-    min-width 100%
     width 100%
+
+.Timeline
+    flex-shrink 0
+    overflow-x auto
+    box-shadow 0 0 0 1px rgba(0, 0, 0, .08), 0 4px 12px 0 rgba(0, 0, 0, .08)
 
 .main-loader
     display flex

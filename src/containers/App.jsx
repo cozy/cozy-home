@@ -20,6 +20,7 @@ import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
 import ConnectionsQueue from 'ducks/connections/components/queue/index'
+import DemoTimeline from 'assets/images/timeline.png'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -90,47 +91,55 @@ class App extends Component {
     const isFetchingContext = status === FETCHING_CONTEXT
 
     const isReady = !hasError && !isFetching && !isFetchingContext
+    const showTimeline = flag('hide_konnector_errors') // TODO harmonize flag names
 
     return (
-      <div
-        className="layout"
-        ref={
-          isReady
-            ? div => {
-                this.contentWrapper = div
-              }
-            : null
-        }
-      >
-        <Alerter />
-        <HeroHeader />
-        {hasError && (
-          <Main className="main-loader">
-            <Failure errorType="initial" />
-          </Main>
+      <div className="App">
+        <div
+          className="App-MainCol"
+          ref={
+            isReady
+              ? div => {
+                  this.contentWrapper = div
+                }
+              : null
+          }
+        >
+          <Alerter />
+          <HeroHeader />
+          {hasError && (
+            <Main className="main-loader">
+              <Failure errorType="initial" />
+            </Main>
+          )}
+          {isFetching && (
+            <Main className="main-loader">
+              <Spinner size="xxlarge" />
+            </Main>
+          )}
+          {isReady && (
+            <Switch>
+              <Route path="/redirect" component={IntentRedirect} />
+              <Route
+                path="/connected"
+                render={() => (
+                  <Home base="/connected" wrapper={this.contentWrapper} />
+                )}
+              />
+              <Route exact path="/providers" component={StoreRedirection} />
+              <Route path="/providers/:category" component={StoreRedirection} />
+              <Redirect exact from="/" to="/connected" />
+              <Redirect from="*" to="/connected" />
+            </Switch>
+          )}
+          <ConnectionsQueue />
+          <IconSprite />
+        </div>
+        {showTimeline && (
+          <div className="Timeline">
+            <img src={DemoTimeline} width="420px" />
+          </div>
         )}
-        {isFetching && (
-          <Main className="main-loader">
-            <Spinner size="xxlarge" />
-          </Main>
-        )}
-        {isReady && (
-          <Switch>
-            <Route path="/redirect" component={IntentRedirect} />
-            <Route
-              path="/connected"
-              render={() => (
-                <Home base="/connected" wrapper={this.contentWrapper} />
-              )}
-            />
-            <Route exact path="/providers" component={StoreRedirection} />
-            <Route path="/providers/:category" component={StoreRedirection} />
-            <Redirect exact from="/" to="/connected" />
-            <Redirect from="*" to="/connected" />
-          </Switch>
-        )}
-        <ConnectionsQueue />
-        <IconSprite />
       </div>
     )
   }
