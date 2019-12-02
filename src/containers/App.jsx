@@ -91,7 +91,7 @@ class App extends Component {
     const isFetchingContext = status === FETCHING_CONTEXT
 
     const isReady = !hasError && !isFetching && !isFetchingContext
-    const showTimeline = flag('hide_konnector_errors') // TODO harmonize flag names
+    const showTimeline = flag('home_show_timeline') // used in demo envs
 
     return (
       <div className="App">
