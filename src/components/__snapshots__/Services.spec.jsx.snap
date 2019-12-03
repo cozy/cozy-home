@@ -157,3 +157,75 @@ exports[`Services component should display the empty component when there are no
 `;
 
 exports[`Services component should display the empty component when there are no services 2`] = `<EmptyServicesListTip />`;
+
+exports[`Services component should show default suggestions when there are no services and no suggestions 1`] = `
+<React.Fragment>
+  <div
+    className="services-list"
+  >
+    <Wrapper
+      konnector={
+        Object {
+          "name": "Ameli",
+          "slug": "ameli",
+        }
+      }
+    />
+    <Wrapper
+      konnector={
+        Object {
+          "name": "Impôts.gouv.fr",
+          "slug": "impots",
+        }
+      }
+    />
+    <Wrapper
+      category="banking"
+      slugs={
+        Array [
+          "hsbc119",
+          "caissedepargne1",
+          "ingdirect95",
+          "cic45",
+        ]
+      }
+    />
+    <Wrapper
+      category="isp"
+      slugs={
+        Array [
+          "sfr",
+          "free",
+          "orange",
+          "bouyguestelecom",
+        ]
+      }
+    />
+    <Wrapper
+      category="insurance"
+      slugs={
+        Array [
+          "maifecheancier",
+          "alan",
+          "harmonie",
+          "macif",
+        ]
+      }
+    />
+    <Wrapper
+      category="energy"
+      slugs={
+        Array [
+          "engie",
+          "planeteoui",
+          "veoliaeau",
+          "ekwateur",
+        ]
+      }
+    />
+    <withClient(AddServiceTile)
+      label="Add"
+    />
+  </div>
+</React.Fragment>
+`;
