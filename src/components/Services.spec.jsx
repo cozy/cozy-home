@@ -47,6 +47,18 @@ describe('Services component', () => {
     expect(emptyServicesListTip.getElement()).toMatchSnapshot()
   })
 
+  it('should show default suggestions when there are no services and no suggestions', () => {
+    const component = shallow(
+      <Services
+        t={tMock}
+        installedKonnectors={[]}
+        suggestedKonnectorsQuery={{ data: [] }}
+        client={{}}
+      />
+    )
+    expect(component.getElement()).toMatchSnapshot()
+  })
+
   it('should display suggestions after installed services', () => {
     const installedKonnectors = [
       { slug: 'test-1' },

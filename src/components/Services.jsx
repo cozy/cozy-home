@@ -40,6 +40,11 @@ export const Services = ({
             isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
           />
         ))}
+        {!hasConnections &&
+          suggestedKonnectors.length === 0 &&
+          candidatesConfig.konnectors.map(candidate => (
+            <CandidateServiceTile key={candidate.slug} konnector={candidate} />
+          ))}
         {suggestedKonnectors
           // TODO turn this into a method on the model
           .filter(
