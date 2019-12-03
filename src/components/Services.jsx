@@ -90,7 +90,11 @@ Services.propTypes = {
 }
 
 const query = client =>
-  client.find('io.cozy.apps.suggestions').where({ silenced: false })
+  client
+    .find('io.cozy.apps.suggestions')
+    .where({ silenced: false })
+    .sortBy([{ silenced: 'asc' }, { slug: 'asc' }])
+    .indexFields(['silenced', 'slug'])
 
 const mapStateToProps = state => {
   return {
