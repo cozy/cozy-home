@@ -227,5 +227,6 @@ exports[`Services component should show default suggestions when there are no se
       label="Add"
     />
   </div>
+  <Wrapper />
 </React.Fragment>
 `;

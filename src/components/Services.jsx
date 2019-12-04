@@ -24,10 +24,28 @@ export const Services = ({
   suggestedKonnectorsQuery,
   client
 }) => {
-  const hasConnections = !!installedKonnectors.length
   const appsInMaintenance = useAppsInMaintenance(client)
   const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
-  const suggestedKonnectors = suggestedKonnectorsQuery.data
+
+  const candidatesSlugBlacklist = appsInMaintenance
+    .map(({ slug }) => slug)
+    .concat(installedKonnectors.map(({ slug }) => slug))
+
+  const suggestedKonnectors = suggestedKonnectorsQuery.data.filter(
+    ({ slug }) => !candidatesSlugBlacklist.includes(slug)
+  )
+  const fallbackKonnectorSuggestions = candidatesConfig.konnectors.filter(
+    ({ slug }) => !candidatesSlugBlacklist.includes(slug)
+  )
+  const categorySuggestions = Object.entries(candidatesConfig.categories)
+
+  const hasZeroInstalledKonnectors = !installedKonnectors.length
+  const displayFallbackSuggestions =
+    hasZeroInstalledKonnectors && suggestedKonnectors.length === 0
+  const displayTutorialTip =
+    hasZeroInstalledKonnectors &&
+    (suggestedKonnectors.length >= 1 ||
+      fallbackKonnectorSuggestions.length >= 1)
 
   return (
     <>
@@ -40,40 +58,24 @@ export const Services = ({
             isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
           />
         ))}
-        {!hasConnections &&
-          suggestedKonnectors.length === 0 &&
-          candidatesConfig.konnectors.map(candidate => (
+        {suggestedKonnectors.map(suggestion => (
+          <CandidateServiceTile key={suggestion.slug} konnector={suggestion} />
+        ))}
+        {displayFallbackSuggestions &&
+          fallbackKonnectorSuggestions.map(candidate => (
             <CandidateServiceTile key={candidate.slug} konnector={candidate} />
           ))}
-        {suggestedKonnectors
-          // TODO turn this into a method on the model
-          .filter(
-            ({ slug }) =>
-              !has(appsInMaintenanceBySlug, slug) &&
-              !installedKonnectors.some(
-                installedKonnector => installedKonnector.slug === slug
-              )
-          )
-          .map(suggestion => (
-            <CandidateServiceTile
-              key={suggestion.slug}
-              konnector={suggestion}
+        {hasZeroInstalledKonnectors &&
+          categorySuggestions.map(([category, slugs]) => (
+            <CandidateCategoryTile
+              key={category}
+              slugs={slugs}
+              category={category}
             />
           ))}
-        {!hasConnections &&
-          Object.entries(candidatesConfig.categories).map(
-            ([category, slugs]) => (
-              <CandidateCategoryTile
-                key={category}
-                slugs={slugs}
-                category={category}
-              />
-            )
-          )}
         {<AddServiceTile label={t('add_service')} />}
       </div>
-      {!hasConnections &&
-        suggestedKonnectors.length >= 1 && <EmptyServicesListTip />}
+      {displayTutorialTip && <EmptyServicesListTip />}
     </>
   )
 }
