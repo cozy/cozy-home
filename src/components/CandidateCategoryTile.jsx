@@ -5,13 +5,12 @@ import IconGrid from 'cozy-ui/react/Labs/IconGrid'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'components/AppIcon'
-import useAppDataset from 'hooks/useAppDataset'
 
 const CandidateCategoryTile = ({ t, slugs, category, client }) => {
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover?type=konnector&category=${category}`
-  const { cozySubdomainType: subDomainType } = useAppDataset()
+  const { cozySubdomainType: subDomainType } = client.getInstanceOptions()
 
   return (
     <AppLinker
