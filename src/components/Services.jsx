@@ -13,6 +13,7 @@ import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
 import CandidateServiceTile from 'components/CandidateServiceTile'
+import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
 import EmptyServicesListTip from 'components/EmptyServicesListTip'
 import { getInstalledKonnectors } from 'reducers/index'
 import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
@@ -63,7 +64,10 @@ export const Services = ({
         ))}
         {displayFallbackSuggestions &&
           fallbackKonnectorSuggestions.map(candidate => (
-            <CandidateServiceTile key={candidate.slug} konnector={candidate} />
+            <FallbackCandidateServiceTile
+              key={candidate.slug}
+              slug={candidate.slug}
+            />
           ))}
         {hasZeroInstalledKonnectors &&
           categorySuggestions.map(([category, slugs]) => (
