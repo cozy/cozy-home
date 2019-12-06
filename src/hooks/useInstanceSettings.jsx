@@ -12,7 +12,7 @@ const useInstanceSettings = client => {
         const response = await client.query(
           client.all('io.cozy.settings').getById('instance')
         )
-        setSettings(get(response, 'attributes'), {})
+        setSettings(get(response, 'data.attributes'), {})
         setFetchStatus('loaded')
       } catch (error) {
         setFetchStatus('failed')
