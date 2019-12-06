@@ -164,20 +164,10 @@ exports[`Services component should show default suggestions when there are no se
     className="services-list"
   >
     <Wrapper
-      konnector={
-        Object {
-          "name": "Ameli",
-          "slug": "ameli",
-        }
-      }
+      slug="ameli"
     />
     <Wrapper
-      konnector={
-        Object {
-          "name": "Impôts.gouv.fr",
-          "slug": "impots",
-        }
-      }
+      slug="impots"
     />
     <Wrapper
       category="banking"
