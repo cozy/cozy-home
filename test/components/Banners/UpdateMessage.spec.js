@@ -11,6 +11,7 @@ import { UpdateMessage } from 'components/Banners/UpdateMessage'
 describe('UpdateMessage component', () => {
   it(`Should be render correctly if not blocking update`, () => {
     const component = shallow(<UpdateMessage t={tMock} />)
+      .shallow()
       .dive()
       .getElement()
     expect(component).toMatchSnapshot()
@@ -18,6 +19,7 @@ describe('UpdateMessage component', () => {
 
   it(`Should be render correctly if blocking update`, () => {
     const component = shallow(<UpdateMessage t={tMock} isBlocking />)
+      .shallow()
       .dive()
       .getElement()
     expect(component).toMatchSnapshot()

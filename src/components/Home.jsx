@@ -8,6 +8,7 @@ import Konnector from 'components/Konnector'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
+import KonnectorErrors from 'components/KonnectorErrors'
 import FooterLogo from 'components/FooterLogo'
 
 class Home extends Component {
@@ -18,6 +19,7 @@ class Home extends Component {
         <ScrollToTopOnMount target={wrapper} />
         <Content className="lists-wrapper">
           <Applications />
+          <KonnectorErrors />
           <Services />
           <FooterLogo />
         </Content>

@@ -42,6 +42,7 @@ const getComponent = error => {
       trigger={triggerMock}
     />
   )
+    .shallow()
     .dive()
     .getElement()
 }

@@ -2,93 +2,137 @@
 
 exports[`ErrorMessage component Should render correctly 1`] = `
 <div
-  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-chablis u-maw-none"
+  className="Infos Infos--danger u-maw-none"
 >
-  <SubTitle
-    className="u-pomegranate"
-    ellipsis={false}
+  <Stack
+    spacing="m"
     tag="div"
   >
-    Bad credentials
-  </SubTitle>
-  <div
-    className="u-flex u-w-100"
-  >
-    <Text
-      className="u-ta-left"
-      ellipsis={false}
-      tag="div"
+    <div
+      className="Infos-description"
     >
-      Bad credentials. Check the konnector fields and run the connection again.
-    </Text>
-  </div>
+      <Stack
+        spacing="s"
+        tag="div"
+      >
+        <React.Fragment>
+          <SubTitle
+            className="u-pomegranate"
+            ellipsis={false}
+            tag="div"
+          >
+            Bad credentials
+          </SubTitle>
+          <div
+            className="u-flex u-w-100"
+          >
+            <Text
+              className="u-pl-half"
+              ellipsis={false}
+              tag="div"
+            >
+              Bad credentials. Check the konnector fields and run the connection again.
+            </Text>
+          </div>
+        </React.Fragment>
+      </Stack>
+    </div>
+  </Stack>
 </div>
 `;
 
 exports[`ErrorMessage component Should render correctly if two fa session expired 1`] = `
 <div
-  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-chablis u-maw-none"
+  className="Infos Infos--danger u-maw-none"
 >
-  <SubTitle
-    className="u-pomegranate"
-    ellipsis={false}
+  <Stack
+    spacing="m"
     tag="div"
   >
-    Relaunch the connexion to the service to fetch your data
-  </SubTitle>
-  <div
-    className="u-flex u-w-100"
-  >
-    <Text
-      className="u-ta-left"
-      ellipsis={false}
-      tag="div"
+    <div
+      className="Infos-description"
     >
-      The last connexion to the service failed; please launch it again. You may have to provide a validation code.
-    </Text>
-  </div>
-  <div
-    className="u-flex-shrink-0"
-  >
-    <Wrapper
-      trigger={Object {}}
-    >
-      [Function]
-    </Wrapper>
-  </div>
+      <Stack
+        spacing="s"
+        tag="div"
+      >
+        <React.Fragment>
+          <SubTitle
+            className="u-pomegranate"
+            ellipsis={false}
+            tag="div"
+          >
+            Relaunch the connexion to the service to fetch your data
+          </SubTitle>
+          <div
+            className="u-flex u-w-100"
+          >
+            <Text
+              className="u-pl-half"
+              ellipsis={false}
+              tag="div"
+            >
+              The last connexion to the service failed; please launch it again. You may have to provide a validation code.
+            </Text>
+          </div>
+        </React.Fragment>
+      </Stack>
+    </div>
+    <div>
+      <Wrapper
+        trigger={Object {}}
+      >
+        [Function]
+      </Wrapper>
+    </div>
+  </Stack>
 </div>
 `;
 
 exports[`ErrorMessage component Should render correctly if wrong twofa code error 1`] = `
 <div
-  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-chablis u-maw-none"
+  className="Infos Infos--danger u-maw-none"
 >
-  <SubTitle
-    className="u-pomegranate"
-    ellipsis={false}
+  <Stack
+    spacing="m"
     tag="div"
   >
-    Wrong two-factore code provided
-  </SubTitle>
-  <div
-    className="u-flex u-w-100"
-  >
-    <Text
-      className="u-ta-left"
-      ellipsis={false}
-      tag="div"
+    <div
+      className="Infos-description"
     >
-      The two-factor code provided is wrong, please start again.
-    </Text>
-  </div>
-  <div
-    className="u-flex-shrink-0"
-  >
-    <Wrapper
-      trigger={Object {}}
-    >
-      [Function]
-    </Wrapper>
-  </div>
+      <Stack
+        spacing="s"
+        tag="div"
+      >
+        <React.Fragment>
+          <SubTitle
+            className="u-pomegranate"
+            ellipsis={false}
+            tag="div"
+          >
+            Wrong two-factore code provided
+          </SubTitle>
+          <div
+            className="u-flex u-w-100"
+          >
+            <Text
+              className="u-pl-half"
+              ellipsis={false}
+              tag="div"
+            >
+              The two-factor code provided is wrong, please start again.
+            </Text>
+          </div>
+        </React.Fragment>
+      </Stack>
+    </div>
+    <div>
+      <Wrapper
+        trigger={Object {}}
+      >
+        [Function]
+      </Wrapper>
+    </div>
+  </Stack>
 </div>
 `;

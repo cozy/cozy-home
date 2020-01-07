@@ -70,3 +70,24 @@ export const getTriggersByKonnector = (state, konnectorSlug) => {
   }, [])
   return triggers
 }
+
+export const getTriggersInError = state => {
+  const triggers = get(state, ['cozy', 'documents', 'io.cozy.triggers'], {})
+
+  return Object.values(triggers).filter(trigger => {
+    const isInError = get(trigger, 'current_state.status') === 'errored'
+
+    return isInError
+  })
+}
+
+export const getAccountsWithErrors = state => {
+  const accountsWithErrorsIds = getTriggersInError(state).map(trigger =>
+    get(trigger, 'message.account')
+  )
+  const accounts = get(state, ['cozy', 'documents', 'io.cozy.accounts'], {})
+
+  return Object.values(accounts).filter(({ _id }) =>
+    accountsWithErrorsIds.includes(_id)
+  )
+}

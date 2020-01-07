@@ -2,72 +2,100 @@
 
 exports[`UpdateMessage component Should be render correctly if blocking update 1`] = `
 <div
-  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-chablis u-maw-none"
+  className="Infos Infos--danger u-maw-none"
 >
-  <SubTitle
-    className="u-pomegranate"
-    ellipsis={false}
+  <Stack
+    spacing="m"
     tag="div"
   >
-    An update is available for this service.
-  </SubTitle>
-  <div
-    className="u-flex u-w-100"
-  >
-    <Text
-      className="u-ta-left"
-      ellipsis={false}
-      tag="div"
+    <div
+      className="Infos-description"
     >
-      Update it to keep fetching your data
-    </Text>
-  </div>
-  <div
-    className="u-flex-shrink-0"
-  >
-    <DefaultButton
-      className="u-m-0"
-      disabled={false}
-      label="Update"
-      onClick={[Function]}
-      theme="danger"
-    />
-  </div>
+      <Stack
+        spacing="s"
+        tag="div"
+      >
+        <React.Fragment>
+          <SubTitle
+            className="u-pomegranate"
+            ellipsis={false}
+            tag="div"
+          >
+            An update is available for this service.
+          </SubTitle>
+          <div
+            className="u-flex u-w-100"
+          >
+            <Text
+              className="u-pl-half"
+              ellipsis={false}
+              tag="div"
+            >
+              Update it to keep fetching your data
+            </Text>
+          </div>
+        </React.Fragment>
+      </Stack>
+    </div>
+    <div>
+      <DefaultButton
+        className="u-m-0"
+        disabled={false}
+        label="Update"
+        onClick={[Function]}
+        theme="danger"
+      />
+    </div>
+  </Stack>
 </div>
 `;
 
 exports[`UpdateMessage component Should be render correctly if not blocking update 1`] = `
 <div
-  className="Infos u-flex u-flex-column u-p-1 u-mih-2 u-flex-justify-center u-ta-left u-stack-m u-bg-paleGrey u-maw-none"
+  className="Infos Infos--secondary u-maw-none"
 >
-  <SubTitle
-    className=""
-    ellipsis={false}
+  <Stack
+    spacing="m"
     tag="div"
   >
-    An update is available for this service.
-  </SubTitle>
-  <div
-    className="u-flex u-w-100"
-  >
-    <Text
-      className="u-ta-left"
-      ellipsis={false}
-      tag="div"
+    <div
+      className="Infos-description"
     >
-      Perform this update to keep fetching your data and to have the latest features
-    </Text>
-  </div>
-  <div
-    className="u-flex-shrink-0"
-  >
-    <DefaultButton
-      className="u-m-0"
-      disabled={false}
-      label="Update"
-      onClick={[Function]}
-      theme="danger"
-    />
-  </div>
+      <Stack
+        spacing="s"
+        tag="div"
+      >
+        <React.Fragment>
+          <SubTitle
+            className=""
+            ellipsis={false}
+            tag="div"
+          >
+            An update is available for this service.
+          </SubTitle>
+          <div
+            className="u-flex u-w-100"
+          >
+            <Text
+              className="u-pl-half"
+              ellipsis={false}
+              tag="div"
+            >
+              Perform this update to keep fetching your data and to have the latest features
+            </Text>
+          </div>
+        </React.Fragment>
+      </Stack>
+    </div>
+    <div>
+      <DefaultButton
+        className="u-m-0"
+        disabled={false}
+        label="Update"
+        onClick={[Function]}
+        theme="danger"
+      />
+    </div>
+  </Stack>
 </div>
 `;

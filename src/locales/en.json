@@ -16,6 +16,7 @@
     "changes": "You haven't missed it, the Store arrived in your Cozy!\nWe took advantage of it to improve Collect:\n * Store adaptation.\n * Tile merge: when you have several accounts for a single supplier, the former are now merged under the supplier tile.\n * Improvement of some Connectors pages."
   },
   "add_service": "Add",
+  "fix_konnector_error": "Fix now",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
