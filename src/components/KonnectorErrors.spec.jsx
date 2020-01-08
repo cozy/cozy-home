@@ -139,4 +139,41 @@ describe('KonnectorErrors', () => {
       mutedErrors: [{ mutedAt: MOCKED_DATE, type: 'LOGIN_FAILED' }]
     })
   })
+
+  it('should hide errors when the konnector or account is missing', () => {
+    const component = shallow(
+      <KonnectorErrors
+        t={s => s}
+        triggersInError={[
+          {
+            _id: '1',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'LOGIN_FAILED'
+            },
+            message: {
+              konnector: 'uninstalled',
+              account: '123'
+            }
+          },
+          {
+            _id: '2',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'LOGIN_FAILED'
+            },
+            message: {
+              konnector: 'uninstalled',
+              account: 'no-account'
+            }
+          }
+        ]}
+        accountsWithErrors={[{ _id: '123', mutedErrors: [] }]}
+        installedKonnectors={[]}
+        history={mockHistory}
+        client={mockClient}
+      />
+    )
+    expect(component.find('InfosCarrousel').children().length).toEqual(0)
+  })
 })
