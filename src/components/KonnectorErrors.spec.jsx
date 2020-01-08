@@ -20,6 +20,59 @@ describe('KonnectorErrors', () => {
 
   const mockHistory = {}
 
+  it('should render nothing when there are no errors', () => {
+    const component = shallow(
+      <KonnectorErrors
+        t={s => s}
+        triggersInError={[]}
+        accountsWithErrors={[]}
+        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
+        history={mockHistory}
+        client={mockClient}
+      />
+    )
+
+    expect(component.html()).toBe(null)
+  })
+
+  it('should render nothing when all errors are muted', () => {
+    const component = shallow(
+      <KonnectorErrors
+        t={s => s}
+        triggersInError={[
+          {
+            _id: '2',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'MUTED_ERROR',
+              last_success: '2019-10-01T00:48:01.404911778Z'
+            },
+            message: {
+              konnector: 'test',
+              account: '456'
+            }
+          }
+        ]}
+        accountsWithErrors={[
+          {
+            _id: '456',
+            mutedErrors: [
+              {
+                type: 'MUTED_ERROR',
+                mutedAt: '2019-12-01T00:48:01.404911778Z'
+              }
+            ]
+          }
+        ]}
+        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
+        history={mockHistory}
+        client={mockClient}
+      />
+    )
+
+    expect(component.html()).toBe(null)
+  })
+
   it('should render all the errors', () => {
     const component = shallow(
       <KonnectorErrors
