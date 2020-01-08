@@ -44,7 +44,15 @@ export const KonnectorErrors = ({
   const nonMutedTriggerErrors = triggersInError.filter(trigger => {
     const accountId = triggersModel.getAccountId(trigger)
     const account = accountsWithErrorsById[accountId]
-    return !triggersModel.isLatestErrorMuted(trigger, account)
+    const konnectorSlug = triggersModel.getKonnector(trigger)
+    const hasInstalledKonnector = installedKonnectors.some(
+      ({ slug }) => slug === konnectorSlug
+    )
+    return (
+      hasInstalledKonnector &&
+      account &&
+      !triggersModel.isLatestErrorMuted(trigger, account)
+    )
   })
 
   return nonMutedTriggerErrors.length > 0 ? (
