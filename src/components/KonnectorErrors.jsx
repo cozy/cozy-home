@@ -47,7 +47,7 @@ export const KonnectorErrors = ({
     return !triggersModel.isLatestErrorMuted(trigger, account)
   })
 
-  return (
+  return nonMutedTriggerErrors.length > 0 ? (
     <div className="KonnectorErrors">
       <InfosCarrousel theme="danger">
         {nonMutedTriggerErrors.map((trigger, index) => {
@@ -104,7 +104,7 @@ export const KonnectorErrors = ({
         })}
       </InfosCarrousel>
     </div>
-  )
+  ) : null
 }
 
 KonnectorErrors.propTypes = {
