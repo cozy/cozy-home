@@ -2,5 +2,20 @@
   "defaultDateFormat": "MM/DD/YYYY",
   "defaultTriggerTimeInterval": [0, 5],
   "filteredApps": ["home"],
+  "displayedErrorTypes": [
+    "DISK_QUOTA_EXCEEDED",
+    "CHALLENGE_ASKED",
+    "LOGIN_FAILED",
+    "LOGIN_FAILED.NEEDS_SECRET",
+    "LOGIN_FAILED.TOO_MANY_ATTEMPTS",
+    "NOT_EXISTING_DIRECTORY",
+    "USER_ACTION_NEEDED",
+    "USER_ACTION_NEEDED.OAUTH_OUTDATED",
+    "USER_ACTION_NEEDED.ACCOUNT_REMOVED",
+    "USER_ACTION_NEEDED.CHANGE_PASSWORD",
+    "USER_ACTION_NEEDED.PERMISSIONS_CHANGED",
+    "USER_ACTION_NEEDED.TWOFA_EXPIRED",
+    "USER_ACTION_NEEDED.WRONG_TWOFA_CODE"
+  ],
   "customWallpaperPath": "/Photos/Settings/Wallpaper.jpg"
 }

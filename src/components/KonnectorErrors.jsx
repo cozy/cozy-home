@@ -17,6 +17,7 @@ import {
 } from 'reducers/index'
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
 import AppIcon from 'components/AppIcon'
+import homeConfig from 'config/collect'
 
 const {
   triggers: { triggers: triggersModel, triggerStates: triggerStatesModel },
@@ -42,13 +43,16 @@ export const KonnectorErrors = ({
 }) => {
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
   const nonMutedTriggerErrors = triggersInError.filter(trigger => {
+    const errorType = triggerStatesModel.getLastErrorType(trigger)
     const accountId = triggersModel.getAccountId(trigger)
     const account = accountsWithErrorsById[accountId]
     const konnectorSlug = triggersModel.getKonnector(trigger)
     const hasInstalledKonnector = installedKonnectors.some(
       ({ slug }) => slug === konnectorSlug
     )
+
     return (
+      homeConfig.displayedErrorTypes.includes(errorType) &&
       hasInstalledKonnector &&
       account &&
       !triggersModel.isLatestErrorMuted(trigger, account)
