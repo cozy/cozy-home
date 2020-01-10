@@ -73,7 +73,7 @@ describe('KonnectorErrors', () => {
     expect(component.html()).toBe(null)
   })
 
-  it('should render all the errors', () => {
+  it('should render active errors', () => {
     const component = shallow(
       <KonnectorErrors
         t={s => s}
@@ -93,7 +93,7 @@ describe('KonnectorErrors', () => {
             _id: '2',
             worker: 'konnector',
             current_state: {
-              last_error: 'MUTED_ERROR',
+              last_error: 'LOGIN_FAILED.NEEDS_SECRET', // this one is muted
               last_success: '2019-10-01T00:48:01.404911778Z'
             },
             message: {
@@ -105,7 +105,18 @@ describe('KonnectorErrors', () => {
             _id: '3',
             worker: 'konnector',
             current_state: {
-              last_error: 'USER_ACTION_REQUIRED'
+              last_error: 'USER_ACTION_NEEDED'
+            },
+            message: {
+              konnector: 'test',
+              account: '123'
+            }
+          },
+          {
+            _id: '4',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'VENDOR_DOWN' // This type of error is not displayed
             },
             message: {
               konnector: 'test',
@@ -119,7 +130,7 @@ describe('KonnectorErrors', () => {
             _id: '456',
             mutedErrors: [
               {
-                type: 'MUTED_ERROR',
+                type: 'LOGIN_FAILED.NEEDS_SECRET',
                 mutedAt: '2019-12-01T00:48:01.404911778Z'
               }
             ]
