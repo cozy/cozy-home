@@ -1,5 +1,6 @@
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
+@require 'settings/spaces.styl'
 
 mobileTileSize = 4rem
 outsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)
@@ -10,6 +11,7 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     appTileSize = 6rem
     position relative
     margin-top -(appTileSize / 2)
+    margin-bottom: spacing_values.l
     display grid
     grid-template-columns repeat(auto-fit, appTileSize)
     grid-auto-rows appTileSize
@@ -17,7 +19,8 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     justify-content center
 
     +tiny-screen()
-        margin-top (-(mobileTileSize) / 2)
+        margin-top: (-(mobileTileSize) / 2)
+        margin-bottom: spacing_values.xs
         grid-template-columns repeat(auto-fit, mobileTileSize)
         grid-auto-rows mobileTileSize
         grid-gap rem(4)
@@ -58,7 +61,7 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     serviceGridGutter = 17px
     width 100%
     max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
-    margin rem(48) auto rem(24)
+    margin: spacing_values.l auto
     display grid
     grid-template-columns repeat(auto-fit, serviceTileSize)
     grid-auto-rows serviceTileSize
@@ -67,7 +70,7 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     opacity .99 // required for the blend mode difference to work
 
     +tiny-screen()
-        margin rem(24) auto
+        margin: spacing_values.m auto
         grid-template-columns repeat(auto-fit, mobileTileSize)
         grid-auto-rows mobileTileSize
         grid-gap rem(3)

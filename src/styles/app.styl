@@ -1,6 +1,7 @@
 @require 'tools/mixins.styl'
 @require 'settings/breakpoints.styl'
 @require 'settings/palette.styl'
+@require 'settings/spaces.styl'
 
 // overriding the general layout to allow a sticky footer
 html,
@@ -42,8 +43,13 @@ body
 
 .KonnectorErrors
     max-width 662px // same as https://github.com/cozy/cozy-home/commit/10d4f4e605a2b5308dac9921538f194db77b7540#diff-17941d0d4818675dfedc84955549bdf2R60
-    width 100%
-    margin 3rem auto 0
+    margin: spacing_values.xs auto 0
+
+    p
+        margin: spacing_values.xs 0
+
+    +tiny-screen()
+        margin: spacing_values.m spacing_values.m 0
 
 .main-loader
     display flex
