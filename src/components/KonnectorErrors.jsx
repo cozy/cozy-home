@@ -76,19 +76,21 @@ export const KonnectorErrors = ({
               key={trigger._id}
               description={
                 <>
-                  <div className="u-fz-tiny u-pomegranate u-flex u-flex-row u-flex-items-center">
+                  <div className="u-pomegranate u-flex u-flex-row u-flex-items-center">
                     <AppIcon
                       alt={t('app.logo.alt', { name: konnectorSlug })}
                       app={konnectorSlug}
-                      className="u-w-1 u-h-1 u-mr-half"
+                      className="u-w-2 u-h-2 u-w-1-half-s u-h-1-half-s u-mr-1"
                     />
-                    {konnector.name}
+                    <div>
+                      <span className="u-fz-tiny">{konnector.name}</span>
+                      <SubTitle className="u-pomegranate u-fz-medium u-fz-small-m">
+                        {`(${index + 1}/${nonMutedTriggerErrors.length}) `}
+                        {t(`connection.error.${errorType}.title`)}
+                      </SubTitle>
+                    </div>
                   </div>
-                  <SubTitle>
-                    {`(${index + 1}/${nonMutedTriggerErrors.length}) `}
-                    {t(`connection.error.${errorType}.title`)}
-                  </SubTitle>
-                  <Text>
+                  <Text className="u-fz-small-m">
                     <ReactMarkdownWrapper
                       source={t(`connection.error.${errorType}.description`, {
                         name: konnector.name,
