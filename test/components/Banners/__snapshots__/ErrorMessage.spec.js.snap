@@ -12,27 +12,27 @@ exports[`ErrorMessage component Should render correctly 1`] = `
       className="Infos-description"
     >
       <Stack
-        spacing="s"
+        spacing="xs"
         tag="div"
       >
         <React.Fragment>
-          <SubTitle
+          <ForwardRef
             className="u-pomegranate"
             ellipsis={false}
             tag="div"
           >
             Bad credentials
-          </SubTitle>
+          </ForwardRef>
           <div
             className="u-flex u-w-100"
           >
-            <Text
+            <ForwardRef
               className="u-pl-half"
               ellipsis={false}
               tag="div"
             >
               Bad credentials. Check the konnector fields and run the connection again.
-            </Text>
+            </ForwardRef>
           </div>
         </React.Fragment>
       </Stack>
@@ -53,37 +53,37 @@ exports[`ErrorMessage component Should render correctly if two fa session expire
       className="Infos-description"
     >
       <Stack
-        spacing="s"
+        spacing="xs"
         tag="div"
       >
         <React.Fragment>
-          <SubTitle
+          <ForwardRef
             className="u-pomegranate"
             ellipsis={false}
             tag="div"
           >
             Relaunch the connexion to the service to fetch your data
-          </SubTitle>
+          </ForwardRef>
           <div
             className="u-flex u-w-100"
           >
-            <Text
+            <ForwardRef
               className="u-pl-half"
               ellipsis={false}
               tag="div"
             >
               The last connexion to the service failed; please launch it again. You may have to provide a validation code.
-            </Text>
+            </ForwardRef>
           </div>
         </React.Fragment>
       </Stack>
     </div>
     <div>
-      <Wrapper
+      <withI18n(withLocales(withI18n(withClient(WithMutations(TriggerLauncher)))))
         trigger={Object {}}
       >
         [Function]
-      </Wrapper>
+      </withI18n(withLocales(withI18n(withClient(WithMutations(TriggerLauncher)))))>
     </div>
   </Stack>
 </div>
@@ -101,37 +101,37 @@ exports[`ErrorMessage component Should render correctly if wrong twofa code erro
       className="Infos-description"
     >
       <Stack
-        spacing="s"
+        spacing="xs"
         tag="div"
       >
         <React.Fragment>
-          <SubTitle
+          <ForwardRef
             className="u-pomegranate"
             ellipsis={false}
             tag="div"
           >
             Wrong two-factore code provided
-          </SubTitle>
+          </ForwardRef>
           <div
             className="u-flex u-w-100"
           >
-            <Text
+            <ForwardRef
               className="u-pl-half"
               ellipsis={false}
               tag="div"
             >
               The two-factor code provided is wrong, please start again.
-            </Text>
+            </ForwardRef>
           </div>
         </React.Fragment>
       </Stack>
     </div>
     <div>
-      <Wrapper
+      <withI18n(withLocales(withI18n(withClient(WithMutations(TriggerLauncher)))))
         trigger={Object {}}
       >
         [Function]
-      </Wrapper>
+      </withI18n(withLocales(withI18n(withClient(WithMutations(TriggerLauncher)))))>
     </div>
   </Stack>
 </div>

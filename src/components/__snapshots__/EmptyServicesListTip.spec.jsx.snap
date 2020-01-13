@@ -13,19 +13,19 @@ exports[`EmptyServicesListTip should math the snapshot 1`] = `
   <Bd
     className="EmptyServicesListTip-text"
   >
-    <Title
+    <ForwardRef
       ellipsis={false}
       tag="div"
     >
       Start gathering your data!
-    </Title>
-    <Text
+    </ForwardRef>
+    <ForwardRef
       className="u-mv-half"
       ellipsis={false}
       tag="p"
     >
       Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)
-    </Text>
+    </ForwardRef>
   </Bd>
 </Media>
 `;

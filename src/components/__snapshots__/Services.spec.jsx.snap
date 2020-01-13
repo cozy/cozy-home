@@ -5,7 +5,7 @@ exports[`Services component should display a list of services 1`] = `
   <div
     className="services-list"
   >
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -14,7 +14,7 @@ exports[`Services component should display a list of services 1`] = `
       }
       route="connected/test1"
     />
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -23,7 +23,7 @@ exports[`Services component should display a list of services 1`] = `
       }
       route="connected/test2"
     />
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -44,7 +44,7 @@ exports[`Services component should display suggestions after installed services 
   <div
     className="services-list"
   >
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -53,7 +53,7 @@ exports[`Services component should display suggestions after installed services 
       }
       route="connected/test-1"
     />
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -62,7 +62,7 @@ exports[`Services component should display suggestions after installed services 
       }
       route="connected/test-2"
     />
-    <Wrapper
+    <withI18n(Connect(withRouter(KonnectorTile)))
       isInMaintenance={false}
       konnector={
         Object {
@@ -71,14 +71,14 @@ exports[`Services component should display suggestions after installed services 
       }
       route="connected/test-3"
     />
-    <Wrapper
+    <withI18n(withClient(CandidateServiceTile))
       konnector={
         Object {
           "slug": "suggestion-1",
         }
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateServiceTile))
       konnector={
         Object {
           "slug": "suggestion-2",
@@ -97,14 +97,14 @@ exports[`Services component should display the empty component when there are no
   <div
     className="services-list"
   >
-    <Wrapper
+    <withI18n(withClient(CandidateServiceTile))
       konnector={
         Object {
           "slug": "suggestion-1",
         }
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="banking"
       slugs={
         Array [
@@ -115,7 +115,7 @@ exports[`Services component should display the empty component when there are no
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="isp"
       slugs={
         Array [
@@ -126,7 +126,7 @@ exports[`Services component should display the empty component when there are no
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="insurance"
       slugs={
         Array [
@@ -137,7 +137,7 @@ exports[`Services component should display the empty component when there are no
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="energy"
       slugs={
         Array [
@@ -152,7 +152,7 @@ exports[`Services component should display the empty component when there are no
       label="Add"
     />
   </div>
-  <Wrapper />
+  <withI18n(EmptyServicesListTip) />
 </React.Fragment>
 `;
 
@@ -163,13 +163,13 @@ exports[`Services component should show default suggestions when there are no se
   <div
     className="services-list"
   >
-    <Wrapper
+    <withI18n(withClient(FallbackCandidateServiceTile))
       slug="ameli"
     />
-    <Wrapper
+    <withI18n(withClient(FallbackCandidateServiceTile))
       slug="impots"
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="banking"
       slugs={
         Array [
@@ -180,7 +180,7 @@ exports[`Services component should show default suggestions when there are no se
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="isp"
       slugs={
         Array [
@@ -191,7 +191,7 @@ exports[`Services component should show default suggestions when there are no se
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="insurance"
       slugs={
         Array [
@@ -202,7 +202,7 @@ exports[`Services component should show default suggestions when there are no se
         ]
       }
     />
-    <Wrapper
+    <withI18n(withClient(CandidateCategoryTile))
       category="energy"
       slugs={
         Array [
@@ -217,6 +217,6 @@ exports[`Services component should show default suggestions when there are no se
       label="Add"
     />
   </div>
-  <Wrapper />
+  <withI18n(EmptyServicesListTip) />
 </React.Fragment>
 `;

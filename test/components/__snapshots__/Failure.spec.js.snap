@@ -11,13 +11,13 @@ exports[`Failure component should be displayed with initial text if errorType is
     size={64}
     spin={false}
   />
-  <MainTitle
+  <ForwardRef
     className="u-ta-center"
     ellipsis={false}
     tag="h2"
   >
     Something went wrong when fetching your connectors and informations. Please refresh the page.
-  </MainTitle>
+  </ForwardRef>
   <DefaultButton
     label="Refresh now"
     onClick={[Function]}
@@ -36,13 +36,13 @@ exports[`Failure component should correctly call the reload function on button c
     size={64}
     spin={false}
   />
-  <MainTitle
+  <ForwardRef
     className="u-ta-center"
     ellipsis={false}
     tag="h2"
   >
     Something went wrong when fetching your connectors and informations. Please refresh the page.
-  </MainTitle>
+  </ForwardRef>
   <DefaultButton
     label="Refresh now"
     onClick={[Function]}
