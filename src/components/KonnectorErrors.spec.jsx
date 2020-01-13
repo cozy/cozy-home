@@ -29,6 +29,7 @@ describe('KonnectorErrors', () => {
         installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
         history={mockHistory}
         client={mockClient}
+        breakpoints={{ isMobile: false }}
       />
     )
 
@@ -67,6 +68,7 @@ describe('KonnectorErrors', () => {
         installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
         history={mockHistory}
         client={mockClient}
+        breakpoints={{ isMobile: false }}
       />
     )
 
@@ -139,6 +141,7 @@ describe('KonnectorErrors', () => {
         installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
         history={mockHistory}
         client={mockClient}
+        breakpoints={{ isMobile: false }}
       />
     )
     expect(component.find('InfosCarrousel').children().length).toEqual(2)
@@ -183,6 +186,7 @@ describe('KonnectorErrors', () => {
         installedKonnectors={[]}
         history={mockHistory}
         client={mockClient}
+        breakpoints={{ isMobile: false }}
       />
     )
     expect(component.find('InfosCarrousel').children().length).toEqual(0)
