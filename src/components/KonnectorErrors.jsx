@@ -10,6 +10,7 @@ import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Text, { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import {
   getTriggersInError,
   getAccountsWithErrors,
@@ -39,7 +40,8 @@ export const KonnectorErrors = ({
   accountsWithErrors,
   installedKonnectors,
   history,
-  client
+  client,
+  breakpoints: { isMobile }
 }) => {
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
   const nonMutedTriggerErrors = triggersInError.filter(trigger => {
@@ -101,6 +103,7 @@ export const KonnectorErrors = ({
                   theme="secondary"
                   label={t('fix_konnector_error')}
                   className="u-mh-0"
+                  size={isMobile ? 'small' : 'normal'}
                   onClick={() =>
                     history.push(
                       `/connected/${konnectorSlug}/accounts/${konnectorAccount}`
@@ -125,7 +128,9 @@ KonnectorErrors.propTypes = {
   accountsWithErrors: PropTypes.array.isRequired,
   installedKonnectors: PropTypes.array.isRequired,
   history: PropTypes.object.isRequired,
-  client: PropTypes.object.isRequired
+  client: PropTypes.object.isRequired,
+  breakpoints: PropTypes.shape({ isMobile: PropTypes.bool.isRequired })
+    .isRequired
 }
 
 const mapStateToProps = state => {
@@ -140,5 +145,6 @@ export default flow(
   connect(mapStateToProps),
   withRouter,
   withClient,
-  translate()
+  translate(),
+  withBreakpoints()
 )(KonnectorErrors)
