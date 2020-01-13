@@ -68,6 +68,11 @@
       "description": "Required to update konnector passwords",
       "verbs": ["ALL"],
       "type": "com.bitwarden.organizations"
+    },
+    "ciphers": {
+      "description": "Required to know if the vault is used or not",
+      "verbs": ["GET"],
+      "type": "com.bitwarden.ciphers"
     }
   },
   "routes": {
