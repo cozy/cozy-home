@@ -12,27 +12,27 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
       className="Infos-description"
     >
       <Stack
-        spacing="s"
+        spacing="xs"
         tag="div"
       >
         <React.Fragment>
-          <SubTitle
+          <ForwardRef
             className="u-pomegranate"
             ellipsis={false}
             tag="div"
           >
             An update is available for this service.
-          </SubTitle>
+          </ForwardRef>
           <div
             className="u-flex u-w-100"
           >
-            <Text
+            <ForwardRef
               className="u-pl-half"
               ellipsis={false}
               tag="div"
             >
               Update it to keep fetching your data
-            </Text>
+            </ForwardRef>
           </div>
         </React.Fragment>
       </Stack>
@@ -62,27 +62,27 @@ exports[`UpdateMessage component Should be render correctly if not blocking upda
       className="Infos-description"
     >
       <Stack
-        spacing="s"
+        spacing="xs"
         tag="div"
       >
         <React.Fragment>
-          <SubTitle
+          <ForwardRef
             className=""
             ellipsis={false}
             tag="div"
           >
             An update is available for this service.
-          </SubTitle>
+          </ForwardRef>
           <div
             className="u-flex u-w-100"
           >
-            <Text
+            <ForwardRef
               className="u-pl-half"
               ellipsis={false}
               tag="div"
             >
               Perform this update to keep fetching your data and to have the latest features
-            </Text>
+            </ForwardRef>
           </div>
         </React.Fragment>
       </Stack>

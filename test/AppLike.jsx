@@ -1,21 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import I18n from 'cozy-ui/react/I18n'
 
 class AppLike extends React.Component {
   getChildContext() {
     return {
-      t: this.props.t,
       store: this.props.store
     }
   }
 
   render() {
-    return this.props.children
+    const polyglot = {
+      t: s => s
+    }
+    return (
+      <I18n dictRequire={() => ({})} polyglot={polyglot} lang="en">
+        {this.props.children}
+      </I18n>
+    )
   }
 }
 
 AppLike.childContextTypes = {
-  t: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired
 }
 
@@ -29,8 +35,7 @@ const fakeStore = {
 }
 
 AppLike.defaultProps = {
-  store: fakeStore,
-  t: x => x
+  store: fakeStore
 }
 
 export default AppLike
