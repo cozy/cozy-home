@@ -30,6 +30,15 @@ const getMockProps = (
 })
 
 describe('KonnectorTile component', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    // eslint-disable-next-line no-console
+    console.error.mockRestore()
+  })
+
   it('should render correctly if success', () => {
     const mockProps = getMockProps()
     const component = shallow(<KonnectorTile {...mockProps} />).getElement()
