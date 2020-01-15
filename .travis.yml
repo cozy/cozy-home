@@ -45,7 +45,7 @@ before_install:
   - echo "password = $TX_PASSWD" >> ~/.transifexrc
 script:
   - yarn lint
-  - yarn test --verbose --coverage
+  - yarn test
   - yarn build
 before_deploy:
   - yarn add cozy-app-publish
