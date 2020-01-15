@@ -10,7 +10,7 @@ import { UpdateMessage } from 'components/Banners/UpdateMessage'
 
 describe('UpdateMessage component', () => {
   it(`Should be render correctly if not blocking update`, () => {
-    const component = shallow(<UpdateMessage t={tMock} />)
+    const component = shallow(<UpdateMessage konnector={{}} t={tMock} />)
       .shallow()
       .dive()
       .getElement()
@@ -18,7 +18,9 @@ describe('UpdateMessage component', () => {
   })
 
   it(`Should be render correctly if blocking update`, () => {
-    const component = shallow(<UpdateMessage t={tMock} isBlocking />)
+    const component = shallow(
+      <UpdateMessage konnector={{}} t={tMock} isBlocking />
+    )
       .shallow()
       .dive()
       .getElement()

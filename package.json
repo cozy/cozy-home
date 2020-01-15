@@ -18,7 +18,6 @@
     "start": "cozy-scripts start --hot --browser",
     "cozyPublish": "cozy-scripts publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-home.git}",
-    "precommit": "lint-staged",
     "test": "cozy-scripts test"
   },
   "repository": {
@@ -39,7 +38,7 @@
     "cozy-device-helper": "1.8.0",
     "cozy-doctypes": "1.69.0",
     "cozy-flags": "1.11.0",
-    "cozy-harvest-lib": "1.15.2",
+    "cozy-harvest-lib": "1.16.0",
     "cozy-realtime": "3.2.3",
     "cozy-scripts": "1.13.2",
     "cozy-ui": "29.1.2",
@@ -85,5 +84,10 @@
   },
   "resolutions": {
     "scheduler": "0.15.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

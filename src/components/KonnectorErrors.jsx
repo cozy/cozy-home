@@ -19,6 +19,7 @@ import {
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
 import AppIcon from 'components/AppIcon'
 import homeConfig from 'config/collect'
+import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const {
   triggers: { triggers: triggersModel, triggerStates: triggerStatesModel },
@@ -34,8 +35,11 @@ const muteTrigger = async (client, trigger, accountsById) => {
   await client.save(account)
 }
 
+const getKonnectorSlug = konnector => konnector.slug
+
 export const KonnectorErrors = ({
   t,
+  lang,
   triggersInError,
   accountsWithErrors,
   installedKonnectors,
@@ -44,6 +48,7 @@ export const KonnectorErrors = ({
   breakpoints: { isMobile }
 }) => {
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
+  const installedKonnectorsBySlug = keyBy(installedKonnectors, getKonnectorSlug)
   const nonMutedTriggerErrors = triggersInError.filter(trigger => {
     const errorType = triggerStatesModel.getLastErrorType(trigger)
     const accountId = triggersModel.getAccountId(trigger)
@@ -66,11 +71,25 @@ export const KonnectorErrors = ({
       <InfosCarrousel theme="danger">
         {nonMutedTriggerErrors.map((trigger, index) => {
           const errorType = triggerStatesModel.getLastErrorType(trigger)
+          const konnError = new KonnectorJobError(errorType)
           const konnectorSlug = triggersModel.getKonnector(trigger)
           const konnectorAccount = triggersModel.getAccountId(trigger)
-          const konnector = installedKonnectors.find(
-            ({ slug }) => slug === konnectorSlug
+          const konnector = installedKonnectorsBySlug[konnectorSlug]
+
+          const errorTitle = getErrorLocaleBound(
+            konnError,
+            konnector,
+            lang,
+            'title'
           )
+
+          const errorDescription = getErrorLocaleBound(
+            konnError,
+            konnector,
+            lang,
+            'description'
+          )
+
           return (
             <Infos
               key={trigger._id}
@@ -86,17 +105,12 @@ export const KonnectorErrors = ({
                       <span className="u-fz-tiny">{konnector.name}</span>
                       <SubTitle className="u-pomegranate u-fz-medium u-fz-small-m">
                         {`(${index + 1}/${nonMutedTriggerErrors.length}) `}
-                        {t(`connection.error.${errorType}.title`)}
+                        {errorTitle}
                       </SubTitle>
                     </div>
                   </div>
                   <Text className="u-fz-small-m">
-                    <ReactMarkdownWrapper
-                      source={t(`connection.error.${errorType}.description`, {
-                        name: konnector.name,
-                        link: konnector.vendor_link
-                      })}
-                    />
+                    <ReactMarkdownWrapper source={errorDescription} />
                   </Text>
                 </>
               }
