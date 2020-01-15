@@ -8,6 +8,10 @@ import { shallow } from 'enzyme'
 import { tMock } from '../jestLib/I18n'
 import { KonnectorTile } from 'components/KonnectorTile'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 const mockKonnector = {
   name: 'Mock',
   slug: 'mock',
@@ -105,7 +109,7 @@ describe('KonnectorTile component', () => {
   })
 
   it('should display correct error status if other error but no update and not in maintenance', () => {
-    const mockProps = getMockProps(new Error('Expected test user error'))
+    const mockProps = getMockProps(new Error('LOGIN_FAILED'))
 
     const component = shallow(<KonnectorTile {...mockProps} />).getElement()
     expect(component).toMatchSnapshot()

@@ -35,7 +35,7 @@ exports[`KonnectorTile component should display correct error status if other er
   activeClassName="active"
   aria-current="page"
   className="item"
-  title="Expected test user error"
+  title="Incorrect or expired credentials"
   to="/mock"
 >
   <div
@@ -203,7 +203,7 @@ exports[`KonnectorTile component should display correct status if update even if
   activeClassName="active"
   aria-current="page"
   className="item"
-  title="Expected test error"
+  title="Connection error"
   to="/mock"
 >
   <div

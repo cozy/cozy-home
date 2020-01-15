@@ -16,13 +16,15 @@ import {
   getFirstUserError,
   getLastSyncDate
 } from 'ducks/connections'
-import { getErrorTitle } from 'lib/konnectors'
 import { getKonnectorTriggersCount } from 'reducers'
+import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
-const getKonnectorError = ({ error, t }) => {
-  return error
-    ? getErrorTitle(t, error, key => `connection.error.${key}.title`)
-    : null
+const getKonnectorError = ({ error, lang, konnector }) => {
+  if (!error || !error.message) {
+    return null
+  }
+  const konnError = new KonnectorJobError(error.message)
+  return getErrorLocaleBound(konnError, konnector, lang, 'title')
 }
 
 const STATUS = {
@@ -56,7 +58,8 @@ export class KonnectorTile extends Component {
       userError,
       konnector,
       route,
-      t
+      t,
+      lang
     } = this.props
 
     const statusThemes = {
@@ -97,7 +100,7 @@ export class KonnectorTile extends Component {
       <NavLink
         className={classNames('item', statusClassName)}
         to={route}
-        title={getKonnectorError({ error, t })}
+        title={getKonnectorError({ error, lang, konnector })}
       >
         <div className="item-icon">
           <AppIcon
