@@ -3,6 +3,10 @@ import { shallow } from 'enzyme'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
 
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  getCssVariableValue: () => '#fff'
+}))
+
 describe('KonnectorErrors', () => {
   const MOCKED_DATE = '2020-01-08T09:49:23.589Z'
   beforeAll(() => {
