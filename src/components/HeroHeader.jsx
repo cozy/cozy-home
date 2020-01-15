@@ -17,7 +17,7 @@ const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
   const { host } = new URL(rootURL)
   const { cozyDefaultWallpaper } = client.getInstanceOptions()
 
-  let backgroundURL = null
+  let backgroundURL = ''
   if (fetchStatus !== 'loading')
     backgroundURL = wallpaperLink || cozyDefaultWallpaper
 
