@@ -35,7 +35,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "@material-ui/core": "3",
-    "cozy-client": "9.5.1",
+    "cozy-client": "9.8.0",
     "cozy-device-helper": "1.8.0",
     "cozy-doctypes": "1.69.0",
     "cozy-flags": "1.11.0",
