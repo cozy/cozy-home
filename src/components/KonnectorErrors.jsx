@@ -104,7 +104,9 @@ export const KonnectorErrors = ({
                     <div>
                       <span className="u-fz-tiny">{konnector.name}</span>
                       <SubTitle className="u-pomegranate u-fz-medium u-fz-small-m">
-                        {`(${index + 1}/${nonMutedTriggerErrors.length}) `}
+                        {nonMutedTriggerErrors.length > 1
+                          ? `(${index + 1}/${nonMutedTriggerErrors.length}) `
+                          : null}
                         {errorTitle}
                       </SubTitle>
                     </div>

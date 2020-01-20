@@ -1,11 +1,13 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
   getCssVariableValue: () => '#fff'
 }))
+
+jest.mock('./AppIcon.jsx', () => () => null)
 
 describe('KonnectorErrors', () => {
   const MOCKED_DATE = '2020-01-08T09:49:23.589Z'
@@ -194,5 +196,44 @@ describe('KonnectorErrors', () => {
       />
     )
     expect(component.find('InfosCarrousel').children().length).toEqual(0)
+  })
+
+  it('should not show slide indicator with only one slide', () => {
+    const component = mount(
+      <KonnectorErrors
+        t={s => s}
+        triggersInError={[
+          {
+            _id: '1',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'LOGIN_FAILED'
+            },
+            message: {
+              konnector: 'test',
+              account: '123'
+            }
+          }
+        ]}
+        accountsWithErrors={[
+          { _id: '123', mutedErrors: [] },
+          {
+            _id: '456',
+            mutedErrors: [
+              {
+                type: 'LOGIN_FAILED.NEEDS_SECRET',
+                mutedAt: '2019-12-01T00:48:01.404911778Z'
+              }
+            ]
+          }
+        ]}
+        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
+        history={mockHistory}
+        client={mockClient}
+        breakpoints={{ isMobile: false }}
+      />
+    )
+    expect(component.find('InfosCarrousel').children().length).toEqual(1)
+    expect(component.text()).not.toContain('1/1')
   })
 })
