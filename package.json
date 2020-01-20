@@ -40,7 +40,7 @@
     "cozy-doctypes": "1.69.0",
     "cozy-flags": "1.11.0",
     "cozy-harvest-lib": "1.16.0",
-    "cozy-keys-lib": "1.10.0",
+    "cozy-keys-lib": "2.5.3",
     "cozy-logger": "1.6.0",
     "cozy-realtime": "3.4.0",
     "cozy-scripts": "1.13.2",

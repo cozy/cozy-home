@@ -3275,17 +3275,17 @@ cozy-interapp@0.4.9:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
   integrity sha512-skyjrewnMu5zMfST7vTNGl3jsuWae1Iwfdev6pW9RLgb58M7oBSpsIa3ofRANv5tx0XVQDVSEzWvbFQ84WJPSg==
 
-cozy-keys-lib@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-1.10.0.tgz#1fadf7df78fe4a1d5a77a4741b7b24ac1e0fb2e4"
-  integrity sha512-wn0xYDRqNaBOR86sqdqgcLLCRUxSa7312qx9uJSTARA0aKhYPUBfGm5MfIkKzHUyxnArId2nm/VLVq7HWd5drg==
+cozy-keys-lib@2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-2.5.3.tgz#282bb981af235714f295555c10728f336286e3b2"
+  integrity sha512-/W8yPLRuRPbzmY2ui+8zLHl0ieu7MJokha6V7U0Wil6pJ6PmS7oDbed8F1tPXzs+NcwZkGMpMlsn7hj4Z6Yx6g==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
     big-integer "^1.6.44"
     classnames "^2.2.6"
     cozy-device-helper "^1.7.5"
-    cozy-ui "^24.0.0"
+    cozy-ui "^29.3.1"
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
@@ -3415,10 +3415,10 @@ cozy-ui@29.9.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@^24.0.0:
-  version "24.2.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-24.2.2.tgz#df3682b5aa188154b7a33fd0f52a983246be2204"
-  integrity sha512-0qy4HE0FWGZsvfrbDtFFAKPDk6E81pa9lzVF2G+RTK8zW+TeJNT612AUD2aZNJ0/WpYMew6kuotOYqpBHJrohw==
+cozy-ui@^29.3.1:
+  version "29.3.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.3.1.tgz#b0d3760e966f28dbcc6b04d3adfb6b95914b8292"
+  integrity sha512-2Q9VGcgvvYxmN++Tt2M0WdDW4GhtBGfS9OO3KaOMviyfNVU8K27x9zdRCRLWTPKGdLPafX5LvuCAVdPalVnbyQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -3431,6 +3431,7 @@ cozy-ui@^24.0.0:
     react-markdown "^4.0.8"
     react-pdf "^4.0.5"
     react-select "2.2.0"
+    react-swipeable-views "0.13.3"
 
 create-ecdh@^4.0.0:
   version "4.0.3"
