@@ -23,7 +23,7 @@ const normalize = (dbObject, doctype) => {
 }
 
 export default class CollectStore {
-  constructor(context, client, options = {}) {
+  constructor(client, options = {}) {
     this.client = client
     this.listener = null
     this.options = options

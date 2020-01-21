@@ -21,7 +21,6 @@ import 'styles/index.styl'
 import schema from 'schema'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
-const context = window.context || 'cozy'
 
 document.addEventListener('DOMContentLoaded', () => {
   if (handleOAuthResponse()) return
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(cozyClient, context, {
+  const store = configureStore(cozyClient, {
     lang,
     ...collectConfig
   })
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render(
     <CozyProvider client={cozyClient}>
       <Provider store={store}>
-        <I18n lang={lang} dictRequire={dictRequire} context={context}>
+        <I18n lang={lang} dictRequire={dictRequire}>
           <PiwikHashRouter>
             <App {...collectConfig} />
           </PiwikHashRouter>

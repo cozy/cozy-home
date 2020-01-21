@@ -18,7 +18,6 @@ import IntentHandler from 'containers/IntentHandler'
 import 'styles/intents.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
-const context = window.context || 'cozy'
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(cozyClient, context, {
+  const store = configureStore(cozyClient, {
     lang
   })
 
@@ -41,11 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render(
     <CozyProvider client={cozyClient}>
       <Provider store={store}>
-        <I18n
-          lang={lang}
-          dictRequire={lang => require(`locales/${lang}`)}
-          context={context}
-        >
+        <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
           <HashRouter>
             <IntentHandler appData={appData} />
           </HashRouter>

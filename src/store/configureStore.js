@@ -7,7 +7,7 @@ import CollectStore from 'lib/CollectStore'
 import flag from 'cozy-flags'
 import getReducers from 'reducers'
 
-const configureStore = (cozyClient, context, options = {}) => {
+const configureStore = (cozyClient, options = {}) => {
   // Enable Redux dev tools
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose
 
@@ -25,10 +25,7 @@ const configureStore = (cozyClient, context, options = {}) => {
     )
   )
 
-  return Object.assign(
-    new CollectStore(context, cozyClient, options),
-    reduxStore
-  )
+  return Object.assign(new CollectStore(cozyClient, options), reduxStore)
 }
 
 export default configureStore
