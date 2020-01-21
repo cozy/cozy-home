@@ -12,7 +12,7 @@ import { I18n } from 'cozy-ui/react/I18n'
 import configureStore from 'store/configureStore'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
-import { Application } from 'cozy-doctypes'
+import schema from 'schema'
 
 import IntentHandler from 'containers/IntentHandler'
 
@@ -20,8 +20,6 @@ import 'styles/intents.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
-
-const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
@@ -35,26 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
     uri: `${window.location.protocol}//${appData.cozyDomain}`,
-    schema: {
-      app: Application.schema,
-      accounts: {
-        doctype: ACCOUNTS_DOCTYPE,
-        attributes: {},
-        relationships: {
-          master: {
-            type: 'has-one',
-            doctype: ACCOUNTS_DOCTYPE
-          }
-        }
-      },
-      permissions: {
-        doctype: 'io.cozy.permissions',
-        attributes: {}
-      },
-      triggers: {
-        doctype: 'io.cozy.triggers'
-      }
-    },
+    schema,
     token: appData.cozyToken
   })
 

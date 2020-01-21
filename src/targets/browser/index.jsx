@@ -19,10 +19,10 @@ import 'cozy-ui/dist/cozy-ui.min.css'
 import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
 
+import schema from 'schema'
+
 const lang = document.documentElement.getAttribute('lang') || 'en'
 const context = window.context || 'cozy'
-
-const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 
 document.addEventListener('DOMContentLoaded', () => {
   if (handleOAuthResponse()) return
@@ -38,29 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
-    schema: {
-      app: Application.schema,
-      accounts: {
-        doctype: ACCOUNTS_DOCTYPE,
-        attributes: {},
-        relationships: {
-          master: {
-            type: 'has-one',
-            doctype: ACCOUNTS_DOCTYPE
-          }
-        }
-      },
-      permissions: {
-        doctype: 'io.cozy.permissions',
-        attributes: {}
-      },
-      triggers: {
-        doctype: 'io.cozy.triggers'
-      },
-      jobs: {
-        doctype: 'io.cozy.jobs'
-      }
-    },
+    schema,
     token: data.cozyToken
   })
 
