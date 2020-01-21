@@ -14,7 +14,6 @@ module.exports = {
     modules: [SRC_DIR, 'node_modules'],
     alias: {
       config: path.resolve(SRC_DIR, './config'),
-      'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client'),
       'cozy-ui/react': 'cozy-ui/transpiled/react'
     }
   },

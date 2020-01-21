@@ -4,7 +4,6 @@ module.exports = {
   setupFiles: ['<rootDir>/test/jestLib/setup.js'],
   moduleDirectories: ['src', 'node_modules'],
   moduleNameMapper: {
-    '^redux-cozy-client$': '<rootDir>/src/lib/redux-cozy-client',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
     // identity-obj-proxy module is installed by cozy-scripts
     '.styl$': 'identity-obj-proxy',
