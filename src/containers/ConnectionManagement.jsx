@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { cozyConnect } from 'redux-cozy-client'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -171,8 +170,6 @@ ConnectionManagement.contextTypes = {
   store: PropTypes.object
 }
 
-const mapActionsToProps = () => ({})
-
 const mapStateToProps = (state, ownProps) => {
   // infos from route parameters
   const { konnectorSlug } = ownProps.match && ownProps.match.params
@@ -202,8 +199,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  cozyConnect(() => {}, mapActionsToProps)(
-    withRouter(translate()(ConnectionManagement))
-  )
-)
+)(withRouter(translate()(ConnectionManagement)))
