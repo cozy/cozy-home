@@ -2,15 +2,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
-import MostRecentCozyClient, {
-  CozyProvider as MostRecentCozyClientProvider
-} from 'cozy-client'
+import CozyClient, { CozyProvider } from 'cozy-client'
 import { I18n } from 'cozy-ui/react/I18n'
 
 import configureStore from 'store/configureStore'
-import { CozyClient, CozyProvider } from 'redux-cozy-client'
 
 import schema from 'schema'
 
@@ -25,11 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
   const appData = root.dataset
 
-  const legacyClient = new CozyClient({
-    cozyURL: `//${appData.cozyDomain}`,
-    token: appData.cozyToken
-  })
-
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
     uri: `${window.location.protocol}//${appData.cozyDomain}`,
@@ -38,18 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // store
-  const store = configureStore(legacyClient, cozyClient, context, {
+  const store = configureStore(cozyClient, context, {
     lang
   })
 
+  cozyClient.setStore(store)
+
   render(
-    <MostRecentCozyClientProvider client={cozyClient}>
-      <CozyProvider
-        domain={appData.cozyDomain}
-        store={store}
-        client={cozyClient}
-        secure={!__DEVELOPMENT__}
-      >
+    <CozyProvider client={cozyClient}>
+      <Provider store={store}>
         <I18n
           lang={lang}
           dictRequire={lang => require(`locales/${lang}`)}
@@ -59,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <IntentHandler appData={appData} />
           </HashRouter>
         </I18n>
-      </CozyProvider>
-    </MostRecentCozyClientProvider>,
+      </Provider>
+    </CozyProvider>,
     document.querySelector('[role=application]')
   )
 })
