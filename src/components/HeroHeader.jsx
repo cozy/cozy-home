@@ -54,7 +54,6 @@ const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
 }
 
 HeroHeader.propTypes = {
-  t: PropTypes.func.isRequired,
   client: PropTypes.object.isRequired,
   breakpoints: PropTypes.shape({
     isMobile: PropTypes.bool

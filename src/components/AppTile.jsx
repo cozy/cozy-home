@@ -31,8 +31,7 @@ export class AppTile extends Component {
 }
 
 AppTile.propTypes = {
-  app: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired
+  app: PropTypes.object.isRequired
 }
 
 export default translate()(AppTile)
