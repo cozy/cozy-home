@@ -1,6 +1,5 @@
 /* global cozy */
 import React, { Component } from 'react'
-import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import isObjectLike from 'lodash/isObjectLike'
 import isArray from 'lodash/isArray'
@@ -45,11 +44,6 @@ class App extends Component {
   state = {
     error: null,
     status: IDLE
-  }
-
-  constructor(props, context) {
-    super(props, context)
-    this.store = context.store
   }
 
   componentDidMount() {
@@ -146,10 +140,6 @@ class App extends Component {
       </div>
     )
   }
-}
-
-App.contextTypes = {
-  store: PropTypes.object
 }
 
 /*
