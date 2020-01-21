@@ -1,4 +1,3 @@
-/* global cozy */
 import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import isObjectLike from 'lodash/isObjectLike'
@@ -22,6 +21,7 @@ import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
 import ConnectionsQueue from 'ducks/connections/components/queue/index'
 import DemoTimeline from 'assets/images/timeline.png'
+import { withClient } from 'cozy-client'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -40,6 +40,16 @@ export const toFlagNames = (flagName, prefix = '') => {
     )
 }
 
+const fetchFeatureFlags = async client => {
+  const context = await client.stackClient.fetchJSON('GET', '/settings/context')
+
+  if (context && context.attributes && context.attributes.features) {
+    return toFlagNames(context.attributes.features)
+  } else {
+    return null
+  }
+}
+
 class App extends Component {
   state = {
     error: null,
@@ -51,27 +61,21 @@ class App extends Component {
   }
 
   async fetchContext() {
-    this.setState({
-      status: FETCHING_CONTEXT
-    })
-
-    const context = await cozy.client
-      .fetchJSON('GET', '/settings/context')
-      .catch(error => {
-        this.setState({
-          error,
-          status: IDLE
-        })
+    try {
+      this.setState({
+        status: FETCHING_CONTEXT
       })
-
-    if (context && context.attributes && context.attributes.features) {
-      const flags = toFlagNames(context.attributes.features)
-      enableFlags(flags)
+      const flags = await fetchFeatureFlags(this.props.client)
+      if (flags) {
+        enableFlags(flags)
+      }
+    } catch (error) {
+      this.setState({ error })
+    } finally {
+      this.setState({
+        status: IDLE
+      })
     }
-
-    this.setState({
-      status: IDLE
-    })
   }
 
   render() {
@@ -146,4 +150,4 @@ class App extends Component {
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withRouter(appEntryPoint(App))
+export default withClient(withRouter(appEntryPoint(App)))
