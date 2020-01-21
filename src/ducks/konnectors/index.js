@@ -1,12 +1,4 @@
-import * as fromCozyClient from 'redux-cozy-client'
-
 export const DOCTYPE = 'io.cozy.konnectors'
-const konnectorsCollectionKey = 'konnectors'
-
-// CRUD
-
-export const fetchKonnectors = () =>
-  fromCozyClient.fetchKonnectors(konnectorsCollectionKey)
 
 // Action creators
 export const receiveInstalledKonnector = konnector => {

@@ -1,10 +1,4 @@
-import { fetchCollection } from 'redux-cozy-client'
-
 export const DOCTYPE = 'io.cozy.accounts'
-const accountCollectionKey = 'accounts'
-
-export const fetchAccounts = () =>
-  fetchCollection(accountCollectionKey, DOCTYPE)
 
 // selectors
 export const getAccount = (state, id) => {

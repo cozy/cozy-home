@@ -29,6 +29,12 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 window.flag = window.flag || flag
 window.minilog = minilog
 
+const isCollectionLoading = collection => {
+  return (
+    collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
+  )
+}
+
 // TODO add this to cozy-flags ?
 export const toFlagNames = (flagName, prefix = '') => {
   if (typeof flagName === 'string') return `${prefix}${flagName}`
@@ -80,8 +86,8 @@ class App extends Component {
 
   render() {
     const { accounts, konnectors, triggers } = this.props
-    const isFetching = [accounts, konnectors, triggers].find(collection =>
-      ['pending', 'loading'].includes(collection.fetchStatus)
+    const isFetching = [accounts, konnectors, triggers].some(col =>
+      isCollectionLoading(col)
     )
 
     const hasError = [accounts, konnectors, triggers].find(

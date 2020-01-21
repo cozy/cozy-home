@@ -1,18 +1,17 @@
 import { combineReducers } from 'redux'
 import get from 'lodash/get'
 
-import { reducer } from 'redux-cozy-client'
 import apps from 'ducks/apps'
 import * as fromAccounts from 'ducks/accounts'
 import * as fromKonnectors from 'ducks/konnectors'
 import * as fromTriggers from 'ducks/triggers'
 import connections, * as fromConnections from 'ducks/connections'
 
-export default () =>
+export default cozyClient =>
   combineReducers({
     apps,
     connections,
-    cozy: reducer
+    cozy: cozyClient.reducer()
   })
 
 // selectors
