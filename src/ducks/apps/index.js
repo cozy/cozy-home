@@ -1,21 +1,15 @@
-const RECEIVE_APPS = 'RECEIVE_APPS'
+import get from 'lodash/get'
 
-const reducer = (state = [], action) => {
-  switch (action.type) {
-    case RECEIVE_APPS:
-      return action.apps || state
-    default:
-      return state
-  }
+// TODO use getDocumentFromState from cozy-client
+const getDocumentFromState = (state, doctype, id) => {
+  return get(state, `cozy.documents["${doctype}"]["${id}"]`)
 }
 
-export default reducer
-
-// Action creators
-export const receiveApps = apps => ({
-  type: RECEIVE_APPS,
-  apps
-})
+const APP_DOCTYPE = 'io.cozy.apps'
 
 // Selectors
-export const getApp = (state = [], slug) => state.find(app => app.slug === slug)
+export const getApp = (state, slug) => {
+  const app =
+    getDocumentFromState(state, APP_DOCTYPE, `${APP_DOCTYPE}/${slug}`) || null
+  return app
+}

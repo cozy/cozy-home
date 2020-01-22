@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withClient, Q } from 'cozy-client'
 import Icon from 'cozy-ui/react/Icon'
 
-import { getApp, receiveApps } from 'ducks/apps'
+import { getApp } from 'ducks/apps'
 import styles from 'styles/triggerFolderLink.styl'
 
 /**
@@ -26,10 +26,11 @@ class MaybeLink extends PureComponent {
 
 export class TriggerFolderLink extends PureComponent {
   async componentDidMount() {
-    const { client, driveApp, receiveApps } = this.props
+    const { client, driveApp } = this.props
     if (!driveApp) {
-      const { data } = await client.query(Q('io.cozy.apps'))
-      receiveApps(data)
+      await client.query(Q('io.cozy.apps'), {
+        as: 'apps'
+      })
     }
   }
 
@@ -52,16 +53,7 @@ export class TriggerFolderLink extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  driveApp: getApp(state.apps, 'drive')
+  driveApp: getApp(state, 'drive')
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    receiveApps: apps => dispatch(receiveApps(apps))
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withClient(TriggerFolderLink))
+export default connect(mapStateToProps)(withClient(TriggerFolderLink))

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 
 import { Query, Q } from 'cozy-client'
 import { translate } from 'cozy-ui/react/I18n'
@@ -8,7 +7,6 @@ import flag from 'cozy-flags'
 import AppTile from 'components/AppTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import homeConfig from 'config/collect'
-import { receiveApps } from 'ducks/apps'
 
 class LoadingAppTiles extends PureComponent {
   render() {
@@ -34,14 +32,10 @@ class LoadingAppTiles extends PureComponent {
 
 export class Applications extends PureComponent {
   render() {
-    const { receiveApps } = this.props
     return (
       <div className="app-list">
-        <Query query={() => Q('io.cozy.apps')}>
+        <Query query={() => Q('io.cozy.apps')} as="apps">
           {({ data, fetchStatus }) => {
-            if (fetchStatus === 'loaded') {
-              receiveApps(data)
-            }
             return fetchStatus !== 'loaded' ? (
               <LoadingAppTiles num="3" />
             ) : (
@@ -61,13 +55,4 @@ export class Applications extends PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    receiveApps: apps => dispatch(receiveApps(apps))
-  }
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(translate()(Applications))
+export default translate()(Applications)
