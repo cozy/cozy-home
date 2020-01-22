@@ -129,8 +129,8 @@ const mapStateToProps = (state, props) => {
   const { konnector } = props
   return {
     // /!\ error can also be a userError.
-    error: getFirstError(state.connections, konnector.slug),
-    userError: getFirstUserError(state.connections, konnector.slug),
+    error: getFirstError(state.connections, konnector.slug) || null,
+    userError: getFirstUserError(state.connections, konnector.slug) || null,
     lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
     accountsCount: getKonnectorTriggersCount(state, konnector)
   }
