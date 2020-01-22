@@ -1,24 +1,22 @@
-/* global __DEVELOPMENT__ */
 import React from 'react'
 import { render } from 'react-dom'
-import 'url-search-params-polyfill'
 import { Provider } from 'react-redux'
+import 'url-search-params-polyfill'
 
 import CozyClient, { CozyProvider } from 'cozy-client'
-import { Application } from 'cozy-doctypes'
-import { handleOAuthResponse } from 'cozy-harvest-lib'
-import I18n from 'cozy-ui/react/I18n'
-
-import collectConfig from 'config/collect'
-import PiwikHashRouter from 'lib/PiwikHashRouter'
-import configureStore from 'store/configureStore'
-
+import { I18n } from 'cozy-ui/react/I18n'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
-import 'intro.js-fix-cozy/minified/introjs.min.css'
-import 'styles/index.styl'
 
 import schema from 'schema'
+import configureStore from 'store/configureStore'
+
+import { handleOAuthResponse } from 'cozy-harvest-lib'
+import collectConfig from 'config/collect'
+import PiwikHashRouter from 'lib/PiwikHashRouter'
+
+import 'intro.js-fix-cozy/minified/introjs.min.css'
+import 'styles/index.styl'
 
 const lang = document.documentElement.getAttribute('lang') || 'en'
 
@@ -26,16 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (handleOAuthResponse()) return
 
   const root = document.querySelector('[role=application]')
-  const data = root.dataset
+  const appData = root.dataset
 
-  // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
-    uri: `${window.location.protocol}//${data.cozyDomain}`,
+    uri: `${window.location.protocol}//${appData.cozyDomain}`,
     schema,
-    token: data.cozyToken
+    token: appData.cozyToken
   })
 
-  // store
   const store = configureStore(cozyClient, {
     lang,
     ...collectConfig
