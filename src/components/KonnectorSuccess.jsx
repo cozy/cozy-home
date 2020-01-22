@@ -128,7 +128,7 @@ KonnectorSuccess.apps = {
     },
     // eslint-disable-next-line react/display-name
     successLink: (props, context, i) => {
-      return <BanksLink key={i} banksUrl={context.store.banksUrl} />
+      return <BanksLink key={i} />
     },
     footerLink: () => null
   }
