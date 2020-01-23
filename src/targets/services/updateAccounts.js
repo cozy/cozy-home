@@ -19,10 +19,7 @@ global.URL = URL
 const main = async () => {
   const vaultClient = new NodeVaultClient(process.env.COZY_URL)
 
-  const cozyClient = new CozyClient({
-    uri: process.env.COZY_URL.trim(),
-    token: process.env.COZY_CREDENTIALS.trim()
-  })
+  const cozyClient = CozyClient.fromEnv()
 
   try {
     await updateAccountsPassword(
