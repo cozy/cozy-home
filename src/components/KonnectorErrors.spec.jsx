@@ -3,10 +3,6 @@ import { shallow, mount } from 'enzyme'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
 
-jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
-  getCssVariableValue: () => '#fff'
-}))
-
 jest.mock('./AppIcon.jsx', () => () => null)
 
 describe('KonnectorErrors', () => {

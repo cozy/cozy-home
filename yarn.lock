@@ -3263,17 +3263,17 @@ cozy-interapp@0.4.9:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
   integrity sha512-skyjrewnMu5zMfST7vTNGl3jsuWae1Iwfdev6pW9RLgb58M7oBSpsIa3ofRANv5tx0XVQDVSEzWvbFQ84WJPSg==
 
-cozy-keys-lib@2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-2.5.3.tgz#282bb981af235714f295555c10728f336286e3b2"
-  integrity sha512-/W8yPLRuRPbzmY2ui+8zLHl0ieu7MJokha6V7U0Wil6pJ6PmS7oDbed8F1tPXzs+NcwZkGMpMlsn7hj4Z6Yx6g==
+cozy-keys-lib@2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-2.5.4.tgz#558b69c2742cecb50e18e120bc1ebc19b90cc128"
+  integrity sha512-xHrLO23nkoKOkSNhidsSrEFGvEJ6Zc1iD5PNYbV59e8/ztptmQBHyFi1Q6JI71g4HmQoJauwrfHjwNEnpbs/BQ==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
     big-integer "^1.6.44"
     classnames "^2.2.6"
     cozy-device-helper "^1.7.5"
-    cozy-ui "^29.3.1"
+    cozy-ui "^29.9.1"
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
@@ -3385,28 +3385,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@29.9.0:
-  version "29.9.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.9.0.tgz#bb93b0a750797b89034d6c33fc649c66b485d29f"
-  integrity sha512-LTSO4Y4FV+JcNOCQAWywKQxpv+qtyUj83DyoT06/pcP7+szBFvEls4Qkl/2qNve9459pk4S1NHyO87UCbUU3gw==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    body-scroll-lock "^2.5.8"
-    classnames "^2.2.5"
-    date-fns "^1.28.5"
-    hammerjs "^2.0.8"
-    node-polyglot "^2.2.2"
-    normalize.css "^7.0.0"
-    react-hot-loader "^4.3.11"
-    react-markdown "^4.0.8"
-    react-pdf "^4.0.5"
-    react-select "2.2.0"
-    react-swipeable-views "0.13.3"
-
-cozy-ui@^29.3.1:
-  version "29.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.3.1.tgz#b0d3760e966f28dbcc6b04d3adfb6b95914b8292"
-  integrity sha512-2Q9VGcgvvYxmN++Tt2M0WdDW4GhtBGfS9OO3KaOMviyfNVU8K27x9zdRCRLWTPKGdLPafX5LvuCAVdPalVnbyQ==
+cozy-ui@29.9.1, cozy-ui@^29.9.1:
+  version "29.9.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.9.1.tgz#9e8d7b0a12c85166c6bf4b25a70ea6847336099f"
+  integrity sha512-xt5VDSOrm3zB7WnovMmel1fT/q52tLkEC9j12gmkkR1aEFc3c3Ced5iZu/NmuOYy2fkx0nvgazoggWrsmUZTVg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"

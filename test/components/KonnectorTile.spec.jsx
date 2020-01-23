@@ -8,10 +8,6 @@ import { shallow } from 'enzyme'
 import { tMock } from '../jestLib/I18n'
 import { KonnectorTile } from 'components/KonnectorTile'
 
-jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
-  getCssVariableValue: () => '#fff'
-}))
-
 const mockKonnector = {
   name: 'Mock',
   slug: 'mock',
