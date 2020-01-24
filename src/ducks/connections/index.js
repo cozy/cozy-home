@@ -308,7 +308,7 @@ export const getFirstError = (state, konnectorSlug) => {
     Object.values(state.konnectors[konnectorSlug].triggers).find(
       trigger => !!trigger.error
     )
-  return !!firstTriggerHavingError && firstTriggerHavingError.error
+  return firstTriggerHavingError ? firstTriggerHavingError.error : null
 }
 
 export const getFirstUserError = (state, konnectorSlug) => {
@@ -319,7 +319,7 @@ export const getFirstUserError = (state, konnectorSlug) => {
     Object.values(state.konnectors[konnectorSlug].triggers).find(trigger =>
       isKonnectorUserError(trigger.error)
     )
-  return firstTriggerHavingUserError && firstTriggerHavingUserError.error
+  return firstTriggerHavingUserError ? firstTriggerHavingUserError.error : null
 }
 
 export const getLastSyncDate = (state, konnectorSlug) => {
