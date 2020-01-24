@@ -3239,10 +3239,10 @@ cozy-realtime@3.2.1:
   dependencies:
     minilog "3.1.0"
 
-cozy-realtime@3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.2.3.tgz#5fa6575e1e599d32bc8a71bec8eaaa25a4bc8e8e"
-  integrity sha512-YuBo7XEtX0POJn9CJ7OYemyGmDB9wq5aHS5Z5A4aDy3mOikrVzK9Sdp0koMU0SXHcIs0QWgbty7CTwUlTpojxQ==
+cozy-realtime@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.4.0.tgz#609cb5d89f3ddf5c52cb8651a68f9ab56c5616db"
+  integrity sha512-Rr+ZpFlwZtgTaMqnofrUMIbNN6uvOLVsJI71BO2OsIIAi+kZiQpdB/gA7dCGfKwvWGc0izh3/po85ZfIcZQi8g==
   dependencies:
     minilog "https://github.com/cozy/minilog.git#master"
 
@@ -8032,9 +8032,16 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
+minilog@3.1.0:
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
