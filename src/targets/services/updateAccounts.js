@@ -9,12 +9,14 @@ import updateAccountsPassword from 'cozy-harvest-lib/dist/services/updateAccount
 
 const log = logger.namespace('updateAccounts')
 
-global.fetch = fetch
-global.Headers = fetch.Headers
-global.Response = fetch.Response
-global.Request = fetch.Request
-global.FormData = FormData
-global.URL = URL
+if (global) {
+  global.fetch = global.fetch || fetch
+  global.Headers = global.Headers || fetch.Headers
+  global.Response = global.Response || fetch.Response
+  global.Request = global.Request || fetch.Request
+  global.FormData = global.FormData || FormData
+  global.URL = global.URL || URL
+}
 
 const main = async () => {
   const vaultClient = new NodeVaultClient(process.env.COZY_URL)
