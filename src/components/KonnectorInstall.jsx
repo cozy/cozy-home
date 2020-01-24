@@ -42,7 +42,6 @@ export class KonnectorInstall extends Component {
       account,
       konnector,
       legacySuccess,
-      onCancel,
       onDone,
       successMessage,
       successMessages,
@@ -79,7 +78,6 @@ export class KonnectorInstall extends Component {
             onLoginSuccess={this.handleLoginSuccess}
             onSuccess={this.handleSuccess}
             vaultClosable={false}
-            onVaultDismiss={onCancel}
           />
         </div>
       </div>
