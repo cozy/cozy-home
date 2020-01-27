@@ -63,6 +63,16 @@
       "description": "Required to display konnector suggestions",
       "verbs": ["GET", "PUT"],
       "type": "io.cozy.apps.suggestions"
+    },
+    "organizations": {
+      "description": "Required to update konnector passwords",
+      "verbs": ["ALL"],
+      "type": "com.bitwarden.organizations"
+    },
+    "ciphers": {
+      "description": "Required to know if the vault is used or not",
+      "verbs": ["GET"],
+      "type": "com.bitwarden.ciphers"
     }
   },
   "routes": {
@@ -100,6 +110,11 @@
       "type": "node",
       "file": "services/myselfFromIdenties/home.js",
       "trigger": "@event io.cozy.identities:CREATED,UPDATED"
+    },
+    "updateAccounts": {
+      "type": "node",
+      "file": "services/updateAccounts/home.js",
+      "trigger": "@event com.bitwarden.ciphers:UPDATED"
     }
   }
 }

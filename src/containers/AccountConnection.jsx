@@ -98,6 +98,7 @@ class AccountConnection extends Component {
       handleConnectionSuccess,
       konnector,
       error,
+      onCancel,
       onDone,
       queued,
       t,
@@ -128,6 +129,7 @@ class AccountConnection extends Component {
           <KonnectorInstall
             account={createdAccount}
             connector={konnector}
+            onCancel={onCancel}
             onDone={onDone}
             onLoginSuccess={this.handleLoginSuccess}
             onSuccess={handleConnectionSuccess}

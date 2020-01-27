@@ -10,7 +10,9 @@ module.exports = {
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index'
   },
-  transformIgnorePatterns: ['node_modules/(?!cozy-ui|cozy-harvest-lib)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|react-swipeable-views-core)'
+  ],
   globals: {
     __ALLOW_HTTP__: false,
     __TARGET__: 'browser',

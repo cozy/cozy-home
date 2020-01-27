@@ -77,6 +77,7 @@ export class KonnectorInstall extends Component {
             konnector={konnector}
             onLoginSuccess={this.handleLoginSuccess}
             onSuccess={this.handleSuccess}
+            vaultClosable={false}
           />
         </div>
       </div>
