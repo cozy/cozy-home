@@ -51,6 +51,7 @@
     "intro.js-fix-cozy": "2.9.5",
     "lint-staged": "8.2.1",
     "lodash": "4.17.15",
+    "minilog": "https://github.com/cozy/minilog.git#master",
     "moment": "2.24.0",
     "piwik-react-router": "0.12.1",
     "react-markdown": "2.5.1",
