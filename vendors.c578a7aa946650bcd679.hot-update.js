@@ -1,0 +1,1341 @@
+webpackHotUpdate("vendors",{
+
+/***/ "H+Xc":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Alerter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("67rm");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Alerter", function() { return _Alerter__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _Badge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("UNFo");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Badge", function() { return _Badge__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("KXWi");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return _Button__WEBPACK_IMPORTED_MODULE_2__["Button"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonLink", function() { return _Button__WEBPACK_IMPORTED_MODULE_2__["ButtonLink"]; });
+
+/* harmony import */ var _PushClientButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("GnT2");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonClient", function() { return _PushClientButton__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _PushClientBanner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("e8qi");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BannerClient", function() { return _PushClientBanner__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _ButtonAction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8+bQ");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonAction", function() { return _ButtonAction__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+/* harmony import */ var _BottomDrawer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("Ig/6");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BottomDrawer", function() { return _BottomDrawer__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _BarButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("780l");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BarButton", function() { return _BarButton__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _I18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("buk/");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "I18n", function() { return _I18n__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translate", function() { return _I18n__WEBPACK_IMPORTED_MODULE_8__["translate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useI18n", function() { return _I18n__WEBPACK_IMPORTED_MODULE_8__["useI18n"]; });
+
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("y6ex");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Icon", function() { return _Icon__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconSprite", function() { return _Icon__WEBPACK_IMPORTED_MODULE_9__["Sprite"]; });
+
+/* harmony import */ var _Sidebar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("9VR2");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Sidebar", function() { return _Sidebar__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+
+/* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("fSd/");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Nav", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavItem", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["NavItem"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavIcon", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["NavIcon"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavText", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["NavText"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["NavLink"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "genNavLink", function() { return _Nav__WEBPACK_IMPORTED_MODULE_11__["genNavLink"]; });
+
+/* harmony import */ var _ListItemText__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("vEVt");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ListItemText", function() { return _ListItemText__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("cLsY");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Modal", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalContent", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalContent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalSection", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalSection"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalFooter", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalFooter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalButtons", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalButtons"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalDescription", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalDescription"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalHeader", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalHeader"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalBrandedHeader", function() { return _Modal__WEBPACK_IMPORTED_MODULE_13__["ModalBrandedHeader"]; });
+
+/* harmony import */ var _SelectionBar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("+MCZ");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectionBar", function() { return _SelectionBar__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+
+/* harmony import */ var _IntentIframe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("vdUk");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IntentIframe", function() { return _IntentIframe__WEBPACK_IMPORTED_MODULE_15__["default"]; });
+
+/* harmony import */ var _IntentOpener__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("BAY7");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IntentOpener", function() { return _IntentOpener__WEBPACK_IMPORTED_MODULE_16__["default"]; });
+
+/* harmony import */ var _IntentModal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("3UY+");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IntentModal", function() { return _IntentModal__WEBPACK_IMPORTED_MODULE_17__["default"]; });
+
+/* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("V2U0");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Spinner", function() { return _Spinner__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+
+/* harmony import */ var _Tabs__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("rMqp");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tabs", function() { return _Tabs__WEBPACK_IMPORTED_MODULE_19__["Tabs"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabPanels", function() { return _Tabs__WEBPACK_IMPORTED_MODULE_19__["TabPanels"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabPanel", function() { return _Tabs__WEBPACK_IMPORTED_MODULE_19__["TabPanel"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabList", function() { return _Tabs__WEBPACK_IMPORTED_MODULE_19__["TabList"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tab", function() { return _Tabs__WEBPACK_IMPORTED_MODULE_19__["Tab"]; });
+
+/* harmony import */ var _Accordion__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("wS4+");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Accordion", function() { return _Accordion__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccordionItem", function() { return _Accordion__WEBPACK_IMPORTED_MODULE_20__["AccordionItem"]; });
+
+/* harmony import */ var _Toggle__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("Vmsy");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Toggle", function() { return _Toggle__WEBPACK_IMPORTED_MODULE_21__["default"]; });
+
+/* harmony import */ var _helpers_withBreakpoints__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("ufaa");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withBreakpoints", function() { return _helpers_withBreakpoints__WEBPACK_IMPORTED_MODULE_22__["default"]; });
+
+/* harmony import */ var _Media__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__("PYF2");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Media", function() { return _Media__WEBPACK_IMPORTED_MODULE_23__["Media"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Img", function() { return _Media__WEBPACK_IMPORTED_MODULE_23__["Img"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Bd", function() { return _Media__WEBPACK_IMPORTED_MODULE_23__["Bd"]; });
+
+/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__("Bh3+");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Layout", function() { return _Layout__WEBPACK_IMPORTED_MODULE_24__["Layout"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Main", function() { return _Layout__WEBPACK_IMPORTED_MODULE_24__["Main"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return _Layout__WEBPACK_IMPORTED_MODULE_24__["Content"]; });
+
+/* harmony import */ var _MidEllipsis__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__("F+Nm");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MidEllipsis", function() { return _MidEllipsis__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+
+/* harmony import */ var _ActionMenu__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__("UxX4");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ActionMenu", function() { return _ActionMenu__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+
+/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__("zzwF");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Menu", function() { return _Menu__WEBPACK_IMPORTED_MODULE_27__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MenuItem", function() { return _Menu__WEBPACK_IMPORTED_MODULE_27__["MenuItem"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MenuButton", function() { return _Menu__WEBPACK_IMPORTED_MODULE_27__["MenuButton"]; });
+
+/* harmony import */ var _Overlay__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__("B9Y0");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Overlay", function() { return _Overlay__WEBPACK_IMPORTED_MODULE_28__["default"]; });
+
+/* harmony import */ var _Label__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__("w7SU");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Label", function() { return _Label__WEBPACK_IMPORTED_MODULE_29__["default"]; });
+
+/* harmony import */ var _Input__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__("zA8p");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Input", function() { return _Input__WEBPACK_IMPORTED_MODULE_30__["default"]; });
+
+/* harmony import */ var _Checkbox__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__("m0K1");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Checkbox", function() { return _Checkbox__WEBPACK_IMPORTED_MODULE_31__["default"]; });
+
+/* harmony import */ var _Radio__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__("1kmH");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Radio", function() { return _Radio__WEBPACK_IMPORTED_MODULE_32__["default"]; });
+
+/* harmony import */ var _Textarea__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__("jWvl");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Textarea", function() { return _Textarea__WEBPACK_IMPORTED_MODULE_33__["default"]; });
+
+/* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__("jLsa");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Field", function() { return _Field__WEBPACK_IMPORTED_MODULE_34__["default"]; });
+
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__("BuRe");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Avatar", function() { return _Avatar__WEBPACK_IMPORTED_MODULE_35__["default"]; });
+
+/* harmony import */ var _IntentHeader__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__("aaMA");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IntentHeader", function() { return _IntentHeader__WEBPACK_IMPORTED_MODULE_36__["default"]; });
+
+/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__("7WOy");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Panel", function() { return _Panel__WEBPACK_IMPORTED_MODULE_37__["default"]; });
+
+/* harmony import */ var _SelectBox__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__("81zs");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectBox", function() { return _SelectBox__WEBPACK_IMPORTED_MODULE_38__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectBoxWithFixedOptions", function() { return _SelectBox__WEBPACK_IMPORTED_MODULE_38__["SelectBoxWithFixedOptions"]; });
+
+/* harmony import */ var _Chip__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__("tNlo");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Chip", function() { return _Chip__WEBPACK_IMPORTED_MODULE_39__["default"]; });
+
+/* harmony import */ var _Text__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__("kyGY");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Text", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MainTitle", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["MainTitle"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Title", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["Title"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SubTitle", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["SubTitle"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Bold", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["Bold"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Caption", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["Caption"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Uppercase", function() { return _Text__WEBPACK_IMPORTED_MODULE_40__["Uppercase"]; });
+
+/* harmony import */ var _Empty__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__("GoJ1");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Empty", function() { return _Empty__WEBPACK_IMPORTED_MODULE_41__["default"]; });
+
+/* harmony import */ var _ContextHeader__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__("FMOH");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContextHeader", function() { return _ContextHeader__WEBPACK_IMPORTED_MODULE_42__["default"]; });
+
+/* harmony import */ var _Circle__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__("yumz");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Circle", function() { return _Circle__WEBPACK_IMPORTED_MODULE_43__["default"]; });
+
+/* harmony import */ var _Counter__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__("4sje");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Counter", function() { return _Counter__WEBPACK_IMPORTED_MODULE_44__["default"]; });
+
+/* harmony import */ var _Well__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__("KOc8");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Well", function() { return _Well__WEBPACK_IMPORTED_MODULE_45__["default"]; });
+
+/* harmony import */ var _Infos__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__("M2p0");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Infos", function() { return _Infos__WEBPACK_IMPORTED_MODULE_46__["default"]; });
+
+/* harmony import */ var _InfosCarrousel__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__("ski3");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InfosCarrousel", function() { return _InfosCarrousel__WEBPACK_IMPORTED_MODULE_47__["default"]; });
+
+/* harmony import */ var _InputGroup__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__("ykoP");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputGroup", function() { return _InputGroup__WEBPACK_IMPORTED_MODULE_48__["default"]; });
+
+/* harmony import */ var _AppIcon__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__("rvOC");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppIcon", function() { return _AppIcon__WEBPACK_IMPORTED_MODULE_49__["default"]; });
+
+/* harmony import */ var _AppTitle__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__("vYzF");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppTitle", function() { return _AppTitle__WEBPACK_IMPORTED_MODULE_50__["default"]; });
+
+/* harmony import */ var _Filename__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__("JYV5");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Filename", function() { return _Filename__WEBPACK_IMPORTED_MODULE_51__["default"]; });
+
+/* harmony import */ var _Viewer_ViewerExposer__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__("mD6m");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Viewer", function() { return _Viewer_ViewerExposer__WEBPACK_IMPORTED_MODULE_52__["default"]; });
+
+/* harmony import */ var _FileInput__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__("asgm");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileInput", function() { return _FileInput__WEBPACK_IMPORTED_MODULE_53__["default"]; });
+
+/* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__("xrMM");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Card", function() { return _Card__WEBPACK_IMPORTED_MODULE_54__["default"]; });
+
+/* harmony import */ var _InlineCard__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__("5Z5u");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InlineCard", function() { return _InlineCard__WEBPACK_IMPORTED_MODULE_55__["default"]; });
+
+/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__("ElxI");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageFooter", function() { return _Page__WEBPACK_IMPORTED_MODULE_56__["PageFooter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageContent", function() { return _Page__WEBPACK_IMPORTED_MODULE_56__["PageContent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageLayout", function() { return _Page__WEBPACK_IMPORTED_MODULE_56__["PageLayout"]; });
+
+/* harmony import */ var _Stack__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__("X+Uv");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Stack", function() { return _Stack__WEBPACK_IMPORTED_MODULE_57__["default"]; });
+
+/* harmony import */ var _PercentageLine__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__("G+B/");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PercentageLine", function() { return _PercentageLine__WEBPACK_IMPORTED_MODULE_58__["default"]; });
+
+/* harmony import */ var _Popup__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__("0Gfq");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popup", function() { return _Popup__WEBPACK_IMPORTED_MODULE_59__["default"]; });
+
+/* harmony import */ var _IconStack__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__("zs4J");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconStack", function() { return _IconStack__WEBPACK_IMPORTED_MODULE_60__["default"]; });
+
+/* harmony import */ var _QuotaAlert__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__("owKQ");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuotaAlert", function() { return _QuotaAlert__WEBPACK_IMPORTED_MODULE_61__["default"]; });
+
+/* harmony import */ var _ThresholdBar__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__("wfHr");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThresholdBar", function() { return _ThresholdBar__WEBPACK_IMPORTED_MODULE_62__["default"]; });
+
+/* harmony import */ var _ViewStack__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__("QV3Q");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewStack", function() { return _ViewStack__WEBPACK_IMPORTED_MODULE_63__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalStack", function() { return _ViewStack__WEBPACK_IMPORTED_MODULE_63__["ModalStack"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useViewStack", function() { return _ViewStack__WEBPACK_IMPORTED_MODULE_63__["useViewStack"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewStackContext", function() { return _ViewStack__WEBPACK_IMPORTED_MODULE_63__["ViewStackContext"]; });
+
+/* harmony import */ var _DateMonthPicker__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__("KXRJ");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateMonthPicker", function() { return _DateMonthPicker__WEBPACK_IMPORTED_MODULE_64__["default"]; });
+
+/* harmony import */ var _NestedSelect__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__("WQyc");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NestedSelect", function() { return _NestedSelect__WEBPACK_IMPORTED_MODULE_65__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NestedSelectModal", function() { return _NestedSelect__WEBPACK_IMPORTED_MODULE_65__["NestedSelectModal"]; });
+
+/* harmony import */ var _ContactsList__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__("ERWV");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContactsList", function() { return _ContactsList__WEBPACK_IMPORTED_MODULE_66__["default"]; });
+
+/* harmony import */ var _ContactsListModal__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__("p3VU");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContactsListModal", function() { return _ContactsListModal__WEBPACK_IMPORTED_MODULE_67__["default"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "v7Qg":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DumbTriggerManager", function() { return DumbTriggerManager; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TriggerManager", function() { return TriggerManager; });
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pVnL");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("J4zp");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lwsE");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("W8MJ");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("a1gu");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("Nsbk");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("PJYZ");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("7W2i");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("QILm");
+/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("o0o1");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("yXPU");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("17x9");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("mwIZ");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var lodash_flow__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("56YH");
+/* harmony import */ var lodash_flow__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_flow__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("SH7X");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var cozy_doctypes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("Le8U");
+/* harmony import */ var cozy_doctypes__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(cozy_doctypes__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("buk/");
+/* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("xIbs");
+/* harmony import */ var cozy_ui_transpiled_react_Spinner__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("V2U0");
+/* harmony import */ var cozy_ui_transpiled_react_Modal__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("cLsY");
+/* harmony import */ var cozy_keys_lib__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("Bkvo");
+/* harmony import */ var _AccountForm__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("oGkx");
+/* harmony import */ var _OAuthForm__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__("F4kv");
+/* harmony import */ var _connections_accounts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__("IXB1");
+/* harmony import */ var _connections_triggers__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__("hw33");
+/* harmony import */ var _connections_files__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__("Sz7o");
+/* harmony import */ var _connections_permissions__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__("fRJb");
+/* harmony import */ var _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__("v7CI");
+/* harmony import */ var _helpers_cron__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__("QQs6");
+/* harmony import */ var _helpers_konnectors__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__("MmAb");
+/* harmony import */ var _helpers_triggers__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__("Ih3Q");
+/* harmony import */ var _TriggerLauncher__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__("V04f");
+/* harmony import */ var _VaultCiphersList__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__("s720");
+/* harmony import */ var _helpers_manifest__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__("C9ao");
+/* harmony import */ var _HarvestVaultProvider__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__("NSF3");
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__("uM7l");
+/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(lodash_clone__WEBPACK_IMPORTED_MODULE_36__);
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__("kdbL");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_37__);
+/* harmony import */ var _models_cipherUtils__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__("Hq7M");
+/* harmony import */ var _services_budget_insight__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__("jH4C");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var defaultKonnectorPolicy = {
+  accountContainsAuth: true,
+  saveInVault: true,
+  onAccountCreation: null,
+  match: function match() {
+    return true;
+  },
+  name: 'default'
+};
+var policies = [cozy_flags__WEBPACK_IMPORTED_MODULE_37___default()('bi-konnector-policy') ? _services_budget_insight__WEBPACK_IMPORTED_MODULE_39__["konnectorPolicy"] : null, defaultKonnectorPolicy].filter(Boolean);
+console.log('policies', policies);
+var IDLE = 'IDLE';
+var RUNNING = 'RUNNING';
+var MODAL_PLACE_ID = 'coz-harvest-modal-place';
+
+var findKonnectorPolicy = function findKonnectorPolicy(konnector) {
+  var policy = policies.find(function (policy) {
+    return policy.match(konnector);
+  });
+  console.info("Use ".concat(policy.name, " konnector policy for ").concat(konnector.slug));
+  return policy;
+};
+/**
+ * Creates or updates an io.cozy.accounts
+ * Used as a form submit handler
+ *
+ * @param  {io.cozy.account} options.account - Existing io.cozy.account or object
+ * @param  {[type]} options.cipher - Vault cipher if vault has been unlocked
+ * @param  {CozyClient} options.client - A cozy client
+ * @param  {io.cozy.konnector} options.konnector - Konnector to which the account is linked
+ * @param  {KonnectorPolicy} options.konnectorPolicy - Controls if auth is saved in io.cozy.accounts
+ * and if auth is saved into the vault
+ * @param  {function} options.saveAccount
+ * @param  {object} options.userData
+ * @param  {function} options.ensureTrigger
+ */
+
+
+var createOrUpdateAccount =
+/*#__PURE__*/
+function () {
+  var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee(_ref) {
+    var account, cipher, client, konnector, konnectorPolicy, saveAccount, userCredentials, isUpdate, onAccountCreation, saveInVault, accountToSave;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            account = _ref.account, cipher = _ref.cipher, client = _ref.client, konnector = _ref.konnector, konnectorPolicy = _ref.konnectorPolicy, saveAccount = _ref.saveAccount, userCredentials = _ref.userCredentials;
+            isUpdate = !!account;
+            onAccountCreation = konnectorPolicy.onAccountCreation, saveInVault = konnectorPolicy.saveInVault;
+            accountToSave = lodash_clone__WEBPACK_IMPORTED_MODULE_36___default()(account);
+            accountToSave = _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].resetState(accountToSave);
+            accountToSave = _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].setSessionResetIfNecessary(accountToSave, userCredentials);
+            accountToSave = isUpdate ? _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].mergeAuth(accountToSave, userCredentials) : _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].build(konnector, userCredentials);
+
+            if (!onAccountCreation) {
+              _context.next = 11;
+              break;
+            }
+
+            _context.next = 10;
+            return onAccountCreation({
+              client: client,
+              account: accountToSave,
+              konnector: konnector,
+              saveAccount: saveAccount
+            });
+
+          case 10:
+            accountToSave = _context.sent;
+
+          case 11:
+            if (cipher && saveInVault) {
+              accountToSave = _helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].setVaultCipherRelationship(accountToSave, cipher.id);
+            } else {
+              // eslint-disable-next-line no-console
+              console.warn('No cipher passed when creating/updating account, account will not be linked to cipher');
+            }
+
+            _context.next = 14;
+            return saveAccount(konnector, accountToSave);
+
+          case 14:
+            return _context.abrupt("return", _context.sent);
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function createOrUpdateAccount(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+/**
+ * Wraps conditionally its children inside VaultUnlocker, only if
+ * props.konnector's policy tells to saveInVault
+ */
+
+
+var KonnectorVaultUnlocker = function KonnectorVaultUnlocker(_ref3) {
+  var konnector = _ref3.konnector,
+      children = _ref3.children,
+      props = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_8___default()(_ref3, ["konnector", "children"]);
+
+  var konnectorPolicy = findKonnectorPolicy(konnector);
+
+  if (konnectorPolicy.saveInVault) {
+    return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(cozy_keys_lib__WEBPACK_IMPORTED_MODULE_21__["VaultUnlocker"], props, children);
+  } else {
+    console.info('Not rendering VaultUnlocker since konnectoPolicy.saveInVault = false');
+    console.log(children);
+    return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_11___default.a.Fragment, null, children);
+  }
+};
+/**
+ * Displays the login form and on submission will create the account, triggers and folders.
+ * After that it calls TriggerLauncher to run the konnector.
+ *
+ * @type {Component}
+ */
+
+
+var DumbTriggerManager =
+/*#__PURE__*/
+function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_7___default()(DumbTriggerManager, _Component);
+
+  function DumbTriggerManager(props) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, DumbTriggerManager);
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(DumbTriggerManager).call(this, props));
+    var account = props.account;
+    _this.handleNewAccount = _this.handleNewAccount.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.handleOAuthAccountId = _this.handleOAuthAccountId.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.handleError = _this.handleError.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.handleCipherSelect = _this.handleCipherSelect.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.showCiphersList = _this.showCiphersList.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.handleVaultUnlock = _this.handleVaultUnlock.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6___default()(_this));
+    _this.state = {
+      account: account,
+      error: null,
+      status: IDLE,
+      step: account ? 'accountForm' : null,
+      selectedCipher: undefined,
+      showBackButton: false,
+      ciphers: []
+    };
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(DumbTriggerManager, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.CozyFolder = cozy_doctypes__WEBPACK_IMPORTED_MODULE_16__["CozyFolder"].copyWithClient(this.props.client);
+    }
+    /**
+     * Ensure that a trigger will exist, with valid destination folder with
+     * permissions and references
+     * TODO move this to Cozy-Doctypes https://github.com/cozy/cozy-libs/issues/743
+     *
+     * @param  {object}  account
+     * @return {Object} Trigger document
+     */
+
+  }, {
+    key: "ensureTrigger",
+    value: function () {
+      var _ensureTrigger = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee2(account) {
+        var _this$props, addPermission, addReferencesTo, createDirectoryByPath, createTrigger, statDirectoryByPath, konnector, t, trigger, folder, _ref4, _ref5, adminFolder, photosFolder, path;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this$props = this.props, addPermission = _this$props.addPermission, addReferencesTo = _this$props.addReferencesTo, createDirectoryByPath = _this$props.createDirectoryByPath, createTrigger = _this$props.createTrigger, statDirectoryByPath = _this$props.statDirectoryByPath, konnector = _this$props.konnector, t = _this$props.t;
+                trigger = this.props.trigger;
+
+                if (!trigger) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                return _context2.abrupt("return", trigger);
+
+              case 4:
+                if (!_helpers_konnectors__WEBPACK_IMPORTED_MODULE_30__["default"].needsFolder(konnector)) {
+                  _context2.next = 24;
+                  break;
+                }
+
+                _context2.next = 7;
+                return Promise.all([this.CozyFolder.ensureMagicFolder(this.CozyFolder.magicFolders.ADMINISTRATIVE, "/".concat(t('folder.administrative'))), this.CozyFolder.ensureMagicFolder(this.CozyFolder.magicFolders.PHOTOS, "/".concat(t('folder.photos')))]);
+
+              case 7:
+                _ref4 = _context2.sent;
+                _ref5 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_ref4, 2);
+                adminFolder = _ref5[0];
+                photosFolder = _ref5[1];
+                path = _helpers_konnectors__WEBPACK_IMPORTED_MODULE_30__["default"].buildFolderPath(konnector, account, {
+                  administrative: adminFolder.path,
+                  photos: photosFolder.path
+                });
+                _context2.next = 14;
+                return statDirectoryByPath(path);
+
+              case 14:
+                _context2.t0 = _context2.sent;
+
+                if (_context2.t0) {
+                  _context2.next = 19;
+                  break;
+                }
+
+                _context2.next = 18;
+                return createDirectoryByPath(path);
+
+              case 18:
+                _context2.t0 = _context2.sent;
+
+              case 19:
+                folder = _context2.t0;
+                _context2.next = 22;
+                return addPermission(konnector, _helpers_konnectors__WEBPACK_IMPORTED_MODULE_30__["default"].buildFolderPermission(folder));
+
+              case 22:
+                _context2.next = 24;
+                return addReferencesTo(konnector, [folder]);
+
+              case 24:
+                _context2.next = 26;
+                return createTrigger(_helpers_triggers__WEBPACK_IMPORTED_MODULE_31__["default"].buildAttributes({
+                  account: account,
+                  cron: _helpers_cron__WEBPACK_IMPORTED_MODULE_29__["default"].fromKonnector(konnector),
+                  folder: folder,
+                  konnector: konnector
+                }));
+
+              case 26:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 27:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function ensureTrigger(_x2) {
+        return _ensureTrigger.apply(this, arguments);
+      }
+
+      return ensureTrigger;
+    }()
+    /**
+     * OAuth Form success handler. OAuthForm retrieves an account id created by the
+     * cozy stack
+     * @param  {string}  accountId
+     */
+
+  }, {
+    key: "handleOAuthAccountId",
+    value: function () {
+      var _handleOAuthAccountId = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee3(accountId) {
+        var findAccount, oAuthAccount;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                findAccount = this.props.findAccount;
+                _context3.prev = 1;
+                this.setState({
+                  error: null,
+                  status: RUNNING
+                });
+                _context3.next = 5;
+                return findAccount(accountId);
+
+              case 5:
+                oAuthAccount = _context3.sent;
+                _context3.next = 8;
+                return this.handleNewAccount(oAuthAccount);
+
+              case 8:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 11:
+                _context3.prev = 11;
+                _context3.t0 = _context3["catch"](1);
+                this.handleError(_context3.t0);
+
+              case 14:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[1, 11]]);
+      }));
+
+      function handleOAuthAccountId(_x3) {
+        return _handleOAuthAccountId.apply(this, arguments);
+      }
+
+      return handleOAuthAccountId;
+    }()
+    /**
+     * Get the ID of the cipher selected by the user in the list
+     *
+     * @returns {string|null} the cipher ID
+     */
+
+  }, {
+    key: "getSelectedCipherId",
+    value: function getSelectedCipherId() {
+      var selectedCipher = this.state.selectedCipher;
+      return selectedCipher && selectedCipher.id;
+    }
+    /**
+     * - Ensures a cipher is created for the authentication data
+     *   Find cipher via identifier / password
+     * - Creates io.cozy.accounts
+     * - Links cipher to account
+     * - Saves account
+     */
+
+  }, {
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee4() {
+        var data,
+            _this$props2,
+            client,
+            konnector,
+            saveAccount,
+            vaultClient,
+            account,
+            konnectorPolicy,
+            cipher,
+            cipherId,
+            savedAccount,
+            _args4 = arguments;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                data = _args4.length > 0 && _args4[0] !== undefined ? _args4[0] : {};
+                _this$props2 = this.props, client = _this$props2.client, konnector = _this$props2.konnector, saveAccount = _this$props2.saveAccount, vaultClient = _this$props2.vaultClient;
+                account = this.state.account;
+                this.setState({
+                  error: null,
+                  status: RUNNING
+                });
+                konnectorPolicy = findKonnectorPolicy(konnector);
+                _context4.prev = 5;
+                console.log('konnector policy', konnectorPolicy);
+
+                if (!konnectorPolicy.saveInVault) {
+                  _context4.next = 14;
+                  break;
+                }
+
+                cipherId = this.getSelectedCipherId();
+                _context4.next = 11;
+                return Object(_models_cipherUtils__WEBPACK_IMPORTED_MODULE_38__["createOrUpdateCipher"])(vaultClient, cipherId, {
+                  account: account,
+                  konnector: konnector,
+                  userCredentials: data
+                });
+
+              case 11:
+                cipher = _context4.sent;
+                _context4.next = 15;
+                break;
+
+              case 14:
+                // eslint-disable-next-line no-console
+                console.info('Bypassing cipher creation because of konnector account policy');
+
+              case 15:
+                _context4.next = 17;
+                return createOrUpdateAccount({
+                  client: client,
+                  account: account,
+                  cipher: cipher,
+                  konnector: konnector,
+                  konnectorPolicy: konnectorPolicy,
+                  saveAccount: saveAccount,
+                  ensureTrigger: this.ensureTrigger.bind(this),
+                  userCredentials: data
+                });
+
+              case 17:
+                savedAccount = _context4.sent;
+                _context4.next = 20;
+                return this.handleNewAccount(_helpers_accounts__WEBPACK_IMPORTED_MODULE_28__["default"].mergeAuth(savedAccount, data));
+
+              case 20:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 23:
+                _context4.prev = 23;
+                _context4.t0 = _context4["catch"](5);
+                return _context4.abrupt("return", this.handleError(_context4.t0));
+
+              case 26:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[5, 23]]);
+      }));
+
+      function handleSubmit() {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+    /**
+     * Account creation success handler
+     * @param  {Object}  account Created io.cozy.accounts document
+     * @return {Object}          io.cozy.jobs document, runned with account data
+     */
+
+  }, {
+    key: "handleNewAccount",
+    value: function () {
+      var _handleNewAccount = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee5(account) {
+        var trigger;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return this.ensureTrigger(account);
+
+              case 2:
+                trigger = _context5.sent;
+                this.setState({
+                  account: account,
+                  status: IDLE
+                });
+                _context5.next = 6;
+                return this.props.launch(trigger);
+
+              case 6:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 7:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function handleNewAccount(_x4) {
+        return _handleNewAccount.apply(this, arguments);
+      }
+
+      return handleNewAccount;
+    }()
+    /**
+     * TODO rename state error to accountError
+     */
+
+  }, {
+    key: "handleError",
+    value: function handleError(error) {
+      console.error('TriggerManager handleError', error);
+      var onError = this.props.onError;
+      this.setState({
+        error: error,
+        state: IDLE
+      });
+      if (typeof onError === 'function') onError(error);
+    }
+  }, {
+    key: "handleCipherSelect",
+    value: function handleCipherSelect(selectedCipher) {
+      var _this2 = this;
+
+      var konnector = this.props.konnector;
+      var account = this.cipherToAccount(selectedCipher);
+      var values = _helpers_manifest__WEBPACK_IMPORTED_MODULE_34__["default"].getFieldsValues(konnector, account);
+      var hasValuesForRequiredFields = _helpers_manifest__WEBPACK_IMPORTED_MODULE_34__["default"].hasValuesForRequiredFields(konnector, values);
+
+      if (hasValuesForRequiredFields) {
+        this.setState({
+          selectedCipher: selectedCipher
+        }, function () {
+          _this2.handleSubmit(values);
+        });
+      } else {
+        this.setState({
+          step: 'accountForm',
+          selectedCipher: selectedCipher,
+          showBackButton: true
+        });
+      }
+    }
+  }, {
+    key: "cipherToAccount",
+    value: function cipherToAccount(cipher) {
+      if (cipher === undefined) {
+        return null;
+      }
+
+      var identifierProperty = _helpers_manifest__WEBPACK_IMPORTED_MODULE_34__["default"].getIdentifier(this.props.konnector.fields);
+      var account = cozy_doctypes__WEBPACK_IMPORTED_MODULE_16__["Account"].fromCipher(cipher, {
+        identifierProperty: identifierProperty
+      });
+      return account;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.error && this.props.error !== prevProps.error) {
+        this.setState({
+          step: 'accountForm'
+        });
+      }
+    }
+    /**
+     * Tells whether we currently have a cipher selected or not
+     * selectedCipher === undefined means nothing has been selected
+     * selectedCipher === null means « from another account has been selected »
+     * selectedCipher === Object means a cipher has been selected
+     */
+
+  }, {
+    key: "hasCipherSelected",
+    value: function hasCipherSelected() {
+      return this.state.selectedCipher !== undefined;
+    }
+  }, {
+    key: "showAccountForm",
+    value: function showAccountForm() {
+      this.setState({
+        step: 'accountForm',
+        showBackButton: false
+      });
+    }
+  }, {
+    key: "showCiphersList",
+    value: function showCiphersList(ciphers) {
+      var newState = {
+        step: 'ciphersList'
+      };
+
+      if (ciphers) {
+        newState.ciphers = ciphers;
+      }
+
+      this.setState(newState);
+    }
+  }, {
+    key: "handleVaultUnlock",
+    value: function () {
+      var _handleVaultUnlock = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.mark(function _callee6() {
+        var _this$props3, vaultClient, konnector, encryptedCiphers, ciphers;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_9___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _this$props3 = this.props, vaultClient = _this$props3.vaultClient, konnector = _this$props3.konnector;
+                _context6.next = 3;
+                return vaultClient.getAll({
+                  type: cozy_keys_lib__WEBPACK_IMPORTED_MODULE_21__["CipherType"].Login
+                });
+
+              case 3:
+                encryptedCiphers = _context6.sent;
+
+                if (!(encryptedCiphers.length === 0)) {
+                  _context6.next = 7;
+                  break;
+                }
+
+                this.showAccountForm();
+                return _context6.abrupt("return");
+
+              case 7:
+                _context6.prev = 7;
+                _context6.next = 10;
+                return vaultClient.getAllDecrypted({
+                  type: cozy_keys_lib__WEBPACK_IMPORTED_MODULE_21__["CipherType"].Login,
+                  uri: lodash_get__WEBPACK_IMPORTED_MODULE_13___default()(konnector, 'vendor_link')
+                });
+
+              case 10:
+                ciphers = _context6.sent;
+
+                if (ciphers.length === 0) {
+                  this.showAccountForm();
+                } else {
+                  this.showCiphersList(ciphers);
+                }
+
+                _context6.next = 18;
+                break;
+
+              case 14:
+                _context6.prev = 14;
+                _context6.t0 = _context6["catch"](7);
+                // eslint-disable-next-line no-console
+                console.error("Error while getting decrypted ciphers for ".concat(konnector.slug, " konnector:")); // eslint-disable-next-line no-console
+
+                console.error(_context6.t0);
+
+              case 18:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this, [[7, 14]]);
+      }));
+
+      function handleVaultUnlock() {
+        return _handleVaultUnlock.apply(this, arguments);
+      }
+
+      return handleVaultUnlock;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var _this$props4 = this.props,
+          triggerError = _this$props4.error,
+          konnector = _this$props4.konnector,
+          triggerRunning = _this$props4.running,
+          showError = _this$props4.showError,
+          modalContainerId = _this$props4.modalContainerId,
+          t = _this$props4.t,
+          onVaultDismiss = _this$props4.onVaultDismiss,
+          vaultClosable = _this$props4.vaultClosable;
+      var _this$state = this.state,
+          account = _this$state.account,
+          error = _this$state.error,
+          status = _this$state.status,
+          step = _this$state.step,
+          selectedCipher = _this$state.selectedCipher,
+          showBackButton = _this$state.showBackButton,
+          ciphers = _this$state.ciphers;
+      var submitting = !!(status === RUNNING || triggerRunning);
+      var modalInto = modalContainerId || MODAL_PLACE_ID;
+      var oauth = konnector.oauth;
+      var showSpinner = submitting && selectedCipher && step === 'ciphersList';
+      var showCiphersList = step === 'ciphersList';
+      var showAccountForm = step === 'accountForm';
+
+      if (oauth) {
+        return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_OAuthForm__WEBPACK_IMPORTED_MODULE_23__["default"], {
+          account: account,
+          konnector: konnector,
+          onSuccess: this.handleOAuthAccountId,
+          submitting: submitting
+        });
+      }
+
+      if (showSpinner) {
+        return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", {
+          className: "u-flex u-flex-column u-flex-items-center"
+        }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(cozy_ui_transpiled_react_Spinner__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          size: "xxlarge"
+        }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("p", null, t('triggerManager.connecting')));
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(KonnectorVaultUnlocker, {
+        konnector: konnector,
+        onDismiss: onVaultDismiss,
+        closable: vaultClosable,
+        onUnlock: this.handleVaultUnlock
+      }, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement("div", {
+        id: modalInto
+      }), showCiphersList && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_VaultCiphersList__WEBPACK_IMPORTED_MODULE_33__["default"], {
+        konnector: konnector,
+        ciphers: ciphers,
+        onSelect: this.handleCipherSelect
+      }), showAccountForm && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_11___default.a.Fragment, null, showBackButton && react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(cozy_ui_transpiled_react_Modal__WEBPACK_IMPORTED_MODULE_20__["ModalBackButton"], {
+        onClick: function onClick() {
+          return _this3.showCiphersList();
+        },
+        label: t('back')
+      }), react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_AccountForm__WEBPACK_IMPORTED_MODULE_22__["default"], {
+        account: this.hasCipherSelected() ? this.cipherToAccount(selectedCipher) : account,
+        error: error || triggerError,
+        konnector: konnector,
+        onSubmit: this.handleSubmit,
+        showError: showError,
+        submitting: submitting,
+        onBack: function onBack() {
+          return _this3.showCiphersList();
+        },
+        readOnlyIdentifier: this.hasCipherSelected()
+      })));
+    }
+  }]);
+
+  return DumbTriggerManager;
+}(react__WEBPACK_IMPORTED_MODULE_11__["Component"]);
+DumbTriggerManager.propTypes = {
+  /**
+   * Account document. Used to get intial form values.
+   * If no account is passed, AccountForm will use empty initial values.
+   * @type {Object}
+   */
+  account: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object,
+
+  /**
+   * Konnector document. AccountForm will check the `fields` object to compute
+   * fields.
+   * @type {Object}
+   */
+  konnector: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object.isRequired,
+
+  /**
+   * Indicates if the TriggerManager has to show errors. Sometimes errors may be
+   * displayed elsewhere. However, a KonnectorJobError corresponding to a login
+   * error is always displayed. Transmitted to AccountForm.
+   * @type {Boolean}
+   */
+  showError: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.bool,
+
+  /**
+   * Existing trigger document to manage.
+   * @type {Object}
+   */
+  trigger: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object,
+
+  /**
+   * Indicates if the given trigger is already running, i.e. if it has been
+   * launched and if an associated job with status 'running' exists.
+   * @type {[type]}
+   */
+  running: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.bool,
+
+  /**
+   * The current error for the job (string or KonnectorJob error)
+   */
+  error: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object]),
+
+  /**
+   * Function to call to launch the job
+   */
+  launch: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired,
+
+  /**
+   * Translation function
+   */
+  t: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+  //
+  // mutations
+  //
+
+  /**
+   * Permission mutation
+   * @type {Function}
+   */
+  addPermission: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+
+  /**
+   * File mutation
+   * @type {Function}
+   */
+  addReferencesTo: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+
+  /**
+   * Trigger mutation
+   * @type {Function}
+   */
+  createTrigger: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired,
+
+  /**
+   * Trigger mutations
+   * @type {Function}
+   */
+  createDirectoryByPath: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+
+  /**
+   * Account Mutation, used to retrieve OAuth account
+   * @type {Function}
+   */
+  findAccount: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+
+  /**
+   * Account mutation
+   * @type {Func}
+   */
+  saveAccount: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired,
+
+  /**
+   * Trigger mutations
+   * @type {Function}
+   */
+  statDirectoryByPath: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func,
+
+  /**
+   * What to do when the Vault unlock screen is dismissed without password
+   */
+  onVaultDismiss: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired,
+
+  /**
+   * Whether the vault will be closable or not.
+   * @type {Boolean}
+   */
+  vaultClosable: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.bool
+};
+var SmartTriggerManager = lodash_flow__WEBPACK_IMPORTED_MODULE_14___default()(Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_17__["translate"])(), cozy_client__WEBPACK_IMPORTED_MODULE_15__["withClient"], cozy_keys_lib__WEBPACK_IMPORTED_MODULE_21__["withVaultClient"], Object(cozy_client__WEBPACK_IMPORTED_MODULE_15__["withMutations"])(_connections_accounts__WEBPACK_IMPORTED_MODULE_24__["default"], _connections_files__WEBPACK_IMPORTED_MODULE_26__["default"], _connections_permissions__WEBPACK_IMPORTED_MODULE_27__["default"], _connections_triggers__WEBPACK_IMPORTED_MODULE_25__["triggersMutations"]))(DumbTriggerManager); // The TriggerManager is wrapped in the providers required for it to work by
+// itself instead of receiving it from its parents because it is used as
+// standalone in places like cozy-home intents
+
+var TriggerManager = function TriggerManager(props) {
+  return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_HarvestVaultProvider__WEBPACK_IMPORTED_MODULE_35__["default"], null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(cozy_ui_transpiled_react_MuiCozyTheme__WEBPACK_IMPORTED_MODULE_18__["default"], null, react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(SmartTriggerManager, props)));
+}; // TriggerManager is exported wrapped in TriggerLauncher to avoid breaking changes.
+
+var LegacyTriggerManager = function LegacyTriggerManager(props) {
+  var onLaunch = props.onLaunch,
+      onSuccess = props.onSuccess,
+      onLoginSuccess = props.onLoginSuccess,
+      onError = props.onError,
+      initialTrigger = props.initialTrigger,
+      otherProps = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_8___default()(props, ["onLaunch", "onSuccess", "onLoginSuccess", "onError", "initialTrigger"]);
+
+  return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(_TriggerLauncher__WEBPACK_IMPORTED_MODULE_32__["default"], {
+    onLaunch: onLaunch,
+    onSuccess: onSuccess,
+    onLoginSuccess: onLoginSuccess,
+    onError: onError,
+    initialTrigger: initialTrigger
+  }, function (_ref6) {
+    var error = _ref6.error,
+        launch = _ref6.launch,
+        running = _ref6.running,
+        trigger = _ref6.trigger;
+    return react__WEBPACK_IMPORTED_MODULE_11___default.a.createElement(TriggerManager, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, otherProps, {
+      error: error,
+      launch: launch,
+      running: running,
+      trigger: trigger
+    }));
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LegacyTriggerManager);
+
+/***/ })
+
+})
+//# sourceMappingURL=vendors.c578a7aa946650bcd679.hot-update.js.map

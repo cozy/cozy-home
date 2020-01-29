@@ -48,6 +48,706 @@
 /******/ 		}
 /******/ 		return result;
 /******/ 	}
+/******/ 	function hotDisposeChunk(chunkId) {
+/******/ 		delete installedChunks[chunkId];
+/******/ 	}
+/******/ 	var parentHotUpdateCallback = this["webpackHotUpdate"];
+/******/ 	this["webpackHotUpdate"] = // eslint-disable-next-line no-unused-vars
+/******/ 	function webpackHotUpdateCallback(chunkId, moreModules) {
+/******/ 		hotAddUpdateChunk(chunkId, moreModules);
+/******/ 		if (parentHotUpdateCallback) parentHotUpdateCallback(chunkId, moreModules);
+/******/ 	} ;
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotDownloadUpdateChunk(chunkId) {
+/******/ 		var script = document.createElement("script");
+/******/ 		script.charset = "utf-8";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "." + hotCurrentHash + ".hot-update.js";
+/******/ 		if (null) script.crossOrigin = null;
+/******/ 		document.head.appendChild(script);
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotDownloadManifest(requestTimeout) {
+/******/ 		requestTimeout = requestTimeout || 10000;
+/******/ 		return new Promise(function(resolve, reject) {
+/******/ 			if (typeof XMLHttpRequest === "undefined") {
+/******/ 				return reject(new Error("No browser support"));
+/******/ 			}
+/******/ 			try {
+/******/ 				var request = new XMLHttpRequest();
+/******/ 				var requestPath = __webpack_require__.p + "" + hotCurrentHash + ".hot-update.json";
+/******/ 				request.open("GET", requestPath, true);
+/******/ 				request.timeout = requestTimeout;
+/******/ 				request.send(null);
+/******/ 			} catch (err) {
+/******/ 				return reject(err);
+/******/ 			}
+/******/ 			request.onreadystatechange = function() {
+/******/ 				if (request.readyState !== 4) return;
+/******/ 				if (request.status === 0) {
+/******/ 					// timeout
+/******/ 					reject(
+/******/ 						new Error("Manifest request to " + requestPath + " timed out.")
+/******/ 					);
+/******/ 				} else if (request.status === 404) {
+/******/ 					// no update available
+/******/ 					resolve();
+/******/ 				} else if (request.status !== 200 && request.status !== 304) {
+/******/ 					// other failure
+/******/ 					reject(new Error("Manifest request to " + requestPath + " failed."));
+/******/ 				} else {
+/******/ 					// success
+/******/ 					try {
+/******/ 						var update = JSON.parse(request.responseText);
+/******/ 					} catch (e) {
+/******/ 						reject(e);
+/******/ 						return;
+/******/ 					}
+/******/ 					resolve(update);
+/******/ 				}
+/******/ 			};
+/******/ 		});
+/******/ 	}
+/******/
+/******/ 	var hotApplyOnUpdate = true;
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentHash = "e593895d21a1d9b09f88";
+/******/ 	var hotRequestTimeout = 10000;
+/******/ 	var hotCurrentModuleData = {};
+/******/ 	var hotCurrentChildModule;
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentParents = [];
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	var hotCurrentParentsTemp = [];
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotCreateRequire(moduleId) {
+/******/ 		var me = installedModules[moduleId];
+/******/ 		if (!me) return __webpack_require__;
+/******/ 		var fn = function(request) {
+/******/ 			if (me.hot.active) {
+/******/ 				if (installedModules[request]) {
+/******/ 					if (installedModules[request].parents.indexOf(moduleId) === -1) {
+/******/ 						installedModules[request].parents.push(moduleId);
+/******/ 					}
+/******/ 				} else {
+/******/ 					hotCurrentParents = [moduleId];
+/******/ 					hotCurrentChildModule = request;
+/******/ 				}
+/******/ 				if (me.children.indexOf(request) === -1) {
+/******/ 					me.children.push(request);
+/******/ 				}
+/******/ 			} else {
+/******/ 				console.warn(
+/******/ 					"[HMR] unexpected require(" +
+/******/ 						request +
+/******/ 						") from disposed module " +
+/******/ 						moduleId
+/******/ 				);
+/******/ 				hotCurrentParents = [];
+/******/ 			}
+/******/ 			return __webpack_require__(request);
+/******/ 		};
+/******/ 		var ObjectFactory = function ObjectFactory(name) {
+/******/ 			return {
+/******/ 				configurable: true,
+/******/ 				enumerable: true,
+/******/ 				get: function() {
+/******/ 					return __webpack_require__[name];
+/******/ 				},
+/******/ 				set: function(value) {
+/******/ 					__webpack_require__[name] = value;
+/******/ 				}
+/******/ 			};
+/******/ 		};
+/******/ 		for (var name in __webpack_require__) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(__webpack_require__, name) &&
+/******/ 				name !== "e" &&
+/******/ 				name !== "t"
+/******/ 			) {
+/******/ 				Object.defineProperty(fn, name, ObjectFactory(name));
+/******/ 			}
+/******/ 		}
+/******/ 		fn.e = function(chunkId) {
+/******/ 			if (hotStatus === "ready") hotSetStatus("prepare");
+/******/ 			hotChunksLoading++;
+/******/ 			return __webpack_require__.e(chunkId).then(finishChunkLoading, function(err) {
+/******/ 				finishChunkLoading();
+/******/ 				throw err;
+/******/ 			});
+/******/
+/******/ 			function finishChunkLoading() {
+/******/ 				hotChunksLoading--;
+/******/ 				if (hotStatus === "prepare") {
+/******/ 					if (!hotWaitingFilesMap[chunkId]) {
+/******/ 						hotEnsureUpdateChunk(chunkId);
+/******/ 					}
+/******/ 					if (hotChunksLoading === 0 && hotWaitingFiles === 0) {
+/******/ 						hotUpdateDownloaded();
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 		fn.t = function(value, mode) {
+/******/ 			if (mode & 1) value = fn(value);
+/******/ 			return __webpack_require__.t(value, mode & ~1);
+/******/ 		};
+/******/ 		return fn;
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotCreateModule(moduleId) {
+/******/ 		var hot = {
+/******/ 			// private stuff
+/******/ 			_acceptedDependencies: {},
+/******/ 			_declinedDependencies: {},
+/******/ 			_selfAccepted: false,
+/******/ 			_selfDeclined: false,
+/******/ 			_disposeHandlers: [],
+/******/ 			_main: hotCurrentChildModule !== moduleId,
+/******/
+/******/ 			// Module API
+/******/ 			active: true,
+/******/ 			accept: function(dep, callback) {
+/******/ 				if (dep === undefined) hot._selfAccepted = true;
+/******/ 				else if (typeof dep === "function") hot._selfAccepted = dep;
+/******/ 				else if (typeof dep === "object")
+/******/ 					for (var i = 0; i < dep.length; i++)
+/******/ 						hot._acceptedDependencies[dep[i]] = callback || function() {};
+/******/ 				else hot._acceptedDependencies[dep] = callback || function() {};
+/******/ 			},
+/******/ 			decline: function(dep) {
+/******/ 				if (dep === undefined) hot._selfDeclined = true;
+/******/ 				else if (typeof dep === "object")
+/******/ 					for (var i = 0; i < dep.length; i++)
+/******/ 						hot._declinedDependencies[dep[i]] = true;
+/******/ 				else hot._declinedDependencies[dep] = true;
+/******/ 			},
+/******/ 			dispose: function(callback) {
+/******/ 				hot._disposeHandlers.push(callback);
+/******/ 			},
+/******/ 			addDisposeHandler: function(callback) {
+/******/ 				hot._disposeHandlers.push(callback);
+/******/ 			},
+/******/ 			removeDisposeHandler: function(callback) {
+/******/ 				var idx = hot._disposeHandlers.indexOf(callback);
+/******/ 				if (idx >= 0) hot._disposeHandlers.splice(idx, 1);
+/******/ 			},
+/******/
+/******/ 			// Management API
+/******/ 			check: hotCheck,
+/******/ 			apply: hotApply,
+/******/ 			status: function(l) {
+/******/ 				if (!l) return hotStatus;
+/******/ 				hotStatusHandlers.push(l);
+/******/ 			},
+/******/ 			addStatusHandler: function(l) {
+/******/ 				hotStatusHandlers.push(l);
+/******/ 			},
+/******/ 			removeStatusHandler: function(l) {
+/******/ 				var idx = hotStatusHandlers.indexOf(l);
+/******/ 				if (idx >= 0) hotStatusHandlers.splice(idx, 1);
+/******/ 			},
+/******/
+/******/ 			//inherit from previous dispose call
+/******/ 			data: hotCurrentModuleData[moduleId]
+/******/ 		};
+/******/ 		hotCurrentChildModule = undefined;
+/******/ 		return hot;
+/******/ 	}
+/******/
+/******/ 	var hotStatusHandlers = [];
+/******/ 	var hotStatus = "idle";
+/******/
+/******/ 	function hotSetStatus(newStatus) {
+/******/ 		hotStatus = newStatus;
+/******/ 		for (var i = 0; i < hotStatusHandlers.length; i++)
+/******/ 			hotStatusHandlers[i].call(null, newStatus);
+/******/ 	}
+/******/
+/******/ 	// while downloading
+/******/ 	var hotWaitingFiles = 0;
+/******/ 	var hotChunksLoading = 0;
+/******/ 	var hotWaitingFilesMap = {};
+/******/ 	var hotRequestedFilesMap = {};
+/******/ 	var hotAvailableFilesMap = {};
+/******/ 	var hotDeferred;
+/******/
+/******/ 	// The update info
+/******/ 	var hotUpdate, hotUpdateNewHash;
+/******/
+/******/ 	function toModuleId(id) {
+/******/ 		var isNumber = +id + "" === id;
+/******/ 		return isNumber ? +id : id;
+/******/ 	}
+/******/
+/******/ 	function hotCheck(apply) {
+/******/ 		if (hotStatus !== "idle") {
+/******/ 			throw new Error("check() is only allowed in idle status");
+/******/ 		}
+/******/ 		hotApplyOnUpdate = apply;
+/******/ 		hotSetStatus("check");
+/******/ 		return hotDownloadManifest(hotRequestTimeout).then(function(update) {
+/******/ 			if (!update) {
+/******/ 				hotSetStatus("idle");
+/******/ 				return null;
+/******/ 			}
+/******/ 			hotRequestedFilesMap = {};
+/******/ 			hotWaitingFilesMap = {};
+/******/ 			hotAvailableFilesMap = update.c;
+/******/ 			hotUpdateNewHash = update.h;
+/******/
+/******/ 			hotSetStatus("prepare");
+/******/ 			var promise = new Promise(function(resolve, reject) {
+/******/ 				hotDeferred = {
+/******/ 					resolve: resolve,
+/******/ 					reject: reject
+/******/ 				};
+/******/ 			});
+/******/ 			hotUpdate = {};
+/******/ 			for(var chunkId in installedChunks)
+/******/ 			// eslint-disable-next-line no-lone-blocks
+/******/ 			{
+/******/ 				/*globals chunkId */
+/******/ 				hotEnsureUpdateChunk(chunkId);
+/******/ 			}
+/******/ 			if (
+/******/ 				hotStatus === "prepare" &&
+/******/ 				hotChunksLoading === 0 &&
+/******/ 				hotWaitingFiles === 0
+/******/ 			) {
+/******/ 				hotUpdateDownloaded();
+/******/ 			}
+/******/ 			return promise;
+/******/ 		});
+/******/ 	}
+/******/
+/******/ 	// eslint-disable-next-line no-unused-vars
+/******/ 	function hotAddUpdateChunk(chunkId, moreModules) {
+/******/ 		if (!hotAvailableFilesMap[chunkId] || !hotRequestedFilesMap[chunkId])
+/******/ 			return;
+/******/ 		hotRequestedFilesMap[chunkId] = false;
+/******/ 		for (var moduleId in moreModules) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				hotUpdate[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if (--hotWaitingFiles === 0 && hotChunksLoading === 0) {
+/******/ 			hotUpdateDownloaded();
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotEnsureUpdateChunk(chunkId) {
+/******/ 		if (!hotAvailableFilesMap[chunkId]) {
+/******/ 			hotWaitingFilesMap[chunkId] = true;
+/******/ 		} else {
+/******/ 			hotRequestedFilesMap[chunkId] = true;
+/******/ 			hotWaitingFiles++;
+/******/ 			hotDownloadUpdateChunk(chunkId);
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotUpdateDownloaded() {
+/******/ 		hotSetStatus("ready");
+/******/ 		var deferred = hotDeferred;
+/******/ 		hotDeferred = null;
+/******/ 		if (!deferred) return;
+/******/ 		if (hotApplyOnUpdate) {
+/******/ 			// Wrap deferred object in Promise to mark it as a well-handled Promise to
+/******/ 			// avoid triggering uncaught exception warning in Chrome.
+/******/ 			// See https://bugs.chromium.org/p/chromium/issues/detail?id=465666
+/******/ 			Promise.resolve()
+/******/ 				.then(function() {
+/******/ 					return hotApply(hotApplyOnUpdate);
+/******/ 				})
+/******/ 				.then(
+/******/ 					function(result) {
+/******/ 						deferred.resolve(result);
+/******/ 					},
+/******/ 					function(err) {
+/******/ 						deferred.reject(err);
+/******/ 					}
+/******/ 				);
+/******/ 		} else {
+/******/ 			var outdatedModules = [];
+/******/ 			for (var id in hotUpdate) {
+/******/ 				if (Object.prototype.hasOwnProperty.call(hotUpdate, id)) {
+/******/ 					outdatedModules.push(toModuleId(id));
+/******/ 				}
+/******/ 			}
+/******/ 			deferred.resolve(outdatedModules);
+/******/ 		}
+/******/ 	}
+/******/
+/******/ 	function hotApply(options) {
+/******/ 		if (hotStatus !== "ready")
+/******/ 			throw new Error("apply() is only allowed in ready status");
+/******/ 		options = options || {};
+/******/
+/******/ 		var cb;
+/******/ 		var i;
+/******/ 		var j;
+/******/ 		var module;
+/******/ 		var moduleId;
+/******/
+/******/ 		function getAffectedStuff(updateModuleId) {
+/******/ 			var outdatedModules = [updateModuleId];
+/******/ 			var outdatedDependencies = {};
+/******/
+/******/ 			var queue = outdatedModules.slice().map(function(id) {
+/******/ 				return {
+/******/ 					chain: [id],
+/******/ 					id: id
+/******/ 				};
+/******/ 			});
+/******/ 			while (queue.length > 0) {
+/******/ 				var queueItem = queue.pop();
+/******/ 				var moduleId = queueItem.id;
+/******/ 				var chain = queueItem.chain;
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (!module || module.hot._selfAccepted) continue;
+/******/ 				if (module.hot._selfDeclined) {
+/******/ 					return {
+/******/ 						type: "self-declined",
+/******/ 						chain: chain,
+/******/ 						moduleId: moduleId
+/******/ 					};
+/******/ 				}
+/******/ 				if (module.hot._main) {
+/******/ 					return {
+/******/ 						type: "unaccepted",
+/******/ 						chain: chain,
+/******/ 						moduleId: moduleId
+/******/ 					};
+/******/ 				}
+/******/ 				for (var i = 0; i < module.parents.length; i++) {
+/******/ 					var parentId = module.parents[i];
+/******/ 					var parent = installedModules[parentId];
+/******/ 					if (!parent) continue;
+/******/ 					if (parent.hot._declinedDependencies[moduleId]) {
+/******/ 						return {
+/******/ 							type: "declined",
+/******/ 							chain: chain.concat([parentId]),
+/******/ 							moduleId: moduleId,
+/******/ 							parentId: parentId
+/******/ 						};
+/******/ 					}
+/******/ 					if (outdatedModules.indexOf(parentId) !== -1) continue;
+/******/ 					if (parent.hot._acceptedDependencies[moduleId]) {
+/******/ 						if (!outdatedDependencies[parentId])
+/******/ 							outdatedDependencies[parentId] = [];
+/******/ 						addAllToSet(outdatedDependencies[parentId], [moduleId]);
+/******/ 						continue;
+/******/ 					}
+/******/ 					delete outdatedDependencies[parentId];
+/******/ 					outdatedModules.push(parentId);
+/******/ 					queue.push({
+/******/ 						chain: chain.concat([parentId]),
+/******/ 						id: parentId
+/******/ 					});
+/******/ 				}
+/******/ 			}
+/******/
+/******/ 			return {
+/******/ 				type: "accepted",
+/******/ 				moduleId: updateModuleId,
+/******/ 				outdatedModules: outdatedModules,
+/******/ 				outdatedDependencies: outdatedDependencies
+/******/ 			};
+/******/ 		}
+/******/
+/******/ 		function addAllToSet(a, b) {
+/******/ 			for (var i = 0; i < b.length; i++) {
+/******/ 				var item = b[i];
+/******/ 				if (a.indexOf(item) === -1) a.push(item);
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// at begin all updates modules are outdated
+/******/ 		// the "outdated" status can propagate to parents if they don't accept the children
+/******/ 		var outdatedDependencies = {};
+/******/ 		var outdatedModules = [];
+/******/ 		var appliedUpdate = {};
+/******/
+/******/ 		var warnUnexpectedRequire = function warnUnexpectedRequire() {
+/******/ 			console.warn(
+/******/ 				"[HMR] unexpected require(" + result.moduleId + ") to disposed module"
+/******/ 			);
+/******/ 		};
+/******/
+/******/ 		for (var id in hotUpdate) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(hotUpdate, id)) {
+/******/ 				moduleId = toModuleId(id);
+/******/ 				/** @type {TODO} */
+/******/ 				var result;
+/******/ 				if (hotUpdate[id]) {
+/******/ 					result = getAffectedStuff(moduleId);
+/******/ 				} else {
+/******/ 					result = {
+/******/ 						type: "disposed",
+/******/ 						moduleId: id
+/******/ 					};
+/******/ 				}
+/******/ 				/** @type {Error|false} */
+/******/ 				var abortError = false;
+/******/ 				var doApply = false;
+/******/ 				var doDispose = false;
+/******/ 				var chainInfo = "";
+/******/ 				if (result.chain) {
+/******/ 					chainInfo = "\nUpdate propagation: " + result.chain.join(" -> ");
+/******/ 				}
+/******/ 				switch (result.type) {
+/******/ 					case "self-declined":
+/******/ 						if (options.onDeclined) options.onDeclined(result);
+/******/ 						if (!options.ignoreDeclined)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because of self decline: " +
+/******/ 									result.moduleId +
+/******/ 									chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "declined":
+/******/ 						if (options.onDeclined) options.onDeclined(result);
+/******/ 						if (!options.ignoreDeclined)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because of declined dependency: " +
+/******/ 									result.moduleId +
+/******/ 									" in " +
+/******/ 									result.parentId +
+/******/ 									chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "unaccepted":
+/******/ 						if (options.onUnaccepted) options.onUnaccepted(result);
+/******/ 						if (!options.ignoreUnaccepted)
+/******/ 							abortError = new Error(
+/******/ 								"Aborted because " + moduleId + " is not accepted" + chainInfo
+/******/ 							);
+/******/ 						break;
+/******/ 					case "accepted":
+/******/ 						if (options.onAccepted) options.onAccepted(result);
+/******/ 						doApply = true;
+/******/ 						break;
+/******/ 					case "disposed":
+/******/ 						if (options.onDisposed) options.onDisposed(result);
+/******/ 						doDispose = true;
+/******/ 						break;
+/******/ 					default:
+/******/ 						throw new Error("Unexception type " + result.type);
+/******/ 				}
+/******/ 				if (abortError) {
+/******/ 					hotSetStatus("abort");
+/******/ 					return Promise.reject(abortError);
+/******/ 				}
+/******/ 				if (doApply) {
+/******/ 					appliedUpdate[moduleId] = hotUpdate[moduleId];
+/******/ 					addAllToSet(outdatedModules, result.outdatedModules);
+/******/ 					for (moduleId in result.outdatedDependencies) {
+/******/ 						if (
+/******/ 							Object.prototype.hasOwnProperty.call(
+/******/ 								result.outdatedDependencies,
+/******/ 								moduleId
+/******/ 							)
+/******/ 						) {
+/******/ 							if (!outdatedDependencies[moduleId])
+/******/ 								outdatedDependencies[moduleId] = [];
+/******/ 							addAllToSet(
+/******/ 								outdatedDependencies[moduleId],
+/******/ 								result.outdatedDependencies[moduleId]
+/******/ 							);
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 				if (doDispose) {
+/******/ 					addAllToSet(outdatedModules, [result.moduleId]);
+/******/ 					appliedUpdate[moduleId] = warnUnexpectedRequire;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Store self accepted outdated modules to require them later by the module system
+/******/ 		var outdatedSelfAcceptedModules = [];
+/******/ 		for (i = 0; i < outdatedModules.length; i++) {
+/******/ 			moduleId = outdatedModules[i];
+/******/ 			if (
+/******/ 				installedModules[moduleId] &&
+/******/ 				installedModules[moduleId].hot._selfAccepted
+/******/ 			)
+/******/ 				outdatedSelfAcceptedModules.push({
+/******/ 					module: moduleId,
+/******/ 					errorHandler: installedModules[moduleId].hot._selfAccepted
+/******/ 				});
+/******/ 		}
+/******/
+/******/ 		// Now in "dispose" phase
+/******/ 		hotSetStatus("dispose");
+/******/ 		Object.keys(hotAvailableFilesMap).forEach(function(chunkId) {
+/******/ 			if (hotAvailableFilesMap[chunkId] === false) {
+/******/ 				hotDisposeChunk(chunkId);
+/******/ 			}
+/******/ 		});
+/******/
+/******/ 		var idx;
+/******/ 		var queue = outdatedModules.slice();
+/******/ 		while (queue.length > 0) {
+/******/ 			moduleId = queue.pop();
+/******/ 			module = installedModules[moduleId];
+/******/ 			if (!module) continue;
+/******/
+/******/ 			var data = {};
+/******/
+/******/ 			// Call dispose handlers
+/******/ 			var disposeHandlers = module.hot._disposeHandlers;
+/******/ 			for (j = 0; j < disposeHandlers.length; j++) {
+/******/ 				cb = disposeHandlers[j];
+/******/ 				cb(data);
+/******/ 			}
+/******/ 			hotCurrentModuleData[moduleId] = data;
+/******/
+/******/ 			// disable module (this disables requires from this module)
+/******/ 			module.hot.active = false;
+/******/
+/******/ 			// remove module from cache
+/******/ 			delete installedModules[moduleId];
+/******/
+/******/ 			// when disposing there is no need to call dispose handler
+/******/ 			delete outdatedDependencies[moduleId];
+/******/
+/******/ 			// remove "parents" references from all children
+/******/ 			for (j = 0; j < module.children.length; j++) {
+/******/ 				var child = installedModules[module.children[j]];
+/******/ 				if (!child) continue;
+/******/ 				idx = child.parents.indexOf(moduleId);
+/******/ 				if (idx >= 0) {
+/******/ 					child.parents.splice(idx, 1);
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// remove outdated dependency from module children
+/******/ 		var dependency;
+/******/ 		var moduleOutdatedDependencies;
+/******/ 		for (moduleId in outdatedDependencies) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)
+/******/ 			) {
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (module) {
+/******/ 					moduleOutdatedDependencies = outdatedDependencies[moduleId];
+/******/ 					for (j = 0; j < moduleOutdatedDependencies.length; j++) {
+/******/ 						dependency = moduleOutdatedDependencies[j];
+/******/ 						idx = module.children.indexOf(dependency);
+/******/ 						if (idx >= 0) module.children.splice(idx, 1);
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Not in "apply" phase
+/******/ 		hotSetStatus("apply");
+/******/
+/******/ 		hotCurrentHash = hotUpdateNewHash;
+/******/
+/******/ 		// insert new code
+/******/ 		for (moduleId in appliedUpdate) {
+/******/ 			if (Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) {
+/******/ 				modules[moduleId] = appliedUpdate[moduleId];
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// call accept handlers
+/******/ 		var error = null;
+/******/ 		for (moduleId in outdatedDependencies) {
+/******/ 			if (
+/******/ 				Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)
+/******/ 			) {
+/******/ 				module = installedModules[moduleId];
+/******/ 				if (module) {
+/******/ 					moduleOutdatedDependencies = outdatedDependencies[moduleId];
+/******/ 					var callbacks = [];
+/******/ 					for (i = 0; i < moduleOutdatedDependencies.length; i++) {
+/******/ 						dependency = moduleOutdatedDependencies[i];
+/******/ 						cb = module.hot._acceptedDependencies[dependency];
+/******/ 						if (cb) {
+/******/ 							if (callbacks.indexOf(cb) !== -1) continue;
+/******/ 							callbacks.push(cb);
+/******/ 						}
+/******/ 					}
+/******/ 					for (i = 0; i < callbacks.length; i++) {
+/******/ 						cb = callbacks[i];
+/******/ 						try {
+/******/ 							cb(moduleOutdatedDependencies);
+/******/ 						} catch (err) {
+/******/ 							if (options.onErrored) {
+/******/ 								options.onErrored({
+/******/ 									type: "accept-errored",
+/******/ 									moduleId: moduleId,
+/******/ 									dependencyId: moduleOutdatedDependencies[i],
+/******/ 									error: err
+/******/ 								});
+/******/ 							}
+/******/ 							if (!options.ignoreErrored) {
+/******/ 								if (!error) error = err;
+/******/ 							}
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// Load self accepted modules
+/******/ 		for (i = 0; i < outdatedSelfAcceptedModules.length; i++) {
+/******/ 			var item = outdatedSelfAcceptedModules[i];
+/******/ 			moduleId = item.module;
+/******/ 			hotCurrentParents = [moduleId];
+/******/ 			try {
+/******/ 				__webpack_require__(moduleId);
+/******/ 			} catch (err) {
+/******/ 				if (typeof item.errorHandler === "function") {
+/******/ 					try {
+/******/ 						item.errorHandler(err);
+/******/ 					} catch (err2) {
+/******/ 						if (options.onErrored) {
+/******/ 							options.onErrored({
+/******/ 								type: "self-accept-error-handler-errored",
+/******/ 								moduleId: moduleId,
+/******/ 								error: err2,
+/******/ 								originalError: err
+/******/ 							});
+/******/ 						}
+/******/ 						if (!options.ignoreErrored) {
+/******/ 							if (!error) error = err2;
+/******/ 						}
+/******/ 						if (!error) error = err;
+/******/ 					}
+/******/ 				} else {
+/******/ 					if (options.onErrored) {
+/******/ 						options.onErrored({
+/******/ 							type: "self-accept-errored",
+/******/ 							moduleId: moduleId,
+/******/ 							error: err
+/******/ 						});
+/******/ 					}
+/******/ 					if (!options.ignoreErrored) {
+/******/ 						if (!error) error = err;
+/******/ 					}
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/
+/******/ 		// handle errors in accept handlers and self accepted module load
+/******/ 		if (error) {
+/******/ 			hotSetStatus("fail");
+/******/ 			return Promise.reject(error);
+/******/ 		}
+/******/
+/******/ 		hotSetStatus("idle");
+/******/ 		return new Promise(function(resolve) {
+/******/ 			resolve(outdatedModules);
+/******/ 		});
+/******/ 	}
 /******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -77,11 +777,14 @@
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
-/******/ 			exports: {}
+/******/ 			exports: {},
+/******/ 			hot: hotCreateModule(moduleId),
+/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),
+/******/ 			children: []
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));
 /******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
@@ -147,12 +850,15 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "http://localhost:8888/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
-/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	// __webpack_hash__
+/******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
+/******/
+/******/ 	var jsonpArray = this["webpackJsonp"] = this["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
 /******/ 	jsonpArray.push = webpackJsonpCallback;
 /******/ 	jsonpArray = jsonpArray.slice();
@@ -173,7 +879,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorInstall", function() { return KonnectorInstall; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorInstall", function() { return KonnectorInstall; });
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
@@ -200,6 +906,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -291,6 +1007,13 @@ function (_Component) {
         vaultClosable: false
       })));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return KonnectorInstall;
@@ -302,7 +1025,30 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps)(KonnectorInstall)));
+var _default = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps)(KonnectorInstall));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(KonnectorInstall, "KonnectorInstall", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorInstall.jsx");
+  reactHotLoader.register(mapStateToProps, "mapStateToProps", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorInstall.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorInstall.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -472,6 +1218,8 @@ var getApp = function getApp() {
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__("hk3e");
+__webpack_require__("56O9");
 __webpack_require__("201c");
 __webpack_require__("7NIr");
 module.exports = __webpack_require__("d/w2");
@@ -1513,12 +2261,21 @@ var getIds = function getIds(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reactMarkdownRendererOptions", function() { return reactMarkdownRendererOptions; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reactMarkdownRendererOptions", function() { return reactMarkdownRendererOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReactMarkdownWrapper", function() { return ReactMarkdownWrapper; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("6x+I");
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_markdown__WEBPACK_IMPORTED_MODULE_1__);
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 
 
 var reactMarkdownRendererOptions = {
@@ -1538,15 +2295,80 @@ var ReactMarkdownWrapper = function ReactMarkdownWrapper(_ref) {
     renderers: reactMarkdownRendererOptions
   });
 };
-/* harmony default export */ __webpack_exports__["default"] = (ReactMarkdownWrapper);
+var _default = ReactMarkdownWrapper;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(reactMarkdownRendererOptions, "reactMarkdownRendererOptions", "/Users/cozy/code/cozy/cozy-home/src/components/ReactMarkdownWrapper.jsx");
+  reactHotLoader.register(ReactMarkdownWrapper, "ReactMarkdownWrapper", "/Users/cozy/code/cozy/cozy-home/src/components/ReactMarkdownWrapper.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/ReactMarkdownWrapper.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
 /***/ "4P+e":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"coz-form-controls":"coz-form-controls--1gEYB","coz-form-controls-success":"coz-form-controls-success--1NQyf","coz-btn":"coz-btn--233oo","col-btn--regular":"col-btn--regular--2N744","col-account-form-success-buttons":"col-account-form-success-buttons--1J36i","account-form-login":"account-form-login--_w3tO","col-account-form-advanced-button":"col-account-form-advanced-button--niE6T","account-form-fieldset":"account-form-fieldset--3WD-X","col-account-success":"col-account-success--1NEI1","col-account-success-links":"col-account-success-links--15Ii5","col-account-success-link":"col-account-success-link--18QVL","col-account-success-illu":"col-account-success-illu--RvZfy"};
+
+var content = __webpack_require__("j7c3");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("j7c3", function() {
+		var newContent = __webpack_require__("j7c3");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -1956,7 +2778,7 @@ var isConnectionRunning = function isConnectionRunning(state, trigger) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorSuccess", function() { return KonnectorSuccess; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorSuccess", function() { return KonnectorSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessImage", function() { return SuccessImage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessLinks", function() { return SuccessLinks; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriveLink", function() { return DriveLink; });
@@ -1995,6 +2817,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -2087,6 +2919,13 @@ function (_Component) {
       }))), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(SuccessFooter, null, relatedApps.length > 0 ? // Should always pass context, since it's used for customisation
       relatedApps[0].footerLink(this.props, this.context) : null));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return KonnectorSuccess;
@@ -2154,7 +2993,34 @@ KonnectorSuccess.propTypes = {
   trigger: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object.isRequired
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_11__["translate"])()(KonnectorSuccess));
+
+var _default = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_11__["translate"])()(KonnectorSuccess);
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SuccessImage, "SuccessImage", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+  reactHotLoader.register(SuccessLinks, "SuccessLinks", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+  reactHotLoader.register(DriveLink, "DriveLink", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+  reactHotLoader.register(SuccessFooter, "SuccessFooter", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+  reactHotLoader.register(KonnectorSuccess, "KonnectorSuccess", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorSuccess.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -2304,8 +3170,51 @@ var getKonnectorMessage = function getKonnectorMessage(t, konnector, message) {
 /***/ "8EAv":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"spin":"spin--1tM1P","shake":"shake--2XjZi"};
+
+var content = __webpack_require__("B7lu");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("B7lu", function() {
+		var newContent = __webpack_require__("B7lu");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -2314,7 +3223,7 @@ module.exports = {"spin":"spin--1tM1P","shake":"shake--2XjZi"};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TriggerFolderLink", function() { return TriggerFolderLink; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TriggerFolderLink", function() { return TriggerFolderLink; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
@@ -2346,6 +3255,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -2382,6 +3301,13 @@ function (_PureComponent) {
       }, this.props.children) : react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("span", {
         className: className
       }, this.props.children);
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
     }
   }]);
 
@@ -2459,6 +3385,13 @@ function (_PureComponent2) {
         icon: "openwith"
       }), label);
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return TriggerFolderLink;
@@ -2478,15 +3411,83 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_client__WEBPACK_IMPORTED_MODULE_10__["withClient"])(TriggerFolderLink)));
+var _default = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_client__WEBPACK_IMPORTED_MODULE_10__["withClient"])(TriggerFolderLink));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(MaybeLink, "MaybeLink", "/Users/cozy/code/cozy/cozy-home/src/components/TriggerFolderLink.jsx");
+  reactHotLoader.register(TriggerFolderLink, "TriggerFolderLink", "/Users/cozy/code/cozy/cozy-home/src/components/TriggerFolderLink.jsx");
+  reactHotLoader.register(mapStateToProps, "mapStateToProps", "/Users/cozy/code/cozy/cozy-home/src/components/TriggerFolderLink.jsx");
+  reactHotLoader.register(mapDispatchToProps, "mapDispatchToProps", "/Users/cozy/code/cozy/cozy-home/src/components/TriggerFolderLink.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/TriggerFolderLink.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
 /***/ "91CF":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"maintenance-intro":"maintenance-intro--1-SbJ","maintenance-service":"maintenance-service--1ZZfz","maintenance-icon":"maintenance-icon--2QHy-"};
+
+var content = __webpack_require__("UGnq");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("UGnq", function() {
+		var newContent = __webpack_require__("UGnq");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -2569,7 +3570,7 @@ var authenticateWithCordova = function authenticateWithCordova(url) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CozyProvider; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CozyProvider; });
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
@@ -2591,6 +3592,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -2621,6 +3632,13 @@ function (_Component) {
     value: function render() {
       return this.props.children || null;
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return CozyProvider;
@@ -2650,6 +3668,25 @@ _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(Coz
 });
 
 
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(CozyProvider, "CozyProvider", "/Users/cozy/code/cozy/cozy-home/src/lib/redux-cozy-client/CozyProvider.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -2658,7 +3695,7 @@ _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(Coz
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pVnL");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pVnL");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("QILm");
 /* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__);
@@ -2668,6 +3705,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("SH7X");
 /* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_4__);
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -2686,7 +3733,44 @@ var AppIcon = function AppIcon(_ref) {
   }, otherProps));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_client__WEBPACK_IMPORTED_MODULE_4__["withClient"])(AppIcon));
+var _default = Object(cozy_client__WEBPACK_IMPORTED_MODULE_4__["withClient"])(AppIcon);
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(AppIcon, "AppIcon", "/Users/cozy/code/cozy/cozy-home/src/components/AppIcon.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/AppIcon.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
+
+/***/ }),
+
+/***/ "B7lu":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n@-webkit-keyframes spin--1tM1P {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(359deg);\n            transform: rotate(359deg);\n  }\n}\n@keyframes spin--1tM1P {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(359deg);\n            transform: rotate(359deg);\n  }\n}\n@-webkit-keyframes shake--2XjZi {\n  10%, 90% {\n    -webkit-transform: translate3d(-1px, 0, 0);\n            transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    -webkit-transform: translate3d(2px, 0, 0);\n            transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    -webkit-transform: translate3d(-4px, 0, 0);\n            transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    -webkit-transform: translate3d(4px, 0, 0);\n            transform: translate3d(4px, 0, 0);\n  }\n}\n@keyframes shake--2XjZi {\n  10%, 90% {\n    -webkit-transform: translate3d(-1px, 0, 0);\n            transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    -webkit-transform: translate3d(2px, 0, 0);\n            transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    -webkit-transform: translate3d(-4px, 0, 0);\n            transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    -webkit-transform: translate3d(4px, 0, 0);\n            transform: translate3d(4px, 0, 0);\n  }\n}\n#svg-sprite-content {\n  position: absolute;\n  width: 0;\n  height: 0;\n  visibility: hidden;\n}\n.app-list {\n  position: relative;\n  margin-top: -3rem;\n  margin-bottom: 1.5rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, 6rem);\n  grid-auto-rows: 6rem;\n  grid-gap: 0.5rem;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n@media (max-width: ) {\n  .app-list {\n    margin-top: -2rem;\n    margin-bottom: 0.5rem;\n    grid-template-columns: repeat(auto-fit, 4rem);\n    grid-auto-rows: 4rem;\n    grid-gap: 0.25rem;\n  }\n}\n.app-list .item {\n  background-color: var(--white);\n  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08);\n          box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08);\n  padding: 20px 4px 12px;\n  -webkit-transition: -webkit-box-shadow 0.05s ease, -webkit-transform 0.05s ease;\n  transition: -webkit-box-shadow 0.05s ease, -webkit-transform 0.05s ease;\n  transition: box-shadow 0.05s ease, transform 0.05s ease;\n  transition: box-shadow 0.05s ease, transform 0.05s ease, -webkit-box-shadow 0.05s ease, -webkit-transform 0.05s ease;\n}\n.app-list .item:active, .app-list .item:focus {\n  background-color: var(--paleGrey);\n  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n          box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n}\n.app-list .item:hover {\n  -webkit-transform: scale(1.05);\n          transform: scale(1.05);\n  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n          box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n}\n@media (pointer: coarse) {\n  .app-list .item:hover {\n    -webkit-transform: none;\n            transform: none;\n  }\n}\n@media (max-width: ) {\n  .app-list .item {\n    padding: 10px 4px 6px;\n  }\n}\n.app-list .item-icon {\n  width: 2.5rem;\n  height: 2.5rem;\n}\n@media (max-width: ) {\n  .app-list .item-icon {\n    width: 2rem;\n    height: 2rem;\n  }\n}\n.services-list {\n  width: 100%;\n  max-width: calc(5rem * 7 + 17px * 6);\n  margin: 1.5rem auto;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, 5rem);\n  grid-auto-rows: 5rem;\n  grid-gap: 17px;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  opacity: 0.99;\n}\n@media (max-width: ) {\n  .services-list {\n    margin: 1rem auto;\n    grid-template-columns: repeat(auto-fit, 4rem);\n    grid-auto-rows: 4rem;\n    grid-gap: 0.188rem;\n  }\n}\n.services-list .item {\n  padding: 12px 8px;\n  border-radius: 8px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: transparent;\n  position: relative;\n}\n.services-list .item:before, .services-list .item:after {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 30%;\n  bottom: 30%;\n  width: 1px;\n  opacity: 0.32;\n  mix-blend-mode: difference;\n  background: #fff;\n}\n.services-list .item:before {\n  left: -10px;\n}\n.services-list .item:after {\n  right: -10px;\n}\n@media (max-width: ) {\n  .services-list .item:before {\n    left: -3px;\n  }\n  .services-list .item:after {\n    right: -3px;\n  }\n}\n.services-list .item:hover {\n  border-color: rgba(0,0,0,0.12);\n}\n.services-list .item:active, .services-list .item:focus {\n  background-color: var(--paleGrey);\n  border-color: rgba(0,0,0,0.08);\n}\n@media (pointer: coarse) {\n  .services-list .item:hover {\n    -webkit-transform: none;\n            transform: none;\n  }\n}\n@media (max-width: ) {\n  .services-list .item {\n    padding: 12px 4px;\n  }\n}\n.services-list .item--maintenance .item-icon {\n  -webkit-filter: grayscale(1);\n          filter: grayscale(1);\n  opacity: 0.64;\n}\n.services-list .item--ghost {\n  background: var(--zircon);\n  border: dashed 1px var(--primaryColorLightest);\n}\n.services-list .item--ghost .item-icon {\n  -webkit-filter: sepia(1) saturate(3) hue-rotate(-180deg);\n          filter: sepia(1) saturate(3) hue-rotate(-180deg);\n  opacity: 0.64;\n}\n.services-list .item--ghost:hover {\n  border-color: var(--dodgerBlue);\n}\n.services-list .item-icon {\n  width: 2rem;\n  height: 2rem;\n  position: relative;\n}\n@media (max-width: ) {\n  .services-list .item-icon {\n    width: 1.5rem;\n    height: 1.5rem;\n  }\n}\n.services-list .item-grid-icon {\n  width: 1rem;\n  height: 1rem;\n}\n@media (max-width: ) {\n  .services-list .item-grid-icon {\n    width: 0.75rem;\n    height: 0.75rem;\n  }\n}\n.services-list .item-status {\n  position: absolute;\n  bottom: -6px;\n  right: -6px;\n  border: 2px solid var(--white);\n  border-radius: 50%;\n  background: var(--white);\n}\n.services-list .item--add-service .item-icon {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.services-list .item--add-service[aria-busy='true'] {\n  opacity: 0.8;\n}\n.services-list .item--add-service[aria-busy='true']:hover {\n  -webkit-transform: none;\n          transform: none;\n}\n.EmptyServicesListTip {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  width: 640px;\n  max-width: 100%;\n  margin: auto;\n  padding: 1rem 2rem;\n}\n@media (max-width: ) {\n  .EmptyServicesListTip {\n    padding: 0 1.5rem 1rem 3rem;\n  }\n}\n.EmptyServicesListTip-text {\n  font-style: italic;\n  padding-left: 1rem;\n}\n@media (max-width: ) {\n  .EmptyServicesListTip-text {\n    padding-left: 0.5rem;\n  }\n}\n.item {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  border-radius: 0.5rem;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n  cursor: pointer;\n  text-decoration: none;\n  text-align: center;\n}\n.item-icon {\n  margin-bottom: 0.5rem;\n}\n@media (max-width: ) {\n  .item-icon {\n    margin-bottom: 0.25rem;\n  }\n}\n.item-title {\n  width: 100%;\n  margin: 0;\n  color: var(--charcoalGrey);\n  font-size: 0.75rem;\n  font-weight: normal;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n@media (max-width: ) {\n  .item-title {\n    font-size: 0.625rem;\n    line-height: 1.2;\n  }\n}\n.account-connection, .account-management {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.account-connection h3, .account-management h3 {\n  margin: 2em 0 0.5em;\n}\n.account-connection a:not([role=button]), .account-management a:not([role=button]) {\n  color: var(--dodgerBlue);\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n.account-connection p, .account-management p {\n  margin: 0.5em 0;\n}\n.account-connection > div {\n  width: 50%;\n  padding-bottom: 2em;\n}\n.account-management {\n  width: 70%;\n  margin: auto;\n}\n.account-description {\n  background-color: var(--paleGrey);\n  padding: 0 2em;\n}\n.account-description > p {\n  margin-top: 2em;\n}\n.account-description .title {\n  margin-top: 2em;\n}\n.account-login {\n  padding: 0 2em;\n}\n.account-list {\n  width: 25%;\n}\n.account-config .account-field {\n  max-width: 80%;\n}\n.connector-dialog {\n  padding-top: 0.5em;\n}\n.connector-dialog .dialog-header svg {\n  height: 4em;\n  width: 100%;\n  margin: 1.5em 0;\n}\n.errors {\n  color: var(--pomegranate);\n}\n.coz-service {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%;\n  height: 100%;\n}\n.col-create-account-intent {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding-top: 2rem;\n}\n.coz-service-loading, .coz-service-error {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100vh;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  width: 100vw;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.coz-service-layout {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  height: 100vh;\n  width: 100vw;\n}\n.coz-service-return {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.coz-service-return--button {\n  width: 24px;\n  height: 24px;\n  margin: 0 0 0 0.75em;\n  border: 0;\n  background-color: transparent;\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzk1OTk5RCIgZD0iTTMuNTcgMTNsMTAuMTA2IDkuMjYzYTEgMSAwIDEgMS0xLjM1MiAxLjQ3NEwuMzI3IDEyLjc0YS45OTcuOTk3IDAgMCAxIDAtMS40OEwxMi4zMjQuMjYzYTEgMSAwIDEgMSAxLjM1MiAxLjQ3NEwzLjU3IDExSDIzYTEgMSAwIDEgMSAwIDJIMy41N3oiLz48L3N2Zz4=\");\n  background-repeat: no-repeat;\n  cursor: pointer;\n}\n.coz-service-bar {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-flex: 0;\n      -ms-flex: 0 0 100%;\n          flex: 0 0 100%;\n  position: fixed;\n  z-index: 100;\n  width: 100%;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  background-color: var(--paleGrey);\n  -webkit-box-shadow: inset 0 -1px 0 0 var(--silver);\n          box-shadow: inset 0 -1px 0 0 var(--silver);\n}\n.coz-service-bar .coz-icon, .coz-service-bar h1, .coz-service-bar .coz-btn {\n  margin: 0 0.75rem;\n}\n.coz-service-bar .coz-icon {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.coz-service-bar .coz-icon img {\n  height: 2rem;\n  width: 2rem;\n}\n.coz-service-bar h1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  margin: 0;\n  padding: 0;\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: normal;\n}\n.coz-service-bar .coz-btn--close {\n  height: inherit;\n  width: inherit;\n  zoom: 1.5;\n  padding-right: 0;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  background-position: center right;\n}\n.coz-service-content {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: calc(100% - 2rem);\n  max-height: calc(100vh - rem(32));\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: start;\n  padding: 1rem;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  overflow-y: auto;\n}\n", "",{"version":3,"sources":["node_modules/cozy-ui/stylus/settings/palette.styl","intents.styl","node_modules/cozy-ui/stylus/generic/animations.styl","src/styles/intents.styl","src/styles/lists.styl","node_modules/cozy-ui/stylus/settings/breakpoints.styl","src/styles/dialog.styl"],"names":[],"mappings":"AAoBA;AACI;;;;;;;;;;;;;;KCNC;EDqBD,aAAgB;EAChB,mBAAgB;EAChB,iBAAgB;EAChB,mBAAgB;EAChB,oBAAgB;EAChB,uBAAgB;EAChB,aAAgB;EAChB,6BAAmC;AACnC;;;;;;;;;;;;KCRC;EDqBD,iBAAe;EACf,qBAAe;EACf,qBAAe;EACf,gBAAe;EACf,qBAAe;EACf,sBAAe;EACf,qBAAe;AACf;;;;;;;;;;KCVC;EDqBD,sBAAe;EACf,qBAAe;EACf,kBAAe;EACf,oBAAe;EACf,uBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,oBAAiB;EACjB,oBAAiB;EACjB,gBAAiB;EACjB,wBAAiB;EACjB,sBAAiB;EACjB,gBAAiB;AACjB;;;;;;;;;;KCVC;EDqBD,kBAAe;EACf,mBAAe;EACf,kBAAe;EACf,sBAAe;EACf,gBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,mBAAkB;EAClB,yBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,yBAAkB;EAClB,iBAAkB;AAElB;;;;;;KCfC;ADuBD;;;;;;;;;;KCZC;EDuBD,iCAA+B;EAC/B,4BAAoB;EACpB,8BAAsB;EACtB,+BAAuB;EACvB,wCAAsC;ACrB1C;AC3HW;EACP;IACI,+BAAqB;YAArB,uBAAqB;EDqI3B;ECpIE;IACI,iCAAuB;YAAvB,yBAAuB;EDsI7B;AACF;AC3IW;EACP;IACI,+BAAqB;YAArB,uBAAqB;EDqJ3B;ECpJE;IACI,iCAAuB;YAAvB,yBAAuB;EDsJ7B;AACF;ACrJW;EACP;IACI,0CAAgC;YAAhC,kCAAgC;EDqKtC;ECnKE;IACI,yCAA+B;YAA/B,iCAA+B;EDqKrC;ECnKE;IACI,0CAAgC;YAAhC,kCAAgC;EDqKtC;ECnKE;IACI,yCAA+B;YAA/B,iCAA+B;EDqKrC;AACF;ACjLW;EACP;IACI,0CAAgC;YAAhC,kCAAgC;EDiMtC;EC/LE;IACI,yCAA+B;YAA/B,iCAA+B;EDiMrC;EC/LE;IACI,0CAAgC;YAAhC,kCAAgC;EDiMtC;EC/LE;IACI,yCAA+B;YAA/B,iCAA+B;EDiMrC;AACF;AE1NI;EACI,kBAAS;EACT,QAAM;EACN,SAAO;EACP,kBAAW;AF4NnB;AG5NA;EAEI,kBAAS;EACT,iBAA4B;EAC5B,qBAA8B;EAC9B,aAAQ;EACR,6CAAkD;EAClD,oBAAe;EACf,gBAAc;EACd,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;AH6NpB;AI1JmE;EAAA;IDhE3D,iBAAiC;IACjC,qBAA8B;IAC9B,6CAAqD;IACrD,oBAAe;IACf,iBAAc;EH8NpB;AACF;AG7NI;EACI,8BAA4B;EAC5B,6EAAwB;UAAxB,qEAAwB;EACxB,sBAAQ;EACR,+EAA+B;EAA/B,uEAA+B;EAA/B,uDAA+B;EAA/B,oHAA+B;AH+NvC;AG7NQ;EAEI,iCAA+B;EAC/B,+GAAwB;UAAxB,uGAAwB;AH+NpC;AG7NQ;EACI,8BAAoB;UAApB,sBAAoB;EACpB,+GAAwB;UAAxB,uGAAwB;AH+NpC;AG7N8B;EAClB;IACI,uBAAU;YAAV,eAAU;EH+NxB;AACF;AIvLmE;EAAA;IDtCvD,qBAAQ;EHiOlB;AACF;AGhOI;EACQ,aAAY;EACZ,cAAa;AHkOzB;AIhMmE;EAAA;ID/BnD,WAAY;IACZ,YAAa;EHmO3B;AACF;AGjOA;EAGI,WAAM;EACN,oCAAsE;EACtE,mBAAuB;EACvB,aAAQ;EACR,6CAAsD;EACtD,oBAAe;EACf,cAAU;EACV,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,aAAQ;AHiOZ;AIjNmE;EAAA;IDb3D,iBAAuB;IACvB,6CAAqD;IACrD,oBAAe;IACf,kBAAc;EHkOpB;AACF;AGjOI;EACI,iBAAQ;EACR,kBAAc;EACd,iBAAa;EACb,mBAAa;EACb,yBAAa;EACb,kBAAS;AHmOjB;AGjOQ;EAEI,WAAQ;EACR,cAAQ;EACR,kBAAS;EACT,QAAI;EACJ,WAAO;EACP,UAAM;EACN,aAAQ;EACR,0BAAe;EACf,gBAAW;AHmOvB;AGjOQ;EACI,WAAK;AHmOjB;AGlOQ;EACI,YAAM;AHoOlB;AInPmE;EDkBvD;IACI,UAAK;EHoOnB;EGnOU;IACI,WAAM;EHqOpB;AACF;AGpOQ;EACI,8BAA8B;AHsO1C;AGpOQ;EAEI,iCAA+B;EAC/B,8BAA8B;AHsO1C;AGpO8B;EAClB;IACI,uBAAU;YAAV,eAAU;EHsOxB;AACF;AIxQmE;EAAA;IDoCnD,iBAAQ;EHwOtB;AACF;AGvOI;EACQ,4BAAkB;UAAlB,oBAAkB;EAClB,aAAQ;AHyOpB;AGvOI;EACQ,yBAAuB;EACvB,8CAAO;AHyOnB;AGvOY;EACI,wDAAc;UAAd,gDAAc;EACd,aAAQ;AHyOxB;AGvOY;EACI,+BAA8B;AHyO9C;AGvOI;EACI,WAAY;EACZ,YAAa;EACb,kBAAS;AHyOjB;AIjSmE;EAAA;ID2DvD,aAAY;IACZ,cAAa;EH0OvB;AACF;AGzOI;EACI,WAAY;EACZ,YAAa;AH2OrB;AI3SmE;EAAA;IDmEvD,cAAY;IACZ,eAAa;EH4OvB;AACF;AG3OI;EACI,kBAAS;EACT,YAAO;EACP,WAAM;EACN,8BAAO;EACP,kBAAc;EACd,wBAAsB;AH6O9B;AG1OQ;EACI,8BAAW;UAAX,sBAAW;EACX,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;AH4OxB;AG1OQ;EACI,YAAQ;AH4OpB;AG1OQ;EACI,uBAAU;UAAV,eAAU;AH4OtB;AG1OA;EACI,8BAAW;UAAX,sBAAW;EACX,YAAM;EACN,eAAU;EACV,YAAO;EACP,kBAAQ;AH4OZ;AI5UmE;EAAA;IDmG3D,2BAAQ;EH6Od;AACF;AG5OA;EACI,kBAAW;EACX,kBAAa;AH8OjB;AIrVmE;EAAA;ID0G3D,oBAAa;EH+OnB;AACF;AG9OA;EACI,8BAAW;UAAX,sBAAW;EACX,qBAAmB;EACnB,WAAM;EACN,YAAO;EACP,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,4BAAe;EAAf,6BAAe;MAAf,0BAAe;UAAf,sBAAe;EACf,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;EACZ,oBAAY;MAAZ,cAAY;EACZ,eAAO;EACP,qBAAgB;EAChB,kBAAW;AHgPf;AG9OA;EACQ,qBAAmB;AHgP3B;AI3WmE;EAAA;ID8HvD,sBAAmB;EHiP7B;AACF;AGhPA;EACQ,WAAM;EACN,SAAO;EACP,0BAAwB;EACxB,kBAAgB;EAChB,mBAAY;EACZ,mBAAY;EACZ,gBAAS;EACT,uBAAc;AHkPtB;AI1XmE;EAAA;ID2IvD,mBAAgB;IAChB,gBAAY;EHmPtB;AACF;AKldA;EAEI,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;ALodZ;AKldI;EACI,mBAAO;ALqdf;AKldI;EACI,wBAAgC;EAChC,yBAAgB;EAChB,qBAAgB;EAChB,eAAgB;ALqdxB;AKndI;EACI,eAAO;ALsdf;AKndI;EACI,UAAe;EACf,mBAAe;ALqdvB;AKndA;EACI,UAAO;EACP,YAAO;ALqdX;AKndA;EACI,iCAA+B;EAC/B,cAAiB;ALqdrB;AKpdI;EACI,eAAW;ALsdnB;AKrdI;EACI,eAAW;ALudnB;AKrdA;EACI,cAAQ;ALudZ;AKrdA;EACI,UAAM;ALudV;AKrdI;EACI,cAAU;ALudlB;AKpdA;EACI,kBAAY;ALsdhB;AKpdQ;EACI,WAAO;EACP,WAAO;EACP,eAAO;ALsdnB;AKpdA;EACI,yBAAuB;ALsd3B;AEhgBI;EACI,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,WAAM;EACN,YAAO;AFkgBf;AEhgBI;EACI,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,mBAAU;MAAV,oBAAU;UAAV,YAAU;EACV,4BAAe;EAAf,6BAAe;MAAf,0BAAe;UAAf,sBAAe;EACf,iBAAY;AFkgBpB;AEhgBI;EAEI,oBAAgB;EAAhB,oBAAgB;EAAhB,aAAgB;EAChB,aAAgB;EAChB,yBAAgB;MAAhB,sBAAgB;UAAhB,mBAAgB;EAChB,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,YAAgB;EAChB,4BAAgB;EAAhB,6BAAgB;MAAhB,0BAAgB;UAAhB,sBAAgB;AFkgBxB;AEhgBI;EACI,oBAAgB;EAAhB,oBAAgB;EAAhB,aAAgB;EAChB,4BAAgB;EAAhB,6BAAgB;MAAhB,0BAAgB;UAAhB,sBAAgB;EAChB,0BAAgB;MAAhB,uBAAgB;UAAhB,oBAAgB;EAChB,aAAgB;EAChB,YAAgB;AFkgBxB;AEhgBI;EACI,oBAAgB;EAAhB,oBAAgB;EAAhB,aAAgB;AFkgBxB;AEjgBQ;EACI,WAAmB;EACnB,YAAmB;EACnB,oBAAmB;EACnB,SAAmB;EACnB,6BAAmB;EACnB,2WAAmE;EACnE,4BAAmB;EACnB,eAAmB;AFmgB/B;AEjgBI;EACI,oBAAkB;EAAlB,oBAAkB;EAAlB,aAAkB;EAClB,yBAAkB;MAAlB,sBAAkB;UAAlB,mBAAkB;EAClB,mBAAkB;MAAlB,kBAAkB;UAAlB,cAAkB;EAClB,eAAkB;EAClB,YAAkB;EAClB,WAAkB;EAClB,8BAAkB;EAAlB,6BAAkB;MAAlB,uBAAkB;UAAlB,mBAAkB;EAClB,iCAAgC;EAChC,kDAAkB;UAAlB,0CAAkB;AFmgB1B;AEjgBQ;EAGI,iBAAO;AFmgBnB;AEjgBQ;EACI,oBAAgB;EAAhB,oBAAgB;EAAhB,aAAgB;EAChB,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,yBAAgB;MAAhB,sBAAgB;UAAhB,mBAAgB;AFmgB5B;AEjgBY;EACI,YAAa;EACb,WAAa;AFmgB7B;AEjgBQ;EACI,mBAAgB;MAAhB,WAAgB;UAAhB,OAAgB;EAChB,SAAgB;EAChB,UAAgB;EAChB,iBAAsB;EACtB,iBAAsB;EACtB,mBAAgB;AFmgB5B;AEjgBQ;EACI,eAAc;EACd,cAAc;EACd,SAAc;EACd,gBAAc;EACd,mBAAc;MAAd,WAAc;UAAd,OAAc;EAEd,iCAAqB;AFkgBjC;AEhgBI;EACI,mBAAU;MAAV,oBAAU;UAAV,YAAU;EACV,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,wBAAsB;EACtB,iCAAoC;EACpC,uBAAgB;MAAhB,oBAAgB;UAAhB,sBAAgB;EAChB,aAAQ;EACR,4BAAe;EAAf,6BAAe;MAAf,0BAAe;UAAf,sBAAe;EACf,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;EACZ,gBAAW;AFkgBnB","file":"intents.styl","sourcesContent":["// @stylint off\n/*------------------------------------*\\\n  Palette\n  =====\n\\*------------------------------------*/\n/*\n    Settings\n\n    Weight: -10\n\n    Styleguide Settings\n*/\n\n/*\n    Colors\n\n    Colors used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n    Styleguide Settings.colors\n*/\n:root\n    /*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n    --white         #FFFFFF\n    --paleGrey      #F5F6F7\n    --silver        #D6D8Da\n    --coolGrey      #95999D\n    --slateGrey     #5D6165\n    --charcoalGrey  #32363F\n    --black         #000000\n    --overlay       rgba(50, 54, 63, .5)\n    /*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n    --zircon       #F5FAFF\n    --hawkesBlue   #EEF5FE\n    --frenchPass   #C2DCFF\n    --azure        #1FA8F1\n    --dodgerBlue   #297EF2\n    --scienceBlue  #0B61D6\n    --puertoRico   #0DCBCF\n    /*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n    --grannyApple  #DEF7E7\n    --weirdGreen   #40DE8E\n    --emerald      #35CE68\n    --malachite    #08b442\n    --seafoamGreen #3DA67E\n    /*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n    --brightSun      #FFC644\n    --texasRose      #FFAE5F\n    --mango          #FF962F\n    --pumpkinOrange  #FF7F1B\n    --blazeOrange    #FC6D00\n    --melon          #FD7461\n    /*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n    --chablis      #FFF2F2\n    --yourPink     #FDCBCB\n    --fushsia      #FC4C83\n    --pomegranate  #F52D2D\n    --monza        #DD0505\n    /*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n    --lavender        #C2ADF4\n    --darkPeriwinkle  #6984CE\n    --purpley         #7F6BEE\n    --portage         #9169F2\n    --lightishPurple  #B449E7\n    --barney          #922BC2\n\n    /*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n\n    /*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n    --primaryColor var(--dodgerBlue)\n    --primaryColorLight #5C9DF5 // lighten(dodgerBlue, 24)\n    --primaryColorLighter #4B93F7\n    --primaryColorLightest #9FC4FB\n    --primaryContrastTextColor var(--white)\n// @stylint on\n",":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n@-moz-keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    transform: translate3d(4px, 0, 0);\n  }\n}\n@-webkit-keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    transform: translate3d(4px, 0, 0);\n  }\n}\n@-o-keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    transform: translate3d(4px, 0, 0);\n  }\n}\n@keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0);\n  }\n  20%, 80% {\n    transform: translate3d(2px, 0, 0);\n  }\n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0);\n  }\n  40%, 60% {\n    transform: translate3d(4px, 0, 0);\n  }\n}\n:global #svg-sprite-content {\n  position: absolute;\n  width: 0;\n  height: 0;\n  visibility: hidden;\n}\n:global .app-list {\n  position: relative;\n  margin-top: -3rem;\n  margin-bottom: 1.5rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, 6rem);\n  grid-auto-rows: 6rem;\n  grid-gap: 0.5rem;\n  justify-content: center;\n}\n@media (max-width: ) {\n  :global .app-list {\n    margin-top: -2rem;\n    margin-bottom: 0.5rem;\n    grid-template-columns: repeat(auto-fit, 4rem);\n    grid-auto-rows: 4rem;\n    grid-gap: 0.25rem;\n  }\n}\n:global .app-list .item {\n  background-color: var(--white);\n  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08);\n  padding: 20px 4px 12px;\n  transition: box-shadow 0.05s ease, transform 0.05s ease;\n}\n:global .app-list .item:active,\n:global .app-list .item:focus {\n  background-color: var(--paleGrey);\n  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n}\n:global .app-list .item:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 12px 0 rgba(0,0,0,0.08), 0 4px 24px 0 rgba(50,54,63,0.08);\n}\n@media (pointer: coarse) {\n  :global .app-list .item:hover {\n    transform: none;\n  }\n}\n@media (max-width: ) {\n  :global .app-list .item {\n    padding: 10px 4px 6px;\n  }\n}\n:global .app-list .item-icon {\n  width: 2.5rem;\n  height: 2.5rem;\n}\n@media (max-width: ) {\n  :global .app-list .item-icon {\n    width: 2rem;\n    height: 2rem;\n  }\n}\n:global .services-list {\n  width: 100%;\n  max-width: calc(5rem * 7 + 17px * 6);\n  margin: 1.5rem auto;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, 5rem);\n  grid-auto-rows: 5rem;\n  grid-gap: 17px;\n  justify-content: center;\n  opacity: 0.99;\n}\n@media (max-width: ) {\n  :global .services-list {\n    margin: 1rem auto;\n    grid-template-columns: repeat(auto-fit, 4rem);\n    grid-auto-rows: 4rem;\n    grid-gap: 0.188rem;\n  }\n}\n:global .services-list .item {\n  padding: 12px 8px;\n  border-radius: 8px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: transparent;\n  position: relative;\n}\n:global .services-list .item:before,\n:global .services-list .item:after {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 30%;\n  bottom: 30%;\n  width: 1px;\n  opacity: 0.32;\n  mix-blend-mode: difference;\n  background: #fff;\n}\n:global .services-list .item:before {\n  left: -10px;\n}\n:global .services-list .item:after {\n  right: -10px;\n}\n@media (max-width: ) {\n  :global .services-list .item:before {\n    left: -3px;\n  }\n  :global .services-list .item:after {\n    right: -3px;\n  }\n}\n:global .services-list .item:hover {\n  border-color: rgba(0,0,0,0.12);\n}\n:global .services-list .item:active,\n:global .services-list .item:focus {\n  background-color: var(--paleGrey);\n  border-color: rgba(0,0,0,0.08);\n}\n@media (pointer: coarse) {\n  :global .services-list .item:hover {\n    transform: none;\n  }\n}\n@media (max-width: ) {\n  :global .services-list .item {\n    padding: 12px 4px;\n  }\n}\n:global .services-list .item--maintenance .item-icon {\n  filter: grayscale(1);\n  opacity: 0.64;\n}\n:global .services-list .item--ghost {\n  background: var(--zircon);\n  border: dashed 1px var(--primaryColorLightest);\n}\n:global .services-list .item--ghost .item-icon {\n  filter: sepia(1) saturate(3) hue-rotate(-180deg);\n  opacity: 0.64;\n}\n:global .services-list .item--ghost:hover {\n  border-color: var(--dodgerBlue);\n}\n:global .services-list .item-icon {\n  width: 2rem;\n  height: 2rem;\n  position: relative;\n}\n@media (max-width: ) {\n  :global .services-list .item-icon {\n    width: 1.5rem;\n    height: 1.5rem;\n  }\n}\n:global .services-list .item-grid-icon {\n  width: 1rem;\n  height: 1rem;\n}\n@media (max-width: ) {\n  :global .services-list .item-grid-icon {\n    width: 0.75rem;\n    height: 0.75rem;\n  }\n}\n:global .services-list .item-status {\n  position: absolute;\n  bottom: -6px;\n  right: -6px;\n  border: 2px solid var(--white);\n  border-radius: 50%;\n  background: var(--white);\n}\n:global .services-list .item--add-service .item-icon {\n  box-sizing: border-box;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n:global .services-list .item--add-service[aria-busy='true'] {\n  opacity: 0.8;\n}\n:global .services-list .item--add-service[aria-busy='true']:hover {\n  transform: none;\n}\n:global .EmptyServicesListTip {\n  box-sizing: border-box;\n  width: 640px;\n  max-width: 100%;\n  margin: auto;\n  padding: 1rem 2rem;\n}\n@media (max-width: ) {\n  :global .EmptyServicesListTip {\n    padding: 0 1.5rem 1rem 3rem;\n  }\n}\n:global .EmptyServicesListTip-text {\n  font-style: italic;\n  padding-left: 1rem;\n}\n@media (max-width: ) {\n  :global .EmptyServicesListTip-text {\n    padding-left: 0.5rem;\n  }\n}\n:global .item {\n  box-sizing: border-box;\n  border-radius: 0.5rem;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  flex-shrink: 0;\n  cursor: pointer;\n  text-decoration: none;\n  text-align: center;\n}\n:global .item-icon {\n  margin-bottom: 0.5rem;\n}\n@media (max-width: ) {\n  :global .item-icon {\n    margin-bottom: 0.25rem;\n  }\n}\n:global .item-title {\n  width: 100%;\n  margin: 0;\n  color: var(--charcoalGrey);\n  font-size: 0.75rem;\n  font-weight: normal;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n@media (max-width: ) {\n  :global .item-title {\n    font-size: 0.625rem;\n    line-height: 1.2;\n  }\n}\n:global .account-connection,\n:global .account-management {\n  display: flex;\n}\n:global .account-connection h3,\n:global .account-management h3 {\n  margin: 2em 0 0.5em;\n}\n:global .account-connection a:not([role=button]),\n:global .account-management a:not([role=button]) {\n  color: var(--dodgerBlue);\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n:global .account-connection p,\n:global .account-management p {\n  margin: 0.5em 0;\n}\n:global .account-connection > div {\n  width: 50%;\n  padding-bottom: 2em;\n}\n:global .account-management {\n  width: 70%;\n  margin: auto;\n}\n:global .account-description {\n  background-color: var(--paleGrey);\n  padding: 0 2em;\n}\n:global .account-description > p {\n  margin-top: 2em;\n}\n:global .account-description .title {\n  margin-top: 2em;\n}\n:global .account-login {\n  padding: 0 2em;\n}\n:global .account-list {\n  width: 25%;\n}\n:global .account-config .account-field {\n  max-width: 80%;\n}\n:global .connector-dialog {\n  padding-top: 0.5em;\n}\n:global .connector-dialog .dialog-header svg {\n  height: 4em;\n  width: 100%;\n  margin: 1.5em 0;\n}\n:global .errors {\n  color: var(--pomegranate);\n}\n:global .coz-service {\n  display: flex;\n  width: 100%;\n  height: 100%;\n}\n:global .col-create-account-intent {\n  display: flex;\n  flex-grow: 1;\n  flex-direction: column;\n  padding-top: 2rem;\n}\n:global .coz-service-loading,\n:global .coz-service-error {\n  display: flex;\n  height: 100vh;\n  align-items: center;\n  justify-content: center;\n  width: 100vw;\n  flex-direction: column;\n}\n:global .coz-service-layout {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  height: 100vh;\n  width: 100vw;\n}\n:global .coz-service-return {\n  display: flex;\n}\n:global .coz-service-return--button {\n  width: 24px;\n  height: 24px;\n  margin: 0 0 0 0.75em;\n  border: 0;\n  background-color: transparent;\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzk1OTk5RCIgZD0iTTMuNTcgMTNsMTAuMTA2IDkuMjYzYTEgMSAwIDEgMS0xLjM1MiAxLjQ3NEwuMzI3IDEyLjc0YS45OTcuOTk3IDAgMCAxIDAtMS40OEwxMi4zMjQuMjYzYTEgMSAwIDEgMSAxLjM1MiAxLjQ3NEwzLjU3IDExSDIzYTEgMSAwIDEgMSAwIDJIMy41N3oiLz48L3N2Zz4=\");\n  background-repeat: no-repeat;\n  cursor: pointer;\n}\n:global .coz-service-bar {\n  display: flex;\n  align-items: center;\n  flex: 0 0 100%;\n  position: fixed;\n  z-index: 100;\n  width: 100%;\n  flex-direction: row;\n  background-color: var(--paleGrey);\n  box-shadow: inset 0 -1px 0 0 var(--silver);\n}\n:global .coz-service-bar .coz-icon,\n:global .coz-service-bar h1,\n:global .coz-service-bar .coz-btn {\n  margin: 0 0.75rem;\n}\n:global .coz-service-bar .coz-icon {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n:global .coz-service-bar .coz-icon img {\n  height: 2rem;\n  width: 2rem;\n}\n:global .coz-service-bar h1 {\n  flex: 1;\n  margin: 0;\n  padding: 0;\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: normal;\n}\n:global .coz-service-bar .coz-btn--close {\n  height: inherit;\n  width: inherit;\n  zoom: 1.5;\n  padding-right: 0;\n  flex: 1;\n  background-position: center right;\n}\n:global .coz-service-content {\n  flex-grow: 1;\n  display: flex;\n  width: calc(100% - 2rem);\n  max-height: calc(100vh - rem(32));\n  justify-content: start;\n  padding: 1rem;\n  flex-direction: column;\n  align-items: center;\n  overflow-y: auto;\n}\n","/*------------------------------------*\\\n  Animations\n\\*------------------------------------*/\n/*\n    Animations\n\n    Available animations:\n\n    spin - Animates an element by rotating it endlessly by 360 deg (used by the loading spinner)\n\n    Styleguide Generic.animation\n*/\n@keyframes spin\n    from\n        transform rotate(0deg)\n    to\n        transform rotate(359deg)\n        \n@keyframes shake\n    10%, 90%\n        transform translate3d(-1px, 0, 0)\n   \n    20%, 80%\n        transform translate3d(2px, 0, 0)\n\n    30%, 50%, 70%\n        transform translate3d(-4px, 0, 0)\n\n    40%, 60%\n        transform translate3d(4px, 0, 0)\n","@require 'settings/palette.styl'\n@require 'tools/mixins.styl'\n@require 'settings/icons.styl'\n\n:global // @stylint ignore\n    #svg-sprite-content\n        position absolute\n        width 0\n        height 0\n        visibility hidden\n\n    @require './lists.styl'\n    @require './dialog.styl'\n\n    .coz-service\n        display flex\n        width 100%\n        height 100%\n\n    .col-create-account-intent\n        display flex\n        flex-grow 1\n        flex-direction column\n        padding-top 2rem\n\n    .coz-service-loading\n    .coz-service-error\n        display         flex\n        height          100vh\n        align-items     center\n        justify-content center\n        width           100vw\n        flex-direction  column\n\n    .coz-service-layout\n        display         flex\n        flex-direction  column\n        align-items     stretch\n        height          100vh\n        width           100vw\n\n    .coz-service-return\n        display         flex\n        &--button\n            width              24px\n            height             24px\n            margin             0 0 0 .75em\n            border             0\n            background-color   transparent\n            background-image   embedurl('../assets/sprites/icon-arrow-left.svg')\n            background-repeat  no-repeat\n            cursor             pointer\n\n    .coz-service-bar\n        display           flex\n        align-items       center\n        flex              0 0 100%\n        position          fixed\n        z-index           100\n        width             100%\n        flex-direction    row\n        background-color  var(--paleGrey)\n        box-shadow        inset 0 -1px 0 0 var(--silver)\n\n        .coz-icon\n        h1\n        .coz-btn\n            margin 0 rem(12)\n\n        .coz-icon\n            display         flex\n            justify-content center\n            align-items     center\n\n            img\n                height rem(32)\n                width  rem(32)\n\n        h1\n            flex            1\n            margin          0\n            padding         0\n            font-size       rem(24)\n            line-height     rem(32)\n            font-weight     normal\n\n        .coz-btn--close\n            height        inherit\n            width         inherit\n            zoom          1.5\n            padding-right 0\n            flex          1\n            // overide default bg position\n            background-position  center right\n\n    .coz-service-content\n        flex-grow 1\n        display flex\n        width calc(100% - 2rem)\n        max-height      calc(100vh - rem(32))\n        justify-content start\n        padding 1rem\n        flex-direction column\n        align-items center\n        overflow-y auto\n","@require 'settings/breakpoints.styl'\n@require 'settings/palette.styl'\n@require 'settings/spaces.styl'\n\nmobileTileSize = 4rem\noutsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)\nlightShadow = 0 4px 12px 0 rgba(0, 0, 0, .08)\nheavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)\n\n.app-list\n    appTileSize = 6rem\n    position relative\n    margin-top -(appTileSize / 2)\n    margin-bottom: spacing_values.l\n    display grid\n    grid-template-columns repeat(auto-fit, appTileSize)\n    grid-auto-rows appTileSize\n    grid-gap rem(8)\n    justify-content center\n\n    +tiny-screen()\n        margin-top: (-(mobileTileSize) / 2)\n        margin-bottom: spacing_values.xs\n        grid-template-columns repeat(auto-fit, mobileTileSize)\n        grid-auto-rows mobileTileSize\n        grid-gap rem(4)\n\n    .item\n        background-color var(--white)\n        box-shadow outsideBorder, lightShadow\n        padding 20px 4px 12px\n        transition box-shadow .05s ease, transform .05s ease\n\n        &:active\n        &:focus\n            background-color var(--paleGrey)\n            box-shadow outsideBorder, lightShadow, heavyShadow\n\n        &:hover\n            transform scale(1.05)\n            box-shadow outsideBorder, lightShadow, heavyShadow\n\n        @media (pointer coarse)\n            &:hover\n                transform none\n\n        +tiny-screen()\n            padding 10px 4px 6px\n\n    .item-icon\n            width rem(40)\n            height rem(40)\n\n            +tiny-screen()\n                width rem(32)\n                height rem(32)\n\n\n.services-list\n    serviceTileSize = 5rem\n    serviceGridGutter = 17px\n    width 100%\n    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps\n    margin: spacing_values.l auto\n    display grid\n    grid-template-columns repeat(auto-fit, serviceTileSize)\n    grid-auto-rows serviceTileSize\n    grid-gap (serviceGridGutter)\n    justify-content center\n    opacity .99 // required for the blend mode difference to work\n\n    +tiny-screen()\n        margin: spacing_values.m auto\n        grid-template-columns repeat(auto-fit, mobileTileSize)\n        grid-auto-rows mobileTileSize\n        grid-gap rem(3)\n\n    .item\n        padding 12px 8px\n        border-radius 8px\n        border-width 1px\n        border-style solid\n        border-color transparent\n        position relative\n\n        &:before,\n        &:after\n            content ''\n            display block\n            position absolute\n            top 30%\n            bottom 30%\n            width 1px\n            opacity .32\n            mix-blend-mode difference\n            background white\n\n        &:before\n            left -10px\n        &:after\n            right -10px\n\n        +tiny-screen()\n            &:before\n                left -3px\n            &:after\n                right -3px\n\n        &:hover\n            border-color rgba(0, 0, 0, .12)\n\n        &:active\n        &:focus\n            background-color var(--paleGrey)\n            border-color rgba(0, 0, 0, .08)\n\n        @media (pointer coarse)\n            &:hover\n                transform none\n\n        +tiny-screen()\n                padding 12px 4px\n\n    .item--maintenance .item-icon\n            filter grayscale(1)\n            opacity .64\n\n    .item--ghost\n            background var(--zircon)\n            border dashed 1px var(--primaryColorLightest)\n\n            .item-icon\n                filter sepia(1) saturate(3) hue-rotate(-180deg)\n                opacity .64\n\n            &:hover\n                border-color: var(--dodgerBlue)\n\n    .item-icon\n        width rem(32)\n        height rem(32)\n        position relative\n\n        +tiny-screen()\n            width rem(24)\n            height rem(24)\n\n    .item-grid-icon\n        width rem(16)\n        height rem(16)\n\n        +tiny-screen()\n            width rem(12)\n            height rem(12)\n\n    .item-status\n        position absolute\n        bottom -6px\n        right -6px\n        border 2px solid var(--white)\n        border-radius 50%\n        background var(--white)\n\n    .item--add-service\n        .item-icon\n            box-sizing border-box\n            display flex\n            justify-content center\n            align-items center\n\n        &[aria-busy='true']\n            opacity .8\n\n        &[aria-busy='true']:hover\n            transform none\n\n.EmptyServicesListTip\n    box-sizing border-box\n    width 640px\n    max-width 100%\n    margin auto\n    padding 1rem 2rem\n\n    +tiny-screen()\n        padding 0 1.5rem 1rem 3rem\n\n.EmptyServicesListTip-text\n    font-style italic\n    padding-left 1rem\n\n    +tiny-screen()\n        padding-left .5rem\n\n.item\n    box-sizing border-box\n    border-radius rem(8)\n    width 100%\n    height 100%\n    display flex\n    flex-direction column\n    justify-content center\n    align-items center\n    flex-shrink 0\n    cursor pointer\n    text-decoration none\n    text-align center\n\n.item-icon\n        margin-bottom rem(8)\n\n        +tiny-screen()\n            margin-bottom rem(4)\n\n.item-title\n        width 100%\n        margin 0\n        color var(--charcoalGrey)\n        font-size rem(12)\n        font-weight normal\n        white-space nowrap\n        overflow hidden\n        text-overflow ellipsis\n\n        +tiny-screen()\n            font-size rem(10)\n            line-height 1.2\n","@require '../tools/mixins'\n\n/*------------------------------------*\\\n  Breakpoints\n  =====\n\\*------------------------------------*/\n\n// variables\n\nBP-teeny       =  375\nBP-tiny        =  480\nBP-small       =  768\nBP-medium      = 1023\nBP-large       = 1200\nBP-extra-large = 1439\n\n// Standard breakpoints collection for utilities\nbreakpoints = {\n    'none': '',\n    'tiny': 't',\n    'small': 's',\n    'medium': 'm',\n}\n\n/*\n    Breakpoints\n\n    This is the collection of available breakpoint variables:<br><br>\n    - `BP-teeny`         -  375px\n    - `BP-tiny`          -  480px\n    - `BP-small`         -  768px\n    - `BP-medium`        -  1023px\n    - `BP-large`         -  1200px\n    - `BP-extra-large`   -  1439px\n\n    <br>Also we have a standard breakpoints collection meant to be used as suffixes for some utility classes<br>\n\n    If you want a utility class to trigger only at defined breakpoints you can use those:<br><br>\n    - `-t`  - refers to `tiny` breakpoint (max-width: 480px)\n    - `-s`  - refers to `small` breakpoint (max-width: 768px)\n    - `-m`  - refers to `medium` breakpoint (max-width: 1023px)\n\n    Styleguide Settings.breakpoints\n*/\n\n/*\n    Media Queries mixins\n\n    You can use these mixins with no arguments and they will output\n    the desired a `max-width` media-query. Use the direction argument\n    to set it to `min`.\n\n    Styleguide Settings.breakpoints.mixins\n*/\n\n// mixins\n// @stylint off\nsize-helper(direction, size)\n    direction == 'min' ? size + 1 : size\n\n/*\n    teeny-screen()\n\n    teeny-screen() Refers to (max-width: 375px)\n    teeny-screen('min') Refers to (min-width: 376px)\n\n    Weight: -6\n\n    Styleguide Settings.breakpoints.mixins.teeny\n*/\nteeny-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-teeny)))\n        {block}\n\n/*\n    tiny-screen()\n\n    tiny-screen() Refers to (max-width: 480px)\n    tiny-screen('min') Refers to (min-width: 481px)\n\n    Weight: -5\n\n    Styleguide Settings.breakpoints.mixins.tiny\n*/\ntiny-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-tiny)))\n        {block}\n\n/*\n    small-screen()\n\n    small-screen() Refers to (max-width: 768px)\n    small-screen('min') Refers to (min-width: 769px)\n\n    Weight: -4\n\n    Styleguide Settings.breakpoints.mixins.small\n*/\nsmall-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-small)))\n        {block}\n\n/*\n    medium-screen()\n\n    medium-screen() Refers to (max-width: 1023px)\n    medium-screen('min') Refers to (min-width: 1024px)\n\n    Weight: -3\n\n    Styleguide Settings.breakpoints.mixins.medium\n*/\nmedium-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-medium)))\n        {block}\n\n/*\n    large-screen()\n\n    large-screen() Refers to (max-width: 1200px)\n    large-screen('min') Refers to (min-width: 1201px)\n\n    Weight: -2\n\n    Styleguide Settings.breakpoints.mixins.large\n*/\nlarge-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-large)))\n        {block}\n\n/*\n    extra-large-screen()\n\n    extra-large-screen() Refers to (max-width: 1439px)\n    extra-large-screen('min') Refers to (min-width: 1440px)\n\n    Weight: -1\n\n    Styleguide Settings.breakpoints.mixins.extra-large\n*/\nextra-large-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-extra-large)))\n        {block}\n\n// mixins named\n\n/*\n    small-device()\n\n    Refers to (max-width: 543px), (max-height: 375px)\n    Triggers when the viewport has a width smaller than 543px OR a height smaller than 375px\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.small-device\n*/\n\nsmall-device()\n    @media (max-width: rem(size-helper('max', BP-tiny))), (max-height: rem(size-helper('max', BP-teeny)))\n        {block}\n\n/*\n    medium-device()\n\n    Refers to (min-width: 543px) and (min-height: 375px)\n    Triggers when the viewport has a width bigger than 543px AND a height bigger than 375px\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.medium-device\n*/\n\nmedium-device()\n    @media (min-width: rem(size-helper('min', BP-tiny))) and (min-height: rem(size-helper('min', BP-teeny)))\n        {block}\n\n/*\n    desktop()\n\n    Refers to (min-width: 1024px)\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.desktop\n*/\ndesktop()\n    @media (min-width: rem(size-helper('min', BP-medium)))\n        {block}\n\n/*\n    tablet()\n\n    Refers to (min-width: 769px) and (max-width: 1023px)\n\n    Weight: 1\n\n    Styleguide Settings.breakpoints.mixins.tablet\n*/\ntablet()\n    @media (min-width: rem(size-helper('min', BP-small))) and (max-width: rem(size-helper('max', BP-medium)))\n        {block}\n\n/*\n    mobile()\n\n    Refers to small-screen() which is (max-width: 768px)\n\n    Weight: 2\n\n    Styleguide Settings.breakpoints.mixins.mobile\n*/\nmobile()\n    +small-screen()\n        {block}\n\n/*\n    gt-mobile()\n\n    Refers to (min-width: 769px)\n\n    Weight: 3\n\n    Styleguide Settings.breakpoints.mixins.gt-mobile\n*/\ngt-mobile()\n    @media (min-width: rem(size-helper('min', BP-small)))\n        {block}\n\n/*\n    gt-tablet()\n\n    Refers to (min-width: 1024px)\n\n    Weight: 4\n\n    Styleguide Settings.breakpoints.mixins.gt-tablet\n*/\ngt-tablet()\n    @media (min-width: rem(size-helper('min', BP-medium)))\n        {block}\n\n/*\n    lt-desktop()\n\n    Refers to medium-screen() which is (max-width: 1023px)\n\n    Weight: 5\n\n    Styleguide Settings.breakpoints.mixins.lt-desktop\n*/\nlt-desktop()\n    +medium-screen()\n        {block}\n// @stylint on\n","@require 'settings/palette.styl'\n\n// Global styles for forms\n.account-connection,\n.account-management\n    display flex\n\n    h3\n        margin 2em 0 .5em\n        font-size(24px)\n\n    a:not([role=button])\n        color           var(--dodgerBlue)\n        text-transform  uppercase\n        text-decoration none\n        cursor          pointer\n\n    p\n        margin .5em 0\n\n.account-connection\n    > div\n        width          50%\n        padding-bottom 2em\n\n.account-management\n    width  70%\n    margin auto\n\n.account-description\n    background-color var(--paleGrey)\n    padding          0 2em\n    > p\n        margin-top 2em\n    .title\n        margin-top 2em\n\n.account-login\n    padding 0 2em\n\n.account-list\n    width 25%\n.account-config\n    .account-field\n        max-width 80%\n\n// specific to account dialog\n.connector-dialog\n    padding-top .5em\n    .dialog-header\n        svg\n            height 4em\n            width  100%\n            margin 1.5em 0\n\n.errors\n    color var(--pomegranate)\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"spin": "spin--1tM1P",
+	"shake": "shake--2XjZi"
+};
 
 /***/ }),
 
@@ -2695,7 +3779,7 @@ var AppIcon = function AppIcon(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DescriptionContent", function() { return DescriptionContent; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DescriptionContent", function() { return DescriptionContent; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("TSYQ");
@@ -2703,6 +3787,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_ReactMarkdownWrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("4DAK");
 /* harmony import */ var styles_descriptionContent_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("N0Cd");
 /* harmony import */ var styles_descriptionContent_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styles_descriptionContent_styl__WEBPACK_IMPORTED_MODULE_3__);
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 
 
 
@@ -2727,7 +3820,28 @@ var DescriptionContent = function DescriptionContent(_ref) {
     })) : null;
   }), children);
 };
-/* harmony default export */ __webpack_exports__["default"] = (DescriptionContent);
+var _default = DescriptionContent;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(DescriptionContent, "DescriptionContent", "/Users/cozy/code/cozy/cozy-home/src/components/DescriptionContent.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/DescriptionContent.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -3303,6 +4417,23 @@ var isCollectionFetched = function isCollectionFetched(state, name) {
 
 /***/ }),
 
+/***/ "GdGx":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ".col-konnector-header-icon-wrapper--1oMyA, .col-konnector-header-icon-wrapper--center--3aLBw {\n  height: 3.5rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.col-konnector-header-icon-wrapper--1oMyA .col-konnector-header-icon--2Yxl_, .col-konnector-header-icon-wrapper--center--3aLBw .col-konnector-header-icon--2Yxl_ {\n  height: 2rem;\n}\n.col-konnector-header-icon-wrapper--1oMyA .col-konnector-header-icon--center--3rGkD, .col-konnector-header-icon-wrapper--center--3aLBw .col-konnector-header-icon--center--3rGkD {\n  height: 3.5rem;\n}\n.col-konnector-header-icon-wrapper--1oMyA img, .col-konnector-header-icon-wrapper--center--3aLBw img {\n  width: auto;\n}\n.col-konnector-header-icon-wrapper--center--3aLBw {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n", "",{"version":3,"sources":["src/styles/konnectorHeaderIcon.styl","konnectorHeaderIcon.styl"],"names":[],"mappings":"AACI;EAEI,cAAO;EACP,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;ACAhB;ADEQ;EACI,YAAO;ACCnB;ADCQ;EACI,cAAO;ACEnB;ADAQ;EACI,WAAM;ACGlB;ADDI;EACI,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;ACGxB","file":"konnectorHeaderIcon.styl","sourcesContent":[":local // @stylint ignore\n    .col-konnector-header-icon-wrapper\n    .col-konnector-header-icon-wrapper--center\n        height 3.5rem\n        display flex\n\n        .col-konnector-header-icon\n            height 2rem\n\n        .col-konnector-header-icon--center\n            height 3.5rem\n\n        img\n            width auto\n\n    .col-konnector-header-icon-wrapper--center\n        justify-content center\n",":local .col-konnector-header-icon-wrapper,\n:local .col-konnector-header-icon-wrapper--center {\n  height: 3.5rem;\n  display: flex;\n}\n:local .col-konnector-header-icon-wrapper .col-konnector-header-icon,\n:local .col-konnector-header-icon-wrapper--center .col-konnector-header-icon {\n  height: 2rem;\n}\n:local .col-konnector-header-icon-wrapper .col-konnector-header-icon--center,\n:local .col-konnector-header-icon-wrapper--center .col-konnector-header-icon--center {\n  height: 3.5rem;\n}\n:local .col-konnector-header-icon-wrapper img,\n:local .col-konnector-header-icon-wrapper--center img {\n  width: auto;\n}\n:local .col-konnector-header-icon-wrapper--center {\n  justify-content: center;\n}\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"col-konnector-header-icon-wrapper": "col-konnector-header-icon-wrapper--1oMyA",
+	"col-konnector-header-icon-wrapper--center": "col-konnector-header-icon-wrapper--center--3aLBw",
+	"col-konnector-header-icon": "col-konnector-header-icon--2Yxl_",
+	"col-konnector-header-icon--center": "col-konnector-header-icon--center--3rGkD"
+};
+
+/***/ }),
+
 /***/ "GfxC":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3417,7 +4548,7 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pVnL");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pVnL");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
@@ -3447,6 +4578,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -3489,6 +4630,13 @@ function (_React$Component) {
         successButtonLabel: t('intent.service.success.button.label')
       }, this.props)));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return CreateAccountService;
@@ -3518,15 +4666,82 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_10__["translate"])()(CreateAccountService)));
+var _default = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_10__["translate"])()(CreateAccountService));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(CreateAccountService, "CreateAccountService", "/Users/cozy/code/cozy/cozy-home/src/components/services/CreateAccountService.jsx");
+  reactHotLoader.register(mapStateToProps, "mapStateToProps", "/Users/cozy/code/cozy/cozy-home/src/components/services/CreateAccountService.jsx");
+  reactHotLoader.register(mapDispatchToProps, "mapDispatchToProps", "/Users/cozy/code/cozy/cozy-home/src/components/services/CreateAccountService.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/services/CreateAccountService.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
 /***/ "K4zY":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"col-account-connection-content":"col-account-connection-content--Jta1z","col-account-connection-fetching":"col-account-connection-fetching--3rtXV","col-account-connection-security":"col-account-connection-security--1I2Yb","col-account-connection-editor":"col-account-connection-editor--1sA6J"};
+
+var content = __webpack_require__("LI8k");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("LI8k", function() {
+		var newContent = __webpack_require__("LI8k");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -3561,6 +4776,23 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "KAKi";
+
+/***/ }),
+
+/***/ "LI8k":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n.col-account-connection-content--Jta1z {\n  padding: 0 2rem;\n}\n@media (max-width: 30rem) {\n  .col-account-connection-content--Jta1z {\n    padding: 0;\n  }\n}\n.col-account-connection-fetching--3rtXV {\n  padding: 0 0 2em;\n  position: relative;\n}\n.col-account-connection-fetching--3rtXV > div {\n  position: relative;\n  -webkit-transform: translateX(-50%) translateY(0);\n          transform: translateX(-50%) translateY(0);\n}\n.col-account-connection-security--1I2Yb {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: top;\n      -ms-flex-align: top;\n          align-items: top;\n  margin-bottom: 0.5rem;\n  margin-top: 1.5rem;\n}\n.col-account-connection-security--1I2Yb svg {\n  max-height: 1.5rem;\n  max-width: 1.5rem;\n  float: left;\n  margin-right: 0.5rem;\n}\n.col-account-connection-editor--1sA6J {\n  text-align: center;\n  color: var(--coolGrey);\n  margin-top: 0;\n  margin-bottom: 0;\n  font-size: 0.9em;\n}\n", "",{"version":3,"sources":["node_modules/cozy-ui/stylus/settings/palette.styl","konnectorInstall.styl","src/styles/konnectorInstall.styl","node_modules/cozy-ui/stylus/settings/breakpoints.styl"],"names":[],"mappings":"AAoBA;AACI;;;;;;;;;;;;;;KCNC;EDqBD,aAAgB;EAChB,mBAAgB;EAChB,iBAAgB;EAChB,mBAAgB;EAChB,oBAAgB;EAChB,uBAAgB;EAChB,aAAgB;EAChB,6BAAmC;AACnC;;;;;;;;;;;;KCRC;EDqBD,iBAAe;EACf,qBAAe;EACf,qBAAe;EACf,gBAAe;EACf,qBAAe;EACf,sBAAe;EACf,qBAAe;AACf;;;;;;;;;;KCVC;EDqBD,sBAAe;EACf,qBAAe;EACf,kBAAe;EACf,oBAAe;EACf,uBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,oBAAiB;EACjB,oBAAiB;EACjB,gBAAiB;EACjB,wBAAiB;EACjB,sBAAiB;EACjB,gBAAiB;AACjB;;;;;;;;;;KCVC;EDqBD,kBAAe;EACf,mBAAe;EACf,kBAAe;EACf,sBAAe;EACf,gBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,mBAAkB;EAClB,yBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,yBAAkB;EAClB,iBAAkB;AAElB;;;;;;KCfC;ADuBD;;;;;;;;;;KCZC;EDuBD,iCAA+B;EAC/B,4BAAoB;EACpB,8BAAsB;EACtB,+BAAuB;EACvB,wCAAsC;ACrB1C;AClII;EACI,eAAQ;ADoIhB;AErDmE;EAAA;ID5EvD,UAAQ;EDqIlB;AACF;ACpII;EACI,gBAAQ;EACR,kBAAS;ADsIjB;ACrIQ;EACI,kBAAS;EACT,iDAAyB;UAAzB,yCAAyB;ADuIrC;ACrII;EACI,oBAAa;EAAb,oBAAa;EAAb,aAAa;EACb,sBAAa;MAAb,mBAAa;UAAb,gBAAa;EACb,qBAAc;EACd,kBAAc;ADuItB;ACrII;EACI,kBAAmB;EACnB,iBAAmB;EACnB,WAAa;EACb,oBAAkB;ADuI1B;ACrII;EACI,kBAAgB;EAChB,sBAA8B;EAC9B,aAAgB;EAChB,gBAAgB;EAChB,gBAAgB;ADuIxB","file":"konnectorInstall.styl","sourcesContent":["// @stylint off\n/*------------------------------------*\\\n  Palette\n  =====\n\\*------------------------------------*/\n/*\n    Settings\n\n    Weight: -10\n\n    Styleguide Settings\n*/\n\n/*\n    Colors\n\n    Colors used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n    Styleguide Settings.colors\n*/\n:root\n    /*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n    --white         #FFFFFF\n    --paleGrey      #F5F6F7\n    --silver        #D6D8Da\n    --coolGrey      #95999D\n    --slateGrey     #5D6165\n    --charcoalGrey  #32363F\n    --black         #000000\n    --overlay       rgba(50, 54, 63, .5)\n    /*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n    --zircon       #F5FAFF\n    --hawkesBlue   #EEF5FE\n    --frenchPass   #C2DCFF\n    --azure        #1FA8F1\n    --dodgerBlue   #297EF2\n    --scienceBlue  #0B61D6\n    --puertoRico   #0DCBCF\n    /*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n    --grannyApple  #DEF7E7\n    --weirdGreen   #40DE8E\n    --emerald      #35CE68\n    --malachite    #08b442\n    --seafoamGreen #3DA67E\n    /*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n    --brightSun      #FFC644\n    --texasRose      #FFAE5F\n    --mango          #FF962F\n    --pumpkinOrange  #FF7F1B\n    --blazeOrange    #FC6D00\n    --melon          #FD7461\n    /*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n    --chablis      #FFF2F2\n    --yourPink     #FDCBCB\n    --fushsia      #FC4C83\n    --pomegranate  #F52D2D\n    --monza        #DD0505\n    /*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n    --lavender        #C2ADF4\n    --darkPeriwinkle  #6984CE\n    --purpley         #7F6BEE\n    --portage         #9169F2\n    --lightishPurple  #B449E7\n    --barney          #922BC2\n\n    /*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n\n    /*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n    --primaryColor var(--dodgerBlue)\n    --primaryColorLight #5C9DF5 // lighten(dodgerBlue, 24)\n    --primaryColorLighter #4B93F7\n    --primaryColorLightest #9FC4FB\n    --primaryContrastTextColor var(--white)\n// @stylint on\n",":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n:local .col-account-connection-content {\n  padding: 0 2rem;\n}\n@media (max-width: 30rem) {\n  :local .col-account-connection-content {\n    padding: 0;\n  }\n}\n:local .col-account-connection-fetching {\n  padding: 0 0 2em;\n  position: relative;\n}\n:local .col-account-connection-fetching > div {\n  position: relative;\n  transform: translateX(-50%) translateY(0);\n}\n:local .col-account-connection-security {\n  display: flex;\n  align-items: top;\n  margin-bottom: 0.5rem;\n  margin-top: 1.5rem;\n}\n:local .col-account-connection-security svg {\n  max-height: 1.5rem;\n  max-width: 1.5rem;\n  float: left;\n  margin-right: 0.5rem;\n}\n:local .col-account-connection-editor {\n  text-align: center;\n  color: var(--coolGrey);\n  margin-top: 0;\n  margin-bottom: 0;\n  font-size: 0.9em;\n}\n","@require 'tools/mixins.styl'\n@require 'settings/breakpoints.styl'\n@require 'settings/palette.styl'\n\n:local // @stylint ignore\n    .col-account-connection-content\n        padding 0 2rem\n\n        +tiny-screen()\n            padding 0\n\n    .col-account-connection-fetching\n        padding 0 0 2em\n        position relative\n        > div\n            position relative // override default Spinner absolute position\n            transform translateX(-50%) translateY(0)\n\n    .col-account-connection-security\n        display      flex\n        align-items  top\n        margin-bottom .5rem\n        margin-top    1.5rem\n\n    .col-account-connection-security svg\n        max-height   rem(24)\n        max-width    rem(24)\n        float        left\n        margin-right rem(8)\n\n    .col-account-connection-editor\n        text-align      center\n        color           var(--coolGrey)\n        margin-top      0\n        margin-bottom   0\n        font-size       .9em\n","@require '../tools/mixins'\n\n/*------------------------------------*\\\n  Breakpoints\n  =====\n\\*------------------------------------*/\n\n// variables\n\nBP-teeny       =  375\nBP-tiny        =  480\nBP-small       =  768\nBP-medium      = 1023\nBP-large       = 1200\nBP-extra-large = 1439\n\n// Standard breakpoints collection for utilities\nbreakpoints = {\n    'none': '',\n    'tiny': 't',\n    'small': 's',\n    'medium': 'm',\n}\n\n/*\n    Breakpoints\n\n    This is the collection of available breakpoint variables:<br><br>\n    - `BP-teeny`         -  375px\n    - `BP-tiny`          -  480px\n    - `BP-small`         -  768px\n    - `BP-medium`        -  1023px\n    - `BP-large`         -  1200px\n    - `BP-extra-large`   -  1439px\n\n    <br>Also we have a standard breakpoints collection meant to be used as suffixes for some utility classes<br>\n\n    If you want a utility class to trigger only at defined breakpoints you can use those:<br><br>\n    - `-t`  - refers to `tiny` breakpoint (max-width: 480px)\n    - `-s`  - refers to `small` breakpoint (max-width: 768px)\n    - `-m`  - refers to `medium` breakpoint (max-width: 1023px)\n\n    Styleguide Settings.breakpoints\n*/\n\n/*\n    Media Queries mixins\n\n    You can use these mixins with no arguments and they will output\n    the desired a `max-width` media-query. Use the direction argument\n    to set it to `min`.\n\n    Styleguide Settings.breakpoints.mixins\n*/\n\n// mixins\n// @stylint off\nsize-helper(direction, size)\n    direction == 'min' ? size + 1 : size\n\n/*\n    teeny-screen()\n\n    teeny-screen() Refers to (max-width: 375px)\n    teeny-screen('min') Refers to (min-width: 376px)\n\n    Weight: -6\n\n    Styleguide Settings.breakpoints.mixins.teeny\n*/\nteeny-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-teeny)))\n        {block}\n\n/*\n    tiny-screen()\n\n    tiny-screen() Refers to (max-width: 480px)\n    tiny-screen('min') Refers to (min-width: 481px)\n\n    Weight: -5\n\n    Styleguide Settings.breakpoints.mixins.tiny\n*/\ntiny-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-tiny)))\n        {block}\n\n/*\n    small-screen()\n\n    small-screen() Refers to (max-width: 768px)\n    small-screen('min') Refers to (min-width: 769px)\n\n    Weight: -4\n\n    Styleguide Settings.breakpoints.mixins.small\n*/\nsmall-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-small)))\n        {block}\n\n/*\n    medium-screen()\n\n    medium-screen() Refers to (max-width: 1023px)\n    medium-screen('min') Refers to (min-width: 1024px)\n\n    Weight: -3\n\n    Styleguide Settings.breakpoints.mixins.medium\n*/\nmedium-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-medium)))\n        {block}\n\n/*\n    large-screen()\n\n    large-screen() Refers to (max-width: 1200px)\n    large-screen('min') Refers to (min-width: 1201px)\n\n    Weight: -2\n\n    Styleguide Settings.breakpoints.mixins.large\n*/\nlarge-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-large)))\n        {block}\n\n/*\n    extra-large-screen()\n\n    extra-large-screen() Refers to (max-width: 1439px)\n    extra-large-screen('min') Refers to (min-width: 1440px)\n\n    Weight: -1\n\n    Styleguide Settings.breakpoints.mixins.extra-large\n*/\nextra-large-screen(direction='max')\n    @media ({direction}-width: rem(size-helper(direction, BP-extra-large)))\n        {block}\n\n// mixins named\n\n/*\n    small-device()\n\n    Refers to (max-width: 543px), (max-height: 375px)\n    Triggers when the viewport has a width smaller than 543px OR a height smaller than 375px\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.small-device\n*/\n\nsmall-device()\n    @media (max-width: rem(size-helper('max', BP-tiny))), (max-height: rem(size-helper('max', BP-teeny)))\n        {block}\n\n/*\n    medium-device()\n\n    Refers to (min-width: 543px) and (min-height: 375px)\n    Triggers when the viewport has a width bigger than 543px AND a height bigger than 375px\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.medium-device\n*/\n\nmedium-device()\n    @media (min-width: rem(size-helper('min', BP-tiny))) and (min-height: rem(size-helper('min', BP-teeny)))\n        {block}\n\n/*\n    desktop()\n\n    Refers to (min-width: 1024px)\n\n    Weight: 0\n\n    Styleguide Settings.breakpoints.mixins.desktop\n*/\ndesktop()\n    @media (min-width: rem(size-helper('min', BP-medium)))\n        {block}\n\n/*\n    tablet()\n\n    Refers to (min-width: 769px) and (max-width: 1023px)\n\n    Weight: 1\n\n    Styleguide Settings.breakpoints.mixins.tablet\n*/\ntablet()\n    @media (min-width: rem(size-helper('min', BP-small))) and (max-width: rem(size-helper('max', BP-medium)))\n        {block}\n\n/*\n    mobile()\n\n    Refers to small-screen() which is (max-width: 768px)\n\n    Weight: 2\n\n    Styleguide Settings.breakpoints.mixins.mobile\n*/\nmobile()\n    +small-screen()\n        {block}\n\n/*\n    gt-mobile()\n\n    Refers to (min-width: 769px)\n\n    Weight: 3\n\n    Styleguide Settings.breakpoints.mixins.gt-mobile\n*/\ngt-mobile()\n    @media (min-width: rem(size-helper('min', BP-small)))\n        {block}\n\n/*\n    gt-tablet()\n\n    Refers to (min-width: 1024px)\n\n    Weight: 4\n\n    Styleguide Settings.breakpoints.mixins.gt-tablet\n*/\ngt-tablet()\n    @media (min-width: rem(size-helper('min', BP-medium)))\n        {block}\n\n/*\n    lt-desktop()\n\n    Refers to medium-screen() which is (max-width: 1023px)\n\n    Weight: 5\n\n    Styleguide Settings.breakpoints.mixins.lt-desktop\n*/\nlt-desktop()\n    +medium-screen()\n        {block}\n// @stylint on\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"col-account-connection-content": "col-account-connection-content--Jta1z",
+	"col-account-connection-fetching": "col-account-connection-fetching--3rtXV",
+	"col-account-connection-security": "col-account-connection-security--1I2Yb",
+	"col-account-connection-editor": "col-account-connection-editor--1sA6J"
+};
 
 /***/ }),
 
@@ -3933,12 +5165,21 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("buk/");
 /* harmony import */ var components_ReactMarkdownWrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("4DAK");
 /* harmony import */ var styles_konnectorMaintenance_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("91CF");
 /* harmony import */ var styles_konnectorMaintenance_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styles_konnectorMaintenance_styl__WEBPACK_IMPORTED_MODULE_3__);
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 
 
 
@@ -3969,23 +5210,131 @@ var KonnectorMaintenance = function KonnectorMaintenance(_ref) {
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_1__["translate"])()(KonnectorMaintenance));
+var _default = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_1__["translate"])()(KonnectorMaintenance);
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(KonnectorMaintenance, "KonnectorMaintenance", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorMaintenance.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorMaintenance.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
 /***/ "N0Cd":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"col-account-description-title":"col-account-description-title--vVTHU","col-account-description-title-centered":"col-account-description-title-centered--32S1O","col-account-description-message":"col-account-description-message--ZyZtK"};
+
+var content = __webpack_require__("Qglo");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("Qglo", function() {
+		var newContent = __webpack_require__("Qglo");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
 /***/ "ONtV":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"col-trigger-folder":"col-trigger-folder--3s1fX","col-trigger-folder-link":"col-trigger-folder-link--2Fkdb"};
+
+var content = __webpack_require__("TEgB");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("TEgB", function() {
+		var newContent = __webpack_require__("TEgB");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -4544,10 +5893,57 @@ function () {
 
 /***/ }),
 
+/***/ "Qglo":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ".col-account-description-title--vVTHU,\n.col-account-description-title-centered--32S1O {\n  margin: 1.1rem 0 0.5rem;\n  font-size: 1.125rem;\n}\n.col-account-description-title-centered--32S1O {\n  text-align: center;\n}\n.col-account-description-message--ZyZtK {\n  margin: 0.5rem 0;\n}\n.col-account-description-message--ZyZtK p {\n  margin: 0.5rem 0;\n}\n", "",{"version":3,"sources":["src/styles/descriptionContent.styl","descriptionContent.styl"],"names":[],"mappings":"AAAA;;EACI,uBAAO;EACP,mBAAU;ACEd;ADAA;EACI,kBAAW;ACEf;ADAA;EACI,gBAAO;ACEX;ADDI;EACI,gBAAO;ACGf","file":"descriptionContent.styl","sourcesContent":[".col-account-description-title, .col-account-description-title-centered\n    margin 1.1rem 0 .5rem\n    font-size 1.125rem\n\n.col-account-description-title-centered\n    text-align center\n\n.col-account-description-message\n    margin .5rem 0\n    p\n        margin .5rem 0\n",".col-account-description-title,\n.col-account-description-title-centered {\n  margin: 1.1rem 0 0.5rem;\n  font-size: 1.125rem;\n}\n.col-account-description-title-centered {\n  text-align: center;\n}\n.col-account-description-message {\n  margin: 0.5rem 0;\n}\n.col-account-description-message p {\n  margin: 0.5rem 0;\n}\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"col-account-description-title": "col-account-description-title--vVTHU",
+	"col-account-description-title-centered": "col-account-description-title-centered--32S1O",
+	"col-account-description-message": "col-account-description-message--ZyZtK"
+};
+
+/***/ }),
+
 /***/ "QxZi":
 /***/ (function(module) {
 
 module.exports = ["energy","insurance","isp","shopping","telecom","transport","banking","public_service"];
+
+/***/ }),
+
+/***/ "TEgB":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n.col-trigger-folder--3s1fX {\n  margin-top: 2rem;\n  position: relative;\n}\n.col-trigger-folder-link--2Fkdb {\n  color: var(--dodgerBlue);\n  text-decoration: none;\n  font-weight: bold;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n", "",{"version":3,"sources":["node_modules/cozy-ui/stylus/settings/palette.styl","triggerFolderLink.styl","src/styles/triggerFolderLink.styl"],"names":[],"mappings":"AAoBA;AACI;;;;;;;;;;;;;;KCNC;EDqBD,aAAgB;EAChB,mBAAgB;EAChB,iBAAgB;EAChB,mBAAgB;EAChB,oBAAgB;EAChB,uBAAgB;EAChB,aAAgB;EAChB,6BAAmC;AACnC;;;;;;;;;;;;KCRC;EDqBD,iBAAe;EACf,qBAAe;EACf,qBAAe;EACf,gBAAe;EACf,qBAAe;EACf,sBAAe;EACf,qBAAe;AACf;;;;;;;;;;KCVC;EDqBD,sBAAe;EACf,qBAAe;EACf,kBAAe;EACf,oBAAe;EACf,uBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,oBAAiB;EACjB,oBAAiB;EACjB,gBAAiB;EACjB,wBAAiB;EACjB,sBAAiB;EACjB,gBAAiB;AACjB;;;;;;;;;;KCVC;EDqBD,kBAAe;EACf,mBAAe;EACf,kBAAe;EACf,sBAAe;EACf,gBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,mBAAkB;EAClB,yBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,yBAAkB;EAClB,iBAAkB;AAElB;;;;;;KCfC;ADuBD;;;;;;;;;;KCZC;EDuBD,iCAA+B;EAC/B,4BAAoB;EACpB,8BAAsB;EACtB,+BAAuB;EACvB,wCAAsC;ACrB1C;ACpII;EACI,gBAAY;EACZ,kBAAY;ADsIpB;ACpIQ;EACI,wBAAsB;EACtB,qBAAgB;EAChB,iBAAY;EACZ,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;ADsIxB","file":"triggerFolderLink.styl","sourcesContent":["// @stylint off\n/*------------------------------------*\\\n  Palette\n  =====\n\\*------------------------------------*/\n/*\n    Settings\n\n    Weight: -10\n\n    Styleguide Settings\n*/\n\n/*\n    Colors\n\n    Colors used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n    Styleguide Settings.colors\n*/\n:root\n    /*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n    --white         #FFFFFF\n    --paleGrey      #F5F6F7\n    --silver        #D6D8Da\n    --coolGrey      #95999D\n    --slateGrey     #5D6165\n    --charcoalGrey  #32363F\n    --black         #000000\n    --overlay       rgba(50, 54, 63, .5)\n    /*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n    --zircon       #F5FAFF\n    --hawkesBlue   #EEF5FE\n    --frenchPass   #C2DCFF\n    --azure        #1FA8F1\n    --dodgerBlue   #297EF2\n    --scienceBlue  #0B61D6\n    --puertoRico   #0DCBCF\n    /*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n    --grannyApple  #DEF7E7\n    --weirdGreen   #40DE8E\n    --emerald      #35CE68\n    --malachite    #08b442\n    --seafoamGreen #3DA67E\n    /*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n    --brightSun      #FFC644\n    --texasRose      #FFAE5F\n    --mango          #FF962F\n    --pumpkinOrange  #FF7F1B\n    --blazeOrange    #FC6D00\n    --melon          #FD7461\n    /*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n    --chablis      #FFF2F2\n    --yourPink     #FDCBCB\n    --fushsia      #FC4C83\n    --pomegranate  #F52D2D\n    --monza        #DD0505\n    /*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n    --lavender        #C2ADF4\n    --darkPeriwinkle  #6984CE\n    --purpley         #7F6BEE\n    --portage         #9169F2\n    --lightishPurple  #B449E7\n    --barney          #922BC2\n\n    /*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n\n    /*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n    --primaryColor var(--dodgerBlue)\n    --primaryColorLight #5C9DF5 // lighten(dodgerBlue, 24)\n    --primaryColorLighter #4B93F7\n    --primaryColorLightest #9FC4FB\n    --primaryContrastTextColor var(--white)\n// @stylint on\n",":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n:local .col-trigger-folder {\n  margin-top: 2rem;\n  position: relative;\n}\n:local .col-trigger-folder-link {\n  color: var(--dodgerBlue);\n  text-decoration: none;\n  font-weight: bold;\n  display: flex;\n  align-items: center;\n}\n","@require 'settings/palette.styl'\n\n:local // @stylint ignore\n    .col-trigger-folder\n        margin-top  2rem\n        position    relative\n\n        &-link\n            color var(--dodgerBlue)\n            text-decoration none\n            font-weight bold\n            display flex\n            align-items center\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"col-trigger-folder": "col-trigger-folder--3s1fX",
+	"col-trigger-folder-link": "col-trigger-folder-link--2Fkdb"
+};
+
+/***/ }),
+
+/***/ "UGnq":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n.maintenance-intro--1-SbJ {\n  text-align: center;\n  color: var(--pomegranate);\n  margin: 1rem auto;\n}\n.maintenance-service--1ZZfz {\n  font-size: 1.125rem;\n}\n.maintenance-icon--2QHy- {\n  width: 6.25rem;\n  height: 6.25rem;\n  margin: 0 auto;\n  background: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZjkzMDB9LmNscy00e2ZpbGw6I2ZmZDc5OX08L3N0eWxlPjwvZGVmcz48ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04NCA4NS41aDN2LTQ4YTcuNSA3LjUgMCAwIDAtNy41LTcuNWgtNjNBNy41IDcuNSAwIDAgMCA5IDM3LjV2NDh6Ii8+PHBhdGggZD0iTTE2LjUgMzYuNzVBMS40OCAxLjQ4IDAgMCAwIDE1IDM4LjJ2NDIuMWExLjQ4IDEuNDggMCAwIDAgMS41IDEuNDVoNjNBMS40OCAxLjQ4IDAgMCAwIDgxIDgwLjNWMzguMmExLjQ4IDEuNDggMCAwIDAtMS41LTEuNDV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTkxLjUgODUuNWgtODdBMS41IDEuNSAwIDAgMCAzIDg3djEuNWE3LjUgNy41IDAgMCAwIDcuNSA3LjVoNzVhNy41IDcuNSAwIDAgMCA3LjUtNy41Vjg3YTEuNSAxLjUgMCAwIDAtMS41LTEuNXoiIGZpbGw9IiNmZjdmMWIiLz48cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0zNiAzMHYtOWgxMC41djE1aDNWMjFIODRhMS41IDEuNSAwIDAgMCAxLjA2LTIuNTZsLTEyLTEyYTEuNCAxLjQgMCAwIDAtLjQ0LS4yOS4zOS4zOSAwIDAgMC0uMTQtLjA1IDEuMjMgMS4yMyAwIDAgMC0uMzktLjFIMzZWMS41QTEuNSAxLjUgMCAwIDAgMzQuNSAwaC0xMkExLjUgMS41IDAgMCAwIDIxIDEuNVY2aC0zYTEuNSAxLjUgMCAwIDAtMS4wNi40NGwtMTIgMTJBMS41IDEuNSAwIDAgMCA2IDIxaDE1djl6bTM3LjUtMTguODhMODAuMzggMThINzMuNXpNNzAuNSA5djYuODhMNjMuNjIgOXptLTkgMi4xMkw2OC4zOCAxOEg2MS41ek01OC41IDl2Ni44OEw1MS42MiA5em0tOSAyLjEyTDU2LjM4IDE4SDQ5LjV6TTQ2LjUgOXY2Ljg4TDM5LjYyIDl6TTM2IDkuNjJMNDQuMzggMThIMzZ6TTIxIDE4SDkuNjJsOS05SDIxek01MC41MyA0Ny41OWwzLTMtMi4xMi0yLjEyTDQ4IDQ1Ljg4bC0yLjM4LTIuMzggMy40NC0zLjQ0QTEuNSAxLjUgMCAwIDAgNDkuNSAzOXYtM2gtM3YyLjM4bC00LjA2IDQuMDZhMS40OSAxLjQ5IDAgMCAwIDAgMi4xMmwzIDMtNi43MSAxMWg0LjM5bDQuODgtOC45IDUuNjkgOC44NGgzLjd6Ii8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDggNzguNmExMy41IDEzLjUgMCAxIDAtMTMuNS0xMy41QTEzLjQ5IDEzLjQ5IDAgMCAwIDQ4IDc4LjZ6Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI0OCIgY3k9IjYwLjk1IiByPSI1LjE5Ii8+PHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzguMjMgNzFhMTEuNDMgMTEuNDMgMCAwIDAgMTkuNTQgMCAuNTQuNTQgMCAwIDAtLjExLS4yNiA3LjM2IDcuMzYgMCAwIDAtNi0yLjU1aC03LjI5YTcuMzYgNy4zNiAwIDAgMC02IDIuNTUuNTQuNTQgMCAwIDAtLjExLjI2eiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI3IDEzLjVoM3YzaC0zeiIvPjwvZz48L3N2Zz4=\") 0 no-repeat;\n}\n", "",{"version":3,"sources":["node_modules/cozy-ui/stylus/settings/palette.styl","konnectorMaintenance.styl","src/styles/konnectorMaintenance.styl"],"names":[],"mappings":"AAoBA;AACI;;;;;;;;;;;;;;KCNC;EDqBD,aAAgB;EAChB,mBAAgB;EAChB,iBAAgB;EAChB,mBAAgB;EAChB,oBAAgB;EAChB,uBAAgB;EAChB,aAAgB;EAChB,6BAAmC;AACnC;;;;;;;;;;;;KCRC;EDqBD,iBAAe;EACf,qBAAe;EACf,qBAAe;EACf,gBAAe;EACf,qBAAe;EACf,sBAAe;EACf,qBAAe;AACf;;;;;;;;;;KCVC;EDqBD,sBAAe;EACf,qBAAe;EACf,kBAAe;EACf,oBAAe;EACf,uBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,oBAAiB;EACjB,oBAAiB;EACjB,gBAAiB;EACjB,wBAAiB;EACjB,sBAAiB;EACjB,gBAAiB;AACjB;;;;;;;;;;KCVC;EDqBD,kBAAe;EACf,mBAAe;EACf,kBAAe;EACf,sBAAe;EACf,gBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,mBAAkB;EAClB,yBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,yBAAkB;EAClB,iBAAkB;AAElB;;;;;;KCfC;ADuBD;;;;;;;;;;KCZC;EDuBD,iCAA+B;EAC/B,4BAAoB;EACpB,8BAAsB;EACtB,+BAAuB;EACvB,wCAAsC;ACrB1C;ACpII;EACI,kBAAW;EACX,yBAAuB;EACvB,iBAAO;ADsIf;ACpII;EACI,mBAAU;ADsIlB;ACpII;EACI,cAAM;EACN,eAAO;EACP,cAAO;EACP,i/DAA0D;ADsIlE","file":"konnectorMaintenance.styl","sourcesContent":["// @stylint off\n/*------------------------------------*\\\n  Palette\n  =====\n\\*------------------------------------*/\n/*\n    Settings\n\n    Weight: -10\n\n    Styleguide Settings\n*/\n\n/*\n    Colors\n\n    Colors used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n    Styleguide Settings.colors\n*/\n:root\n    /*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n    --white         #FFFFFF\n    --paleGrey      #F5F6F7\n    --silver        #D6D8Da\n    --coolGrey      #95999D\n    --slateGrey     #5D6165\n    --charcoalGrey  #32363F\n    --black         #000000\n    --overlay       rgba(50, 54, 63, .5)\n    /*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n    --zircon       #F5FAFF\n    --hawkesBlue   #EEF5FE\n    --frenchPass   #C2DCFF\n    --azure        #1FA8F1\n    --dodgerBlue   #297EF2\n    --scienceBlue  #0B61D6\n    --puertoRico   #0DCBCF\n    /*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n    --grannyApple  #DEF7E7\n    --weirdGreen   #40DE8E\n    --emerald      #35CE68\n    --malachite    #08b442\n    --seafoamGreen #3DA67E\n    /*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n    --brightSun      #FFC644\n    --texasRose      #FFAE5F\n    --mango          #FF962F\n    --pumpkinOrange  #FF7F1B\n    --blazeOrange    #FC6D00\n    --melon          #FD7461\n    /*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n    --chablis      #FFF2F2\n    --yourPink     #FDCBCB\n    --fushsia      #FC4C83\n    --pomegranate  #F52D2D\n    --monza        #DD0505\n    /*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n    --lavender        #C2ADF4\n    --darkPeriwinkle  #6984CE\n    --purpley         #7F6BEE\n    --portage         #9169F2\n    --lightishPurple  #B449E7\n    --barney          #922BC2\n\n    /*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n\n    /*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n    --primaryColor var(--dodgerBlue)\n    --primaryColorLight #5C9DF5 // lighten(dodgerBlue, 24)\n    --primaryColorLighter #4B93F7\n    --primaryColorLightest #9FC4FB\n    --primaryContrastTextColor var(--white)\n// @stylint on\n",":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n:local .maintenance-intro {\n  text-align: center;\n  color: var(--pomegranate);\n  margin: 1rem auto;\n}\n:local .maintenance-service {\n  font-size: 1.125rem;\n}\n:local .maintenance-icon {\n  width: 6.25rem;\n  height: 6.25rem;\n  margin: 0 auto;\n  background: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZjkzMDB9LmNscy00e2ZpbGw6I2ZmZDc5OX08L3N0eWxlPjwvZGVmcz48ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04NCA4NS41aDN2LTQ4YTcuNSA3LjUgMCAwIDAtNy41LTcuNWgtNjNBNy41IDcuNSAwIDAgMCA5IDM3LjV2NDh6Ii8+PHBhdGggZD0iTTE2LjUgMzYuNzVBMS40OCAxLjQ4IDAgMCAwIDE1IDM4LjJ2NDIuMWExLjQ4IDEuNDggMCAwIDAgMS41IDEuNDVoNjNBMS40OCAxLjQ4IDAgMCAwIDgxIDgwLjNWMzguMmExLjQ4IDEuNDggMCAwIDAtMS41LTEuNDV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTkxLjUgODUuNWgtODdBMS41IDEuNSAwIDAgMCAzIDg3djEuNWE3LjUgNy41IDAgMCAwIDcuNSA3LjVoNzVhNy41IDcuNSAwIDAgMCA3LjUtNy41Vjg3YTEuNSAxLjUgMCAwIDAtMS41LTEuNXoiIGZpbGw9IiNmZjdmMWIiLz48cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0zNiAzMHYtOWgxMC41djE1aDNWMjFIODRhMS41IDEuNSAwIDAgMCAxLjA2LTIuNTZsLTEyLTEyYTEuNCAxLjQgMCAwIDAtLjQ0LS4yOS4zOS4zOSAwIDAgMC0uMTQtLjA1IDEuMjMgMS4yMyAwIDAgMC0uMzktLjFIMzZWMS41QTEuNSAxLjUgMCAwIDAgMzQuNSAwaC0xMkExLjUgMS41IDAgMCAwIDIxIDEuNVY2aC0zYTEuNSAxLjUgMCAwIDAtMS4wNi40NGwtMTIgMTJBMS41IDEuNSAwIDAgMCA2IDIxaDE1djl6bTM3LjUtMTguODhMODAuMzggMThINzMuNXpNNzAuNSA5djYuODhMNjMuNjIgOXptLTkgMi4xMkw2OC4zOCAxOEg2MS41ek01OC41IDl2Ni44OEw1MS42MiA5em0tOSAyLjEyTDU2LjM4IDE4SDQ5LjV6TTQ2LjUgOXY2Ljg4TDM5LjYyIDl6TTM2IDkuNjJMNDQuMzggMThIMzZ6TTIxIDE4SDkuNjJsOS05SDIxek01MC41MyA0Ny41OWwzLTMtMi4xMi0yLjEyTDQ4IDQ1Ljg4bC0yLjM4LTIuMzggMy40NC0zLjQ0QTEuNSAxLjUgMCAwIDAgNDkuNSAzOXYtM2gtM3YyLjM4bC00LjA2IDQuMDZhMS40OSAxLjQ5IDAgMCAwIDAgMi4xMmwzIDMtNi43MSAxMWg0LjM5bDQuODgtOC45IDUuNjkgOC44NGgzLjd6Ii8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDggNzguNmExMy41IDEzLjUgMCAxIDAtMTMuNS0xMy41QTEzLjQ5IDEzLjQ5IDAgMCAwIDQ4IDc4LjZ6Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI0OCIgY3k9IjYwLjk1IiByPSI1LjE5Ii8+PHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzguMjMgNzFhMTEuNDMgMTEuNDMgMCAwIDAgMTkuNTQgMCAuNTQuNTQgMCAwIDAtLjExLS4yNiA3LjM2IDcuMzYgMCAwIDAtNi0yLjU1aC03LjI5YTcuMzYgNy4zNiAwIDAgMC02IDIuNTUuNTQuNTQgMCAwIDAtLjExLjI2eiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI3IDEzLjVoM3YzaC0zeiIvPjwvZz48L3N2Zz4=\") 0 no-repeat;\n}\n","@require 'settings/palette.styl'\n\n:local // @stylint ignore\n    .maintenance-intro\n        text-align center\n        color var(--pomegranate)\n        margin 1rem auto\n\n    .maintenance-service\n        font-size 1.125rem\n\n    .maintenance-icon\n        width 6.25rem\n        height 6.25rem\n        margin 0 auto\n        background embedurl('../assets/icons/icon-maintenance.svg') 0 no-repeat\n\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"maintenance-intro": "maintenance-intro--1-SbJ",
+	"maintenance-service": "maintenance-service--1ZZfz",
+	"maintenance-icon": "maintenance-icon--2QHy-"
+};
 
 /***/ }),
 
@@ -4661,7 +6057,7 @@ function _fetch() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
@@ -4687,6 +6083,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -4795,6 +6201,13 @@ function (_Component) {
         onTerminate: service.terminate
       }));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return IntentService;
@@ -4816,7 +6229,31 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(IntentService)));
+var _default = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(mapStateToProps, mapDispatchToProps)(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(IntentService));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(IntentService, "IntentService", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentService.jsx");
+  reactHotLoader.register(mapDispatchToProps, "mapDispatchToProps", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentService.jsx");
+  reactHotLoader.register(mapStateToProps, "mapStateToProps", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentService.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentService.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -4825,7 +6262,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("MVZn");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("MVZn");
 /* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
@@ -4852,6 +6289,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -4893,6 +6340,13 @@ var connect = function connect(mapDocumentsToProps) {
 
           return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(WrappedComponent, props);
         }
+      }, {
+        key: "__reactstandin__regenerateByEval",
+        // @ts-ignore
+        value: function __reactstandin__regenerateByEval(key, code) {
+          // @ts-ignore
+          this[key] = eval(code);
+        }
       }]);
 
       return Wrapper;
@@ -4931,7 +6385,42 @@ var connect = function connect(mapDocumentsToProps) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (connect);
+var _default = connect;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(connect, "connect", "/Users/cozy/code/cozy/cozy-home/src/lib/redux-cozy-client/connect.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/lib/redux-cozy-client/connect.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
+
+/***/ }),
+
+/***/ "a0/m":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, "h3 {\n  font-size: 1.5rem;\n  line-height: 1.5em;\n  margin: 0.667em 0;\n}\nh4 {\n  font-size: 1.25rem;\n  line-height: 1.5em;\n  margin: 1em 0;\n}\np {\n  font-size: 1rem;\n  line-height: 1.5rem;\n}\n.col-account-connection--3AgeF {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  width: 100%;\n}\n@media (max-width: 25rem) {\n  h4 {\n    font-size: 1.125rem;\n  }\n  p {\n    font-size: 0.875rem;\n  }\n}\n", "",{"version":3,"sources":["src/styles/accountConnection.styl","accountConnection.styl"],"names":[],"mappings":"AAGI;EACI,iBAAkB;EAClB,kBAAY;EACZ,iBAAY;ACFpB;ADII;EACI,kBAAkB;EAClB,kBAAY;EACZ,aAAY;ACFpB;ADII;EACI,eAAkB;EAClB,mBAAkB;ACF1B;ADII;EACI,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,4BAAe;EAAf,6BAAe;MAAf,0BAAe;UAAf,sBAAe;EACf,wBAAgB;MAAhB,qBAAgB;UAAhB,uBAAgB;EAChB,WAAM;ACFd;ADI+B;EACvB;IACI,mBAAkB;ECF5B;EDIM;IACI,mBAAkB;ECF5B;AACF","file":"accountConnection.styl","sourcesContent":["@require 'tools/mixins.styl'\n\n:local // @stylint ignore\n    h3\n        font-size   rem(24)\n        line-height 1.5em\n        margin      .667em 0\n\n    h4\n        font-size   rem(20)\n        line-height 1.5em\n        margin      1em 0\n\n    p\n        font-size   rem(16)\n        line-height rem(24)\n\n    .col-account-connection\n        display flex\n        flex-direction column\n        justify-content center\n        width 100%\n\n    @media (max-width: rem(400))\n        h4\n            font-size   rem(18)\n\n        p\n            font-size   rem(14)\n",":local h3 {\n  font-size: 1.5rem;\n  line-height: 1.5em;\n  margin: 0.667em 0;\n}\n:local h4 {\n  font-size: 1.25rem;\n  line-height: 1.5em;\n  margin: 1em 0;\n}\n:local p {\n  font-size: 1rem;\n  line-height: 1.5rem;\n}\n:local .col-account-connection {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: 100%;\n}\n@media (max-width: 25rem) {\n  :local h4 {\n    font-size: 1.125rem;\n  }\n  :local p {\n    font-size: 0.875rem;\n  }\n}\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"col-account-connection": "col-account-connection--3AgeF"
+};
 
 /***/ }),
 
@@ -4940,7 +6429,7 @@ var connect = function connect(mapDocumentsToProps) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateMessage", function() { return UpdateMessage; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateMessage", function() { return UpdateMessage; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
@@ -4972,6 +6461,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 /* global cozy */
 
@@ -5068,6 +6566,13 @@ function (_Component) {
         title: t('update.title')
       });
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return UpdateMessage;
@@ -5077,7 +6582,30 @@ UpdateMessage.propTypes = {
   isBlocking: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.bool,
   t: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(UpdateMessage));
+
+var _default = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_9__["translate"])()(UpdateMessage);
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(UpdateMessage, "UpdateMessage", "/Users/cozy/code/cozy/cozy-home/src/components/Banners/UpdateMessage.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/Banners/UpdateMessage.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -5215,7 +6743,7 @@ var getAccountsWithErrors = function getAccountsWithErrors(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("i8i4");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
@@ -5234,6 +6762,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var containers_IntentHandler__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("jpY6");
 /* harmony import */ var styles_intents_styl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("8EAv");
 /* harmony import */ var styles_intents_styl__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(styles_intents_styl__WEBPACK_IMPORTED_MODULE_11__);
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 /* global __DEVELOPMENT__ */
 
 
@@ -5303,6 +6840,27 @@ document.addEventListener('DOMContentLoaded', function () {
     appData: appData
   }))))), document.querySelector('[role=application]'));
 });
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(lang, "lang", "/Users/cozy/code/cozy/cozy-home/src/targets/intents/index.jsx");
+  reactHotLoader.register(context, "context", "/Users/cozy/code/cozy/cozy-home/src/targets/intents/index.jsx");
+  reactHotLoader.register(ACCOUNTS_DOCTYPE, "ACCOUNTS_DOCTYPE", "/Users/cozy/code/cozy/cozy-home/src/targets/intents/index.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -5311,7 +6869,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorHeaderIcon", function() { return KonnectorHeaderIcon; });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KonnectorHeaderIcon", function() { return KonnectorHeaderIcon; });
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
@@ -5334,6 +6892,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -5368,6 +6936,13 @@ function (_Component) {
         className: styles_konnectorHeaderIcon_styl__WEBPACK_IMPORTED_MODULE_9___default.a["col-konnector-header-icon".concat(center ? '--center' : '')]
       }));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return KonnectorHeaderIcon;
@@ -5377,23 +6952,161 @@ KonnectorHeaderIcon.propTypes = {
   konnector: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.object.isRequired,
   t: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func.isRequired
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_6__["translate"])()(KonnectorHeaderIcon));
+
+var _default = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_6__["translate"])()(KonnectorHeaderIcon);
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(KonnectorHeaderIcon, "KonnectorHeaderIcon", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorHeaderIcon.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/KonnectorHeaderIcon.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
 /***/ "gpME":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"col-konnector-header-icon-wrapper":"col-konnector-header-icon-wrapper--1oMyA","col-konnector-header-icon-wrapper--center":"col-konnector-header-icon-wrapper--center--3aLBw","col-konnector-header-icon":"col-konnector-header-icon--2Yxl_","col-konnector-header-icon--center":"col-konnector-header-icon--center--3rGkD"};
+
+var content = __webpack_require__("GdGx");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("GdGx", function() {
+		var newContent = __webpack_require__("GdGx");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
 /***/ "gwpp":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
-module.exports = {"col-account-connection":"col-account-connection--3AgeF"};
+
+var content = __webpack_require__("a0/m");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__("aET+")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept("a0/m", function() {
+		var newContent = __webpack_require__("a0/m");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "i3Xp":
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./log": "dZZH"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "i3Xp";
 
 /***/ }),
 
@@ -5448,6 +7161,31 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "iUaz";
+
+/***/ }),
+
+/***/ "j7c3":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("JPst")(true);
+// Module
+exports.push([module.i, ":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n.coz-form-controls--1gEYB, .coz-form-controls-success--1NQyf {\n  margin: 2rem 0 0.5rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.coz-form-controls--1gEYB .coz-btn--233oo, .coz-form-controls-success--1NQyf .coz-btn--233oo {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  width: 100%;\n}\n.coz-form-controls--1gEYB .coz-btn--233oo:first-of-type, .coz-form-controls-success--1NQyf .coz-btn--233oo:first-of-type {\n  margin-left: 0;\n}\n.coz-form-controls--1gEYB .coz-btn--233oo:last-of-type, .coz-form-controls-success--1NQyf .coz-btn--233oo:last-of-type {\n  margin-right: 0;\n}\n.coz-form-controls-success--1NQyf {\n  margin-top: 1rem;\n}\n.col-btn--regular--2N744 {\n  margin: 0;\n  font-size: 1rem;\n  height: 3rem;\n  width: 100%;\n}\n.col-account-form-success-buttons--1J36i {\n  margin: auto;\n}\n.col-account-form-success-buttons--1J36i button {\n  width: 100%;\n}\n.account-form-login--_w3tO .col-account-form-advanced-button--niE6T {\n  font-family: Lato, sans-serif;\n  cursor: pointer;\n  margin: 1rem 0 0;\n  font-size: 0.8em;\n  border: 0;\n  color: var(--dodgerBlue);\n  background-color: var(--white);\n  text-transform: uppercase;\n  font-weight: 700;\n  padding: 0.125rem;\n}\n.account-form-fieldset--3WD-X {\n  padding: 0;\n  border: 0;\n}\n.col-account-success--1NEI1 {\n  text-align: center;\n}\n.col-account-success-links--15Ii5 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.col-account-success-link--18QVL {\n  position: relative;\n  margin-top: 1rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  color: var(--dodgerBlue);\n  text-decoration: none;\n  font-weight: bold;\n  cursor: pointer;\n}\n.col-account-success-illu--RvZfy {\n  height: 7rem;\n  width: 7.5rem;\n}\n", "",{"version":3,"sources":["node_modules/cozy-ui/stylus/settings/palette.styl","konnectorSuccess.styl","src/styles/accountLoginForm.styl","src/styles/konnectorSuccess.styl"],"names":[],"mappings":"AAoBA;AACI;;;;;;;;;;;;;;KCNC;EDqBD,aAAgB;EAChB,mBAAgB;EAChB,iBAAgB;EAChB,mBAAgB;EAChB,oBAAgB;EAChB,uBAAgB;EAChB,aAAgB;EAChB,6BAAmC;AACnC;;;;;;;;;;;;KCRC;EDqBD,iBAAe;EACf,qBAAe;EACf,qBAAe;EACf,gBAAe;EACf,qBAAe;EACf,sBAAe;EACf,qBAAe;AACf;;;;;;;;;;KCVC;EDqBD,sBAAe;EACf,qBAAe;EACf,kBAAe;EACf,oBAAe;EACf,uBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,oBAAiB;EACjB,oBAAiB;EACjB,gBAAiB;EACjB,wBAAiB;EACjB,sBAAiB;EACjB,gBAAiB;AACjB;;;;;;;;;;KCVC;EDqBD,kBAAe;EACf,mBAAe;EACf,kBAAe;EACf,sBAAe;EACf,gBAAe;AACf;;;;;;;;;;;KCTC;EDqBD,mBAAkB;EAClB,yBAAkB;EAClB,kBAAkB;EAClB,kBAAkB;EAClB,yBAAkB;EAClB,iBAAkB;AAElB;;;;;;KCfC;ADuBD;;;;;;;;;;KCZC;EDuBD,iCAA+B;EAC/B,4BAAoB;EACpB,8BAAsB;EACtB,+BAAuB;EACvB,wCAAsC;ACrB1C;ACnII;EACI,qBAAa;EACb,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,mBAAU;MAAV,eAAU;ADsIlB;ACrIQ;EAEI,mBAAK;MAAL,kBAAK;UAAL,cAAK;EACL,WAAM;ADuIlB;ACrIY;EACI,cAAY;ADwI5B;ACtIY;EACI,eAAa;ADyI7B;ACvII;EACI,gBAAiB;ADyIzB;ACvII;EACI,SAAU;EACV,eAAgB;EAChB,YAAgB;EAChB,WAAU;ADyIlB;ACvII;EACI,YAAO;ADyIf;ACvIQ;EACI,WAAM;ADyIlB;ACtIQ;EACI,6BAAwB;EACxB,eAAoB;EACpB,gBAAoB;EACpB,gBAAoB;EACpB,SAAoB;EACpB,wBAAoC;EACpC,8BAA+B;EAC/B,yBAAoB;EACpB,gBAAoB;EACpB,iBAAoB;ADwIhC;ACtII;EACI,UAAU;EACV,SAAU;ADwIlB;AEvLA;EACI,kBAAW;AFyLf;AEvLA;EACI,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;EACZ,4BAAe;EAAf,6BAAe;MAAf,0BAAe;UAAf,sBAAe;AFyLnB;AEvLA;EACI,kBAAS;EACT,gBAAW;EACX,oBAAQ;EAAR,oBAAQ;EAAR,aAAQ;EACR,yBAAY;MAAZ,sBAAY;UAAZ,mBAAY;EACZ,wBAAsB;EACtB,qBAAgB;EAChB,iBAAY;EACZ,eAAO;AFyLX;AEvLA;EACI,YAAc;EACd,aAAa;AFyLjB","file":"konnectorSuccess.styl","sourcesContent":["// @stylint off\n/*------------------------------------*\\\n  Palette\n  =====\n\\*------------------------------------*/\n/*\n    Settings\n\n    Weight: -10\n\n    Styleguide Settings\n*/\n\n/*\n    Colors\n\n    Colors used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n    Styleguide Settings.colors\n*/\n:root\n    /*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n    --white         #FFFFFF\n    --paleGrey      #F5F6F7\n    --silver        #D6D8Da\n    --coolGrey      #95999D\n    --slateGrey     #5D6165\n    --charcoalGrey  #32363F\n    --black         #000000\n    --overlay       rgba(50, 54, 63, .5)\n    /*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n    --zircon       #F5FAFF\n    --hawkesBlue   #EEF5FE\n    --frenchPass   #C2DCFF\n    --azure        #1FA8F1\n    --dodgerBlue   #297EF2\n    --scienceBlue  #0B61D6\n    --puertoRico   #0DCBCF\n    /*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n    --grannyApple  #DEF7E7\n    --weirdGreen   #40DE8E\n    --emerald      #35CE68\n    --malachite    #08b442\n    --seafoamGreen #3DA67E\n    /*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n    --brightSun      #FFC644\n    --texasRose      #FFAE5F\n    --mango          #FF962F\n    --pumpkinOrange  #FF7F1B\n    --blazeOrange    #FC6D00\n    --melon          #FD7461\n    /*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n    --chablis      #FFF2F2\n    --yourPink     #FDCBCB\n    --fushsia      #FC4C83\n    --pomegranate  #F52D2D\n    --monza        #DD0505\n    /*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n    --lavender        #C2ADF4\n    --darkPeriwinkle  #6984CE\n    --purpley         #7F6BEE\n    --portage         #9169F2\n    --lightishPurple  #B449E7\n    --barney          #922BC2\n\n    /*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n\n    /*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n    --primaryColor var(--dodgerBlue)\n    --primaryColorLight #5C9DF5 // lighten(dodgerBlue, 24)\n    --primaryColorLighter #4B93F7\n    --primaryColorLightest #9FC4FB\n    --primaryContrastTextColor var(--white)\n// @stylint on\n",":root {\n/*\n    Grey\n\n    Stylus: white        -  #FFFFFF, CSS: var(--white)\n    Stylus: paleGrey     -  #F5F6F7, CSS: var(--paleGrey)\n    Stylus: silver       -  #D6D8Da, CSS: var(--silver)\n    Stylus: coolGrey     -  #95999D, CSS: var(--coolGrey)\n    Stylus: slateGrey    -  #5D6165, CSS: var(--slateGrey)\n    Stylus: charcoalGrey -  #32363F, CSS: var(--charcoalGrey)\n    Stylus: black        -  #000000, CSS: var(--black)\n\n    Weight: -1\n\n    Styleguide Settings.colors.grey\n    */\n  --white: #fff;\n  --paleGrey: #f5f6f7;\n  --silver: #d6d8da;\n  --coolGrey: #95999d;\n  --slateGrey: #5d6165;\n  --charcoalGrey: #32363f;\n  --black: #000;\n  --overlay: rgba(50,54,63,0.5);\n/*\n    Blue\n\n    Stylus: zircon       -  #F5FAFF, CSS: var(--zircon)\n    Stylus: hawkesBlue   -  #EEF5FE, CSS: var(--hawkesBlue)\n    Stylus: frenchPass   -  #C2DCFF, CSS: var(--frenchPass)\n    Stylus: azure        -  #1FA8F1, CSS: var(--azure)\n    Stylus: dodgerBlue   -  #297EF2, CSS: var(--dodgerBlue)\n    Stylus: scienceBlue  -  #0B61D6, CSS: var(--scienceBlue)\n    Stylus: puertoRico   -  #0DCBCF, CSS: var(--puertoRico)\n\n    Styleguide Settings.colors.blue\n    */\n  --zircon: #f5faff;\n  --hawkesBlue: #eef5fe;\n  --frenchPass: #c2dcff;\n  --azure: #1fa8f1;\n  --dodgerBlue: #297ef2;\n  --scienceBlue: #0b61d6;\n  --puertoRico: #0dcbcf;\n/*\n    Green\n\n    Stylus: grannyApple  - #DEF7E7, CSS: var(--grannyApple)\n    Stylus: weirdGreen   - #40DE8E, CSS: var(--weirdGreen)\n    Stylus: emerald      - #35CE68, CSS: var(--emerald)\n    Stylus: malachite    - #08b442, CSS: var(--malachite)\n    Stylus: seafoamGreen - #3DA67E, CSS: var(--seafoamGreen)\n\n    Styleguide Settings.colors.green\n    */\n  --grannyApple: #def7e7;\n  --weirdGreen: #40de8e;\n  --emerald: #35ce68;\n  --malachite: #08b442;\n  --seafoamGreen: #3da67e;\n/*\n    Orange\n\n    Stylus: brightSun     - #FFC644, CSS: var(--brightSun)\n    Stylus: texasRose     - #FFAE5F, CSS: var(--texasRose)\n    Stylus: mango         - #FF962F, CSS: var(--mango)\n    Stylus: pumpkinOrange - #FF7F1B, CSS: var(--pumpkinOrange)\n    Stylus: blazeOrange   - #FC6D00, CSS: var(--blazeOrange)\n    Stylus: melon         - #FD7461, CSS: var(--melon)\n\n    Styleguide Settings.colors.orange\n    */\n  --brightSun: #ffc644;\n  --texasRose: #ffae5f;\n  --mango: #ff962f;\n  --pumpkinOrange: #ff7f1b;\n  --blazeOrange: #fc6d00;\n  --melon: #fd7461;\n/*\n    Red\n\n    Stylus: chablis      - #FFF2F2, CSS: var(--chablis)\n    Stylus: yourPink     - #FDCBCB, CSS: var(--yourPink)\n    Stylus: fuchsia      - #FC4C83, CSS: var(--fuchsia)\n    Stylus: pomegranate  - #F52D2D, CSS: var(--pomegranate)\n    Stylus: monza        - #DD0505, CSS: var(--monza)\n\n    Styleguide Settings.colors.red\n    */\n  --chablis: #fff2f2;\n  --yourPink: #fdcbcb;\n  --fushsia: #fc4c83;\n  --pomegranate: #f52d2d;\n  --monza: #dd0505;\n/*\n    Purple\n\n    Stylus: lavender       - #C2ADF4, CSS: var(--lavender)\n    Stylus: darkPeriwinkle - #6984CE, CSS: var(--darkPeriwinkle)\n    Stylus: purpley        - #7F6BEE, CSS: var(--purpley)\n    Stylus: portage        - #9169F2, CSS: var(--portage)\n    Stylus: lightishPurple - #B449E7, CSS: var(--lightishPurple)\n    Stylus: barney         - #922BC2, CSS: var(--barney)\n\n    Styleguide Settings.colors.purple\n    */\n  --lavender: #c2adf4;\n  --darkPeriwinkle: #6984ce;\n  --purpley: #7f6bee;\n  --portage: #9169f2;\n  --lightishPurple: #b449e7;\n  --barney: #922bc2;\n/*\n        Theme\n\n        Colors theme used in the user interface. You can directly use the var name assiociated with its hexadecimal.\n\n        Styleguide Settings.theme\n    */\n/*\n    Primary\n\n    Stylus: primaryColor             - #297EF2, CSS: var(--primaryColor)\n    Stylus: primaryColorLight        - #5C9DF5, CSS: var(--primaryColorLight)\n    Stylus: primaryColorLighter      - #4B93F7, CSS: var(--primaryColorLighter)\n    Stylus: primaryColorLightest     - #9FC4FB, CSS: var(--primaryColorLightest)\n    Stylus: primaryContrastTextColor - #FFFFFF, CSS: var(--primaryContrastTextColor)\n\n    Styleguide Settings.theme.primary\n    */\n  --primaryColor: var(--dodgerBlue);\n  --primaryColorLight: #5c9df5;\n  --primaryColorLighter: #4b93f7;\n  --primaryColorLightest: #9fc4fb;\n  --primaryContrastTextColor: var(--white);\n}\n:local .coz-form-controls,\n:local .coz-form-controls-success {\n  margin: 2rem 0 0.5rem;\n  display: flex;\n  flex-wrap: wrap;\n}\n:local .coz-form-controls .coz-btn,\n:local .coz-form-controls-success .coz-btn {\n  flex: 1 0 auto;\n  width: 100%;\n}\n:local .coz-form-controls .coz-btn:first-of-type,\n:local .coz-form-controls-success .coz-btn:first-of-type {\n  margin-left: 0;\n}\n:local .coz-form-controls .coz-btn:last-of-type,\n:local .coz-form-controls-success .coz-btn:last-of-type {\n  margin-right: 0;\n}\n:local .coz-form-controls-success {\n  margin-top: 1rem;\n}\n:local .col-btn--regular {\n  margin: 0;\n  font-size: 1rem;\n  height: 3rem;\n  width: 100%;\n}\n:local .col-account-form-success-buttons {\n  margin: auto;\n}\n:local .col-account-form-success-buttons button {\n  width: 100%;\n}\n:local .account-form-login .col-account-form-advanced-button {\n  font-family: Lato, sans-serif;\n  cursor: pointer;\n  margin: 1rem 0 0;\n  font-size: 0.8em;\n  border: 0;\n  color: var(--dodgerBlue);\n  background-color: var(--white);\n  text-transform: uppercase;\n  font-weight: 700;\n  padding: 0.125rem;\n}\n:local .account-form-fieldset {\n  padding: 0;\n  border: 0;\n}\n.col-account-success {\n  text-align: center;\n}\n.col-account-success-links {\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n.col-account-success-link {\n  position: relative;\n  margin-top: 1rem;\n  display: flex;\n  align-items: center;\n  color: var(--dodgerBlue);\n  text-decoration: none;\n  font-weight: bold;\n  cursor: pointer;\n}\n.col-account-success-illu {\n  height: 7rem;\n  width: 7.5rem;\n}\n","@require 'tools/mixins.styl'\n@require 'settings/palette.styl'\n\n:local // @stylint ignore\n    .coz-form-controls, .coz-form-controls-success\n        margin rem(32) 0 rem(8)\n        display flex\n        flex-wrap wrap\n        .coz-btn\n            // Used to position progress bar\n            flex 1 0 auto\n            width 100%\n\n            &:first-of-type\n                margin-left 0\n\n            &:last-of-type\n                margin-right 0\n\n    .coz-form-controls-success\n        margin-top rem(16)\n\n    .col-btn--regular\n        margin    0\n        font-size rem(16)\n        height    rem(48)\n        width     100%\n\n    .col-account-form-success-buttons\n        margin auto\n\n        button\n            width 100%\n\n    .account-form-login\n        .col-account-form-advanced-button\n            font-family         Lato, sans-serif\n            cursor              pointer\n            margin              1rem 0 0\n            font-size           .8em\n            border              0\n            color               var(--dodgerBlue)\n            background-color    var(--white)\n            text-transform      uppercase\n            font-weight         700\n            padding             .125rem // Magic number to align button with form fields\n\n    .account-form-fieldset\n        padding   0\n        border    0\n","@require './accountLoginForm'\n\n.col-account-success\n    text-align center\n\n.col-account-success-links\n    display flex\n    align-items center\n    flex-direction column\n\n.col-account-success-link\n    position relative\n    margin-top 1rem\n    display flex\n    align-items center\n    color var(--dodgerBlue)\n    text-decoration none\n    font-weight bold\n    cursor pointer\n\n.col-account-success-illu\n    height rem(112)\n    width rem(120)\n"],"sourceRoot":""}]);
+
+// Exports
+exports.locals = {
+	"coz-form-controls": "coz-form-controls--1gEYB",
+	"coz-form-controls-success": "coz-form-controls-success--1NQyf",
+	"coz-btn": "coz-btn--233oo",
+	"col-btn--regular": "col-btn--regular--2N744",
+	"col-account-form-success-buttons": "col-account-form-success-buttons--1J36i",
+	"account-form-login": "account-form-login--_w3tO",
+	"col-account-form-advanced-button": "col-account-form-advanced-button--niE6T",
+	"account-form-fieldset": "account-form-fieldset--3WD-X",
+	"col-account-success": "col-account-success--1NEI1",
+	"col-account-success-links": "col-account-success-links--15Ii5",
+	"col-account-success-link": "col-account-success-link--18QVL",
+	"col-account-success-illu": "col-account-success-illu--RvZfy"
+};
 
 /***/ }),
 
@@ -5982,7 +7720,7 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
@@ -6005,6 +7743,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -6119,6 +7867,13 @@ function (_Component) {
         service: service
       }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(cozy_ui_react_Icon__WEBPACK_IMPORTED_MODULE_8__["Sprite"], null));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return IntentHandler;
@@ -6127,7 +7882,30 @@ function (_Component) {
 IntentHandler.contextTypes = {
   store: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.object
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(components_appEntryPoint__WEBPACK_IMPORTED_MODULE_10__["default"])(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_7__["translate"])()(IntentHandler)));
+
+var _default = Object(components_appEntryPoint__WEBPACK_IMPORTED_MODULE_10__["default"])(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_7__["translate"])()(IntentHandler));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(IntentHandler, "IntentHandler", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentHandler.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/containers/IntentHandler.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -6270,11 +8048,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("m+TH");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("m+TH");
 /* harmony import */ var ducks_accounts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("3dAU");
 /* harmony import */ var ducks_konnectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("uZd2");
 /* harmony import */ var ducks_jobs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("sR/t");
 /* harmony import */ var ducks_triggers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("rGvZ");
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 
 
 
@@ -6294,7 +8081,29 @@ var appEntryPoint = function appEntryPoint(WrappedComponent, selectData) {
   return Object(redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["cozyConnect"])(mapDocumentsToProps)(WrappedComponent, selectData);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (appEntryPoint);
+var _default = appEntryPoint;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(mapDocumentsToProps, "mapDocumentsToProps", "/Users/cozy/code/cozy/cozy-home/src/components/appEntryPoint.jsx");
+  reactHotLoader.register(appEntryPoint, "appEntryPoint", "/Users/cozy/code/cozy/cozy-home/src/components/appEntryPoint.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/appEntryPoint.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -7176,13 +8985,22 @@ var isSynced = function isSynced(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var cozy_ui_react_AppLinker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("sCMN");
 /* harmony import */ var cozy_ui_react_Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("y6ex");
 /* harmony import */ var cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("buk/");
 /* harmony import */ var styles_konnectorSuccess_styl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("4P+e");
 /* harmony import */ var styles_konnectorSuccess_styl__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styles_konnectorSuccess_styl__WEBPACK_IMPORTED_MODULE_4__);
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
 /* global cozy */
 
 
@@ -7224,7 +9042,28 @@ var BanksLink = Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_3__["translat
     icon: "openwith"
   }), t('account.success.banksLinkText'));
 });
-/* harmony default export */ __webpack_exports__["default"] = (BanksLink);
+var _default = BanksLink;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(BanksLink, "BanksLink", "/Users/cozy/code/cozy/cozy-home/src/components/BanksLink.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/BanksLink.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -7384,7 +9223,7 @@ var cozyMiddleware = function cozyMiddleware(client) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
@@ -7415,6 +9254,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -7560,6 +9409,13 @@ function (_Component) {
         successMessages: successMessages
       }));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return AccountConnection;
@@ -7585,7 +9441,31 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps, mapDispatchToProps)(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["withRouter"])(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_10__["translate"])()(AccountConnection))));
+var _default = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(mapStateToProps, mapDispatchToProps)(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["withRouter"])(Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_10__["translate"])()(AccountConnection)));
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(AccountConnection, "AccountConnection", "/Users/cozy/code/cozy/cozy-home/src/containers/AccountConnection.jsx");
+  reactHotLoader.register(mapStateToProps, "mapStateToProps", "/Users/cozy/code/cozy/cozy-home/src/containers/AccountConnection.jsx");
+  reactHotLoader.register(mapDispatchToProps, "mapDispatchToProps", "/Users/cozy/code/cozy/cozy-home/src/containers/AccountConnection.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/containers/AccountConnection.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ }),
 
@@ -7667,7 +9547,7 @@ webpackContext.id = "yMTE";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lwsE");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("W8MJ");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
@@ -7693,6 +9573,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
 
 
 
@@ -7749,6 +9639,13 @@ function (_Component) {
         handleConnectionSuccess: this.handleConnectionSuccess
       }));
     }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    // @ts-ignore
+    value: function __reactstandin__regenerateByEval(key, code) {
+      // @ts-ignore
+      this[key] = eval(code);
+    }
   }]);
 
   return CreateAccountIntent;
@@ -7757,7 +9654,28 @@ function (_Component) {
 CreateAccountIntent.contextTypes = {
   store: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object
 };
-/* harmony default export */ __webpack_exports__["default"] = (CreateAccountIntent);
+var _default = CreateAccountIntent;
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(CreateAccountIntent, "CreateAccountIntent", "/Users/cozy/code/cozy/cozy-home/src/components/intents/CreateAccountIntent.jsx");
+  reactHotLoader.register(_default, "default", "/Users/cozy/code/cozy/cozy-home/src/components/intents/CreateAccountIntent.jsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("3UD+")(module)))
 
 /***/ })
 
