@@ -8,6 +8,8 @@ import keys from 'lodash/keys'
 import flatten from 'lodash/flatten'
 
 import flag, { enable as enableFlags } from 'cozy-flags'
+import minilog from 'minilog'
+
 import Alerter from 'cozy-ui/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import { Main } from 'cozy-ui/react/Layout'
@@ -26,6 +28,7 @@ const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 
 window.flag = window.flag || flag
+window.minilog = minilog
 
 // TODO add this to cozy-flags ?
 export const toFlagNames = (flagName, prefix = '') => {
