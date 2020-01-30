@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import get from 'lodash/get'
 
+import { Q } from 'cozy-client'
+
 const useInstanceSettings = client => {
   const [settings, setSettings] = useState({})
   const [fetchStatus, setFetchStatus] = useState('idle')
@@ -10,7 +12,7 @@ const useInstanceSettings = client => {
       try {
         setFetchStatus('loading')
         const response = await client.query(
-          client.all('io.cozy.settings').getById('instance')
+          Q('io.cozy.settings').getById('instance')
         )
         setSettings(get(response, 'data.attributes'), {})
         setFetchStatus('loaded')
