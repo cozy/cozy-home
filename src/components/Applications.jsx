@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import { Query } from 'cozy-client'
+import { Query, Q } from 'cozy-client'
 import { translate } from 'cozy-ui/react/I18n'
 import flag from 'cozy-flags'
 
@@ -37,11 +37,7 @@ export class Applications extends PureComponent {
     const { receiveApps } = this.props
     return (
       <div className="app-list">
-        <Query
-          query={client => {
-            return client.all('io.cozy.apps')
-          }}
-        >
+        <Query query={() => Q('io.cozy.apps')}>
           {({ data, fetchStatus }) => {
             if (fetchStatus === 'loaded') {
               receiveApps(data)
