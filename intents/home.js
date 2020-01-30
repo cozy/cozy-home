@@ -312,33 +312,23 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DataAccessFacade; });
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("lwsE");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("W8MJ");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _adapters_CozyStackAdapter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("2hsQ");
-/* harmony import */ var _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("jPoV");
+/* harmony import */ var _adapters_CozyStackAdapter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2hsQ");
+/* harmony import */ var _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("jPoV");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-
-
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* global cozy, PouchDB */
 
  // const isOnline = () =>
 //   typeof navigator !== 'undefined' ? navigator.onLine : true
 
-var DataAccessFacade =
-/*#__PURE__*/
-function () {
-  function DataAccessFacade() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, DataAccessFacade);
-
-    this.stackAdapter = new _adapters_CozyStackAdapter__WEBPACK_IMPORTED_MODULE_3__["default"]();
+class DataAccessFacade {
+  constructor() {
+    this.stackAdapter = new _adapters_CozyStackAdapter__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
     if (typeof PouchDB !== 'undefined') {
-      this.pouchAdapter = new _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_4__["default"](); // TODO: strategy injection
+      this.pouchAdapter = new _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_1__["default"](); // TODO: strategy injection
 
       this.strategy = new PouchFirstStrategy();
     } else {
@@ -346,85 +336,55 @@ function () {
     }
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(DataAccessFacade, [{
-    key: "setup",
-    value: function setup(cozyUrl, options) {
-      var config = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default()({
-        cozyURL: cozyUrl
-      }, options);
+  setup(cozyUrl, options) {
+    const config = _objectSpread({
+      cozyURL: cozyUrl
+    }, options);
 
-      cozy.client.init(config); // TODO: For now we let cozy-client-js creates PouchDB instances
+    cozy.client.init(config); // TODO: For now we let cozy-client-js creates PouchDB instances
 
-      this.stackAdapter.init(config);
+    this.stackAdapter.init(config);
 
-      if (config.offline) {
-        this.pouchAdapter.registerDoctypes(config.offline.doctypes);
-      }
+    if (config.offline) {
+      this.pouchAdapter.registerDoctypes(config.offline.doctypes);
     }
-  }, {
-    key: "getAdapter",
-    value: function getAdapter(doctype) {
-      return this.strategy.getAdapter(doctype, this.stackAdapter, this.pouchAdapter);
-    }
-  }, {
-    key: "startSync",
-    value: function startSync(dispatch) {
-      return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_4__["SYNC_BIDIRECTIONAL"]);
-    }
-  }, {
-    key: "startReplicationTo",
-    value: function startReplicationTo(dispatch) {
-      return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_4__["SYNC_TO"]);
-    }
-  }, {
-    key: "startReplicationFrom",
-    value: function startReplicationFrom(dispatch) {
-      return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_4__["SYNC_FROM"]);
-    }
-  }]);
-
-  return DataAccessFacade;
-}();
-
-
-
-var PouchFirstStrategy =
-/*#__PURE__*/
-function () {
-  function PouchFirstStrategy() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, PouchFirstStrategy);
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(PouchFirstStrategy, [{
-    key: "getAdapter",
-    value: function getAdapter(doctype, stackAdapter, pouchAdapter) {
-      if (pouchAdapter.getDatabase(doctype) === undefined) {
-        return stackAdapter;
-      }
-
-      return pouchAdapter;
-    }
-  }]);
-
-  return PouchFirstStrategy;
-}();
-
-var StackOnlyStrategy =
-/*#__PURE__*/
-function () {
-  function StackOnlyStrategy() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, StackOnlyStrategy);
+  getAdapter(doctype) {
+    return this.strategy.getAdapter(doctype, this.stackAdapter, this.pouchAdapter);
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(StackOnlyStrategy, [{
-    key: "getAdapter",
-    value: function getAdapter(doctype, stackAdapter) {
+  startSync(dispatch) {
+    return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_1__["SYNC_BIDIRECTIONAL"]);
+  }
+
+  startReplicationTo(dispatch) {
+    return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_1__["SYNC_TO"]);
+  }
+
+  startReplicationFrom(dispatch) {
+    return this.pouchAdapter.sync(dispatch, _adapters_PouchdbAdapter__WEBPACK_IMPORTED_MODULE_1__["SYNC_FROM"]);
+  }
+
+}
+
+class PouchFirstStrategy {
+  getAdapter(doctype, stackAdapter, pouchAdapter) {
+    if (pouchAdapter.getDatabase(doctype) === undefined) {
       return stackAdapter;
     }
-  }]);
 
-  return StackOnlyStrategy;
-}();
+    return pouchAdapter;
+  }
+
+}
+
+class StackOnlyStrategy {
+  getAdapter(doctype, stackAdapter) {
+    return stackAdapter;
+  }
+
+}
 
 /***/ }),
 
@@ -435,12 +395,9 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveApps", function() { return receiveApps; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getApp", function() { return getApp; });
-var RECEIVE_APPS = 'RECEIVE_APPS';
+const RECEIVE_APPS = 'RECEIVE_APPS';
 
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_APPS:
       return action.apps || state;
@@ -452,20 +409,12 @@ var reducer = function reducer() {
 
 /* harmony default export */ __webpack_exports__["default"] = (reducer); // Action creators
 
-var receiveApps = function receiveApps(apps) {
-  return {
-    type: RECEIVE_APPS,
-    apps: apps
-  };
-}; // Selectors
+const receiveApps = apps => ({
+  type: RECEIVE_APPS,
+  apps
+}); // Selectors
 
-var getApp = function getApp() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var slug = arguments.length > 1 ? arguments[1] : undefined;
-  return state.find(function (app) {
-    return app.slug === slug;
-  });
-};
+const getApp = (state = [], slug) => state.find(app => app.slug === slug);
 
 /***/ }),
 
@@ -502,958 +451,371 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHARED_WITH_ME", function() { return SHARED_WITH_ME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHARED_WITH_OTHERS", function() { return SHARED_WITH_OTHERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CozyStackAdapter; });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("RIqP");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("lwsE");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("W8MJ");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_6__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-
-
-
-
-
-
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* global cozy */
-var FILES_DOCTYPE = 'io.cozy.files';
-var FETCH_LIMIT = 50;
-var SHARED_BY_LINK = 'sharedByLink';
-var SHARED_WITH_ME = 'sharedWithMe';
-var SHARED_WITH_OTHERS = 'sharedWithOthers';
-
-var CozyStackAdapter =
-/*#__PURE__*/
-function () {
-  function CozyStackAdapter() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_5___default()(this, CozyStackAdapter);
+const FILES_DOCTYPE = 'io.cozy.files';
+const FETCH_LIMIT = 50;
+const SHARED_BY_LINK = 'sharedByLink';
+const SHARED_WITH_ME = 'sharedWithMe';
+const SHARED_WITH_OTHERS = 'sharedWithOthers';
+class CozyStackAdapter {
+  async fetchApps(skip = 0) {
+    const {
+      data,
+      meta
+    } = await cozy.client.fetchJSON('GET', '/apps/', null, {
+      processJSONAPI: false
+    });
+    return {
+      data: data || [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    };
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_6___default()(CozyStackAdapter, [{
-    key: "fetchApps",
-    value: function () {
-      var _fetchApps = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee() {
-        var skip,
-            _ref,
-            data,
-            meta,
-            _args = arguments;
+  async fetchDocuments(doctype) {
+    // WARN: cozy-client-js lacks a cozy.data.findAll method that uses this route
+    try {
+      // WARN: if no document of this doctype exist, this route will return a 404,
+      // so we need to try/catch and return an empty response object in case of a 404
+      const resp = await cozy.client.fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`); // WARN: the JSON response from the stack is not homogenous with other routes (offset? rows? total_rows?)
+      // see https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#list-all-the-documents
+      // WARN: looks like this route returns something looking like a couchDB design doc, we need to filter it:
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                skip = _args.length > 0 && _args[0] !== undefined ? _args[0] : 0;
-                _context.next = 3;
-                return cozy.client.fetchJSON('GET', '/apps/', null, {
-                  processJSONAPI: false
-                });
+      const rows = resp.rows.filter(row => !row.doc.hasOwnProperty('views')); // we normalize the data (note that we add _type so that cozy.client.data.listReferencedFiles works...)
 
-              case 3:
-                _ref = _context.sent;
-                data = _ref.data;
-                meta = _ref.meta;
-                return _context.abrupt("return", {
-                  data: data || [],
-                  meta: meta,
-                  skip: skip,
-                  next: !!meta && meta.count > skip + FETCH_LIMIT
-                });
+      const docs = rows.map(row => Object.assign({}, row.doc, {
+        id: row.id,
+        _type: doctype
+      })); // we forge a correct JSONAPI response:
 
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function fetchApps() {
-        return _fetchApps.apply(this, arguments);
+      return {
+        data: docs,
+        meta: {
+          count: resp.total_rows
+        },
+        skip: resp.offset,
+        next: false
+      };
+    } catch (error) {
+      if (error.message.match(/not_found/)) {
+        return {
+          data: [],
+          meta: {
+            count: 0
+          },
+          skip: 0,
+          next: false
+        };
       }
 
-      return fetchApps;
-    }()
-  }, {
-    key: "fetchDocuments",
-    value: function () {
-      var _fetchDocuments = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee2(doctype) {
-        var resp, rows, docs;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return cozy.client.fetchJSON('GET', "/data/".concat(doctype, "/_all_docs?include_docs=true"));
-
-              case 3:
-                resp = _context2.sent;
-                // WARN: the JSON response from the stack is not homogenous with other routes (offset? rows? total_rows?)
-                // see https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#list-all-the-documents
-                // WARN: looks like this route returns something looking like a couchDB design doc, we need to filter it:
-                rows = resp.rows.filter(function (row) {
-                  return !row.doc.hasOwnProperty('views');
-                }); // we normalize the data (note that we add _type so that cozy.client.data.listReferencedFiles works...)
-
-                docs = rows.map(function (row) {
-                  return Object.assign({}, row.doc, {
-                    id: row.id,
-                    _type: doctype
-                  });
-                }); // we forge a correct JSONAPI response:
-
-                return _context2.abrupt("return", {
-                  data: docs,
-                  meta: {
-                    count: resp.total_rows
-                  },
-                  skip: resp.offset,
-                  next: false
-                });
-
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](0);
-
-                if (!_context2.t0.message.match(/not_found/)) {
-                  _context2.next = 13;
-                  break;
-                }
-
-                return _context2.abrupt("return", {
-                  data: [],
-                  meta: {
-                    count: 0
-                  },
-                  skip: 0,
-                  next: false
-                });
-
-              case 13:
-                throw _context2.t0;
-
-              case 14:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[0, 9]]);
-      }));
-
-      function fetchDocuments(_x) {
-        return _fetchDocuments.apply(this, arguments);
-      }
-
-      return fetchDocuments;
-    }()
-  }, {
-    key: "queryDocuments",
-    value: function () {
-      var _queryDocuments = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee3(doctype, index, options) {
-        var fields, skip, sort, queryOptions, data, meta, next, response, _response;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                fields = options.fields;
-                skip = options.skip || 0; // Mango wants an array of single-property-objects...
-
-                sort = options.sort ? index.fields.map(function (f) {
-                  return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, f, options.sort[f] || 'desc');
-                }) : undefined;
-                queryOptions = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({
-                  limit: FETCH_LIMIT,
-                  wholeResponse: true
-                }, options, {
-                  // TODO: type and class should not be necessary, it's just a temp fix for a stack bug
-                  fields: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(fields), ['_id', '_type', 'class']),
-                  skip: skip,
-                  sort: sort
-                }); // abstract away the format differences between query replies on the VFS versus the data API
-
-                if (!(doctype === FILES_DOCTYPE)) {
-                  _context3.next = 13;
-                  break;
-                }
-
-                _context3.next = 7;
-                return cozy.client.files.query(index, queryOptions);
-
-              case 7:
-                response = _context3.sent;
-                data = response.data.map(function (doc) {
-                  return Object.assign({
-                    _id: doc.id,
-                    _type: doctype
-                  }, doc, doc.attributes);
-                });
-                meta = response.meta;
-                next = meta.count > skip + FETCH_LIMIT;
-                _context3.next = 19;
-                break;
-
-              case 13:
-                _context3.next = 15;
-                return cozy.client.data.query(index, queryOptions);
-
-              case 15:
-                _response = _context3.sent;
-                data = _response.docs.map(function (doc) {
-                  return Object.assign({
-                    id: doc._id,
-                    _type: doctype
-                  }, doc);
-                });
-                meta = {};
-                next = _response.next;
-
-              case 19:
-                return _context3.abrupt("return", {
-                  data: data,
-                  meta: meta,
-                  next: next
-                });
-
-              case 20:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      function queryDocuments(_x2, _x3, _x4) {
-        return _queryDocuments.apply(this, arguments);
-      }
-
-      return queryDocuments;
-    }()
-  }, {
-    key: "fetchDocument",
-    value: function () {
-      var _fetchDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee4(doctype, id) {
-        var doc, normalized;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return cozy.client.data.find(doctype, id);
-
-              case 2:
-                doc = _context4.sent;
-                // we normalize again...
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, doc, {
-                  id: doc._id,
-                  _type: doc._type
-                });
-                return _context4.abrupt("return", {
-                  data: [normalized]
-                });
-
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      function fetchDocument(_x5, _x6) {
-        return _fetchDocument.apply(this, arguments);
-      }
-
-      return fetchDocument;
-    }()
-  }, {
-    key: "init",
-    value: function init(config) {
-      this.config = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, config);
+      throw error;
     }
-  }, {
-    key: "createDocument",
-    value: function () {
-      var _createDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee5(doctype, doc) {
-        var created, normalized;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return cozy.client.data.create(doctype, doc);
+  }
 
-              case 2:
-                created = _context5.sent;
-                // we forge a standard response with a 'data' property
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, created, {
-                  id: created._id,
-                  _type: doctype
-                });
-                return _context5.abrupt("return", {
-                  data: [normalized]
-                });
+  async queryDocuments(doctype, index, options) {
+    const fields = options.fields;
+    const skip = options.skip || 0; // Mango wants an array of single-property-objects...
 
-              case 5:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
+    const sort = options.sort ? index.fields.map(f => ({
+      [f]: options.sort[f] || 'desc'
+    })) : undefined;
 
-      function createDocument(_x7, _x8) {
-        return _createDocument.apply(this, arguments);
-      }
+    const queryOptions = _objectSpread({
+      limit: FETCH_LIMIT,
+      wholeResponse: true
+    }, options, {
+      // TODO: type and class should not be necessary, it's just a temp fix for a stack bug
+      fields: [...fields, '_id', '_type', 'class'],
+      skip,
+      sort
+    }); // abstract away the format differences between query replies on the VFS versus the data API
 
-      return createDocument;
-    }()
-  }, {
-    key: "createTrigger",
-    value: function () {
-      var _createTrigger = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee6(doc) {
-        var created, normalized;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.next = 2;
-                return cozy.client.fetchJSON('POST', '/jobs/triggers', {
-                  data: doc
-                });
 
-              case 2:
-                created = _context6.sent;
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, created, created.attributes, {
-                  id: created._id
-                });
-                return _context6.abrupt("return", {
-                  data: [normalized]
-                });
+    let data, meta, next;
 
-              case 5:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }));
+    if (doctype === FILES_DOCTYPE) {
+      const response = await cozy.client.files.query(index, queryOptions);
+      data = response.data.map(doc => Object.assign({
+        _id: doc.id,
+        _type: doctype
+      }, doc, doc.attributes));
+      meta = response.meta;
+      next = meta.count > skip + FETCH_LIMIT;
+    } else {
+      const response = await cozy.client.data.query(index, queryOptions);
+      data = response.docs.map(doc => Object.assign({
+        id: doc._id,
+        _type: doctype
+      }, doc));
+      meta = {};
+      next = response.next;
+    } // we forge a correct JSONAPI response:
 
-      function createTrigger(_x9) {
-        return _createTrigger.apply(this, arguments);
-      }
 
-      return createTrigger;
-    }()
-  }, {
-    key: "launchTrigger",
-    value: function () {
-      var _launchTrigger = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee7(doc) {
-        var job, normalized;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _context7.next = 2;
-                return cozy.client.fetchJSON('POST', "/jobs/triggers/".concat(doc._id, "/launch"));
+    return {
+      data,
+      meta,
+      next
+    };
+  }
 
-              case 2:
-                job = _context7.sent;
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, job, job.attributes, {
-                  id: job._id
-                });
-                return _context7.abrupt("return", {
-                  data: [normalized]
-                });
+  async fetchDocument(doctype, id) {
+    const doc = await cozy.client.data.find(doctype, id); // we normalize again...
 
-              case 5:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      }));
+    const normalized = _objectSpread({}, doc, {
+      id: doc._id,
+      _type: doc._type
+    });
 
-      function launchTrigger(_x10) {
-        return _launchTrigger.apply(this, arguments);
-      }
+    return {
+      data: [normalized]
+    };
+  }
 
-      return launchTrigger;
-    }()
-  }, {
-    key: "updateDocument",
-    value: function () {
-      var _updateDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee8(doc) {
-        var updated;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                _context8.next = 2;
-                return cozy.client.data.updateAttributes(doc._type, doc.id, doc);
+  init(config) {
+    this.config = _objectSpread({}, config);
+  }
 
-              case 2:
-                updated = _context8.sent;
-                return _context8.abrupt("return", {
-                  data: [_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, doc, {
-                    _rev: updated._rev
-                  })]
-                });
+  async createDocument(doctype, doc) {
+    const created = await cozy.client.data.create(doctype, doc); // we forge a standard response with a 'data' property
 
-              case 4:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8);
-      }));
+    const normalized = _objectSpread({}, created, {
+      id: created._id,
+      _type: doctype
+    });
 
-      function updateDocument(_x11) {
-        return _updateDocument.apply(this, arguments);
-      }
+    return {
+      data: [normalized]
+    };
+  }
 
-      return updateDocument;
-    }()
-  }, {
-    key: "deleteDocument",
-    value: function () {
-      var _deleteDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee9(doc) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                _context9.next = 2;
-                return cozy.client.data.delete(doc._type, doc);
+  async createTrigger(doc) {
+    const created = await cozy.client.fetchJSON('POST', '/jobs/triggers', {
+      data: doc
+    });
 
-              case 2:
-                return _context9.abrupt("return", {
-                  data: [doc]
-                });
+    const normalized = _objectSpread({}, created, created.attributes, {
+      id: created._id
+    });
 
-              case 3:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9);
-      }));
+    return {
+      data: [normalized]
+    };
+  }
 
-      function deleteDocument(_x12) {
-        return _deleteDocument.apply(this, arguments);
-      }
+  async launchTrigger(doc) {
+    const job = await cozy.client.fetchJSON('POST', `/jobs/triggers/${doc._id}/launch`);
 
-      return deleteDocument;
-    }()
-  }, {
-    key: "deleteTrigger",
-    value: function () {
-      var _deleteTrigger = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee10(doc) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                _context10.next = 2;
-                return cozy.client.fetchJSON('DELETE', "/jobs/triggers/".concat(doc._id));
+    const normalized = _objectSpread({}, job, job.attributes, {
+      id: job._id
+    });
 
-              case 2:
-                return _context10.abrupt("return", {
-                  data: [doc]
-                });
+    return {
+      data: [normalized]
+    };
+  }
 
-              case 3:
-              case "end":
-                return _context10.stop();
-            }
-          }
-        }, _callee10);
-      }));
+  async updateDocument(doc) {
+    const updated = await cozy.client.data.updateAttributes(doc._type, doc.id, doc); // we forge a standard response with a 'data' property
 
-      function deleteTrigger(_x13) {
-        return _deleteTrigger.apply(this, arguments);
-      }
+    return {
+      data: [_objectSpread({}, doc, {
+        _rev: updated._rev
+      })]
+    };
+  }
 
-      return deleteTrigger;
-    }()
-  }, {
-    key: "createIndex",
-    value: function createIndex(doctype, fields) {
-      return cozy.client.data.defineIndex(doctype, fields);
+  async deleteDocument(doc) {
+    /* const deleted = */
+    await cozy.client.data.delete(doc._type, doc); // we forge a standard response with a 'data' property
+
+    return {
+      data: [doc]
+    };
+  }
+
+  async deleteTrigger(doc) {
+    await cozy.client.fetchJSON('DELETE', `/jobs/triggers/${doc._id}`);
+    return {
+      data: [doc]
+    };
+  }
+
+  createIndex(doctype, fields) {
+    return cozy.client.data.defineIndex(doctype, fields);
+  }
+
+  async fetchFileByPath(path) {
+    try {
+      const file = await cozy.client.files.statByPath(path); // we forge a standard response with a 'data' property
+
+      return {
+        data: [normalizeFile(file)]
+      };
+    } catch (err) {
+      return null;
     }
-  }, {
-    key: "fetchFileByPath",
-    value: function () {
-      var _fetchFileByPath = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee11(path) {
-        var file;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee11$(_context11) {
-          while (1) {
-            switch (_context11.prev = _context11.next) {
-              case 0:
-                _context11.prev = 0;
-                _context11.next = 3;
-                return cozy.client.files.statByPath(path);
+  }
 
-              case 3:
-                file = _context11.sent;
-                return _context11.abrupt("return", {
-                  data: [normalizeFile(file)]
-                });
+  async createFile(file, dirID) {
+    const created = await cozy.client.files.create(file, {
+      dirID
+    }); // we forge a standard response with a 'data' property
 
-              case 7:
-                _context11.prev = 7;
-                _context11.t0 = _context11["catch"](0);
-                return _context11.abrupt("return", null);
+    return {
+      data: [normalizeFile(created)]
+    };
+  }
 
-              case 10:
-              case "end":
-                return _context11.stop();
-            }
-          }
-        }, _callee11, null, [[0, 7]]);
-      }));
+  async trashFile(file) {
+    /* const trashed = */
+    cozy.client.files.trashById(file.id); // we forge a standard response with a 'data' property
 
-      function fetchFileByPath(_x14) {
-        return _fetchFileByPath.apply(this, arguments);
-      }
+    return {
+      data: [file]
+    };
+  }
 
-      return fetchFileByPath;
-    }()
-  }, {
-    key: "createFile",
-    value: function () {
-      var _createFile = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee12(file, dirID) {
-        var created;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee12$(_context12) {
-          while (1) {
-            switch (_context12.prev = _context12.next) {
-              case 0:
-                _context12.next = 2;
-                return cozy.client.files.create(file, {
-                  dirID: dirID
-                });
+  async fetchReferencedFiles(doc, skip = 0) {
+    // WARN: _type and _id are needed by cozy.client.data.fetchReferencedFiles
+    const normalized = _objectSpread({}, doc, {
+      _id: doc.id
+    }); // WARN: the stack API is probably not ideal here: referencedFiles are in the 'included' property
+    // (that should be used when fetching an entity AND its relations) and the 'data' property
+    // only contains uplets { id, type }
 
-              case 2:
-                created = _context12.sent;
-                return _context12.abrupt("return", {
-                  data: [normalizeFile(created)]
-                });
 
-              case 4:
-              case "end":
-                return _context12.stop();
-            }
-          }
-        }, _callee12);
-      }));
+    const {
+      included,
+      meta
+    } = await cozy.client.data.fetchReferencedFiles(normalized, {
+      skip,
+      limit: FETCH_LIMIT
+    }); // we forge a standard response with a 'data' property
 
-      function createFile(_x15, _x16) {
-        return _createFile.apply(this, arguments);
-      }
+    return {
+      data: !included ? [] : included.map(file => _objectSpread({}, file, file.attributes, {
+        _type: 'io.cozy.files'
+      })),
+      meta,
+      next: meta.count > skip + FETCH_LIMIT,
+      skip
+    };
+  }
 
-      return createFile;
-    }()
-  }, {
-    key: "trashFile",
-    value: function () {
-      var _trashFile = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee13(file) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee13$(_context13) {
-          while (1) {
-            switch (_context13.prev = _context13.next) {
-              case 0:
-                /* const trashed = */
-                cozy.client.files.trashById(file.id); // we forge a standard response with a 'data' property
+  async fetchKonnectors(skip = 0) {
+    const {
+      data,
+      meta
+    } = await cozy.client.fetchJSON('GET', `/konnectors/`, null, {
+      processJSONAPI: false
+    });
+    return {
+      data: data ? data.map(konnector => _objectSpread({}, konnector, konnector.attributes, {
+        _type: 'io.cozy.konnectors'
+      })) : [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    };
+  }
 
-                return _context13.abrupt("return", {
-                  data: [file]
-                });
+  async fetchTriggers(worker, skip = 0) {
+    const {
+      data,
+      meta
+    } = await cozy.client.fetchJSON('GET', `/jobs/triggers?Worker=${worker}`, null, {
+      processJSONAPI: false
+    });
+    return {
+      data: data ? data.map(trigger => _objectSpread({}, trigger, trigger.attributes, {
+        _type: 'io.cozy.triggers'
+      })) : [],
+      meta: meta,
+      skip,
+      next: !!meta && meta.count > skip + FETCH_LIMIT
+    };
+  }
 
-              case 2:
-              case "end":
-                return _context13.stop();
-            }
-          }
-        }, _callee13);
-      }));
+  async addReferencedFiles(doc, ids) {
+    await cozy.client.data.addReferencedFiles(doc, ids);
+    return ids;
+  }
 
-      function trashFile(_x17) {
-        return _trashFile.apply(this, arguments);
-      }
+  async removeReferencedFiles(doc, ids) {
+    // WARN: _type and _id are needed by cozy.client.data.removeReferencedFiles
+    const normalized = _objectSpread({}, doc, {
+      _id: doc.id
+    });
 
-      return trashFile;
-    }()
-  }, {
-    key: "fetchReferencedFiles",
-    value: function () {
-      var _fetchReferencedFiles = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee14(doc) {
-        var skip,
-            normalized,
-            _ref3,
-            included,
-            meta,
-            _args14 = arguments;
+    await cozy.client.data.removeReferencedFiles(normalized, ids);
+    return ids;
+  }
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee14$(_context14) {
-          while (1) {
-            switch (_context14.prev = _context14.next) {
-              case 0:
-                skip = _args14.length > 1 && _args14[1] !== undefined ? _args14[1] : 0;
-                // WARN: _type and _id are needed by cozy.client.data.fetchReferencedFiles
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, doc, {
-                  _id: doc.id
-                }); // WARN: the stack API is probably not ideal here: referencedFiles are in the 'included' property
-                // (that should be used when fetching an entity AND its relations) and the 'data' property
-                // only contains uplets { id, type }
+  async fetchSharingPermissions(doctype) {
+    const fetchPermissions = (doctype, sharingType) => cozy.client.fetchJSON('GET', `/permissions/doctype/${doctype}/${sharingType}`);
 
-                _context14.next = 4;
-                return cozy.client.data.fetchReferencedFiles(normalized, {
-                  skip: skip,
-                  limit: FETCH_LIMIT
-                });
+    const byMe = await fetchPermissions(doctype, SHARED_WITH_OTHERS);
+    const byLink = await fetchPermissions(doctype, SHARED_BY_LINK);
+    const withMe = await fetchPermissions(doctype, SHARED_WITH_ME);
+    return {
+      byMe,
+      byLink,
+      withMe
+    };
+  }
 
-              case 4:
-                _ref3 = _context14.sent;
-                included = _ref3.included;
-                meta = _ref3.meta;
-                return _context14.abrupt("return", {
-                  data: !included ? [] : included.map(function (file) {
-                    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, file, file.attributes, {
-                      _type: 'io.cozy.files'
-                    });
-                  }),
-                  meta: meta,
-                  next: meta.count > skip + FETCH_LIMIT,
-                  skip: skip
-                });
+  fetchSharing(id) {
+    return cozy.client.fetchJSON('GET', `/sharings/${id}`);
+  }
 
-              case 8:
-              case "end":
-                return _context14.stop();
-            }
-          }
-        }, _callee14);
-      }));
-
-      function fetchReferencedFiles(_x18) {
-        return _fetchReferencedFiles.apply(this, arguments);
-      }
-
-      return fetchReferencedFiles;
-    }()
-  }, {
-    key: "fetchKonnectors",
-    value: function () {
-      var _fetchKonnectors = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee15() {
-        var skip,
-            _ref4,
-            data,
-            meta,
-            _args15 = arguments;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee15$(_context15) {
-          while (1) {
-            switch (_context15.prev = _context15.next) {
-              case 0:
-                skip = _args15.length > 0 && _args15[0] !== undefined ? _args15[0] : 0;
-                _context15.next = 3;
-                return cozy.client.fetchJSON('GET', "/konnectors/", null, {
-                  processJSONAPI: false
-                });
-
-              case 3:
-                _ref4 = _context15.sent;
-                data = _ref4.data;
-                meta = _ref4.meta;
-                return _context15.abrupt("return", {
-                  data: data ? data.map(function (konnector) {
-                    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, konnector, konnector.attributes, {
-                      _type: 'io.cozy.konnectors'
-                    });
-                  }) : [],
-                  meta: meta,
-                  skip: skip,
-                  next: !!meta && meta.count > skip + FETCH_LIMIT
-                });
-
-              case 7:
-              case "end":
-                return _context15.stop();
-            }
-          }
-        }, _callee15);
-      }));
-
-      function fetchKonnectors() {
-        return _fetchKonnectors.apply(this, arguments);
-      }
-
-      return fetchKonnectors;
-    }()
-  }, {
-    key: "fetchTriggers",
-    value: function () {
-      var _fetchTriggers = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee16(worker) {
-        var skip,
-            _ref5,
-            data,
-            meta,
-            _args16 = arguments;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee16$(_context16) {
-          while (1) {
-            switch (_context16.prev = _context16.next) {
-              case 0:
-                skip = _args16.length > 1 && _args16[1] !== undefined ? _args16[1] : 0;
-                _context16.next = 3;
-                return cozy.client.fetchJSON('GET', "/jobs/triggers?Worker=".concat(worker), null, {
-                  processJSONAPI: false
-                });
-
-              case 3:
-                _ref5 = _context16.sent;
-                data = _ref5.data;
-                meta = _ref5.meta;
-                return _context16.abrupt("return", {
-                  data: data ? data.map(function (trigger) {
-                    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, trigger, trigger.attributes, {
-                      _type: 'io.cozy.triggers'
-                    });
-                  }) : [],
-                  meta: meta,
-                  skip: skip,
-                  next: !!meta && meta.count > skip + FETCH_LIMIT
-                });
-
-              case 7:
-              case "end":
-                return _context16.stop();
-            }
-          }
-        }, _callee16);
-      }));
-
-      function fetchTriggers(_x19) {
-        return _fetchTriggers.apply(this, arguments);
-      }
-
-      return fetchTriggers;
-    }()
-  }, {
-    key: "addReferencedFiles",
-    value: function () {
-      var _addReferencedFiles = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee17(doc, ids) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee17$(_context17) {
-          while (1) {
-            switch (_context17.prev = _context17.next) {
-              case 0:
-                _context17.next = 2;
-                return cozy.client.data.addReferencedFiles(doc, ids);
-
-              case 2:
-                return _context17.abrupt("return", ids);
-
-              case 3:
-              case "end":
-                return _context17.stop();
-            }
-          }
-        }, _callee17);
-      }));
-
-      function addReferencedFiles(_x20, _x21) {
-        return _addReferencedFiles.apply(this, arguments);
-      }
-
-      return addReferencedFiles;
-    }()
-  }, {
-    key: "removeReferencedFiles",
-    value: function () {
-      var _removeReferencedFiles = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee18(doc, ids) {
-        var normalized;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee18$(_context18) {
-          while (1) {
-            switch (_context18.prev = _context18.next) {
-              case 0:
-                // WARN: _type and _id are needed by cozy.client.data.removeReferencedFiles
-                normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, doc, {
-                  _id: doc.id
-                });
-                _context18.next = 3;
-                return cozy.client.data.removeReferencedFiles(normalized, ids);
-
-              case 3:
-                return _context18.abrupt("return", ids);
-
-              case 4:
-              case "end":
-                return _context18.stop();
-            }
-          }
-        }, _callee18);
-      }));
-
-      function removeReferencedFiles(_x22, _x23) {
-        return _removeReferencedFiles.apply(this, arguments);
-      }
-
-      return removeReferencedFiles;
-    }()
-  }, {
-    key: "fetchSharingPermissions",
-    value: function () {
-      var _fetchSharingPermissions = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee19(doctype) {
-        var fetchPermissions, byMe, byLink, withMe;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee19$(_context19) {
-          while (1) {
-            switch (_context19.prev = _context19.next) {
-              case 0:
-                fetchPermissions = function fetchPermissions(doctype, sharingType) {
-                  return cozy.client.fetchJSON('GET', "/permissions/doctype/".concat(doctype, "/").concat(sharingType));
-                };
-
-                _context19.next = 3;
-                return fetchPermissions(doctype, SHARED_WITH_OTHERS);
-
-              case 3:
-                byMe = _context19.sent;
-                _context19.next = 6;
-                return fetchPermissions(doctype, SHARED_BY_LINK);
-
-              case 6:
-                byLink = _context19.sent;
-                _context19.next = 9;
-                return fetchPermissions(doctype, SHARED_WITH_ME);
-
-              case 9:
-                withMe = _context19.sent;
-                return _context19.abrupt("return", {
-                  byMe: byMe,
-                  byLink: byLink,
-                  withMe: withMe
-                });
-
-              case 11:
-              case "end":
-                return _context19.stop();
-            }
-          }
-        }, _callee19);
-      }));
-
-      function fetchSharingPermissions(_x24) {
-        return _fetchSharingPermissions.apply(this, arguments);
-      }
-
-      return fetchSharingPermissions;
-    }()
-  }, {
-    key: "fetchSharing",
-    value: function fetchSharing(id) {
-      return cozy.client.fetchJSON('GET', "/sharings/".concat(id));
-    }
-  }, {
-    key: "createSharing",
-    value: function createSharing(permissions, contactIds, sharingType, description) {
-      return cozy.client.fetchJSON('POST', '/sharings/', {
-        desc: description,
-        permissions: permissions,
-        recipients: contactIds.map(function (contactId) {
-          return {
-            recipient: {
-              id: contactId,
-              type: 'io.cozy.contacts'
-            }
-          };
-        }),
-        sharing_type: sharingType
-      });
-    }
-  }, {
-    key: "revokeSharing",
-    value: function revokeSharing(sharingId) {
-      return cozy.client.fetchJSON('DELETE', "/sharings/".concat(sharingId));
-    }
-  }, {
-    key: "revokeSharingForClient",
-    value: function revokeSharingForClient(sharingId, clientId) {
-      return cozy.client.fetchJSON('DELETE', "/sharings/".concat(sharingId, "/recipient/").concat(clientId));
-    }
-  }, {
-    key: "createSharingLink",
-    value: function createSharingLink(permissions) {
-      return cozy.client.fetchJSON('POST', "/permissions?codes=email", {
-        data: {
-          type: 'io.cozy.permissions',
-          attributes: {
-            permissions: permissions
-          }
+  createSharing(permissions, contactIds, sharingType, description) {
+    return cozy.client.fetchJSON('POST', '/sharings/', {
+      desc: description,
+      permissions,
+      recipients: contactIds.map(contactId => ({
+        recipient: {
+          id: contactId,
+          type: 'io.cozy.contacts'
         }
-      });
-    }
-  }, {
-    key: "revokeSharingLink",
-    value: function revokeSharingLink(permission) {
-      return cozy.client.fetchJSON('DELETE', "/permissions/".concat(permission._id));
-    }
-  }]);
+      })),
+      sharing_type: sharingType
+    });
+  }
 
-  return CozyStackAdapter;
-}();
+  revokeSharing(sharingId) {
+    return cozy.client.fetchJSON('DELETE', `/sharings/${sharingId}`);
+  }
 
+  revokeSharingForClient(sharingId, clientId) {
+    return cozy.client.fetchJSON('DELETE', `/sharings/${sharingId}/recipient/${clientId}`);
+  }
 
+  createSharingLink(permissions) {
+    return cozy.client.fetchJSON('POST', `/permissions?codes=email`, {
+      data: {
+        type: 'io.cozy.permissions',
+        attributes: {
+          permissions
+        }
+      }
+    });
+  }
 
-var normalizeFile = function normalizeFile(file) {
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, file, file.attributes, {
-    id: file._id
-  });
-};
+  revokeSharingLink(permission) {
+    return cozy.client.fetchJSON('DELETE', `/permissions/${permission._id}`);
+  }
+
+}
+
+const normalizeFile = file => _objectSpread({}, file, file.attributes, {
+  id: file._id
+});
 
 /***/ }),
 
@@ -1475,29 +837,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIds", function() { return getIds; });
 /* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("m+TH");
 
-var DOCTYPE = 'io.cozy.accounts';
-var accountCollectionKey = 'accounts';
-var fetchAccounts = function fetchAccounts() {
-  return Object(redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["fetchCollection"])(accountCollectionKey, DOCTYPE);
-}; // selectors
+const DOCTYPE = 'io.cozy.accounts';
+const accountCollectionKey = 'accounts';
+const fetchAccounts = () => Object(redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["fetchCollection"])(accountCollectionKey, DOCTYPE); // selectors
 
-var getAccount = function getAccount(state, id) {
+const getAccount = (state, id) => {
   if (!state.documents || !state.documents[DOCTYPE]) {
     return null;
   }
 
   return state.documents[DOCTYPE][id];
 };
-var getIds = function getIds(state) {
-  return (// state.collection is bugged, it does not update correctly id list on
-    // RECEIVE_DATA
-    // (state.collections &&
-    //   state.collections[accountCollectionKey] &&
-    //   state.collections[accountCollectionKey].ids) ||
-    // []
-    state.documents && state.documents[DOCTYPE] && Object.keys(state.documents[DOCTYPE]) || []
-  );
-};
+const getIds = state => // state.collection is bugged, it does not update correctly id list on
+// RECEIVE_DATA
+// (state.collections &&
+//   state.collections[accountCollectionKey] &&
+//   state.collections[accountCollectionKey].ids) ||
+// []
+state.documents && state.documents[DOCTYPE] && Object.keys(state.documents[DOCTYPE]) || [];
 
 /***/ }),
 
@@ -1583,20 +940,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isConnectionConnected", function() { return isConnectionConnected; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isConnectionEnqueued", function() { return isConnectionEnqueued; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isConnectionRunning", function() { return isConnectionRunning; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("fvjX");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("wd/R");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("Puqe");
-/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("mwIZ");
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var lib_konnectors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("8CvS");
-/* harmony import */ var ducks_jobs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("sR/t");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fvjX");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("wd/R");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Puqe");
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("mwIZ");
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lib_konnectors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CvS");
+/* harmony import */ var ducks_jobs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("sR/t");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -1605,37 +960,28 @@ __webpack_require__.r(__webpack_exports__);
 
  // constant
 
-var ACCOUNT_DOCTYPE = 'io.cozy.accounts';
-var TRIGGERS_DOCTYPE = 'io.cozy.triggers';
-var JOBS_DOCTYPE = 'io.cozy.jobs';
-var ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION';
-var LAUNCH_TRIGGER = 'LAUNCH_TRIGGER';
-var PURGE_QUEUE = 'PURGE_QUEUE';
-var RECEIVE_DATA = 'RECEIVE_DATA';
-var RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT';
-var RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT';
-var UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS';
-var UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR';
-var START_CONNECTION_CREATION = 'START_CONNECTION_CREATION';
-var END_CONNECTION_CREATION = 'END_CONNECTION_CREATION'; // Helpers
+const ACCOUNT_DOCTYPE = 'io.cozy.accounts';
+const TRIGGERS_DOCTYPE = 'io.cozy.triggers';
+const JOBS_DOCTYPE = 'io.cozy.jobs';
+const ENQUEUE_CONNECTION = 'ENQUEUE_CONNECTION';
+const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER';
+const PURGE_QUEUE = 'PURGE_QUEUE';
+const RECEIVE_DATA = 'RECEIVE_DATA';
+const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT';
+const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT';
+const UPDATE_CONNECTION_RUNNING_STATUS = 'UPDATE_CONNECTION_RUNNING_STATUS';
+const UPDATE_CONNECTION_ERROR = 'UPDATE_CONNECTION_ERROR';
+const START_CONNECTION_CREATION = 'START_CONNECTION_CREATION';
+const END_CONNECTION_CREATION = 'END_CONNECTION_CREATION'; // Helpers
 
-var getTriggerKonnectorSlug = function getTriggerKonnectorSlug(trigger) {
-  return trigger && trigger.message && trigger.message.konnector || null;
-};
+const getTriggerKonnectorSlug = trigger => trigger && trigger.message && trigger.message.konnector || null;
 
-var isKonnectorTrigger = function isKonnectorTrigger(doc) {
-  return doc._type === TRIGGERS_DOCTYPE && !!doc.message && !!doc.message.konnector;
-};
+const isKonnectorTrigger = doc => doc._type === TRIGGERS_DOCTYPE && !!doc.message && !!doc.message.konnector;
 
-var isKonnectorJob = function isKonnectorJob(doc) {
-  return doc._type === JOBS_DOCTYPE && doc.worker === 'konnector';
-}; // reducers
+const isKonnectorJob = doc => doc._type === JOBS_DOCTYPE && doc.worker === 'konnector'; // reducers
 
 
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case ENQUEUE_CONNECTION:
     case UPDATE_CONNECTION_ERROR:
@@ -1644,7 +990,9 @@ var reducer = function reducer() {
       // Trigger is launched, connection should be running.
       if (!action.trigger || !action.trigger._id) throw new Error('Missing trigger id');
       if (!action.trigger.message || !action.trigger.message.konnector) throw new Error('Malformed trigger message');
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, getTriggerKonnectorSlug(action.trigger), konnectorReducer(state[getTriggerKonnectorSlug(action.trigger)], action)));
+      return _objectSpread({}, state, {
+        [getTriggerKonnectorSlug(action.trigger)]: konnectorReducer(state[getTriggerKonnectorSlug(action.trigger)], action)
+      });
 
     case RECEIVE_DATA:
     case RECEIVE_NEW_DOCUMENT:
@@ -1652,47 +1000,51 @@ var reducer = function reducer() {
         return state;
       }
 
-      return action.response.data.reduce(function (newState, doc) {
-        var isTrigger = isKonnectorTrigger(doc);
-        var isJob = isKonnectorJob(doc); // Ignore non triggers or non jobs
+      return action.response.data.reduce((newState, doc) => {
+        const isTrigger = isKonnectorTrigger(doc);
+        const isJob = isKonnectorJob(doc); // Ignore non triggers or non jobs
 
         if (!isTrigger && !isJob) return newState;
-        var konnectorSlug = doc.message.konnector;
-        var triggerId = isTrigger && doc._id || isJob && doc.trigger_id;
+        const konnectorSlug = doc.message.konnector;
+        const triggerId = isTrigger && doc._id || isJob && doc.trigger_id;
         if (!triggerId) return newState;
-        var account = isTrigger && !!doc.message && doc.message.account;
-        var currentStatus = isTrigger && doc.current_state && doc.current_state.status || isJob && doc.state;
-        var error = isTrigger && !!doc.current_state && doc.current_state.status !== 'done' && !!doc.current_state.last_error && Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_6__["buildKonnectorError"])(doc.current_state.last_error) || isJob && !!doc.error && Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_6__["buildKonnectorError"])(doc.error) || null;
-        var lastSyncDate = isTrigger && !!doc.current_state && doc.current_state.last_execution || isJob && doc.queued_at;
-        var existingTriggers = lodash_get__WEBPACK_IMPORTED_MODULE_5___default()(newState, [konnectorSlug, 'triggers', 'data'], []);
-        var rawTriggers = existingTriggers;
+        const account = isTrigger && !!doc.message && doc.message.account;
+        const currentStatus = isTrigger && doc.current_state && doc.current_state.status || isJob && doc.state;
+        const error = isTrigger && !!doc.current_state && doc.current_state.status !== 'done' && !!doc.current_state.last_error && Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_4__["buildKonnectorError"])(doc.current_state.last_error) || isJob && !!doc.error && Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_4__["buildKonnectorError"])(doc.error) || null;
+        const lastSyncDate = isTrigger && !!doc.current_state && doc.current_state.last_execution || isJob && doc.queued_at;
+        const existingTriggers = lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(newState, [konnectorSlug, 'triggers', 'data'], []);
+        let rawTriggers = existingTriggers;
 
         if (isTrigger) {
-          rawTriggers = existingTriggers.filter(function (_ref) {
-            var _id = _ref._id;
-            return _id !== doc._id;
-          });
+          rawTriggers = existingTriggers.filter(({
+            _id
+          }) => _id !== doc._id);
           rawTriggers.push(doc);
         }
 
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, newState, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, konnectorSlug, {
-          triggers: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, lodash_get__WEBPACK_IMPORTED_MODULE_5___default()(newState, [konnectorSlug, 'triggers'], []), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
-            data: rawTriggers
-          }, triggerId, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, lodash_get__WEBPACK_IMPORTED_MODULE_5___default()(newState, [konnectorSlug, 'triggers', triggerId], {}), {
-            account: account || lodash_get__WEBPACK_IMPORTED_MODULE_5___default()(newState, [konnectorSlug, 'triggers', triggerId, 'account']),
-            error: error,
-            hasError: !!error || currentStatus === 'errored',
-            isRunning: ['queued', 'running'].includes(currentStatus),
-            isConnected: !error && currentStatus === 'done',
-            lastSyncDate: lastSyncDate
-          })))
-        }));
+        return _objectSpread({}, newState, {
+          [konnectorSlug]: {
+            triggers: _objectSpread({}, lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(newState, [konnectorSlug, 'triggers'], []), {
+              data: rawTriggers,
+              [triggerId]: _objectSpread({}, lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(newState, [konnectorSlug, 'triggers', triggerId], {}), {
+                account: account || lodash_get__WEBPACK_IMPORTED_MODULE_3___default()(newState, [konnectorSlug, 'triggers', triggerId, 'account']),
+                error,
+                hasError: !!error || currentStatus === 'errored',
+                isRunning: ['queued', 'running'].includes(currentStatus),
+                isConnected: !error && currentStatus === 'done',
+                lastSyncDate: lastSyncDate
+              })
+            })
+          }
+        });
       }, state);
 
     case PURGE_QUEUE:
     case RECEIVE_DELETED_DOCUMENT:
-      return Object.keys(state).reduce(function (konnectors, slug) {
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, konnectors, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, slug, konnectorReducer(state[slug], action)));
+      return Object.keys(state).reduce((konnectors, slug) => {
+        return _objectSpread({}, konnectors, {
+          [slug]: konnectorReducer(state[slug], action)
+        });
       }, state);
 
     default:
@@ -1700,10 +1052,7 @@ var reducer = function reducer() {
   }
 };
 
-var creation = function creation() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const creation = (state = null, action) => {
   switch (action.type) {
     case RECEIVE_DATA:
     case RECEIVE_NEW_DOCUMENT:
@@ -1714,13 +1063,13 @@ var creation = function creation() {
           return state;
         }
 
-        var doc = action.response.data[0];
-        var isAccount = doc._type === ACCOUNT_DOCTYPE;
-        if (isAccount) return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, {
+        const doc = action.response.data[0];
+        const isAccount = doc._type === ACCOUNT_DOCTYPE;
+        if (isAccount) return _objectSpread({}, state, {
           account: doc._id
         });
-        var isTrigger = isKonnectorTrigger(doc);
-        if (isTrigger) return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, {
+        const isTrigger = isKonnectorTrigger(doc);
+        if (isTrigger) return _objectSpread({}, state, {
           trigger: doc._id
         });
         return state;
@@ -1741,15 +1090,12 @@ var creation = function creation() {
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
-  creation: creation,
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  creation,
   konnectors: reducer
 })); // sub(?) reducers
 
-var konnectorReducer = function konnectorReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const konnectorReducer = (state = {}, action) => {
   switch (action.type) {
     case ENQUEUE_CONNECTION:
     case LAUNCH_TRIGGER:
@@ -1758,7 +1104,7 @@ var konnectorReducer = function konnectorReducer() {
     case RECEIVE_DELETED_DOCUMENT:
     case PURGE_QUEUE:
       // We assume that document being a trigger has already been validated.
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, {
+      return _objectSpread({}, state, {
         triggers: triggersReducer(state.triggers, action)
       });
 
@@ -1767,38 +1113,44 @@ var konnectorReducer = function konnectorReducer() {
   }
 };
 
-var triggersReducer = function triggersReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const triggersReducer = (state = {}, action) => {
   switch (action.type) {
     case ENQUEUE_CONNECTION:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.trigger._id, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state[action.trigger._id], {
-        isEnqueued: true
-      })));
+      return _objectSpread({}, state, {
+        [action.trigger._id]: _objectSpread({}, state[action.trigger._id], {
+          isEnqueued: true
+        })
+      });
 
     case LAUNCH_TRIGGER:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.trigger._id, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, state[action.trigger._id], {
-        account: action.trigger.message.account,
-        isRunning: true
-      })));
+      return _objectSpread({}, state, {
+        [action.trigger._id]: _objectSpread({}, state[action.trigger._id], {
+          account: action.trigger.message.account,
+          isRunning: true
+        })
+      });
 
     case PURGE_QUEUE:
-      return state ? Object.keys(state).reduce(function (newState, triggerId) {
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, newState, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, triggerId, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, newState[triggerId], {
-          isEnqueued: false
-        })));
+      return state ? Object.keys(state).reduce((newState, triggerId) => {
+        return _objectSpread({}, newState, {
+          [triggerId]: _objectSpread({}, newState[triggerId], {
+            isEnqueued: false
+          })
+        });
       }, state) : state;
 
     case RECEIVE_DELETED_DOCUMENT:
       {
-        var data = action.response.data;
-        var _data$ = data[0],
-            _id = _data$._id,
-            _type = _data$._type;
+        const {
+          data
+        } = action.response;
+        const {
+          _id,
+          _type
+        } = data[0];
 
         if (_type === TRIGGERS_DOCTYPE) {
-          return lodash_omit__WEBPACK_IMPORTED_MODULE_4___default()(state, _id);
+          return lodash_omit__WEBPACK_IMPORTED_MODULE_2___default()(state, _id);
         } else return state;
       }
 
@@ -1808,139 +1160,99 @@ var triggersReducer = function triggersReducer() {
 }; // action creators sync
 
 
-var enqueueConnection = function enqueueConnection(trigger) {
-  return {
-    type: ENQUEUE_CONNECTION,
-    trigger: trigger
-  };
-};
-var purgeQueue = function purgeQueue() {
-  return {
-    type: PURGE_QUEUE
-  };
-};
-var updateConnectionError = function updateConnectionError(konnector, account, error) {
-  return {
-    type: UPDATE_CONNECTION_ERROR,
-    konnector: konnector,
-    account: account,
-    error: error
-  };
-};
-var startConnectionCreation = function startConnectionCreation(konnector) {
-  return {
-    type: START_CONNECTION_CREATION,
-    konnector: konnector
-  };
-};
-var endConnectionCreation = function endConnectionCreation() {
-  return {
-    type: END_CONNECTION_CREATION
-  };
-}; // selectors
+const enqueueConnection = trigger => ({
+  type: ENQUEUE_CONNECTION,
+  trigger
+});
+const purgeQueue = () => ({
+  type: PURGE_QUEUE
+});
+const updateConnectionError = (konnector, account, error) => ({
+  type: UPDATE_CONNECTION_ERROR,
+  konnector,
+  account,
+  error
+});
+const startConnectionCreation = konnector => ({
+  type: START_CONNECTION_CREATION,
+  konnector
+});
+const endConnectionCreation = () => ({
+  type: END_CONNECTION_CREATION
+}); // selectors
 
-var getConnectionsByKonnector = function getConnectionsByKonnector(state, konnectorSlug) {
-  var validAccounts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-  var validKonnectors = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-  var konnectorIsValid = !validKonnectors.length || validKonnectors.includes(konnectorSlug);
-  var konnectorHasConnections = state.konnectors[konnectorSlug] && Object.keys(state.konnectors[konnectorSlug].triggers).length;
+const getConnectionsByKonnector = (state, konnectorSlug, validAccounts = [], validKonnectors = []) => {
+  const konnectorIsValid = !validKonnectors.length || validKonnectors.includes(konnectorSlug);
+  const konnectorHasConnections = state.konnectors[konnectorSlug] && Object.keys(state.konnectors[konnectorSlug].triggers).length;
   if (!konnectorIsValid || !konnectorHasConnections) return [];
-  return Object.values(state.konnectors[konnectorSlug].triggers).filter(function (trigger) {
-    return validAccounts.includes(trigger.account);
-  });
+  return Object.values(state.konnectors[konnectorSlug].triggers).filter(trigger => validAccounts.includes(trigger.account));
 };
-var getFirstError = function getFirstError(state, konnectorSlug) {
-  var firstTriggerHavingError = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).find(function (trigger) {
-    return !!trigger.error;
-  });
+const getFirstError = (state, konnectorSlug) => {
+  const firstTriggerHavingError = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).find(trigger => !!trigger.error);
   return firstTriggerHavingError ? firstTriggerHavingError.error : null;
 };
-var getFirstUserError = function getFirstUserError(state, konnectorSlug) {
-  var firstTriggerHavingUserError = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).find(function (trigger) {
-    return Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_6__["isKonnectorUserError"])(trigger.error);
-  });
+const getFirstUserError = (state, konnectorSlug) => {
+  const firstTriggerHavingUserError = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).find(trigger => Object(lib_konnectors__WEBPACK_IMPORTED_MODULE_4__["isKonnectorUserError"])(trigger.error));
   return firstTriggerHavingUserError ? firstTriggerHavingUserError.error : null;
 };
-var getLastSyncDate = function getLastSyncDate(state, konnectorSlug) {
-  var lastExecutions = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).map(function (trigger) {
-    return trigger.lastSyncDate;
-  }).sort(function (dateA, dateB) {
-    var momentA = moment__WEBPACK_IMPORTED_MODULE_3___default.a.utc(dateA);
-    var momentB = moment__WEBPACK_IMPORTED_MODULE_3___default.a.utc(dateB);
+const getLastSyncDate = (state, konnectorSlug) => {
+  const lastExecutions = !!state.konnectors && !!state.konnectors[konnectorSlug] && !!state.konnectors[konnectorSlug].triggers && Object.values(state.konnectors[konnectorSlug].triggers).map(trigger => trigger.lastSyncDate).sort((dateA, dateB) => {
+    const momentA = moment__WEBPACK_IMPORTED_MODULE_1___default.a.utc(dateA);
+    const momentB = moment__WEBPACK_IMPORTED_MODULE_1___default.a.utc(dateB);
     return momentA.isAfter(momentB) ? -1 : momentA.isBefore(momentB) ? 1 : 0;
   });
   return lastExecutions.length && lastExecutions[0];
 }; // Map the trigger status to a status compatible with queue
 
-var getTriggerQueueStatus = function getTriggerQueueStatus(trigger) {
+const getTriggerQueueStatus = trigger => {
   if (trigger.isRunning) return 'ongoing';
   if (trigger.hasError) return 'error';
   if (trigger.isConnected) return 'done';
   return 'pending';
 };
 
-var getQueue = function getQueue(state, konnectors) {
-  return (// state is state.connections
-    state.konnectors ? Object.keys(state.konnectors).reduce(function (queuedConnections, konnectorSlug) {
-      var triggers = state.konnectors[konnectorSlug].triggers;
-      if (!triggers) return queuedConnections;
-      var konnector = konnectors[konnectorSlug];
-      return queuedConnections.concat(Object.keys(triggers).reduce(function (queuedTriggers, triggerId) {
-        if (triggers[triggerId].isEnqueued) {
-          var label = konnector.name;
-          var status = getTriggerQueueStatus(triggers[triggerId]);
-          return queuedTriggers.concat({
-            konnector: konnector,
-            label: label,
-            status: status,
-            triggerId: triggerId
-          });
-        }
+const getQueue = (state, konnectors) => // state is state.connections
+state.konnectors ? Object.keys(state.konnectors).reduce((queuedConnections, konnectorSlug) => {
+  const triggers = state.konnectors[konnectorSlug].triggers;
+  if (!triggers) return queuedConnections;
+  const konnector = konnectors[konnectorSlug];
+  return queuedConnections.concat(Object.keys(triggers).reduce((queuedTriggers, triggerId) => {
+    if (triggers[triggerId].isEnqueued) {
+      const label = konnector.name;
+      const status = getTriggerQueueStatus(triggers[triggerId]);
+      return queuedTriggers.concat({
+        konnector,
+        label,
+        status,
+        triggerId
+      });
+    }
 
-        return queuedTriggers;
-      }, []));
-    }, []) : []
-  );
-};
-var getConnectionError = function getConnectionError(state, trigger) {
-  return getTriggerState(state, trigger).error;
-};
-var getCreatedAccount = function getCreatedAccount(state) {
-  return !!state.creation && state.creation.account;
-};
-var getTriggerIdByKonnectorAndAccount = function getTriggerIdByKonnectorAndAccount(state, konnector, account) {
-  var validAccounts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-  return !!konnector && !!account && validAccounts.includes(account._id) && !!state.konnectors[konnector.slug] && Object.keys(state.konnectors[konnector.slug].triggers).find(function (triggerId) {
-    return state.konnectors[konnector.slug].triggers[triggerId].account === account._id;
-  });
-};
-var getTriggerLastSuccess = function getTriggerLastSuccess(state, trigger) {
-  var lastJob = Object(ducks_jobs__WEBPACK_IMPORTED_MODULE_7__["getTriggerLastJob"])(state, trigger);
-  var lastJobIsSuccess = lastJob && lastJob.state === 'done';
+    return queuedTriggers;
+  }, []));
+}, []) : [];
+const getConnectionError = (state, trigger) => getTriggerState(state, trigger).error;
+const getCreatedAccount = state => !!state.creation && state.creation.account;
+const getTriggerIdByKonnectorAndAccount = (state, konnector, account, validAccounts = []) => !!konnector && !!account && validAccounts.includes(account._id) && !!state.konnectors[konnector.slug] && Object.keys(state.konnectors[konnector.slug].triggers).find(triggerId => state.konnectors[konnector.slug].triggers[triggerId].account === account._id);
+const getTriggerLastSuccess = (state, trigger) => {
+  const lastJob = Object(ducks_jobs__WEBPACK_IMPORTED_MODULE_5__["getTriggerLastJob"])(state, trigger);
+  const lastJobIsSuccess = lastJob && lastJob.state === 'done';
   if (lastJobIsSuccess) return lastJob.started_at;
   return !!trigger && !!trigger.current_state && trigger.current_state.last_success;
 }; // get trigger from state, in state.konnectors[konnectorSlug].triggers[triggerId]
 
-var getTriggerState = function getTriggerState(state, trigger) {
-  var konnectorSlug = getTriggerKonnectorSlug(trigger);
+const getTriggerState = (state, trigger) => {
+  const konnectorSlug = getTriggerKonnectorSlug(trigger);
   if (!konnectorSlug || !state.konnectors || !state.konnectors[konnectorSlug]) return false;
-  var triggers = state.konnectors[konnectorSlug].triggers;
+  const triggers = state.konnectors[konnectorSlug].triggers;
   if (!triggers) return false;
   return !!triggers && !!triggers[trigger._id] && triggers[trigger._id] || {};
 };
 
-var isCreatingConnection = function isCreatingConnection(state) {
-  return !!state.creation;
-};
-var isConnectionConnected = function isConnectionConnected(state, trigger) {
-  return getTriggerState(state, trigger).isConnected;
-};
-var isConnectionEnqueued = function isConnectionEnqueued(state, trigger) {
-  return getTriggerState(state, trigger).isEnqueued;
-};
-var isConnectionRunning = function isConnectionRunning(state, trigger) {
-  return getTriggerState(state, trigger).isRunning;
-};
+const isCreatingConnection = state => !!state.creation;
+const isConnectionConnected = (state, trigger) => getTriggerState(state, trigger).isConnected;
+const isConnectionEnqueued = (state, trigger) => getTriggerState(state, trigger).isEnqueued;
+const isConnectionRunning = (state, trigger) => getTriggerState(state, trigger).isRunning;
 
 /***/ }),
 
@@ -2205,7 +1517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMostAccurateErrorKey", function() { return getMostAccurateErrorKey; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKonnectorMessage", function() { return getKonnectorMessage; });
 /* konnector lib ready to be added to cozy-client-js */
-var ERROR_TYPES = {
+const ERROR_TYPES = {
   CHALLENGE_ASKED: 'CHALLENGE_ASKED',
   LOGIN_FAILED: 'LOGIN_FAILED',
   MAINTENANCE: 'MAINTENANCE',
@@ -2214,19 +1526,18 @@ var ERROR_TYPES = {
   VENDOR_DOWN: 'VENDOR_DOWN',
   DISK_QUOTA_EXCEEDED: 'DISK_QUOTA_EXCEEDED'
 };
-var UPDATE_NEEDED_ERRORS_TYPES = {
+const UPDATE_NEEDED_ERRORS_TYPES = {
   TERMS_VERSION_MISMATCH: 'TERMS_VERSION_MISMATCH'
 };
-var TWO_FA_ERRORS = ['USER_ACTION_NEEDED.TWOFA_EXPIRED', 'USER_ACTION_NEEDED.WRONG_TWOFA_CODE'];
+const TWO_FA_ERRORS = ['USER_ACTION_NEEDED.TWOFA_EXPIRED', 'USER_ACTION_NEEDED.WRONG_TWOFA_CODE'];
 
-function patchFolderPermission(cozy, konnector) {
-  var folderId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-  var slug = konnector.attributes ? konnector.attributes.slug : konnector.slug;
-  var saveFolder = folderId ? {
+function patchFolderPermission(cozy, konnector, folderId = null) {
+  const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug;
+  const saveFolder = folderId ? {
     type: 'io.cozy.files',
     values: [folderId]
   } : {};
-  return cozy.fetchJSON('PATCH', "/permissions/konnectors/".concat(encodeURIComponent(slug)), {
+  return cozy.fetchJSON('PATCH', `/permissions/konnectors/${encodeURIComponent(slug)}`, {
     data: {
       attributes: {
         permissions: {
@@ -2262,22 +1573,19 @@ function buildKonnectorError(message) {
   return error;
 }
 
-var checkLocale = function checkLocale(t, key) {
+const checkLocale = (t, key) => {
   return t(key) !== key;
 };
 
-var hasPendingUpdate = function hasPendingUpdate(konnector) {
+const hasPendingUpdate = konnector => {
   return !!konnector.available_version;
 };
-var getMostAccurateErrorKey = function getMostAccurateErrorKey(t, error) {
-  var getKey = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function (key) {
-    return key;
-  };
+const getMostAccurateErrorKey = (t, error, getKey = key => key) => {
   // Legacy. Kind of.
   if (!error.code) return error.message;
-  var errorSegments = error.code.split('.');
-  var tested = errorSegments;
-  var fullKey = getKey(tested.join('.'));
+  const errorSegments = error.code.split('.');
+  let tested = errorSegments;
+  let fullKey = getKey(tested.join('.'));
 
   while (tested.length && !checkLocale(t, fullKey)) {
     tested = tested.slice(0, tested.length - 1);
@@ -2286,16 +1594,18 @@ var getMostAccurateErrorKey = function getMostAccurateErrorKey(t, error) {
 
   return tested.length ? fullKey : getKey('UNKNOWN_ERROR');
 };
-var legacyMessages = {
+const legacyMessages = {
   terms: 'connector'
 };
-var getKonnectorMessage = function getKonnectorMessage(t, konnector, message) {
-  var messages = konnector.messages,
-      hasDescriptions = konnector.hasDescriptions;
-  var providesMessage = messages && messages.length && messages.includes(message);
-  if (providesMessage) return t("".concat(konnector.slug, ".messages.").concat(message));
-  var providesLegacyMessage = hasDescriptions && hasDescriptions[legacyMessages[message] || message];
-  if (providesLegacyMessage) return t("connector.".concat(konnector.slug, ".description.").concat(legacyMessages[message] || message));
+const getKonnectorMessage = (t, konnector, message) => {
+  const {
+    messages,
+    hasDescriptions
+  } = konnector;
+  const providesMessage = messages && messages.length && messages.includes(message);
+  if (providesMessage) return t(`${konnector.slug}.messages.${message}`);
+  const providesLegacyMessage = hasDescriptions && hasDescriptions[legacyMessages[message] || message];
+  if (providesLegacyMessage) return t(`connector.${konnector.slug}.description.${legacyMessages[message] || message}`);
   return null;
 };
 
@@ -2504,27 +1814,28 @@ module.exports = {"app":{"logo":{"alt":"Logo de %{name}"},"logout":"Déconnexion
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authenticateWithCordova", function() { return authenticateWithCordova; });
 /* global prompt */
-var hasCordovaPlugin = function hasCordovaPlugin() {
+const hasCordovaPlugin = () => {
   return window.cordova !== undefined && window.cordova.InAppBrowser !== undefined;
 };
 
-var REGISTRATION_ABORT = 'REGISTRATION_ABORT';
-var authenticateWithCordova = function authenticateWithCordova(url) {
+const REGISTRATION_ABORT = 'REGISTRATION_ABORT';
+const authenticateWithCordova = url => {
   if (hasCordovaPlugin()) {
-    return new Promise(function (resolve, reject) {
-      var target = '_blank';
-      var options = 'clearcache=yes,zoom=no';
-      var inAppBrowser = window.cordova.InAppBrowser.open(url, target, options);
+    return new Promise((resolve, reject) => {
+      const target = '_blank';
+      const options = 'clearcache=yes,zoom=no';
+      const inAppBrowser = window.cordova.InAppBrowser.open(url, target, options);
 
-      var removeListener = function removeListener() {
+      const removeListener = () => {
         inAppBrowser.removeEventListener('loadstart', onLoadStart);
         inAppBrowser.removeEventListener('exit', onExit);
       };
 
-      var onLoadStart = function onLoadStart(_ref) {
-        var url = _ref.url;
-        var accessCode = /\?access_code=(.+)$/.test(url);
-        var state = /\?state=(.+)$/.test(url);
+      const onLoadStart = ({
+        url
+      }) => {
+        const accessCode = /\?access_code=(.+)$/.test(url);
+        const state = /\?state=(.+)$/.test(url);
 
         if (accessCode || state) {
           resolve(url);
@@ -2533,7 +1844,7 @@ var authenticateWithCordova = function authenticateWithCordova(url) {
         }
       };
 
-      var onExit = function onExit() {
+      const onExit = () => {
         reject(new Error(REGISTRATION_ABORT));
         removeListener();
         inAppBrowser.close();
@@ -2553,9 +1864,9 @@ var authenticateWithCordova = function authenticateWithCordova(url) {
      * then get the "access_code" url and paste it in the prompt to let the
      * application initialize and redirect to other pages.
      */
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        var token = prompt('Paste the url here:');
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const token = prompt('Paste the url here:');
         resolve(token);
       }, 10000);
     });
@@ -2760,84 +2071,89 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCollection", function() { return getCollection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDocument", function() { return getDocument; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCollectionFetched", function() { return isCollectionFetched; });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("RIqP");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("QILm");
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("fvjX");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("oMPT");
-/* harmony import */ var _slices_sharings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("og8P");
-/* harmony import */ var _slices_synchronization__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("skrj");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fvjX");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("oMPT");
+/* harmony import */ var _slices_sharings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("og8P");
+/* harmony import */ var _slices_synchronization__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("skrj");
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
+const APPS_DOCTYPE = 'io.cozy.apps';
+const FETCH_DOCUMENT = 'FETCH_DOCUMENT';
+const FETCH_COLLECTION = 'FETCH_COLLECTION';
+const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER';
+const RECEIVE_DATA = 'RECEIVE_DATA';
+const RECEIVE_ERROR = 'RECEIVE_ERROR';
+const CREATE_DOCUMENT = 'CREATE_DOCUMENT';
+const UPDATE_DOCUMENT = 'UPDATE_DOCUMENT';
+const DELETE_DOCUMENT = 'DELETE_DOCUMENT';
+const RECEIVE_APP = 'RECEIVE_APP';
+const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT';
+const RECEIVE_UPDATED_DOCUMENT = 'RECEIVE_UPDATED_DOCUMENT';
+const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT';
+const FETCH_REFERENCED_FILES = 'FETCH_REFERENCED_FILES';
+const ADD_REFERENCED_FILES = 'ADD_REFERENCED_FILES';
+const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES';
 
-
-
-var APPS_DOCTYPE = 'io.cozy.apps';
-var FETCH_DOCUMENT = 'FETCH_DOCUMENT';
-var FETCH_COLLECTION = 'FETCH_COLLECTION';
-var LAUNCH_TRIGGER = 'LAUNCH_TRIGGER';
-var RECEIVE_DATA = 'RECEIVE_DATA';
-var RECEIVE_ERROR = 'RECEIVE_ERROR';
-var CREATE_DOCUMENT = 'CREATE_DOCUMENT';
-var UPDATE_DOCUMENT = 'UPDATE_DOCUMENT';
-var DELETE_DOCUMENT = 'DELETE_DOCUMENT';
-var RECEIVE_APP = 'RECEIVE_APP';
-var RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT';
-var RECEIVE_UPDATED_DOCUMENT = 'RECEIVE_UPDATED_DOCUMENT';
-var RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT';
-var FETCH_REFERENCED_FILES = 'FETCH_REFERENCED_FILES';
-var ADD_REFERENCED_FILES = 'ADD_REFERENCED_FILES';
-var REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES';
-
-var documents = function documents() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const documents = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_APP:
       {
-        var apps = action.response && action.response.data;
+        const apps = action.response && action.response.data;
         if (apps.length === 0) return state;
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, APPS_DOCTYPE, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[APPS_DOCTYPE], objectifyDocumentsArray(apps))));
+        return _objectSpread({}, state, {
+          [APPS_DOCTYPE]: _objectSpread({}, state[APPS_DOCTYPE], objectifyDocumentsArray(apps))
+        });
       }
 
     case RECEIVE_DATA:
       {
-        var data = action.response.data;
+        const {
+          data
+        } = action.response;
         if (data.length === 0) return state;
-        var dataDoctype = getArrayDoctype(data);
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, dataDoctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[dataDoctype], objectifyDocumentsArray(data))));
+        const dataDoctype = getArrayDoctype(data);
+        return _objectSpread({}, state, {
+          [dataDoctype]: _objectSpread({}, state[dataDoctype], objectifyDocumentsArray(data))
+        });
       }
 
     case RECEIVE_NEW_DOCUMENT:
     case RECEIVE_UPDATED_DOCUMENT:
       {
-        var doc = action.response.data[0];
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, doc._type, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[doc._type], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, doc.id, doc))));
+        const doc = action.response.data[0];
+        return _objectSpread({}, state, {
+          [doc._type]: _objectSpread({}, state[doc._type], {
+            [doc.id]: doc
+          })
+        });
       }
 
     case RECEIVE_DELETED_DOCUMENT:
       {
-        var deleted = action.response.data[0];
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, deleted._type, Object(_utils__WEBPACK_IMPORTED_MODULE_5__["removeObjectProperty"])(state[deleted._type], deleted.id)));
+        const deleted = action.response.data[0];
+        return _objectSpread({}, state, {
+          [deleted._type]: Object(_utils__WEBPACK_IMPORTED_MODULE_1__["removeObjectProperty"])(state[deleted._type], deleted.id)
+        });
       }
 
     case ADD_REFERENCED_FILES:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
-        'io.cozy.files': _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state['io.cozy.files'], updateFilesReferences(state['io.cozy.files'], action.ids, action.document))
+      return _objectSpread({}, state, {
+        'io.cozy.files': _objectSpread({}, state['io.cozy.files'], updateFilesReferences(state['io.cozy.files'], action.ids, action.document))
       });
 
     case REMOVE_REFERENCED_FILES:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
-        'io.cozy.files': _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state['io.cozy.files'], removeFilesReferences(state['io.cozy.files'], action.ids, action.document))
+      return _objectSpread({}, state, {
+        'io.cozy.files': _objectSpread({}, state['io.cozy.files'], removeFilesReferences(state['io.cozy.files'], action.ids, action.document))
       });
 
     default:
@@ -2845,65 +2161,69 @@ var documents = function documents() {
   }
 };
 
-var objectifyDocumentsArray = function objectifyDocumentsArray(documents) {
-  return documents.reduce(function (obj, doc) {
-    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, obj, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, doc.id, doc));
-  }, {});
-};
+const objectifyDocumentsArray = documents => documents.reduce((obj, doc) => _objectSpread({}, obj, {
+  [doc.id]: doc
+}), {});
 
-var updateFileReference = function updateFileReference(
+const updateFileReference = (
 /* eslint-disable-next-line casecamelcase */
-_ref, doc) {
-  var _ref$relationships = _ref.relationships,
-      referenced_by = _ref$relationships.referenced_by,
-      relationships = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default()(_ref$relationships, ["referenced_by"]),
-      file = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default()(_ref, ["relationships"]);
+_ref, doc) => {
+  let {
+    relationships: {
+      referenced_by
+    }
+  } = _ref,
+      relationships = _objectWithoutProperties(_ref.relationships, ["referenced_by"]),
+      file = _objectWithoutProperties(_ref, ["relationships"]);
 
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, file, {
-    relationships: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, relationships, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, referenced_by.data,
-    /* eslint-disable-next-line casecamelcase */
-    referenced_by.data === null ? [{
-      id: doc.id,
-      type: doc.type
-    }] :
-    /* eslint-disable-next-line casecamelcase */
-    [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(referenced_by.data), [{
-      id: doc.id,
-      type: doc.type
-    }])))
+  return _objectSpread({}, file, {
+    relationships: _objectSpread({}, relationships, {
+      /* eslint-disable-next-line casecamelcase */
+      [referenced_by.data]:
+      /* eslint-disable-next-line casecamelcase */
+      referenced_by.data === null ? [{
+        id: doc.id,
+        type: doc.type
+      }] :
+      /* eslint-disable-next-line casecamelcase */
+      [...referenced_by.data, {
+        id: doc.id,
+        type: doc.type
+      }]
+    })
   });
 };
 
-var updateFilesReferences = function updateFilesReferences(files, newlyReferencedIds, doc) {
-  return newlyReferencedIds.reduce(function (updated, id) {
-    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, updated, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, id, updateFileReference(files[id], doc)));
-  }, {});
-};
+const updateFilesReferences = (files, newlyReferencedIds, doc) => newlyReferencedIds.reduce((updated, id) => _objectSpread({}, updated, {
+  [id]: updateFileReference(files[id], doc)
+}), {});
 
-var removeFileReferences = function removeFileReferences(
+const removeFileReferences = (
 /* eslint-disable-next-line casecamelcase */
-_ref2, doc) {
-  var _ref2$relationships = _ref2.relationships,
-      referenced_by = _ref2$relationships.referenced_by,
-      relationships = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default()(_ref2$relationships, ["referenced_by"]),
-      file = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default()(_ref2, ["relationships"]);
+_ref2, doc) => {
+  let {
+    relationships: {
+      referenced_by
+    }
+  } = _ref2,
+      relationships = _objectWithoutProperties(_ref2.relationships, ["referenced_by"]),
+      file = _objectWithoutProperties(_ref2, ["relationships"]);
 
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, file, {
-    relationships: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, relationships, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, referenced_by.data, referenced_by.data.filter(function (rel) {
-      return rel.type !== doc.type && rel.id !== doc.id;
-    })))
+  return _objectSpread({}, file, {
+    relationships: _objectSpread({}, relationships, {
+      /* eslint-disable-next-line casecamelcase */
+      [referenced_by.data]: referenced_by.data.filter(rel => rel.type !== doc.type && rel.id !== doc.id)
+    })
   });
 };
 
-var removeFilesReferences = function removeFilesReferences(files, removedIds, doc) {
-  return removedIds.reduce(function (updated, id) {
-    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, updated, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, id, removeFileReferences(files[id], doc)));
-  }, {});
-};
+const removeFilesReferences = (files, removedIds, doc) => removedIds.reduce((updated, id) => _objectSpread({}, updated, {
+  [id]: removeFileReferences(files[id], doc)
+}), {});
 
-var getDoctype = function getDoctype(_ref3) {
-  var doctype = _ref3._type;
-
+const getDoctype = ({
+  _type: doctype
+}) => {
   // TODO: don't know why the stack returns 'file' here..
   if (doctype === 'file') {
     return 'io.cozy.files';
@@ -2912,12 +2232,10 @@ var getDoctype = function getDoctype(_ref3) {
   return doctype;
 };
 
-var getArrayDoctype = function getArrayDoctype(documents) {
-  return getDoctype(documents[0]);
-}; // collection reducers
+const getArrayDoctype = documents => getDoctype(documents[0]); // collection reducers
 
 
-var collectionInitialState = {
+const collectionInitialState = {
   type: null,
   options: {},
   fetchStatus: 'pending',
@@ -2927,14 +2245,11 @@ var collectionInitialState = {
   ids: []
 };
 
-var collection = function collection() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : collectionInitialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const collection = (state = collectionInitialState, action) => {
   switch (action.type) {
     case FETCH_COLLECTION:
     case FETCH_REFERENCED_FILES:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         type: action.doctype || 'io.cozy.files',
         options: action.options,
         fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
@@ -2943,50 +2258,42 @@ var collection = function collection() {
     case RECEIVE_APP:
     case RECEIVE_DATA:
       {
-        var response = action.response;
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+        const response = action.response;
+        return _objectSpread({}, state, {
           fetchStatus: 'loaded',
           lastFetch: Date.now(),
           hasMore: response.next !== undefined ? response.next : state.hasMore,
           count: response.meta && response.meta.count ? response.meta.count : response.data.length,
-          ids: !action.skip ? response.data.map(function (doc) {
-            return doc.id;
-          }) : [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(state.ids), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(response.data.map(function (doc) {
-            return doc.id;
-          })))
+          ids: !action.skip ? response.data.map(doc => doc.id) : [...state.ids, ...response.data.map(doc => doc.id)]
         });
       }
 
     case ADD_REFERENCED_FILES:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         type: 'io.cozy.files',
         count: state.count + action.ids.length,
-        ids: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(state.ids), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(action.ids))
+        ids: [...state.ids, ...action.ids]
       });
 
     case REMOVE_REFERENCED_FILES:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         count: state.count - action.ids.length,
-        ids: state.ids.filter(function (id) {
-          return action.ids.indexOf(id) === -1;
-        })
+        ids: state.ids.filter(id => action.ids.indexOf(id) === -1)
       });
 
     case RECEIVE_ERROR:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         fetchStatus: 'failed'
       });
 
     case RECEIVE_NEW_DOCUMENT:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
-        ids: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(state.ids), [action.response.data[0].id])
+      return _objectSpread({}, state, {
+        ids: [...state.ids, action.response.data[0].id]
       });
 
     case RECEIVE_DELETED_DOCUMENT:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
-        ids: state.ids.filter(function (id) {
-          return id !== action.response.data[0].id;
-        })
+      return _objectSpread({}, state, {
+        ids: state.ids.filter(id => id !== action.response.data[0].id)
       });
 
     default:
@@ -2994,15 +2301,10 @@ var collection = function collection() {
   }
 };
 
-var collections = function collections() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  var applyUpdate = function applyUpdate(collections, updateAction) {
-    return updateAction.updateCollections.reduce(function (updated, name) {
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, updated, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, name, collection(collections[name], action)));
-    }, {});
-  };
+const collections = (state = {}, action) => {
+  const applyUpdate = (collections, updateAction) => updateAction.updateCollections.reduce((updated, name) => _objectSpread({}, updated, {
+    [name]: collection(collections[name], action)
+  }), {});
 
   switch (action.type) {
     case FETCH_COLLECTION:
@@ -3016,7 +2318,9 @@ var collections = function collections() {
         return state;
       }
 
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.collection, collection(state[action.collection], action)));
+      return _objectSpread({}, state, {
+        [action.collection]: collection(state[action.collection], action)
+      });
 
     case RECEIVE_NEW_DOCUMENT:
     case RECEIVE_DELETED_DOCUMENT:
@@ -3024,217 +2328,132 @@ var collections = function collections() {
         return state;
       }
 
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, applyUpdate(state, action));
+      return _objectSpread({}, state, applyUpdate(state, action));
 
     default:
       return state;
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_4__["combineReducers"])({
-  collections: collections,
-  documents: documents,
-  sharings: _slices_sharings__WEBPACK_IMPORTED_MODULE_6__["default"],
-  synchronization: _slices_synchronization__WEBPACK_IMPORTED_MODULE_7__["default"]
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  collections,
+  documents,
+  sharings: _slices_sharings__WEBPACK_IMPORTED_MODULE_2__["default"],
+  synchronization: _slices_synchronization__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
-var fetchApps = function fetchApps(name) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  return {
-    types: [FETCH_COLLECTION, RECEIVE_APP, RECEIVE_ERROR],
-    collection: name,
-    doctype: 'io.cozy.apps',
-    options: options,
-    skip: skip,
-    promise: function promise(client) {
-      return client.fetchApps(name, options, skip);
-    }
-  };
-};
-var fetchCollection = function fetchCollection(name, doctype) {
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  var skip = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-  return {
-    types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
-    collection: name,
-    doctype: doctype,
-    options: options,
-    skip: skip,
-    promise: function promise(client) {
-      return client.fetchCollection(name, doctype, options, skip);
-    }
-  };
-};
-var fetchDocument = function fetchDocument(doctype, id) {
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return {
-    types: [FETCH_DOCUMENT, RECEIVE_DATA, RECEIVE_ERROR],
-    doctype: doctype,
-    id: id,
-    options: options,
-    promise: function promise(client) {
-      return client.fetchDocument(doctype, id);
-    }
-  };
-};
-var fetchReferencedFiles = function fetchReferencedFiles(doc) {
-  var skip = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  return {
-    types: [FETCH_REFERENCED_FILES, RECEIVE_DATA, RECEIVE_ERROR],
-    collection: "".concat(doc._type, "/").concat(doc.id, "#files"),
-    document: doc,
-    options: {},
-    skip: skip,
-    promise: function promise(client) {
-      return client.fetchReferencedFiles(doc, skip);
-    }
-  };
-};
-var fetchTriggers = function fetchTriggers(name, worker) {
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  var skip = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-  return {
-    types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
-    collection: name,
-    doctype: 'io.cozy.triggers',
-    options: options,
-    skip: skip,
-    promise: function promise(client) {
-      return client.fetchTriggers(name, worker, options, skip);
-    }
-  };
-};
-var fetchKonnectors = function fetchKonnectors(name) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  return {
-    types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
-    collection: name,
-    doctype: 'io.cozy.konnectors',
-    options: options,
-    skip: skip,
-    promise: function promise(client) {
-      return client.fetchKonnectors(name, options, skip);
-    }
-  };
-};
-var createDocument = function createDocument(doctype, doc) {
-  var actionOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-    doctype: doctype,
-    document: doc,
-    promise: function promise(client) {
-      return client.createDocument(doctype, doc);
-    }
-  }, actionOptions);
-};
-var createTrigger = function createTrigger(doc) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-    document: doc,
-    promise: function promise(client) {
-      return client.createTrigger(doc);
-    }
-  }, actionOptions);
-};
-var launchTrigger = function launchTrigger(trigger) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [LAUNCH_TRIGGER, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-    trigger: trigger,
-    promise: function promise(client) {
-      return client.launchTrigger(trigger);
-    }
-  }, actionOptions);
-};
-var updateDocument = function updateDocument(doc) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [UPDATE_DOCUMENT, RECEIVE_UPDATED_DOCUMENT, RECEIVE_ERROR],
-    document: doc,
-    promise: function promise(client) {
-      return client.updateDocument(doc);
-    }
-  }, actionOptions);
-};
-var deleteDocument = function deleteDocument(doc) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-    document: doc,
-    promise: function promise(client) {
-      return client.deleteDocument(doc);
-    }
-  }, actionOptions);
-};
-var deleteTrigger = function deleteTrigger(doc) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-    document: doc,
-    promise: function promise(client) {
-      return client.deleteTrigger(doc);
-    }
-  }, actionOptions);
-};
-var createFile = function createFile(file, dirID) {
-  var actionOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-    doctype: 'io.cozy.files',
-    promise: function promise(client) {
-      return client.createFile(file, dirID);
-    }
-  }, actionOptions);
-};
-var trashFile = function trashFile(file) {
-  var actionOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-    types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-    document: file,
-    promise: function promise(client) {
-      return client.trashFile(file);
-    }
-  }, actionOptions);
-};
-var addReferencedFiles = function addReferencedFiles(doc, ids) {
-  return {
-    type: ADD_REFERENCED_FILES,
-    collection: "".concat(doc._type, "/").concat(doc._id, "#files"),
-    document: doc,
-    ids: ids,
-    promise: function promise(client) {
-      return client.addReferencedFiles(doc, ids);
-    }
-  };
-};
-var removeReferencedFiles = function removeReferencedFiles(doc, ids) {
-  return {
-    type: REMOVE_REFERENCED_FILES,
-    collection: "".concat(doc._type, "/").concat(doc._id, "#files"),
-    document: doc,
-    ids: ids,
-    promise: function promise(client) {
-      return client.removeReferencedFiles(doc, ids);
-    }
-  };
-};
-var makeActionCreator = function makeActionCreator(promise) {
-  return {
-    promise: promise
-  };
-};
-var makeFetchMoreAction = function makeFetchMoreAction(_ref4, skip) {
-  var types = _ref4.types,
-      collection = _ref4.collection,
-      document = _ref4.document,
-      doctype = _ref4.doctype,
-      options = _ref4.options;
-  return types[0] === FETCH_REFERENCED_FILES ? fetchReferencedFiles(document, skip) : fetchCollection(collection, doctype, options, skip);
-};
-var applySelectorForAction = function applySelectorForAction(state, action) {
+const fetchApps = (name, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_APP, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.apps',
+  options,
+  skip,
+  promise: client => client.fetchApps(name, options, skip)
+});
+const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: name,
+  doctype,
+  options,
+  skip,
+  promise: client => client.fetchCollection(name, doctype, options, skip)
+});
+const fetchDocument = (doctype, id, options = {}) => ({
+  types: [FETCH_DOCUMENT, RECEIVE_DATA, RECEIVE_ERROR],
+  doctype,
+  id,
+  options,
+  promise: client => client.fetchDocument(doctype, id)
+});
+const fetchReferencedFiles = (doc, skip = 0) => ({
+  types: [FETCH_REFERENCED_FILES, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: `${doc._type}/${doc.id}#files`,
+  document: doc,
+  options: {},
+  skip,
+  promise: client => client.fetchReferencedFiles(doc, skip)
+});
+const fetchTriggers = (name, worker, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.triggers',
+  options,
+  skip,
+  promise: client => client.fetchTriggers(name, worker, options, skip)
+});
+const fetchKonnectors = (name, options = {}, skip = 0) => ({
+  types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
+  collection: name,
+  doctype: 'io.cozy.konnectors',
+  options,
+  skip,
+  promise: client => client.fetchKonnectors(name, options, skip)
+});
+const createDocument = (doctype, doc, actionOptions = {}) => _objectSpread({
+  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  doctype,
+  document: doc,
+  promise: client => client.createDocument(doctype, doc)
+}, actionOptions);
+const createTrigger = (doc, actionOptions = {}) => _objectSpread({
+  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  document: doc,
+  promise: client => client.createTrigger(doc)
+}, actionOptions);
+const launchTrigger = (trigger, actionOptions = {}) => _objectSpread({
+  types: [LAUNCH_TRIGGER, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  trigger: trigger,
+  promise: client => client.launchTrigger(trigger)
+}, actionOptions);
+const updateDocument = (doc, actionOptions = {}) => _objectSpread({
+  types: [UPDATE_DOCUMENT, RECEIVE_UPDATED_DOCUMENT, RECEIVE_ERROR],
+  document: doc,
+  promise: client => client.updateDocument(doc)
+}, actionOptions);
+const deleteDocument = (doc, actionOptions = {}) => _objectSpread({
+  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
+  document: doc,
+  promise: client => client.deleteDocument(doc)
+}, actionOptions);
+const deleteTrigger = (doc, actionOptions = {}) => _objectSpread({
+  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
+  document: doc,
+  promise: client => client.deleteTrigger(doc)
+}, actionOptions);
+const createFile = (file, dirID, actionOptions = {}) => _objectSpread({
+  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  doctype: 'io.cozy.files',
+  promise: client => client.createFile(file, dirID)
+}, actionOptions);
+const trashFile = (file, actionOptions = {}) => _objectSpread({
+  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
+  document: file,
+  promise: client => client.trashFile(file)
+}, actionOptions);
+const addReferencedFiles = (doc, ids) => ({
+  type: ADD_REFERENCED_FILES,
+  collection: `${doc._type}/${doc._id}#files`,
+  document: doc,
+  ids,
+  promise: client => client.addReferencedFiles(doc, ids)
+});
+const removeReferencedFiles = (doc, ids) => ({
+  type: REMOVE_REFERENCED_FILES,
+  collection: `${doc._type}/${doc._id}#files`,
+  document: doc,
+  ids,
+  promise: client => client.removeReferencedFiles(doc, ids)
+});
+const makeActionCreator = promise => ({
+  promise
+});
+const makeFetchMoreAction = ({
+  types,
+  collection,
+  document,
+  doctype,
+  options
+}, skip) => types[0] === FETCH_REFERENCED_FILES ? fetchReferencedFiles(document, skip) : fetchCollection(collection, doctype, options, skip);
+const applySelectorForAction = (state, action) => {
   switch (action.types[0]) {
     case FETCH_COLLECTION:
     case FETCH_REFERENCED_FILES:
@@ -3243,53 +2462,45 @@ var applySelectorForAction = function applySelectorForAction(state, action) {
     case FETCH_DOCUMENT:
       return getDocument(state, action.doctype, action.id);
 
-    case _slices_sharings__WEBPACK_IMPORTED_MODULE_6__["FETCH_SHARINGS"]:
-      return action.id ? Object(_slices_sharings__WEBPACK_IMPORTED_MODULE_6__["getSharingDetails"])(state, action.doctype, action.id, action.options) : Object(_slices_sharings__WEBPACK_IMPORTED_MODULE_6__["getSharings"])(state, action.doctype, action.options);
+    case _slices_sharings__WEBPACK_IMPORTED_MODULE_2__["FETCH_SHARINGS"]:
+      return action.id ? Object(_slices_sharings__WEBPACK_IMPORTED_MODULE_2__["getSharingDetails"])(state, action.doctype, action.id, action.options) : Object(_slices_sharings__WEBPACK_IMPORTED_MODULE_2__["getSharings"])(state, action.doctype, action.options);
 
     default:
       return null;
   }
 };
-var enhancePropsForActions = function enhancePropsForActions(props, fetchActions, dispatch) {
-  return Object(_utils__WEBPACK_IMPORTED_MODULE_5__["mapValues"])(fetchActions, function (action, propName) {
-    var dataObject = props[propName];
+const enhancePropsForActions = (props, fetchActions, dispatch) => Object(_utils__WEBPACK_IMPORTED_MODULE_1__["mapValues"])(fetchActions, (action, propName) => {
+  const dataObject = props[propName];
 
-    switch (action.types[0]) {
-      case FETCH_COLLECTION:
-      case FETCH_REFERENCED_FILES:
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, dataObject, {
-          fetchMore: dataObject.hasMore ? function () {
-            return dispatch(makeFetchMoreAction(action, dataObject.data.length));
-          } : null
-        });
+  switch (action.types[0]) {
+    case FETCH_COLLECTION:
+    case FETCH_REFERENCED_FILES:
+      return _objectSpread({}, dataObject, {
+        fetchMore: dataObject.hasMore ? () => dispatch(makeFetchMoreAction(action, dataObject.data.length)) : null
+      });
 
-      default:
-        return dataObject;
-    }
-  });
-}; // selectors
+    default:
+      return dataObject;
+  }
+}); // selectors
 
-var mapDocumentsToIds = function mapDocumentsToIds(documents, doctype, ids) {
-  return ids.map(function (id) {
-    return documents[doctype][id];
-  });
-};
+const mapDocumentsToIds = (documents, doctype, ids) => ids.map(id => documents[doctype][id]);
 
-var getCollection = function getCollection(state, name) {
-  var collection = state.cozy.collections[name];
+const getCollection = (state, name) => {
+  const collection = state.cozy.collections[name];
 
   if (!collection) {
-    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, collectionInitialState, {
+    return _objectSpread({}, collectionInitialState, {
       data: null
     });
   }
 
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, collection, {
+  return _objectSpread({}, collection, {
     data: mapDocumentsToIds(state.cozy.documents, collection.type, collection.ids)
   });
 };
-var getDocument = function getDocument(state, doctype, id) {
-  var documents = state.cozy.documents[doctype];
+const getDocument = (state, doctype, id) => {
+  const documents = state.cozy.documents[doctype];
 
   if (!documents) {
     return null;
@@ -3297,9 +2508,7 @@ var getDocument = function getDocument(state, doctype, id) {
 
   return documents[id];
 };
-var isCollectionFetched = function isCollectionFetched(state, name) {
-  return state.cozy.collections[name] && state.cozy.collections[name].fetchStatus === 'loaded';
-};
+const isCollectionFetched = (state, name) => state.cozy.collections[name] && state.cozy.collections[name].fetchStatus === 'loaded';
 
 /***/ }),
 
@@ -3310,25 +2519,16 @@ var isCollectionFetched = function isCollectionFetched(state, name) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadArchive", function() { return downloadArchive; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadFile", function() { return downloadFile; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
 /* global cozy */
-var slugify = function slugify(text) {
-  return text.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
-  .replace(/[^\w-]+/g, '') // Remove all non-word chars
-  .replace(/--+/g, '-') // Replace multiple - with single -
-  .replace(/^-+/, '') // Trim - from start of text
-  .replace(/-+$/, '');
-}; // Trim - from end of text
+const slugify = text => text.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
+.replace(/[^\w-]+/g, '') // Remove all non-word chars
+.replace(/--+/g, '-') // Replace multiple - with single -
+.replace(/^-+/, '') // Trim - from start of text
+.replace(/-+$/, ''); // Trim - from end of text
 
 
-var forceFileDownload = function forceFileDownload(href, filename) {
-  var element = document.createElement('a');
+const forceFileDownload = (href, filename) => {
+  const element = document.createElement('a');
   element.setAttribute('href', href);
   element.setAttribute('download', filename);
   element.style.display = 'none';
@@ -3338,77 +2538,17 @@ var forceFileDownload = function forceFileDownload(href, filename) {
 }; // async helpers: they interact with the stack but not with the store
 
 
-var downloadArchive =
-/*#__PURE__*/
-function () {
-  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(notSecureFilename, fileIds) {
-    var filename, href, fullpath;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            filename = slugify(notSecureFilename);
-            _context.next = 3;
-            return cozy.client.files.getArchiveLinkByIds(fileIds, filename);
-
-          case 3:
-            href = _context.sent;
-            _context.next = 6;
-            return cozy.client.fullpath(href);
-
-          case 6:
-            fullpath = _context.sent;
-            forceFileDownload(fullpath, filename + '.zip');
-
-          case 8:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function downloadArchive(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-var downloadFile =
-/*#__PURE__*/
-function () {
-  var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(file) {
-    var response, blob;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return cozy.client.files.downloadById(file.id);
-
-          case 2:
-            response = _context2.sent;
-            _context2.next = 5;
-            return response.blob();
-
-          case 5:
-            blob = _context2.sent;
-            forceFileDownload(window.URL.createObjectURL(blob), file.name);
-
-          case 7:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function downloadFile(_x3) {
-    return _ref2.apply(this, arguments);
-  };
-}();
+const downloadArchive = async (notSecureFilename, fileIds) => {
+  const filename = slugify(notSecureFilename);
+  const href = await cozy.client.files.getArchiveLinkByIds(fileIds, filename);
+  const fullpath = await cozy.client.fullpath(href);
+  forceFileDownload(fullpath, filename + '.zip');
+};
+const downloadFile = async file => {
+  const response = await cozy.client.files.downloadById(file.id);
+  const blob = await response.blob();
+  forceFileDownload(window.URL.createObjectURL(blob), file.name);
+};
 
 /***/ }),
 
@@ -3571,52 +2711,34 @@ webpackContext.id = "KAKi";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONNECTION_STATUS", function() { return CONNECTION_STATUS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CollectStore; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lwsE");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("W8MJ");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lib_triggers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("WWPq");
-/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("oBqo");
-/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cozy_realtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var lib_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("WWPq");
+/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("oBqo");
+/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cozy_realtime__WEBPACK_IMPORTED_MODULE_1__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-
-
-
-
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* global cozy */
 
 
-var CONNECTION_STATUS = {
+const CONNECTION_STATUS = {
   ERRORED: 'errored',
   RUNNING: 'running',
   CONNECTED: 'connected'
 };
-var ACCOUNTS_DOCTYPE = 'io.cozy.accounts';
-var JOBS_DOCTYPE = 'io.cozy.jobs';
-var TRIGGERS_DOCTYPE = 'io.cozy.triggers';
+const ACCOUNTS_DOCTYPE = 'io.cozy.accounts';
+const JOBS_DOCTYPE = 'io.cozy.jobs';
+const TRIGGERS_DOCTYPE = 'io.cozy.triggers';
 
-var normalize = function normalize(dbObject, doctype) {
-  return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default()({}, dbObject, dbObject.attributes, {
+const normalize = (dbObject, doctype) => {
+  return _objectSpread({}, dbObject, dbObject.attributes, {
     id: dbObject._id,
     _type: doctype || dbObject._type
   });
 };
 
-var CollectStore =
-/*#__PURE__*/
-function () {
-  function CollectStore(context, client) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, CollectStore);
-
+class CollectStore {
+  constructor(context, client, options = {}) {
     this.client = client;
     this.listener = null;
     this.options = options;
@@ -3630,301 +2752,128 @@ function () {
     this.initializeRealtime();
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(CollectStore, [{
-    key: "initializeRealtime",
-    value: function initializeRealtime() {
-      this.realtime = new cozy_realtime__WEBPACK_IMPORTED_MODULE_6___default.a({
-        client: this.client
-      });
-      this.realtime.subscribe('created', JOBS_DOCTYPE, this.updateUnfinishedJob);
-      this.realtime.subscribe('updated', JOBS_DOCTYPE, this.updateUnfinishedJob);
-      this.realtime.subscribe('created', ACCOUNTS_DOCTYPE, this.onAccountCreated);
-      this.realtime.subscribe('updated', ACCOUNTS_DOCTYPE, this.onAccountUpdated);
-      this.realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted);
-      this.realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated);
-      this.realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted);
+  initializeRealtime() {
+    this.realtime = new cozy_realtime__WEBPACK_IMPORTED_MODULE_1___default.a({
+      client: this.client
+    });
+    this.realtime.subscribe('created', JOBS_DOCTYPE, this.updateUnfinishedJob);
+    this.realtime.subscribe('updated', JOBS_DOCTYPE, this.updateUnfinishedJob);
+    this.realtime.subscribe('created', ACCOUNTS_DOCTYPE, this.onAccountCreated);
+    this.realtime.subscribe('updated', ACCOUNTS_DOCTYPE, this.onAccountUpdated);
+    this.realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted);
+    this.realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated);
+    this.realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted);
+  }
+
+  async onAccountCreated(account) {
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: {
+        data: [normalize(account, ACCOUNTS_DOCTYPE)]
+      },
+      updateCollections: ['accounts']
+    });
+  }
+
+  async onAccountUpdated(account) {
+    this.dispatch({
+      type: 'RECEIVE_UPDATED_DOCUMENT',
+      response: {
+        data: [normalize(account, ACCOUNTS_DOCTYPE)]
+      },
+      updateCollections: ['accounts']
+    });
+  }
+
+  async onAccountDeleted(account) {
+    this.dispatch({
+      type: 'RECEIVE_DELETED_DOCUMENT',
+      response: {
+        data: [normalize(account, ACCOUNTS_DOCTYPE)]
+      },
+      updateCollections: ['accounts']
+    });
+  }
+
+  async onTriggerCreated(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: {
+        data: [normalize(trigger, TRIGGERS_DOCTYPE)]
+      },
+      updateCollections: ['triggers']
+    });
+  }
+
+  async onTriggerUpdated(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_UPDATED_DOCUMENT',
+      response: {
+        data: [normalize(trigger, TRIGGERS_DOCTYPE)]
+      },
+      updateCollections: ['triggers']
+    });
+  }
+
+  async onTriggerDeleted(trigger) {
+    this.dispatch({
+      type: 'RECEIVE_DELETED_DOCUMENT',
+      response: {
+        data: [normalize(trigger, TRIGGERS_DOCTYPE)]
+      },
+      updateCollections: ['triggers']
+    });
+  }
+
+  async updateUnfinishedJob(job) {
+    const normalizedJob = normalize(job, JOBS_DOCTYPE); // TODO Filter by worker on the WebSocket when it will be available in the
+    // stack
+
+    const isKonnectorJob = normalizedJob.worker === 'konnector';
+    const isDeletedAccountHookJob = !!normalizedJob.account_deleted;
+
+    if (!isKonnectorJob || isDeletedAccountHookJob) {
+      return;
     }
-  }, {
-    key: "onAccountCreated",
-    value: function () {
-      var _onAccountCreated = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(account) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_NEW_DOCUMENT',
-                  response: {
-                    data: [normalize(account, ACCOUNTS_DOCTYPE)]
-                  },
-                  updateCollections: ['accounts']
-                });
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+    this.dispatch({
+      type: 'RECEIVE_NEW_DOCUMENT',
+      response: {
+        data: [normalizedJob]
+      },
+      updateCollections: ['jobs']
+    });
+    const trigger = await lib_triggers__WEBPACK_IMPORTED_MODULE_0__["fetch"](cozy.client, normalizedJob.trigger_id);
+    this.onTriggerUpdated(trigger);
+  }
 
-      function onAccountCreated(_x) {
-        return _onAccountCreated.apply(this, arguments);
-      }
+  createIntentService(intent, window) {
+    return cozy.client.intents.createService(intent, window);
+  } // Get the drive and banks application url using the list of application
 
-      return onAccountCreated;
-    }()
-  }, {
-    key: "onAccountUpdated",
-    value: function () {
-      var _onAccountUpdated = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(account) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_UPDATED_DOCUMENT',
-                  response: {
-                    data: [normalize(account, ACCOUNTS_DOCTYPE)]
-                  },
-                  updateCollections: ['accounts']
-                });
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
+  fetchUrls() {
+    return cozy.client.fetchJSON('GET', '/apps/').then(body => {
+      body.forEach(item => {
+        if (!item.attributes || !item.attributes.slug || !item.links) return;
 
-      function onAccountUpdated(_x2) {
-        return _onAccountUpdated.apply(this, arguments);
-      }
+        switch (item.attributes.slug) {
+          case 'banks':
+            this.banksUrl = `${item.links.related}`;
+            break;
 
-      return onAccountUpdated;
-    }()
-  }, {
-    key: "onAccountDeleted",
-    value: function () {
-      var _onAccountDeleted = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(account) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_DELETED_DOCUMENT',
-                  response: {
-                    data: [normalize(account, ACCOUNTS_DOCTYPE)]
-                  },
-                  updateCollections: ['accounts']
-                });
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function onAccountDeleted(_x3) {
-        return _onAccountDeleted.apply(this, arguments);
-      }
-
-      return onAccountDeleted;
-    }()
-  }, {
-    key: "onTriggerCreated",
-    value: function () {
-      var _onTriggerCreated = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(trigger) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_NEW_DOCUMENT',
-                  response: {
-                    data: [normalize(trigger, TRIGGERS_DOCTYPE)]
-                  },
-                  updateCollections: ['triggers']
-                });
-
-              case 1:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function onTriggerCreated(_x4) {
-        return _onTriggerCreated.apply(this, arguments);
-      }
-
-      return onTriggerCreated;
-    }()
-  }, {
-    key: "onTriggerUpdated",
-    value: function () {
-      var _onTriggerUpdated = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(trigger) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_UPDATED_DOCUMENT',
-                  response: {
-                    data: [normalize(trigger, TRIGGERS_DOCTYPE)]
-                  },
-                  updateCollections: ['triggers']
-                });
-
-              case 1:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this);
-      }));
-
-      function onTriggerUpdated(_x5) {
-        return _onTriggerUpdated.apply(this, arguments);
-      }
-
-      return onTriggerUpdated;
-    }()
-  }, {
-    key: "onTriggerDeleted",
-    value: function () {
-      var _onTriggerDeleted = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(trigger) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                this.dispatch({
-                  type: 'RECEIVE_DELETED_DOCUMENT',
-                  response: {
-                    data: [normalize(trigger, TRIGGERS_DOCTYPE)]
-                  },
-                  updateCollections: ['triggers']
-                });
-
-              case 1:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, this);
-      }));
-
-      function onTriggerDeleted(_x6) {
-        return _onTriggerDeleted.apply(this, arguments);
-      }
-
-      return onTriggerDeleted;
-    }()
-  }, {
-    key: "updateUnfinishedJob",
-    value: function () {
-      var _updateUnfinishedJob = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(job) {
-        var normalizedJob, isKonnectorJob, isDeletedAccountHookJob, trigger;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                normalizedJob = normalize(job, JOBS_DOCTYPE); // TODO Filter by worker on the WebSocket when it will be available in the
-                // stack
-
-                isKonnectorJob = normalizedJob.worker === 'konnector';
-                isDeletedAccountHookJob = !!normalizedJob.account_deleted;
-
-                if (!(!isKonnectorJob || isDeletedAccountHookJob)) {
-                  _context7.next = 5;
-                  break;
-                }
-
-                return _context7.abrupt("return");
-
-              case 5:
-                this.dispatch({
-                  type: 'RECEIVE_NEW_DOCUMENT',
-                  response: {
-                    data: [normalizedJob]
-                  },
-                  updateCollections: ['jobs']
-                });
-                _context7.next = 8;
-                return lib_triggers__WEBPACK_IMPORTED_MODULE_5__["fetch"](cozy.client, normalizedJob.trigger_id);
-
-              case 8:
-                trigger = _context7.sent;
-                this.onTriggerUpdated(trigger);
-
-              case 10:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7, this);
-      }));
-
-      function updateUnfinishedJob(_x7) {
-        return _updateUnfinishedJob.apply(this, arguments);
-      }
-
-      return updateUnfinishedJob;
-    }()
-  }, {
-    key: "createIntentService",
-    value: function createIntentService(intent, window) {
-      return cozy.client.intents.createService(intent, window);
-    } // Get the drive and banks application url using the list of application
-
-  }, {
-    key: "fetchUrls",
-    value: function fetchUrls() {
-      var _this = this;
-
-      return cozy.client.fetchJSON('GET', '/apps/').then(function (body) {
-        body.forEach(function (item) {
-          if (!item.attributes || !item.attributes.slug || !item.links) return;
-
-          switch (item.attributes.slug) {
-            case 'banks':
-              _this.banksUrl = "".concat(item.links.related);
-              break;
-
-            default:
-              break;
-          }
-        });
-      }).catch(function (err) {
-        // eslint-disable-next-line no-console
-        console.warn(err.message);
-        return false;
+          default:
+            break;
+        }
       });
-    }
-  }]);
+    }).catch(err => {
+      // eslint-disable-next-line no-console
+      console.warn(err.message);
+      return false;
+    });
+  }
 
-  return CollectStore;
-}();
-
-
+}
 
 /***/ }),
 
@@ -3995,552 +2944,242 @@ module.exports = {"col-trigger-folder":"col-trigger-folder--3s1fX","col-trigger-
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CozyClient; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("RIqP");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("QILm");
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("lwsE");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("W8MJ");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _DataAccessFacade__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("+tca");
-/* harmony import */ var _authentication_mobile__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("AEoj");
+/* harmony import */ var _DataAccessFacade__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("+tca");
+/* harmony import */ var _authentication_mobile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("AEoj");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-
-
-
-
-
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 /* global cozy */
 
 
-var APPS_DOCTYPE = 'io.cozy.apps';
-var FILES_DOCTYPE = 'io.cozy.files';
-var TRIGGERS_DOCTYPE = 'io.cozy.triggers';
-var KONNECTORS_DOCTYPE = 'io.cozy.konnectors';
-var SHARINGS_DOCTYPE = 'io.cozy.sharings';
-
-var CozyClient =
-/*#__PURE__*/
-function () {
-  function CozyClient(config) {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6___default()(this, CozyClient);
-
-    var cozyURL = config.cozyURL,
-        options = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_5___default()(config, ["cozyURL"]);
+const APPS_DOCTYPE = 'io.cozy.apps';
+const FILES_DOCTYPE = 'io.cozy.files';
+const TRIGGERS_DOCTYPE = 'io.cozy.triggers';
+const KONNECTORS_DOCTYPE = 'io.cozy.konnectors';
+const SHARINGS_DOCTYPE = 'io.cozy.sharings';
+class CozyClient {
+  constructor(config) {
+    const {
+      cozyURL
+    } = config,
+          options = _objectWithoutProperties(config, ["cozyURL"]);
 
     this.options = options;
     this.indexes = {};
     this.specialDirectories = {};
-    this.facade = new _DataAccessFacade__WEBPACK_IMPORTED_MODULE_8__["default"]();
+    this.facade = new _DataAccessFacade__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
     if (cozyURL) {
       this.facade.setup(cozyURL, options);
     }
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7___default()(CozyClient, [{
-    key: "register",
-    value: function register(cozyUrl) {
-      this.facade.setup(cozyUrl, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default()({}, this.options, {
-        oauth: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default()({}, this.options.oauth, {
-          onRegistered: function onRegistered(client, url) {
-            return Object(_authentication_mobile__WEBPACK_IMPORTED_MODULE_9__["authenticateWithCordova"])(url);
-          }
-        })
-      }));
-      return cozy.client.authorize(true);
-    }
-  }, {
-    key: "isRegistered",
-    value: function () {
-      var _isRegistered = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee(clientInfos) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (clientInfos) {
-                  _context.next = 2;
-                  break;
-                }
+  register(cozyUrl) {
+    this.facade.setup(cozyUrl, _objectSpread({}, this.options, {
+      oauth: _objectSpread({}, this.options.oauth, {
+        onRegistered: (client, url) => Object(_authentication_mobile__WEBPACK_IMPORTED_MODULE_1__["authenticateWithCordova"])(url)
+      })
+    }));
+    return cozy.client.authorize(true);
+  }
 
-                return _context.abrupt("return", false);
+  async isRegistered(clientInfos) {
+    if (!clientInfos) return false;
 
-              case 2:
-                _context.prev = 2;
-                _context.next = 5;
-                return cozy.client.auth.getClient(clientInfos);
+    try {
+      await cozy.client.auth.getClient(clientInfos);
+      return true;
+    } catch (err) {
+      // this is the error sent if we are offline
+      if (err.message === 'Failed to fetch') {
+        return true;
+      } else {
+        console.warn(err); // eslint-disable-line no-console
 
-              case 5:
-                return _context.abrupt("return", true);
-
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](2);
-
-                if (!(_context.t0.message === 'Failed to fetch')) {
-                  _context.next = 14;
-                  break;
-                }
-
-                return _context.abrupt("return", true);
-
-              case 14:
-                console.warn(_context.t0); // eslint-disable-line no-console
-
-                return _context.abrupt("return", false);
-
-              case 16:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[2, 8]]);
-      }));
-
-      function isRegistered(_x) {
-        return _isRegistered.apply(this, arguments);
+        return false;
       }
+    }
+  }
 
-      return isRegistered;
-    }()
-  }, {
-    key: "startSync",
-    value: function startSync(dispatch) {
-      return this.facade.startSync(dispatch);
-    }
-  }, {
-    key: "startReplicationTo",
-    value: function startReplicationTo(dispatch) {
-      return this.facade.startReplicationTo(dispatch);
-    }
-  }, {
-    key: "startReplicationFrom",
-    value: function startReplicationFrom(dispatch) {
-      return this.facade.startReplicationFrom(dispatch);
-    }
-  }, {
-    key: "getAdapter",
-    value: function getAdapter(doctype) {
-      return this.facade.getAdapter(doctype);
-    }
-  }, {
-    key: "fetchApps",
-    value: function () {
-      var _fetchApps = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", this.getAdapter(APPS_DOCTYPE).fetchApps());
+  startSync(dispatch) {
+    return this.facade.startSync(dispatch);
+  }
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
+  startReplicationTo(dispatch) {
+    return this.facade.startReplicationTo(dispatch);
+  }
+
+  startReplicationFrom(dispatch) {
+    return this.facade.startReplicationFrom(dispatch);
+  }
+
+  getAdapter(doctype) {
+    return this.facade.getAdapter(doctype);
+  }
+
+  async fetchApps() {
+    return this.getAdapter(APPS_DOCTYPE).fetchApps();
+  }
+
+  async fetchCollection(name, doctype, options = {}, skip = 0) {
+    if (options.selector) {
+      const index = await this.getCollectionIndex(name, doctype, options);
+      return this.getAdapter(doctype).queryDocuments(doctype, index, _objectSpread({}, options, {
+        skip
       }));
-
-      function fetchApps() {
-        return _fetchApps.apply(this, arguments);
-      }
-
-      return fetchApps;
-    }()
-  }, {
-    key: "fetchCollection",
-    value: function () {
-      var _fetchCollection = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee3(name, doctype) {
-        var options,
-            skip,
-            index,
-            _args3 = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
-                skip = _args3.length > 3 && _args3[3] !== undefined ? _args3[3] : 0;
-
-                if (!options.selector) {
-                  _context3.next = 7;
-                  break;
-                }
-
-                _context3.next = 5;
-                return this.getCollectionIndex(name, doctype, options);
-
-              case 5:
-                index = _context3.sent;
-                return _context3.abrupt("return", this.getAdapter(doctype).queryDocuments(doctype, index, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_4___default()({}, options, {
-                  skip: skip
-                })));
-
-              case 7:
-                return _context3.abrupt("return", this.getAdapter(doctype).fetchDocuments(doctype));
-
-              case 8:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function fetchCollection(_x2, _x3) {
-        return _fetchCollection.apply(this, arguments);
-      }
-
-      return fetchCollection;
-    }()
-  }, {
-    key: "fetchDocument",
-    value: function fetchDocument(doctype, id) {
-      return this.getAdapter(doctype).fetchDocument(doctype, id);
     }
-  }, {
-    key: "fetchFile",
-    value: function fetchFile(id) {
-      return this.getAdapter(FILES_DOCTYPE).fetchFile(id);
+
+    return this.getAdapter(doctype).fetchDocuments(doctype);
+  }
+
+  fetchDocument(doctype, id) {
+    return this.getAdapter(doctype).fetchDocument(doctype, id);
+  }
+
+  fetchFile(id) {
+    return this.getAdapter(FILES_DOCTYPE).fetchFile(id);
+  }
+
+  fetchReferencedFiles(doc, skip = 0) {
+    return this.getAdapter(doc._type).fetchReferencedFiles(doc, skip);
+  }
+
+  fetchTriggers(name, worker) {
+    return this.getAdapter(TRIGGERS_DOCTYPE).fetchTriggers(worker);
+  }
+
+  fetchKonnectors() {
+    return this.getAdapter(KONNECTORS_DOCTYPE).fetchKonnectors();
+  }
+
+  addReferencedFiles(doc, ids) {
+    return this.getAdapter(doc._type).addReferencedFiles(doc, ids);
+  }
+
+  removeReferencedFiles(doc, ids) {
+    return this.getAdapter(doc._type).removeReferencedFiles(doc, ids);
+  }
+
+  createDocument(doctype, doc) {
+    return this.getAdapter(doctype).createDocument(doctype, doc);
+  }
+
+  createTrigger(doc) {
+    return this.getAdapter(doc._type).createTrigger(doc);
+  }
+
+  launchTrigger(doc) {
+    return this.getAdapter(doc._type).launchTrigger(doc);
+  }
+
+  updateDocument(doc) {
+    return this.getAdapter(doc._type).updateDocument(doc);
+  }
+
+  deleteDocument(doc) {
+    return this.getAdapter(doc._type).deleteDocument(doc);
+  }
+
+  deleteTrigger(doc) {
+    return this.getAdapter(doc._type).deleteTrigger(doc);
+  }
+
+  async fetchSharings(doctype) {
+    const permissions = await this.getAdapter(doctype).fetchSharingPermissions(doctype);
+    const sharingIds = [...permissions.byMe.map(p => p.attributes.source_id), ...permissions.withMe.map(p => p.attributes.source_id)];
+    const sharings = await Promise.all(sharingIds.map(id => this.getAdapter(SHARINGS_DOCTYPE).fetchSharing(id)));
+    return {
+      permissions,
+      sharings
+    };
+  }
+
+  createSharing(permissions, contactIds, sharingType, description) {
+    return this.getAdapter(SHARINGS_DOCTYPE).createSharing(permissions, contactIds, sharingType, description);
+  }
+
+  revokeSharing(sharingId) {
+    return this.getAdapter(SHARINGS_DOCTYPE).revokeSharing(sharingId);
+  }
+
+  revokeSharingForClient(sharingId, clientId) {
+    return this.getAdapter(SHARINGS_DOCTYPE).revokeSharingForClient(sharingId, clientId);
+  }
+
+  createSharingLink(permissions) {
+    return this.getAdapter(SHARINGS_DOCTYPE).createSharingLink(permissions);
+  }
+
+  revokeSharingLink(permission) {
+    return this.getAdapter(SHARINGS_DOCTYPE).revokeSharingLink(permission);
+  }
+
+  createFile(file, dirID) {
+    return this.getAdapter(FILES_DOCTYPE).createFile(file, dirID);
+  }
+
+  trashFile(file) {
+    return this.getAdapter(FILES_DOCTYPE).trashFile(file);
+  }
+
+  async ensureDirectoryExists(path) {
+    if (!this.specialDirectories[path]) {
+      const dir = await cozy.client.files.createDirectoryByPath(path);
+      this.specialDirectories[path] = dir._id;
     }
-  }, {
-    key: "fetchReferencedFiles",
-    value: function fetchReferencedFiles(doc) {
-      var skip = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      return this.getAdapter(doc._type).fetchReferencedFiles(doc, skip);
+
+    return this.specialDirectories[path];
+  }
+
+  async checkUniquenessOf(doctype, property, value) {
+    const index = await this.getUniqueIndex(doctype, property);
+    const existingDocs = await cozy.client.data.query(index, {
+      selector: {
+        [property]: value
+      },
+      fields: ['_id']
+    });
+    return existingDocs.length === 0;
+  }
+
+  async getCollectionIndex(name, doctype, options) {
+    if (!this.indexes[name]) {
+      this.indexes[name] = await this.getAdapter(doctype).createIndex(doctype, this.getIndexFields(options));
     }
-  }, {
-    key: "fetchTriggers",
-    value: function fetchTriggers(name, worker) {
-      return this.getAdapter(TRIGGERS_DOCTYPE).fetchTriggers(worker);
+
+    return this.indexes[name];
+  }
+
+  async getUniqueIndex(doctype, property) {
+    const name = `${doctype}/${property}`;
+
+    if (!this.indexes[name]) {
+      this.indexes[name] = await this.getAdapter(doctype).createIndex(doctype, [property]);
     }
-  }, {
-    key: "fetchKonnectors",
-    value: function fetchKonnectors() {
-      return this.getAdapter(KONNECTORS_DOCTYPE).fetchKonnectors();
+
+    return this.indexes[name];
+  }
+
+  getIndexFields(options) {
+    const {
+      selector,
+      sort
+    } = options;
+
+    if (sort) {
+      // We filter possible duplicated fields
+      return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i);
     }
-  }, {
-    key: "addReferencedFiles",
-    value: function addReferencedFiles(doc, ids) {
-      return this.getAdapter(doc._type).addReferencedFiles(doc, ids);
-    }
-  }, {
-    key: "removeReferencedFiles",
-    value: function removeReferencedFiles(doc, ids) {
-      return this.getAdapter(doc._type).removeReferencedFiles(doc, ids);
-    }
-  }, {
-    key: "createDocument",
-    value: function createDocument(doctype, doc) {
-      return this.getAdapter(doctype).createDocument(doctype, doc);
-    }
-  }, {
-    key: "createTrigger",
-    value: function createTrigger(doc) {
-      return this.getAdapter(doc._type).createTrigger(doc);
-    }
-  }, {
-    key: "launchTrigger",
-    value: function launchTrigger(doc) {
-      return this.getAdapter(doc._type).launchTrigger(doc);
-    }
-  }, {
-    key: "updateDocument",
-    value: function updateDocument(doc) {
-      return this.getAdapter(doc._type).updateDocument(doc);
-    }
-  }, {
-    key: "deleteDocument",
-    value: function deleteDocument(doc) {
-      return this.getAdapter(doc._type).deleteDocument(doc);
-    }
-  }, {
-    key: "deleteTrigger",
-    value: function deleteTrigger(doc) {
-      return this.getAdapter(doc._type).deleteTrigger(doc);
-    }
-  }, {
-    key: "fetchSharings",
-    value: function () {
-      var _fetchSharings = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee4(doctype) {
-        var _this = this;
 
-        var permissions, sharingIds, sharings;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return this.getAdapter(doctype).fetchSharingPermissions(doctype);
+    return Object.keys(selector);
+  }
 
-              case 2:
-                permissions = _context4.sent;
-                sharingIds = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(permissions.byMe.map(function (p) {
-                  return p.attributes.source_id;
-                })), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(permissions.withMe.map(function (p) {
-                  return p.attributes.source_id;
-                })));
-                _context4.next = 6;
-                return Promise.all(sharingIds.map(function (id) {
-                  return _this.getAdapter(SHARINGS_DOCTYPE).fetchSharing(id);
-                }));
-
-              case 6:
-                sharings = _context4.sent;
-                return _context4.abrupt("return", {
-                  permissions: permissions,
-                  sharings: sharings
-                });
-
-              case 8:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function fetchSharings(_x4) {
-        return _fetchSharings.apply(this, arguments);
-      }
-
-      return fetchSharings;
-    }()
-  }, {
-    key: "createSharing",
-    value: function createSharing(permissions, contactIds, sharingType, description) {
-      return this.getAdapter(SHARINGS_DOCTYPE).createSharing(permissions, contactIds, sharingType, description);
-    }
-  }, {
-    key: "revokeSharing",
-    value: function revokeSharing(sharingId) {
-      return this.getAdapter(SHARINGS_DOCTYPE).revokeSharing(sharingId);
-    }
-  }, {
-    key: "revokeSharingForClient",
-    value: function revokeSharingForClient(sharingId, clientId) {
-      return this.getAdapter(SHARINGS_DOCTYPE).revokeSharingForClient(sharingId, clientId);
-    }
-  }, {
-    key: "createSharingLink",
-    value: function createSharingLink(permissions) {
-      return this.getAdapter(SHARINGS_DOCTYPE).createSharingLink(permissions);
-    }
-  }, {
-    key: "revokeSharingLink",
-    value: function revokeSharingLink(permission) {
-      return this.getAdapter(SHARINGS_DOCTYPE).revokeSharingLink(permission);
-    }
-  }, {
-    key: "createFile",
-    value: function createFile(file, dirID) {
-      return this.getAdapter(FILES_DOCTYPE).createFile(file, dirID);
-    }
-  }, {
-    key: "trashFile",
-    value: function trashFile(file) {
-      return this.getAdapter(FILES_DOCTYPE).trashFile(file);
-    }
-  }, {
-    key: "ensureDirectoryExists",
-    value: function () {
-      var _ensureDirectoryExists = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee5(path) {
-        var dir;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                if (this.specialDirectories[path]) {
-                  _context5.next = 5;
-                  break;
-                }
-
-                _context5.next = 3;
-                return cozy.client.files.createDirectoryByPath(path);
-
-              case 3:
-                dir = _context5.sent;
-                this.specialDirectories[path] = dir._id;
-
-              case 5:
-                return _context5.abrupt("return", this.specialDirectories[path]);
-
-              case 6:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this);
-      }));
-
-      function ensureDirectoryExists(_x5) {
-        return _ensureDirectoryExists.apply(this, arguments);
-      }
-
-      return ensureDirectoryExists;
-    }()
-  }, {
-    key: "checkUniquenessOf",
-    value: function () {
-      var _checkUniquenessOf = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee6(doctype, property, value) {
-        var index, existingDocs;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.next = 2;
-                return this.getUniqueIndex(doctype, property);
-
-              case 2:
-                index = _context6.sent;
-                _context6.next = 5;
-                return cozy.client.data.query(index, {
-                  selector: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, property, value),
-                  fields: ['_id']
-                });
-
-              case 5:
-                existingDocs = _context6.sent;
-                return _context6.abrupt("return", existingDocs.length === 0);
-
-              case 7:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, this);
-      }));
-
-      function checkUniquenessOf(_x6, _x7, _x8) {
-        return _checkUniquenessOf.apply(this, arguments);
-      }
-
-      return checkUniquenessOf;
-    }()
-  }, {
-    key: "getCollectionIndex",
-    value: function () {
-      var _getCollectionIndex = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee7(name, doctype, options) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                if (this.indexes[name]) {
-                  _context7.next = 4;
-                  break;
-                }
-
-                _context7.next = 3;
-                return this.getAdapter(doctype).createIndex(doctype, this.getIndexFields(options));
-
-              case 3:
-                this.indexes[name] = _context7.sent;
-
-              case 4:
-                return _context7.abrupt("return", this.indexes[name]);
-
-              case 5:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7, this);
-      }));
-
-      function getCollectionIndex(_x9, _x10, _x11) {
-        return _getCollectionIndex.apply(this, arguments);
-      }
-
-      return getCollectionIndex;
-    }()
-  }, {
-    key: "getUniqueIndex",
-    value: function () {
-      var _getUniqueIndex = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee8(doctype, property) {
-        var name;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                name = "".concat(doctype, "/").concat(property);
-
-                if (this.indexes[name]) {
-                  _context8.next = 5;
-                  break;
-                }
-
-                _context8.next = 4;
-                return this.getAdapter(doctype).createIndex(doctype, [property]);
-
-              case 4:
-                this.indexes[name] = _context8.sent;
-
-              case 5:
-                return _context8.abrupt("return", this.indexes[name]);
-
-              case 6:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8, this);
-      }));
-
-      function getUniqueIndex(_x12, _x13) {
-        return _getUniqueIndex.apply(this, arguments);
-      }
-
-      return getUniqueIndex;
-    }()
-  }, {
-    key: "getIndexFields",
-    value: function getIndexFields(options) {
-      var selector = options.selector,
-          sort = options.sort;
-
-      if (sort) {
-        // We filter possible duplicated fields
-        return [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(Object.keys(selector)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(Object.keys(sort))).filter(function (f, i, arr) {
-          return arr.indexOf(f) === i;
-        });
-      }
-
-      return Object.keys(selector);
-    }
-  }]);
-
-  return CozyClient;
-}();
-
-
+}
 
 /***/ }),
 
@@ -4557,62 +3196,57 @@ module.exports = ["energy","insurance","isp","shopping","telecom","transport","b
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "konnectorsI18nMiddleware", function() { return konnectorsI18nMiddleware; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("buk/");
+/* harmony import */ var cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("buk/");
 
+const KONNECTORS_DOCTYPE = 'io.cozy.konnectors';
 
-var KONNECTORS_DOCTYPE = 'io.cozy.konnectors';
+const extendI18nWithKonnector = lang => konnector => {
+  const {
+    langs,
+    locales
+  } = konnector;
+  const hasLangs = langs && langs.length;
 
-var extendI18nWithKonnector = function extendI18nWithKonnector(lang) {
-  return function (konnector) {
-    var langs = konnector.langs,
-        locales = konnector.locales;
-    var hasLangs = langs && langs.length;
-
-    if (!hasLangs) {
-      // eslint-disable-next-line no-console
-      console.warn("Konnector ".concat(konnector.name, " does not specify any lang"));
-      return konnector;
-    }
-
-    var providesLang = hasLangs && langs.includes(lang);
-    var actualLang = providesLang ? lang : langs[0];
-    var localeKeys = locales && Object.keys(locales);
-    var providesLocales = localeKeys && localeKeys.length && localeKeys.includes(actualLang);
-
-    if (!providesLocales) {
-      // eslint-disable-next-line no-console
-      console.warn("Konnector ".concat(konnector.name, " does not specify any locale for lang ").concat(actualLang));
-      return konnector;
-    }
-
-    Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_1__["extend"])(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, konnector.slug, locales[actualLang]));
+  if (!hasLangs) {
+    // eslint-disable-next-line no-console
+    console.warn(`Konnector ${konnector.name} does not specify any lang`);
     return konnector;
-  };
+  }
+
+  const providesLang = hasLangs && langs.includes(lang);
+  const actualLang = providesLang ? lang : langs[0];
+  const localeKeys = locales && Object.keys(locales);
+  const providesLocales = localeKeys && localeKeys.length && localeKeys.includes(actualLang);
+
+  if (!providesLocales) {
+    // eslint-disable-next-line no-console
+    console.warn(`Konnector ${konnector.name} does not specify any locale for lang ${actualLang}`);
+    return konnector;
+  }
+
+  Object(cozy_ui_react_I18n__WEBPACK_IMPORTED_MODULE_0__["extend"])({
+    [konnector.slug]: locales[actualLang]
+  });
+  return konnector;
 };
 
-var konnectorsI18nMiddleware = function konnectorsI18nMiddleware(lang) {
-  return function () {
-    return function (next) {
-      return function (action) {
-        var response = action.response;
+const konnectorsI18nMiddleware = lang => () => next => action => {
+  const {
+    response
+  } = action;
 
-        switch (action.type) {
-          case 'RECEIVE_DATA':
-          case 'RECEIVE_NEW_DOCUMENT':
-            if (response && action.doctype === KONNECTORS_DOCTYPE) {
-              var konnectors = response.data;
-              konnectors && konnectors.length && konnectors.forEach(extendI18nWithKonnector(lang));
-            }
+  switch (action.type) {
+    case 'RECEIVE_DATA':
+    case 'RECEIVE_NEW_DOCUMENT':
+      if (response && action.doctype === KONNECTORS_DOCTYPE) {
+        const konnectors = response.data;
+        konnectors && konnectors.length && konnectors.forEach(extendI18nWithKonnector(lang));
+      }
 
-            break;
-        }
+      break;
+  }
 
-        return next(action);
-      };
-    };
-  };
+  return next(action);
 };
 /* harmony default export */ __webpack_exports__["default"] = (konnectorsI18nMiddleware);
 
@@ -4624,34 +3258,8 @@ var konnectorsI18nMiddleware = function konnectorsI18nMiddleware(lang) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetch", function() { return fetch; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function fetch(_x, _x2) {
-  return _fetch.apply(this, arguments);
-}
-
-function _fetch() {
-  _fetch = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(cozy, triggerId) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            return _context.abrupt("return", cozy.fetchJSON('GET', "/jobs/triggers/".concat(triggerId)));
-
-          case 1:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _fetch.apply(this, arguments);
+async function fetch(cozy, triggerId) {
+  return cozy.fetchJSON('GET', `/jobs/triggers/${triggerId}`);
 }
 
 /***/ }),
@@ -5096,7 +3704,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("kdbL");
 /* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("cokx");
-var _this = undefined;
 
 
 
@@ -5106,12 +3713,10 @@ var _this = undefined;
 
 
 
-
-var configureStore = function configureStore(legacyClient, cozyClient, context) {
-  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+const configureStore = (legacyClient, cozyClient, context, options = {}) => {
   // Enable Redux dev tools
-  var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || redux__WEBPACK_IMPORTED_MODULE_0__["compose"];
-  var reduxStore = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(reducers__WEBPACK_IMPORTED_MODULE_7__["default"])(), composeEnhancers(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"].apply(_this, [Object(redux_cozy_client__WEBPACK_IMPORTED_MODULE_1__["cozyMiddleware"])(legacyClient), Object(lib_middlewares_konnectorsI18n__WEBPACK_IMPORTED_MODULE_3__["default"])(options.lang), redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"], cozy_flags__WEBPACK_IMPORTED_MODULE_6___default()('redux-logger') ? Object(redux_logger__WEBPACK_IMPORTED_MODULE_2__["createLogger"])() : null].filter(Boolean))));
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || redux__WEBPACK_IMPORTED_MODULE_0__["compose"];
+  const reduxStore = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(reducers__WEBPACK_IMPORTED_MODULE_7__["default"])(), composeEnhancers(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"].apply(undefined, [Object(redux_cozy_client__WEBPACK_IMPORTED_MODULE_1__["cozyMiddleware"])(legacyClient), Object(lib_middlewares_konnectorsI18n__WEBPACK_IMPORTED_MODULE_3__["default"])(options.lang), redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"], cozy_flags__WEBPACK_IMPORTED_MODULE_6___default()('redux-logger') ? Object(redux_logger__WEBPACK_IMPORTED_MODULE_2__["createLogger"])() : null].filter(Boolean))));
   return Object.assign(new lib_CollectStore__WEBPACK_IMPORTED_MODULE_5__["default"](context, cozyClient, options), reduxStore);
 };
 
@@ -5150,37 +3755,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-    apps: ducks_apps__WEBPACK_IMPORTED_MODULE_3__["default"],
-    connections: ducks_connections__WEBPACK_IMPORTED_MODULE_7__["default"],
-    cozy: redux_cozy_client__WEBPACK_IMPORTED_MODULE_2__["reducer"]
-  });
-}); // selectors
+/* harmony default export */ __webpack_exports__["default"] = (() => Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  apps: ducks_apps__WEBPACK_IMPORTED_MODULE_3__["default"],
+  connections: ducks_connections__WEBPACK_IMPORTED_MODULE_7__["default"],
+  cozy: redux_cozy_client__WEBPACK_IMPORTED_MODULE_2__["reducer"]
+})); // selectors
 
-var getInstalledKonnectors = function getInstalledKonnectors(state) {
-  return ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getInstalledKonnectors"](state.cozy);
-};
-var getConnectionsByKonnector = function getConnectionsByKonnector(state, konnectorSlug) {
-  return ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getConnectionsByKonnector"](state.connections, konnectorSlug, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy), ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getSlugs"](state.cozy));
-};
-var getConnectionsQueue = function getConnectionsQueue(state) {
-  return ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getQueue"](state.connections, ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getIndexedKonnectors"](state.cozy));
-};
-var getCreatedConnectionAccount = function getCreatedConnectionAccount(state) {
-  return ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getAccount"](state.cozy, ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getCreatedAccount"](state.connections));
-};
-var getKonnectorTriggersCount = function getKonnectorTriggersCount(state, konnector) {
-  return ducks_triggers__WEBPACK_IMPORTED_MODULE_6__["getKonnectorTriggers"](state.cozy, konnector, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy)).length;
-};
-var getTriggerByKonnectorAndAccount = function getTriggerByKonnectorAndAccount(state, konnector, account) {
-  var triggerId = ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getTriggerIdByKonnectorAndAccount"](state.connections, konnector, account, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy));
+const getInstalledKonnectors = state => ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getInstalledKonnectors"](state.cozy);
+const getConnectionsByKonnector = (state, konnectorSlug) => ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getConnectionsByKonnector"](state.connections, konnectorSlug, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy), ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getSlugs"](state.cozy));
+const getConnectionsQueue = state => ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getQueue"](state.connections, ducks_konnectors__WEBPACK_IMPORTED_MODULE_5__["getIndexedKonnectors"](state.cozy));
+const getCreatedConnectionAccount = state => ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getAccount"](state.cozy, ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getCreatedAccount"](state.connections));
+const getKonnectorTriggersCount = (state, konnector) => ducks_triggers__WEBPACK_IMPORTED_MODULE_6__["getKonnectorTriggers"](state.cozy, konnector, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy)).length;
+const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
+  const triggerId = ducks_connections__WEBPACK_IMPORTED_MODULE_7__["getTriggerIdByKonnectorAndAccount"](state.connections, konnector, account, ducks_accounts__WEBPACK_IMPORTED_MODULE_4__["getIds"](state.cozy));
   return ducks_triggers__WEBPACK_IMPORTED_MODULE_6__["getTrigger"](state.cozy, triggerId);
 };
-var getTriggersByKonnector = function getTriggersByKonnector(state, konnectorSlug) {
-  var triggersInState = state.cozy.documents['io.cozy.triggers'] || {};
-  var triggers = Object.keys(triggersInState).reduce(function (acc, key) {
-    var document = state.cozy.documents['io.cozy.triggers'][key];
+const getTriggersByKonnector = (state, konnectorSlug) => {
+  const triggersInState = state.cozy.documents['io.cozy.triggers'] || {};
+  const triggers = Object.keys(triggersInState).reduce((acc, key) => {
+    const document = state.cozy.documents['io.cozy.triggers'][key];
 
     if (document.worker === 'konnector' && lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(document, 'message.konnector') === konnectorSlug) {
       acc.push(document);
@@ -5190,22 +3783,19 @@ var getTriggersByKonnector = function getTriggersByKonnector(state, konnectorSlu
   }, []);
   return triggers;
 };
-var getTriggersInError = function getTriggersInError(state) {
-  var triggers = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(state, ['cozy', 'documents', 'io.cozy.triggers'], {});
-  return Object.values(triggers).filter(function (trigger) {
-    var isInError = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(trigger, 'current_state.status') === 'errored';
+const getTriggersInError = state => {
+  const triggers = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(state, ['cozy', 'documents', 'io.cozy.triggers'], {});
+  return Object.values(triggers).filter(trigger => {
+    const isInError = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(trigger, 'current_state.status') === 'errored';
     return isInError;
   });
 };
-var getAccountsWithErrors = function getAccountsWithErrors(state) {
-  var accountsWithErrorsIds = getTriggersInError(state).map(function (trigger) {
-    return lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(trigger, 'message.account');
-  });
-  var accounts = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(state, ['cozy', 'documents', 'io.cozy.accounts'], {});
-  return Object.values(accounts).filter(function (_ref) {
-    var _id = _ref._id;
-    return accountsWithErrorsIds.includes(_id);
-  });
+const getAccountsWithErrors = state => {
+  const accountsWithErrorsIds = getTriggersInError(state).map(trigger => lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(trigger, 'message.account'));
+  const accounts = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(state, ['cozy', 'documents', 'io.cozy.accounts'], {});
+  return Object.values(accounts).filter(({
+    _id
+  }) => accountsWithErrorsIds.includes(_id));
 };
 
 /***/ }),
@@ -5460,520 +4050,210 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SYNC_TO", function() { return SYNC_TO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SYNC_FROM", function() { return SYNC_FROM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PouchdbAdapter; });
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("QILm");
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("RIqP");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("lwsE");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("W8MJ");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _slices_synchronization__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("skrj");
+/* harmony import */ var _slices_synchronization__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("skrj");
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-
-
-
-
-
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* global cozy, PouchDB, pouchdbFind */
 
-var REPLICATION_INTERVAL = 30000;
-var SYNC_BIDIRECTIONAL = 'SYNC_BIDIRECTIONAL';
-var SYNC_TO = 'SYNC_TO';
-var SYNC_FROM = 'SYNC_FROM';
-
-var PouchdbAdapter =
-/*#__PURE__*/
-function () {
-  function PouchdbAdapter() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6___default()(this, PouchdbAdapter);
-
+const REPLICATION_INTERVAL = 30000;
+const SYNC_BIDIRECTIONAL = 'SYNC_BIDIRECTIONAL';
+const SYNC_TO = 'SYNC_TO';
+const SYNC_FROM = 'SYNC_FROM';
+class PouchdbAdapter {
+  constructor() {
     PouchDB.plugin(pouchdbFind);
     this.instances = {};
     this.doctypes = [];
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_7___default()(PouchdbAdapter, [{
-    key: "registerDoctypes",
-    value: function registerDoctypes(doctypes) {
-      this.doctypes = doctypes;
+  registerDoctypes(doctypes) {
+    this.doctypes = doctypes;
+  }
+
+  getDatabase(doctype) {
+    return cozy.client.offline.getDatabase(doctype); // For now we let cozy-client-js creates PouchDB instances
+  }
+
+  getReplicationBaseUrl() {
+    return cozy.client.authorize().then(credentials => {
+      const basic = credentials.token.toBasicAuth();
+      return `${cozy.client._url}/data/`.replace('//', `//${basic}`);
+    });
+  }
+
+  getSeqNumber(doctype) {
+    return this.getDatabase(doctype).info().then(result => result.update_seq);
+  }
+
+  async sync(dispatch, direction = SYNC_BIDIRECTIONAL) {
+    const baseUrl = await this.getReplicationBaseUrl();
+
+    for (let doctype of this.doctypes) {
+      const seqNumber = await this.getSeqNumber(doctype);
+      await dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_0__["startDoctypeSync"])(doctype, seqNumber));
+      this.syncDoctype(doctype, `${baseUrl}${doctype}`, dispatch, direction);
     }
-  }, {
-    key: "getDatabase",
-    value: function getDatabase(doctype) {
-      return cozy.client.offline.getDatabase(doctype); // For now we let cozy-client-js creates PouchDB instances
-    }
-  }, {
-    key: "getReplicationBaseUrl",
-    value: function getReplicationBaseUrl() {
-      return cozy.client.authorize().then(function (credentials) {
-        var basic = credentials.token.toBasicAuth();
-        return "".concat(cozy.client._url, "/data/").replace('//', "//".concat(basic));
-      });
-    }
-  }, {
-    key: "getSeqNumber",
-    value: function getSeqNumber(doctype) {
-      return this.getDatabase(doctype).info().then(function (result) {
-        return result.update_seq;
-      });
-    }
-  }, {
-    key: "sync",
-    value: function () {
-      var _sync = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee(dispatch) {
-        var direction,
-            baseUrl,
-            _iteratorNormalCompletion,
-            _didIteratorError,
-            _iteratorError,
-            _iterator,
-            _step,
-            doctype,
-            seqNumber,
-            _args = arguments;
+  }
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                direction = _args.length > 1 && _args[1] !== undefined ? _args[1] : SYNC_BIDIRECTIONAL;
-                _context.next = 3;
-                return this.getReplicationBaseUrl();
-
-              case 3:
-                baseUrl = _context.sent;
-                _iteratorNormalCompletion = true;
-                _didIteratorError = false;
-                _iteratorError = undefined;
-                _context.prev = 7;
-                _iterator = this.doctypes[Symbol.iterator]();
-
-              case 9:
-                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 20;
-                  break;
-                }
-
-                doctype = _step.value;
-                _context.next = 13;
-                return this.getSeqNumber(doctype);
-
-              case 13:
-                seqNumber = _context.sent;
-                _context.next = 16;
-                return dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_8__["startDoctypeSync"])(doctype, seqNumber));
-
-              case 16:
-                this.syncDoctype(doctype, "".concat(baseUrl).concat(doctype), dispatch, direction);
-
-              case 17:
-                _iteratorNormalCompletion = true;
-                _context.next = 9;
-                break;
-
-              case 20:
-                _context.next = 26;
-                break;
-
-              case 22:
-                _context.prev = 22;
-                _context.t0 = _context["catch"](7);
-                _didIteratorError = true;
-                _iteratorError = _context.t0;
-
-              case 26:
-                _context.prev = 26;
-                _context.prev = 27;
-
-                if (!_iteratorNormalCompletion && _iterator.return != null) {
-                  _iterator.return();
-                }
-
-              case 29:
-                _context.prev = 29;
-
-                if (!_didIteratorError) {
-                  _context.next = 32;
-                  break;
-                }
-
-                throw _iteratorError;
-
-              case 32:
-                return _context.finish(29);
-
-              case 33:
-                return _context.finish(26);
-
-              case 34:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[7, 22, 26, 34], [27,, 29, 33]]);
-      }));
-
-      function sync(_x) {
-        return _sync.apply(this, arguments);
-      }
-
-      return sync;
-    }()
-  }, {
-    key: "syncDoctype",
-    value: function syncDoctype(doctype, replicationUrl, dispatch) {
-      var _this = this;
-
-      var direction = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : SYNC_BIDIRECTIONAL;
-      return new Promise(function (resolve, reject) {
-        var db = _this.getDatabase(doctype);
-
-        var syncHandler;
-        if (direction === SYNC_TO) syncHandler = db.replicate.to(replicationUrl);else if (direction === SYNC_FROM) syncHandler = db.replicate.from(replicationUrl);else syncHandler = db.sync(replicationUrl);
-        syncHandler.on('complete', function (info) {
-          dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_8__["syncDoctypeOk"])(doctype, info));
-
-          _this.scheduleNextSync(doctype, replicationUrl, dispatch, direction);
-
-          resolve(info);
-        }).on('error', function (err) {
-          if (err.error === 'code=400, message=Expired token') {
-            return cozy.client.authorize().then(function (_ref) {
-              var client = _ref.client,
-                  token = _ref.token;
-              cozy.client.auth.refreshToken(cozy, client, token).then(function (newToken) {
-                return cozy.client.saveCredentials(client, newToken);
-              }).then(function () {
-                return _this.syncDoctype(doctype, replicationUrl);
-              });
-            });
-          } else if (err.status !== 404) {
-            // A 404 error on some doctypes is perfectly normal when there is no data
-            dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_8__["syncDoctypeError"])(doctype, err));
-
-            _this.scheduleNextSync(doctype, replicationUrl, dispatch);
-
-            reject(err);
-          }
-        });
-      });
-    }
-  }, {
-    key: "scheduleNextSync",
-    value: function scheduleNextSync(doctype, replicationUrl, dispatch, direction) {
-      var _this2 = this;
-
-      setTimeout(function () {
-        _this2.syncDoctype(doctype, replicationUrl, dispatch, direction);
-      }, REPLICATION_INTERVAL);
-    }
-  }, {
-    key: "fetchDocuments",
-    value: function () {
-      var _fetchDocuments = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee2(doctype) {
-        var resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.getDatabase(doctype).allDocs({
-                  include_docs: true
-                });
-
-              case 2:
-                resp = _context2.sent;
-                return _context2.abrupt("return", {
-                  data: resp.rows.filter(function (row) {
-                    return !row.doc.hasOwnProperty('views');
-                  }).map(function (row) {
-                    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, row.doc, {
-                      id: row.id,
-                      _type: doctype
-                    });
-                  }),
-                  meta: {
-                    count: resp.total_rows
-                  },
-                  skip: resp.offset,
-                  next: false
-                });
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function fetchDocuments(_x2) {
-        return _fetchDocuments.apply(this, arguments);
-      }
-
-      return fetchDocuments;
-    }()
-  }, {
-    key: "queryDocuments",
-    value: function () {
-      var _queryDocuments = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee3(doctype, index, options) {
-        var queryOptions, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                queryOptions = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, options, {
-                  fields: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2___default()(options.fields), ['_id']),
-                  sort: options.sort ? Object.keys(options.sort).map(function (k) {
-                    return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, k, options.sort[k]);
-                  }) : undefined
-                });
-                _context3.next = 3;
-                return this.getDatabase(doctype).find(queryOptions);
-
-              case 3:
-                resp = _context3.sent;
-                return _context3.abrupt("return", {
-                  data: resp.docs.map(function (doc) {
-                    return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, doc, {
-                      id: doc._id,
-                      _type: doctype
-                    });
-                  }),
-                  meta: {
-                    count: resp.docs.length
-                  },
-                  skip: 0,
-                  next: false
-                });
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function queryDocuments(_x3, _x4, _x5) {
-        return _queryDocuments.apply(this, arguments);
-      }
-
-      return queryDocuments;
-    }()
-  }, {
-    key: "fetchDocument",
-    value: function () {
-      var _fetchDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee4(doctype, id) {
-        var resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return this.getDatabase(doctype).get(id, {
-                  revs_info: true
-                });
-
-              case 2:
-                resp = _context4.sent;
-                return _context4.abrupt("return", {
-                  data: [_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, resp, {
-                    id: resp.id,
-                    _id: resp.id,
-                    _type: doctype
-                  })]
-                });
-
-              case 4:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function fetchDocument(_x6, _x7) {
-        return _fetchDocument.apply(this, arguments);
-      }
-
-      return fetchDocument;
-    }()
-  }, {
-    key: "createDocument",
-    value: function () {
-      var _createDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee5(doctype, doc) {
-        var resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return this.getDatabase(doctype).post(doc);
-
-              case 2:
-                resp = _context5.sent;
-                return _context5.abrupt("return", {
-                  data: [_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, doc, {
-                    id: resp.id,
-                    _id: resp.id,
-                    _type: doctype,
-                    _rev: resp.rev
-                  })]
-                });
-
-              case 4:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this);
-      }));
-
-      function createDocument(_x8, _x9) {
-        return _createDocument.apply(this, arguments);
-      }
-
-      return createDocument;
-    }()
-  }, {
-    key: "updateDocument",
-    value: function () {
-      var _updateDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee6(doc) {
-        var _type, safeDoc, resp;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                // TODO: _* properties are reserved by CouchDB, so we can't send the doc with its _type property...
-                _type = doc._type, safeDoc = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0___default()(doc, ["_type"]);
-                _context6.next = 3;
-                return this.getDatabase(_type).put(safeDoc);
-
-              case 3:
-                resp = _context6.sent;
-                return _context6.abrupt("return", {
-                  data: [_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, doc, {
-                    _rev: resp.rev
-                  })]
-                });
-
-              case 5:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, this);
-      }));
-
-      function updateDocument(_x10) {
-        return _updateDocument.apply(this, arguments);
-      }
-
-      return updateDocument;
-    }()
-  }, {
-    key: "deleteDocument",
-    value: function () {
-      var _deleteDocument = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee7(doc) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _context7.next = 2;
-                return this.getDatabase(doc._type).remove(doc);
-
-              case 2:
-                return _context7.abrupt("return", {
-                  data: [doc]
-                });
-
-              case 3:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7, this);
-      }));
-
-      function deleteDocument(_x11) {
-        return _deleteDocument.apply(this, arguments);
-      }
-
-      return deleteDocument;
-    }()
-  }, {
-    key: "createIndex",
-    value: function createIndex(doctype, fields) {
-      return this.getDatabase(doctype).createIndex({
-        index: {
-          fields: fields
+  syncDoctype(doctype, replicationUrl, dispatch, direction = SYNC_BIDIRECTIONAL) {
+    return new Promise((resolve, reject) => {
+      const db = this.getDatabase(doctype);
+      let syncHandler;
+      if (direction === SYNC_TO) syncHandler = db.replicate.to(replicationUrl);else if (direction === SYNC_FROM) syncHandler = db.replicate.from(replicationUrl);else syncHandler = db.sync(replicationUrl);
+      syncHandler.on('complete', info => {
+        dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_0__["syncDoctypeOk"])(doctype, info));
+        this.scheduleNextSync(doctype, replicationUrl, dispatch, direction);
+        resolve(info);
+      }).on('error', err => {
+        if (err.error === 'code=400, message=Expired token') {
+          return cozy.client.authorize().then(({
+            client,
+            token
+          }) => {
+            cozy.client.auth.refreshToken(cozy, client, token).then(newToken => cozy.client.saveCredentials(client, newToken)).then(() => this.syncDoctype(doctype, replicationUrl));
+          });
+        } else if (err.status !== 404) {
+          // A 404 error on some doctypes is perfectly normal when there is no data
+          dispatch(Object(_slices_synchronization__WEBPACK_IMPORTED_MODULE_0__["syncDoctypeError"])(doctype, err));
+          this.scheduleNextSync(doctype, replicationUrl, dispatch);
+          reject(err);
         }
       });
-    }
-  }, {
-    key: "fetchFileByPath",
-    value: function fetchFileByPath() {
-      throw new Error('Not implemented');
-    }
-  }, {
-    key: "createFile",
-    value: function createFile() {
-      throw new Error('Not implemented');
-    }
-  }, {
-    key: "trashFile",
-    value: function trashFile() {
-      throw new Error('Not implemented');
-    }
-  }, {
-    key: "fetchReferencedFiles",
-    value: function fetchReferencedFiles() {
-      throw new Error('Not implemented');
-    }
-  }, {
-    key: "addReferencedFiles",
-    value: function addReferencedFiles() {
-      throw new Error('Not implemented');
-    }
-  }, {
-    key: "removeReferencedFiles",
-    value: function removeReferencedFiles() {
-      throw new Error('Not implemented');
-    }
-  }]);
+    });
+  }
 
-  return PouchdbAdapter;
-}();
+  scheduleNextSync(doctype, replicationUrl, dispatch, direction) {
+    setTimeout(() => {
+      this.syncDoctype(doctype, replicationUrl, dispatch, direction);
+    }, REPLICATION_INTERVAL);
+  }
 
+  async fetchDocuments(doctype) {
+    const resp = await this.getDatabase(doctype).allDocs({
+      include_docs: true
+    });
+    return {
+      data: resp.rows.filter(row => !row.doc.hasOwnProperty('views')).map(row => _objectSpread({}, row.doc, {
+        id: row.id,
+        _type: doctype
+      })),
+      meta: {
+        count: resp.total_rows
+      },
+      skip: resp.offset,
+      next: false
+    };
+  }
 
+  async queryDocuments(doctype, index, options) {
+    const queryOptions = _objectSpread({}, options, {
+      fields: [...options.fields, '_id'],
+      sort: options.sort ? Object.keys(options.sort).map(k => ({
+        [k]: options.sort[k]
+      })) : undefined
+    });
+
+    const resp = await this.getDatabase(doctype).find(queryOptions);
+    return {
+      data: resp.docs.map(doc => _objectSpread({}, doc, {
+        id: doc._id,
+        _type: doctype
+      })),
+      meta: {
+        count: resp.docs.length
+      },
+      skip: 0,
+      next: false
+    };
+  }
+
+  async fetchDocument(doctype, id) {
+    const resp = await this.getDatabase(doctype).get(id, {
+      revs_info: true
+    }); // We need the revs_info option to get the _rev property
+
+    return {
+      data: [_objectSpread({}, resp, {
+        id: resp.id,
+        _id: resp.id,
+        _type: doctype
+      })]
+    };
+  }
+
+  async createDocument(doctype, doc) {
+    const resp = await this.getDatabase(doctype).post(doc);
+    return {
+      data: [_objectSpread({}, doc, {
+        id: resp.id,
+        _id: resp.id,
+        _type: doctype,
+        _rev: resp.rev
+      })]
+    };
+  }
+
+  async updateDocument(doc) {
+    // TODO: _* properties are reserved by CouchDB, so we can't send the doc with its _type property...
+    const {
+      _type
+    } = doc,
+          safeDoc = _objectWithoutProperties(doc, ["_type"]);
+
+    const resp = await this.getDatabase(_type).put(safeDoc);
+    return {
+      data: [_objectSpread({}, doc, {
+        _rev: resp.rev
+      })]
+    };
+  }
+
+  async deleteDocument(doc) {
+    await this.getDatabase(doc._type).remove(doc);
+    return {
+      data: [doc]
+    };
+  }
+
+  createIndex(doctype, fields) {
+    return this.getDatabase(doctype).createIndex({
+      index: {
+        fields
+      }
+    });
+  }
+
+  fetchFileByPath() {
+    throw new Error('Not implemented');
+  }
+
+  createFile() {
+    throw new Error('Not implemented');
+  }
+
+  trashFile() {
+    throw new Error('Not implemented');
+  }
+
+  fetchReferencedFiles() {
+    throw new Error('Not implemented');
+  }
+
+  addReferencedFiles() {
+    throw new Error('Not implemented');
+  }
+
+  removeReferencedFiles() {
+    throw new Error('Not implemented');
+  }
+
+}
 
 /***/ }),
 
@@ -6306,19 +4586,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapValues", function() { return mapValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterValues", function() { return filterValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeObjectProperty", function() { return removeObjectProperty; });
-var mapValues = function mapValues(object, transform) {
-  var result = {};
+const mapValues = (object, transform) => {
+  let result = {};
 
-  for (var key in object) {
+  for (const key in object) {
     result[key] = transform(object[key], key);
   }
 
   return result;
 };
-var filterValues = function filterValues(object, filter) {
-  var result = {};
+const filterValues = (object, filter) => {
+  let result = {};
 
-  for (var key in object) {
+  for (const key in object) {
     if (filter(object[key], key)) {
       result[key] = object[key];
     }
@@ -6326,8 +4606,8 @@ var filterValues = function filterValues(object, filter) {
 
   return result;
 };
-var removeObjectProperty = function removeObjectProperty(obj, prop) {
-  return Object.keys(obj).reduce(function (result, key) {
+const removeObjectProperty = (obj, prop) => {
+  return Object.keys(obj).reduce((result, key) => {
     if (key !== prop) {
       result[key] = obj[key];
     }
@@ -6354,77 +4634,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSharings", function() { return getSharings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSharingStatus", function() { return getSharingStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSharingDetails", function() { return getSharingDetails; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("RIqP");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("fvjX");
-/* harmony import */ var cozy_ui_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("4kcP");
-/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("GbhZ");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fvjX");
+/* harmony import */ var cozy_ui_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("4kcP");
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("GbhZ");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
+const FETCH_SHARINGS = 'FETCH_SHARINGS';
+const RECEIVE_SHARINGS_DATA = 'RECEIVE_SHARINGS_DATA';
+const RECEIVE_FETCH_SHARINGS_ERROR = 'RECEIVE_FETCH_SHARINGS_ERROR';
+const CREATE_SHARING = 'CREATE_SHARING';
+const RECEIVE_NEW_SHARING = 'RECEIVE_NEW_SHARING';
+const CREATE_SHARING_LINK = 'CREATE_SHARING_LINK';
+const RECEIVE_NEW_SHARING_LINK = 'RECEIVE_NEW_SHARING_LINK';
+const REVOKE_SHARING_LINK = 'REVOKE_SHARING_LINK';
+const RECEIVE_SHARING_LINK_REVOKE = 'RECEIVE_SHARING_LINK_REVOKE';
+const REVOKE_SHARING = 'REVOKE_SHARING';
+const RECEIVE_SHARING_REVOKE = 'RECEIVE_SHARING_REVOKE';
+const RECEIVE_ERROR = 'RECEIVE_ERROR';
 
-
-
-
-var FETCH_SHARINGS = 'FETCH_SHARINGS';
-var RECEIVE_SHARINGS_DATA = 'RECEIVE_SHARINGS_DATA';
-var RECEIVE_FETCH_SHARINGS_ERROR = 'RECEIVE_FETCH_SHARINGS_ERROR';
-var CREATE_SHARING = 'CREATE_SHARING';
-var RECEIVE_NEW_SHARING = 'RECEIVE_NEW_SHARING';
-var CREATE_SHARING_LINK = 'CREATE_SHARING_LINK';
-var RECEIVE_NEW_SHARING_LINK = 'RECEIVE_NEW_SHARING_LINK';
-var REVOKE_SHARING_LINK = 'REVOKE_SHARING_LINK';
-var RECEIVE_SHARING_LINK_REVOKE = 'RECEIVE_SHARING_LINK_REVOKE';
-var REVOKE_SHARING = 'REVOKE_SHARING';
-var RECEIVE_SHARING_REVOKE = 'RECEIVE_SHARING_REVOKE';
-var RECEIVE_ERROR = 'RECEIVE_ERROR';
-
-var removeRecipient = function removeRecipient(recipients, recipientId) {
-  var idx = recipients.findIndex(function (r) {
-    return r.recipient.id === recipientId;
-  });
-  return [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(recipients.slice(0, idx)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(recipients.slice(idx + 1)));
+const removeRecipient = (recipients, recipientId) => {
+  const idx = recipients.findIndex(r => r.recipient.id === recipientId);
+  return [...recipients.slice(0, idx), ...recipients.slice(idx + 1)];
 };
 
-var documents = function documents() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const documents = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_SHARINGS_DATA:
       return action.response.sharings;
 
     case RECEIVE_NEW_SHARING:
-      return [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state), [action.response]);
+      return [...state, action.response];
 
     case RECEIVE_SHARING_REVOKE:
       {
-        var idx = state.findIndex(function (s) {
-          return s.attributes.sharing_id === action.sharingId;
-        });
+        const idx = state.findIndex(s => s.attributes.sharing_id === action.sharingId);
         if (idx === -1) return state;
-        var sharing = state[idx];
-        var loneRecipient = sharing.attributes.recipients === undefined || // for recipient-side revocation
+        const sharing = state[idx];
+        const loneRecipient = sharing.attributes.recipients === undefined || // for recipient-side revocation
         sharing.attributes.recipients.length === 1;
-        var newState = loneRecipient ? _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, sharing, {
-          attributes: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, sharing.attributes, {
+        const newState = loneRecipient ? _objectSpread({}, sharing, {
+          attributes: _objectSpread({}, sharing.attributes, {
             revoked: true
           })
-        }) : _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, sharing, {
-          attributes: _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, sharing.attributes, {
+        }) : _objectSpread({}, sharing, {
+          attributes: _objectSpread({}, sharing.attributes, {
             recipients: removeRecipient(sharing.attributes.recipients, action.recipientId)
           })
         });
-        return [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state.slice(0, idx)), [newState], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state.slice(idx + 1)));
+        return [...state.slice(0, idx), newState, ...state.slice(idx + 1)];
       }
 
     default:
@@ -6432,384 +4694,222 @@ var documents = function documents() {
   }
 };
 
-var doctypePermsetInitialState = {
+const doctypePermsetInitialState = {
   fetchStatus: 'loading',
   byMe: [],
   byLink: [],
   withMe: []
 };
 
-var permissions = function permissions() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  var idx;
+const permissions = (state = {}, action) => {
+  let idx;
 
   switch (action.type) {
     case FETCH_SHARINGS:
       if (state[action.doctype]) {
-        return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[action.doctype], {
-          fetchStatus: 'loading'
-        })));
+        return _objectSpread({}, state, {
+          [action.doctype]: _objectSpread({}, state[action.doctype], {
+            fetchStatus: 'loading'
+          })
+        });
       }
 
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, doctypePermsetInitialState));
+      return _objectSpread({}, state, {
+        [action.doctype]: doctypePermsetInitialState
+      });
 
     case RECEIVE_SHARINGS_DATA:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({
-        fetchStatus: 'loaded'
-      }, action.response.permissions)));
+      return _objectSpread({}, state, {
+        [action.doctype]: _objectSpread({
+          fetchStatus: 'loaded'
+        }, action.response.permissions)
+      });
 
     case RECEIVE_FETCH_SHARINGS_ERROR:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, {
-        fetchStatus: 'error'
-      }));
+      return _objectSpread({}, state, {
+        [action.doctype]: {
+          fetchStatus: 'error'
+        }
+      });
 
     case RECEIVE_NEW_SHARING:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[action.doctype], {
-        byMe: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state[action.doctype].byMe), [{
-          attributes: {
-            permissions: {
-              rule0: {
-                type: action.doctype,
-                values: [action.id]
-              }
-            },
-            source_id: action.response.attributes.sharing_id,
-            type: 'io.cozy.sharings'
-          }
-        }])
-      })));
+      return _objectSpread({}, state, {
+        [action.doctype]: _objectSpread({}, state[action.doctype], {
+          byMe: [...state[action.doctype].byMe, {
+            attributes: {
+              permissions: {
+                rule0: {
+                  type: action.doctype,
+                  values: [action.id]
+                }
+              },
+              source_id: action.response.attributes.sharing_id,
+              type: 'io.cozy.sharings'
+            }
+          }]
+        })
+      });
 
     case RECEIVE_NEW_SHARING_LINK:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[action.doctype], {
-        byLink: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state[action.doctype].byLink), [action.response])
-      })));
+      return _objectSpread({}, state, {
+        [action.doctype]: _objectSpread({}, state[action.doctype], {
+          byLink: [...state[action.doctype].byLink, action.response]
+        })
+      });
 
     case REVOKE_SHARING_LINK:
-      idx = state[action.doctype].byLink.findIndex(function (p) {
-        return action.permission._id === p._id;
-      });
+      idx = state[action.doctype].byLink.findIndex(p => action.permission._id === p._id);
       if (idx === -1) return state;
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state[action.doctype], {
-        byLink: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state[action.doctype].byLink.slice(0, idx)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(state[action.doctype].byLink.slice(idx + 1)))
-      })));
+      return _objectSpread({}, state, {
+        [action.doctype]: _objectSpread({}, state[action.doctype], {
+          byLink: [...state[action.doctype].byLink.slice(0, idx), ...state[action.doctype].byLink.slice(idx + 1)]
+        })
+      });
 
     default:
       return state;
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_5__["combineReducers"])({
-  documents: documents,
-  permissions: permissions
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  documents,
+  permissions
 })); // actions
 
-var fetchSharings = function fetchSharings(doctype) {
-  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return {
-    types: [FETCH_SHARINGS, RECEIVE_SHARINGS_DATA, RECEIVE_FETCH_SHARINGS_ERROR],
-    doctype: doctype,
-    id: id,
-    options: options,
-    promise: function promise(client) {
-      return client.fetchSharings(doctype);
-    }
-  };
+const fetchSharings = (doctype, id = null, options = {}) => ({
+  types: [FETCH_SHARINGS, RECEIVE_SHARINGS_DATA, RECEIVE_FETCH_SHARINGS_ERROR],
+  doctype,
+  id,
+  options,
+  promise: client => client.fetchSharings(doctype)
+});
+const share = (document, recipients, sharingType, sharingDesc) => async dispatch => {
+  const recipientIds = await Promise.all(recipients.map(recipient => recipient.id || dispatch(createContact(recipient)).then(c => c.data[0].id)));
+  trackSharingByEmail(document);
+  return dispatch(createSharing(document, recipientIds, sharingType, sharingDesc));
 };
-var share = function share(document, recipients, sharingType, sharingDesc) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
-        var recipientIds;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return Promise.all(recipients.map(function (recipient) {
-                  return recipient.id || dispatch(createContact(recipient)).then(function (c) {
-                    return c.data[0].id;
-                  });
-                }));
-
-              case 2:
-                recipientIds = _context.sent;
-                trackSharingByEmail(document);
-                return _context.abrupt("return", dispatch(createSharing(document, recipientIds, sharingType, sharingDesc)));
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }()
-  );
+const unshare = (document, recipient) => async (dispatch, getState) => {
+  const sharing = getSharingForRecipient(getState(), document, recipient);
+  const loneRecipient = sharing.attributes.recipients.length === 1;
+  return dispatch({
+    types: [REVOKE_SHARING, RECEIVE_SHARING_REVOKE, RECEIVE_ERROR],
+    doctype: document._type,
+    id: document._id,
+    sharingId: sharing.attributes.sharing_id,
+    recipientId: recipient._id,
+    promise: client => loneRecipient ? client.revokeSharing(sharing.attributes.sharing_id) : client.revokeSharingForClient(sharing.attributes.sharing_id, sharing.attributes.recipients.find(r => r.recipient.id === recipient._id).Client.client_id)
+  });
 };
-var unshare = function unshare(document, recipient) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(dispatch, getState) {
-        var sharing, loneRecipient;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                sharing = getSharingForRecipient(getState(), document, recipient);
-                loneRecipient = sharing.attributes.recipients.length === 1;
-                return _context2.abrupt("return", dispatch({
-                  types: [REVOKE_SHARING, RECEIVE_SHARING_REVOKE, RECEIVE_ERROR],
-                  doctype: document._type,
-                  id: document._id,
-                  sharingId: sharing.attributes.sharing_id,
-                  recipientId: recipient._id,
-                  promise: function promise(client) {
-                    return loneRecipient ? client.revokeSharing(sharing.attributes.sharing_id) : client.revokeSharingForClient(sharing.attributes.sharing_id, sharing.attributes.recipients.find(function (r) {
-                      return r.recipient.id === recipient._id;
-                    }).Client.client_id);
-                  }
-                }));
-
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x2, _x3) {
-        return _ref2.apply(this, arguments);
-      };
-    }()
-  );
+const leave = document => async (dispatch, getState) => {
+  const sharings = getDocumentActiveSharings(getState(), document._type, document._id);
+  const sharing = sharings.find(s => s.attributes.owner === false);
+  return dispatch({
+    types: [REVOKE_SHARING, RECEIVE_SHARING_REVOKE, RECEIVE_ERROR],
+    doctype: document._type,
+    id: document._id,
+    sharingId: sharing.attributes.sharing_id,
+    promise: client => client.revokeSharing(sharing.attributes.sharing_id)
+  });
 };
-var leave = function leave(document) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(dispatch, getState) {
-        var sharings, sharing;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                sharings = getDocumentActiveSharings(getState(), document._type, document._id);
-                sharing = sharings.find(function (s) {
-                  return s.attributes.owner === false;
-                });
-                return _context3.abrupt("return", dispatch({
-                  types: [REVOKE_SHARING, RECEIVE_SHARING_REVOKE, RECEIVE_ERROR],
-                  doctype: document._type,
-                  id: document._id,
-                  sharingId: sharing.attributes.sharing_id,
-                  promise: function promise(client) {
-                    return client.revokeSharing(sharing.attributes.sharing_id);
-                  }
-                }));
-
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x4, _x5) {
-        return _ref3.apply(this, arguments);
-      };
-    }()
-  );
-};
-var shareByLink = function shareByLink(document) {
+const shareByLink = document => {
   trackSharingByLink(document);
   return createSharingLink(document);
 };
-var revokeLink = function revokeLink(document) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(dispatch, getState) {
-        var perm;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                perm = getSharingLinkPermission(getState(), document._type, document._id);
-                return _context4.abrupt("return", dispatch({
-                  types: [REVOKE_SHARING_LINK, RECEIVE_SHARING_LINK_REVOKE, RECEIVE_ERROR],
-                  doctype: document._type,
-                  id: document._id,
-                  permission: perm,
-                  promise: function promise(client) {
-                    return client.revokeSharingLink(perm);
-                  }
-                }));
-
-              case 2:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      return function (_x6, _x7) {
-        return _ref4.apply(this, arguments);
-      };
-    }()
-  );
-};
-
-var createSharing = function createSharing(document, contactIds) {
-  var sharingType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'master-slave';
-  var description = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-  return {
-    types: [CREATE_SHARING, RECEIVE_NEW_SHARING, RECEIVE_ERROR],
+const revokeLink = document => async (dispatch, getState) => {
+  const perm = getSharingLinkPermission(getState(), document._type, document._id);
+  return dispatch({
+    types: [REVOKE_SHARING_LINK, RECEIVE_SHARING_LINK_REVOKE, RECEIVE_ERROR],
     doctype: document._type,
     id: document._id,
-    promise: function promise(client) {
-      return client.createSharing(getPermissionsFor(document), contactIds, sharingType, description);
-    }
-  };
+    permission: perm,
+    promise: client => client.revokeSharingLink(perm)
+  });
 };
 
-var createSharingLink = function createSharingLink(document) {
-  return {
-    types: [CREATE_SHARING_LINK, RECEIVE_NEW_SHARING_LINK, RECEIVE_ERROR],
-    doctype: document._type,
-    id: document._id,
-    promise: function promise(client) {
-      return client.createSharingLink(getPermissionsFor(document, true));
-    }
-  };
-}; // TODO: this is a poor man's migration in order to normalize contacts
+const createSharing = (document, contactIds, sharingType = 'master-slave', description = '') => ({
+  types: [CREATE_SHARING, RECEIVE_NEW_SHARING, RECEIVE_ERROR],
+  doctype: document._type,
+  id: document._id,
+  promise: client => client.createSharing(getPermissionsFor(document), contactIds, sharingType, description)
+});
+
+const createSharingLink = document => ({
+  types: [CREATE_SHARING_LINK, RECEIVE_NEW_SHARING_LINK, RECEIVE_ERROR],
+  doctype: document._type,
+  id: document._id,
+  promise: client => client.createSharingLink(getPermissionsFor(document, true))
+}); // TODO: this is a poor man's migration in order to normalize contacts
 // and should be removed after a few weeks in prod
 // Note for future-self: If you have no idea of what it means, please, erase this code.
 // Note for time-travelers: please travel a little more back in time in order to advise us
 // to get contacts right the first time
 
 
-var fetchContacts = function fetchContacts() {
-  var action = Object(_reducer__WEBPACK_IMPORTED_MODULE_7__["fetchCollection"])('contacts', 'io.cozy.contacts');
+const fetchContacts = () => {
+  const action = Object(_reducer__WEBPACK_IMPORTED_MODULE_2__["fetchCollection"])('contacts', 'io.cozy.contacts');
 
-  action.promise =
-  /*#__PURE__*/
-  function () {
-    var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(client) {
-      var response, data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              _context5.next = 2;
-              return client.fetchCollection('contacts', 'io.cozy.contacts');
-
-            case 2:
-              response = _context5.sent;
-              _context5.next = 5;
-              return Promise.all(response.data.map(function (contact) {
-                return typeof contact.email !== 'string' ? contact : client.updateDocument(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, contact, {
-                  email: [{
-                    address: contact.email,
-                    primary: true
-                  }]
-                })).then(function (resp) {
-                  return resp.data[0];
-                });
-              }));
-
-            case 5:
-              data = _context5.sent;
-              return _context5.abrupt("return", _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, response, {
-                data: data
-              }));
-
-            case 7:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
+  action.promise = async client => {
+    const response = await client.fetchCollection('contacts', 'io.cozy.contacts');
+    const data = await Promise.all(response.data.map(contact => {
+      return typeof contact.email !== 'string' ? contact : client.updateDocument(_objectSpread({}, contact, {
+        email: [{
+          address: contact.email,
+          primary: true
+        }]
+      })).then(resp => resp.data[0]);
     }));
-
-    return function (_x8) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
+    return _objectSpread({}, response, {
+      data
+    });
+  };
 
   return action;
 };
 
-var createContact = function createContact(_ref6) {
-  var email = _ref6.email;
-  return Object(_reducer__WEBPACK_IMPORTED_MODULE_7__["createDocument"])('io.cozy.contacts', {
-    email: [{
-      address: email,
-      primary: true
-    }]
-  });
-};
+const createContact = ({
+  email
+}) => Object(_reducer__WEBPACK_IMPORTED_MODULE_2__["createDocument"])('io.cozy.contacts', {
+  email: [{
+    address: email,
+    primary: true
+  }]
+});
 
-var getPermissionsFor = function getPermissionsFor(document) {
-  var publicLink = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var _id = document._id,
-      _type = document._type;
-  var verbs = publicLink ? ['GET'] : ['ALL']; // TODO: this works for albums, but it needs to be generalized and integrated
+const getPermissionsFor = (document, publicLink = false) => {
+  const {
+    _id,
+    _type
+  } = document;
+  const verbs = publicLink ? ['GET'] : ['ALL']; // TODO: this works for albums, but it needs to be generalized and integrated
   // with cozy-client ; some sort of doctype "schema" will be needed here
 
   return isFile(document) ? {
     files: {
       type: 'io.cozy.files',
-      verbs: verbs,
+      verbs,
       values: [_id]
     }
   } : {
     collection: {
       type: _type,
-      verbs: verbs,
+      verbs,
       values: [_id]
     },
     files: {
       type: 'io.cozy.files',
-      verbs: verbs,
-      values: ["".concat(_type, "/").concat(_id)],
+      verbs,
+      values: [`${_type}/${_id}`],
       selector: 'referenced_by'
     }
   };
 }; // selectors
 
 
-var getSharing = function getSharing(state, id) {
-  return state.cozy.sharings.documents.find(function (s) {
-    return s.attributes.sharing_id === id;
-  });
-};
+const getSharing = (state, id) => state.cozy.sharings.documents.find(s => s.attributes.sharing_id === id);
 
-var getContact = function getContact(state, id) {
-  return Object(_reducer__WEBPACK_IMPORTED_MODULE_7__["getDocument"])(state, 'io.cozy.contacts', id);
-};
+const getContact = (state, id) => Object(_reducer__WEBPACK_IMPORTED_MODULE_2__["getDocument"])(state, 'io.cozy.contacts', id);
 
-var getDoctypePermissions = function getDoctypePermissions(state, doctype) {
+const getDoctypePermissions = (state, doctype) => {
   if (state.cozy.sharings.permissions[doctype]) {
     return state.cozy.sharings.permissions[doctype];
   }
@@ -6817,84 +4917,60 @@ var getDoctypePermissions = function getDoctypePermissions(state, doctype) {
   return doctypePermsetInitialState;
 };
 
-var getSharingLink = function getSharingLink(state, doctype, id) {
-  var perm = getSharingLinkPermission(state, doctype, id);
+const getSharingLink = (state, doctype, id) => {
+  const perm = getSharingLinkPermission(state, doctype, id);
   return perm ? buildSharingLink(id, doctype, perm.attributes.codes.email) : null;
 };
 
-var getSharingLinkPermission = function getSharingLinkPermission(state, doctype, id) {
-  var perms = getDoctypePermissions(state, doctype);
-  var type = isFile({
+const getSharingLinkPermission = (state, doctype, id) => {
+  const perms = getDoctypePermissions(state, doctype);
+  const type = isFile({
     _type: doctype
   }) ? 'files' : 'collection';
-  return perms.byLink.find(function (p) {
-    return p.attributes.permissions[type].values.indexOf(id) !== -1;
-  });
+  return perms.byLink.find(p => p.attributes.permissions[type].values.indexOf(id) !== -1);
 };
 
-var getSharingForRecipient = function getSharingForRecipient(state, document, recipient) {
-  var sharings = getDocumentActiveSharings(state, document._type, document._id);
-  return sharings.find(function (s) {
-    return s.attributes.recipients.find(function (r) {
-      return r.recipient.id === recipient._id;
-    });
-  });
+const getSharingForRecipient = (state, document, recipient) => {
+  const sharings = getDocumentActiveSharings(state, document._type, document._id);
+  return sharings.find(s => s.attributes.recipients.find(r => r.recipient.id === recipient._id));
 };
 
-var getDocumentActiveSharings = function getDocumentActiveSharings(state, doctype, id) {
-  var perms = getDoctypePermissions(state, doctype);
-  return [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(perms.byMe.filter(function (perm) {
-    return perm.attributes.permissions['rule0'].values.indexOf(id) !== -1;
-  })), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_4___default()(perms.withMe.filter(function (perm) {
-    return perm.attributes.permissions['rule0'].values.indexOf(id) !== -1;
-  }))).map(function (p) {
-    return getSharing(state, p.attributes.source_id);
-  }).filter(function (s) {
-    return !s.attributes.revoked;
-  });
+const getDocumentActiveSharings = (state, doctype, id) => {
+  const perms = getDoctypePermissions(state, doctype);
+  return [...perms.byMe.filter(perm => perm.attributes.permissions['rule0'].values.indexOf(id) !== -1), ...perms.withMe.filter(perm => perm.attributes.permissions['rule0'].values.indexOf(id) !== -1)].map(p => getSharing(state, p.attributes.source_id)).filter(s => !s.attributes.revoked);
 };
 
-var getSharings = function getSharings(state, doctype) {
-  var perms = getDoctypePermissions(state, doctype);
-  var type = doctype === 'io.cozy.files' ? 'files' : 'collection';
+const getSharings = (state, doctype) => {
+  const perms = getDoctypePermissions(state, doctype);
+  const type = doctype === 'io.cozy.files' ? 'files' : 'collection';
   return {
-    byMe: perms.byMe.map(function (p) {
-      return p.attributes.permissions['rule0'].values[0];
-    }),
-    withMe: perms.withMe.map(function (p) {
-      return p.attributes.permissions['rule0'].values[0];
-    }),
-    byLink: perms.byLink.map(function (p) {
-      return p.attributes.permissions[type].values[0];
-    })
+    byMe: perms.byMe.map(p => p.attributes.permissions['rule0'].values[0]),
+    withMe: perms.withMe.map(p => p.attributes.permissions['rule0'].values[0]),
+    byLink: perms.byLink.map(p => p.attributes.permissions[type].values[0])
   };
 };
-var getSharingStatus = function getSharingStatus(state, doctype, id) {
-  var sharings = getDocumentActiveSharings(state, doctype, id);
+const getSharingStatus = (state, doctype, id) => {
+  const sharings = getDocumentActiveSharings(state, doctype, id);
   return {
     shared: sharings.length !== 0,
-    owner: sharings.length === 0 || sharings.some(function (s) {
-      return s.attributes.owner === true;
-    }),
-    sharingType: sharings.some(function (s) {
-      return s.attributes.sharing_type === 'master-master';
-    }) ? 'master-master' : 'master-slave',
-    sharings: sharings
+    owner: sharings.length === 0 || sharings.some(s => s.attributes.owner === true),
+    sharingType: sharings.some(s => s.attributes.sharing_type === 'master-master') ? 'master-master' : 'master-slave',
+    sharings
   };
 };
-var getSharingDetails = function getSharingDetails(state, doctype, id) {
-  var _getSharingStatus = getSharingStatus(state, doctype, id),
-      shared = _getSharingStatus.shared,
-      owner = _getSharingStatus.owner,
-      sharingType = _getSharingStatus.sharingType,
-      sharings = _getSharingStatus.sharings;
-
-  var sharingLink = getSharingLink(state, doctype, id);
+const getSharingDetails = (state, doctype, id) => {
+  const {
+    shared,
+    owner,
+    sharingType,
+    sharings
+  } = getSharingStatus(state, doctype, id);
+  const sharingLink = getSharingLink(state, doctype, id);
   return {
-    shared: shared,
-    owner: owner,
-    sharingType: sharingType,
-    sharingLink: sharingLink,
+    shared,
+    owner,
+    sharingType,
+    sharingLink,
     sharer: shared && !owner ? {
       name: 'John Doe',
       url: sharings[0].attributes.sharer.url
@@ -6907,50 +4983,33 @@ var getSharingDetails = function getSharingDetails(state, doctype, id) {
   };
 };
 
-var getSharingRecipients = function getSharingRecipients(state, sharings) {
-  return sharings.filter(function (sharing) {
-    return sharing.attributes.recipients;
-  }).map(function (sharing) {
-    return sharing.attributes.recipients.map(function (info) {
-      return {
-        contact: getContact(state, info.recipient.id),
-        status: info.status,
-        type: sharing.attributes.sharing_type
-      };
-    });
-  }).reduce(function (a, b) {
-    return a.concat(b);
-  }, []);
-};
+const getSharingRecipients = (state, sharings) => sharings.filter(sharing => sharing.attributes.recipients).map(sharing => sharing.attributes.recipients.map(info => ({
+  contact: getContact(state, info.recipient.id),
+  status: info.status,
+  type: sharing.attributes.sharing_type
+}))).reduce((a, b) => a.concat(b), []);
 
-var buildSharingLink = function buildSharingLink(id, doctype, sharecode) {
-  return "".concat(window.location.origin, "/public?sharecode=").concat(sharecode, "&id=").concat(id).concat(doctype === 'file' ? '&directdownload' : '');
-}; // helpers
+const buildSharingLink = (id, doctype, sharecode) => `${window.location.origin}/public?sharecode=${sharecode}&id=${id}${doctype === 'file' ? '&directdownload' : ''}`; // helpers
 
 
-var isFile = function isFile(_ref7) {
-  var _type = _ref7._type,
-      type = _ref7.type;
-  return _type === 'io.cozy.files' || type === 'directory' || type === 'file';
-};
+const isFile = ({
+  _type,
+  type
+}) => _type === 'io.cozy.files' || type === 'directory' || type === 'file';
 
-var track = function track(document, action) {
-  var tracker = Object(cozy_ui_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_6__["getTracker"])();
+const track = (document, action) => {
+  const tracker = Object(cozy_ui_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_1__["getTracker"])();
 
   if (!tracker) {
     return;
   }
 
-  tracker.push(['trackEvent', isFile(document) ? 'Drive' : 'Photos', action, "".concat(action).concat(isFile(document) ? 'File' : 'Album')]);
+  tracker.push(['trackEvent', isFile(document) ? 'Drive' : 'Photos', action, `${action}${isFile(document) ? 'File' : 'Album'}`]);
 };
 
-var trackSharingByLink = function trackSharingByLink(document) {
-  return track(document, 'shareByLink');
-};
+const trackSharingByLink = document => track(document, 'shareByLink');
 
-var trackSharingByEmail = function trackSharingByEmail(document) {
-  return track(document, 'shareByEmail');
-};
+const trackSharingByEmail = document => track(document, 'shareByEmail');
 
 /***/ }),
 
@@ -6972,22 +5031,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTrigger", function() { return getTrigger; });
 /* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("m+TH");
 
-var DOCTYPE = 'io.cozy.triggers';
-var triggersCollectionKey = 'triggers'; // CRUD action creators
+const DOCTYPE = 'io.cozy.triggers';
+const triggersCollectionKey = 'triggers'; // CRUD action creators
 
-var fetchTriggers = function fetchTriggers() {
-  return redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["fetchTriggers"](triggersCollectionKey, 'konnector');
-}; // selectors
+const fetchTriggers = () => redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["fetchTriggers"](triggersCollectionKey, 'konnector'); // selectors
 
-var getKonnectorTriggers = function getKonnectorTriggers(state, konnector) {
-  var existingAccountIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-  return !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]).filter(function (trigger) {
+const getKonnectorTriggers = (state, konnector, existingAccountIds = []) => {
+  return !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]).filter(trigger => {
     return trigger.worker === 'konnector' && trigger.message && trigger.message.konnector === konnector.slug && trigger.message.account && existingAccountIds.includes(trigger.message.account);
   }) || [];
 };
-var getTrigger = function getTrigger(state, id) {
-  return !!state.documents && !!state.documents[DOCTYPE] && state.documents[DOCTYPE][id];
-};
+const getTrigger = (state, id) => !!state.documents && !!state.documents[DOCTYPE] && state.documents[DOCTYPE][id];
 
 /***/ }),
 
@@ -7002,22 +5056,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("NAv5");
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(date_fns__WEBPACK_IMPORTED_MODULE_0__);
 
-var DOCTYPE = 'io.cozy.jobs'; // CRUD
+const DOCTYPE = 'io.cozy.jobs'; // CRUD
 
-var fetchKonnectorJobs = function fetchKonnectorJobs() {}; // selectors
+const fetchKonnectorJobs = () => {}; // selectors
 
-var getTriggerLastJob = function getTriggerLastJob(state, trigger) {
+const getTriggerLastJob = (state, trigger) => {
   // state is state.cozy
   if (!state.documents || !state.documents[DOCTYPE] || !trigger) return null;
-  return Object.values(state.documents[DOCTYPE]).reduce(function (lastestJob, currentJob) {
+  return Object.values(state.documents[DOCTYPE]).reduce((lastestJob, currentJob) => {
     if (currentJob.trigger_id !== trigger._id) return lastestJob;
     if (!lastestJob) return currentJob;
     return date_fns__WEBPACK_IMPORTED_MODULE_0___default.a.isAfter(currentJob.started_at, lastestJob.started_at) ? currentJob : lastestJob;
   }, null);
 };
-var isJobRunning = function isJobRunning(state, job) {
-  return !!job && ['queued', 'running'].includes(job.state);
-};
+const isJobRunning = (state, job) => !!job && ['queued', 'running'].includes(job.state);
 
 /***/ }),
 
@@ -7032,47 +5084,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "syncDoctypeError", function() { return syncDoctypeError; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFirstSync", function() { return isFirstSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSynced", function() { return isSynced; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("o0o1");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yXPU");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("lSNA");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-
-var START_SYNC = 'START_SYNC';
-var START_DOCTYPE_SYNC = 'START_DOCTYPE_SYNC';
-var SYNC_DOCTYPE_OK = 'SYNC_DOCTYPE_OK';
-var SYNC_DOCTYPE_ERROR = 'SYNC_DOCTYPE_ERROR';
-var doctypeSyncInitialState = {
+const START_SYNC = 'START_SYNC';
+const START_DOCTYPE_SYNC = 'START_DOCTYPE_SYNC';
+const SYNC_DOCTYPE_OK = 'SYNC_DOCTYPE_OK';
+const SYNC_DOCTYPE_ERROR = 'SYNC_DOCTYPE_ERROR';
+const doctypeSyncInitialState = {
   syncStatus: 'pending',
   lastSync: null,
   seqNumber: 0
 };
 
-var doctypeSync = function doctypeSync() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : doctypeSyncInitialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const doctypeSync = (state = doctypeSyncInitialState, action) => {
   switch (action.type) {
     case START_DOCTYPE_SYNC:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         syncStatus: 'syncing',
         seqNumber: action.seqNumber
       });
 
     case SYNC_DOCTYPE_OK:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         syncStatus: 'done',
         lastSync: Date.now()
       });
 
     case SYNC_DOCTYPE_ERROR:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, {
+      return _objectSpread({}, state, {
         syncStatus: 'error',
         lastSync: Date.now()
       });
@@ -7082,15 +5123,14 @@ var doctypeSync = function doctypeSync() {
   }
 };
 
-var synchronization = function synchronization() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
+const synchronization = (state = {}, action) => {
   switch (action.type) {
     case START_DOCTYPE_SYNC:
     case SYNC_DOCTYPE_OK:
     case SYNC_DOCTYPE_ERROR:
-      return _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_3___default()({}, state, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, action.doctype, doctypeSync(state[action.doctype], action)));
+      return _objectSpread({}, state, {
+        [action.doctype]: doctypeSync(state[action.doctype], action)
+      });
 
     default:
       return state;
@@ -7098,75 +5138,34 @@ var synchronization = function synchronization() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (synchronization);
-var startSync = function startSync() {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", dispatch({
-                  type: START_SYNC,
-                  promise: function promise(client) {
-                    return client.startSync(dispatch);
-                  }
-                }));
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }()
-  );
-};
-var startDoctypeSync = function startDoctypeSync(doctype) {
-  var seqNumber = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  return {
-    type: START_DOCTYPE_SYNC,
-    doctype: doctype,
-    seqNumber: seqNumber
-  };
-};
-var syncDoctypeOk = function syncDoctypeOk(doctype, infos) {
-  return {
-    type: SYNC_DOCTYPE_OK,
-    doctype: doctype,
-    infos: infos
-  };
-};
-var syncDoctypeError = function syncDoctypeError(doctype, error) {
-  return {
-    type: SYNC_DOCTYPE_ERROR,
-    doctype: doctype,
-    error: error
-  };
-};
-var isFirstSync = function isFirstSync(state) {
-  var seqNumbers = Object.keys(state.cozy.synchronization).map(function (doctype) {
-    return state.cozy.synchronization[doctype].seqNumber;
-  });
-  return seqNumbers.every(function (number) {
-    return number === 0;
+const startSync = () => async dispatch => {
+  return dispatch({
+    type: START_SYNC,
+    promise: client => client.startSync(dispatch)
   });
 };
-var isSynced = function isSynced(state) {
-  var timestamps = Object.keys(state.cozy.synchronization).map(function (doctype) {
-    return state.cozy.synchronization[doctype].lastSync;
-  });
-  return timestamps.every(function (ts) {
-    return ts !== null;
-  });
+const startDoctypeSync = (doctype, seqNumber = 0) => ({
+  type: START_DOCTYPE_SYNC,
+  doctype,
+  seqNumber
+});
+const syncDoctypeOk = (doctype, infos) => ({
+  type: SYNC_DOCTYPE_OK,
+  doctype,
+  infos
+});
+const syncDoctypeError = (doctype, error) => ({
+  type: SYNC_DOCTYPE_ERROR,
+  doctype,
+  error
+});
+const isFirstSync = state => {
+  const seqNumbers = Object.keys(state.cozy.synchronization).map(doctype => state.cozy.synchronization[doctype].seqNumber);
+  return seqNumbers.every(number => number === 0);
+};
+const isSynced = state => {
+  const timestamps = Object.keys(state.cozy.synchronization).map(doctype => state.cozy.synchronization[doctype].lastSync);
+  return timestamps.every(ts => ts !== null);
 };
 
 /***/ }),
@@ -7240,21 +5239,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInstalledKonnectors", function() { return getInstalledKonnectors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIndexedKonnectors", function() { return getIndexedKonnectors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSlugs", function() { return getSlugs; });
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("m+TH");
+/* harmony import */ var redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("m+TH");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var DOCTYPE = 'io.cozy.konnectors';
-var konnectorsCollectionKey = 'konnectors'; // CRUD
+const DOCTYPE = 'io.cozy.konnectors';
+const konnectorsCollectionKey = 'konnectors'; // CRUD
 
-var fetchKonnectors = function fetchKonnectors() {
-  return redux_cozy_client__WEBPACK_IMPORTED_MODULE_1__["fetchKonnectors"](konnectorsCollectionKey);
-}; // Action creators
+const fetchKonnectors = () => redux_cozy_client__WEBPACK_IMPORTED_MODULE_0__["fetchKonnectors"](konnectorsCollectionKey); // Action creators
 
-var receiveInstalledKonnector = function receiveInstalledKonnector(konnector) {
-  var normalized = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default()({}, konnector, konnector.attributes, {
-    id: "".concat(DOCTYPE, "/").concat(konnector.slug),
+const receiveInstalledKonnector = konnector => {
+  const normalized = _objectSpread({}, konnector, konnector.attributes, {
+    id: `${DOCTYPE}/${konnector.slug}`,
     _type: DOCTYPE
   });
 
@@ -7268,24 +5266,16 @@ var receiveInstalledKonnector = function receiveInstalledKonnector(konnector) {
   };
 }; // Selectors
 
-var getKonnector = function getKonnector(state, slug) {
-  return !!state.documents && !!state.documents[DOCTYPE] && state.documents[DOCTYPE]["".concat(DOCTYPE, "/").concat(slug)];
+const getKonnector = (state, slug) => {
+  return !!state.documents && !!state.documents[DOCTYPE] && state.documents[DOCTYPE][`${DOCTYPE}/${slug}`];
 };
-var getInstalledKonnectors = function getInstalledKonnectors(state) {
-  return !!state.documents && !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]);
-};
-var getIndexedKonnectors = function getIndexedKonnectors(state) {
-  return !!state.documents && !!state.documents[DOCTYPE] && Object.keys(state.documents[DOCTYPE]).reduce(function (indexed, key) {
-    var konnector = state.documents[DOCTYPE][key];
-    indexed[konnector.slug] = konnector;
-    return indexed;
-  }, {});
-};
-var getSlugs = function getSlugs(state) {
-  return !!state && !!state.documents && !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]).map(function (konnector) {
-    return konnector.slug;
-  });
-};
+const getInstalledKonnectors = state => !!state.documents && !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]);
+const getIndexedKonnectors = state => !!state.documents && !!state.documents[DOCTYPE] && Object.keys(state.documents[DOCTYPE]).reduce((indexed, key) => {
+  const konnector = state.documents[DOCTYPE][key];
+  indexed[konnector.slug] = konnector;
+  return indexed;
+}, {});
+const getSlugs = state => !!state && !!state.documents && !!state.documents[DOCTYPE] && Object.values(state.documents[DOCTYPE]).map(konnector => konnector.slug);
 
 /***/ }),
 
@@ -7301,77 +5291,68 @@ module.exports = "/img/connecting-data-in-progress.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("J4zp");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("MVZn");
-/* harmony import */ var _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("QILm");
-/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var cozyMiddleware = function cozyMiddleware(client) {
-  return function (_ref) {
-    var dispatch = _ref.dispatch;
-    return function (next) {
-      return function (action) {
-        var promise = action.promise,
-            type = action.type,
-            types = action.types,
-            rest = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2___default()(action, ["promise", "type", "types"]);
+const cozyMiddleware = client => ({
+  dispatch
+}) => {
+  return next => action => {
+    const {
+      promise,
+      type,
+      types
+    } = action,
+          rest = _objectWithoutProperties(action, ["promise", "type", "types"]);
 
-        if (!promise) {
-          return next(action);
-        }
+    if (!promise) {
+      return next(action);
+    }
 
-        if (!type && !types) {
-          return promise(client).then(function (action) {
-            return dispatch(action);
-          });
-        }
+    if (!type && !types) {
+      return promise(client).then(action => dispatch(action));
+    }
 
-        if (type) {
-          return promise(client).then(function (response) {
-            next(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, rest, {
-              response: response,
-              type: type
-            }));
-            return response;
-          });
-        }
-
-        var _types = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(types, 3),
-            REQUEST = _types[0],
-            SUCCESS = _types[1],
-            FAILURE = _types[2];
-
-        next(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, rest, {
-          type: REQUEST
+    if (type) {
+      return promise(client).then(response => {
+        next(_objectSpread({}, rest, {
+          response,
+          type
         }));
-        return promise(client).then(function (response) {
-          next(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, rest, {
-            response: response,
-            type: SUCCESS
-          }));
-          return response;
-        }, function (error) {
-          console.log(error); // eslint-disable-line no-console
+        return response;
+      });
+    }
 
-          next(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, rest, {
-            error: error,
-            type: FAILURE
-          }));
-        }).catch(function (error) {
-          console.error('MIDDLEWARE ERROR:', error); // eslint-disable-line no-console
+    const [REQUEST, SUCCESS, FAILURE] = types;
+    next(_objectSpread({}, rest, {
+      type: REQUEST
+    }));
+    return promise(client).then(response => {
+      next(_objectSpread({}, rest, {
+        response,
+        type: SUCCESS
+      }));
+      return response;
+    }, error => {
+      console.log(error); // eslint-disable-line no-console
 
-          next(_babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_1___default()({}, rest, {
-            error: error,
-            type: FAILURE
-          }));
-        });
-      };
-    };
+      next(_objectSpread({}, rest, {
+        error,
+        type: FAILURE
+      }));
+    }).catch(error => {
+      console.error('MIDDLEWARE ERROR:', error); // eslint-disable-line no-console
+
+      next(_objectSpread({}, rest, {
+        error,
+        type: FAILURE
+      }));
+    });
   };
 };
 

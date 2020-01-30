@@ -5118,7 +5118,7 @@ function () {
     }
     /**
      * To help with the transition from cozy-client-js to cozy-client, it is possible to instantiate
-     * a client with an instance of cozy-client-js.
+     * a client with a cookie-based instance of cozy-client-js.
      */
 
   }, {
@@ -6588,7 +6588,7 @@ function () {
       if (store === undefined) {
         throw new Error('Store is undefined');
       } else if (this.store && !force) {
-        throw new Error('Client already has a store, it is forbidden to change store.');
+        throw new Error("Client already has a store, it is forbidden to change store.\nsetStore must be called before any query is executed. Try to \ncall setStore earlier in your code, preferably just after the \ninstantiation of the client.");
       }
 
       this.store = store;
@@ -6791,6 +6791,53 @@ function () {
         token: oldClient._token.token
       }, options));
     }
+    /**
+     * To help with the transition from cozy-client-js to cozy-client, it is possible to instantiate
+     * a client with an OAuth-based instance of cozy-client-js.
+     *
+     * Warning: unlike other instantiators, this one needs to be awaited.
+     */
+
+  }, {
+    key: "fromOldOAuthClient",
+    value: function () {
+      var _fromOldOAuthClient = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee15(oldClient, options) {
+        var hasOauthCreds, token;
+        return _regenerator.default.wrap(function _callee15$(_context15) {
+          while (1) {
+            switch (_context15.prev = _context15.next) {
+              case 0:
+                hasOauthCreds = oldClient._oauth && oldClient._authcreds != null;
+
+                if (!hasOauthCreds) {
+                  _context15.next = 6;
+                  break;
+                }
+
+                _context15.next = 4;
+                return oldClient._authcreds;
+
+              case 4:
+                token = _context15.sent.token;
+                return _context15.abrupt("return", new CozyClient((0, _objectSpread2.default)({
+                  uri: oldClient._url,
+                  token: token
+                }, options)));
+
+              case 6:
+              case "end":
+                return _context15.stop();
+            }
+          }
+        }, _callee15);
+      }));
+
+      return function fromOldOAuthClient(_x17, _x18) {
+        return _fromOldOAuthClient.apply(this, arguments);
+      };
+    }()
     /** In konnector/service context, CozyClient can be instantiated from environment variables */
 
   }, {
@@ -6830,7 +6877,7 @@ function () {
 
 CozyClient.fetchPolicies = _policies.default; //COZY_CLIENT_VERSION_PACKAGE in replaced by babel. See babel config
 
-CozyClient.version = "9.8.0";
+CozyClient.version = "10.5.0";
 
 _microee.default.mixin(CozyClient);
 
@@ -7959,12 +8006,17 @@ function (_Association) {
       return this.existsById(document._id);
     }
   }, {
-    key: "existsById",
-    value: function existsById(id) {
+    key: "containsById",
+    value: function containsById(id) {
       return this.getRelationship().data.find(function (_ref) {
         var _id = _ref._id;
         return id === _id;
       }) !== undefined;
+    }
+  }, {
+    key: "existsById",
+    value: function existsById(id) {
+      return this.containsById(id) && Boolean(this.get(this.doctype, id));
     }
     /**
      * Add a referenced document by id. You need to call save()
@@ -8079,13 +8131,21 @@ function (_Association) {
         var _id = _ref3._id,
             _type = _ref3._type;
         return _this3.get(_type, _id);
-      });
+      }).filter(Boolean);
     }
   }, {
     key: "hasMore",
     get: function get() {
       return this.getRelationship().next;
     }
+    /**
+     * Returns the total number of documents in the relationship.
+     * Does not handle documents absent from the store. If you want
+     * to do that, you can use .data.length.
+     *
+     * @returns {Number} - Total number of documents in the relationships
+     */
+
   }, {
     key: "count",
     get: function get() {
@@ -9696,6 +9756,566 @@ exports.createMockClient = createMockClient;
 
 /***/ }),
 
+/***/ "./node_modules/cozy-client/dist/models/account.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/account.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.muteError = exports.getMutedErrors = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "./node_modules/@babel/runtime/helpers/objectSpread.js"));
+
+var _get = _interopRequireDefault(__webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js"));
+
+/**
+ * getMutedErrors - Returns the list of errors that have been muted for the given account
+ *
+ * @param {object} account io.cozy.accounts
+ *
+ * @returns {Array} An array of errors with a `type` and `mutedAt` field
+ */
+var getMutedErrors = function getMutedErrors(account) {
+  return (0, _get.default)(account, 'mutedErrors', []);
+};
+/**
+ * muteError - Adds an error to the list of muted errors for the given account
+ *
+ * @param {object} account   io.cozy.accounts
+ * @param {string} errorType The type of the error to mute
+ *
+ * @returns {object} An updated io.cozy.accounts
+ */
+
+
+exports.getMutedErrors = getMutedErrors;
+
+var muteError = function muteError(account, errorType) {
+  var mutedErrors = getMutedErrors(account);
+  mutedErrors.push({
+    type: errorType,
+    mutedAt: new Date().toISOString()
+  });
+  return (0, _objectSpread2.default)({}, account, {
+    mutedErrors: mutedErrors
+  });
+};
+
+exports.muteError = muteError;
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/applications.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/applications.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAppDisplayName = exports.getUrl = exports.isInstalled = exports.getStoreInstallationURL = exports.getStoreURL = void 0;
+
+var _get = _interopRequireDefault(__webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js"));
+
+var STORE_SLUG = 'store';
+/**
+ * Returns the store URL of an app/konnector
+ *
+ * @param {Array} [appData=[]] Apps data, as returned by endpoint /apps/ or /konnectors
+ * @param {object} [app={}] AppObject
+ * @returns {string} URL as string
+ */
+
+var getStoreURL = function getStoreURL() {
+  var appData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var app = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!app.slug) {
+    throw new Error('Expected app / konnector with the defined slug');
+  }
+
+  var storeApp = isInstalled(appData, {
+    slug: STORE_SLUG
+  });
+  if (!storeApp) return null;
+  var storeUrl = storeApp.links && storeApp.links.related;
+  if (!storeUrl) return null;
+  return "".concat(storeUrl, "#/discover/").concat(app.slug);
+};
+/**
+ * Returns the store URL to install/update an app/konnector
+ *
+ * @param  {Array}  [appData=[]]   Apps data, as returned by endpoint /apps/ or
+ * /konnectors/
+ * @param  {object} [app={}] AppObject
+ * @returns {string}                URL as string
+ */
+
+
+exports.getStoreURL = getStoreURL;
+
+var getStoreInstallationURL = function getStoreInstallationURL() {
+  var appData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var app = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var storeUrl = getStoreURL(appData, app);
+
+  if (!storeUrl) {
+    return null;
+  }
+
+  return "".concat(storeUrl, "/install");
+};
+/**
+ *
+ * @param {Array} apps Array of apps returned by /apps /konnectors
+ * @param {object} wantedApp io.cozy.app with at least a slug
+ * @returns {object} The io.cozy.app is installed or undefined if not
+ */
+
+
+exports.getStoreInstallationURL = getStoreInstallationURL;
+
+var isInstalled = function isInstalled() {
+  var apps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var wantedApp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return apps.find(function (app) {
+    return app.attributes && app.attributes.slug === wantedApp.slug;
+  });
+};
+/**
+ *
+ * @param {object} app io.cozy.apps document
+ * @returns {string} url to the app
+ */
+
+
+exports.isInstalled = isInstalled;
+
+var getUrl = function getUrl(app) {
+  return app.links && app.links.related;
+};
+/**
+ * getAppDisplayName - Combines the translated prefix and name of the app into a single string.
+ *
+ * @param {object} app io.cozy.apps or io.cozy.konnectors document
+ * @param {string} lang Locale to use
+ *
+ * @returns {string} Name of the app suitable for display
+ */
+
+
+exports.getUrl = getUrl;
+
+var getAppDisplayName = function getAppDisplayName(app, lang) {
+  var basePrefix = (0, _get.default)(app, 'name_prefix');
+  var baseName = (0, _get.default)(app, 'name');
+  var translatedName = (0, _get.default)(app, ['locales', lang, 'name'], baseName);
+  var translatedPrefix = (0, _get.default)(app, ['locales', lang, 'name_prefix'], basePrefix);
+  return translatedPrefix && translatedPrefix.toLowerCase() !== 'cozy' ? "".concat(translatedPrefix, " ").concat(translatedName) : translatedName;
+};
+
+exports.getAppDisplayName = getAppDisplayName;
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/file.js":
+/*!******************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/file.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.normalize = normalize;
+exports.ensureFilePath = ensureFilePath;
+exports.isNote = exports.isDirectory = exports.isFile = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "./node_modules/@babel/runtime/helpers/objectSpread.js"));
+
+var FILE_TYPE = 'file';
+var DIR_TYPE = 'directory';
+/**
+ *
+ * @param {File} file io.cozy.files
+ */
+
+var isFile = function isFile(file) {
+  return file && file.type === FILE_TYPE;
+};
+/**
+ *
+ * @param {File} file io.cozy.files
+ */
+
+
+exports.isFile = isFile;
+
+var isDirectory = function isDirectory(file) {
+  return file && file.type === DIR_TYPE;
+};
+/**
+ *
+ * @param {File} file io.cozy.files
+ */
+
+
+exports.isDirectory = isDirectory;
+
+var isNote = function isNote(file) {
+  if (file && file.name && file.name.endsWith('.cozy-note') && file.type === FILE_TYPE && file.metadata && file.metadata.content !== undefined && file.metadata.schema !== undefined && file.metadata.title !== undefined && file.metadata.version !== undefined) return true;
+  return false;
+};
+/**
+ * Normalizes an object representing a io.cozy.files object
+ *
+ * Ensures existence of `_id` and `_type`
+ *
+ * @public
+ * @param {object} file - object representing the file
+ * @returns {object} full normalized object
+ */
+
+
+exports.isNote = isNote;
+
+function normalize(file) {
+  var id = file._id || file.id;
+  var type = file.type || file._type || 'io.cozy.files';
+  return (0, _objectSpread2.default)({
+    _id: id,
+    id: id,
+    _type: type,
+    type: type
+  }, file);
+}
+/**
+ * Ensure the file has a `path` attribute, or build it
+ *
+ * @public
+ * @param {object} file - object representing the file
+ * @param {object} parent - parent directory for the file
+ * @returns {object} file object with path attribute
+ */
+
+
+function ensureFilePath(file, parent) {
+  if (file.path) return file;
+  if (!parent || !parent.path) throw new Error("Could not define a file path for ".concat(file._id || file.id));
+  var path = parent.path + '/' + file.name;
+  return (0, _objectSpread2.default)({
+    path: path
+  }, file);
+}
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.note = exports.account = exports.file = exports.applications = exports.instance = exports.trigger = exports.accounts = exports.triggers = void 0;
+
+var trigger = _interopRequireWildcard(__webpack_require__(/*! ./trigger */ "./node_modules/cozy-client/dist/models/trigger.js"));
+
+exports.trigger = trigger;
+
+var instance = _interopRequireWildcard(__webpack_require__(/*! ./instance */ "./node_modules/cozy-client/dist/models/instance.js"));
+
+exports.instance = instance;
+
+var applications = _interopRequireWildcard(__webpack_require__(/*! ./applications */ "./node_modules/cozy-client/dist/models/applications.js"));
+
+exports.applications = applications;
+
+var file = _interopRequireWildcard(__webpack_require__(/*! ./file */ "./node_modules/cozy-client/dist/models/file.js"));
+
+exports.file = file;
+
+var account = _interopRequireWildcard(__webpack_require__(/*! ./account */ "./node_modules/cozy-client/dist/models/account.js"));
+
+exports.account = account;
+
+var note = _interopRequireWildcard(__webpack_require__(/*! ./note */ "./node_modules/cozy-client/dist/models/note.js"));
+
+exports.note = note;
+// For backward compatibility before 9.0.0
+var triggers = trigger;
+exports.triggers = triggers;
+var accounts = account;
+exports.accounts = accounts;
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/instance.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/instance.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.buildPremiumLink = exports.hasAnOffer = exports.shouldDisplayOffers = exports.getUuid = exports.isFreemiumUser = exports.arePremiumLinksEnabled = exports.isSelfHosted = void 0;
+
+var _get = _interopRequireDefault(__webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js"));
+
+var GB = 1000 * 1000 * 1000;
+var PREMIUM_QUOTA = 50 * GB; // If manager URL is present, then the instance is not self-hosted
+
+var isSelfHosted = function isSelfHosted(instanceInfo) {
+  return (0, _get.default)(instanceInfo, 'context.data.attributes.manager_url') ? false : true;
+};
+
+exports.isSelfHosted = isSelfHosted;
+
+var arePremiumLinksEnabled = function arePremiumLinksEnabled(instanceInfo) {
+  return (0, _get.default)(instanceInfo, 'context.data.attributes.enable_premium_links') ? true : false;
+};
+
+exports.arePremiumLinksEnabled = arePremiumLinksEnabled;
+
+var isFreemiumUser = function isFreemiumUser(instanceInfo) {
+  var quota = (0, _get.default)(instanceInfo, 'diskUsage.data.attributes.quota', false);
+  return parseInt(quota) <= PREMIUM_QUOTA;
+};
+
+exports.isFreemiumUser = isFreemiumUser;
+
+var getUuid = function getUuid(instanceInfo) {
+  return (0, _get.default)(instanceInfo, 'instance.data.attributes.uuid');
+};
+/**
+ * Returns whether an instance is concerned by our offers
+ *
+ * @param {object} data Object containing all the results from /settings/*
+ * @param {object} data.context Object returned by /settings/context
+ * @param {object} data.instance Object returned by /settings/instance
+ * @param {object} data.diskUsage Object returned by /settings/disk-usage
+ */
+
+
+exports.getUuid = getUuid;
+
+var shouldDisplayOffers = function shouldDisplayOffers(data) {
+  return !isSelfHosted(data) && arePremiumLinksEnabled(data) && getUuid(data) && isFreemiumUser(data);
+};
+/**
+ * Returns if an instance has subscribed to one of our offers
+ *
+ * @param {object} data Object containing all the results from /settings/*
+ * @param {object} data.context Object returned by /settings/context
+ * @param {object} data.instance Object returned by /settings/instance
+ * @param {object} data.diskUsage Object returned by /settings/disk-usage
+ *
+ */
+
+
+exports.shouldDisplayOffers = shouldDisplayOffers;
+
+var hasAnOffer = function hasAnOffer(data) {
+  return !isSelfHosted(data) && arePremiumLinksEnabled(data) && getUuid(data) && !isFreemiumUser(data);
+};
+/**
+ * Returns the link to the Premium page on the Cozy's Manager
+ *
+ * @param {object} instanceInfo
+ */
+
+
+exports.hasAnOffer = hasAnOffer;
+
+var buildPremiumLink = function buildPremiumLink(instanceInfo) {
+  var managerUrl = (0, _get.default)(instanceInfo, 'context.data.attributes.manager_url', false);
+  var uuid = getUuid(instanceInfo);
+
+  if (managerUrl && uuid) {
+    return "".concat(managerUrl, "/cozy/instances/").concat(uuid, "/premium");
+  }
+};
+
+exports.buildPremiumLink = buildPremiumLink;
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/note.js":
+/*!******************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/note.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateUrlForNote = void 0;
+
+/**
+ *
+ * @param {string} notesAppUrl URL to the Notes App (https://notes.foo.mycozy.cloud)
+ * @param {object} file io.cozy.files object
+ */
+var generateUrlForNote = function generateUrlForNote(notesAppUrl, file) {
+  return notesAppUrl + '#/n/' + file._id;
+};
+
+exports.generateUrlForNote = generateUrlForNote;
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/trigger.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/trigger.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.triggers = exports.triggerStates = void 0;
+
+var _get = _interopRequireDefault(__webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js"));
+
+var _account = __webpack_require__(/*! ./account */ "./node_modules/cozy-client/dist/models/account.js");
+
+/** Trigger states come from /jobs/triggers */
+var triggerStates = {
+  /** Returns when the trigger was last executed. Need a trigger */
+  getLastExecution: function getLastExecution(triggerState) {
+    return (0, _get.default)(triggerState, 'current_state.last_execution');
+  },
+
+  /** Returns when the trigger was last successfully executed. */
+  getLastsuccess: function getLastsuccess(triggerState) {
+    return (0, _get.default)(triggerState, 'current_state.last_success');
+  },
+
+  /** Returns whether last job failed */
+  isErrored: function isErrored(triggerState) {
+    return (0, _get.default)(triggerState, 'current_state.status') === 'errored';
+  },
+
+  /** Returns the type of the last error to occur */
+  getLastErrorType: function getLastErrorType(triggerState) {
+    return (0, _get.default)(triggerState, 'current_state.last_error');
+  }
+};
+exports.triggerStates = triggerStates;
+var triggers = {
+  isKonnectorWorker: function isKonnectorWorker(trigger) {
+    return trigger.worker === 'konnector';
+  },
+
+  /**
+   * getKonnector - Returns the konnector slug that executed a trigger
+   *
+   * @param {object} trigger io.cozy.triggers
+   *
+   * @returns {string} A konnector slug
+   */
+  getKonnector: function getKonnector(trigger) {
+    if (!triggers.isKonnectorWorker(trigger)) {
+      return;
+    }
+
+    if (trigger.message && trigger.message.konnector) {
+      return trigger.message.konnector;
+    } else if (trigger.message && trigger.message.Data) {
+      // Legacy triggers
+      var message = JSON.parse(atob(trigger.message.Data));
+      return message.konnector;
+    }
+  },
+
+  /**
+   * getAccountId - Returns the account id for a trigger
+   *
+   * @param {object} trigger io.cozy.triggers
+   *
+   * @returns {string} Id for an io.cozy.accounts
+   */
+  getAccountId: function getAccountId(trigger) {
+    var legacyData = (0, _get.default)(trigger, 'message.Data');
+
+    if (legacyData) {
+      var message = JSON.parse(atob(legacyData));
+      return message.account;
+    } else {
+      return (0, _get.default)(trigger, 'message.account');
+    }
+  },
+
+  /**
+   * isLatestErrorMuted - Checks if the triggers current error has been muted in the corresponding io.cozy.accounts
+   *
+   * @param {object} trigger      io.cozy.triggers
+   * @param {object} account      io.cozy.accounts used by the trigger
+   *
+   * @returns {boolean} Whether the error is muted or not
+   */
+  isLatestErrorMuted: function isLatestErrorMuted(trigger, account) {
+    var lastErrorType = triggerStates.getLastErrorType(trigger);
+    var lastSuccess = triggerStates.getLastsuccess(trigger);
+    var lastSuccessDate = lastSuccess ? new Date(lastSuccess) : new Date();
+    var mutedErrors = (0, _account.getMutedErrors)(account);
+    var isErrorMuted = mutedErrors.some(function (mutedError) {
+      return mutedError.type === lastErrorType && (!lastSuccess || new Date(mutedError.mutedAt) > lastSuccessDate);
+    });
+    return isErrorMuted;
+  }
+};
+exports.triggers = triggers;
+
+/***/ }),
+
 /***/ "./node_modules/cozy-client/dist/node.js":
 /*!***********************************************!*\
   !*** ./node_modules/cozy-client/dist/node.js ***!
@@ -9732,7 +10352,8 @@ var _exportNames = {
   cancelable: true,
   getQueryFromState: true,
   Registry: true,
-  manifest: true
+  manifest: true,
+  models: true
 };
 Object.defineProperty(exports, "default", {
   enumerable: true,
@@ -9848,7 +10469,7 @@ Object.defineProperty(exports, "Registry", {
     return _registry.default;
   }
 });
-exports.manifest = void 0;
+exports.models = exports.manifest = void 0;
 
 var _CozyClient = _interopRequireDefault(__webpack_require__(/*! ./CozyClient */ "./node_modules/cozy-client/dist/CozyClient.js"));
 
@@ -9899,6 +10520,10 @@ Object.keys(_cli).forEach(function (key) {
     }
   });
 });
+
+var models = _interopRequireWildcard(__webpack_require__(/*! ./models */ "./node_modules/cozy-client/dist/models/index.js"));
+
+exports.models = models;
 
 /***/ }),
 
@@ -12485,77 +13110,107 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var updateAccountsPassword =
-/*#__PURE__*/
-function () {
-  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(cozyClient, vaultClient, bitwardenCipherDocument) {
-    var encryptedPassword, encryptedUsername, bitwardenCipherId, orgKey, decryptedPassword, decryptedUsername, accounts, accountsIds, loginFailedTriggers;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            encryptedPassword = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(bitwardenCipherDocument, 'login.password');
-            encryptedUsername = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(bitwardenCipherDocument, 'login.username');
-            bitwardenCipherId = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(bitwardenCipherDocument, '_id');
-            _context.next = 5;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getOrganizationKey"])(cozyClient, vaultClient);
+  (function() {
+    var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(
+        cozyClient,
+        vaultClient,
+        bitwardenCipherDocument
+      ) {
+        var encryptedPassword,
+          encryptedUsername,
+          bitwardenCipherId,
+          orgKey,
+          decryptedPassword,
+          decryptedUsername,
+          accounts,
+          accountsIds,
+          loginFailedTriggers
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch ((_context.prev = _context.next)) {
+              case 0:
+                encryptedPassword = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                  bitwardenCipherDocument,
+                  'login.password'
+                )
+                encryptedUsername = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                  bitwardenCipherDocument,
+                  'login.username'
+                )
+                bitwardenCipherId = lodash_get__WEBPACK_IMPORTED_MODULE_2___default()(bitwardenCipherDocument, '_id')
+                _context.next = 5
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getOrganizationKey"])(cozyClient, vaultClient)
 
-          case 5:
-            orgKey = _context.sent;
-            _context.next = 8;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["decryptString"])(encryptedPassword, vaultClient, orgKey);
+              case 5:
+                orgKey = _context.sent
+                _context.next = 8
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["decryptString"])(encryptedPassword, vaultClient, orgKey)
 
-          case 8:
-            decryptedPassword = _context.sent;
-            _context.next = 11;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["decryptString"])(encryptedUsername, vaultClient, orgKey);
+              case 8:
+                decryptedPassword = _context.sent
+                _context.next = 11
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["decryptString"])(encryptedUsername, vaultClient, orgKey)
 
-          case 11:
-            decryptedUsername = _context.sent;
+              case 11:
+                decryptedUsername = _context.sent
 
-            if (!(decryptedPassword === null || decryptedUsername === null)) {
-              _context.next = 14;
-              break;
+                if (
+                  !(decryptedPassword === null || decryptedUsername === null)
+                ) {
+                  _context.next = 14
+                  break
+                }
+
+                throw new Error('DECRYPT_FAILED')
+
+              case 14:
+                _context.next = 16
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["fetchAccountsForCipherId"])(cozyClient, bitwardenCipherId)
+
+              case 16:
+                accounts = _context.sent
+                _context.next = 19
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["updateAccounts"])(
+                  cozyClient,
+                  accounts.data,
+                  decryptedUsername,
+                  decryptedPassword
+                )
+
+              case 19:
+                accountsIds = accounts.data.map(function(account) {
+                  return account._id
+                })
+                _context.next = 22
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["fetchLoginFailedTriggersForAccountsIds"])(
+                  cozyClient,
+                  accountsIds
+                )
+
+              case 22:
+                loginFailedTriggers = _context.sent
+                _context.next = 25
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["launchTriggers"])(cozyClient, loginFailedTriggers)
+
+              case 25:
+              case 'end':
+                return _context.stop()
             }
+          }
+        }, _callee)
+      })
+    )
 
-            throw new Error('DECRYPT_FAILED');
-
-          case 14:
-            _context.next = 16;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["fetchAccountsForCipherId"])(cozyClient, bitwardenCipherId);
-
-          case 16:
-            accounts = _context.sent;
-            _context.next = 19;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["updateAccounts"])(cozyClient, accounts.data, decryptedUsername, decryptedPassword);
-
-          case 19:
-            accountsIds = accounts.data.map(function (account) {
-              return account._id;
-            });
-            _context.next = 22;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["fetchLoginFailedTriggersForAccountsIds"])(cozyClient, accountsIds);
-
-          case 22:
-            loginFailedTriggers = _context.sent;
-            _context.next = 25;
-            return Object(_utils__WEBPACK_IMPORTED_MODULE_3__["launchTriggers"])(cozyClient, loginFailedTriggers);
-
-          case 25:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function updateAccountsPassword(_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
-}();
+    return function updateAccountsPassword(_x, _x2, _x3) {
+      return _ref.apply(this, arguments)
+    }
+  })()
 
 /* harmony default export */ __webpack_exports__["default"] = (updateAccountsPassword);
+
 
 /***/ }),
 
@@ -12596,202 +13251,253 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var decryptString = function decryptString(encryptedString, vaultClient, orgKey) {
+var decryptString = function decryptString(
+  encryptedString,
+  vaultClient,
+  orgKey
+) {
   var _encryptedString$spli = encryptedString.split('|'),
-      _encryptedString$spli2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_encryptedString$spli, 3),
-      encTypeAndIv = _encryptedString$spli2[0],
-      data = _encryptedString$spli2[1],
-      mac = _encryptedString$spli2[2];
+    _encryptedString$spli2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_encryptedString$spli, 3),
+    encTypeAndIv = _encryptedString$spli2[0],
+    data = _encryptedString$spli2[1],
+    mac = _encryptedString$spli2[2]
 
   var _encTypeAndIv$split = encTypeAndIv.split('.'),
-      _encTypeAndIv$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_encTypeAndIv$split, 2),
-      encTypeString = _encTypeAndIv$split2[0],
-      iv = _encTypeAndIv$split2[1];
+    _encTypeAndIv$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_encTypeAndIv$split, 2),
+    encTypeString = _encTypeAndIv$split2[0],
+    iv = _encTypeAndIv$split2[1]
 
-  var encType = parseInt(encTypeString, 10);
-  return vaultClient.cryptoService.aesDecryptToUtf8(encType, data, iv, mac, orgKey);
-};
+  var encType = parseInt(encTypeString, 10)
+  return vaultClient.cryptoService.aesDecryptToUtf8(
+    encType,
+    data,
+    iv,
+    mac,
+    orgKey
+  )
+}
 var getOrganizationKey =
-/*#__PURE__*/
-function () {
-  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(cozyClient, vaultClient) {
-    var cozyKeys, orgKeyEncType, orgKey;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return cozyClient.getStackClient().fetchJSON('GET', '/bitwarden/organizations/cozy');
+  (function() {
+    var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(cozyClient, vaultClient) {
+        var cozyKeys, orgKeyEncType, orgKey
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch ((_context.prev = _context.next)) {
+              case 0:
+                _context.next = 2
+                return cozyClient
+                  .getStackClient()
+                  .fetchJSON('GET', '/bitwarden/organizations/cozy')
 
-          case 2:
-            cozyKeys = _context.sent;
-            orgKeyEncType = cozy_keys_lib_transpiled_EncryptionType__WEBPACK_IMPORTED_MODULE_5__["default"].AesCbc256_HmacSha256_B64;
-            orgKey = new cozy_keys_lib_transpiled_SymmetricCryptoKey__WEBPACK_IMPORTED_MODULE_4__["default"](vaultClient.Utils.fromB64ToArray(cozyKeys.organizationKey), orgKeyEncType);
-            return _context.abrupt("return", orgKey);
+              case 2:
+                cozyKeys = _context.sent
+                orgKeyEncType = cozy_keys_lib_transpiled_EncryptionType__WEBPACK_IMPORTED_MODULE_5__["default"].AesCbc256_HmacSha256_B64
+                orgKey = new cozy_keys_lib_transpiled_SymmetricCryptoKey__WEBPACK_IMPORTED_MODULE_4__["default"](
+                  vaultClient.Utils.fromB64ToArray(cozyKeys.organizationKey),
+                  orgKeyEncType
+                )
+                return _context.abrupt('return', orgKey)
 
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
+              case 6:
+              case 'end':
+                return _context.stop()
+            }
+          }
+        }, _callee)
+      })
+    )
 
-  return function getOrganizationKey(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
+    return function getOrganizationKey(_x, _x2) {
+      return _ref.apply(this, arguments)
+    }
+  })()
 var fetchAccountsForCipherId =
-/*#__PURE__*/
-function () {
-  var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(cozyClient, cipherId) {
-    var accounts;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return cozyClient.query(cozyClient.find('io.cozy.accounts').where({
-              'relationships.vaultCipher.data': {
-                _id: cipherId,
-                _type: 'com.bitwarden.ciphers'
-              }
-            }).indexFields(['relationships.vaultCipher.data._id']));
+  (function() {
+    var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(cozyClient, cipherId) {
+        var accounts
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch ((_context2.prev = _context2.next)) {
+              case 0:
+                _context2.next = 2
+                return cozyClient.query(
+                  cozyClient
+                    .find('io.cozy.accounts')
+                    .where({
+                      'relationships.vaultCipher.data': {
+                        _id: cipherId,
+                        _type: 'com.bitwarden.ciphers'
+                      }
+                    })
+                    .indexFields(['relationships.vaultCipher.data._id'])
+                )
 
-          case 2:
-            accounts = _context2.sent;
-            return _context2.abrupt("return", accounts);
+              case 2:
+                accounts = _context2.sent
+                return _context2.abrupt('return', accounts)
 
-          case 4:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
+              case 4:
+              case 'end':
+                return _context2.stop()
+            }
+          }
+        }, _callee2)
+      })
+    )
 
-  return function fetchAccountsForCipherId(_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-}();
+    return function fetchAccountsForCipherId(_x3, _x4) {
+      return _ref2.apply(this, arguments)
+    }
+  })()
 var updateAccounts =
-/*#__PURE__*/
-function () {
-  var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(cozyClient, accounts, newUsername, newPassword) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return Promise.all(accounts.map(function (account) {
-              lodash_set__WEBPACK_IMPORTED_MODULE_6___default()(account, 'auth.password', newPassword);
-              lodash_set__WEBPACK_IMPORTED_MODULE_6___default()(account, 'auth.login', newUsername);
-              lodash_unset__WEBPACK_IMPORTED_MODULE_7___default()(account, 'auth.credentials_encrypted');
+  (function() {
+    var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(
+        cozyClient,
+        accounts,
+        newUsername,
+        newPassword
+      ) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch ((_context3.prev = _context3.next)) {
+              case 0:
+                _context3.next = 2
+                return Promise.all(
+                  accounts.map(function(account) {
+                    lodash_set__WEBPACK_IMPORTED_MODULE_6___default()(account, 'auth.password', newPassword)
+                    lodash_set__WEBPACK_IMPORTED_MODULE_6___default()(account, 'auth.login', newUsername)
+                    lodash_unset__WEBPACK_IMPORTED_MODULE_7___default()(account, 'auth.credentials_encrypted')
 
-              var updatedAccount = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default()({}, account, {
-                _type: 'io.cozy.accounts'
-              });
+                    var updatedAccount = _babel_runtime_helpers_objectSpread__WEBPACK_IMPORTED_MODULE_0___default()({}, account, {
+                      _type: 'io.cozy.accounts'
+                    })
 
-              return cozyClient.save(updatedAccount);
-            }));
+                    return cozyClient.save(updatedAccount)
+                  })
+                )
 
-          case 2:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
+              case 2:
+              case 'end':
+                return _context3.stop()
+            }
+          }
+        }, _callee3)
+      })
+    )
 
-  return function updateAccounts(_x5, _x6, _x7, _x8) {
-    return _ref3.apply(this, arguments);
-  };
-}();
+    return function updateAccounts(_x5, _x6, _x7, _x8) {
+      return _ref3.apply(this, arguments)
+    }
+  })()
 var fetchLoginFailedTriggersForAccountsIds =
-/*#__PURE__*/
-function () {
-  var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee4(cozyClient, accountsIds) {
-    var triggers, triggersIds, triggersStates, triggersToRetry;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.next = 2;
-            return cozyClient.queryAll(cozyClient.find('io.cozy.triggers').where({
-              'message.account': {
-                $in: accountsIds
-              }
-            }));
+  (function() {
+    var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee4(cozyClient, accountsIds) {
+        var triggers, triggersIds, triggersStates, triggersToRetry
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch ((_context4.prev = _context4.next)) {
+              case 0:
+                _context4.next = 2
+                return cozyClient.queryAll(
+                  cozyClient.find('io.cozy.triggers').where({
+                    'message.account': {
+                      $in: accountsIds
+                    }
+                  })
+                )
 
-          case 2:
-            triggers = _context4.sent;
-            triggersIds = triggers.map(function (trigger) {
-              return trigger._id;
-            });
-            _context4.next = 6;
-            return Promise.all(triggersIds.map(function (triggerId) {
-              return cozyClient.getStackClient().fetchJSON('GET', "/jobs/triggers/".concat(triggerId, "/state"));
-            }));
+              case 2:
+                triggers = _context4.sent
+                triggersIds = triggers.map(function(trigger) {
+                  return trigger._id
+                })
+                _context4.next = 6
+                return Promise.all(
+                  triggersIds.map(function(triggerId) {
+                    return cozyClient
+                      .getStackClient()
+                      .fetchJSON(
+                        'GET',
+                        '/jobs/triggers/'.concat(triggerId, '/state')
+                      )
+                  })
+                )
 
-          case 6:
-            triggersStates = _context4.sent;
-            triggersToRetry = triggersStates.filter(function (state) {
-              var _state$data$attribute = state.data.attributes,
-                  status = _state$data$attribute.status,
-                  lastError = _state$data$attribute.last_error;
-              return status === 'errored' && lastError === 'LOGIN_FAILED';
-            }).map(function (state) {
-              return state.data.id;
-            });
-            return _context4.abrupt("return", triggersToRetry);
+              case 6:
+                triggersStates = _context4.sent
+                triggersToRetry = triggersStates
+                  .filter(function(state) {
+                    var _state$data$attribute = state.data.attributes,
+                      status = _state$data$attribute.status,
+                      lastError = _state$data$attribute.last_error
+                    return status === 'errored' && lastError === 'LOGIN_FAILED'
+                  })
+                  .map(function(state) {
+                    return state.data.id
+                  })
+                return _context4.abrupt('return', triggersToRetry)
 
-          case 9:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4);
-  }));
+              case 9:
+              case 'end':
+                return _context4.stop()
+            }
+          }
+        }, _callee4)
+      })
+    )
 
-  return function fetchLoginFailedTriggersForAccountsIds(_x9, _x10) {
-    return _ref4.apply(this, arguments);
-  };
-}();
+    return function fetchLoginFailedTriggersForAccountsIds(_x9, _x10) {
+      return _ref4.apply(this, arguments)
+    }
+  })()
 var launchTriggers =
-/*#__PURE__*/
-function () {
-  var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee5(cozyClient, triggersIds) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            _context5.next = 2;
-            return Promise.all(triggersIds.map(function (triggerId) {
-              return cozyClient.getStackClient().fetchJSON('POST', "/jobs/triggers/".concat(triggerId, "/launch"));
-            }));
+  (function() {
+    var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee5(cozyClient, triggersIds) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch ((_context5.prev = _context5.next)) {
+              case 0:
+                _context5.next = 2
+                return Promise.all(
+                  triggersIds.map(function(triggerId) {
+                    return cozyClient
+                      .getStackClient()
+                      .fetchJSON(
+                        'POST',
+                        '/jobs/triggers/'.concat(triggerId, '/launch')
+                      )
+                  })
+                )
 
-          case 2:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
+              case 2:
+              case 'end':
+                return _context5.stop()
+            }
+          }
+        }, _callee5)
+      })
+    )
 
-  return function launchTriggers(_x11, _x12) {
-    return _ref5.apply(this, arguments);
-  };
-}();
+    return function launchTriggers(_x11, _x12) {
+      return _ref5.apply(this, arguments)
+    }
+  })()
+
 
 /***/ }),
 
@@ -38080,16 +38786,16 @@ function (_DocumentCollection) {
       };
     }()
   }, {
-    key: "get",
+    key: "create",
     value: function () {
-      var _get = (0, _asyncToGenerator2.default)(
+      var _create = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2() {
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                throw new Error('get() method is not yet implemented');
+                throw new Error('create() method is not available for applications');
 
               case 1:
               case "end":
@@ -38097,30 +38803,6 @@ function (_DocumentCollection) {
             }
           }
         }, _callee2);
-      }));
-
-      return function get() {
-        return _get.apply(this, arguments);
-      };
-    }()
-  }, {
-    key: "create",
-    value: function () {
-      var _create = (0, _asyncToGenerator2.default)(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3() {
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                throw new Error('create() method is not available for applications');
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
       }));
 
       return function create() {
@@ -38132,19 +38814,19 @@ function (_DocumentCollection) {
     value: function () {
       var _update = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      _regenerator.default.mark(function _callee4() {
-        return _regenerator.default.wrap(function _callee4$(_context4) {
+      _regenerator.default.mark(function _callee3() {
+        return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 throw new Error('update() method is not available for applications');
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }));
 
       return function update() {
@@ -38156,19 +38838,19 @@ function (_DocumentCollection) {
     value: function () {
       var _destroy = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      _regenerator.default.mark(function _callee5() {
-        return _regenerator.default.wrap(function _callee5$(_context5) {
+      _regenerator.default.mark(function _callee4() {
+        return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 throw new Error('destroy() method is not available for applications');
 
               case 1:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5);
+        }, _callee4);
       }));
 
       return function destroy() {
@@ -39075,18 +39757,8 @@ var _Collection = _interopRequireWildcard(__webpack_require__(/*! ./Collection *
 
 var querystring = _interopRequireWildcard(__webpack_require__(/*! ./querystring */ "./node_modules/cozy-stack-client/dist/querystring.js"));
 
-function _templateObject8() {
-  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/_index"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject7() {
-  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/", "?rev=", ""]);
+  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/_index"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -39096,7 +39768,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/", ""]);
+  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/", "?rev=", ""]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -39116,7 +39788,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/_all_docs?include_docs=true"]);
+  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/", ""]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -39126,7 +39798,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/", ""]);
+  var data = (0, _taggedTemplateLiteral2.default)(["/data/", "/_all_docs?include_docs=true"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -39194,6 +39866,7 @@ function () {
     this.doctype = doctype;
     this.stackClient = stackClient;
     this.indexes = {};
+    this.endpoint = "/data/".concat(this.doctype, "/");
   }
   /**
    * Provides a callback for `Collection.get`
@@ -39396,6 +40069,9 @@ function () {
     }()
     /**
      * Get a document by id
+     *
+     * @param  {string} id The document id.
+     * @returns {object}  JsonAPI response containing normalized document as data attribute
      */
 
   }, {
@@ -39408,7 +40084,7 @@ function () {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                return _context3.abrupt("return", _Collection.default.get(this.stackClient, (0, _utils.uri)(_templateObject3(), this.doctype, id), {
+                return _context3.abrupt("return", _Collection.default.get(this.stackClient, "".concat(this.endpoint).concat(encodeURIComponent(id)), {
                   normalize: this.constructor.normalizeDoctype(this.doctype)
                 }));
 
@@ -39443,7 +40119,7 @@ function () {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return this.stackClient.fetchJSON('POST', (0, _utils.uri)(_templateObject4(), this.doctype), {
+                return this.stackClient.fetchJSON('POST', (0, _utils.uri)(_templateObject3(), this.doctype), {
                   keys: ids
                 });
 
@@ -39499,7 +40175,7 @@ function () {
                 // https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#create-a-document-with-a-fixed-id
                 hasFixedId = !!_id;
                 method = hasFixedId ? 'PUT' : 'POST';
-                endpoint = (0, _utils.uri)(_templateObject5(), this.doctype, hasFixedId ? _id : '');
+                endpoint = (0, _utils.uri)(_templateObject4(), this.doctype, hasFixedId ? _id : '');
                 _context5.next = 6;
                 return this.stackClient.fetchJSON(method, endpoint, document);
 
@@ -39537,7 +40213,7 @@ function () {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return this.stackClient.fetchJSON('PUT', (0, _utils.uri)(_templateObject6(), this.doctype, document._id), document);
+                return this.stackClient.fetchJSON('PUT', (0, _utils.uri)(_templateObject5(), this.doctype, document._id), document);
 
               case 2:
                 resp = _context6.sent;
@@ -39575,7 +40251,7 @@ function () {
               case 0:
                 _id = _ref2._id, _rev = _ref2._rev, document = (0, _objectWithoutProperties2.default)(_ref2, ["_id", "_rev"]);
                 _context7.next = 3;
-                return this.stackClient.fetchJSON('DELETE', (0, _utils.uri)(_templateObject7(), this.doctype, _id, _rev));
+                return this.stackClient.fetchJSON('DELETE', (0, _utils.uri)(_templateObject6(), this.doctype, _id, _rev));
 
               case 3:
                 resp = _context7.sent;
@@ -39937,7 +40613,7 @@ function () {
                   }
                 };
                 _context12.next = 3;
-                return this.stackClient.fetchJSON('POST', (0, _utils.uri)(_templateObject8(), this.doctype), indexDef);
+                return this.stackClient.fetchJSON('POST', (0, _utils.uri)(_templateObject7(), this.doctype), indexDef);
 
               case 3:
                 resp = _context12.sent;
@@ -44189,6 +44865,16 @@ var _FileCollection = __webpack_require__(/*! ./FileCollection */ "./node_module
 
 var _utils = __webpack_require__(/*! ./utils */ "./node_modules/cozy-stack-client/dist/utils.js");
 
+function _templateObject5() {
+  var data = (0, _taggedTemplateLiteral2.default)(["/sharings/", "/recipients"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject4() {
   var data = (0, _taggedTemplateLiteral2.default)(["/sharings/", "/recipients/self"]);
 
@@ -44360,6 +45046,14 @@ function (_DocumentCollection) {
     value: function getDiscoveryLink(sharingId, sharecode) {
       return this.stackClient.fullpath("/sharings/".concat(sharingId, "/discovery?sharecode=").concat(sharecode));
     }
+    /**
+     * Add an array of contacts to the Sharing
+     *
+     * @param {object} sharing Sharing Object
+     * @param {Array} recipients Array of {id:1, type:"io.cozy.contacts"}
+     * @param {string} sharingType Read and write: two-way. Other only read
+     */
+
   }, {
     key: "addRecipients",
     value: function () {
@@ -44412,15 +45106,40 @@ function (_DocumentCollection) {
         return _addRecipients.apply(this, arguments);
       };
     }()
+    /**
+     * Revoke only one recipient of the sharing.
+     *
+     * @param {object} sharing Sharing Object
+     * @param {number} recipientIndex Index of this recipient in the members array of the sharing
+     */
+
   }, {
     key: "revokeRecipient",
     value: function revokeRecipient(sharing, recipientIndex) {
       return this.stackClient.fetchJSON('DELETE', (0, _utils.uri)(_templateObject3(), sharing._id, recipientIndex));
     }
+    /**
+     * Remove self from the sharing.
+     *
+     * @param {object} sharing Sharing Object
+     */
+
   }, {
     key: "revokeSelf",
     value: function revokeSelf(sharing) {
       return this.stackClient.fetchJSON('DELETE', (0, _utils.uri)(_templateObject4(), sharing._id));
+    }
+    /**
+     * Revoke the sharing for all the members. Must be called
+     * from the owner's cozy
+     *
+     * @param {object} sharing Sharing Objects
+     */
+
+  }, {
+    key: "revokeAllRecipients",
+    value: function revokeAllRecipients(sharing) {
+      return this.stackClient.fetchJSON('DELETE', (0, _utils.uri)(_templateObject5(), sharing._id));
     }
   }]);
   return SharingCollection;
