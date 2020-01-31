@@ -108,7 +108,12 @@ export default class CollectStore {
     // stack
     const isKonnectorJob = normalizedJob.worker === 'konnector'
     const isDeletedAccountHookJob = !!normalizedJob.account_deleted
-    if (!isKonnectorJob || isDeletedAccountHookJob) {
+    const isKonnectorJobWithoutTrigger = !normalizedJob.trigger_id
+    if (
+      !isKonnectorJob ||
+      isDeletedAccountHookJob ||
+      isKonnectorJobWithoutTrigger
+    ) {
       return
     }
 
