@@ -3403,7 +3403,25 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@29.9.1, cozy-ui@^29.9.1:
+cozy-ui@30.5.1:
+  version "30.5.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-30.5.1.tgz#58c550e7cec317a7a6ffd4aee0562bffd87984c4"
+  integrity sha512-rJBtsjqktePVA/zrq/0VHXwH5DTKfixhmFcgLBbseUE0wM8xHJwFgYRiqSAKT1xvcweINNkrO/QY65WL4HWEYA==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    body-scroll-lock "^2.5.8"
+    classnames "^2.2.5"
+    date-fns "^1.28.5"
+    hammerjs "^2.0.8"
+    node-polyglot "^2.2.2"
+    normalize.css "^7.0.0"
+    react-hot-loader "^4.3.11"
+    react-markdown "^4.0.8"
+    react-pdf "^4.0.5"
+    react-select "2.2.0"
+    react-swipeable-views "0.13.3"
+
+cozy-ui@^29.9.1:
   version "29.9.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.9.1.tgz#9e8d7b0a12c85166c6bf4b25a70ea6847336099f"
   integrity sha512-xt5VDSOrm3zB7WnovMmel1fT/q52tLkEC9j12gmkkR1aEFc3c3Ced5iZu/NmuOYy2fkx0nvgazoggWrsmUZTVg==
@@ -8136,13 +8154,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
