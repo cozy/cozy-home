@@ -3201,15 +3201,15 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@9.8.0:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-9.8.0.tgz#0e8f6f220b611eab9e91990e1b0fc5672b6ca47b"
-  integrity sha512-jYNW2P91vKrxi9z7dFLiXMy0EmjMEuXkYvD2VXfhRB9oOOWw79CwMAxztN6IoKdUZfCbKMZb/qI7ZZwGJYbCwg==
+cozy-client@10.7.0:
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-10.7.0.tgz#0cc76491f79caba7dfaee87ab19908d0e1f315f2"
+  integrity sha512-U7z9zQeGO4Tft1PhS+d+zJtl/ZmZPyxC3bmDsSazR1B2kfJhMf/WsI3Exp2yYu2KeKmQ9FUYhVxdAnhtwK+ppg==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^9.7.0"
+    cozy-stack-client "^10.7.0"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -3377,10 +3377,10 @@ cozy-scripts@1.13.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^9.7.0:
-  version "9.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-9.10.0.tgz#5b6bc4e84c7914aabc73f30fd5599b6729aaa2d1"
-  integrity sha512-Ku+IX+E2c6ARHcFjWc5cpwiwr0Ixj8NM/vsRnKkEgW8DmhQa6vaGbXc3GVpx9qfPiA93ymiIYoA9SjGVa+tJAQ==
+cozy-stack-client@^10.7.0:
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-10.7.0.tgz#2f9a886af423abe9111d6c1524104c29d2ed517f"
+  integrity sha512-O2z9sFwDhcbn/rZJr0f2BL3CAc2L37QMzmIlQXY/70x/SqkSd+zyFhgwfYImqlwYsByf6Mo6qwtpwv5goRj9Ig==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -8154,13 +8154,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
