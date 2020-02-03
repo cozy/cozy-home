@@ -3255,10 +3255,10 @@ cozy-flags@^2.1.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.23.0:
-  version "1.23.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.23.0.tgz#e6d0bce3563b64d94181b574c9fb71b4f68a7c18"
-  integrity sha512-eQoeZHk+ntVAJ/cNytBRlwFflDwJUpwH3Q2VRMZNBZU4lxODrmW5WtwYajzrzja4BQeKAdSOPPCLMk78YpoA8w==
+cozy-harvest-lib@1.24.0:
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.24.0.tgz#943df3c0f4dd58000b7f8daac8a13a6a0c15ed9f"
+  integrity sha512-bT+0DNvVpEB/kMQ456yAz5EAY96x4Yx0EaxseSPxo8W2WTUzRbqxmDQvBcNQrmI8bNoBmdq2V4uWofi/sO7n1w==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
@@ -8136,13 +8136,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
