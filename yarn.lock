@@ -3403,7 +3403,25 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@29.9.1, cozy-ui@^29.9.1:
+cozy-ui@30.7.0:
+  version "30.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-30.7.0.tgz#5d736c96e272a739908b1dcf7852b573c58b89ea"
+  integrity sha512-aylBjrekV2eA8Sx84hY8AjFGunHkR/tVRJBGx1/CavYIffLj6DVttPwNdz/j2V1YbI1U5kgMN1MXZ7PQLZo8ng==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    body-scroll-lock "^2.5.8"
+    classnames "^2.2.5"
+    date-fns "^1.28.5"
+    hammerjs "^2.0.8"
+    node-polyglot "^2.2.2"
+    normalize.css "^7.0.0"
+    react-hot-loader "^4.3.11"
+    react-markdown "^4.0.8"
+    react-pdf "^4.0.5"
+    react-select "2.2.0"
+    react-swipeable-views "0.13.3"
+
+cozy-ui@^29.9.1:
   version "29.9.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.9.1.tgz#9e8d7b0a12c85166c6bf4b25a70ea6847336099f"
   integrity sha512-xt5VDSOrm3zB7WnovMmel1fT/q52tLkEC9j12gmkkR1aEFc3c3Ced5iZu/NmuOYy2fkx0nvgazoggWrsmUZTVg==
