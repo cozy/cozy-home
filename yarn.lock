@@ -3241,13 +3241,6 @@ cozy-doctypes@1.72.0, cozy-doctypes@^1.72.0:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-flags@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.11.0.tgz#d9d63ecd269ad3ba76ee4cec46226b9d44f140b6"
-  integrity sha512-aSwnMsTsjolf7aZeWHOefGIR5u+i7prpYD1pGe2smZAiQOZ/5udOPJL6Zk4kZy34hU08Uk++Cbe5x/l/If0xmQ==
-  dependencies:
-    microee "^0.0.6"
-
 cozy-flags@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.2.0.tgz#5367b044cc43b738cf8db3791ad4812a472cb8c5"
@@ -8155,13 +8148,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
