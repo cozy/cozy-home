@@ -6,7 +6,7 @@ node_js:
 env:
   global:
     - CXX=g++-4.8
-    - MATTERMOST_CHANNEL=app---home
+    - MATTERMOST_CHANNEL='{"stable":"app---home,publication","beta":"app---home,publication","dev":"app---home"}'
     - TARGETS_DEV=recette.cozy.works
     - TARGETS_BETA=betatest.cozy.works
     # to generate secure ENV VARS : travis encrypt MY_VAR=<value> -r cozy/cozy-home
