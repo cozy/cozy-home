@@ -9,7 +9,7 @@ import flag from 'cozy-flags'
 import LogoutButton from './LogoutButton'
 import SettingsButton from './SettingsButton'
 
-const HeroHeader = ({ client }) => {
+export const HeroHeader = ({ client }) => {
   const {
     fetchStatus,
     data: { wallpaperLink }
