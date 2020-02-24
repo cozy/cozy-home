@@ -9,6 +9,7 @@ import MostRecentCozyClient, {
 import { Application } from 'cozy-doctypes'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
+import flag from 'cozy-flags'
 
 import collectConfig from 'config/collect'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
@@ -63,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     token: data.cozyToken
   })
+
+  cozyClient.registerPlugin(flag.plugin)
 
   // store
   const store = configureStore(legacyClient, cozyClient, context, {
