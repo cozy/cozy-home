@@ -9,6 +9,7 @@ import MostRecentCozyClient, {
 import { Application } from 'cozy-doctypes'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
+import { BreakpointsProvider } from 'cozy-ui/react/hooks/useBreakpoints'
 import flag from 'cozy-flags'
 
 import collectConfig from 'config/collect'
@@ -84,9 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         secure={!__DEVELOPMENT__}
       >
         <I18n lang={lang} dictRequire={dictRequire} context={context}>
-          <PiwikHashRouter>
-            <App {...collectConfig} />
-          </PiwikHashRouter>
+          <BreakpointsProvider>
+            <PiwikHashRouter>
+              <App {...collectConfig} />
+            </PiwikHashRouter>
+          </BreakpointsProvider>
         </I18n>
       </CozyProvider>
     </MostRecentCozyClientProvider>,

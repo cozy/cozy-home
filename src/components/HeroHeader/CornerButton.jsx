@@ -1,10 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Button, { ButtonLink } from 'cozy-ui/react/Button'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import { useBreakpoints } from 'cozy-ui/transpiled/react'
 
-const CornerButton = ({ breakpoints: { isMobile }, ...otherProps }) => {
-  const { href } = otherProps
+const CornerButton = props => {
+  const { isMobile } = useBreakpoints()
+  const { href } = props
   const ButtonComp = href ? ButtonLink : Button
 
   return (
@@ -14,15 +14,9 @@ const CornerButton = ({ breakpoints: { isMobile }, ...otherProps }) => {
       className="corner-button"
       iconOnly={isMobile}
       extension={isMobile ? 'narrow' : null}
-      {...otherProps}
+      {...props}
     />
   )
 }
 
-CornerButton.propTypes = {
-  breakpoints: PropTypes.shape({
-    isMobile: PropTypes.bool
-  }).isRequired
-}
-
-export default withBreakpoints()(CornerButton)
+export default CornerButton
