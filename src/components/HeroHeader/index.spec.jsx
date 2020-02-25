@@ -34,8 +34,8 @@ describe('HeroHeader', () => {
 
   it('should render buttons based on flags', () => {
     flag.mockImplementation(flagName => {
-      if (flagName === 'home_corner_logout') return false
-      else if (flagName === 'home_corner_settings') return true
+      if (flagName === 'home.corner.logout-is-displayed') return false
+      else if (flagName === 'home.corner.settings-is-displayed') return true
       else return null
     })
     const component = shallow(<HeroHeader client={mockClient} />)

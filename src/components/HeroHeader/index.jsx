@@ -26,9 +26,13 @@ export const HeroHeader = ({ client }) => {
   const publicName = get(instanceSettings, 'public_name', '')
 
   const showLogout =
-    flag('home_corner_logout') === null ? true : flag('home_corner_logout')
+    flag('home.corner.logout-is-displayed') === null
+      ? true
+      : flag('home.corner.logout-is-displayed')
   const showSettings =
-    flag('home_corner_settings') === null ? false : flag('home_corner_settings')
+    flag('home.corner.settings-is-displayed') === null
+      ? false
+      : flag('home.corner.settings-is-displayed')
 
   return (
     <header
