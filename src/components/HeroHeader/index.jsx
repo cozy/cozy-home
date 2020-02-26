@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withClient } from 'cozy-client'
-import Button from 'cozy-ui/react/Button'
 import get from 'lodash/get'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
-import { translate } from 'cozy-ui/react/I18n'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
+import flag from 'cozy-flags'
 
-const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
+import LogoutButton from './LogoutButton'
+import SettingsButton from './SettingsButton'
+
+export const HeroHeader = ({ client }) => {
   const {
     fetchStatus,
     data: { wallpaperLink }
@@ -24,25 +25,23 @@ const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
   const { data: instanceSettings } = useInstanceSettings(client)
   const publicName = get(instanceSettings, 'public_name', '')
 
+  const showLogout =
+    flag('home.corner.logout-is-displayed') === null
+      ? true
+      : flag('home.corner.logout-is-displayed')
+  const showSettings =
+    flag('home.corner.settings-is-displayed') === null
+      ? false
+      : flag('home.corner.settings-is-displayed')
+
   return (
     <header
       className="hero-header"
       style={{ backgroundImage: `url(${backgroundURL})` }}
     >
       <div className="corner">
-        <Button
-          label={t('app.logout')}
-          icon="logout"
-          size="small"
-          theme="text"
-          className="corner-button"
-          iconOnly={isMobile}
-          extension={isMobile ? 'narrow' : null}
-          onClick={async () => {
-            await client.logout()
-            window.location.reload()
-          }}
-        />
+        {showLogout && <LogoutButton />}
+        {showSettings && <SettingsButton />}
       </div>
       <div>
         <img className="hero-avatar" src={`${rootURL}/public/avatar`} />
@@ -54,11 +53,7 @@ const HeroHeader = ({ t, client, breakpoints: { isMobile } }) => {
 }
 
 HeroHeader.propTypes = {
-  t: PropTypes.func.isRequired,
-  client: PropTypes.object.isRequired,
-  breakpoints: PropTypes.shape({
-    isMobile: PropTypes.bool
-  }).isRequired
+  client: PropTypes.object.isRequired
 }
 
-export default withClient(withBreakpoints()(translate()(HeroHeader)))
+export default withClient(HeroHeader)

@@ -3260,7 +3260,7 @@ cozy-flags@2.2.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-flags@^2.2.3:
+cozy-flags@2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.2.3.tgz#8e1aba2f00ff427007b4b59331ff1253bb7d835f"
   integrity sha512-x7dP7HnizZg3JKCGaokOhqpDhlEPTCeTiolGrlqLAeu3WZD0MS3USwC/wJ3sYLRR7oN4broeOV8uzOCHHB2l6w==
@@ -8167,13 +8167,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
