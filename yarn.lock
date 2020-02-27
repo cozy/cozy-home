@@ -3241,10 +3241,10 @@ cozy-doctypes@1.72.0:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.72.1:
-  version "1.72.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.72.1.tgz#6edd4c3fd44176c2f57faa4d26220a2a2e2d4593"
-  integrity sha512-kGoWOVkQJfhJyvB5Adsdxa358GQHHL1zj0gS5c9WB+AC2iU9NYwE8/zYBCwIrooRo8DWulA2NwU32Kad8putzA==
+cozy-doctypes@^1.72.2:
+  version "1.72.2"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.72.2.tgz#ac3d6813780008e5a4115a70679a0f25cf7efd81"
+  integrity sha512-ITrfljuDBsRQ4AaDUup+0Weh7K+QlZfX38R1YFw9nsLWZMy8GCvUvaJ6vLk7UWj9SmoO/+A2Dwz2T/p9je+DZA==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
@@ -3253,23 +3253,30 @@ cozy-doctypes@^1.72.1:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-flags@2.2.3, cozy-flags@^2.2.3:
+cozy-flags@2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.2.3.tgz#8e1aba2f00ff427007b4b59331ff1253bb7d835f"
   integrity sha512-x7dP7HnizZg3JKCGaokOhqpDhlEPTCeTiolGrlqLAeu3WZD0MS3USwC/wJ3sYLRR7oN4broeOV8uzOCHHB2l6w==
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.29.1:
-  version "1.29.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.29.1.tgz#cf80ce4c81cc97a6cca48c19f3a46be31719606c"
-  integrity sha512-sWRLlyNi5eDDqP5m+8qP2I/hkblmyepPY1AinE9YsgkMGRb5hhIqqT4kmsgWmjzM3mmsEWa6HsIco3VU+xGtUg==
+cozy-flags@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.2.4.tgz#7485a9c828d2ab068683f265eed634dee201fb34"
+  integrity sha512-lcjDko8eeIyUCVm1AqAiWMcKopoevKmgQQ63syBAQej6WV6yG35rvjU97MTPVkj3yzYBBf5SHwjOjBKKoOEtIw==
+  dependencies:
+    microee "^0.0.6"
+
+cozy-harvest-lib@1.29.5:
+  version "1.29.5"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.29.5.tgz#215ad7bfc2fb108fc497dec27d1ef49acd864deb"
+  integrity sha512-UyHQpT4b+rJvocWcwjJ1icdfFrVB1VfXP0tXzrHImAb0uAk3OjUlCiniTvao4FHNZ7e2qb32V4jwjh2F8slYcQ==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
     cozy-bi-auth "0.0.6"
-    cozy-doctypes "^1.72.1"
-    cozy-flags "^2.2.3"
+    cozy-doctypes "^1.72.2"
+    cozy-flags "^2.2.4"
     cozy-logger "1.6.0"
     date-fns "^1.30.1"
     final-form "4.18.5"
@@ -8160,6 +8167,13 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
