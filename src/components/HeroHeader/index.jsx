@@ -8,6 +8,7 @@ import flag from 'cozy-flags'
 
 import LogoutButton from './LogoutButton'
 import SettingsButton from './SettingsButton'
+import HelpButton from './HelpButton'
 
 export const HeroHeader = ({ client }) => {
   const {
@@ -33,6 +34,10 @@ export const HeroHeader = ({ client }) => {
     flag('home.corner.settings-is-displayed') === null
       ? false
       : flag('home.corner.settings-is-displayed')
+  const showHelp =
+    flag('home.corner.help-is-displayed') === null
+      ? false
+      : flag('home.corner.help-is-displayed')
 
   return (
     <header
@@ -40,8 +45,9 @@ export const HeroHeader = ({ client }) => {
       style={{ backgroundImage: `url(${backgroundURL})` }}
     >
       <div className="corner">
-        {showLogout && <LogoutButton />}
+        {showHelp && <HelpButton />}
         {showSettings && <SettingsButton />}
+        {showLogout && <LogoutButton />}
       </div>
       <div>
         <img className="hero-avatar" src={`${rootURL}/public/avatar`} />
