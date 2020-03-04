@@ -79,7 +79,7 @@ export class KonnectorTile extends Component {
         color: palette.pomegranate
       }
     }
-    const hideKonnectorErrors = flag('hide_konnector_errors') // flag used for some demo instances where we want to ignore all konnector errors
+    const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
     const status = hideKonnectorErrors
       ? STATUS.OK
