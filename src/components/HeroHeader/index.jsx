@@ -10,6 +10,27 @@ import LogoutButton from './LogoutButton'
 import SettingsButton from './SettingsButton'
 import HelpButton from './HelpButton'
 
+const cornerButtons = [
+  {
+    flagName: 'help-is-displayed',
+    isDisplayedByDefault: true,
+    Button: HelpButton
+  },
+  {
+    flagName: 'settings-is-displayed',
+    isDisplayedByDefault: false,
+    Button: SettingsButton
+  },
+  {
+    flagName: 'logout-is-displayed',
+    isDisplayedByDefault: true,
+    Button: LogoutButton
+  }
+]
+
+const flagWithFallbackValue = (flagName, fallback) =>
+  flag(flagName) === null ? fallback : flag(flagName)
+
 export const HeroHeader = ({ client }) => {
   const {
     fetchStatus,
@@ -26,28 +47,21 @@ export const HeroHeader = ({ client }) => {
   const { data: instanceSettings } = useInstanceSettings(client)
   const publicName = get(instanceSettings, 'public_name', '')
 
-  const showLogout =
-    flag('home.corner.logout-is-displayed') === null
-      ? true
-      : flag('home.corner.logout-is-displayed')
-  const showSettings =
-    flag('home.corner.settings-is-displayed') === null
-      ? false
-      : flag('home.corner.settings-is-displayed')
-  const showHelp =
-    flag('home.corner.help-is-displayed') === null
-      ? false
-      : flag('home.corner.help-is-displayed')
-
   return (
     <header
       className="hero-header"
       style={{ backgroundImage: `url(${backgroundURL})` }}
     >
       <div className="corner">
-        {showHelp && <HelpButton />}
-        {showSettings && <SettingsButton />}
-        {showLogout && <LogoutButton />}
+        {cornerButtons.map(
+          ({ flagName, isDisplayedByDefault, Button }) =>
+            flagWithFallbackValue(
+              `home.corner.${flagName}`,
+              isDisplayedByDefault
+            ) ? (
+              <Button key={flagName} />
+            ) : null
+        )}
       </div>
       <div>
         <img className="hero-avatar" src={`${rootURL}/public/avatar`} />

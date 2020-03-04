@@ -31,19 +31,19 @@ describe('HeroHeader', () => {
     const component = shallow(<HeroHeader client={mockClient} />)
     expect(component.find(LogoutButton).length).toBe(1)
     expect(component.find(SettingsButton).length).toBe(0)
-    expect(component.find(HelpButton).length).toBe(0)
+    expect(component.find(HelpButton).length).toBe(1)
   })
 
   it('should render buttons based on flags', () => {
     flag.mockImplementation(flagName => {
       if (flagName === 'home.corner.logout-is-displayed') return false
       else if (flagName === 'home.corner.settings-is-displayed') return true
-      else if (flagName === 'home.corner.help-is-displayed') return true
+      else if (flagName === 'home.corner.help-is-displayed') return false
       else return null
     })
     const component = shallow(<HeroHeader client={mockClient} />)
     expect(component.find(LogoutButton).length).toBe(0)
     expect(component.find(SettingsButton).length).toBe(1)
-    expect(component.find(HelpButton).length).toBe(1)
+    expect(component.find(HelpButton).length).toBe(0)
   })
 })
