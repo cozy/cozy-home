@@ -10,7 +10,7 @@ const LogoutButton = ({ client }) => {
     await client.logout()
     window.location.reload()
   })
-  return <CornerButton label={t('app.logout')} icon="logout" onClick={logout} />
+  return <CornerButton label={t('logout')} icon="logout" onClick={logout} />
 }
 
 export default withClient(LogoutButton)

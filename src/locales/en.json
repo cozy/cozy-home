@@ -2,8 +2,7 @@
   "app": {
     "logo": {
       "alt": "%{name} logo"
-    },
-    "logout": "Log out"
+    }
   },
   "date": {
     "format": "MM/DD/YYYY",
@@ -17,6 +16,9 @@
   },
   "add_service": "Add",
   "fix_konnector_error": "Fix now",
+  "logout": "Log out",
+  "help": "Help",
+  "help_link": "https://cozy.io/en/support/",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
