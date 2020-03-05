@@ -54,12 +54,12 @@ deploy:
   - provider: script
     repo: cozy/cozy-home
     skip-cleanup: true
-    script: yarn cozyPublish
+    script: yarn txcheck && yarn cozyPublish
     on:
       branch: master
   - provider: script
     repo: cozy/cozy-home
     skip-cleanup: true
-    script: yarn cozyPublish
+    script: yarn txcheck && yarn cozyPublish
     on:
       tags: true
