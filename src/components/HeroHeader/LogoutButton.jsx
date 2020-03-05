@@ -1,16 +1,20 @@
 import React, { useCallback } from 'react'
 import { useI18n } from 'cozy-ui/react/I18n'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 
 import CornerButton from './CornerButton'
 
-const LogoutButton = ({ client }) => {
+const LogoutButton = () => {
   const { t } = useI18n()
-  const logout = useCallback(async () => {
-    await client.logout()
-    window.location.reload()
-  })
+  const client = useClient()
+  const logout = useCallback(
+    async () => {
+      await client.logout()
+      window.location.reload()
+    },
+    [client]
+  )
   return <CornerButton label={t('logout')} icon="logout" onClick={logout} />
 }
 
-export default withClient(LogoutButton)
+export default LogoutButton
