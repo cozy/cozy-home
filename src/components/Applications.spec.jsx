@@ -3,10 +3,14 @@ import { shallow } from 'enzyme'
 import { Applications } from './Applications'
 import LogoutTile from './LogoutTile'
 import flag from 'cozy-flags'
+import ShortcutTile from './ShortcutTile'
+import useHomeShortcuts from '../hooks/useHomeShortcuts'
 
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
+
+jest.mock('hooks/useHomeShortcuts', () => jest.fn().mockReturnValue([]))
 
 describe('Applications', () => {
   it('has no log out button', () => {
@@ -21,5 +25,12 @@ describe('Applications', () => {
     })
     const comp = shallow(<Applications />)
     expect(comp.find(LogoutTile).length).toBe(1)
+  })
+
+  it('displays retrieved shortcuts', () => {
+    const shortcuts = [{ id: '1' }, { id: '2' }]
+    useHomeShortcuts.mockImplementation(() => shortcuts)
+    const comp = shallow(<Applications />)
+    expect(comp.find(ShortcutTile).length).toBe(shortcuts.length)
   })
 })
