@@ -6,6 +6,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import flag from 'cozy-flags'
 
 import AppTile from 'components/AppTile'
+import LogoutTile from 'components/LogoutTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import homeConfig from 'config/collect'
 import { receiveApps } from 'ducks/apps'
@@ -35,6 +36,7 @@ class LoadingAppTiles extends PureComponent {
 export class Applications extends PureComponent {
   render() {
     const { receiveApps } = this.props
+    const showLogout = !!flag('home.mainlist.show-logout')
     return (
       <div className="app-list">
         <Query query={() => Q('io.cozy.apps')}>
@@ -56,6 +58,7 @@ export class Applications extends PureComponent {
             )
           }}
         </Query>
+        {showLogout && <LogoutTile />}
       </div>
     )
   }

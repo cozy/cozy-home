@@ -3201,19 +3201,19 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@9.8.0:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-9.8.0.tgz#0e8f6f220b611eab9e91990e1b0fc5672b6ca47b"
-  integrity sha512-jYNW2P91vKrxi9z7dFLiXMy0EmjMEuXkYvD2VXfhRB9oOOWw79CwMAxztN6IoKdUZfCbKMZb/qI7ZZwGJYbCwg==
+cozy-client@12.3.0:
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-12.3.0.tgz#194d472d80b547bb8950974f16482bc139f49181"
+  integrity sha512-mRwtbcZ3LU0z2jNrtZ2rgAVQvZ6Jl7iA8E+dibH+yLg9qQZ50aFHYAC1XW0qrbX2RljRWXnY6dijoqwEeN42Qg==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^9.7.0"
+    cozy-stack-client "^12.2.0"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
-    opn "^6.0.0"
+    open "^7.0.2"
     prop-types "^15.6.2"
     react-redux "^5.0.7"
     redux "^3.7.2"
@@ -3378,10 +3378,10 @@ cozy-scripts@1.13.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^9.7.0:
-  version "9.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-9.10.0.tgz#5b6bc4e84c7914aabc73f30fd5599b6729aaa2d1"
-  integrity sha512-Ku+IX+E2c6ARHcFjWc5cpwiwr0Ixj8NM/vsRnKkEgW8DmhQa6vaGbXc3GVpx9qfPiA93ymiIYoA9SjGVa+tJAQ==
+cozy-stack-client@^12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-12.2.0.tgz#fb3b5cd24824e67187d41674a40d297624f33dfa"
+  integrity sha512-cilexeSjgCRsP4T0do/ufmiEY52SVrnQdtIJbSaRU1Tg/WnJs83mDw8H+aVpp9xLpD0ugtVwOWF48J6Cqz7zfw==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -3404,10 +3404,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@32.2.1:
-  version "32.2.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-32.2.1.tgz#ca65d45b7f7e61d0a655fa7aa6232417f7940e5d"
-  integrity sha512-QmANtx4BMoAQbTfwX7fw2cmdN/LXbil451y3J6zo8YigwY6K567assr0y95xn5Y9mcm2FjfXWjrqEZuvU2e49g==
+cozy-ui@32.3.0:
+  version "32.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-32.3.0.tgz#6559fa9931b397e5e42ee379c53cb5890cb1f1c3"
+  integrity sha512-Eff/JovRBXPuT5xyThQqbaVWuv02HntGQ/hjjjI+E2izgcGmEIGgyF4LsBYEe2QHgogYNrOPzhAxycedb/YESg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -6483,6 +6483,11 @@ is-directory@^0.3.1:
   resolved "https://registry.yarnpkg.com/is-directory/-/is-directory-0.3.1.tgz#61339b6f2475fc772fd9c9d83f5c8575dc154ae1"
   integrity sha1-YTObbyR1/Hcv2cnYP1yFddwVSuE=
 
+is-docker@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-2.0.0.tgz#2cb0df0e75e2d064fe1864c37cdeacb7b2dcf25b"
+  integrity sha512-pJEdRugimx4fBMra5z2/5iRdZ63OhYV0vr0Dwm5+xtW4D1FvRkB8hamMIhnWfyJeDdyr/aa7BDyNbtG38VxgoQ==
+
 is-dotfile@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/is-dotfile/-/is-dotfile-1.0.3.tgz#a6a2f32ffd2dfb04f5ca25ecd0f6b83cf798a1e1"
@@ -6746,6 +6751,11 @@ is-wsl@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
   integrity sha1-HxbkqiKwTRM2tmGIpmrzxgDDpm0=
+
+is-wsl@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-2.1.1.tgz#4a1c152d429df3d441669498e2486d3596ebaf1d"
+  integrity sha512-umZHcSrwlDHo2TGMXv0DZ8dIUGunZ2Iv68YZnrmCiBPkZ4aaOhtv7pXJKeki9k3qJ3RJr0cDyitcl5wEH3AYog==
 
 isarray@0.0.1:
   version "0.0.1"
@@ -8810,6 +8820,14 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
+open@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/open/-/open-7.0.2.tgz#fb3681f11f157f2361d2392307548ca1792960e8"
+  integrity sha512-70E/pFTPr7nZ9nLDPNTcj3IVqnNvKuP4VsBmoKV9YGTnChe0mlS3C4qM7qKarhZ8rGaHKLfo+vBTHXDp6ZSyLQ==
+  dependencies:
+    is-docker "^2.0.0"
+    is-wsl "^2.1.1"
+
 opener@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
@@ -8819,13 +8837,6 @@ opn@^5.1.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
   integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
-  dependencies:
-    is-wsl "^1.1.0"
-
-opn@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-6.0.0.tgz#3c5b0db676d5f97da1233d1ed42d182bc5a27d2d"
-  integrity sha512-I9PKfIZC+e4RXZ/qr1RhgyCnGgYX0UEIlXgWnCOVACIvFgaC9rz6Won7xbdhoHrd8IIhV7YEpHjreNUNkqCGkQ==
   dependencies:
     is-wsl "^1.1.0"
 
