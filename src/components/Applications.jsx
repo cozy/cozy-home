@@ -2,14 +2,15 @@ import React, { memo } from 'react'
 import { connect } from 'react-redux'
 
 import { Query, Q } from 'cozy-client'
-import { translate } from 'cozy-ui/react/I18n'
 import flag from 'cozy-flags'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
+import ShortcutTile from 'components/ShortcutTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import homeConfig from 'config/collect'
 import { receiveApps } from 'ducks/apps'
+import useHomeShortcuts from 'hooks/useHomeShortcuts'
 
 const LoadingAppTiles = memo(({ num }) => {
   const tiles = []
@@ -31,8 +32,9 @@ const LoadingAppTiles = memo(({ num }) => {
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
-const Applications = memo(({ receiveApps }) => {
+export const Applications = memo(({ receiveApps }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
+  const shortcuts = useHomeShortcuts()
   return (
     <div className="app-list">
       <Query query={() => Q('io.cozy.apps')}>
@@ -54,11 +56,14 @@ const Applications = memo(({ receiveApps }) => {
           )
         }}
       </Query>
+      {shortcuts.map((shortcut, index) => (
+        <ShortcutTile key={index} file={shortcut} />
+      ))}
       {showLogout && <LogoutTile />}
     </div>
   )
 })
-Applications.displayName = Applications
+Applications.displayName = 'Applications'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -69,4 +74,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(translate()(Applications))
+)(Applications)
