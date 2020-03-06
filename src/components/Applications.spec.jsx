@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Applications } from './Applications'
-import LogoutTile from './/LogoutTile'
+import LogoutTile from './LogoutTile'
 import flag from 'cozy-flags'
 
 jest.mock('cozy-flags', () => {
