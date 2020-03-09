@@ -851,6 +851,9 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: var(--dodgerBlue);
   color: var(--white);
   border-color: var(--dodgerBlue);
@@ -2897,7 +2900,7 @@ html, body {
     */
   --chablis: #fff2f2;
   --yourPink: #fdcbcb;
-  --fushsia: #fc4c83;
+  --fuchsia: #fc4c83;
   --pomegranate: #f52d2d;
   --monza: #dd0505;
 /*

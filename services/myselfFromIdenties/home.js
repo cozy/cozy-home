@@ -3660,6 +3660,7 @@ function () {
      * @param  {QueryDefinition} queryDefinition - Definition that will be executed
      * @param  {string} options - Options
      * @param  {string} options.as - Names the query so it can be reused (by multiple components for example)
+     * @param  {string} options.fetchPolicy - Fetch policy to bypass fetching based on what's already inside the state. See "Fetch policies"
      * @returns {QueryResult}
      */
 
@@ -3673,6 +3674,8 @@ function () {
             update,
             options,
             queryId,
+            existingQuery,
+            shouldFetch,
             response,
             _args6 = arguments;
 
@@ -3685,29 +3688,54 @@ function () {
                 this.ensureStore();
                 queryId = options.as || this.generateId();
                 this.ensureQueryExists(queryId, queryDefinition);
-                _context6.prev = 5;
-                _context6.next = 8;
-                return this.requestQuery(queryDefinition);
+
+                if (!options.fetchPolicy) {
+                  _context6.next = 12;
+                  break;
+                }
+
+                if (options.as) {
+                  _context6.next = 8;
+                  break;
+                }
+
+                throw new Error('Cannot use `fetchPolicy` without naming the query, please use `as` to name the query');
 
               case 8:
+                existingQuery = this.getQueryFromState(queryId);
+                shouldFetch = options.fetchPolicy(existingQuery);
+
+                if (shouldFetch) {
+                  _context6.next = 12;
+                  break;
+                }
+
+                return _context6.abrupt("return");
+
+              case 12:
+                _context6.prev = 12;
+                _context6.next = 15;
+                return this.requestQuery(queryDefinition);
+
+              case 15:
                 response = _context6.sent;
                 this.dispatch((0, _store.receiveQueryResult)(queryId, response, {
                   update: update
                 }));
                 return _context6.abrupt("return", response);
 
-              case 13:
-                _context6.prev = 13;
-                _context6.t0 = _context6["catch"](5);
+              case 20:
+                _context6.prev = 20;
+                _context6.t0 = _context6["catch"](12);
                 this.dispatch((0, _store.receiveQueryError)(queryId, _context6.t0));
                 throw _context6.t0;
 
-              case 17:
+              case 24:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6, this, [[5, 13]]);
+        }, _callee6, this, [[12, 20]]);
       }));
 
       return function query(_x7) {
@@ -3842,7 +3870,7 @@ function () {
      * Executes a query through links and fetches relationships
      *
      * @private
-     * @param  {QueryDefinition} definition
+     * @param  {QueryDefinition} definition QueryDefinition to be executed
      * @returns {Response}
      */
 
@@ -3897,6 +3925,8 @@ function () {
      * Can potentially result in several fetch requests.
      * Queries are optimized before being sent (multiple single documents queries can be packed into
      * one multiple document query) for example.
+     *
+     * @private
      */
 
   }, {
@@ -4724,7 +4754,7 @@ function () {
 
 CozyClient.fetchPolicies = _policies.default; //COZY_CLIENT_VERSION_PACKAGE in replaced by babel. See babel config
 
-CozyClient.version = "12.3.0";
+CozyClient.version = "12.5.0";
 
 _microee.default.mixin(CozyClient);
 
@@ -7955,7 +7985,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.normalize = normalize;
 exports.ensureFilePath = ensureFilePath;
 exports.getParentFolderId = getParentFolderId;
-exports.isShortcurt = exports.isNote = exports.isDirectory = exports.isFile = void 0;
+exports.isShortcut = exports.isNote = exports.isDirectory = exports.isFile = void 0;
 
 var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "./node_modules/@babel/runtime/helpers/objectSpread.js"));
 
@@ -8003,7 +8033,7 @@ var isNote = function isNote(file) {
 
 exports.isNote = isNote;
 
-var isShortcurt = function isShortcurt(file) {
+var isShortcut = function isShortcut(file) {
   return file && file.class === 'shortcut';
 };
 /**
@@ -8017,7 +8047,7 @@ var isShortcurt = function isShortcurt(file) {
  */
 
 
-exports.isShortcurt = isShortcurt;
+exports.isShortcut = isShortcut;
 
 function normalize(file) {
   var id = file._id || file.id;
@@ -10676,7 +10706,8 @@ var queryInitialState = {
   lastError: null,
   hasMore: false,
   count: 0,
-  data: []
+  data: [],
+  bookmark: null
 };
 
 var query = function query() {
@@ -10713,6 +10744,7 @@ var query = function query() {
         }
 
         return (0, _objectSpread3.default)({}, state, common, {
+          bookmark: response.bookmark || null,
           hasMore: response.next !== undefined ? response.next : state.hasMore,
           count: response.meta && response.meta.count ? response.meta.count : response.data.length,
           data: [].concat((0, _toConsumableArray2.default)(state.data), (0, _toConsumableArray2.default)(response.data.map(_helpers.properId)))
@@ -13955,6 +13987,7 @@ function () {
             _loop,
             _iterator,
             _step,
+            opts,
             _args9 = arguments;
 
         return _regenerator.default.wrap(function _callee9$(_context9) {
@@ -14060,18 +14093,19 @@ function () {
                 return _context9.finish(28);
 
               case 36:
-                return _context9.abrupt("return", {
+                opts = {
                   selector: selector,
                   use_index: indexId,
                   // TODO: type and class should not be necessary, it's just a temp fix for a stack bug
                   fields: fields ? [].concat((0, _toConsumableArray2.default)(fields), ['_id', '_type', 'class']) : undefined,
                   limit: limit,
                   skip: skip,
-                  bookmark: bookmark,
+                  bookmark: options.bookmark || bookmark,
                   sort: sort
-                });
+                };
+                return _context9.abrupt("return", opts);
 
-              case 37:
+              case 38:
               case "end":
                 return _context9.stop();
             }
@@ -14275,7 +14309,7 @@ function () {
           sort = _ref3$sort === void 0 ? [] : _ref3$sort;
       return Array.from(new Set([].concat((0, _toConsumableArray2.default)(sort.map(function (sortOption) {
         return (0, _head.default)(Object.keys(sortOption));
-      })), (0, _toConsumableArray2.default)(Object.keys(selector)))));
+      })), (0, _toConsumableArray2.default)(selector ? Object.keys(selector) : []))));
     }
     /**
      * Use Couch _changes API
