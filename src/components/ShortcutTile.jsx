@@ -14,7 +14,7 @@ const ShortcutTile = ({ file }) => {
   const { isMobile } = useBreakpoints()
 
   return (
-    <a href={url} className="item">
+    <a href={url} target="_blank" rel="noopener noreferrer" className="item">
       <div className="item-icon">
         {shortcurtIcon ? (
           <img
