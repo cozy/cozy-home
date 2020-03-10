@@ -24,6 +24,7 @@ describe('ShortcutTile', () => {
     const comp = shallow(<ShortcutTile file={file} />)
     expect(comp.find('h3').text()).toEqual('cozy.io')
     expect(comp.find('a').prop('href')).toEqual('http://cozy.io')
+    expect(comp.find('a').prop('target')).toEqual('_blank')
     expect(comp.find(Icon).prop('icon')).toEqual('device-browser')
   })
 
