@@ -75,9 +75,9 @@
     "git-directory-deploy": "1.5.1",
     "mockdate": "^2.0.5",
     "npm-run-all": "4.1.5",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "react-test-renderer": "16.13.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-test-renderer": "16.13.1",
     "stylint": "2.0.0",
     "stylus": "0.54.7",
     "url-search-params-polyfill": "5.1.0"
@@ -88,7 +88,7 @@
     ]
   },
   "resolutions": {
-    "scheduler": "0.15.0"
+    "scheduler": "0.19.1"
   },
   "husky": {
     "hooks": {
