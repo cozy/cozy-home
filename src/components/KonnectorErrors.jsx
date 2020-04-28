@@ -54,9 +54,9 @@ export const KonnectorErrors = ({
     const accountId = triggersModel.getAccountId(trigger)
     const account = accountsWithErrorsById[accountId]
     const konnectorSlug = triggersModel.getKonnector(trigger)
-    const hasInstalledKonnector = installedKonnectors.some(
-      ({ slug }) => slug === konnectorSlug
-    )
+    const hasInstalledKonnector =
+      installedKonnectors &&
+      installedKonnectors.some(({ slug }) => slug === konnectorSlug)
 
     return (
       homeConfig.displayedErrorTypes.includes(errorType) &&
