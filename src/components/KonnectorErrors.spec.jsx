@@ -38,6 +38,35 @@ describe('KonnectorErrors', () => {
     expect(component.html()).toBe(null)
   })
 
+  it('should render nothing when there are errors but no installed konnector', () => {
+    const component = shallow(
+      <KonnectorErrors
+        t={s => s}
+        triggersInError={[
+          {
+            _id: '2',
+            worker: 'konnector',
+            current_state: {
+              last_error: 'MUTED_ERROR',
+              last_success: '2019-10-01T00:48:01.404911778Z'
+            },
+            message: {
+              konnector: 'test',
+              account: '456'
+            }
+          }
+        ]}
+        accountsWithErrors={[]}
+        installedKonnectors={false}
+        history={mockHistory}
+        client={mockClient}
+        breakpoints={{ isMobile: false }}
+      />
+    )
+
+    expect(component.html()).toBe(null)
+  })
+
   it('should render nothing when all errors are muted', () => {
     const component = shallow(
       <KonnectorErrors
