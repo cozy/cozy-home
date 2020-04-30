@@ -1083,7 +1083,7 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
   integrity sha512-FmuxfCuolpLl0AnQ2NHSzoUKWEJDFl63qXjzdoWBVyFCXzMGm1spBzk7LeHNoVCiWCF7mRVms9e6jEV9+MoPbg==
 
-"@material-ui/core@3":
+"@material-ui/core@3", "@material-ui/core@3.9.4":
   version "3.9.4"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.9.4.tgz#5297fd4ad9e739a87da4a6d34fc4af5396886e13"
   integrity sha512-r8QFLSexcYZbnqy/Hn4v8xzmAJV41yaodUVjmbGLi1iGDLG3+W941hEtEiBmxTRRqv2BdK3r4ijILcqKmDv/Sw==
@@ -5342,7 +5342,7 @@ forever-agent@~0.6.1:
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
 
-form-data@^2.5.1:
+form-data@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.5.1.tgz#f2cbec57b5e59e23716e128fe44d4e5dd23895f4"
   integrity sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
@@ -8277,7 +8277,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@0.x.x, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~
   dependencies:
     minimist "0.0.8"
 
-mockdate@^2.0.5:
+mockdate@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/mockdate/-/mockdate-2.0.5.tgz#70c6abf9ed4b2dae65c81dfc170dd1a5cec53620"
   integrity sha512-ST0PnThzWKcgSLyc+ugLVql45PvESt3Ul/wrdV/OPc/6Pr8dbLAIJsN1cIp41FLzbN+srVTNIRn+5Cju0nyV6A==
