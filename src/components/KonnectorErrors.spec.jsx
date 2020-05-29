@@ -57,7 +57,7 @@ describe('KonnectorErrors', () => {
           }
         ]}
         accountsWithErrors={[]}
-        installedKonnectors={false}
+        installedKonnectors={[]}
         history={mockHistory}
         client={mockClient}
         breakpoints={{ isMobile: false }}
