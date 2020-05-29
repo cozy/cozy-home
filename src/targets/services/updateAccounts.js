@@ -3,7 +3,7 @@ import CozyClient from 'cozy-client'
 import logger from 'cozy-logger'
 import polyfillFetch from './polyfillFetch'
 
-import updateAccountsPassword from 'cozy-harvest-lib/dist/services/updateAccountsPassword'
+import updateAccountsFromCipher from 'cozy-harvest-lib/dist/services/updateAccountsFromCipher'
 
 const log = logger.namespace('updateAccounts')
 
@@ -15,7 +15,7 @@ const main = async () => {
   const cozyClient = CozyClient.fromEnv()
 
   try {
-    await updateAccountsPassword(
+    await updateAccountsFromCipher(
       cozyClient,
       vaultClient,
       JSON.parse(process.env.COZY_COUCH_DOC)
