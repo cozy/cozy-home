@@ -3272,16 +3272,17 @@ cozy-flags@^2.2.4:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.32.5:
-  version "1.32.5"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.32.5.tgz#98100105f56b3ab8b5557cedcfd87ed4d6efa9ca"
-  integrity sha512-rulGgbVYOV7XG70fKCGF07qGBBbq/h/39OiGvRD5ULavImtrHPsMhuqOAq6keYqTQxdOWDQ3Q8VMTr//vIFzjA==
+cozy-harvest-lib@1.33.0:
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.33.0.tgz#41c1553ea7d084c70647db3ad864b4351b882677"
+  integrity sha512-bI5BTE+sZN2xE3ljzCnvisjl/DBcrzIfLMHTFfqnwo6nYns028oJ8CtH31yilSgtpLZEFsExQ1YAgPLdqdfK9A==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
     cozy-bi-auth "0.0.6"
     cozy-doctypes "^1.72.2"
     cozy-flags "^2.2.4"
+    cozy-keys-lib "3.1.1"
     cozy-logger "1.6.0"
     date-fns "^1.30.1"
     final-form "4.18.5"
@@ -3317,6 +3318,27 @@ cozy-keys-lib@2.5.4:
     prop-types "^15.7.2"
     react "^16.8.3"
     react-dom "^16.9.0"
+    sweetalert "^2.1.2"
+    tldjs "^2.3.1"
+    zxcvbn "^4.4.2"
+
+cozy-keys-lib@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.1.1.tgz#d2e896498f168e28bc82801a59062f8bea47c2d5"
+  integrity sha512-3RHbTB12YKlFUqBqxYovbNZ3dLUz1L9YkwmIuksVBUk6Kk3NZuMLd9BMgvgZRhanKhXQZQYMri6hmnZOya9ItQ==
+  dependencies:
+    "@aspnet/signalr" "^1.1.4"
+    "@aspnet/signalr-protocol-msgpack" "^1.1.0"
+    big-integer "^1.6.44"
+    classnames "^2.2.6"
+    cozy-device-helper "^1.7.5"
+    lodash "^4.17.15"
+    lunr "^2.3.6"
+    microee "^0.0.6"
+    minilog "https://github.com/cozy/minilog.git#master"
+    node-forge "^0.9.0"
+    papaparse "^5.1.1"
+    prop-types "^15.7.2"
     sweetalert "^2.1.2"
     tldjs "^2.3.1"
     zxcvbn "^4.4.2"
@@ -8187,7 +8209,13 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
+minilog@3.1.0, "minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
@@ -9024,6 +9052,11 @@ pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
+
+papaparse@^5.1.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.2.0.tgz#97976a1b135c46612773029153dc64995caa3b7b"
+  integrity sha512-ylq1wgUSnagU+MKQtNeVqrPhZuMYBvOSL00DHycFTCxownF95gpLAk1HiHdUW77N8yxRq1qHXLdlIPyBSG9NSA==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
