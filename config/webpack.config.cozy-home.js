@@ -1,6 +1,8 @@
 'use strict'
 
+const webpack = require('webpack')
 const path = require('path')
+const { environment } = require('cozy-scripts/config/webpack.vars')
 const { DefinePlugin, ContextReplacementPlugin } = require('webpack')
 const IgnoreNotFoundExportPlugin = require('ignore-not-found-export-webpack-plugin')
 
@@ -23,6 +25,13 @@ module.exports = {
     }
   },
   plugins: [
+    environment === 'development'
+      ? new webpack.ProvidePlugin({
+          'cozy.client': 'cozy-client-js/dist/cozy-client.js',
+          'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
+        })
+      : null,
+
     new DefinePlugin({
       __PIWIK_SITEID__: 8,
       __PIWIK_DIMENSION_ID_APP__: 1,
@@ -53,5 +62,5 @@ module.exports = {
         /cozy-ui\/transpiled\/react\/Portal\/index\.js/ // preact-portal
       ]
     })
-  ]
+  ].filter(Boolean)
 }
