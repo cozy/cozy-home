@@ -82,23 +82,22 @@ class IntentHandler extends Component {
             <p>{t('intent.service.error.cause', { error: error.reason })}</p>
           </div>
         )}
-        {!isInitializing &&
-          !error && (
-            // Here we should render a component based on the intent action.
-            // For now, our action is only CREATE on io.cozy.accounts. So here
-            // we should render a component named CreateAccountService.
-            // IntentService is just here for legacy reason and should
-            // disappear.
-            // In the future we may test the intent action and render a
-            // specific component for every action.
-            <IntentService
-              appData={appData}
-              data={service.getData()}
-              onTerminate={account => this.terminate(account)}
-              onCancel={() => this.cancel()}
-              service={service}
-            />
-          )}
+        {!isInitializing && !error && (
+          // Here we should render a component based on the intent action.
+          // For now, our action is only CREATE on io.cozy.accounts. So here
+          // we should render a component named CreateAccountService.
+          // IntentService is just here for legacy reason and should
+          // disappear.
+          // In the future we may test the intent action and render a
+          // specific component for every action.
+          <IntentService
+            appData={appData}
+            data={service.getData()}
+            onTerminate={account => this.terminate(account)}
+            onCancel={() => this.cancel()}
+            service={service}
+          />
+        )}
         <IconSprite />
       </div>
     )

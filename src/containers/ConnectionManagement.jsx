@@ -147,8 +147,8 @@ class ConnectionManagement extends Component {
           .filter(param => typeof params[param] === 'string')
           // Sort params from longest string to shortest string to avoid
           // unexpected replacements like :test in :test2.
-          .sort(
-            (a, b) => (a.length === b.length ? 0 : a.length > b.length ? -1 : 1)
+          .sort((a, b) =>
+            a.length === b.length ? 0 : a.length > b.length ? -1 : 1
           )
           .reduce(
             (path, param) => path.replace(`:${param}`, params[param]),

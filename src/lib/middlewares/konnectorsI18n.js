@@ -22,9 +22,7 @@ const extendI18nWithKonnector = lang => konnector => {
   if (!providesLocales) {
     // eslint-disable-next-line no-console
     console.warn(
-      `Konnector ${
-        konnector.name
-      } does not specify any locale for lang ${actualLang}`
+      `Konnector ${konnector.name} does not specify any locale for lang ${actualLang}`
     )
     return konnector
   }

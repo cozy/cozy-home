@@ -41,10 +41,8 @@ const connect = (
     const otherProps = filterValues(initialProps, prop => !isAction(prop))
 
     const mapStateToProps = state => ({
-      ...mapValues(
-        fetchActions,
-        action =>
-          isAction(action) ? applySelectorForAction(state, action) : action
+      ...mapValues(fetchActions, action =>
+        isAction(action) ? applySelectorForAction(state, action) : action
       ),
       fetchActions,
       ...otherProps

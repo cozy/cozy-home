@@ -4,12 +4,9 @@ import FieldType from 'cozy-keys-lib/transpiled/FieldType'
 import UriMatchType from 'cozy-keys-lib/transpiled/UriMatchType'
 
 const VaultUnlocker = ({ children, onUnlock }) => {
-  useEffect(
-    () => {
-      onUnlock()
-    },
-    [onUnlock]
-  )
+  useEffect(() => {
+    onUnlock()
+  }, [onUnlock])
 
   return children
 }

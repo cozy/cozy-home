@@ -33,9 +33,7 @@ export const accountsMutations = client => {
       parentAccount = await findParentAccount(parentAccountId)
     } catch (error) {
       throw new Error(
-        `An error occurred when finding parent account ${parentAccountId} (${
-          error.message
-        })`
+        `An error occurred when finding parent account ${parentAccountId} (${error.message})`
       )
     }
 
@@ -59,9 +57,7 @@ export const accountsMutations = client => {
       })
     } catch (error) {
       throw new Error(
-        `Cannot set permission for account ${parentAccountId} (${
-          error.message
-        })`
+        `Cannot set permission for account ${parentAccountId} (${error.message})`
       )
     }
 
