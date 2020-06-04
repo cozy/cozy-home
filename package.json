@@ -61,8 +61,7 @@
     "react-router-dom": "4.3.1",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
-    "redux-thunk": "2.3.0",
-    "timeago-react": "2.0.1"
+    "redux-thunk": "2.3.0"
   },
   "devDependencies": {
     "babel-preset-cozy-app": "1.8.1",
