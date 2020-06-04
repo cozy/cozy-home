@@ -23,7 +23,7 @@ const useHomeShortcuts = () => {
       }
     }
     load()
-  }, [])
+  }, [client, t])
 
   return files
 }

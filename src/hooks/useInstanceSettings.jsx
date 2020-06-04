@@ -21,7 +21,7 @@ const useInstanceSettings = client => {
       }
     }
     fetchData()
-  }, [])
+  }, [client])
 
   return {
     data: settings,
