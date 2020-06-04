@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ...collectConfig
   })
 
-  const dictRequire = lang => require(`locales/${lang}`)
+  const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
     <MostRecentCozyClientProvider client={cozyClient}>

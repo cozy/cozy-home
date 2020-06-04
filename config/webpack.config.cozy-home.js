@@ -8,7 +8,10 @@ const SRC_DIR = path.resolve(__dirname, '../src')
 
 // See https://github.com/date-fns/date-fns/blob/master/docs/webpack.md
 const supportedLocales = ['en', 'fr', 'es']
-const regexpLocales = new RegExp(`/(${supportedLocales.join('|')})`)
+const regexpMomentDateFnsLocales = new RegExp(
+  `/(${supportedLocales.join('|')})/index.js`
+)
+const regexpAppLocales = new RegExp(`/(${supportedLocales.join('|')}).json`)
 
 module.exports = {
   resolve: {
@@ -25,9 +28,15 @@ module.exports = {
       __PIWIK_DIMENSION_ID_APP__: 1,
       __PIWIK_TRACKER_URL__: JSON.stringify('https://piwik.cozycloud.cc')
     }),
-    new ContextReplacementPlugin(/moment[\/\\]locale$/, regexpLocales),
-    new ContextReplacementPlugin(/date-fns[\/\\]locale$/, regexpLocales),
-    new ContextReplacementPlugin(/src[\/\\]locales/, regexpLocales),
+    new ContextReplacementPlugin(
+      /moment[/\\]locale$/,
+      regexpMomentDateFnsLocales
+    ),
+    new ContextReplacementPlugin(
+      /date-fns[/\\]locale$/,
+      regexpMomentDateFnsLocales
+    ),
+    new ContextReplacementPlugin(/src[/\\]locales/, regexpAppLocales),
 
     /**
      * There are several exports that have been removed from @bitwarden/jslib
