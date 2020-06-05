@@ -1,8 +1,6 @@
 /* global cozy */
-import DataAccessFacade from './DataAccessFacade'
 
-const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
-const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
+import CozyStackAdapter from './adapters/CozyStackAdapter'
 
 export default class CozyClient {
   constructor(config) {
@@ -10,33 +8,32 @@ export default class CozyClient {
     this.options = options
     this.indexes = {}
     this.specialDirectories = {}
-    this.facade = new DataAccessFacade()
-    if (cozyURL) {
-      this.facade.setup(cozyURL, options)
-    }
+    cozy.client.init(config)
+    this.stackAdapter = new CozyStackAdapter()
+    this.stackAdapter.init(config)
   }
 
   async fetchCollection(name, doctype, options = {}, skip = 0) {
     if (options.selector) {
       const index = await this.getCollectionIndex(name, doctype, options)
-      return this.getAdapter(doctype).queryDocuments(doctype, index, {
+      return this.stackAdapter.queryDocuments(doctype, index, {
         ...options,
         skip
       })
     }
-    return this.getAdapter(doctype).fetchDocuments(doctype)
+    return this.stackAdapter.fetchDocuments(doctype)
   }
 
   fetchTriggers(name, worker) {
-    return this.getAdapter(TRIGGERS_DOCTYPE).fetchTriggers(worker)
+    return this.stackAdapter.fetchTriggers(worker)
   }
 
   fetchKonnectors() {
-    return this.getAdapter(KONNECTORS_DOCTYPE).fetchKonnectors()
+    return this.stackAdapter.fetchKonnectors()
   }
 
   updateDocument(doc) {
-    return this.getAdapter(doc._type).updateDocument(doc)
+    return this.stackAdapter.updateDocument(doc)
   }
 
   async checkUniquenessOf(doctype, property, value) {
@@ -50,7 +47,7 @@ export default class CozyClient {
 
   async getCollectionIndex(name, doctype, options) {
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.getAdapter(doctype).createIndex(
+      this.indexes[name] = await this.stackAdapter.createIndex(
         doctype,
         this.getIndexFields(options)
       )
@@ -61,7 +58,7 @@ export default class CozyClient {
   async getUniqueIndex(doctype, property) {
     const name = `${doctype}/${property}`
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.getAdapter(doctype).createIndex(doctype, [
+      this.indexes[name] = await this.stackAdapter.createIndex(doctype, [
         property
       ])
     }
