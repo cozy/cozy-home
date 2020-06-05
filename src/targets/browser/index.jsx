@@ -32,11 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
-  const legacyClient = new CozyClient({
-    cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken
-  })
-
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
@@ -67,6 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   cozyClient.registerPlugin(flag.plugin)
+
+  const legacyClient = new CozyClient({
+    cozyURL: `//${data.cozyDomain}`,
+    token: data.cozyToken,
+    cozyClient
+  })
 
   // store
   const store = configureStore(legacyClient, cozyClient, context, {

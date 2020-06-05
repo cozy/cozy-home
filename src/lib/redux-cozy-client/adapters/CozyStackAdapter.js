@@ -2,10 +2,19 @@
 const FETCH_LIMIT = 50
 
 export default class CozyStackAdapter {
+  constructor(stackClient) {
+    this.stackClient = stackClient
+  }
+
   async fetchApps(skip = 0) {
-    const { data, meta } = await cozy.client.fetchJSON('GET', '/apps/', null, {
-      processJSONAPI: false
-    })
+    const { data, meta } = await this.stackClient.fetchJSON(
+      'GET',
+      '/apps/',
+      null,
+      {
+        processJSONAPI: false
+      }
+    )
 
     return {
       data: data || [],
@@ -20,7 +29,7 @@ export default class CozyStackAdapter {
     try {
       // WARN: if no document of this doctype exist, this route will return a 404,
       // so we need to try/catch and return an empty response object in case of a 404
-      const resp = await cozy.client.fetchJSON(
+      const resp = await this.stackClient.fetchJSON(
         'GET',
         `/data/${doctype}/_all_docs?include_docs=true`
       )
@@ -47,16 +56,12 @@ export default class CozyStackAdapter {
     }
   }
 
-  init(config) {
-    this.config = { ...config }
-  }
-
   createIndex(doctype, fields) {
     return cozy.client.data.defineIndex(doctype, fields)
   }
 
   async fetchKonnectors(skip = 0) {
-    const { data, meta } = await cozy.client.fetchJSON(
+    const { data, meta } = await this.stackClient.fetchJSON(
       'GET',
       `/konnectors/`,
       null,
@@ -80,7 +85,7 @@ export default class CozyStackAdapter {
   }
 
   async fetchTriggers(worker, skip = 0) {
-    const { data, meta } = await cozy.client.fetchJSON(
+    const { data, meta } = await this.stackClient.fetchJSON(
       'GET',
       `/jobs/triggers?Worker=${worker}`,
       null,

@@ -4,13 +4,12 @@ import CozyStackAdapter from './adapters/CozyStackAdapter'
 
 export default class CozyClient {
   constructor(config) {
-    const { cozyURL, ...options } = config
+    const { cozyURL, cozyClient, ...options } = config
     this.options = options
     this.indexes = {}
     this.specialDirectories = {}
     cozy.client.init(config)
-    this.stackAdapter = new CozyStackAdapter()
-    this.stackAdapter.init(config)
+    this.stackAdapter = new CozyStackAdapter(cozyClient.stackClient)
   }
 
   async fetchCollection(name, doctype, options = {}, skip = 0) {
