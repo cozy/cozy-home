@@ -1,4 +1,5 @@
 /* global __DEVELOPMENT__ */
+import 'cozy-ui/transpiled/react/stylesheet.css'
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
@@ -16,7 +17,6 @@ import collectConfig from 'config/collect'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 import configureStore from 'store/configureStore'
 
-import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
 import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'

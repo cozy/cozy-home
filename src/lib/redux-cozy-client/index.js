@@ -4,39 +4,7 @@ export { default as cozyConnect } from './connect'
 export { default as cozyMiddleware } from './middleware'
 export {
   default as reducer,
-  makeActionCreator,
-  fetchApps,
   fetchCollection,
-  fetchDocument,
-  fetchReferencedFiles,
   fetchKonnectors,
-  fetchTriggers,
-  addReferencedFiles,
-  removeReferencedFiles,
-  applySelectorForAction,
-  enhancePropsForActions,
-  getCollection,
-  getDocument,
-  createDocument,
-  createTrigger,
-  launchTrigger,
-  updateDocument,
-  deleteDocument,
-  deleteTrigger,
-  createFile,
-  trashFile,
-  CREATE_DOCUMENT
+  fetchTriggers
 } from './reducer'
-export {
-  fetchSharings,
-  fetchContacts,
-  getSharingDetails,
-  share,
-  unshare,
-  leave,
-  shareByLink,
-  revokeLink
-} from './slices/sharings'
-export { startSync, isFirstSync, isSynced } from './slices/synchronization'
-
-export { downloadArchive, downloadFile } from './helpers'
