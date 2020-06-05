@@ -1,4 +1,3 @@
-/* global cozy */
 import React, { Component } from 'react'
 import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
@@ -7,6 +6,7 @@ import isArray from 'lodash/isArray'
 import keys from 'lodash/keys'
 import flatten from 'lodash/flatten'
 
+import { withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from 'minilog'
 
@@ -60,8 +60,8 @@ class App extends Component {
     this.setState({
       status: FETCHING_CONTEXT
     })
-
-    const context = await cozy.client
+    const { client } = this.props
+    const context = await client.stackClient
       .fetchJSON('GET', '/settings/context')
       .catch(error => {
         this.setState({
@@ -156,4 +156,4 @@ App.contextTypes = {
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withRouter(appEntryPoint(App))
+export default withClient(withRouter(appEntryPoint(App)))
