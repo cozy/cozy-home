@@ -31,19 +31,6 @@ export default class CozyClient {
     return this.stackAdapter.fetchKonnectors()
   }
 
-  updateDocument(doc) {
-    return this.stackAdapter.updateDocument(doc)
-  }
-
-  async checkUniquenessOf(doctype, property, value) {
-    const index = await this.getUniqueIndex(doctype, property)
-    const existingDocs = await cozy.client.data.query(index, {
-      selector: { [property]: value },
-      fields: ['_id']
-    })
-    return existingDocs.length === 0
-  }
-
   async getCollectionIndex(name, doctype, options) {
     if (!this.indexes[name]) {
       this.indexes[name] = await this.stackAdapter.createIndex(

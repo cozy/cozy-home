@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { removeObjectProperty } from './utils'
+import { removeObjectProperty, mapValues } from './utils'
 
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
 const RECEIVE_DATA = 'RECEIVE_DATA'
@@ -247,6 +247,56 @@ const collections = (state = {}, action) => {
       return state
   }
 }
+
+// selectors
+const mapDocumentsToIds = (documents, doctype, ids) =>
+  ids.map(id => documents[doctype][id])
+
+export const getCollection = (state, name) => {
+  const collection = state.cozy.collections[name]
+  if (!collection) {
+    return { ...collectionInitialState, data: null }
+  }
+  return {
+    ...collection,
+    data: mapDocumentsToIds(
+      state.cozy.documents,
+      collection.type,
+      collection.ids
+    )
+  }
+}
+
+export const makeFetchMoreAction = ({ collection, doctype, options }, skip) =>
+  fetchCollection(collection, doctype, options, skip)
+
+export const applySelectorForAction = (state, action) => {
+  switch (action.types[0]) {
+    case FETCH_COLLECTION:
+      return getCollection(state, action.collection)
+    default:
+      return null
+  }
+}
+
+export const enhancePropsForActions = (props, fetchActions, dispatch) =>
+  mapValues(fetchActions, (action, propName) => {
+    const dataObject = props[propName]
+    switch (action.types[0]) {
+      case FETCH_COLLECTION:
+      case FETCH_REFERENCED_FILES:
+        return {
+          ...dataObject,
+          fetchMore: dataObject.hasMore
+            ? () =>
+                dispatch(makeFetchMoreAction(action, dataObject.data.length))
+            : null
+        }
+      default:
+        return dataObject
+    }
+  })
+
 
 export default combineReducers({
   collections,
