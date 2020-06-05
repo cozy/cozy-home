@@ -1,21 +1,10 @@
 import { combineReducers } from 'redux'
-import { removeObjectProperty, mapValues } from './utils'
-import sharings, {
-  FETCH_SHARINGS,
-  getSharings,
-  getSharingDetails
-} from './slices/sharings'
-import synchronization from './slices/synchronization'
+import { removeObjectProperty } from './utils'
 
-const APPS_DOCTYPE = 'io.cozy.apps'
-const FETCH_DOCUMENT = 'FETCH_DOCUMENT'
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
-const LAUNCH_TRIGGER = 'LAUNCH_TRIGGER'
 const RECEIVE_DATA = 'RECEIVE_DATA'
 const RECEIVE_ERROR = 'RECEIVE_ERROR'
-export const CREATE_DOCUMENT = 'CREATE_DOCUMENT'
-const UPDATE_DOCUMENT = 'UPDATE_DOCUMENT'
-const DELETE_DOCUMENT = 'DELETE_DOCUMENT'
+
 const RECEIVE_APP = 'RECEIVE_APP'
 const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT'
 const RECEIVE_UPDATED_DOCUMENT = 'RECEIVE_UPDATED_DOCUMENT'
@@ -26,17 +15,6 @@ const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
 
 const documents = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_APP: {
-      const apps = action.response && action.response.data
-      if (apps.length === 0) return state
-      return {
-        ...state,
-        [APPS_DOCTYPE]: {
-          ...state[APPS_DOCTYPE],
-          ...objectifyDocumentsArray(apps)
-        }
-      }
-    }
     case RECEIVE_DATA: {
       const { data } = action.response
       if (data.length === 0) return state
@@ -272,18 +250,7 @@ const collections = (state = {}, action) => {
 
 export default combineReducers({
   collections,
-  documents,
-  sharings,
-  synchronization
-})
-
-export const fetchApps = (name, options = {}, skip = 0) => ({
-  types: [FETCH_COLLECTION, RECEIVE_APP, RECEIVE_ERROR],
-  collection: name,
-  doctype: 'io.cozy.apps',
-  options,
-  skip,
-  promise: client => client.fetchApps(name, options, skip)
+  documents
 })
 
 export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
@@ -293,23 +260,6 @@ export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
   options,
   skip,
   promise: client => client.fetchCollection(name, doctype, options, skip)
-})
-
-export const fetchDocument = (doctype, id, options = {}) => ({
-  types: [FETCH_DOCUMENT, RECEIVE_DATA, RECEIVE_ERROR],
-  doctype,
-  id,
-  options,
-  promise: client => client.fetchDocument(doctype, id)
-})
-
-export const fetchReferencedFiles = (doc, skip = 0) => ({
-  types: [FETCH_REFERENCED_FILES, RECEIVE_DATA, RECEIVE_ERROR],
-  collection: `${doc._type}/${doc.id}#files`,
-  document: doc,
-  options: {},
-  skip,
-  promise: client => client.fetchReferencedFiles(doc, skip)
 })
 
 export const fetchTriggers = (name, worker, options = {}, skip = 0) => ({
@@ -329,151 +279,3 @@ export const fetchKonnectors = (name, options = {}, skip = 0) => ({
   skip,
   promise: client => client.fetchKonnectors(name, options, skip)
 })
-
-export const createDocument = (doctype, doc, actionOptions = {}) => ({
-  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-  doctype,
-  document: doc,
-  promise: client => client.createDocument(doctype, doc),
-  ...actionOptions
-})
-
-export const createTrigger = (doc, actionOptions = {}) => ({
-  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-  document: doc,
-  promise: client => client.createTrigger(doc),
-  ...actionOptions
-})
-
-export const launchTrigger = (trigger, actionOptions = {}) => ({
-  types: [LAUNCH_TRIGGER, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-  trigger: trigger,
-  promise: client => client.launchTrigger(trigger),
-  ...actionOptions
-})
-
-export const updateDocument = (doc, actionOptions = {}) => ({
-  types: [UPDATE_DOCUMENT, RECEIVE_UPDATED_DOCUMENT, RECEIVE_ERROR],
-  document: doc,
-  promise: client => client.updateDocument(doc),
-  ...actionOptions
-})
-
-export const deleteDocument = (doc, actionOptions = {}) => ({
-  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-  document: doc,
-  promise: client => client.deleteDocument(doc),
-  ...actionOptions
-})
-
-export const deleteTrigger = (doc, actionOptions = {}) => ({
-  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-  document: doc,
-  promise: client => client.deleteTrigger(doc),
-  ...actionOptions
-})
-
-export const createFile = (file, dirID, actionOptions = {}) => ({
-  types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
-  doctype: 'io.cozy.files',
-  promise: client => client.createFile(file, dirID),
-  ...actionOptions
-})
-
-export const trashFile = (file, actionOptions = {}) => ({
-  types: [DELETE_DOCUMENT, RECEIVE_DELETED_DOCUMENT, RECEIVE_ERROR],
-  document: file,
-  promise: client => client.trashFile(file),
-  ...actionOptions
-})
-
-export const addReferencedFiles = (doc, ids) => ({
-  type: ADD_REFERENCED_FILES,
-  collection: `${doc._type}/${doc._id}#files`,
-  document: doc,
-  ids,
-  promise: client => client.addReferencedFiles(doc, ids)
-})
-
-export const removeReferencedFiles = (doc, ids) => ({
-  type: REMOVE_REFERENCED_FILES,
-  collection: `${doc._type}/${doc._id}#files`,
-  document: doc,
-  ids,
-  promise: client => client.removeReferencedFiles(doc, ids)
-})
-
-export const makeActionCreator = promise => ({ promise })
-
-export const makeFetchMoreAction = (
-  { types, collection, document, doctype, options },
-  skip
-) =>
-  types[0] === FETCH_REFERENCED_FILES
-    ? fetchReferencedFiles(document, skip)
-    : fetchCollection(collection, doctype, options, skip)
-
-export const applySelectorForAction = (state, action) => {
-  switch (action.types[0]) {
-    case FETCH_COLLECTION:
-    case FETCH_REFERENCED_FILES:
-      return getCollection(state, action.collection)
-    case FETCH_DOCUMENT:
-      return getDocument(state, action.doctype, action.id)
-    case FETCH_SHARINGS:
-      return action.id
-        ? getSharingDetails(state, action.doctype, action.id, action.options)
-        : getSharings(state, action.doctype, action.options)
-    default:
-      return null
-  }
-}
-
-export const enhancePropsForActions = (props, fetchActions, dispatch) =>
-  mapValues(fetchActions, (action, propName) => {
-    const dataObject = props[propName]
-    switch (action.types[0]) {
-      case FETCH_COLLECTION:
-      case FETCH_REFERENCED_FILES:
-        return {
-          ...dataObject,
-          fetchMore: dataObject.hasMore
-            ? () =>
-                dispatch(makeFetchMoreAction(action, dataObject.data.length))
-            : null
-        }
-      default:
-        return dataObject
-    }
-  })
-
-// selectors
-const mapDocumentsToIds = (documents, doctype, ids) =>
-  ids.map(id => documents[doctype][id])
-
-export const getCollection = (state, name) => {
-  const collection = state.cozy.collections[name]
-  if (!collection) {
-    return { ...collectionInitialState, data: null }
-  }
-  return {
-    ...collection,
-    data: mapDocumentsToIds(
-      state.cozy.documents,
-      collection.type,
-      collection.ids
-    )
-  }
-}
-
-export const getDocument = (state, doctype, id) => {
-  const documents = state.cozy.documents[doctype]
-  if (!documents) {
-    return null
-  }
-  return documents[id]
-}
-
-export const isCollectionFetched = (state, name) =>
-  state.cozy.collections[name] &&
-  state.cozy.collections[name].fetchStatus === 'loaded'

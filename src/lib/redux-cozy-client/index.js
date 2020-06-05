@@ -6,5 +6,6 @@ export {
   default as reducer,
   fetchCollection,
   fetchKonnectors,
-  fetchTriggers
+  fetchTriggers,
+  getCollection
 } from './reducer'
