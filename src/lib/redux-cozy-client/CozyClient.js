@@ -4,7 +4,7 @@ import CozyStackAdapter from './adapters/CozyStackAdapter'
 
 export default class CozyClient {
   constructor(config) {
-    const { cozyURL, cozyClient, ...options } = config
+    const { cozyClient, ...options } = config
     this.options = options
     this.indexes = {}
     this.specialDirectories = {}
@@ -37,16 +37,6 @@ export default class CozyClient {
         doctype,
         this.getIndexFields(options)
       )
-    }
-    return this.indexes[name]
-  }
-
-  async getUniqueIndex(doctype, property) {
-    const name = `${doctype}/${property}`
-    if (!this.indexes[name]) {
-      this.indexes[name] = await this.stackAdapter.createIndex(doctype, [
-        property
-      ])
     }
     return this.indexes[name]
   }
