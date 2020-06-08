@@ -297,7 +297,6 @@ export const enhancePropsForActions = (props, fetchActions, dispatch) =>
     }
   })
 
-
 export default combineReducers({
   collections,
   documents

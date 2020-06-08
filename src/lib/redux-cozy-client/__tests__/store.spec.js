@@ -1,9 +1,5 @@
 import { combineReducers } from 'redux'
-import {
-  reducer as cozyReducer,
-  fetchCollection,
-  getCollection
-} from '..'
+import { reducer as cozyReducer, fetchCollection, getCollection } from '..'
 
 const reducer = combineReducers({ cozy: cozyReducer })
 const dispatchInitialAction = (compositeAction, initialState = undefined) => {
