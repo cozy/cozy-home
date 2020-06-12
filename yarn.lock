@@ -3727,10 +3727,10 @@ cozy-realtime@3.4.0:
   dependencies:
     minilog "https://github.com/cozy/minilog.git#master"
 
-cozy-scripts@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.0.0.tgz#15cfc3b7fa4e8808705c33c2e7a92f1c16ca37bb"
-  integrity sha512-jfvzEBpbBoieXro8twhrdlYxYUABZRsYycty/bEVfbpQonzgwJGw1Gy7IpTooXARrCFBxBO8FG4wWwyoLsBxXg==
+cozy-scripts@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.1.0.tgz#f34ba25bea206baed68d174505f58bfea4beb513"
+  integrity sha512-0Eae39Ibdl4z7Tijeumy/9qK3t+nHMVU3J7e7M1wi5fgxTS3vgEsUxUewbte0hN8F8nzQx52Lbe99Uv2R77Z3w==
   dependencies:
     "@babel/core" "7.9.0"
     autoprefixer "9.7.6"
@@ -3751,6 +3751,7 @@ cozy-scripts@4.0.0:
     eslint-loader "2.1.2"
     eslint-plugin-prettier "3.1.2"
     eslint-plugin-react "7.19.0"
+    eslint-plugin-react-hooks "4.0.4"
     expose-loader "0.7.5"
     file-loader "3.0.1"
     fs-extra "7.0.1"
@@ -4923,6 +4924,11 @@ eslint-plugin-react-hooks@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.3.0.tgz#53e073961f1f5ccf8dd19558036c1fac8c29d99a"
   integrity sha512-gLKCa52G4ee7uXzdLiorca7JIQZPPXRAQDXV83J4bUEeUuc5pIEyZYAZ45Xnxe5IuupxEqHS+hUhSLIimK1EMw==
+
+eslint-plugin-react-hooks@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.0.4.tgz#aed33b4254a41b045818cacb047b81e6df27fa58"
+  integrity sha512-equAdEIsUETLFNCmmCkiCGq6rkSK5MoJhXFPFYeUebcjKgBmWWcgVOqZyQC8Bv1BwVCnTq9tBxgJFgAJTWoJtA==
 
 eslint-plugin-react@7.14.3:
   version "7.14.3"
