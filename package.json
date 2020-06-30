@@ -71,7 +71,7 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.2",
     "eslint-config-cozy-app": "1.1.9",
-    "eslint-loader": "3.0.4",
+    "eslint-loader": "4.0.2",
     "eslint-plugin-react": "7.17.0",
     "git-directory-deploy": "1.5.1",
     "mockdate": "2.0.5",
