@@ -5,21 +5,24 @@ const useCustomWallpaper = client => {
   const [wallpaperLink, setWallpaperLink] = useState(null)
   const [fetchStatus, setFetchStatus] = useState('idle')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setFetchStatus('loading')
-        const response = await client
-          .collection('io.cozy.files')
-          .getDownloadLinkByPath(homeConfig.customWallpaperPath)
-        setWallpaperLink(response)
-        setFetchStatus('loaded')
-      } catch (error) {
-        setFetchStatus('failed')
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        try {
+          setFetchStatus('loading')
+          const response = await client
+            .collection('io.cozy.files')
+            .getDownloadLinkByPath(homeConfig.customWallpaperPath)
+          setWallpaperLink(response)
+          setFetchStatus('loaded')
+        } catch (error) {
+          setFetchStatus('failed')
+        }
       }
-    }
-    fetchData()
-  }, [])
+      fetchData()
+    },
+    [client]
+  )
 
   return {
     data: { wallpaperLink },
