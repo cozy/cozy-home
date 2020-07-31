@@ -3218,18 +3218,19 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@12.6.0:
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-12.6.0.tgz#71a29cb68da755d8b8aea19a21560bfb158a5488"
-  integrity sha512-4HEdlIskZOouUvdcqCsqzS+jRWC/F6yPCAljoRQRbqaC9IviiN1DN5o+P/dshvoZLeulHYybz9ur7Bwi1s0LCA==
+cozy-client@13.18.0:
+  version "13.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.18.0.tgz#5ba2d3f5654f4c6d12b9c3bd02a46fe66300c68a"
+  integrity sha512-TTszkhc006zJKY27Np/J1Pd/FZKcVoeMbg2I1CbARbYjHiTJQXwjlVUGpTuMvihXroSDjc++IJ1Tn9XHAbScvQ==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^12.6.0"
+    cozy-stack-client "^13.16.0"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
+    minilog "git+https://github.com/cozy/minilog.git#master"
     open "^7.0.2"
     prop-types "^15.6.2"
     react-redux "^7.2.0"
@@ -3395,10 +3396,10 @@ cozy-scripts@1.13.2:
     webpack-dev-server "3.1.10"
     webpack-merge "4.2.1"
 
-cozy-stack-client@^12.6.0:
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-12.6.0.tgz#6fc6e8a1ca1660657547ba803d370fe3f0117a58"
-  integrity sha512-2Xm6ti/di4kMfJzdlVaKEzIzqFm72PeAuV15iMxfxR9UkyjpnigCeRuUDHm6tHL1w7HciRu7OmEBrKAk1hdgfw==
+cozy-stack-client@^13.16.0:
+  version "13.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.16.0.tgz#e4e7043df34132dc6c1578b030d823e994a7e210"
+  integrity sha512-pAzBsB5pFL0wyccquLK4Hgw5uayMhoAVKJOThU+u+vYFpnYlNEZQ+iY9eFFOpQa47dWy0vTkmI0N0wk5chN/2g==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -8174,7 +8175,14 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
+minilog@3.1.0, "minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
