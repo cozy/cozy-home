@@ -42,7 +42,7 @@
     "cozy-harvest-lib": "^1.36.3",
     "cozy-keys-lib": "^3.1.1",
     "cozy-logger": "1.6.0",
-    "cozy-realtime": "3.4.0",
+    "cozy-realtime": "3.10.1",
     "cozy-scripts": "1.13.2",
     "cozy-ui": "35.22.0",
     "date-fns": "1.30.1",
