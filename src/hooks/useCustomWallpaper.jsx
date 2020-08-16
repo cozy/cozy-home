@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import homeConfig from 'config/collect'
+import homeConfig from 'config/home.json'
 
 const useCustomWallpaper = client => {
   const [wallpaperLink, setWallpaperLink] = useState(null)

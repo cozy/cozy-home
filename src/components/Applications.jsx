@@ -8,7 +8,7 @@ import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
 import ShortcutTile from 'components/ShortcutTile'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
-import homeConfig from 'config/collect'
+import homeConfig from 'config/home.json'
 import { receiveApps } from 'ducks/apps'
 import useHomeShortcuts from 'hooks/useHomeShortcuts'
 

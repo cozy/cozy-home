@@ -18,7 +18,7 @@ import {
 } from 'reducers/index'
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
 import AppIcon from 'components/AppIcon'
-import homeConfig from 'config/collect'
+import homeConfig from 'config/home.json'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const {

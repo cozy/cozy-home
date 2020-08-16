@@ -13,7 +13,7 @@ import I18n from 'cozy-ui/react/I18n'
 import { BreakpointsProvider } from 'cozy-ui/react/hooks/useBreakpoints'
 import flag from 'cozy-flags'
 
-import collectConfig from 'config/collect'
+import homeConfig from 'config/home.json'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 import configureStore from 'store/configureStore'
 
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // store
   const store = configureStore(legacyClient, cozyClient, context, {
     lang,
-    ...collectConfig
+    ...homeConfig
   })
 
   const dictRequire = lang => require(`locales/${lang}.json`)
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <I18n lang={lang} dictRequire={dictRequire} context={context}>
           <BreakpointsProvider>
             <PiwikHashRouter>
-              <App {...collectConfig} />
+              <App {...homeConfig} />
             </PiwikHashRouter>
           </BreakpointsProvider>
         </I18n>
