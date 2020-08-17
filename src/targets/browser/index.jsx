@@ -1,4 +1,5 @@
 /* global __DEVELOPMENT__ */
+import 'cozy-ui/transpiled/react/stylesheet.css'
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'redux-cozy-client'
@@ -16,7 +17,6 @@ import collectConfig from 'config/collect'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 import configureStore from 'store/configureStore'
 
-import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
 import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
@@ -31,11 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-
-  const legacyClient = new CozyClient({
-    cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken
-  })
 
   // New improvements must be done with CozyClient
   const cozyClient = new MostRecentCozyClient({
@@ -68,13 +63,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cozyClient.registerPlugin(flag.plugin)
 
+  const legacyClient = new CozyClient({
+    cozyURL: `//${data.cozyDomain}`,
+    token: data.cozyToken,
+    cozyClient
+  })
+
   // store
   const store = configureStore(legacyClient, cozyClient, context, {
     lang,
     ...collectConfig
   })
 
-  const dictRequire = lang => require(`locales/${lang}`)
+  const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
     <MostRecentCozyClientProvider client={cozyClient}>

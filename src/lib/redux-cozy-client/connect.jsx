@@ -5,10 +5,7 @@ import PropTypes from 'prop-types'
 import { applySelectorForAction, enhancePropsForActions } from '.'
 import { mapValues, filterValues } from './utils'
 
-const connect = (
-  mapDocumentsToProps,
-  mapActionsToProps = null
-) => WrappedComponent => {
+const connect = mapDocumentsToProps => WrappedComponent => {
   class Wrapper extends Component {
     componentDidMount() {
       const { fetchActions } = this.props
@@ -41,10 +38,8 @@ const connect = (
     const otherProps = filterValues(initialProps, prop => !isAction(prop))
 
     const mapStateToProps = state => ({
-      ...mapValues(
-        fetchActions,
-        action =>
-          isAction(action) ? applySelectorForAction(state, action) : action
+      ...mapValues(fetchActions, action =>
+        isAction(action) ? applySelectorForAction(state, action) : action
       ),
       fetchActions,
       ...otherProps
@@ -52,7 +47,7 @@ const connect = (
     return mapStateToProps
   }
 
-  return reduxConnect(makeMapStateToProps, mapActionsToProps)(Wrapper)
+  return reduxConnect(makeMapStateToProps)(Wrapper)
 }
 
 export default connect

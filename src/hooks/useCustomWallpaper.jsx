@@ -19,7 +19,7 @@ const useCustomWallpaper = client => {
       }
     }
     fetchData()
-  }, [])
+  }, [client])
 
   return {
     data: { wallpaperLink },

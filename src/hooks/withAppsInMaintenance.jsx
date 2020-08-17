@@ -3,17 +3,17 @@ import { Registry } from 'cozy-client'
 
 const useAppsInMaintenance = client => {
   const [appsInMaintenance, setAppsInMaintenance] = useState([])
-  const registry = new Registry({
-    client
-  })
 
   useEffect(() => {
     const fetchData = async () => {
+      const registry = new Registry({
+        client
+      })
       const newAppsInMaintenance = await registry.fetchAppsInMaintenance()
       setAppsInMaintenance(newAppsInMaintenance)
     }
     fetchData()
-  }, [])
+  }, [client])
 
   return appsInMaintenance
 }

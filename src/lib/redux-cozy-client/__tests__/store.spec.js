@@ -1,10 +1,5 @@
 import { combineReducers } from 'redux'
-import {
-  reducer as cozyReducer,
-  fetchCollection,
-  getCollection,
-  createDocument
-} from '..'
+import { reducer as cozyReducer, fetchCollection, getCollection } from '..'
 
 const reducer = combineReducers({ cozy: cozyReducer })
 const dispatchInitialAction = (compositeAction, initialState = undefined) => {
@@ -88,36 +83,6 @@ describe('Redux store tests', () => {
 
     it('should have a `data` property with the list of documents', () => {
       expect(collection.data).toEqual(fakeFetchResponse.data)
-    })
-
-    describe('When a document is successfully created on the server', () => {
-      const fakeResponse = {
-        data: [
-          {
-            id: '33dda00f0eec15bc3b3c59a615001ac5',
-            _type: 'io.cozy.rockets',
-            name: 'Saturn V'
-          }
-        ]
-      }
-
-      it('should be found in the store', () => {})
-
-      it('should update collections listed in the `updateCollections` option', () => {
-        state = dispatchSuccessfulAction(
-          createDocument(
-            'io.cozy.rockets',
-            { name: 'Saturn V' },
-            {
-              updateCollections: ['rockets']
-            }
-          ),
-          fakeResponse,
-          state
-        )
-        collection = getCollection(state, 'rockets')
-        expect(collection.data[3]).toEqual(fakeResponse.data[0])
-      })
     })
   })
 })

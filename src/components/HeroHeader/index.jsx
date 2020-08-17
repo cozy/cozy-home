@@ -53,14 +53,13 @@ export const HeroHeader = ({ client }) => {
       style={{ backgroundImage: `url(${backgroundURL})` }}
     >
       <div className="corner">
-        {cornerButtons.map(
-          ({ flagName, isDisplayedByDefault, Button }) =>
-            flagWithFallbackValue(
-              `home.corner.${flagName}`,
-              isDisplayedByDefault
-            ) ? (
-              <Button key={flagName} />
-            ) : null
+        {cornerButtons.map(({ flagName, isDisplayedByDefault, Button }) =>
+          flagWithFallbackValue(
+            `home.corner.${flagName}`,
+            isDisplayedByDefault
+          ) ? (
+            <Button key={flagName} />
+          ) : null
         )}
       </div>
       <div>

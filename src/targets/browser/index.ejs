@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="<%- file %>">
 <% }); %>
 {{.ThemeCSS}}
-<link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
 <% if (__STACK_ASSETS__) { %>
-{{.CozyClientJS}}
+  {{.CozyClientJS}}
+  {{.CozyBar}}
 <% } %>
 </head>
 <body>

@@ -54,15 +54,14 @@ class IntentService extends Component {
             )}
           </div>
         )}
-        {!error &&
-          konnector && (
-            <CreateAccountIntent
-              appData={appData}
-              konnector={konnector}
-              onCancel={onCancel}
-              onTerminate={service.terminate}
-            />
-          )}
+        {!error && konnector && (
+          <CreateAccountIntent
+            appData={appData}
+            konnector={konnector}
+            onCancel={onCancel}
+            onTerminate={service.terminate}
+          />
+        )}
       </div>
     )
   }
