@@ -22,7 +22,7 @@ const normalize = (dbObject, doctype) => {
   }
 }
 
-export default class CollectStore {
+export default class HomeStore {
   constructor(context, client, options = {}) {
     this.client = client
     this.listener = null

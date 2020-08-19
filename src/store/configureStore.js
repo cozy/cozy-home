@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger'
 import konnectorsI18nMiddleware from 'lib/middlewares/konnectorsI18n'
 import thunkMiddleware from 'redux-thunk'
 
-import CollectStore from 'lib/CollectStore'
+import HomeStore from 'lib/HomeStore'
 import flag from 'cozy-flags'
 import getReducers from 'reducers'
 
@@ -27,10 +27,7 @@ const configureStore = (legacyClient, cozyClient, context, options = {}) => {
     )
   )
 
-  return Object.assign(
-    new CollectStore(context, cozyClient, options),
-    reduxStore
-  )
+  return Object.assign(new HomeStore(context, cozyClient, options), reduxStore)
 }
 
 export default configureStore
