@@ -4,11 +4,12 @@ import 'cozy-ui/transpiled/react/stylesheet.css'
 import memoize from 'lodash/memoize'
 import React from 'react'
 import { render } from 'react-dom'
-import { CozyClient, CozyProvider } from 'lib/redux-cozy-client'
+import {
+  CozyClient as LegacyCozyClient,
+  CozyProvider as LegacyCozyProvider
+} from 'lib/redux-cozy-client'
 import 'url-search-params-polyfill'
-import MostRecentCozyClient, {
-  CozyProvider as MostRecentCozyClientProvider
-} from 'cozy-client'
+import CozyClient, { CozyProvider } from 'cozy-client'
 import { Application } from 'cozy-doctypes'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
@@ -62,7 +63,7 @@ const setupAppContext = memoize(() => {
   const data = root.dataset
 
   // New improvements must be done with CozyClient
-  const cozyClient = new MostRecentCozyClient({
+  const cozyClient = new CozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema,
     token: data.cozyToken
@@ -70,7 +71,7 @@ const setupAppContext = memoize(() => {
 
   cozyClient.registerPlugin(flag.plugin)
 
-  const legacyClient = new CozyClient({
+  const legacyClient = new LegacyCozyClient({
     cozyURL: `//${data.cozyDomain}`,
     token: data.cozyToken,
     cozyClient
@@ -92,8 +93,8 @@ const renderApp = () => {
   const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
-    <MostRecentCozyClientProvider client={cozyClient}>
-      <CozyProvider
+    <CozyProvider client={cozyClient}>
+      <LegacyCozyProvider
         store={store}
         client={cozyClient}
         domain={data.cozyDomain}
@@ -106,8 +107,8 @@ const renderApp = () => {
             </PiwikHashRouter>
           </BreakpointsProvider>
         </I18n>
-      </CozyProvider>
-    </MostRecentCozyClientProvider>,
+      </LegacyCozyProvider>
+    </CozyProvider>,
     document.querySelector('[role=application]')
   )
 }
