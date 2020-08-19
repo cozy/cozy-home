@@ -10,7 +10,7 @@ import MostRecentCozyClient, {
 import { I18n } from 'cozy-ui/react/I18n'
 
 import configureStore from 'store/configureStore'
-import { CozyClient, CozyProvider } from 'redux-cozy-client'
+import { CozyClient, CozyProvider } from 'lib/redux-cozy-client'
 
 import { Application } from 'cozy-doctypes'
 

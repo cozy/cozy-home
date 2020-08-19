@@ -1,5 +1,5 @@
 import { compose, createStore, applyMiddleware } from 'redux'
-import { cozyMiddleware } from 'redux-cozy-client'
+import { cozyMiddleware } from 'lib/redux-cozy-client'
 import { createLogger } from 'redux-logger'
 import konnectorsI18nMiddleware from 'lib/middlewares/konnectorsI18n'
 import thunkMiddleware from 'redux-thunk'

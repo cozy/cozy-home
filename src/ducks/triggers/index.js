@@ -1,4 +1,4 @@
-import { fetchTriggers as cozyClientFetchTriggers } from 'redux-cozy-client'
+import { fetchTriggers as cozyClientFetchTriggers } from 'lib/redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.triggers'
 

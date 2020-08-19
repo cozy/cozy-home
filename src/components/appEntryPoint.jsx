@@ -1,4 +1,4 @@
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'lib/redux-cozy-client'
 
 import { fetchAccounts } from 'ducks/accounts'
 import { fetchKonnectors } from 'ducks/konnectors'
