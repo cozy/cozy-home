@@ -4,6 +4,7 @@ import 'cozy-ui/transpiled/react/stylesheet.css'
 import memoize from 'lodash/memoize'
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider as ReduxProvider } from 'react-redux'
 import {
   CozyClient as LegacyCozyClient,
   CozyProvider as LegacyCozyProvider
@@ -100,13 +101,15 @@ const renderApp = () => {
         domain={data.cozyDomain}
         secure={!__DEVELOPMENT__}
       >
-        <I18n lang={lang} dictRequire={dictRequire} context={context}>
-          <BreakpointsProvider>
-            <PiwikHashRouter>
-              <App {...homeConfig} />
-            </PiwikHashRouter>
-          </BreakpointsProvider>
-        </I18n>
+        <ReduxProvider store={store}>
+          <I18n lang={lang} dictRequire={dictRequire} context={context}>
+            <BreakpointsProvider>
+              <PiwikHashRouter>
+                <App {...homeConfig} />
+              </PiwikHashRouter>
+            </BreakpointsProvider>
+          </I18n>
+        </ReduxProvider>
       </LegacyCozyProvider>
     </CozyProvider>,
     document.querySelector('[role=application]')
