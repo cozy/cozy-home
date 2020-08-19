@@ -7,7 +7,7 @@ process.env.USE_REACT = true
 configure({ adapter: new Adapter() })
 
 // installed by cozy-scripts
-require('babel-polyfill')
+require('@babel/polyfill')
 
 // polyfill for requestAnimationFrame
 /* istanbul ignore next */
