@@ -1,5 +1,7 @@
 /* global __DEVELOPMENT__ */
 import 'cozy-ui/transpiled/react/stylesheet.css'
+
+import memoize from 'lodash/memoize'
 import React from 'react'
 import { render } from 'react-dom'
 import { CozyClient, CozyProvider } from 'lib/redux-cozy-client'
@@ -50,9 +52,12 @@ const schema = {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (handleOAuthResponse()) return
-
+/**
+ * Setups clients and store
+ *
+ * Is memoized to avoid several clients in case of hot-reload
+ */
+const setupAppContext = memoize(() => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
@@ -77,6 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ...homeConfig
   })
 
+  return { cozyClient, store, data }
+})
+
+const renderApp = () => {
+  if (handleOAuthResponse()) return
+
+  const { cozyClient, store, data } = setupAppContext()
   const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
@@ -98,4 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
     </MostRecentCozyClientProvider>,
     document.querySelector('[role=application]')
   )
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderApp()
 })
+
+if (module.hot) {
+  renderApp()
+  module.hot.accept()
+}

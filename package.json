@@ -13,7 +13,7 @@
     "build:browser": "cozy-scripts build --browser",
     "build:mobile": "cozy-scripts build --mobile",
     "watch": "yarn watch:browser",
-    "watch:browser": "cozy-scripts watch --browser",
+    "watch:browser": "cozy-scripts start --browser --hot",
     "watch:mobile": "cozy-scripts watch --mobile",
     "start": "cozy-scripts start --hot --browser",
     "cozyPublish": "cozy-scripts publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
