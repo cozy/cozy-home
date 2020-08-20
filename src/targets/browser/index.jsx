@@ -16,6 +16,7 @@ import { handleOAuthResponse } from 'cozy-harvest-lib'
 import I18n from 'cozy-ui/react/I18n'
 import { BreakpointsProvider } from 'cozy-ui/react/hooks/useBreakpoints'
 import flag from 'cozy-flags'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 import homeConfig from 'config/home.json'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
@@ -94,24 +95,26 @@ const renderApp = () => {
   const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
-    <CozyProvider client={cozyClient}>
-      <LegacyCozyProvider
-        store={store}
-        client={cozyClient}
-        domain={data.cozyDomain}
-        secure={!__DEVELOPMENT__}
-      >
-        <ReduxProvider store={store}>
-          <I18n lang={lang} dictRequire={dictRequire} context={context}>
-            <BreakpointsProvider>
-              <PiwikHashRouter>
-                <App {...homeConfig} />
-              </PiwikHashRouter>
-            </BreakpointsProvider>
-          </I18n>
-        </ReduxProvider>
-      </LegacyCozyProvider>
-    </CozyProvider>,
+    <MuiCozyTheme>
+      <CozyProvider client={cozyClient}>
+        <LegacyCozyProvider
+          store={store}
+          client={cozyClient}
+          domain={data.cozyDomain}
+          secure={!__DEVELOPMENT__}
+        >
+          <ReduxProvider store={store}>
+            <I18n lang={lang} dictRequire={dictRequire} context={context}>
+              <BreakpointsProvider>
+                <PiwikHashRouter>
+                  <App {...homeConfig} />
+                </PiwikHashRouter>
+              </BreakpointsProvider>
+            </I18n>
+          </ReduxProvider>
+        </LegacyCozyProvider>
+      </CozyProvider>
+    </MuiCozyTheme>,
     document.querySelector('[role=application]')
   )
 }
