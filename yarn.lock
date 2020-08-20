@@ -3631,10 +3631,10 @@ cozy-realtime@3.2.1:
   dependencies:
     minilog "3.1.0"
 
-cozy-scripts@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.3.0.tgz#2a89b485eb341127e2a769723d15df818fa870d1"
-  integrity sha512-baci+PQq/a7cWux3d/ZF/yCESxS/X61P8ft2CSfADQWy99KpW/l/FvflqwDzdNa1614oMNckOziHSr8PTw3dkw==
+cozy-scripts@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.3.1.tgz#440ab971ffaf71ddf10cea2a663d70c46cb7fbce"
+  integrity sha512-TGwvdSTPCj32ymGY76AT7gwRAYL8qOsfcs5XgcIJY7TpSxsvdp4jq7R4D6Xl5rv+EQmig1NvfmUruJ+O+BFDgA==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
