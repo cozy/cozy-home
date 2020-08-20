@@ -3711,10 +3711,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@35.38.0:
-  version "35.38.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.38.0.tgz#0477dedba671728d8a79a6ac0d7cc1a639106393"
-  integrity sha512-vd48PeCRd/BGyMtTDA2Q2ztDkY6T1dnUs+wf+PnUDGy7OxVWslLKWOjCzYehlZpwd5Z9LERlL12UifDMlJmetQ==
+cozy-ui@35.39.0:
+  version "35.39.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.39.0.tgz#b15532a809a29f097569b2ef3ebb1991226ef646"
+  integrity sha512-4aKCB6IvDeSV/Mu2fX754UUz6P7A5t0Cqk63CD4wKigLxaNd6rhNZUFpISJy9pkqbl3lX1KgNiesryBt6+gM5g==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
