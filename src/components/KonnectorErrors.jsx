@@ -10,7 +10,7 @@ import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Text, { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import {
   getTriggersInError,
   getAccountsWithErrors,
