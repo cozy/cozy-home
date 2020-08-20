@@ -3,21 +3,21 @@ jest.mock('lib/triggers', () => ({
 }))
 
 import triggers from 'lib/triggers'
-import CollectStore from './CollectStore'
+import HomeStore from './HomeStore'
 import CozyClient from 'cozy-client'
 
 global.cozy = {
   client: {}
 }
 
-describe('CollectStore', () => {
+describe('HomeStore', () => {
   const setup = () => {
     const context = {}
     const client = new CozyClient({
       uri: 'http://cozy.tools:8080'
     })
-    CollectStore.prototype.fetchUrls = jest.fn()
-    const store = new CollectStore(context, client)
+    HomeStore.prototype.fetchUrls = jest.fn()
+    const store = new HomeStore(context, client)
     store.dispatch = jest.fn()
     store.onTriggerUpdated = jest.fn()
     return { client, store }

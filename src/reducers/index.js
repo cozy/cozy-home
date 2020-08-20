@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import get from 'lodash/get'
 
-import { reducer } from 'redux-cozy-client'
+import { reducer } from 'lib/redux-cozy-client'
 import apps from 'ducks/apps'
 import * as fromAccounts from 'ducks/accounts'
 import * as fromKonnectors from 'ducks/konnectors'

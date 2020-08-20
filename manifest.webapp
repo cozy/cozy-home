@@ -73,6 +73,10 @@
       "description": "Required to know if the vault is used or not",
       "verbs": ["GET"],
       "type": "com.bitwarden.ciphers"
+    },
+    "bank-accounts": {
+      "description": "Required to edit bank accounts",
+      "type": "io.cozy.bank.accounts"
     }
   },
   "routes": {
