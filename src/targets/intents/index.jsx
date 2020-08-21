@@ -1,9 +1,10 @@
 /* global __DEVELOPMENT__ */
+import 'cozy-ui/transpiled/react/stylesheet.css'
+import 'cozy-ui/dist/cozy-ui.min.css'
+
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
-import 'cozy-ui/transpiled/react/stylesheet.css'
-import 'cozy-ui/dist/cozy-ui.min.css'
 import { CozyProvider } from 'cozy-client'
 import { I18n } from 'cozy-ui/react/I18n'
 

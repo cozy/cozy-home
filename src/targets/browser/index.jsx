@@ -1,5 +1,8 @@
 /* global __DEVELOPMENT__ */
 import 'cozy-ui/transpiled/react/stylesheet.css'
+import 'cozy-ui/dist/cozy-ui.min.css'
+import 'intro.js-fix-cozy/minified/introjs.min.css'
+import 'styles/index.styl'
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -15,10 +18,6 @@ import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import homeConfig from 'config/home.json'
 import { setupAppContext } from '../../appContext'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
-
-import 'cozy-ui/dist/cozy-ui.min.css'
-import 'intro.js-fix-cozy/minified/introjs.min.css'
-import 'styles/index.styl'
 
 const renderApp = () => {
   if (handleOAuthResponse()) return
