@@ -23,6 +23,20 @@ const schema = {
   },
   jobs: {
     doctype: 'io.cozy.jobs'
+  },
+  bankAccounts: {
+    doctype: 'io.cozy.bank.accounts',
+    attributes: {},
+    relationships: {
+      checkingsAccount: {
+        type: 'has-one',
+        doctype: 'io.cozy.bank.accounts'
+      },
+      owners: {
+        type: 'has-many',
+        doctype: 'io.cozy.contacts'
+      }
+    }
   }
 }
 
