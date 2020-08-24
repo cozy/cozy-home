@@ -45,7 +45,7 @@
       "verbs": ["ALL"]
     },
     "contacts": {
-      "description": "Required for the service to update the myself contact",
+      "description": "Required for the service to update the myself contact, and to add contacts to contracts/accounts",
       "type": "io.cozy.contacts",
       "verbs": ["ALL"]
     },
