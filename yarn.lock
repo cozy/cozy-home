@@ -3745,10 +3745,10 @@ cozy-realtime@3.2.1:
   dependencies:
     minilog "3.1.0"
 
-cozy-scripts@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.3.1.tgz#440ab971ffaf71ddf10cea2a663d70c46cb7fbce"
-  integrity sha512-TGwvdSTPCj32ymGY76AT7gwRAYL8qOsfcs5XgcIJY7TpSxsvdp4jq7R4D6Xl5rv+EQmig1NvfmUruJ+O+BFDgA==
+cozy-scripts@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.3.2.tgz#27d9ceee7fda259e9598b1f9f39a1d37e6627384"
+  integrity sha512-AIwpRsUV04CVtXgje/Ur3woyx7OoVgzm4Wa1yIRc+V1q/TcuEWYe3OcU8jExA8LjM1+PdPQ63jL2PIdHzvuUYA==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
@@ -8447,13 +8447,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
