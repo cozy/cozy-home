@@ -25,7 +25,7 @@ export const receiveInstalledKonnector = konnector => {
 }
 
 const getKonnectorsFromState = state => {
-  return state && state.documents && state.documents[DOCTYPE]
+  return !!state && !!state.documents && state.documents[DOCTYPE]
 }
 
 // Selectors
