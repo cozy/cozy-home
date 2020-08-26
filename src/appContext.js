@@ -39,5 +39,5 @@ export const setupAppContext = memoize(() => {
     ...homeConfig
   })
 
-  return { cozyClient, store, data, lang, context }
+  return { cozyClient, legacyClient, store, data, lang, context }
 })
