@@ -22,14 +22,7 @@ import PiwikHashRouter from 'lib/PiwikHashRouter'
 const renderApp = () => {
   if (handleOAuthResponse()) return
 
-  const {
-    cozyClient,
-    legacyClient,
-    store,
-    data,
-    lang,
-    context
-  } = setupAppContext()
+  const { cozyClient, store, data, lang, context } = setupAppContext()
   const dictRequire = lang => require(`locales/${lang}.json`)
   const App = require('containers/App').default
   render(
@@ -37,7 +30,7 @@ const renderApp = () => {
       <CozyProvider client={cozyClient}>
         <LegacyCozyProvider
           store={store}
-          client={legacyClient}
+          client={cozyClient}
           domain={data.cozyDomain}
           secure={!__DEVELOPMENT__}
         >

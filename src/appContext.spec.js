@@ -18,7 +18,6 @@ describe('app context', () => {
     expect(appContext).toEqual(
       expect.objectContaining({
         cozyClient: expect.any(Object),
-        legacyClient: expect.any(Object),
         store: expect.any(Object),
         data: expect.any(Object),
         lang: 'fr',

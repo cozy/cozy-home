@@ -16,14 +16,7 @@ import IntentHandler from 'containers/IntentHandler'
 import { setupAppContext } from '../../appContext'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const {
-    cozyClient,
-    legacyClient,
-    data,
-    store,
-    lang,
-    context
-  } = setupAppContext()
+  const { cozyClient, data, store, lang, context } = setupAppContext()
 
   const dictRequire = lang => require(`locales/${lang}.json`)
 
@@ -32,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <LegacyCozyProvider
         domain={data.cozyDomain}
         store={store}
-        client={legacyClient}
+        client={cozyClient}
         secure={!__DEVELOPMENT__}
       >
         <ReduxProvider store={store}>
