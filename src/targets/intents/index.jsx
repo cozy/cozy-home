@@ -6,16 +6,15 @@ import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 import IntentHandler from 'containers/IntentHandler'
-import AppWrapper from 'components/AppWrapper'
-import { setupAppContext } from '../../appContext'
+import AppWrapper, { AppContext } from 'components/AppWrapper'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const appContext = setupAppContext()
-
   render(
-    <AppWrapper {...appContext}>
+    <AppWrapper>
       <HashRouter>
-        <IntentHandler appData={appContext.data} />
+        <AppContext.Consumer>
+          {({ data }) => <IntentHandler appData={data} />}
+        </AppContext.Consumer>
       </HashRouter>
     </AppWrapper>,
     document.querySelector('[role=application]')

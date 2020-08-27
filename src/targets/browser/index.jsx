@@ -10,17 +10,14 @@ import { handleOAuthResponse } from 'cozy-harvest-lib'
 import { BreakpointsProvider } from 'cozy-ui/react/hooks/useBreakpoints'
 
 import homeConfig from 'config/home.json'
-import { setupAppContext } from '../../appContext'
 import AppWrapper from 'components/AppWrapper'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 
 const renderApp = () => {
   if (handleOAuthResponse()) return
-
-  const appContext = setupAppContext()
   const App = require('containers/App').default
   render(
-    <AppWrapper {...appContext}>
+    <AppWrapper>
       <BreakpointsProvider>
         <PiwikHashRouter>
           <App {...homeConfig} />
