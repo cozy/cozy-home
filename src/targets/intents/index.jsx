@@ -1,8 +1,10 @@
 /* global __DEVELOPMENT__ */
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
+import 'styles/intents.styl'
 
 import React from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
 import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 import { CozyProvider } from 'cozy-client'
@@ -13,28 +15,33 @@ import { CozyProvider as LegacyCozyProvider } from 'lib/redux-cozy-client'
 import IntentHandler from 'containers/IntentHandler'
 import { setupAppContext } from '../../appContext'
 
-import 'styles/intents.styl'
-
 document.addEventListener('DOMContentLoaded', () => {
-  const { client, data, store, lang, context } = setupAppContext()
+  const {
+    cozyClient,
+    legacyClient,
+    data,
+    store,
+    lang,
+    context
+  } = setupAppContext()
+
+  const dictRequire = lang => require(`locales/${lang}.json`)
 
   render(
-    <CozyProvider client={client}>
+    <CozyProvider client={cozyClient}>
       <LegacyCozyProvider
         domain={data.cozyDomain}
         store={store}
-        client={client}
+        client={legacyClient}
         secure={!__DEVELOPMENT__}
       >
-        <I18n
-          lang={lang}
-          dictRequire={lang => require(`locales/${lang}`)}
-          context={context}
-        >
-          <HashRouter>
-            <IntentHandler appData={data} />
-          </HashRouter>
-        </I18n>
+        <ReduxProvider store={store}>
+          <I18n lang={lang} dictRequire={dictRequire} context={context}>
+            <HashRouter>
+              <IntentHandler appData={data} />
+            </HashRouter>
+          </I18n>
+        </ReduxProvider>
       </LegacyCozyProvider>
     </CozyProvider>,
     document.querySelector('[role=application]')
