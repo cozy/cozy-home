@@ -3573,18 +3573,19 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@12.6.0:
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-12.6.0.tgz#71a29cb68da755d8b8aea19a21560bfb158a5488"
-  integrity sha512-4HEdlIskZOouUvdcqCsqzS+jRWC/F6yPCAljoRQRbqaC9IviiN1DN5o+P/dshvoZLeulHYybz9ur7Bwi1s0LCA==
+cozy-client@14.1.3:
+  version "14.1.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-14.1.3.tgz#662c735af70877bffead9883bf1362acb6aed4a4"
+  integrity sha512-WNsbTPAXHRCNaUlt+Lybsn7YPj7R6oVCSkuxv8bvE6OJTUOUAQgdXcc4mt3/byMNz9XqeeKbfS+BUS+qmabg5Q==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^12.6.0"
+    cozy-stack-client "^14.1.2"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
+    minilog "https://github.com/cozy/minilog.git#master"
     open "^7.0.2"
     prop-types "^15.6.2"
     react-redux "^7.2.0"
@@ -3646,10 +3647,10 @@ cozy-flags@^2.3.3:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.8.0.tgz#a7feb05b6c21c2ab1245deaa2c91c8da330faa3e"
-  integrity sha512-uDM8gHjtB6g3nfJfFmJVK/S3Hw0zTbdC6jIx1aXRNPESKs4YKKaSQanba3RJcpvmlDWbE2pPpCn+r1XeaGwoeg==
+cozy-harvest-lib@2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.8.1.tgz#dadd979c49ac0ce1e55824c9b37a7d6ec35633ea"
+  integrity sha512-C8eIlFjb8WCUebEpJ0vpJVVWB4h/T3DojneMZfYqWAh1Gr8r/wqqS2EO/TrorhbSc/vldSGBdj8m7WhxcbtEpg==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
@@ -3799,10 +3800,10 @@ cozy-scripts@4.3.2:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@^12.6.0:
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-12.6.0.tgz#6fc6e8a1ca1660657547ba803d370fe3f0117a58"
-  integrity sha512-2Xm6ti/di4kMfJzdlVaKEzIzqFm72PeAuV15iMxfxR9UkyjpnigCeRuUDHm6tHL1w7HciRu7OmEBrKAk1hdgfw==
+cozy-stack-client@^14.1.2:
+  version "14.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-14.1.2.tgz#606ce89cabf4def2875cb8749b28b3ee8b96d18f"
+  integrity sha512-0IyYvBQu+vuwN9qe6PHA7khXBQT8TGSjVia7SVTGQ88tEFSLLGXjfZe3pkZQ1ihBdJvmeon12dm0BWeEb+9KZw==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -3825,10 +3826,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@35.42.0:
-  version "35.42.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.42.0.tgz#753250f9d5b805c8d9e317272303f4c762441e62"
-  integrity sha512-YHV7p+gke0pfPPawwUeJPpf/mZmoXbhslNt6Qn9xZMDpAhVaCVvQ15s9/GHxkFl/32lJYQjTCsDut6c39wrDHQ==
+cozy-ui@35.45.0:
+  version "35.45.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.45.0.tgz#0af7c9002f99e2d1b40bd92823d35572ecbd1b8f"
+  integrity sha512-Ltce5GpPe/F9hd+lNV9QvdsEH98SLTIa5cdCtwwyXyBGdBnd16BIcjiaZgAblDcqk0EuY6qYKFhhkdn0pmDV4g==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
