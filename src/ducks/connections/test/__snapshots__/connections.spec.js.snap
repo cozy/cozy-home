@@ -1,11 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Connections Duck Action creators enqueueConnection marks account as queued 1`] = `
+exports[`Connections Duck Action creators enqueueConnection marks trigger as queued 1`] = `
 Object {
-  "testprovider": Object {
-    "17375ac5a59e4d6585fc7d1e1c75ec74": Object {
-      "isEnqueued": true,
+  "creation": null,
+  "konnectors": Object {
+    "testprovider": Object {
+      "triggers": Object {
+        "trigger-1": Object {
+          "isEnqueued": true,
+        },
+      },
     },
+  },
+}
+`;
+
+exports[`Connections Duck Action creators enqueueConnection should ignore when trigger has no _id 1`] = `
+Object {
+  "creation": null,
+  "konnectors": Object {
+    "testprovider": Object {},
   },
 }
 `;
