@@ -40,11 +40,17 @@ const reducer = (state = {}, action) => {
     case UPDATE_CONNECTION_ERROR:
     case UPDATE_CONNECTION_RUNNING_STATUS:
     case LAUNCH_TRIGGER:
-      // Trigger is launched, connection should be running.
-      if (!action.trigger || !action.trigger._id)
-        throw new Error('Missing trigger id')
-      if (!action.trigger.message || !action.trigger.message.konnector)
-        throw new Error('Malformed trigger message')
+      // Ignore the action if trigger does not have an id
+      // This is possible that an enqueue connection is dispatched
+      // with a trigger without _id, this is because for banking
+      // konnectors, the LOGIN_SUCCESS action is dispatched before
+      // the trigger has been created, thus a fake trigger is created
+      if (!action.trigger || !action.trigger._id) {
+        return state
+      }
+      if (!action.trigger.message || !action.trigger.message.konnector) {
+        return state
+      }
       return {
         ...state,
         [getTriggerKonnectorSlug(action.trigger)]: konnectorReducer(
