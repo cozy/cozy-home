@@ -1,5 +1,5 @@
 import 'isomorphic-fetch'
-import { setupAppContext } from './appContext'
+import { setupAppContext } from './AppWrapper'
 
 jest.mock('cozy-client')
 jest.mock('lib/redux-cozy-client')
