@@ -61,7 +61,7 @@ export const setupAppContext = memoize(() => {
  */
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
-  const { store, cozyClient, data, context, lang } = data
+  const { store, cozyClient, data, context, lang } = appContext
   return (
     <AppContext.Provider value={appContext}>
       <MuiCozyTheme>
