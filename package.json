@@ -1,6 +1,6 @@
 {
   "name": "cozy-home",
-  "version": "1.30.7",
+  "version": "1.30.8",
   "main": "src/index.jsx",
   "scripts": {
     "tx": "tx pull --all || true",
@@ -38,7 +38,7 @@
     "cozy-device-helper": "1.10.0",
     "cozy-doctypes": "1.72.2",
     "cozy-flags": "2.3.2",
-    "cozy-harvest-lib": "2.2.1",
+    "cozy-harvest-lib": "2.2.2",
     "cozy-keys-lib": "^3.1.1",
     "cozy-logger": "1.6.0",
     "cozy-realtime": "3.10.1",
