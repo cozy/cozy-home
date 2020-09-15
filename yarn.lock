@@ -3629,10 +3629,10 @@ cozy-doctypes@1.72.2:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.74.5:
-  version "1.74.5"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.74.5.tgz#e1baa9482452a992fcaff9f44cb5cff413f9bb5b"
-  integrity sha512-YRMXAxtCcoXbqoF0A4W8vPO1wGYqFOAwbe/ue2F4gSkLE0K40gmWchRICPG3A1VjFWCmfKLLCOUBZV4N4cPwKw==
+cozy-doctypes@^1.74.6:
+  version "1.74.6"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.74.6.tgz#e4bcfd5d570dddd74af84b15e3b39aeceb3e9671"
+  integrity sha512-EEGVfLoFoyPEWTloJUuRjGx3mihCkTUftjuS4efegqFMg0GsN58kVx1Lvq/tDgW0WWlcxodIfN2NNW5I1pa6yw==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
@@ -3648,24 +3648,24 @@ cozy-flags@2.3.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-flags@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.3.3.tgz#4f9cca9190d46f7c47062da47be77cc005ab3850"
-  integrity sha512-5fDbaRSI8fw+WT6miLcf7ufEUJeHrS11+hoZGXShfqQU6DnepDphUpt7osSFhd26T7L54c1YFTKR9gMgCqeJNg==
+cozy-flags@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.3.4.tgz#a2175fd711529e93175029e0d20e376142035546"
+  integrity sha512-JE8oFfHCeZsHTp9L0xEYtEtNwfTl2Ik3Hr7YaFsjd3H/6YYucNchVNp8FlmEIe3cyA1DWhv/jw/oSTYuSnSo9A==
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@2.13.1:
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.13.1.tgz#d1485f0bb430340b0c0a15f07281f098e779c239"
-  integrity sha512-Vr/+ciwjmqLYJD7mDtb4NiSNcQVETTCbXqQQJCg8/VglRblryHjq7XmqLqfPrvjFxktvzq9FrtMCgcAs7FrBJw==
+cozy-harvest-lib@2.13.3:
+  version "2.13.3"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.13.3.tgz#6a2459daca9f8b1fd8e6f8456e4f3448e545fdbd"
+  integrity sha512-cW3130wQ1LyEj/+bKpqeyzZBXuH3bs29wHRo1lHmqlZYLz7BbT7VtWsVWJX+WQ2EJylWP7S6gz2Ltw7NvugAAA==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
     "@testing-library/react" "^10.4.9"
     cozy-bi-auth "0.0.11"
-    cozy-doctypes "^1.74.5"
-    cozy-flags "^2.3.3"
+    cozy-doctypes "^1.74.6"
+    cozy-flags "^2.3.4"
     cozy-keys-lib "3.1.2"
     cozy-logger "1.6.0"
     date-fns "^1.30.1"
