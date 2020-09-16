@@ -245,16 +245,49 @@ describe('Connections Duck', () => {
 
   describe('Action creators', () => {
     describe('enqueueConnection', () => {
-      it.skip('marks account as queued', () => {
+      it('marks trigger as queued', () => {
         const state = {
-          testprovider: {
-            '17375ac5a59e4d6585fc7d1e1c75ec74': {}
+          konnectors: {
+            testprovider: {}
+          }
+        }
+        const konnector = { slug: 'testprovider' }
+        const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
+        const trigger = {
+          _id: 'trigger-1',
+          message: {
+            account: account._id,
+            konnector: konnector.slug
+          }
+        }
+
+        const result = connections(state, enqueueConnection(trigger))
+
+        expect(result).toMatchSnapshot()
+      })
+
+      it('should ignore when trigger has no _id', () => {
+        const state = {
+          konnectors: {
+            testprovider: {}
           }
         }
         const konnector = { slug: 'testprovider' }
         const account = { _id: '17375ac5a59e4d6585fc7d1e1c75ec74' }
 
-        const result = connections(state, enqueueConnection(konnector, account))
+        // This is possible that an enqueue connection is dispatched
+        // with a trigger without _id, this is because for banking
+        // konnectors, the LOGIN_SUCCESS action is dispatched before
+        // the trigger has been created, thus a fake trigger is
+        // created.
+        const trigger = {
+          message: {
+            account: account._id,
+            konnector: konnector.slug
+          }
+        }
+
+        const result = connections(state, enqueueConnection(trigger))
 
         expect(result).toMatchSnapshot()
       })
