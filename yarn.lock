@@ -3655,10 +3655,10 @@ cozy-flags@^2.3.4:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@2.14.0:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.14.0.tgz#2cb1f11d5a097eef9785c06198aaf856b2bc9488"
-  integrity sha512-hOLypHZOQ57yiRUbATeNDfyKB9uOY+siWaOOfFjf4Yi8SQg/ogfs3NH02+tJkGYzayt+lrTg0zDhsrk3H67uTQ==
+cozy-harvest-lib@2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.15.0.tgz#7904241b7b3f56383ab6322eb6b91b4f5523d421"
+  integrity sha512-x8M9fLTFBs3XiN/BBHhfiBPRgCMdscQ5qbnFihjsp7Fs5FmxxwFmQ6WeH42sCzeoSSfdqsShGPKx07nsQP85Kw==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
@@ -3835,10 +3835,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@36.4.0:
-  version "36.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-36.4.0.tgz#bba967e32dd156d3d8b555ce1a691d832b0204e6"
-  integrity sha512-N8a8XnqeSaZqqI/JH39qhdOWtcqyZx8yDTgP8bSH4Kv8I3jJH5iQrISUtLHJLp0N/qD3sDGFWOJoEu6nBALJlg==
+cozy-ui@37.6.0:
+  version "37.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-37.6.0.tgz#8e8ea9ac2ef8a706f04ce9436c7b05a598f2303a"
+  integrity sha512-5Fp2tja2FKLAGOBVUPC2uJGm0Lnp/u7pCcJd/+OY/d2p6yc9ZDgx6rxlbgRM4s2Ml7RYBjbxdqZwGjXi9o7VYQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
