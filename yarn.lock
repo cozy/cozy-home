@@ -2383,10 +2383,10 @@ babel-preset-cozy-app@1.6.0:
     browserslist-config-cozy "0.2.0"
     lodash "4.17.15"
 
-babel-preset-cozy-app@^1.9.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.9.1.tgz#a190df4702feaaea5560eafa2e506d5816024f2a"
-  integrity sha512-zi2NCe1WSWrC0fKU9C9MTiY0XGXQ9EdEZqK3rLTk7mr8M2hRWjWEUwH2HyOMd0ZkL25c29YSUpmYJXk7xBIIWw==
+babel-preset-cozy-app@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.9.2.tgz#eb072c931828b2cacf84fd8dac57f345b5b608d8"
+  integrity sha512-fNECVqgGUjj/O0jbH25EqoWAeXRN+4voVZecG794BqmXYejvW0dPIIzLtMlsIDXR/YAYVWefF6faJegRI1xSTQ==
   dependencies:
     "@babel/core" "7.2.2"
     "@babel/helper-plugin-utils" "7.0.0"
@@ -3754,10 +3754,10 @@ cozy-realtime@3.2.1:
   dependencies:
     minilog "3.1.0"
 
-cozy-scripts@4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-4.3.2.tgz#27d9ceee7fda259e9598b1f9f39a1d37e6627384"
-  integrity sha512-AIwpRsUV04CVtXgje/Ur3woyx7OoVgzm4Wa1yIRc+V1q/TcuEWYe3OcU8jExA8LjM1+PdPQ63jL2PIdHzvuUYA==
+cozy-scripts@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.0.tgz#c500ac7833fd4e8a9602c314fa6d05243d64ce89"
+  integrity sha512-xs8g16xM0DS2k+CjD7nEVtJRpHwgwsifw5/bNSFFa5I7X9sIv11FKdRF020CIMT4nmGqMgaSdKEuQ4hZONbe5w==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
@@ -3766,7 +3766,7 @@ cozy-scripts@4.3.2:
     babel-eslint "10.1.0"
     babel-jest "24.9.0"
     babel-loader "8.1.0"
-    babel-preset-cozy-app "^1.9.0"
+    babel-preset-cozy-app "1.9.2"
     chalk "3"
     commander "2.19.0"
     copy-webpack-plugin "4.6.0"
@@ -3798,6 +3798,7 @@ cozy-scripts@4.3.2:
     prompt "1.0.0"
     script-ext-html-webpack-plugin "2.1.3"
     style-loader "0.23.1"
+    stylint "2.0.0"
     stylus "0.54.7"
     stylus-loader "3.0.2"
     svg-sprite-loader "4.2.3"
@@ -8461,13 +8462,6 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
