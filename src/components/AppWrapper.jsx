@@ -18,7 +18,7 @@ import schema from '../schema'
 
 const dictRequire = lang => require(`locales/${lang}.json`)
 
-const AppContext = createContext()
+export const AppContext = createContext()
 
 /**
  * Setups clients and store
