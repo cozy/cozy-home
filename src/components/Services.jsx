@@ -32,9 +32,11 @@ export const Services = ({
     .map(({ slug }) => slug)
     .concat(installedKonnectors.map(({ slug }) => slug))
 
-  const suggestedKonnectors = suggestedKonnectorsQuery.data.filter(
-    ({ slug }) => !candidatesSlugBlacklist.includes(slug)
-  )
+  const suggestedKonnectors = suggestedKonnectorsQuery.data
+    ? suggestedKonnectorsQuery.data.filter(
+        ({ slug }) => !candidatesSlugBlacklist.includes(slug)
+      )
+    : []
   const fallbackKonnectorSuggestions = candidatesConfig.konnectors.filter(
     ({ slug }) => !candidatesSlugBlacklist.includes(slug)
   )
@@ -90,7 +92,7 @@ Services.propTypes = {
     PropTypes.shape({ slug: PropTypes.string })
   ).isRequired,
   suggestedKonnectorsQuery: PropTypes.shape({
-    data: PropTypes.array.isRequired
+    data: PropTypes.array
   }).isRequired,
   client: PropTypes.object.isRequired
 }
