@@ -52,7 +52,7 @@ describe('Services component', () => {
       <Services
         t={tMock}
         installedKonnectors={[]}
-        suggestedKonnectorsQuery={{ data: [] }}
+        suggestedKonnectorsQuery={{ data: null }}
         client={{}}
       />
     )
