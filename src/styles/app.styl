@@ -6,9 +6,11 @@
 // overriding the general layout to allow a sticky footer
 html,
 body
-    height 100%
+    // TODO Remove the !important when https://github.com/cozy/cozy-bar/issues/705
+    // has been solved
+    height 100% !important // @stylint ignore
     +medium-screen()
-        height 100%
+        height 100% !important // @stylint ignore
 
         main > [role=main].u-flex
             display flex
