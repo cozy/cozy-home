@@ -101,7 +101,7 @@
       },
       "link": "Ouvrir le dossier dans Cozy Drive",
       "changePath": "Changer le dossier",
-      "error": "Mince, quelque chose c'est mal passé. Ne vous inquiétez pas, vos fichiers sont toujours là.",
+      "error": "Mince, quelque chose s'est mal passé. Ne vous inquiétez pas, vos fichiers sont toujours là.",
       "close": "fermer",
       "warning": "Vous êtes en train de modifier le dossier de votre connecteur",
       "oldFiles": "Toutes vos anciennes factures seront déplacées dans votre nouveau dossier.",
