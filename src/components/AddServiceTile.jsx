@@ -4,6 +4,8 @@ import Icon from 'cozy-ui/react/Icon'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+
 const AddServiceTile = ({ label, client }) => {
   const nativePath = '/discover/?type=konnector'
   const slug = 'store'
@@ -28,7 +30,7 @@ const AddServiceTile = ({ label, client }) => {
           className="item item--ghost item--add-service"
         >
           <div className="item-icon">
-            <Icon icon="plus" size={16} color={palette['dodgerBlue']} />
+            <Icon icon={PlusIcon} size={16} color={palette['dodgerBlue']} />
           </div>
           <span className="item-title">{label}</span>
         </a>

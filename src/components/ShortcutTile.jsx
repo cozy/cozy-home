@@ -5,6 +5,8 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { CozyFile } from 'cozy-doctypes'
 
+import DeviceBrowserIcon from 'cozy-ui/transpiled/react/Icons/DeviceBrowser'
+
 const ShortcutTile = ({ file }) => {
   const client = useClient()
   const { shortcutInfos } = useFetchShortcut(client, file._id)
@@ -24,7 +26,7 @@ const ShortcutTile = ({ file }) => {
           />
         ) : (
           <Icon
-            icon="device-browser"
+            icon={DeviceBrowserIcon}
             size={isMobile ? 32 : 40}
             color="var(--charcoalGrey)"
           />

@@ -8,6 +8,8 @@ import Icon from 'cozy-ui/react/Icon'
 import { getApp, receiveApps } from 'ducks/apps'
 import styles from 'styles/triggerFolderLink.styl'
 
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
+
 /**
  * Renders a link only if href prop is provided
  */
@@ -44,7 +46,7 @@ export class TriggerFolderLink extends PureComponent {
         })}
         href={driveApp && `${driveApp.links.related}#/files/${folderId}`}
       >
-        <Icon className="u-mr-half" icon="openwith" />
+        <Icon className="u-mr-half" icon={OpenwithIcon} />
         {label}
       </MaybeLink>
     )

@@ -7,6 +7,8 @@ import Icon from 'cozy-ui/react/Icon'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from 'styles/konnectorSuccess.styl'
 
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
+
 const BanksLink = translate()(({ banksUrl, t }) =>
   banksUrl ? (
     <AppLinker slug="banks" href={banksUrl}>
@@ -17,7 +19,7 @@ const BanksLink = translate()(({ banksUrl, t }) =>
           target="_top"
           onClick={onClick}
         >
-          <Icon className="u-mr-half" icon="openwith" />
+          <Icon className="u-mr-half" icon={OpenwithIcon} />
           {t('account.success.banksLinkText', {
             appName: name
           })}
@@ -33,7 +35,7 @@ const BanksLink = translate()(({ banksUrl, t }) =>
         })
       }
     >
-      <Icon className="u-mr-half" icon="openwith" />
+      <Icon className="u-mr-half" icon={OpenwithIcon} />
       {t('account.success.banksLinkText')}
     </a>
   )

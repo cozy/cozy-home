@@ -25,7 +25,7 @@ describe('ShortcutTile', () => {
     expect(comp.find('h3').text()).toEqual('cozy.io')
     expect(comp.find('a').prop('href')).toEqual('http://cozy.io')
     expect(comp.find('a').prop('target')).toEqual('_blank')
-    expect(comp.find(Icon).prop('icon')).toEqual('device-browser')
+    expect(comp.find(Icon).prop('icon').name).toEqual('SvgDeviceBrowser')
   })
 
   it('should render a custom icon', () => {
