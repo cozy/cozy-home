@@ -5,6 +5,8 @@ import { useI18n } from 'cozy-ui/react/I18n'
 import get from 'lodash/get'
 import CornerButton from './CornerButton'
 
+import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
+
 const { applications } = models
 
 const SettingsButton = ({ settingsAppQuery: { data } }) => {
@@ -21,7 +23,7 @@ const SettingsButton = ({ settingsAppQuery: { data } }) => {
           label={displayName}
           href={href}
           onClick={onClick}
-          icon="gear"
+          icon={GearIcon}
         />
       )}
     </AppLinker>
