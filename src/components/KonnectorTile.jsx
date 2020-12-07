@@ -49,6 +49,24 @@ const getKonnectorStatus = ({
   else return STATUS.OK
 }
 
+const statusThemes = {
+  [STATUS.NO_ACCOUNT]: {
+    className: 'item--ghost',
+    icon: null,
+    color: null
+  },
+  [STATUS.MAINTENANCE]: {
+    className: 'item--maintenance',
+    icon: 'wrench-circle',
+    color: palette.coolGrey
+  },
+  [STATUS.ERROR]: {
+    className: null,
+    icon: 'warning-circle',
+    color: palette.pomegranate
+  }
+}
+
 export class KonnectorTile extends Component {
   render() {
     const {
@@ -62,23 +80,6 @@ export class KonnectorTile extends Component {
       lang
     } = this.props
 
-    const statusThemes = {
-      [STATUS.NO_ACCOUNT]: {
-        className: 'item--ghost',
-        icon: null,
-        color: null
-      },
-      [STATUS.MAINTENANCE]: {
-        className: 'item--maintenance',
-        icon: 'wrench-circle',
-        color: palette.coolGrey
-      },
-      [STATUS.ERROR]: {
-        className: null,
-        icon: 'warning-circle',
-        color: palette.pomegranate
-      }
-    }
     const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
     const status = hideKonnectorErrors
