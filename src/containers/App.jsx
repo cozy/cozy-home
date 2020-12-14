@@ -16,6 +16,7 @@ import { Main } from 'cozy-ui/react/Layout'
 import Spinner from 'cozy-ui/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
+import MoveModal from 'components/MoveModal'
 import HeroHeader from 'components/HeroHeader'
 import Failure from 'components/Failure'
 import Home from 'components/Home'
@@ -109,6 +110,7 @@ class App extends Component {
           }
         >
           <Alerter />
+          <MoveModal />
           <HeroHeader />
           {hasError && (
             <Main className="main-loader">
