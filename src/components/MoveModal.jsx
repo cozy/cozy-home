@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useI18n } from 'cozy-ui/react/I18n'
 import useInstanceSettings from 'hooks/useInstanceSettings'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 
 import { Button } from 'cozy-ui/transpiled/react/Button'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 const importImage = require('assets/images/moved-cozy.svg')
 
-export const MoveModal = ({ client }) => {
+export const MoveModal = () => {
+  const client = useClient()
   const { t } = useI18n()
   const { data: instanceSettings } = useInstanceSettings(client)
 
@@ -18,6 +19,8 @@ export const MoveModal = ({ client }) => {
 
   const closeModal = () => {
     setClosed(true)
+    // No await, it is a background request and we don't want to alert the user
+    // if it fails as they can't act on that.
     client.getStackClient().fetchJSON('DELETE', '/settings/instance/moved_from')
   }
 
@@ -50,4 +53,4 @@ export const MoveModal = ({ client }) => {
   )
 }
 
-export default withClient(MoveModal)
+export default MoveModal
