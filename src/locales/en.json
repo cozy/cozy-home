@@ -337,9 +337,9 @@
     }
   },
   "move_modal": {
-    "title": "Successful moving",
-    "text": "The moving of your data from %{from} has succeed.",
-    "button": "Access to my Cozy"
+    "title": "Move completed",
+    "text": "The move of your data from %{from} has been successful.",
+    "button": "Access my Cozy"
   },
   "tutorial": {
     "cozy_collect": {

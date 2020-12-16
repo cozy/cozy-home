@@ -336,6 +336,11 @@
       "reload": "Rechargez la page maintenant"
     }
   },
+  "move_modal": {
+    "title": "Déménagement terminé",
+    "text": "Le déménagement de vos données depuis %{from} s'est déroulé avec succès.",
+    "button": "Accéder à mon Cozy"
+  },
   "tutorial": {
     "cozy_collect": {
       "title": "Automatisez la récupération de vos données",

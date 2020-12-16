@@ -32,7 +32,7 @@ describe('MoveModal', () => {
     const { client, root } = setup()
     expect(
       root.getByText(
-        'The moving of your data from source.cozy.tools has succeed.'
+        'The move of your data from source.cozy.tools has been successful.'
       )
     ).toBeTruthy()
 
