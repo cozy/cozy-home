@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import { translate } from 'cozy-ui/react/I18n'
 import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
 import { withClient } from 'cozy-client'
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 
 const FallbackCandidateServiceTile = ({ t, slug, client }) => {

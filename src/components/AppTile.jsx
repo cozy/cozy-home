@@ -4,7 +4,7 @@ import { models } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
 import AppLinker from 'cozy-ui/react/AppLinker'
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 const { applications } = models
 
 export class AppTile extends Component {

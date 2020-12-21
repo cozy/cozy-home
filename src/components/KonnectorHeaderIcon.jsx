@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import PropTypes from 'prop-types'
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import styles from 'styles/konnectorHeaderIcon.styl'
 
