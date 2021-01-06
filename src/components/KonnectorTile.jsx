@@ -10,7 +10,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import {
   getFirstError,
   getFirstUserError,

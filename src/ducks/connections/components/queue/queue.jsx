@@ -6,7 +6,7 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 import { translate } from 'cozy-ui/react/I18n'
 
 import styles from 'ducks/connections/components/queue/styles.styl'
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>

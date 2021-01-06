@@ -1,5 +1,6 @@
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.min.css'
+
 import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
 

@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import { translate } from 'cozy-ui/react/I18n'
 import Alerter from 'cozy-ui/react/Alerter'
 import { withClient } from 'cozy-client'
-import AppIcon from 'components/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
 

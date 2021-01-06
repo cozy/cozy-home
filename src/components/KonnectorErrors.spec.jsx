@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
 
-jest.mock('./AppIcon.jsx', () => () => null)
+jest.mock('cozy-ui/transpiled/react/AppIcon', () => () => null)
 
 describe('KonnectorErrors', () => {
   const MOCKED_DATE = '2020-01-08T09:49:23.589Z'
