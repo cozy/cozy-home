@@ -336,6 +336,11 @@
       "reload": "Refresh now"
     }
   },
+  "move_modal": {
+    "title": "Move completed",
+    "text": "The move of your data from %{from} has been successful.",
+    "button": "Access my Cozy"
+  },
   "tutorial": {
     "cozy_collect": {
       "title": "Automate your data gathering",
