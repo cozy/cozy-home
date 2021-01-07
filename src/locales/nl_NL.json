@@ -336,6 +336,11 @@
       "reload": "Nu verversen"
     }
   },
+  "move_modal": {
+    "title": "Voltooide verplaatsen",
+    "text": "De gegevens van %{from} zijn verplaatst.",
+    "button": "Open mijn Cozy"
+  },
   "tutorial": {
     "cozy_collect": {
       "title": "Automatiseer het ophalen van je gegevens",
