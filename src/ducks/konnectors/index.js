@@ -1,9 +1,8 @@
+import keyBy from 'lodash/keyBy'
 import { fetchKonnectors as cozyClientFetchKonnectors } from 'lib/redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.konnectors'
 const konnectorsCollectionKey = 'konnectors'
-
-// CRUD
 
 export const fetchKonnectors = () =>
   cozyClientFetchKonnectors(konnectorsCollectionKey)
@@ -25,31 +24,29 @@ export const receiveInstalledKonnector = konnector => {
   }
 }
 
-// Selectors
-export const getKonnector = (state, slug) => {
-  return (
-    !!state.documents &&
-    !!state.documents[DOCTYPE] &&
-    state.documents[DOCTYPE][`${DOCTYPE}/${slug}`]
-  )
+const getKonnectorsFromState = state => {
+  return !!state && !!state.documents && state.documents[DOCTYPE]
 }
 
-export const getInstalledKonnectors = state =>
-  !!state.documents &&
-  !!state.documents[DOCTYPE] &&
-  Object.values(state.documents[DOCTYPE])
+// Selectors
+export const getKonnector = (state, slug) => {
+  const konnectors = getKonnectorsFromState(state)
+  return konnectors && konnectors[`${DOCTYPE}/${slug}`]
+}
 
-export const getIndexedKonnectors = state =>
-  !!state.documents &&
-  !!state.documents[DOCTYPE] &&
-  Object.keys(state.documents[DOCTYPE]).reduce((indexed, key) => {
-    const konnector = state.documents[DOCTYPE][key]
-    indexed[konnector.slug] = konnector
-    return indexed
-  }, {})
+export const getInstalledKonnectors = state => {
+  const konnectors = getKonnectorsFromState(state)
+  return konnectors && Object.values(konnectors)
+}
 
-export const getSlugs = state =>
-  !!state &&
-  !!state.documents &&
-  !!state.documents[DOCTYPE] &&
-  Object.values(state.documents[DOCTYPE]).map(konnector => konnector.slug)
+export const getIndexedKonnectors = state => {
+  const konnectors = getKonnectorsFromState(state)
+  return konnectors && keyBy(Object.values(konnectors), konn => konn.slug)
+}
+
+export const getSlugs = state => {
+  const konnectors = getKonnectorsFromState(state)
+  return (
+    konnectors && Object.values(konnectors).map(konnector => konnector.slug)
+  )
+}

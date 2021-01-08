@@ -144,7 +144,10 @@ KonnectorErrors.propTypes = {
   t: PropTypes.func.isRequired,
   triggersInError: PropTypes.array.isRequired,
   accountsWithErrors: PropTypes.array.isRequired,
-  installedKonnectors: PropTypes.array.isRequired,
+  installedKonnectors: PropTypes.oneOf([
+    PropTypes.array.isRequired,
+    PropTypes.bool.isRequired
+  ]),
   history: PropTypes.object.isRequired,
   client: PropTypes.object.isRequired,
   breakpoints: PropTypes.shape({ isMobile: PropTypes.bool.isRequired })

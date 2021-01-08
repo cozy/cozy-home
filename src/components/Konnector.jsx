@@ -7,13 +7,12 @@ import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 import { getKonnector } from 'ducks/konnectors'
 
 import { getTriggersByKonnector } from 'reducers'
-import { withClient } from 'cozy-client/dist/hoc'
+import { withClient } from 'cozy-client'
 
 class Konnector extends Component {
   render() {
     const { konnector, history, triggers } = this.props
     const konnectorWithtriggers = { ...konnector, triggers: { data: triggers } }
-
     return (
       <HarvestRoutes
         konnectorRoot={`/connected/${konnector.slug}`}

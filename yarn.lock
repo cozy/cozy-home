@@ -3729,10 +3729,10 @@ cozy-interapp@0.5.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.4.tgz#2573f1800f073c84c289267d04234954d88eae0c"
   integrity sha512-f0UaKpBkRUnIKgAWND0e1IwfTTINjizlgDmfQwX3aMyWp8t9wX0xkNFn53TSyKUoBUnfovrclS3hm9fngjEp7A==
 
-cozy-keys-lib@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.4.3.tgz#69ba525cab9e174e17700d92eda1a8002b61d073"
-  integrity sha512-oEL+vkVQKqPWE63wg8DzO+QyKUzmhn2D0NiwGrPXp0PiU/U6FadyMOC/08p+Pi0pBXTytD05PdOCdbnx8ojFrA==
+cozy-keys-lib@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.5.0.tgz#d88c4ed941a902637b1f110ded07b506bffefed3"
+  integrity sha512-Mz41enHRXahyKwaSTYy/oV4TGUW9JXsrRAVtRpDyY6aOAvlptXIbd+r5IUiX57DCSB0zwIM2MtXkptatZUEZOQ==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
@@ -3865,10 +3865,10 @@ cozy-ui@22.3.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@42.4.0:
-  version "42.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-42.4.0.tgz#514965c8d5f3a7e24e91bb10f8f48741fd93af37"
-  integrity sha512-wE5q2Fq5PqZnDGMPDLu42XfrHSzD/UjcSyPLh9kx1M8EyfT+1us6LRstB4ZfxkPgTSgI/UrW8Fo8Yv2pt9HRNQ==
+cozy-ui@43.1.0:
+  version "43.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-43.1.0.tgz#23ff652ce3e28e9de84dfc75d96312fe7d8536db"
+  integrity sha512-BChmaZ3/NcWrfRPBT/6gQzIiuXM6oYzqR+9njgszo/zrHn48kmWGtq4raLKdrYPBE2Cm8HTnlZjPJSAZ41hMfg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
@@ -8519,6 +8519,12 @@ mini-css-extract-plugin@0.5.0:
 minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  resolved "git+https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
   dependencies:
     microee "0.0.6"
 

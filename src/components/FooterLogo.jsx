@@ -27,7 +27,13 @@ export class FooterLogo extends React.Component {
 
   async componentDidMount() {
     const logos = await fetchHomeLogos(this.props.client)
-    this.setState({ logos })
+    if (!this.unmounted) {
+      this.setState({ logos })
+    }
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true
   }
 
   render() {
