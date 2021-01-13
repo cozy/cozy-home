@@ -8,6 +8,7 @@ import flag from 'cozy-flags'
 import CozyClient, { CozyProvider } from 'cozy-client'
 import I18n from 'cozy-ui/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { CozyProvider as LegacyCozyProvider } from 'lib/redux-cozy-client'
 import configureStore from 'store/configureStore'
@@ -64,22 +65,24 @@ const AppWrapper = ({ children }) => {
   const { store, cozyClient, data, context, lang } = appContext
   return (
     <AppContext.Provider value={appContext}>
-      <MuiCozyTheme>
-        <CozyProvider client={cozyClient}>
-          <LegacyCozyProvider
-            store={store}
-            client={cozyClient}
-            domain={data.cozyDomain}
-            secure={!__DEVELOPMENT__}
-          >
-            <ReduxProvider store={store}>
-              <I18n lang={lang} dictRequire={dictRequire} context={context}>
-                {children}
-              </I18n>
-            </ReduxProvider>
-          </LegacyCozyProvider>
-        </CozyProvider>
-      </MuiCozyTheme>
+      <BreakpointsProvider>
+        <MuiCozyTheme>
+          <CozyProvider client={cozyClient}>
+            <LegacyCozyProvider
+              store={store}
+              client={cozyClient}
+              domain={data.cozyDomain}
+              secure={!__DEVELOPMENT__}
+            >
+              <ReduxProvider store={store}>
+                <I18n lang={lang} dictRequire={dictRequire} context={context}>
+                  {children}
+                </I18n>
+              </ReduxProvider>
+            </LegacyCozyProvider>
+          </CozyProvider>
+        </MuiCozyTheme>
+      </BreakpointsProvider>
     </AppContext.Provider>
   )
 }

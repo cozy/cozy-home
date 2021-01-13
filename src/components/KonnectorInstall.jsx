@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { TriggerManager } from 'cozy-harvest-lib'
+import { IntentTriggerManager } from 'cozy-harvest-lib'
 import { translate } from 'cozy-ui/react/I18n'
 
 import KonnectorSuccess from 'components/KonnectorSuccess'
@@ -72,7 +72,7 @@ export class KonnectorInstall extends Component {
           <h4 className="u-ta-center">
             {t('account.config.title', { name: konnector.name })}
           </h4>
-          <TriggerManager
+          <IntentTriggerManager
             account={account}
             konnector={konnector}
             onLoginSuccess={this.handleLoginSuccess}
