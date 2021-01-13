@@ -8,6 +8,8 @@ import KonnectorSuccess from 'components/KonnectorSuccess'
 import { getKonnector } from 'ducks/konnectors'
 import styles from 'styles/konnectorInstall.styl'
 
+const vaultUnlockFormProps = { useAllAvailableSpace: true }
+
 export class KonnectorInstall extends Component {
   constructor(props) {
     super(props)
@@ -73,6 +75,7 @@ export class KonnectorInstall extends Component {
             {t('account.config.title', { name: konnector.name })}
           </h4>
           <IntentTriggerManager
+            vaultUnlockFormProps={vaultUnlockFormProps}
             account={account}
             konnector={konnector}
             onLoginSuccess={this.handleLoginSuccess}
