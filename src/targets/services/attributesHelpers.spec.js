@@ -1,7 +1,4 @@
-import {
-  findNewAttributes,
-  updateMyselfWithIdentity
-} from './attributesHelpers'
+import { updateMyselfWithIdentity } from './attributesHelpers'
 
 describe('attributesHelpers', () => {
   const newIdentity = {
@@ -16,30 +13,10 @@ describe('attributesHelpers', () => {
     }
   })
 
-  const contactCollection = {}
-  contactCollection.update = jest.fn()
-  const mockLog = jest.spyOn(console, 'log')
-
-  describe('when there are new attributes', () => {
-    it('should be found', () => {
-      const newAttributesFound = findNewAttributes(
-        newIdentity.contact,
-        currentMyselfContactMock
-      )
-      expect(Object.keys(newAttributesFound).length).toBe(2)
-      expect(newAttributesFound).toEqual({ name: 'John', age: 32 })
-    })
-  })
-
   describe('when there are attributes', () => {
     it('if there are new ones, they should be added in currentMySelfContact', async () => {
       expect(currentMyselfContactMock).toEqual({ id: 1 })
-      await updateMyselfWithIdentity(
-        newIdentity,
-        currentMyselfContactMock,
-        contactCollection
-      )
-      expect(mockLog).toBeCalledTimes(2)
+      await updateMyselfWithIdentity(newIdentity, currentMyselfContactMock)
       expect(currentMyselfContactMock).toEqual({ id: 1, name: 'John', age: 32 })
     })
 
@@ -50,10 +27,8 @@ describe('attributesHelpers', () => {
       }
       await updateMyselfWithIdentity(
         newIdentityWithSameKey,
-        currentMyselfContactMock,
-        contactCollection
+        currentMyselfContactMock
       )
-      expect(mockLog).toBeCalledTimes(2)
       expect(currentMyselfContactMock).toEqual({ id: 1 })
     })
 
@@ -64,8 +39,7 @@ describe('attributesHelpers', () => {
       expect(currentMyselfContactMock).toEqual({ id: 1 })
       await updateMyselfWithIdentity(
         newIdentityWithKeyExisting,
-        currentMyselfContactMock,
-        contactCollection
+        currentMyselfContactMock
       )
       expect(currentMyselfContactMock).toEqual({ id: 1, name: 'John', age: 32 })
     })
