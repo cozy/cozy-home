@@ -15,7 +15,7 @@ export const MoveModal = () => {
 
   const movedFrom = instanceSettings['moved_from']
   const [hasBeenClosed, setClosed] = useState(false)
-  const displayModal = movedFrom && !hasBeenClosed
+  const displayModal = Boolean(movedFrom && !hasBeenClosed)
 
   const closeModal = () => {
     setClosed(true)
