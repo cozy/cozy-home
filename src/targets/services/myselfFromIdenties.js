@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import CozyClient from 'cozy-client'
 import log from 'cozy-logger'
-import omit from 'lodash/omit'
+import { updateMyselfWithIdentity } from './attributesHelpers'
 
 global.fetch = fetch
 
@@ -15,27 +15,10 @@ async function main() {
   const newIdentity = getIdentity()
 
   const currentMyselfContact = await getCurrentMyselfContact()
-
   if (currentMyselfContact) {
-    log('info', `Found a me contact`)
-    const newAttributes = findNewAttributes(
-      newIdentity.contact,
-      currentMyselfContact
-    )
-    if (Object.keys(newAttributes).length) {
-      log(
-        'info',
-        `And found the following new attributes : ${Object.keys(
-          newAttributes
-        ).join(', ')}`
-      )
-      Object.assign(currentMyselfContact, newAttributes)
-      log('info', `Updating the me contact with new attributes`)
-      await contactCollection.update(currentMyselfContact)
-      // set new attributes to the current myself contact and update it in db
-    } else {
-      log('info', `No new attribute, nothing to do`)
-    }
+    log('info', `Updating the me contact with new attributes`)
+    updateMyselfWithIdentity(newIdentity, currentMyselfContact)
+    await contactCollection.update(currentMyselfContact)
   } else {
     log('info', `The "me" contact could not be found, creating it`)
     await contactCollection.create({
@@ -43,10 +26,6 @@ async function main() {
       ...newIdentity.contact
     })
   }
-}
-
-function findNewAttributes(newContact, currentContact) {
-  return omit(newContact, Object.keys(currentContact))
 }
 
 async function getCurrentMyselfContact() {
