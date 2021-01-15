@@ -1,11 +1,7 @@
 import log from 'cozy-logger'
 import omit from 'lodash/omit'
 
-export const updateMyselfWithIdentity = async (
-  newIdentity,
-  currentMyselfContact,
-  contactCollection
-) => {
+export const updateMyselfWithIdentity = (newIdentity, currentMyselfContact) => {
   log('info', `Found a me contact`)
   const newAttributes = findNewAttributes(
     newIdentity.contact,
@@ -19,9 +15,6 @@ export const updateMyselfWithIdentity = async (
       ).join(', ')}`
     )
     Object.assign(currentMyselfContact, newAttributes)
-    log('info', `Updating the me contact with new attributes`)
-    await contactCollection.update(currentMyselfContact)
-    // set new attributes to the current myself contact and update it in db
   } else {
     log('info', `No new attribute, nothing to do`)
   }

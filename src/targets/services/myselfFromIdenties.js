@@ -16,11 +16,9 @@ async function main() {
 
   const currentMyselfContact = await getCurrentMyselfContact()
   if (currentMyselfContact) {
-    await updateMyselfWithIdentity(
-      newIdentity,
-      currentMyselfContact,
-      contactCollection
-    )
+    log('info', `Updating the me contact with new attributes`)
+    updateMyselfWithIdentity(newIdentity, currentMyselfContact)
+    await contactCollection.update(currentMyselfContact)
   } else {
     log('info', `The "me" contact could not be found, creating it`)
     await contactCollection.create({
