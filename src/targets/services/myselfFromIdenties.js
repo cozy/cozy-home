@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import CozyClient from 'cozy-client'
 import log from 'cozy-logger'
-import { mergeAttributes } from './attributesHelpers'
+import { updateMyselfWithIdentity } from './attributesHelpers'
 
 global.fetch = fetch
 
@@ -16,7 +16,11 @@ async function main() {
 
   const currentMyselfContact = await getCurrentMyselfContact()
   if (currentMyselfContact) {
-    await mergeAttributes(newIdentity, currentMyselfContact, contactCollection)
+    await updateMyselfWithIdentity(
+      newIdentity,
+      currentMyselfContact,
+      contactCollection
+    )
   } else {
     log('info', `The "me" contact could not be found, creating it`)
     await contactCollection.create({

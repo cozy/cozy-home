@@ -1,4 +1,7 @@
-import { findNewAttributes, mergeAttributes } from './attributesHelpers'
+import {
+  findNewAttributes,
+  updateMyselfWithIdentity
+} from './attributesHelpers'
 
 describe('attributesHelpers', () => {
   const newIdentity = {
@@ -31,7 +34,7 @@ describe('attributesHelpers', () => {
   describe('when there are attributes', () => {
     it('if there are new ones, they should be added in currentMySelfContact', async () => {
       expect(currentMyselfContactMock).toEqual({ id: 1 })
-      await mergeAttributes(
+      await updateMyselfWithIdentity(
         newIdentity,
         currentMyselfContactMock,
         contactCollection
@@ -45,7 +48,7 @@ describe('attributesHelpers', () => {
       const newIdentityWithSameKey = {
         contact: { id: 2 }
       }
-      await mergeAttributes(
+      await updateMyselfWithIdentity(
         newIdentityWithSameKey,
         currentMyselfContactMock,
         contactCollection
@@ -59,7 +62,7 @@ describe('attributesHelpers', () => {
         contact: { id: 2, name: 'John', age: 32 }
       }
       expect(currentMyselfContactMock).toEqual({ id: 1 })
-      await mergeAttributes(
+      await updateMyselfWithIdentity(
         newIdentityWithKeyExisting,
         currentMyselfContactMock,
         contactCollection

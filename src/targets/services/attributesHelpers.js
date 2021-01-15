@@ -1,7 +1,7 @@
 import log from 'cozy-logger'
 import omit from 'lodash/omit'
 
-export const mergeAttributes = async (
+export const updateMyselfWithIdentity = async (
   newIdentity,
   currentMyselfContact,
   contactCollection
