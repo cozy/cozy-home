@@ -39,7 +39,7 @@ describe('attributesHelpers', () => {
         currentMyselfContactMock,
         contactCollection
       )
-      expect(mockLog).toBeCalledTimes(3)
+      expect(mockLog).toBeCalledTimes(2)
       expect(currentMyselfContactMock).toEqual({ id: 1, name: 'John', age: 32 })
     })
 
