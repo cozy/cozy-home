@@ -1,13 +1,13 @@
 import { KonnectorInstall } from 'components/KonnectorInstall'
 import React from 'react'
 import { mount } from 'enzyme'
-import { TriggerManager } from 'cozy-harvest-lib'
+import { IntentTriggerManager } from 'cozy-harvest-lib'
 
 jest.mock('cozy-harvest-lib', () => {
-  const FakeTriggerManager = () => <div>Fake trigger manager</div>
+  const FakeIntentTriggerManager = () => <div>Fake trigger manager</div>
 
   return {
-    TriggerManager: FakeTriggerManager
+    IntentTriggerManager: FakeIntentTriggerManager
   }
 })
 
@@ -21,7 +21,7 @@ describe('KonnectorInstall', () => {
       />
     )
 
-    const triggerManager = wrapper.find(TriggerManager)
+    const triggerManager = wrapper.find(IntentTriggerManager)
 
     expect(triggerManager.props().vaultClosable).toBe(false)
   })
