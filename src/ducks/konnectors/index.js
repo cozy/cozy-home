@@ -36,17 +36,17 @@ export const getKonnector = (state, slug) => {
 
 export const getInstalledKonnectors = state => {
   const konnectors = getKonnectorsFromState(state)
-  return konnectors && Object.values(konnectors)
+  return konnectors ? Object.values(konnectors) : []
 }
 
 export const getIndexedKonnectors = state => {
   const konnectors = getKonnectorsFromState(state)
-  return konnectors && keyBy(Object.values(konnectors), konn => konn.slug)
+  return konnectors ? keyBy(Object.values(konnectors), konn => konn.slug) : {}
 }
 
 export const getSlugs = state => {
   const konnectors = getKonnectorsFromState(state)
-  return (
-    konnectors && Object.values(konnectors).map(konnector => konnector.slug)
-  )
+  return konnectors
+    ? Object.values(konnectors).map(konnector => konnector.slug)
+    : []
 }
