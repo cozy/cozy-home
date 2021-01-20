@@ -17,5 +17,13 @@ VaultUnlocker.displayName = 'withI18n(withLocales(withClient(VaultUnlocker)))'
 console.log('Using cozy-keys-lib from __mocks__')
 
 const withVaultClient = Component => Component
+const withVaultUnlockContext = Component => Component
 
-export { VaultUnlocker, CipherType, withVaultClient, UriMatchType, FieldType }
+export {
+  VaultUnlocker,
+  CipherType,
+  withVaultClient,
+  UriMatchType,
+  FieldType,
+  withVaultUnlockContext
+}
