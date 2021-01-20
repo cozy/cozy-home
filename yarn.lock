@@ -3700,10 +3700,10 @@ cozy-flags@2.3.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-3.1.2.tgz#654bd3833f1d568b6d93594946bfe15915e3af7c"
-  integrity sha512-xLHGMc1O5YiZNcNIIHccO/JX6/sSetV7l55+46u28fYp+9Zb5CKT761Ynbp/XnV+xdakRWCpJvhrTCaaSlZIhg==
+cozy-harvest-lib@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-3.2.0.tgz#ff7a4fc0fc30200744213a458af6c8eea2700e40"
+  integrity sha512-jDyXaxX6u4UJBlME9t/UOKMDidDUnJDyRI8IoZYT8xbtLDlNqoHWBbq/I2O4yOoJv6ihbFKDokEf62mfAu+g0Q==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@material-ui/core" "3"
@@ -3729,10 +3729,10 @@ cozy-interapp@0.5.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.4.tgz#2573f1800f073c84c289267d04234954d88eae0c"
   integrity sha512-f0UaKpBkRUnIKgAWND0e1IwfTTINjizlgDmfQwX3aMyWp8t9wX0xkNFn53TSyKUoBUnfovrclS3hm9fngjEp7A==
 
-cozy-keys-lib@3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.6.0.tgz#8eec996694fb3ed00f9b61b760dd53c4bfc0abab"
-  integrity sha512-jtQdUavkr21Ohh4L71ZJgD0hCz3/1kt01zYf9PFdp/cgrIYAKM1O6luYpKJrmSmFWMNvhyIqsg972yEzPVVduw==
+cozy-keys-lib@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.7.0.tgz#bc146d8c237d8418579a3e5c6c56d12324405cb5"
+  integrity sha512-2K8MGyZxtOIgf+FjUz+3Z9lnxkIO0bKGd59FCN+wQGAMlvXT8Xjiv8IxLjCeArLghhKzDH7BT7gW2N0Y4AcIRg==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
