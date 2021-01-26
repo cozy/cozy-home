@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useI18n } from 'cozy-ui/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 import { useClient } from 'cozy-client'
 

@@ -8,7 +8,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import 'url-search-params-polyfill'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
-import { BreakpointsProvider } from 'cozy-ui/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import homeConfig from 'config/home.json'
 import AppWrapper from 'components/AppWrapper'

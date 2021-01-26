@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import I18n from 'cozy-ui/react/I18n'
+import I18n from 'cozy-ui/transpiled/react/I18n'
 import enLocale from '../src/locales/en.json'
 
 const fakeDefaultReduxState = {

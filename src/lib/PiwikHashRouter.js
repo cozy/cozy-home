@@ -1,5 +1,5 @@
 import { HashRouter } from 'react-router-dom'
-import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
+import { shouldEnableTracking, getTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
 
 const addPiwik = function(history) {
   if (shouldEnableTracking() && getTracker()) {

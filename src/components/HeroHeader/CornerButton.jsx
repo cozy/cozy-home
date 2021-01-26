@@ -1,5 +1,5 @@
 import React from 'react'
-import Button, { ButtonLink } from 'cozy-ui/react/Button'
+import Button, { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const CornerButton = props => {

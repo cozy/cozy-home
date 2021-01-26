@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { models } from 'cozy-client'
 
-import { translate } from 'cozy-ui/react/I18n'
-import AppLinker from 'cozy-ui/react/AppLinker'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 const { applications } = models
 

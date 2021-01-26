@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react/I18n'
-import IconGrid from 'cozy-ui/react/Labs/IconGrid'
-import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import IconGrid from 'cozy-ui/transpiled/react/Labs/IconGrid'
+import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import { withClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
