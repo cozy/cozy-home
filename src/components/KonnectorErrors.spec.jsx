@@ -1,7 +1,8 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
+import AppLike from '../../test/AppLike'
+import { render, fireEvent } from '@testing-library/react'
 
 jest.mock('cozy-ui/transpiled/react/AppIcon', () => () => null)
 
@@ -22,163 +23,164 @@ describe('KonnectorErrors', () => {
 
   const mockHistory = {}
 
-  it('should render nothing when there are no errors', () => {
-    const component = shallow(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[]}
-        accountsWithErrors={[]}
-        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
+  const DEFAULT_INSTALLED_KONNECTORS = [
+    { slug: 'test', name: 'Test Konnector' }
+  ]
 
-    expect(component.html()).toBe(null)
+  const setup = ({
+    triggersInError = [],
+    accountsWithErrors = [],
+    installedKonnectors = DEFAULT_INSTALLED_KONNECTORS
+  } = {}) => {
+    const root = render(
+      <AppLike client={mockClient}>
+        <KonnectorErrors
+          triggersInError={triggersInError}
+          accountsWithErrors={accountsWithErrors}
+          installedKonnectors={installedKonnectors}
+          history={mockHistory}
+        />
+      </AppLike>
+    )
+    return { root }
+  }
+
+  it('should render nothing when there are no errors', () => {
+    const { root } = setup()
+    expect(root.container.firstChild).toBe(null)
   })
 
   it('should render nothing when there are errors but no installed konnector', () => {
-    const component = shallow(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[
-          {
-            _id: '2',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'MUTED_ERROR',
-              last_success: '2019-10-01T00:48:01.404911778Z'
-            },
-            message: {
-              konnector: 'test',
-              account: '456'
-            }
-          }
-        ]}
-        accountsWithErrors={[]}
-        installedKonnectors={[]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
+    const triggersInError = [
+      {
+        _id: '2',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'MUTED_ERROR',
+          last_success: '2019-10-01T00:48:01.404911778Z'
+        },
+        message: {
+          konnector: 'test',
+          account: '456'
+        }
+      }
+    ]
+    const { root } = setup({ triggersInError })
 
-    expect(component.html()).toBe(null)
+    expect(root.container.firstChild).toBe(null)
   })
 
   it('should render nothing when all errors are muted', () => {
-    const component = shallow(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[
+    const triggersInError = [
+      {
+        _id: '2',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'MUTED_ERROR',
+          last_success: '2019-10-01T00:48:01.404911778Z'
+        },
+        message: {
+          konnector: 'test',
+          account: '456'
+        }
+      }
+    ]
+    const accountsWithErrors = [
+      {
+        _id: '456',
+        mutedErrors: [
           {
-            _id: '2',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'MUTED_ERROR',
-              last_success: '2019-10-01T00:48:01.404911778Z'
-            },
-            message: {
-              konnector: 'test',
-              account: '456'
-            }
+            type: 'MUTED_ERROR',
+            mutedAt: '2019-12-01T00:48:01.404911778Z'
           }
-        ]}
-        accountsWithErrors={[
-          {
-            _id: '456',
-            mutedErrors: [
-              {
-                type: 'MUTED_ERROR',
-                mutedAt: '2019-12-01T00:48:01.404911778Z'
-              }
-            ]
-          }
-        ]}
-        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
+        ]
+      }
+    ]
+    const installedKonnectors = [{ slug: 'test', name: 'Test Konnector' }]
 
-    expect(component.html()).toBe(null)
+    const { root } = setup({
+      triggersInError,
+      accountsWithErrors,
+      installedKonnectors
+    })
+
+    expect(root.container.firstChild).toBe(null)
   })
 
-  it('should render active errors', () => {
-    const component = shallow(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[
+  it('should render active errors', async () => {
+    const triggersInError = [
+      {
+        _id: '1',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'LOGIN_FAILED'
+        },
+        message: {
+          konnector: 'test',
+          account: '123'
+        }
+      },
+      {
+        _id: '2',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'LOGIN_FAILED.NEEDS_SECRET', // this one is muted
+          last_success: '2019-10-01T00:48:01.404911778Z'
+        },
+        message: {
+          konnector: 'test',
+          account: '456'
+        }
+      },
+      {
+        _id: '3',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'USER_ACTION_NEEDED'
+        },
+        message: {
+          konnector: 'test',
+          account: '123'
+        }
+      },
+      {
+        _id: '4',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'VENDOR_DOWN' // This type of error is not displayed
+        },
+        message: {
+          konnector: 'test',
+          account: '123'
+        }
+      }
+    ]
+    const accountsWithErrors = [
+      { _id: '123', mutedErrors: [] },
+      {
+        _id: '456',
+        mutedErrors: [
           {
-            _id: '1',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'LOGIN_FAILED'
-            },
-            message: {
-              konnector: 'test',
-              account: '123'
-            }
-          },
-          {
-            _id: '2',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'LOGIN_FAILED.NEEDS_SECRET', // this one is muted
-              last_success: '2019-10-01T00:48:01.404911778Z'
-            },
-            message: {
-              konnector: 'test',
-              account: '456'
-            }
-          },
-          {
-            _id: '3',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'USER_ACTION_NEEDED'
-            },
-            message: {
-              konnector: 'test',
-              account: '123'
-            }
-          },
-          {
-            _id: '4',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'VENDOR_DOWN' // This type of error is not displayed
-            },
-            message: {
-              konnector: 'test',
-              account: '123'
-            }
+            type: 'LOGIN_FAILED.NEEDS_SECRET',
+            mutedAt: '2019-12-01T00:48:01.404911778Z'
           }
-        ]}
-        accountsWithErrors={[
-          { _id: '123', mutedErrors: [] },
-          {
-            _id: '456',
-            mutedErrors: [
-              {
-                type: 'LOGIN_FAILED.NEEDS_SECRET',
-                mutedAt: '2019-12-01T00:48:01.404911778Z'
-              }
-            ]
-          }
-        ]}
-        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
-    expect(component.find('InfosCarrousel').children().length).toEqual(2)
+        ]
+      }
+    ]
+    const installedKonnectors = [{ slug: 'test', name: 'Test Konnector' }]
+    const { root } = setup({
+      triggersInError,
+      accountsWithErrors,
+      installedKonnectors
+    })
 
-    const infosComponent = component.find('InfosCarrousel').childAt(0)
-    infosComponent.props().dismissAction()
+    expect(
+      root.getByText('(1/2) Incorrect or expired credentials')
+    ).toBeTruthy()
+
+    const dismissButton = root.getByLabelText('Mute error')
+    await fireEvent.click(dismissButton)
+
     expect(mockClient.save).toHaveBeenCalledWith({
       _id: '123',
       mutedErrors: [{ mutedAt: MOCKED_DATE, type: 'LOGIN_FAILED' }]
@@ -186,79 +188,74 @@ describe('KonnectorErrors', () => {
   })
 
   it('should hide errors when the konnector or account is missing', () => {
-    const component = shallow(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[
-          {
-            _id: '1',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'LOGIN_FAILED'
-            },
-            message: {
-              konnector: 'uninstalled',
-              account: '123'
-            }
-          },
-          {
-            _id: '2',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'LOGIN_FAILED'
-            },
-            message: {
-              konnector: 'uninstalled',
-              account: 'no-account'
-            }
-          }
-        ]}
-        accountsWithErrors={[{ _id: '123', mutedErrors: [] }]}
-        installedKonnectors={[]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
-    expect(component.find('InfosCarrousel').children().length).toEqual(0)
+    const triggersInError = [
+      {
+        _id: '1',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'LOGIN_FAILED'
+        },
+        message: {
+          konnector: 'uninstalled',
+          account: '123'
+        }
+      },
+      {
+        _id: '2',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'LOGIN_FAILED'
+        },
+        message: {
+          konnector: 'uninstalled',
+          account: 'no-account'
+        }
+      }
+    ]
+    const accountsWithErrors = [{ _id: '123', mutedErrors: [] }]
+    const installedKonnectors = []
+    const { root } = setup({
+      triggersInError,
+      accountsWithErrors,
+      installedKonnectors
+    })
+    expect(root.container.firstChild).toBe(null)
   })
 
   it('should not show slide indicator with only one slide', () => {
-    const component = mount(
-      <KonnectorErrors
-        t={s => s}
-        triggersInError={[
+    const triggersInError = [
+      {
+        _id: '1',
+        worker: 'konnector',
+        current_state: {
+          last_error: 'LOGIN_FAILED'
+        },
+        message: {
+          konnector: 'test',
+          account: '123'
+        }
+      }
+    ]
+    const accountsWithErrors = [
+      { _id: '123', mutedErrors: [] },
+      {
+        _id: '456',
+        mutedErrors: [
           {
-            _id: '1',
-            worker: 'konnector',
-            current_state: {
-              last_error: 'LOGIN_FAILED'
-            },
-            message: {
-              konnector: 'test',
-              account: '123'
-            }
+            type: 'LOGIN_FAILED.NEEDS_SECRET',
+            mutedAt: '2019-12-01T00:48:01.404911778Z'
           }
-        ]}
-        accountsWithErrors={[
-          { _id: '123', mutedErrors: [] },
-          {
-            _id: '456',
-            mutedErrors: [
-              {
-                type: 'LOGIN_FAILED.NEEDS_SECRET',
-                mutedAt: '2019-12-01T00:48:01.404911778Z'
-              }
-            ]
-          }
-        ]}
-        installedKonnectors={[{ slug: 'test', name: 'Test Konnector' }]}
-        history={mockHistory}
-        client={mockClient}
-        breakpoints={{ isMobile: false }}
-      />
-    )
-    expect(component.find('InfosCarrousel').children().length).toEqual(1)
-    expect(component.text()).not.toContain('1/1')
+        ]
+      }
+    ]
+    const installedKonnectors = [{ slug: 'test', name: 'Test Konnector' }]
+    const { root } = setup({
+      triggersInError,
+      accountsWithErrors,
+      installedKonnectors
+    })
+
+    // 1/1 is not displayed
+    expect(root.getByText('Incorrect or expired credentials'))
   })
 })

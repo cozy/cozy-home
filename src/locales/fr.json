@@ -121,6 +121,7 @@
       "driveLinkText": "Ouvrir le dossier dans Cozy Drive",
       "button": "Fermer"
     },
+
     "message": {
       "folder": {
         "title": "Dossier",
@@ -374,6 +375,7 @@
   },
 
   "connector": {
+    "mute": "Cacher l'erreur",
     "debug": {
       "successMessage": "Ce konnecteur est utilisé uniquement pour déboguer l'application, ceci est un message de succès additionnel."
     },

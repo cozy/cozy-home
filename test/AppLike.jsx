@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStore } from 'redux'
+import CozyClient, { CozyProvider } from 'cozy-client'
 import { Provider as ReduxProvider } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -10,6 +11,8 @@ const fakeDefaultReduxState = {
   apps: [{ slug: 'drive', links: { related: '' } }]
 }
 const reduxStore = createStore(() => fakeDefaultReduxState)
+
+const defaultClient = new CozyClient({})
 
 class AppLike extends React.Component {
   constructor(props, context) {
@@ -25,11 +28,13 @@ class AppLike extends React.Component {
   render() {
     return (
       <BreakpointsProvider>
-        <ReduxProvider store={this.props.store}>
-          <I18n dictRequire={() => enLocale} lang="en">
-            {this.props.children}
-          </I18n>
-        </ReduxProvider>
+        <CozyProvider client={this.props.client || defaultClient}>
+          <ReduxProvider store={this.props.store}>
+            <I18n dictRequire={() => enLocale} lang="en">
+              {this.props.children}
+            </I18n>
+          </ReduxProvider>
+        </CozyProvider>
       </BreakpointsProvider>
     )
   }
