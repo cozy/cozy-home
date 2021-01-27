@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 
 import { withClient, Q } from 'cozy-client'
-import Icon from 'cozy-ui/react/Icon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 
 import { getApp, receiveApps } from 'ducks/apps'
 import styles from 'styles/triggerFolderLink.styl'

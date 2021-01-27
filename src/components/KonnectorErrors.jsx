@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withClient, models } from 'cozy-client'
+import { useClient, models } from 'cozy-client'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import keyBy from 'lodash/keyBy'
 import flow from 'lodash/flow'
 import Infos from 'cozy-ui/transpiled/react/Infos'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
 import Button from 'cozy-ui/transpiled/react/Button'
-import Text, { SubTitle } from 'cozy-ui/transpiled/react/Text'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import CrossButton from 'cozy-ui/transpiled/react/Icons/Cross'
+import { Media, Bd } from 'cozy-ui/transpiled/react/Media'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import {
   getTriggersInError,
   getAccountsWithErrors,
@@ -37,15 +41,117 @@ const muteTrigger = async (client, trigger, accountsById) => {
 
 const getKonnectorSlug = konnector => konnector.slug
 
+// TODO, use directly Infos prop dismissAction when
+// https://github.com/cozy/cozy-ui/pull/1724 is merged
+// Here we need the aria-label for tests, and IconButton for style
+const InfosDismissButton = ({ onClick }) => {
+  const { t } = useI18n()
+  return (
+    <IconButton
+      aria-label={t('connector.mute')}
+      size="small"
+      onClick={onClick}
+      style={dismissButtonStyle}
+    >
+      <Icon icon={CrossButton} size={12} />
+    </IconButton>
+  )
+}
+
+const dismissButtonStyle = {
+  position: 'absolute',
+  top: 0,
+  right: 0
+}
+
+const KonnectorError = ({
+  trigger,
+  triggerErrors,
+  index,
+  konnectorsBySlug,
+  accountsById,
+  history
+}) => {
+  const client = useClient()
+  const { t, lang } = useI18n()
+  const { isMobile } = useBreakpoints()
+  const errorType = triggerStatesModel.getLastErrorType(trigger)
+  const konnError = new KonnectorJobError(errorType)
+  const konnectorSlug = triggersModel.getKonnector(trigger)
+  const konnectorAccount = triggersModel.getAccountId(trigger)
+  const konnector = konnectorsBySlug[konnectorSlug]
+
+  const errorTitle = getErrorLocaleBound(konnError, konnector, lang, 'title')
+
+  const errorDescription = getErrorLocaleBound(
+    konnError,
+    konnector,
+    lang,
+    'description'
+  )
+
+  const handleDismiss = () => {
+    muteTrigger(client, trigger, accountsById)
+  }
+
+  return (
+    <Infos
+      theme="danger"
+      key={trigger._id}
+      description={
+        <>
+          <InfosDismissButton onClick={handleDismiss} />
+          <Media>
+            <AppIcon
+              alt={t('app.logo.alt', { name: konnectorSlug })}
+              app={konnectorSlug}
+              className="u-w-2 u-h-2 u-w-1-half-s u-h-1-half-s u-mr-1"
+            />
+            <Bd>
+              <Typography variant="caption" color="error">
+                {konnector.name}
+              </Typography>
+              <Typography variant="h5" className="u-error">
+                {triggerErrors.length > 1
+                  ? `(${index + 1}/${triggerErrors.length}) `
+                  : null}
+                {errorTitle}
+              </Typography>
+            </Bd>
+          </Media>
+          <div>
+            <Typography
+              component="div"
+              variant="body1"
+              className="u-fz-small-m"
+            >
+              <ReactMarkdownWrapper source={errorDescription} />
+            </Typography>
+          </div>
+        </>
+      }
+      action={
+        <Button
+          theme="secondary"
+          label={t('fix_konnector_error')}
+          className="u-mh-0"
+          size={isMobile ? 'small' : 'normal'}
+          onClick={() =>
+            history.push(
+              `/connected/${konnectorSlug}/accounts/${konnectorAccount}`
+            )
+          }
+        />
+      }
+    />
+  )
+}
+
 export const KonnectorErrors = ({
-  t,
-  lang,
   triggersInError,
   accountsWithErrors,
   installedKonnectors,
-  history,
-  client,
-  breakpoints: { isMobile }
+  history
 }) => {
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
   const installedKonnectorsBySlug = keyBy(installedKonnectors, getKonnectorSlug)
@@ -69,89 +175,27 @@ export const KonnectorErrors = ({
   return nonMutedTriggerErrors.length > 0 ? (
     <div className="KonnectorErrors">
       <InfosCarrousel theme="danger">
-        {nonMutedTriggerErrors.map((trigger, index) => {
-          const errorType = triggerStatesModel.getLastErrorType(trigger)
-          const konnError = new KonnectorJobError(errorType)
-          const konnectorSlug = triggersModel.getKonnector(trigger)
-          const konnectorAccount = triggersModel.getAccountId(trigger)
-          const konnector = installedKonnectorsBySlug[konnectorSlug]
-
-          const errorTitle = getErrorLocaleBound(
-            konnError,
-            konnector,
-            lang,
-            'title'
-          )
-
-          const errorDescription = getErrorLocaleBound(
-            konnError,
-            konnector,
-            lang,
-            'description'
-          )
-
-          return (
-            <Infos
-              key={trigger._id}
-              description={
-                <>
-                  <div className="u-pomegranate u-flex u-flex-row u-flex-items-center">
-                    <AppIcon
-                      alt={t('app.logo.alt', { name: konnectorSlug })}
-                      app={konnectorSlug}
-                      className="u-w-2 u-h-2 u-w-1-half-s u-h-1-half-s u-mr-1"
-                    />
-                    <div>
-                      <span className="u-fz-tiny">{konnector.name}</span>
-                      <SubTitle className="u-pomegranate u-fz-medium u-fz-small-m">
-                        {nonMutedTriggerErrors.length > 1
-                          ? `(${index + 1}/${nonMutedTriggerErrors.length}) `
-                          : null}
-                        {errorTitle}
-                      </SubTitle>
-                    </div>
-                  </div>
-                  <Text className="u-fz-small-m">
-                    <ReactMarkdownWrapper source={errorDescription} />
-                  </Text>
-                </>
-              }
-              action={
-                <Button
-                  theme="secondary"
-                  label={t('fix_konnector_error')}
-                  className="u-mh-0"
-                  size={isMobile ? 'small' : 'normal'}
-                  onClick={() =>
-                    history.push(
-                      `/connected/${konnectorSlug}/accounts/${konnectorAccount}`
-                    )
-                  }
-                />
-              }
-              dismissAction={() =>
-                muteTrigger(client, trigger, accountsWithErrorsById)
-              }
-            />
-          )
-        })}
+        {nonMutedTriggerErrors.map((trigger, index) => (
+          <KonnectorError
+            key={trigger._id}
+            history={history}
+            trigger={trigger}
+            triggerErrors={nonMutedTriggerErrors}
+            konnectorsBySlug={installedKonnectorsBySlug}
+            accountsById={accountsWithErrorsById}
+            index={index}
+          />
+        ))}
       </InfosCarrousel>
     </div>
   ) : null
 }
 
 KonnectorErrors.propTypes = {
-  t: PropTypes.func.isRequired,
   triggersInError: PropTypes.array.isRequired,
   accountsWithErrors: PropTypes.array.isRequired,
-  installedKonnectors: PropTypes.oneOf([
-    PropTypes.array.isRequired,
-    PropTypes.bool.isRequired
-  ]),
-  history: PropTypes.object.isRequired,
-  client: PropTypes.object.isRequired,
-  breakpoints: PropTypes.shape({ isMobile: PropTypes.bool.isRequired })
-    .isRequired
+  installedKonnectors: PropTypes.arrayOf(PropTypes.object.isRequired),
+  history: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
@@ -164,8 +208,5 @@ const mapStateToProps = state => {
 
 export default flow(
   connect(mapStateToProps),
-  withRouter,
-  withClient,
-  translate(),
-  withBreakpoints()
+  withRouter
 )(KonnectorErrors)

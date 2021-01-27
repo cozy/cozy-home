@@ -1,7 +1,7 @@
 import React from 'react'
 import { queryConnect, Q, models, fetchPolicies } from 'cozy-client'
-import AppLinker from 'cozy-ui/react/AppLinker'
-import { useI18n } from 'cozy-ui/react/I18n'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import get from 'lodash/get'
 import CornerButton from './CornerButton'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { withClient } from 'cozy-client'
-import Icon from 'cozy-ui/react/Icon'
-import AppLinker, { generateWebLink } from 'cozy-ui/react/AppLinker'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const AddServiceTile = ({ label, client }) => {

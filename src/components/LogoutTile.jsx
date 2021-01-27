@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import Icon from 'cozy-ui/react/Icon'
-import { useI18n } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { useClient } from 'cozy-client'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 

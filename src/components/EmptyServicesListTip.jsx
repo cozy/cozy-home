@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Title, Text } from 'cozy-ui/react/Text'
+import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 
 export const EmptyServicesListTip = ({ t }) => (

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-import { Icon, Spinner } from 'cozy-ui/react'
+import { Icon, Spinner } from 'cozy-ui/transpiled/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import styles from 'ducks/connections/components/queue/styles.styl'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'

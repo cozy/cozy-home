@@ -374,6 +374,7 @@
   },
 
   "connector": {
+    "mute": "Mute error",
     "debug": {
       "successMessage": "This konnector is for debug purpose only, this is an additionnal custom success message."
     },

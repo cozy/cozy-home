@@ -1,9 +1,9 @@
 /* global cozy */
 
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
-import Button from 'cozy-ui/react/Button'
-import Infos from 'cozy-ui/react/Infos'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Infos from 'cozy-ui/transpiled/react/Infos'
 import PropTypes from 'prop-types'
 
 export class UpdateMessage extends Component {

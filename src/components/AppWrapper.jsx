@@ -6,7 +6,7 @@ import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
 import CozyClient, { CozyProvider } from 'cozy-client'
-import I18n from 'cozy-ui/react/I18n'
+import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 

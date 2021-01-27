@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Stack from 'cozy-ui/react/Stack'
-import Button from 'cozy-ui/react/Button'
-import Icon from 'cozy-ui/react/Icon'
-import { MainTitle } from 'cozy-ui/react/Text'
-import { translate } from 'cozy-ui/react/I18n'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import EmptyIcon from 'assets/icons/color/default.svg'
 
