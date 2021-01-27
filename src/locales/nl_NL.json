@@ -374,6 +374,7 @@
   },
 
   "connector": {
+    "mute": "Fout tijdens dempen",
     "debug": {
       "successMessage": "Deze connector wordt alleen gebruikt voor foutopsporing; dit is een extra bericht."
     },
