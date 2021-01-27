@@ -2,14 +2,14 @@
 
 exports[`UpdateMessage component Should be render correctly if blocking update 1`] = `
 <div
-  className="Infos Infos--danger u-maw-none"
+  className="styles__Infos___2ZZVs styles__Infos--danger___3wKYc u-maw-none"
 >
   <Stack
     spacing="m"
     tag="div"
   >
     <div
-      className="Infos-description"
+      className="styles__Infos-description___7P1NP"
     >
       <Stack
         spacing="xs"
@@ -50,14 +50,14 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
 
 exports[`UpdateMessage component Should be render correctly if not blocking update 1`] = `
 <div
-  className="Infos Infos--secondary u-maw-none"
+  className="styles__Infos___2ZZVs styles__Infos--secondary___1AW6F u-maw-none"
 >
   <Stack
     spacing="m"
     tag="div"
   >
     <div
-      className="Infos-description"
+      className="styles__Infos-description___7P1NP"
     >
       <Stack
         spacing="xs"
