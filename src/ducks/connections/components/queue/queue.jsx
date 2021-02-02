@@ -11,7 +11,7 @@ import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
 import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
-import CheckCirclelessIcon from 'cozy-ui/transpiled/react/Icons/CheckCircleless'
+import CheckIcon from 'cozy-ui/transpiled/react/Icons/Check'
 
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>
@@ -93,7 +93,7 @@ class Item extends Component {
         statusIcon = (
           <Icon
             className="u-ml-half"
-            icon={CheckCirclelessIcon}
+            icon={CheckIcon}
             color={palette['emerald']}
           />
         )

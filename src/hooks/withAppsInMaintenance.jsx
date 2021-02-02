@@ -10,7 +10,7 @@ const useAppsInMaintenance = client => {
         client
       })
       const newAppsInMaintenance = await registry.fetchAppsInMaintenance()
-      setAppsInMaintenance(newAppsInMaintenance)
+      setAppsInMaintenance(newAppsInMaintenance || [])
     }
     fetchData()
   }, [client])

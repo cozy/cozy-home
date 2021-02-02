@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import IconGrid from 'cozy-ui/transpiled/react/Labs/IconGrid'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
-const CandidateCategoryTile = ({ t, slugs, category }) => {
+const CandidateCategoryTile = ({ slugs, category }) => {
+  const { t } = useI18n()
   const client = useClient()
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
@@ -50,4 +51,4 @@ CandidateCategoryTile.propTypes = {
   category: PropTypes.string.isRequired
 }
 
-export default translate()(CandidateCategoryTile)
+export default CandidateCategoryTile

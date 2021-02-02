@@ -3,82 +3,102 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
+import { createMockClient } from 'cozy-client/dist/mock'
 import { Services } from './Services'
-import { tMock } from '../../test/jestLib/I18n'
+import AppLike from '../../test/AppLike'
+import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
+
+jest.mock('hooks/withAppsInMaintenance', () => jest.fn())
+jest.mock('components/KonnectorTile', () => ({ konnector }) => (
+  <div>{konnector.slug}</div>
+))
+jest.mock('hooks/useRegistryInformation', () => (client, slug) => slug)
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
   getCssVariableValue: () => '#fff'
 }))
 
 describe('Services component', () => {
+  const setup = ({ installedKonnectors, suggestedKonnectorsQuery } = {}) => {
+    const client = createMockClient({
+      clientOptions: {
+        uri: 'http://cozy.tools:8080'
+      }
+    })
+    useAppsInMaintenance.mockReturnValue([])
+    const root = render(
+      <AppLike client={client}>
+        <Services
+          installedKonnectors={installedKonnectors || []}
+          suggestedKonnectorsQuery={suggestedKonnectorsQuery || { data: [] }}
+        />
+      </AppLike>
+    )
+    return { root }
+  }
+
   it('should display a list of services', () => {
     const installedKonnectors = [
       { slug: 'test1' },
       { slug: 'test2' },
       { slug: 'test3' }
     ]
-    const component = shallow(
-      <Services
-        t={tMock}
-        installedKonnectors={installedKonnectors}
-        suggestedKonnectorsQuery={{ data: [] }}
-        client={{}}
-      />
-    )
-    expect(component.getElement()).toMatchSnapshot()
+    const { root } = setup({ installedKonnectors })
+    root.getByText('test1')
+    root.getByText('test2')
+    root.getByText('test3')
   })
 
   it('should display the empty component when there are no services', () => {
     const installedKonnectors = []
-    const component = shallow(
-      <Services
-        t={tMock}
-        installedKonnectors={installedKonnectors}
-        suggestedKonnectorsQuery={{ data: [{ slug: 'suggestion-1' }] }}
-        client={{}}
-      />
+    const { root } = setup({
+      installedKonnectors,
+      suggestedKonnectorsQuery: { data: [{ slug: 'suggestion-1' }] }
+    })
+    expect(root.queryByText('slug1')).toBe(null)
+    root.getByText('Start gathering your data!')
+    root.getByText(
+      'Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)'
     )
-    expect(component.getElement()).toMatchSnapshot()
-    const emptyServicesListTip = component
-      .children()
-      .last()
-      .dive()
-    expect(emptyServicesListTip.getElement()).toMatchSnapshot()
   })
 
-  it('should show default suggestions when there are no services and no suggestions', () => {
-    const component = shallow(
-      <Services
-        t={tMock}
-        installedKonnectors={[]}
-        suggestedKonnectorsQuery={{ data: null }}
-        client={{}}
-      />
+  it('should keep show empty component when no services have been installed', () => {
+    const { root } = setup({
+      installedKonnectors: [],
+      suggestedKonnectorsQuery: {
+        data: [
+          { slug: 'suggestion-1' },
+          { slug: 'suggestion-2' },
+          { slug: 'test-1' }
+        ]
+      }
+    })
+    expect(root.getByText('suggestion-1')).toBeTruthy()
+    root.getByText('Start gathering your data!')
+    root.getByText(
+      'Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)'
     )
-    expect(component.getElement()).toMatchSnapshot()
   })
 
-  it('should display suggestions after installed services', () => {
+  it('should display suggestions after services have been installed', () => {
     const installedKonnectors = [
       { slug: 'test-1' },
       { slug: 'test-2' },
       { slug: 'test-3' }
     ]
-    const component = shallow(
-      <Services
-        t={tMock}
-        installedKonnectors={installedKonnectors}
-        suggestedKonnectorsQuery={{
-          data: [
-            { slug: 'suggestion-1' },
-            { slug: 'suggestion-2' },
-            { slug: 'test-1' }
-          ]
-        }}
-        client={{}}
-      />
-    )
-    expect(component.getElement()).toMatchSnapshot()
+    const { root } = setup({
+      installedKonnectors,
+      suggestedKonnectorsQuery: {
+        data: [
+          { slug: 'suggestion-1' },
+          { slug: 'suggestion-2' },
+          { slug: 'test-1' }
+        ]
+      }
+    })
+    root.getByText('suggestion-1')
+    root.getByText('suggestion-2')
+    root.getByText('test-1')
   })
 })

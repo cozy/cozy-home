@@ -4,13 +4,15 @@ import React from 'react'
 
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'styles/konnectorSuccess.styl'
-
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
-const BanksLink = translate()(({ banksUrl, t }) =>
-  banksUrl ? (
+import { useI18n } from 'cozy-ui/transpiled/react'
+
+const BanksLink = ({ banksUrl }) => {
+  const { t } = useI18n()
+
+  return banksUrl ? (
     <AppLinker slug="banks" href={banksUrl}>
       {({ href, onClick, name }) => (
         <a
@@ -39,6 +41,6 @@ const BanksLink = translate()(({ banksUrl, t }) =>
       {t('account.success.banksLinkText')}
     </a>
   )
-)
+}
 
 export default BanksLink

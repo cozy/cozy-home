@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
-const CandidateServiceTile = ({ t, konnector }) => {
+const CandidateServiceTile = ({ konnector }) => {
+  const { t } = useI18n()
   const client = useClient()
   const { slug } = konnector
   const registryData = useRegistryInformation(client, slug)
@@ -43,10 +44,9 @@ const CandidateServiceTile = ({ t, konnector }) => {
 }
 
 CandidateServiceTile.propTypes = {
-  t: PropTypes.func.isRequired,
   konnector: PropTypes.shape({
     slug: PropTypes.string.isRequired
   }).isRequired
 }
 
-export default translate()(CandidateServiceTile)
+export default CandidateServiceTile
