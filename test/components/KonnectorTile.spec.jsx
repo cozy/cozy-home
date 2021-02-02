@@ -3,10 +3,30 @@
 /* eslint-env jest */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 
-import { tMock } from '../jestLib/I18n'
 import { KonnectorTile } from 'components/KonnectorTile'
+import AppLike from '../AppLike'
+
+jest.mock(
+  'cozy-ui/transpiled/react/Icons/WrenchCircle',
+  () =>
+    function WrenchCircleIcon() {
+      return <span>WrenchCircleIcon</span>
+    }
+)
+jest.mock(
+  'cozy-ui/transpiled/react/Icons/WarningCircle',
+  () =>
+    function WarningCircleIcon() {
+      return <span>WarningCircleIcon</span>
+    }
+)
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  NavLink: ({ children }) => children
+}))
 
 const mockKonnector = {
   name: 'Mock',
@@ -20,7 +40,6 @@ const getMockProps = (
   konnector = mockKonnector,
   isInMaintenance = false
 ) => ({
-  t: tMock,
   accountsCount: 2,
   error,
   isInMaintenance,
@@ -28,6 +47,14 @@ const getMockProps = (
   konnector,
   route: `/${konnector.slug}`
 })
+
+const setup = mockProps => {
+  return render(
+    <AppLike>
+      <KonnectorTile {...mockProps} />
+    </AppLike>
+  )
+}
 
 describe('KonnectorTile component', () => {
   beforeEach(() => {
@@ -41,8 +68,8 @@ describe('KonnectorTile component', () => {
 
   it('should render correctly if success', () => {
     const mockProps = getMockProps()
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct status if update', () => {
@@ -52,8 +79,8 @@ describe('KonnectorTile component', () => {
       Object.assign({}, mockKonnector, { available_version: '5.0.0' })
     )
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct status if update even if user error', () => {
@@ -63,8 +90,8 @@ describe('KonnectorTile component', () => {
       Object.assign({}, mockKonnector, { available_version: '5.0.0' })
     )
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct status if update even if other error', () => {
@@ -74,8 +101,8 @@ describe('KonnectorTile component', () => {
       Object.assign({}, mockKonnector, { available_version: '5.0.0' })
     )
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct status if update even if in maintenance', () => {
@@ -86,36 +113,39 @@ describe('KonnectorTile component', () => {
       true
     )
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct status if in maintenance but no update', () => {
     const mockProps = getMockProps(null, null, mockKonnector, true)
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
+    expect(root.getByText('WrenchCircleIcon')).toBeTruthy()
   })
 
   it('should display correct error status if user error but no update and not in maintenance', () => {
     const mockProps = getMockProps(null, new Error('Expected test user error'))
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('WarningCircleIcon')).toBeTruthy()
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct error status if other error but no update and not in maintenance', () => {
     const mockProps = getMockProps(new Error('LOGIN_FAILED'))
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('WarningCircleIcon')).toBeTruthy()
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 
   it('should display correct error status if no accounts and no errors', () => {
     const mockProps = getMockProps()
     mockProps.accountsCount = 0
 
-    const component = shallow(<KonnectorTile {...mockProps} />).getElement()
-    expect(component).toMatchSnapshot()
+    const root = setup(mockProps)
+    expect(root.getByText('Mock')).toBeTruthy()
   })
 })
