@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { connect } from 'react-redux'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import { queryConnect } from 'cozy-client'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import keyBy from 'lodash/keyBy'
@@ -22,9 +22,9 @@ import candidatesConfig from 'config/candidates'
 export const Services = ({
   t,
   installedKonnectors,
-  suggestedKonnectorsQuery,
-  client
+  suggestedKonnectorsQuery
 }) => {
+  const client = useClient()
   const appsInMaintenance = useAppsInMaintenance(client)
   const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
 
@@ -93,8 +93,7 @@ Services.propTypes = {
   ).isRequired,
   suggestedKonnectorsQuery: PropTypes.shape({
     data: PropTypes.array
-  }).isRequired,
-  client: PropTypes.object.isRequired
+  }).isRequired
 }
 
 const query = client =>
@@ -115,6 +114,5 @@ const mapStateToProps = state => {
 export default flow(
   connect(mapStateToProps),
   translate(),
-  queryConnect({ suggestedKonnectorsQuery: { query } }),
-  withClient
+  queryConnect({ suggestedKonnectorsQuery: { query } })
 )(Services)

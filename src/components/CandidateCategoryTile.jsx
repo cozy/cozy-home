@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import IconGrid from 'cozy-ui/transpiled/react/Labs/IconGrid'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
-const CandidateCategoryTile = ({ t, slugs, category, client }) => {
+const CandidateCategoryTile = ({ t, slugs, category }) => {
+  const client = useClient()
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover?type=konnector&category=${category}`
@@ -46,8 +47,7 @@ const CandidateCategoryTile = ({ t, slugs, category, client }) => {
 
 CandidateCategoryTile.propTypes = {
   slugs: PropTypes.arrayOf(PropTypes.string).isRequired,
-  category: PropTypes.string.isRequired,
-  client: PropTypes.object.isRequired
+  category: PropTypes.string.isRequired
 }
 
-export default translate()(withClient(CandidateCategoryTile))
+export default translate()(CandidateCategoryTile)

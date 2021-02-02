@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import get from 'lodash/get'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
@@ -31,7 +30,8 @@ const cornerButtons = [
 const flagWithFallbackValue = (flagName, fallback) =>
   flag(flagName) === null ? fallback : flag(flagName)
 
-export const HeroHeader = ({ client }) => {
+export const HeroHeader = () => {
+  const client = useClient()
   const {
     fetchStatus,
     data: { wallpaperLink }
@@ -71,8 +71,4 @@ export const HeroHeader = ({ client }) => {
   )
 }
 
-HeroHeader.propTypes = {
-  client: PropTypes.object.isRequired
-}
-
-export default withClient(HeroHeader)
+export default HeroHeader

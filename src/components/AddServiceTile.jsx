@@ -1,12 +1,13 @@
 import React from 'react'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 
-const AddServiceTile = ({ label, client }) => {
+const AddServiceTile = ({ label }) => {
+  const client = useClient()
   const nativePath = '/discover/?type=konnector'
   const slug = 'store'
   const cozyURL = new URL(client.getStackClient().uri)
@@ -39,4 +40,4 @@ const AddServiceTile = ({ label, client }) => {
   )
 }
 
-export default withClient(AddServiceTile)
+export default AddServiceTile
