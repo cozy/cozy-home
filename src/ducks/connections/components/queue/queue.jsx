@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-import { Icon, Spinner } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 
