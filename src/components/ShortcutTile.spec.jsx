@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 import ShortcutTile from './ShortcutTile'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useFetchShortcut } from 'cozy-client'
+import DeviceBrowserIcon from 'cozy-ui/transpiled/react/Icons/DeviceBrowser'
 
 jest.mock('cozy-client', () => {
   return {
@@ -25,7 +26,7 @@ describe('ShortcutTile', () => {
     expect(comp.find('h3').text()).toEqual('cozy.io')
     expect(comp.find('a').prop('href')).toEqual('http://cozy.io')
     expect(comp.find('a').prop('target')).toEqual('_blank')
-    expect(comp.find(Icon).prop('icon')).toEqual('device-browser')
+    expect(comp.find(Icon).prop('icon')).toEqual(DeviceBrowserIcon)
   })
 
   it('should render a custom icon', () => {

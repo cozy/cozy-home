@@ -9,6 +9,10 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/connections/components/queue/styles.styl'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
+import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
+import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
+import CheckCirclelessIcon from 'cozy-ui/transpiled/react/Icons/CheckCircleless'
+
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>
     {props.t('Queue.item.pending')}
@@ -68,20 +72,28 @@ class Item extends Component {
         break
       case 'canceled':
         statusIcon = (
-          <Icon className="u-ml-half" icon="cross" color={palette['monza']} />
+          <Icon
+            className="u-ml-half"
+            icon={CrossIcon}
+            color={palette['monza']}
+          />
         )
         break
       case 'error':
       case 'conflict':
         statusIcon = (
-          <Icon className="u-ml-half" icon="warning" color={palette['monza']} />
+          <Icon
+            className="u-ml-half"
+            icon={WarningIcon}
+            color={palette['monza']}
+          />
         )
         break
       case 'done':
         statusIcon = (
           <Icon
             className="u-ml-half"
-            icon="check-circleless"
+            icon={CheckCirclelessIcon}
             color={palette['emerald']}
           />
         )
