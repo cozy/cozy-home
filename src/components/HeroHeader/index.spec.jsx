@@ -1,37 +1,70 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import { HeroHeader } from './index'
-import LogoutButton from './LogoutButton'
-import SettingsButton from './SettingsButton'
-import HelpButton from './HelpButton'
+import { createMockClient } from 'cozy-client/dist/mock'
 import flag from 'cozy-flags'
+import AppLike from '../../../test/AppLike'
+import useCustomWallpaper from 'hooks/useCustomWallpaper'
+import useInstanceSettings from 'hooks/useInstanceSettings'
 
+jest.mock(
+  './SettingsButton',
+  () =>
+    function SettingsButton() {
+      return <div>Settings</div>
+    }
+)
+jest.mock('hooks/useCustomWallpaper', () => jest.fn())
+jest.mock('hooks/useInstanceSettings', () => jest.fn())
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
 
+useCustomWallpaper.mockReturnValue({
+  fetchStatus: 'loaded',
+  data: { wallpaperLink: 'http://wallpaper.png' }
+})
+
+useInstanceSettings.mockReturnValue({
+  fetchStatus: 'loaded',
+  data: {}
+})
+
 describe('HeroHeader', () => {
-  const mockClient = {
-    getStackClient: () => ({
+  const mockClient = createMockClient({
+    clientOptions: {
       uri: 'http://cozy.example.com'
-    }),
-    getInstanceOptions: jest
-      .fn()
-      .mockReturnValue({ cozyDefaultWallpaper: 'default-wallpaper.jpg' })
-  }
+    }
+  })
+
+  mockClient.getInstanceOptions = jest
+    .fn()
+    .mockReturnValue({ cozyDefaultWallpaper: 'default-wallpaper.jpg' })
 
   it('should render the default background', () => {
-    const component = shallow(<HeroHeader client={mockClient} />)
-    expect(component.prop('style').backgroundImage).toEqual(
-      'url(default-wallpaper.jpg)'
+    useCustomWallpaper.mockReturnValue({
+      fetchStatus: 'loaded',
+      data: { wallpaperLink: null }
+    })
+    const root = render(
+      <AppLike client={mockClient}>
+        <HeroHeader />
+      </AppLike>
     )
+    const header = root.getByRole('image')
+    expect(header.style.backgroundImage).toEqual('url(default-wallpaper.jpg)')
   })
 
   it('should only render the log out button', () => {
-    const component = shallow(<HeroHeader client={mockClient} />)
-    expect(component.find(LogoutButton).length).toBe(1)
-    expect(component.find(SettingsButton).length).toBe(0)
-    expect(component.find(HelpButton).length).toBe(1)
+    const root = render(
+      <AppLike client={mockClient}>
+        <HeroHeader />
+      </AppLike>
+    )
+
+    expect(root.getByText('Log out')).toBeTruthy()
+    expect(root.getByText('Help')).toBeTruthy()
+    expect(root.queryByText('Settings')).toBeFalsy()
   })
 
   it('should render buttons based on flags', () => {
@@ -41,9 +74,13 @@ describe('HeroHeader', () => {
       else if (flagName === 'home.corner.help-is-displayed') return false
       else return null
     })
-    const component = shallow(<HeroHeader client={mockClient} />)
-    expect(component.find(LogoutButton).length).toBe(0)
-    expect(component.find(SettingsButton).length).toBe(1)
-    expect(component.find(HelpButton).length).toBe(0)
+    const root = render(
+      <AppLike client={mockClient}>
+        <HeroHeader />
+      </AppLike>
+    )
+    expect(root.queryByText('Log out')).toBeFalsy()
+    expect(root.getByText('Settings')).toBeTruthy()
+    expect(root.queryByText('Help')).toBeFalsy()
   })
 })

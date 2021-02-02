@@ -49,6 +49,7 @@ export const HeroHeader = () => {
 
   return (
     <header
+      role="image"
       className="hero-header"
       style={{ backgroundImage: `url(${backgroundURL})` }}
     >
