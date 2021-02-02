@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 import { useI18n } from 'cozy-ui/transpiled/react'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 export const EmptyServicesListTip = () => {
   const { t } = useI18n()
@@ -14,10 +14,10 @@ export const EmptyServicesListTip = () => {
         <img src={ArrowIllustration} />
       </Img>
       <Bd className="EmptyServicesListTip-text">
-        <Title>{t('connector.empty.title')}</Title>
-        <Text tag="p" className="u-mv-half">
+        <Typography variant="h4">{t('connector.empty.title')}</Typography>
+        <Typography tag="p" className="u-mv-half" variant="body1">
           {t('connector.empty.text')}
-        </Text>
+        </Typography>
       </Bd>
     </Media>
   )
