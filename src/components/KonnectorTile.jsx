@@ -1,23 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import flag from 'cozy-flags'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import flag from 'cozy-flags'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-
+import WrenchCircleIcon from 'cozy-ui/transpiled/react/Icons/WrenchCircle'
+import WarningCircleIcon from 'cozy-ui/transpiled/react/Icons/WarningCircle'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+
+import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+
 import {
   getFirstError,
   getFirstUserError,
   getLastSyncDate
 } from 'ducks/connections'
 import { getKonnectorTriggersCount } from 'reducers'
-import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const getKonnectorError = ({ error, lang, konnector }) => {
   if (!error || !error.message) {
@@ -57,63 +60,60 @@ const statusThemes = {
   },
   [STATUS.MAINTENANCE]: {
     className: 'item--maintenance',
-    icon: 'wrench-circle',
+    icon: WrenchCircleIcon,
     color: palette.coolGrey
   },
   [STATUS.ERROR]: {
     className: null,
-    icon: 'warning-circle',
+    icon: WarningCircleIcon,
     color: palette.pomegranate
   }
 }
 
-export class KonnectorTile extends Component {
-  render() {
-    const {
-      accountsCount,
-      error,
-      isInMaintenance,
-      userError,
-      konnector,
-      route,
-      t,
-      lang
-    } = this.props
+export const KonnectorTile = props => {
+  const { t, lang } = useI18n()
+  const {
+    accountsCount,
+    error,
+    isInMaintenance,
+    userError,
+    konnector,
+    route
+  } = props
 
-    const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
+  const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
-    const status = hideKonnectorErrors
-      ? STATUS.OK
-      : getKonnectorStatus({
-          konnector,
-          isInMaintenance,
-          error,
-          userError,
-          accountsCount
-        })
-    const { className: statusClassName, icon, color } = get(
-      statusThemes,
-      status,
-      {}
-    )
+  const status = hideKonnectorErrors
+    ? STATUS.OK
+    : getKonnectorStatus({
+        konnector,
+        isInMaintenance,
+        error,
+        userError,
+        accountsCount
+      })
+  const { className: statusClassName, icon, color } = get(
+    statusThemes,
+    status,
+    {}
+  )
 
-    return (
-      <NavLink
-        className={classNames('item', statusClassName)}
-        to={route}
-        title={getKonnectorError({ error, lang, konnector })}
-      >
-        <div className="item-icon">
-          <AppIcon
-            alt={t('app.logo.alt', { name: konnector.name })}
-            app={konnector}
-          />
-          {icon && <Icon icon={icon} className="item-status" color={color} />}
-        </div>
-        <h3 className="item-title">{konnector.name}</h3>
-      </NavLink>
-    )
-  }
+  return (
+    <NavLink
+      className={classNames('item', statusClassName)}
+      to={route}
+      title={getKonnectorError({ error, lang, konnector })}
+    >
+      <div className="item-icon">
+        <AppIcon
+          alt={t('app.logo.alt', { name: konnector.name })}
+          app={konnector}
+        />
+        {icon && <Icon icon={icon} className="item-status" color={color} />}
+      </div>
+      <h3 className="item-title">{konnector.name}</h3>
+    </NavLink>
+  )
 }
 
 KonnectorTile.propTypes = {
@@ -122,8 +122,7 @@ KonnectorTile.propTypes = {
   isInMaintenance: PropTypes.bool.isRequired,
   userError: PropTypes.object,
   konnector: PropTypes.object,
-  route: PropTypes.string.isRequired,
-  t: PropTypes.func.isRequired
+  route: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, props) => {
@@ -137,4 +136,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default translate()(connect(mapStateToProps)(withRouter(KonnectorTile)))
+export default connect(mapStateToProps)(withRouter(KonnectorTile))

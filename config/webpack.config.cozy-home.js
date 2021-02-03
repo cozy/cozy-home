@@ -19,8 +19,7 @@ module.exports = {
   resolve: {
     modules: [SRC_DIR, 'node_modules'],
     alias: {
-      config: path.resolve(SRC_DIR, './config'),
-      'cozy-ui/react': 'cozy-ui/transpiled/react'
+      config: path.resolve(SRC_DIR, './config')
     }
   },
   plugins: [

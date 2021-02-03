@@ -1,12 +1,8 @@
-'use strict'
-
-/* eslint-env jest */
-
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, fireEvent } from '@testing-library/react'
 
-import { tMock } from '../jestLib/I18n'
 import { Failure } from '../../src/components/Failure'
+import AppLike from '../AppLike'
 
 describe('Failure component', () => {
   beforeEach(() => {
@@ -14,17 +10,27 @@ describe('Failure component', () => {
   })
 
   it('should be displayed with initial text if errorType is initial', () => {
-    const component = shallow(
-      <Failure t={tMock} errorType="initial" />
-    ).getElement()
-    expect(component).toMatchSnapshot()
+    const root = render(
+      <AppLike>
+        <Failure errorType="initial" />
+      </AppLike>
+    )
+    expect(
+      root.getByText(
+        'Something went wrong when fetching your connectors and informations. Please refresh the page.'
+      )
+    ).toBeTruthy()
   })
 
   it('should correctly call the reload function on button click', () => {
     window.location.reload = jest.fn()
-    const component = shallow(<Failure t={tMock} errorType="initial" />)
-    component.find('DefaultButton').simulate('click')
+    const root = render(
+      <AppLike>
+        <Failure errorType="initial" />
+      </AppLike>
+    )
+    const btn = root.getByText('Refresh now')
+    fireEvent.click(btn)
     expect(window.location.reload.mock.calls.length).toBe(1)
-    expect(component.getElement()).toMatchSnapshot()
   })
 })

@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-import { Icon, Spinner } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import styles from 'ducks/connections/components/queue/styles.styl'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+
+import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
+import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
+import CheckIcon from 'cozy-ui/transpiled/react/Icons/Check'
 
 const Pending = translate()(props => (
   <span className={styles['item-pending']}>
@@ -67,20 +72,28 @@ class Item extends Component {
         break
       case 'canceled':
         statusIcon = (
-          <Icon className="u-ml-half" icon="cross" color={palette['monza']} />
+          <Icon
+            className="u-ml-half"
+            icon={CrossIcon}
+            color={palette['monza']}
+          />
         )
         break
       case 'error':
       case 'conflict':
         statusIcon = (
-          <Icon className="u-ml-half" icon="warning" color={palette['monza']} />
+          <Icon
+            className="u-ml-half"
+            icon={WarningIcon}
+            color={palette['monza']}
+          />
         )
         break
       case 'done':
         statusIcon = (
           <Icon
             className="u-ml-half"
-            icon="check-circleless"
+            icon={CheckIcon}
             color={palette['emerald']}
           />
         )

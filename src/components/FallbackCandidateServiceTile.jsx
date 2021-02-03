@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
-const FallbackCandidateServiceTile = ({ t, slug, client }) => {
+const FallbackCandidateServiceTile = ({ slug }) => {
+  const { t } = useI18n()
+  const client = useClient()
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover/${slug}`
@@ -41,8 +43,7 @@ const FallbackCandidateServiceTile = ({ t, slug, client }) => {
 }
 
 FallbackCandidateServiceTile.propTypes = {
-  slug: PropTypes.string.isRequired,
-  client: PropTypes.object.isRequired
+  slug: PropTypes.string.isRequired
 }
 
-export default translate()(withClient(FallbackCandidateServiceTile))
+export default FallbackCandidateServiceTile

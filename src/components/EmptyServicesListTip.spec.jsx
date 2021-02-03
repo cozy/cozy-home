@@ -1,11 +1,20 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import { EmptyServicesListTip } from './EmptyServicesListTip'
-import { tMock } from '../../test/jestLib/I18n'
+import AppLike from '../../test/AppLike'
 
 describe('EmptyServicesListTip', () => {
-  it('should math the snapshot', () => {
-    const component = shallow(<EmptyServicesListTip t={tMock} />)
-    expect(component.getElement()).toMatchSnapshot()
+  it('should match the snapshot', () => {
+    const root = render(
+      <AppLike>
+        <EmptyServicesListTip />
+      </AppLike>
+    )
+    expect(root.getByText('Start gathering your data!')).toBeTruthy()
+    expect(
+      root.getByText(
+        'Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)'
+      )
+    ).toBeTruthy()
   })
 })

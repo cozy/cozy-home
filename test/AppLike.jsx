@@ -8,7 +8,8 @@ import I18n from 'cozy-ui/transpiled/react/I18n'
 import enLocale from '../src/locales/en.json'
 
 const fakeDefaultReduxState = {
-  apps: [{ slug: 'drive', links: { related: '' } }]
+  apps: [{ slug: 'drive', links: { related: '' } }],
+  konnectors: {}
 }
 const reduxStore = createStore(() => fakeDefaultReduxState)
 

@@ -1,22 +1,26 @@
 import React from 'react'
 
-import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
-export const EmptyServicesListTip = ({ t }) => (
-  <Media align="top" className="EmptyServicesListTip">
-    <Img>
-      <img src={ArrowIllustration} />
-    </Img>
-    <Bd className="EmptyServicesListTip-text">
-      <Title>{t('connector.empty.title')}</Title>
-      <Text tag="p" className="u-mv-half">
-        {t('connector.empty.text')}
-      </Text>
-    </Bd>
-  </Media>
-)
+export const EmptyServicesListTip = () => {
+  const { t } = useI18n()
 
-export default translate()(EmptyServicesListTip)
+  return (
+    <Media align="top" className="EmptyServicesListTip">
+      <Img>
+        <img src={ArrowIllustration} />
+      </Img>
+      <Bd className="EmptyServicesListTip-text">
+        <Typography variant="h4">{t('connector.empty.title')}</Typography>
+        <Typography tag="p" className="u-mv-half" variant="body1">
+          {t('connector.empty.text')}
+        </Typography>
+      </Bd>
+    </Media>
+  )
+}
+
+export default EmptyServicesListTip

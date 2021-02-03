@@ -1,8 +1,11 @@
 import React from 'react'
 import { queryConnect, Q, models, fetchPolicies } from 'cozy-client'
+import get from 'lodash/get'
+
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import get from 'lodash/get'
+import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
+
 import CornerButton from './CornerButton'
 
 const { applications } = models
@@ -21,15 +24,16 @@ const SettingsButton = ({ settingsAppQuery: { data } }) => {
           label={displayName}
           href={href}
           onClick={onClick}
-          icon="gear"
+          icon={GearIcon}
         />
       )}
     </AppLinker>
   ) : null
 }
 
-const query = () => Q('io.cozy.apps').where({ slug: 'settings' })
+const query = () => Q('io.cozy.apps').getById('io.cozy.apps/settings')
 const olderThan30s = fetchPolicies.olderThan(30 * 1000)
+
 export default queryConnect({
   settingsAppQuery: { query, fetchPolicy: olderThan30s, as: 'settingsAppQuery' }
 })(SettingsButton)
