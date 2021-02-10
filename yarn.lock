@@ -3667,10 +3667,10 @@ cozy-bar@7.7.6:
     redux-persist "5.10.0"
     redux-thunk "2.3.0"
 
-cozy-bi-auth@0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.16.tgz#82ac022b3a7a76aa9cce28cc2827e79a4c35a671"
-  integrity sha512-XC9hkmND7YA/qFLy8KTTqZMhRFNWsuU5ys2st3ZuvB+EXqAferMamWlfgPl6ogIDpt8zr4ldqf9U3dX2S79GKg==
+cozy-bi-auth@0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.17.tgz#dea325731c67b12b73e9e9c60febfa3c8e16b934"
+  integrity sha512-8wKKDgz6Mm8IWn6IAf5QNYInnRPWQa6SEizX54JnqaboBeo8j4WlK5jQ6+4jYEJ2+8FpJwVzjFp2uFJJhgMHdw==
   dependencies:
     cozy-logger "^1.3.0"
     lodash "^4.17.20"
@@ -3734,7 +3734,7 @@ cozy-doctypes@1.72.2:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.76.0:
+cozy-doctypes@^1.77.0:
   version "1.77.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.77.0.tgz#7e8be3df0cdd7ddc932703c9868e4fa0489c1cad"
   integrity sha512-E34P75Ahk8NXqnjxR6yzhyAAAJ+Rj+PEbhIHtZdThdHU+ae6hmAO50ZN2aCrycEMSkUSzT7vR46F1ROLZdeVNQ==
@@ -3752,16 +3752,16 @@ cozy-flags@2.3.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-3.8.0.tgz#4bafc89b2e5e9c09919956f48ee10abc228c78c9"
-  integrity sha512-WM3yNHqs4Eb0ZUUYKfwG7Y2YrNfuaWsiTFS4g2R674M7P1JmrgWijho3YN7iaCN/Ssiy6YrZcf1XOksKqU5Nsg==
+cozy-harvest-lib@3.15.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-3.15.0.tgz#2e3be1163e9c4b76d926d524dad0d416f929a7fa"
+  integrity sha512-9xCVlPg+KKala8Yr75GR21RGJKpJfBzn6nRW2xUnXv3V1K5S2u0lHEPzw+20IOWcFhPGcUpYRsydx5BzHT68xg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@material-ui/core" "3"
     "@sentry/browser" "^6.0.1"
-    cozy-bi-auth "0.0.16"
-    cozy-doctypes "^1.76.0"
+    cozy-bi-auth "0.0.17"
+    cozy-doctypes "^1.77.0"
     cozy-logger "^1.6.0"
     date-fns "^1.30.1"
     final-form "^4.18.5"
