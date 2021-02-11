@@ -49,7 +49,6 @@ const InfosDismissButton = ({ onClick }) => {
   return (
     <IconButton
       aria-label={t('connector.mute')}
-      size="small"
       onClick={onClick}
       style={dismissButtonStyle}
     >
@@ -60,8 +59,8 @@ const InfosDismissButton = ({ onClick }) => {
 
 const dismissButtonStyle = {
   position: 'absolute',
-  top: 0,
-  right: 0
+  top: '0.5rem',
+  right: '0.5rem'
 }
 
 const KonnectorError = ({
