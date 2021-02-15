@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStore } from 'redux'
-import CozyClient, { CozyProvider } from 'cozy-client'
+import { CozyProvider } from 'cozy-client'
+import { createMockClient } from 'cozy-client/dist/mock'
 import { Provider as ReduxProvider } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -13,7 +14,7 @@ const fakeDefaultReduxState = {
 }
 const reduxStore = createStore(() => fakeDefaultReduxState)
 
-const defaultClient = new CozyClient({})
+const defaultClient = createMockClient({})
 
 class AppLike extends React.Component {
   constructor(props, context) {
