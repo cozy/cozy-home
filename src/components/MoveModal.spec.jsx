@@ -43,6 +43,7 @@ describe('MoveModal', () => {
       'DELETE',
       '/settings/instance/moved_from'
     )
-    expect(root.queryByRole('document').style.opacity).toBe('0')
+    const dialogPaper = root.queryByRole('none')
+    expect(dialogPaper.style.opacity).toBe('0')
   })
 })
