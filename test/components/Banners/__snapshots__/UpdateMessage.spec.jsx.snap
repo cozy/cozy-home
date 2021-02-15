@@ -16,21 +16,21 @@ exports[`UpdateMessage component Should be render correctly if blocking update 1
         tag="div"
       >
         <React.Fragment>
-          <WithStyles(Typography)
+          <ForwardRef(WithStyles)
             className="u-error"
             variant="h5"
           >
             An update is available for this service.
-          </WithStyles(Typography)>
+          </ForwardRef(WithStyles)>
           <div
             className="u-flex u-w-100"
           >
-            <WithStyles(Typography)
+            <ForwardRef(WithStyles)
               className="u-pl-half"
               variant="body1"
             >
               Update it to keep fetching your data
-            </WithStyles(Typography)>
+            </ForwardRef(WithStyles)>
           </div>
         </React.Fragment>
       </Stack>
@@ -64,21 +64,21 @@ exports[`UpdateMessage component Should be render correctly if not blocking upda
         tag="div"
       >
         <React.Fragment>
-          <WithStyles(Typography)
+          <ForwardRef(WithStyles)
             className=""
             variant="h5"
           >
             An update is available for this service.
-          </WithStyles(Typography)>
+          </ForwardRef(WithStyles)>
           <div
             className="u-flex u-w-100"
           >
-            <WithStyles(Typography)
+            <ForwardRef(WithStyles)
               className="u-pl-half"
               variant="body1"
             >
               Perform this update to keep fetching your data and to have the latest features
-            </WithStyles(Typography)>
+            </ForwardRef(WithStyles)>
           </div>
         </React.Fragment>
       </Stack>
