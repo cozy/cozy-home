@@ -1,29 +1,38 @@
 'use strict'
 
-/* eslint-env jest */
-
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 
-import { tMock } from '../../jestLib/I18n'
-import { UpdateMessage } from 'components/Banners/UpdateMessage'
+import AppLike from '../../../test/AppLike'
+
+import UpdateMessage from 'components/Banners/UpdateMessage'
 
 describe('UpdateMessage component', () => {
-  it(`Should be render correctly if not blocking update`, () => {
-    const component = shallow(<UpdateMessage konnector={{}} t={tMock} />)
-      .shallow()
-      .dive()
-      .getElement()
-    expect(component).toMatchSnapshot()
+  it(`should be render correctly if not blocking update`, () => {
+    const root = render(
+      <AppLike>
+        <UpdateMessage konnector={{}} />
+      </AppLike>
+    )
+    expect(
+      root.getByText('An update is available for this service.')
+    ).toBeTruthy()
+    expect(
+      root.getByText(
+        'Perform this update to keep fetching your data and to have the latest features'
+      )
+    ).toBeTruthy()
   })
 
-  it(`Should be render correctly if blocking update`, () => {
-    const component = shallow(
-      <UpdateMessage konnector={{}} t={tMock} isBlocking />
+  it(`should be render correctly if blocking update`, () => {
+    const root = render(
+      <AppLike>
+        <UpdateMessage konnector={{}} isBlocking />
+      </AppLike>
     )
-      .shallow()
-      .dive()
-      .getElement()
-    expect(component).toMatchSnapshot()
+    expect(
+      root.getByText('An update is available for this service.')
+    ).toBeTruthy()
+    expect(root.getByText('Update it to keep fetching your data'))
   })
 })

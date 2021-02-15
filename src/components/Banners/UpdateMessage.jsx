@@ -1,23 +1,20 @@
 /* global cozy */
 
-import React, { Component } from 'react'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import React, { useState, useCallback } from 'react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Infos from 'cozy-ui/transpiled/react/Infos'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import PropTypes from 'prop-types'
 
-export class UpdateMessage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isRedirecting: false
-    }
-    this.redirectToStore = this.redirectToStore.bind(this)
-  }
+const UpdateMessage = props => {
+  const [isRedirecting, setIsRedirecting] = useState(false)
+  const { t } = useI18n()
+  const { isBlocking, konnector } = props
 
-  async redirectToStore() {
-    this.setState({ isRedirecting: true })
-    const { konnector } = this.props
+  const handleRedirectToStore = useCallback(async () => {
+    setIsRedirecting(true)
+
     try {
       await cozy.client.intents.redirect('io.cozy.apps', {
         slug: konnector.slug,
@@ -26,38 +23,43 @@ export class UpdateMessage extends Component {
     } catch (error) {
       /* eslint-disable-next-line no-console */
       console.error(error)
-      this.setState({ isRedirecting: false })
+      setIsRedirecting(false)
     }
-  }
+  }, [konnector])
 
-  render() {
-    const { t, isBlocking } = this.props
-    const { isRedirecting } = this.state
-
-    return (
-      <Infos
-        actionButton={
-          <Button
-            label={t('update.CTA')}
-            theme="danger"
-            className="u-m-0"
-            onClick={this.redirectToStore}
-            disabled={isRedirecting}
-          />
-        }
-        className="u-maw-none"
-        text={isBlocking ? t('update.blocking') : t('update.regular')}
-        isImportant={isBlocking}
-        title={t('update.title')}
-      />
-    )
-  }
+  return (
+    <Infos
+      theme={isBlocking ? 'danger' : 'secondary'}
+      description={
+        <>
+          <Typography
+            variant="h5"
+            gutterBottom
+            className={isBlocking ? 'u-error' : ''}
+          >
+            {t('update.title')}
+          </Typography>
+          <Typography variant="body1">
+            {isBlocking ? t('update.blocking') : t('update.regular')}
+          </Typography>
+        </>
+      }
+      action={
+        <Button
+          label={t('update.CTA')}
+          theme="danger"
+          className="u-m-0"
+          onClick={handleRedirectToStore}
+          disabled={isRedirecting}
+        />
+      }
+    />
+  )
 }
 
 UpdateMessage.propTypes = {
   konnector: PropTypes.object.isRequired,
-  isBlocking: PropTypes.bool,
-  t: PropTypes.func.isRequired
+  isBlocking: PropTypes.bool
 }
 
-export default translate()(UpdateMessage)
+export default UpdateMessage
