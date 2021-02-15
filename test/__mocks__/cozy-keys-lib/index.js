@@ -13,9 +13,6 @@ const VaultUnlocker = ({ children, onUnlock }) => {
 
 VaultUnlocker.displayName = 'withI18n(withLocales(withClient(VaultUnlocker)))'
 
-// eslint-disable-next-line no-console
-console.log('Using cozy-keys-lib from __mocks__')
-
 const withVaultClient = Component => Component
 const withVaultUnlockContext = Component => Component
 
