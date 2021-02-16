@@ -127,7 +127,6 @@
       "driveLinkText": "Ouvrir le dossier dans Cozy Drive",
       "button": "Fermer"
     },
-
     "message": {
       "folder": {
         "title": "Dossier",
@@ -344,8 +343,8 @@
     }
   },
   "move_modal": {
-    "title": "Déménagement terminé",
-    "text": "Le déménagement de vos données depuis %{from} s'est déroulé avec succès.",
+    "title": "Déplacement terminé",
+    "text": "Le déplacement de vos données depuis %{from} est terminé avec succès.",
     "button": "Accéder à mon Cozy"
   },
   "tutorial": {
@@ -381,7 +380,7 @@
   },
 
   "connector": {
-    "mute": "Cacher l'erreur",
+    "mute": "Erreur silencieuse",
     "debug": {
       "successMessage": "Ce konnecteur est utilisé uniquement pour déboguer l'application, ceci est un message de succès additionnel."
     },
