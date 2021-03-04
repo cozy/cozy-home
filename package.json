@@ -35,7 +35,7 @@
   "dependencies": {
     "@material-ui/core": "4",
     "@testing-library/react": "^11.2.2",
-    "cozy-client": "14.4.0",
+    "cozy-client": "18.1.2",
     "cozy-device-helper": "1.10.0",
     "cozy-doctypes": "1.72.2",
     "cozy-flags": "2.3.2",
