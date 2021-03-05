@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
@@ -9,21 +9,17 @@ import doctypeToDataCard from 'cozy-harvest-lib/dist/datacards/doctypeToDataCard
 import { getKonnector } from 'ducks/konnectors'
 
 import { getTriggersByKonnector } from 'reducers'
-import { withClient } from 'cozy-client'
 
-class Konnector extends Component {
-  render() {
-    const { konnector, history, triggers } = this.props
-    const konnectorWithtriggers = { ...konnector, triggers: { data: triggers } }
-    return (
-      <HarvestRoutes
-        konnectorRoot={`/connected/${konnector.slug}`}
-        konnector={konnectorWithtriggers}
-        onDismiss={() => history.push('/connected')}
-        doctypeToDataCard={doctypeToDataCard}
-      />
-    )
-  }
+const Konnector = ({ konnector, history, triggers }) => {
+  const konnectorWithtriggers = { ...konnector, triggers: { data: triggers } }
+  return (
+    <HarvestRoutes
+      konnectorRoot={`/connected/${konnector.slug}`}
+      konnector={konnectorWithtriggers}
+      onDismiss={() => history.push('/connected')}
+      doctypeToDataCard={doctypeToDataCard}
+    />
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -36,6 +32,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default flow(
   connect(mapStateToProps),
-  withClient,
   withRouter
 )(Konnector)
