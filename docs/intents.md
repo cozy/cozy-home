@@ -12,10 +12,10 @@ See [cozy stack intent](https://github.com/cozy/cozy-stack/blob/master/docs/inte
 
 ## Glossary
 
-- **Intent**: Intents, sometimes also called Activities, is a pattern used in environments where multiple apps with different purposes coexist. The idea is that any app can express the need to do *something* that it can't do itself, and an app that *can* do it will take over from there.
-- **Stack**: refers to [cozy-stack](https://github.com/cozy/cozy-stack/), the server-side part of the Cozy infrastructure.
-- **Client**: the client is the application that *starts* an intent.
-- **Service**: the service is the application that *handles* an intent started by a client.
+* **Intent**: Intents, sometimes also called Activities, is a pattern used in environments where multiple apps with different purposes coexist. The idea is that any app can express the need to do _something_ that it can't do itself, and an app that _can_ do it will take over from there.
+* **Stack**: refers to [cozy-stack](https://github.com/cozy/cozy-stack/), the server-side part of the Cozy infrastructure.
+* **Client**: the client is the application that _starts_ an intent.
+* **Service**: the service is the application that _handles_ an intent started by a client.
 
 ## Intents availables
 
@@ -36,6 +36,7 @@ This is defined in the [`manifest.webapp`](https://github.com/cozy/cozy-home/blo
     "href": "/services"
 }]
 ```
+
 (See [cozy stack intent manifest](https://github.com/cozy/cozy-stack/blob/master/docs/intents.md#1-manifest) section for more informations)
 
 #### Intent
@@ -44,9 +45,9 @@ The intent is started by [IntentService.jsx](https://github.com/cozy/cozy-home/b
 
 To filter the konnectors you want to show, you have to pass parameters to the `intent.create` function in the client.
 
-+ `action`: defined in the manifest
-+ `docType`: the type of data you want to access in your intent
-+ `data`: an object who can take `slug` or `dataType` key to filter the Konnectors showed by the intent.
+* `action`: defined in the manifest
+* `docType`: the type of data you want to access in your intent
+* `data`: an object who can take `slug` or `dataType` key to filter the Konnectors showed by the intent.
 
 See [datatypes.json](https://github.com/cozy/cozy-home/blob/master/src/config/datatypes.json) for all available dataTypes
 

@@ -5,9 +5,11 @@ The main configuration file is [/src/config.collect.json](../src/config/collect.
 Configuration parameters are:
 
 ## defaultDateFormat
+
 If Cozy Home cannot retrieve date format from locales, it will use the format specified for this parameter.
 
 ## defaultTriggerTimeInterval
+
 When no time interval is given in a konnector's manifest, Cozy Home will use the one specified for this parameter.
 
 When an account is associated to a trigger, the trigger will need a time to run, for example 3:00PM.
