@@ -19,7 +19,7 @@
 
 This service deals with soft delete and restore from
 bitwarden routes, used for a trash feature.
-See https://docs.cozy.io/en/cozy-stack/bitwarden/#put-bitwardenapiciphersiddelete
+See <https://docs.cozy.io/en/cozy-stack/bitwarden/#put-bitwardenapiciphersiddelete>
 
 When a cipher is soft deleted, a deletedDate field is added to the
 cipher. Then, the service removes the encrypted credentials from the
