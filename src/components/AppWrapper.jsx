@@ -14,6 +14,7 @@ import { CozyProvider as LegacyCozyProvider } from 'lib/redux-cozy-client'
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
 import { CozyClient as LegacyCozyClient } from 'lib/redux-cozy-client'
+import { RealtimePlugin } from 'cozy-realtime'
 
 import schema from '../schema'
 
@@ -40,6 +41,7 @@ export const setupAppContext = memoize(() => {
   })
 
   cozyClient.registerPlugin(flag.plugin)
+  cozyClient.registerPlugin(RealtimePlugin)
 
   const legacyClient = new LegacyCozyClient({
     cozyURL: `//${data.cozyDomain}`,
