@@ -8,7 +8,7 @@ import flatten from 'lodash/flatten'
 
 import { withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
-import minilog from 'minilog'
+import minilog from '@cozy/minilog'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
