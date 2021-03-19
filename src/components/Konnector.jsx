@@ -11,11 +11,11 @@ import { getKonnector } from 'ducks/konnectors'
 import { getTriggersByKonnector } from 'reducers'
 
 const Konnector = ({ konnector, history, triggers }) => {
-  const konnectorWithtriggers = { ...konnector, triggers: { data: triggers } }
+  const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
   return (
     <HarvestRoutes
       konnectorRoot={`/connected/${konnector.slug}`}
-      konnector={konnectorWithtriggers}
+      konnector={konnectorWithTriggers}
       onDismiss={() => history.push('/connected')}
       doctypeToDataCard={doctypeToDataCard}
     />
