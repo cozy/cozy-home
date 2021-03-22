@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
 
 import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
-import doctypeToDataCard from 'cozy-harvest-lib/dist/datacards/doctypeToDataCard'
+import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 
 import { getKonnector } from 'ducks/konnectors'
 
@@ -17,7 +17,7 @@ const Konnector = ({ konnector, history, triggers }) => {
       konnectorRoot={`/connected/${konnector.slug}`}
       konnector={konnectorWithTriggers}
       onDismiss={() => history.push('/connected')}
-      doctypeToDataCard={doctypeToDataCard}
+      datacardOptions={datacardOptions}
     />
   )
 }

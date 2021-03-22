@@ -414,7 +414,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-syntax-object-rest-spread@^7.0.0", "@babel/plugin-syntax-object-rest-spread@^7.2.0", "@babel/plugin-syntax-object-rest-spread@^7.8.0":
+"@babel/plugin-syntax-object-rest-spread@^7.0.0", "@babel/plugin-syntax-object-rest-spread@^7.2.0":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-object-rest-spread/-/plugin-syntax-object-rest-spread-7.8.3.tgz#60e225edcbd98a640332a2e72dd3e66f1af55871"
   integrity sha512-XoqMijGZb9y3y2XskN+P1wUGiVwWZ5JmoDRwx5+3GmEplNyVM2s2Dg8ILFQm8rWM48orGy5YpI5Bl8U1y7ydlA==
@@ -3377,15 +3377,15 @@ cozy-doctypes@1.72.2:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.79.0:
-  version "1.79.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.79.0.tgz#b7176f79ebb917fa37bcf1ced847f0aeefc02c5f"
-  integrity sha512-//pxegY6SwK0ndhzannFxP6ivIHtaMeJAUxweIZ8Id2YQDuTcDvijmJ2lKhjUkXedjco+Yeu21exZDnxiILTYQ==
+cozy-doctypes@^1.80.0:
+  version "1.80.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.80.0.tgz#7404052ebf1fa93bcadd260a33f9be63fbf21cbe"
+  integrity sha512-JunkigMB3u2fF5DDnHFmTcs5O8HNq1Z3jN9sCAd+6iiQcjqB0wFGN7s6NiQYwt7jSgJhb09TbSNTrr5DCc6VxA==
   dependencies:
     cozy-logger "^1.7.0"
-    date-fns "1.30.1"
-    es6-promise-pool "2.5.0"
-    lodash "4.17.19"
+    date-fns "^1.30.1"
+    es6-promise-pool "^2.5.0"
+    lodash "^4.17.19"
     prop-types "^15.7.2"
 
 cozy-flags@2.3.2:
@@ -3402,15 +3402,15 @@ cozy-flags@^2.5.4:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@4.14.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-4.14.0.tgz#58df394eea0ccba1ee9bf358a71fe0fb481b6929"
-  integrity sha512-Xw8iFDU6l9uwmB8O4bV7uo9bpIYWtCHTBfe3BpoUhcdljYLD+jWBiZoe6pxrXicNKTwwF0NlfWH+OrfEOUg1Jw==
+cozy-harvest-lib@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-5.0.0.tgz#67ac0d04e356e5eb711fe9d64efae23e75c515e2"
+  integrity sha512-LgLpct0XaGy0l3FR5kw7enL/4qnJz36iDj+9rw/B2CM2cYzWlLQPL8+4C1Cm68O2J/QO7kFPydqNBLQeNCpvAA==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
     cozy-bi-auth "0.0.19"
-    cozy-doctypes "^1.79.0"
+    cozy-doctypes "^1.80.0"
     cozy-logger "^1.7.0"
     cozy-ui "^45.3.0"
     date-fns "^1.30.1"
@@ -4605,7 +4605,7 @@ es6-object-assign@^1.1.0:
   resolved "https://registry.yarnpkg.com/es6-object-assign/-/es6-object-assign-1.1.0.tgz#c2c3582656247c39ea107cb1e6652b6f9f24523c"
   integrity sha1-wsNYJlYkfDnqEHyx5mUrb58kUjw=
 
-es6-promise-pool@2.5.0:
+es6-promise-pool@2.5.0, es6-promise-pool@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/es6-promise-pool/-/es6-promise-pool-2.5.0.tgz#147c612b36b47f105027f9d2bf54a598a99d9ccb"
   integrity sha1-FHxhKza0fxBQJ/nSv1SlmKmdnMs=
