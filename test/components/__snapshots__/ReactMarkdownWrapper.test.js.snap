@@ -12,26 +12,38 @@ exports[`ReactMarkdown options should correctly return an anchor HTML element 1`
 
 exports[`ReactMarkdownWrapper component should be displayed correctly if source provided 1`] = `
 <ReactMarkdown
-  containerTagName="div"
+  astPlugins={Array []}
+  escapeHtml={true}
   parserOptions={Object {}}
+  plugins={Array []}
+  rawSourcePos={false}
   renderers={
     Object {
       "Link": [Function],
     }
   }
+  skipHtml={false}
   source="**test** using \`markdown\`"
+  sourcePos={false}
+  transformLinkUri={[Function]}
 />
 `;
 
 exports[`ReactMarkdownWrapper component should be displayed correctly if source with link 1`] = `
 <ReactMarkdown
-  containerTagName="div"
+  astPlugins={Array []}
+  escapeHtml={true}
   parserOptions={Object {}}
+  plugins={Array []}
+  rawSourcePos={false}
   renderers={
     Object {
       "Link": [Function],
     }
   }
+  skipHtml={false}
   source="**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)"
+  sourcePos={false}
+  transformLinkUri={[Function]}
 />
 `;
