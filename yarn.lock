@@ -12923,12 +12923,7 @@ url-parse@^1.4.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-url-search-params-polyfill@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-5.1.0.tgz#f0405dcc2e921bf7f5fdf8c4e616f1e8088ef31b"
-  integrity sha512-yjFY7uw2xRf9e8Mg4ZVkZwtp8dMCC4cbBkEIZiTDpuSY2WJ9+Quw0wRhxncv32qaMQwmBQT+P847rO8PrFhhDA==
-
-url-search-params-polyfill@^7.0.0:
+url-search-params-polyfill@7.0.1, url-search-params-polyfill@^7.0.0:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-7.0.1.tgz#b900cd9a0d9d2ff757d500135256f2344879cbff"
   integrity sha512-bAw7L2E+jn9XHG5P9zrPnHdO0yJub4U+yXJOdpcpkr7OBd9T8oll4lUos0iSGRcDvfZoLUKfx9a6aNmIhJ4+mQ==
