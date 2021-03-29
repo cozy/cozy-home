@@ -39,7 +39,7 @@
     "@testing-library/react": "^11.2.2",
     "cozy-client": "21.0.1",
     "cozy-device-helper": "1.10.0",
-    "cozy-doctypes": "1.72.2",
+    "cozy-doctypes": "1.81.0",
     "cozy-flags": "2.3.2",
     "cozy-harvest-lib": "5.3.1",
     "cozy-keys-lib": "3.8.0",
