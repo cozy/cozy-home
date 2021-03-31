@@ -6,6 +6,7 @@ import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
 import CozyClient, { CozyProvider } from 'cozy-client'
+import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -79,6 +80,9 @@ const AppWrapper = ({ children }) => {
               <ReduxProvider store={store}>
                 <I18n lang={lang} dictRequire={dictRequire} context={context}>
                   {children}
+                  {process.env.NODE_ENV !== 'production' ? (
+                    <CozyDevtools />
+                  ) : null}
                 </I18n>
               </ReduxProvider>
             </LegacyCozyProvider>
