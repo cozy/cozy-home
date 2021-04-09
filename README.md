@@ -20,8 +20,8 @@ An application to configure and runs cozy konnectors. It is the main entrypoint 
 
 You can read more:
 
-* [Develop][./docs/develop.md]
-* [Services][./docs/services.md]
+* [Develop](./docs/develop.md)
+* [Services](./docs/services.md)
 
 Cozy Home is developed by Cozy Cloud and distributed under the [AGPL v3 license][agpl-3.0].
 
