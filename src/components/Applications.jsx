@@ -14,22 +14,24 @@ import useHomeShortcuts from 'hooks/useHomeShortcuts'
 import { appsConn } from 'queries'
 
 const LoadingAppTiles = memo(({ num }) => {
-  const tiles = []
-  for (let i = 0; i < num; i++) {
-    tiles.push(
-      <div className="item-wrapper" key={i}>
-        <header className="item-header">
-          <div className="item-icon">
-            <LoadingPlaceholder />
+  return (
+    <>
+      {Array(num)
+        .fill(null)
+        .map((e, i) => (
+          <div className="item-wrapper" key={i}>
+            <header className="item-header">
+              <div className="item-icon">
+                <LoadingPlaceholder />
+              </div>
+            </header>
+            <h3 className="item-title">
+              <LoadingPlaceholder />
+            </h3>
           </div>
-        </header>
-        <h3 className="item-title">
-          <LoadingPlaceholder />
-        </h3>
-      </div>
-    )
-  }
-  return <>{tiles}</>
+        ))}
+    </>
+  )
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
