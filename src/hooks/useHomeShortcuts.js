@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Q, useClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import get from 'lodash/get'
+import { mkHomeMagicFolderConn, mkHomeShorcutsConn } from 'queries'
 
 const useHomeShortcuts = () => {
   const client = useClient()
@@ -10,14 +11,18 @@ const useHomeShortcuts = () => {
 
   useEffect(() => {
     const load = async () => {
+      const homeMagicFolderConn = mkHomeMagicFolderConn(t)
       const folder = await client.query(
-        Q('io.cozy.files').where({ path: t('home_config_magic_folder') })
+        homeMagicFolderConn.query,
+        homeMagicFolderConn
       )
       const folderId = get(folder, 'data[0]._id')
 
       if (folderId) {
+        const homeShortcutsConn = mkHomeShorcutsConn(folderId)
         const { data } = await client.query(
-          Q('io.cozy.files').where({ dir_id: folderId, class: 'shortcut' })
+          homeShortcutsConn.query,
+          homeShortcutsConn
         )
         setFiles(data)
       }
