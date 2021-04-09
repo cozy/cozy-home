@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { Query, Q } from 'cozy-client'
+import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 
 import AppTile from 'components/AppTile'
@@ -11,6 +11,7 @@ import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import homeConfig from 'config/home.json'
 import { receiveApps } from 'ducks/apps'
 import useHomeShortcuts from 'hooks/useHomeShortcuts'
+import { appsConn } from 'queries'
 
 const LoadingAppTiles = memo(({ num }) => {
   const tiles = []
@@ -35,27 +36,28 @@ LoadingAppTiles.displayName = LoadingAppTiles
 export const Applications = memo(({ receiveApps }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const shortcuts = useHomeShortcuts()
+  const { data, fetchStatus, lastUpdate } = useQuery(appsConn.query, appsConn)
+
+  // TODO remove this
+  useEffect(() => {
+    if (fetchStatus === 'loaded') {
+      receiveApps(data)
+    }
+  }, [data, fetchStatus, lastUpdate, receiveApps])
   return (
     <div className="app-list">
-      <Query query={() => Q('io.cozy.apps')}>
-        {({ data, fetchStatus }) => {
-          if (fetchStatus === 'loaded') {
-            receiveApps(data)
-          }
-          return fetchStatus !== 'loaded' ? (
-            <LoadingAppTiles num="3" />
-          ) : (
-            data
-              .filter(
-                app =>
-                  app.state !== 'hidden' &&
-                  !homeConfig.filteredApps.includes(app.slug) &&
-                  !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
-              )
-              .map((app, index) => <AppTile key={index} app={app} />)
+      {fetchStatus !== 'loaded' ? (
+        <LoadingAppTiles num="3" />
+      ) : (
+        data
+          .filter(
+            app =>
+              app.state !== 'hidden' &&
+              !homeConfig.filteredApps.includes(app.slug) &&
+              !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
           )
-        }}
-      </Query>
+          .map((app, index) => <AppTile key={index} app={app} />)
+      )}
       {shortcuts.map((shortcut, index) => (
         <ShortcutTile key={index} file={shortcut} />
       ))}
