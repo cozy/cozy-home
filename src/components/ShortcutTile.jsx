@@ -1,10 +1,11 @@
 import React from 'react'
-import { useClient, useFetchShortcut } from 'cozy-client'
 import get from 'lodash/get'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+
+import { useClient, useFetchShortcut } from 'cozy-client'
 import { CozyFile } from 'cozy-doctypes'
 
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import DeviceBrowserIcon from 'cozy-ui/transpiled/react/Icons/DeviceBrowser'
 
 const ShortcutTile = ({ file }) => {
