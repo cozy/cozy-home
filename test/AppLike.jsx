@@ -15,6 +15,7 @@ const fakeDefaultReduxState = {
 const reduxStore = createStore(() => fakeDefaultReduxState)
 
 const defaultClient = createMockClient({})
+defaultClient.ensureStore()
 
 class AppLike extends React.Component {
   constructor(props, context) {
@@ -31,7 +32,7 @@ class AppLike extends React.Component {
     return (
       <BreakpointsProvider>
         <CozyProvider client={this.props.client || defaultClient}>
-          <ReduxProvider store={this.props.store}>
+          <ReduxProvider store={this.props.store || defaultClient.store}>
             <I18n dictRequire={() => enLocale} lang="en">
               {this.props.children}
             </I18n>
