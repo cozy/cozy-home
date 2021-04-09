@@ -40,7 +40,7 @@ export const Applications = memo(({ receiveApps }) => {
   const shortcuts = useHomeShortcuts()
   const { data, fetchStatus, lastUpdate } = useQuery(appsConn.query, appsConn)
 
-  // TODO remove this
+  // TODO Find a workaround so that we do not have to do receiveApps here
   useEffect(() => {
     if (fetchStatus === 'loaded') {
       receiveApps(data)
