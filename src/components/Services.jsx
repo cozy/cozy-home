@@ -17,6 +17,7 @@ import EmptyServicesListTip from 'components/EmptyServicesListTip'
 import { getInstalledKonnectors } from 'reducers/index'
 import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
 import candidatesConfig from 'config/candidates'
+import { suggestedKonnectorsConn } from 'queries'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
 
@@ -93,13 +94,6 @@ Services.propTypes = {
   }).isRequired
 }
 
-const query = client =>
-  client
-    .find('io.cozy.apps.suggestions')
-    .where({ silenced: false })
-    .sortBy([{ silenced: 'asc' }, { slug: 'asc' }])
-    .indexFields(['silenced', 'slug'])
-
 const mapStateToProps = state => {
   return {
     installedKonnectors: sortBy(getInstalledKonnectors(state), konnector =>
@@ -110,5 +104,5 @@ const mapStateToProps = state => {
 
 export default flow(
   connect(mapStateToProps),
-  queryConnect({ suggestedKonnectorsQuery: { query } })
+  queryConnect({ suggestedKonnectorsQuery: suggestedKonnectorsConn })
 )(Services)

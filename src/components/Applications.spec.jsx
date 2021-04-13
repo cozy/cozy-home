@@ -1,9 +1,9 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { Applications } from './Applications'
-import LogoutTile from './LogoutTile'
+import { render, act } from '@testing-library/react'
 import flag from 'cozy-flags'
-import ShortcutTile from './ShortcutTile'
+
+import AppLike from '../../test/AppLike'
+import { Applications } from './Applications'
 import useHomeShortcuts from '../hooks/useHomeShortcuts'
 
 jest.mock('cozy-flags', () => {
@@ -12,10 +12,19 @@ jest.mock('cozy-flags', () => {
 
 jest.mock('hooks/useHomeShortcuts', () => jest.fn().mockReturnValue([]))
 
+const setup = () => {
+  const root = render(
+    <AppLike>
+      <Applications />
+    </AppLike>
+  )
+  return { root }
+}
+
 describe('Applications', () => {
   it('has no log out button', () => {
-    const comp = shallow(<Applications />)
-    expect(comp.find(LogoutTile).length).toBe(0)
+    const { root } = setup()
+    expect(root.queryByText('Log out')).toBeFalsy()
   })
 
   it('has a log out button when the right flag is active', () => {
@@ -23,14 +32,22 @@ describe('Applications', () => {
       if (flagName === 'home.mainlist.show-logout') return true
       else return null
     })
-    const comp = shallow(<Applications />)
-    expect(comp.find(LogoutTile).length).toBe(1)
+    const { root } = setup()
+    expect(root.getByText('Log out')).toBeTruthy()
   })
 
-  it('displays retrieved shortcuts', () => {
-    const shortcuts = [{ id: '1' }, { id: '2' }]
+  it('displays retrieved shortcuts', async () => {
+    const shortcuts = [
+      { id: '1', name: 'toto.txt' },
+      { id: '2', name: 'tata.txt' }
+    ]
     useHomeShortcuts.mockImplementation(() => shortcuts)
-    const comp = shallow(<Applications />)
-    expect(comp.find(ShortcutTile).length).toBe(shortcuts.length)
+    const { root } = setup()
+
+    // This is necessary since there are asynchronous effects in the
+    // shortcut tile
+    await act(async () => {})
+    expect(root.getByText('toto.txt')).toBeTruthy()
+    expect(root.getByText('tata.txt')).toBeTruthy()
   })
 })
