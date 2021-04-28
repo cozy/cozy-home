@@ -1,6 +1,6 @@
 {
   "name": "cozy-home",
-  "version": "1.39.0",
+  "version": "1.38.1",
   "main": "src/index.jsx",
   "scripts": {
     "tx": "tx pull --all || true",
