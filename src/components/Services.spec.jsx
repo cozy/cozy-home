@@ -4,13 +4,16 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
+import { useAppsInMaintenance } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { Services } from './Services'
 import AppLike from '../../test/AppLike'
-import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
-jest.mock('hooks/withAppsInMaintenance', () => jest.fn())
+jest.mock('cozy-client', () => ({
+  ...jest.requireActual('cozy-client'),
+  useAppsInMaintenance: jest.fn()
+}))
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
   <div>{konnector.slug}</div>
 ))
