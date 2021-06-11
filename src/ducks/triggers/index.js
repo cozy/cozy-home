@@ -7,7 +7,7 @@ const triggersCollectionKey = 'triggers'
 // CRUD action creators
 
 export const fetchTriggers = () =>
-  cozyClientFetchTriggers(triggersCollectionKey, 'konnector')
+  cozyClientFetchTriggers(triggersCollectionKey, ['client', 'konnector'])
 
 // selectors
 export const getKonnectorTriggers = (
@@ -19,7 +19,7 @@ export const getKonnectorTriggers = (
     (!!state.documents[DOCTYPE] &&
       Object.values(state.documents[DOCTYPE]).filter(trigger => {
         return (
-          trigger.worker === 'konnector' &&
+          (trigger.worker === 'konnector' || trigger.worker === 'client') &&
           trigger.message &&
           trigger.message.konnector === konnector.slug &&
           trigger.message.account &&

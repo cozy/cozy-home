@@ -106,7 +106,8 @@ export default class HomeStore {
     const normalizedJob = normalize(job, JOBS_DOCTYPE)
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    const isKonnectorJob = normalizedJob.worker === 'konnector'
+    const isKonnectorJob =
+      normalizedJob.worker === 'konnector' || normalizedJob.worker === 'client'
     const isDeletedAccountHookJob = !!normalizedJob.account_deleted
     const isKonnectorJobWithoutTrigger = !normalizedJob.trigger_id
     if (

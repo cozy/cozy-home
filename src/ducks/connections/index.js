@@ -27,11 +27,12 @@ export const END_CONNECTION_CREATION = 'END_CONNECTION_CREATION'
 const getTriggerKonnectorSlug = trigger =>
   (trigger && trigger.message && trigger.message.konnector) || null
 
-const isKonnectorTrigger = doc =>
+export const isKonnectorTrigger = doc =>
   doc._type === TRIGGERS_DOCTYPE && !!doc.message && !!doc.message.konnector
 
 const isKonnectorJob = doc =>
-  doc._type === JOBS_DOCTYPE && doc.worker === 'konnector'
+  doc._type === JOBS_DOCTYPE &&
+  (doc.worker === 'konnector' || doc.worker === 'client')
 
 // reducers
 const reducer = (state = {}, action) => {
@@ -81,7 +82,7 @@ const reducer = (state = {}, action) => {
         const account = isTrigger && !!doc.message && doc.message.account
 
         const currentStatus =
-          (isTrigger && (doc.current_state && doc.current_state.status)) ||
+          (isTrigger && doc.current_state && doc.current_state.status) ||
           (isJob && doc.state)
 
         const error =
