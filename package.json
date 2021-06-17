@@ -37,7 +37,7 @@
     "@material-ui/core": "4",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/react": "^11.2.2",
-    "cozy-client": "22.1.0",
+    "cozy-client": "23.12.0",
     "cozy-device-helper": "1.12.0",
     "cozy-doctypes": "1.81.0",
     "cozy-flags": "2.6.0",
