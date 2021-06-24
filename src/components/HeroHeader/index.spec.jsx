@@ -37,9 +37,7 @@ describe('HeroHeader', () => {
     }
   })
 
-  mockClient.getInstanceOptions = jest
-    .fn()
-    .mockReturnValue({ cozyDefaultWallpaper: 'default-wallpaper.jpg' })
+  document.body.innerHTML = `<div role="application" data-cozy-default-wallpaper="default-wallpaper.jpg" />`
 
   it('should render the default background', () => {
     useCustomWallpaper.mockReturnValue({
