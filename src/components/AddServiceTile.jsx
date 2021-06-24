@@ -11,7 +11,7 @@ const AddServiceTile = ({ label }) => {
   const nativePath = '/discover/?type=konnector'
   const slug = 'store'
   const cozyURL = new URL(client.getStackClient().uri)
-  const { cozySubdomainType: subDomainType } = client.getInstanceOptions()
+  const { subdomain: subDomainType } = client.getInstanceOptions()
 
   return (
     <AppLinker

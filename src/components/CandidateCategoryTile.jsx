@@ -12,7 +12,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover?type=konnector&category=${category}`
-  const { cozySubdomainType: subDomainType } = client.getInstanceOptions()
+  const { subdomain: subDomainType } = client.getInstanceOptions()
 
   return (
     <AppLinker
