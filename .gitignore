@@ -27,7 +27,7 @@ desktop.ini
 mobile/hooks
 mobile/platforms
 mobile/plugins
-mobile/www
+src/targets/mobile/www
 mobile/keys
 
 
