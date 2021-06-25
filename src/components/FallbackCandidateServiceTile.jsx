@@ -13,7 +13,7 @@ const FallbackCandidateServiceTile = ({ slug }) => {
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
   const nativePath = `/discover/${slug}`
-  const { cozySubdomainType: subDomainType } = client.getInstanceOptions()
+  const { subdomain: subDomainType } = client.getInstanceOptions()
   const registryData = useRegistryInformation(client, slug)
   const name = registryData
     ? get(registryData, 'latest_version.manifest.name', slug)

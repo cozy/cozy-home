@@ -38,7 +38,13 @@ export const HeroHeader = () => {
   } = useCustomWallpaper(client)
   const rootURL = client.getStackClient().uri
   const { host } = new URL(rootURL)
-  const { cozyDefaultWallpaper } = client.getInstanceOptions()
+  // TODO: getInstanceOptions returns only data-cozy dataset if data-cozy="{{.CozyData}}" is set
+  // we need something else to get data not in CozyData
+  // should be a client method or getInstanceOptions fix
+  // see https://github.com/cozy/cozy-client/issues/977
+  const { cozyDefaultWallpaper } = document.querySelector(
+    '[role=application]'
+  ).dataset
 
   let backgroundURL = null
   if (fetchStatus !== 'loading')
