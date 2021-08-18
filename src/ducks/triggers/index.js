@@ -19,7 +19,7 @@ export const getKonnectorTriggers = (
     (!!state.documents[DOCTYPE] &&
       Object.values(state.documents[DOCTYPE]).filter(trigger => {
         return (
-          (trigger.worker === 'konnector' || trigger.worker === 'client') &&
+          isKonnectorTrigger(trigger) &&
           trigger.message &&
           trigger.message.konnector === konnector.slug &&
           trigger.message.account &&
@@ -28,6 +28,10 @@ export const getKonnectorTriggers = (
       })) ||
     []
   )
+}
+
+const isKonnectorTrigger = trigger => {
+  return trigger.worker === 'konnector' || trigger.worker === 'client'
 }
 
 export const getTrigger = (state, id) =>
