@@ -30,7 +30,7 @@ const getTriggerKonnectorSlug = trigger =>
 export const isKonnectorTrigger = doc =>
   doc._type === TRIGGERS_DOCTYPE && !!doc.message && !!doc.message.konnector
 
-const isKonnectorJob = doc =>
+export const isKonnectorJob = doc =>
   doc._type === JOBS_DOCTYPE &&
   (doc.worker === 'konnector' || doc.worker === 'client')
 
