@@ -2,7 +2,6 @@ import React from 'react'
 import { useClient } from 'cozy-client'
 import get from 'lodash/get'
 import useInstanceSettings from 'hooks/useInstanceSettings'
-import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import flag from 'cozy-flags'
 
 import LogoutButton from './LogoutButton'
@@ -32,33 +31,14 @@ const flagWithFallbackValue = (flagName, fallback) =>
 
 export const HeroHeader = () => {
   const client = useClient()
-  const {
-    fetchStatus,
-    data: { wallpaperLink }
-  } = useCustomWallpaper(client)
   const rootURL = client.getStackClient().uri
   const { host } = new URL(rootURL)
-  // TODO: getInstanceOptions returns only data-cozy dataset if data-cozy="{{.CozyData}}" is set
-  // we need something else to get data not in CozyData
-  // should be a client method or getInstanceOptions fix
-  // see https://github.com/cozy/cozy-client/issues/977
-  const { cozyDefaultWallpaper } = document.querySelector(
-    '[role=application]'
-  ).dataset
-
-  let backgroundURL = null
-  if (fetchStatus !== 'loading')
-    backgroundURL = wallpaperLink || cozyDefaultWallpaper
 
   const { data: instanceSettings } = useInstanceSettings(client)
   const publicName = get(instanceSettings, 'public_name', '')
 
   return (
-    <header
-      role="image"
-      className="hero-header"
-      style={{ backgroundImage: `url(${backgroundURL})` }}
-    >
+    <header className="hero-header">
       <div className="corner">
         {cornerButtons.map(({ flagName, isDisplayedByDefault, Button }) =>
           flagWithFallbackValue(

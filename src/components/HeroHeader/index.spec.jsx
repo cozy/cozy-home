@@ -4,7 +4,6 @@ import { HeroHeader } from './index'
 import { createMockClient } from 'cozy-client/dist/mock'
 import flag from 'cozy-flags'
 import AppLike from '../../../test/AppLike'
-import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 
 jest.mock(
@@ -14,15 +13,9 @@ jest.mock(
       return <div>Settings</div>
     }
 )
-jest.mock('hooks/useCustomWallpaper', () => jest.fn())
 jest.mock('hooks/useInstanceSettings', () => jest.fn())
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
-})
-
-useCustomWallpaper.mockReturnValue({
-  fetchStatus: 'loaded',
-  data: { wallpaperLink: 'http://wallpaper.png' }
 })
 
 useInstanceSettings.mockReturnValue({
@@ -35,22 +28,6 @@ describe('HeroHeader', () => {
     clientOptions: {
       uri: 'http://cozy.example.com'
     }
-  })
-
-  document.body.innerHTML = `<div role="application" data-cozy-default-wallpaper="default-wallpaper.jpg" />`
-
-  it('should render the default background', () => {
-    useCustomWallpaper.mockReturnValue({
-      fetchStatus: 'loaded',
-      data: { wallpaperLink: null }
-    })
-    const root = render(
-      <AppLike client={mockClient}>
-        <HeroHeader />
-      </AppLike>
-    )
-    const header = root.getByRole('image')
-    expect(header.style.backgroundImage).toEqual('url(default-wallpaper.jpg)')
   })
 
   it('should only render the log out button', () => {

@@ -24,6 +24,7 @@ import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
 import ConnectionsQueue from 'ducks/connections/components/queue/index'
 import DemoTimeline from 'assets/images/timeline.png'
+import withCustomWallpaper from 'hoc/withCustomWallpaper'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -82,10 +83,23 @@ class App extends Component {
   }
 
   render() {
-    const { accounts, konnectors, triggers } = this.props
+    const {
+      client,
+      accounts,
+      konnectors,
+      triggers,
+      wallpaperFetchStatus,
+      wallpaperLink
+    } = this.props
     const isFetching = [accounts, konnectors, triggers].find(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
+
+    const { cozyDefaultWallpaper } = client.getInstanceOptions()
+    let backgroundURL = null
+    if (wallpaperFetchStatus !== 'loading') {
+      backgroundURL = wallpaperLink || cozyDefaultWallpaper
+    }
 
     const hasError = [accounts, konnectors, triggers].find(
       collection => collection.fetchStatus === 'failed'
@@ -98,7 +112,7 @@ class App extends Component {
     const showTimeline = flag('home.timeline.show') // used in demo envs
 
     return (
-      <div className="App">
+      <div className="App" style={{ backgroundImage: `url(${backgroundURL})` }}>
         <div
           className="App-MainCol"
           ref={
@@ -158,4 +172,4 @@ App.contextTypes = {
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withClient(withRouter(appEntryPoint(App)))
+export default withClient(withRouter(withCustomWallpaper(appEntryPoint(App))))
