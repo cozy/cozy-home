@@ -1,5 +1,6 @@
 /* global cozy */
 import * as triggers from 'lib/triggers'
+import { isKonnectorJob } from 'ducks/connections'
 
 import CozyRealtime from 'cozy-realtime'
 
@@ -106,7 +107,6 @@ export default class HomeStore {
     const normalizedJob = normalize(job, JOBS_DOCTYPE)
     // TODO Filter by worker on the WebSocket when it will be available in the
     // stack
-    const isKonnectorJob = normalizedJob.worker === 'konnector'
     const isDeletedAccountHookJob = !!normalizedJob.account_deleted
     const isKonnectorJobWithoutTrigger = !normalizedJob.trigger_id
     if (
