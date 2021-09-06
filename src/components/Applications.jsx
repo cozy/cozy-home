@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
@@ -47,23 +49,28 @@ export const Applications = memo(({ receiveApps }) => {
     }
   }, [data, fetchStatus, lastUpdate, receiveApps])
   return (
-    <div className="app-list">
-      {fetchStatus !== 'loaded' ? (
-        <LoadingAppTiles num="3" />
-      ) : (
-        data
-          .filter(
-            app =>
-              app.state !== 'hidden' &&
-              !homeConfig.filteredApps.includes(app.slug) &&
-              !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
-          )
-          .map((app, index) => <AppTile key={index} app={app} />)
-      )}
-      {shortcuts.map((shortcut, index) => (
-        <ShortcutLink key={index} file={shortcut} desktopSize={40} />
-      ))}
-      {showLogout && <LogoutTile />}
+    <div className="app-list-wrapper">
+      <MuiCozyTheme variant="inverted">
+        <Divider />
+      </MuiCozyTheme>
+      <div className="app-list">
+        {fetchStatus !== 'loaded' ? (
+          <LoadingAppTiles num="3" />
+        ) : (
+          data
+            .filter(
+              app =>
+                app.state !== 'hidden' &&
+                !homeConfig.filteredApps.includes(app.slug) &&
+                !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
+            )
+            .map((app, index) => <AppTile key={index} app={app} />)
+        )}
+        {shortcuts.map((shortcut, index) => (
+          <ShortcutLink key={index} file={shortcut} desktopSize={40} />
+        ))}
+        {showLogout && <LogoutTile />}
+      </div>
     </div>
   )
 })
