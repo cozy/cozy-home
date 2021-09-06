@@ -9,10 +9,14 @@ whiteOnWhiteShadow = drop-shadow(0 1px 1px rgba(50, 54, 63, .32)) drop-shadow(0 
     flex-direction column
     justify-content center
     align-items center
-    min-height 50%
     flex-shrink 0
     position relative
-    padding 3rem 4rem calc(3rem + 3rem) // 3rem of own padding bottom, and another 3rem for the app icons that are floating
+    padding 3rem 4rem 3rem
+    width 100%
+    max-width 50rem
+    margin auto
+    +tiny-screen()
+        padding 3rem 4rem 2rem
 
     .corner
         position absolute

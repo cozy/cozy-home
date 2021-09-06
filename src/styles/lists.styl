@@ -12,7 +12,7 @@ serviceGridGutter = 17px
 .app-list
     appTileSize = 6rem
     position relative
-    margin-top -(appTileSize / 2)
+    margin-top: spacing_values.l
     margin-bottom: spacing_values.l
     display grid
     grid-template-columns repeat(auto-fit, appTileSize)
@@ -21,7 +21,7 @@ serviceGridGutter = 17px
     justify-content center
 
     +tiny-screen()
-        margin-top: (-(mobileTileSize) / 2)
+        margin-top: spacing_values.xs
         margin-bottom: spacing_values.xs
         grid-template-columns repeat(auto-fit, mobileTileSize)
         grid-auto-rows mobileTileSize
@@ -179,6 +179,11 @@ serviceGridGutter = 17px
 
         &[aria-busy='true']:hover
             transform none
+
+.app-list-wrapper, .services-list-wrapper
+    width 100%
+    max-width 50rem
+    margin auto
 
 .EmptyServicesListTip
     box-sizing border-box
