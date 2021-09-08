@@ -8,6 +8,7 @@
 
 ## 🐛 Bug Fixes
 
+* ignore manifest's id if any to avoid a crash
 
 ## 🔧 Tech
 
