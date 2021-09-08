@@ -75,6 +75,7 @@ export default class CozyStackAdapter {
         ? data.map(konnector => ({
             ...konnector,
             ...konnector.attributes,
+            id: konnector.id,
             _type: 'io.cozy.konnectors'
           }))
         : [],
