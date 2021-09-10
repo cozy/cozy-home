@@ -2,90 +2,33 @@
 @require 'settings/palette.styl'
 @require 'settings/spaces.styl'
 
-mobileTileSize = 4rem
+mobileTileSize = 3rem
 outsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)
 lightShadow = 0 4px 12px 0 rgba(0, 0, 0, .08)
 heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
-serviceTileSize = 5rem
-serviceGridGutter = 17px
 
-.app-list
-    appTileSize = 6rem
-    position relative
-    margin-top: spacing_values.l
-    margin-bottom: spacing_values.l
+.app-list, .services-list, .shortcuts-list
+    appTileSize = 4rem
+    appGridGutter = 2rem
+    width 100%
+    max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
+    margin 3rem auto
     display grid
     grid-template-columns repeat(auto-fit, appTileSize)
-    grid-auto-rows appTileSize
-    grid-gap rem(8)
-    justify-content center
-
-    +tiny-screen()
-        margin-top: spacing_values.xs
-        margin-bottom: spacing_values.xs
-        grid-template-columns repeat(auto-fit, mobileTileSize)
-        grid-auto-rows mobileTileSize
-        grid-gap rem(4)
-
-    .item
-        background-color var(--white)
-        border 0
-        box-shadow outsideBorder, lightShadow
-        padding 20px 4px 12px
-        transition box-shadow .05s ease, transform .05s ease
-
-        &:active
-        &:focus
-            background-color var(--paleGrey)
-            box-shadow outsideBorder, lightShadow, heavyShadow
-
-        &:hover
-            transform scale(1.05)
-            box-shadow outsideBorder, lightShadow, heavyShadow
-
-        @media (pointer coarse)
-            &:hover
-                transform none
-
-        +tiny-screen()
-            padding 10px 4px 6px
-
-    .item-icon
-            width rem(40)
-            height rem(40)
-
-            +tiny-screen()
-                width rem(32)
-                height rem(32)
-
-.shortcuts-spinner
-.shortcuts-name
-    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
-    margin spacing_values.l auto
-
-    +tiny-screen()
-        margin spacing_values.l
-
-.services-list
-.shortcuts-list
-    width 100%
-    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
-    margin: spacing_values.l auto
-    display grid
-    grid-template-columns repeat(auto-fit, serviceTileSize)
-    grid-auto-rows serviceTileSize
-    grid-gap (serviceGridGutter)
+    grid-template-rows appTileSize repeat(auto-fit, appTileSize) // first row is for the divider
+    grid-gap (appGridGutter)
     justify-content center
     opacity .99 // required for the blend mode difference to work
     padding-left 0 // browser default style reset
-    list-style none
 
     +tiny-screen()
-        margin: spacing_values.m auto
+        margin 2rem auto
         grid-template-columns repeat(auto-fit, mobileTileSize)
-        grid-gap rem(3)
+        grid-template-rows mobileTileSize repeat(auto-fit, mobileTileSize) // first row is for the divider
+        grid-gap rem(20)
 
     .item
+        background var(--white)
         padding 12px 8px
         border-radius 8px
         border-width 1px
@@ -93,36 +36,6 @@ serviceGridGutter = 17px
         border-color transparent
         position relative
 
-        &:before,
-        &:after
-            content ''
-            display block
-            position absolute
-            top 30%
-            bottom 30%
-            width 1px
-            opacity .32
-            mix-blend-mode difference
-            background white
-
-        &:before
-            left -10px
-        &:after
-            right -10px
-
-        +tiny-screen()
-            &:before
-                left -3px
-            &:after
-                right -3px
-
-        &:hover
-            border-color rgba(0, 0, 0, .12)
-
-        &:active
-        &:focus
-            background-color var(--paleGrey)
-            border-color rgba(0, 0, 0, .08)
 
         @media (pointer coarse)
             &:hover
@@ -150,6 +63,10 @@ serviceGridGutter = 17px
         width rem(32)
         height rem(32)
         position relative
+
+        +tiny-screen()
+            width rem(24)
+            height rem(24)
 
     .item-grid-icon
         width rem(16)
