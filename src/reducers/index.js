@@ -27,12 +27,6 @@ export const getConnectionsByKonnector = (state, konnectorSlug) =>
     fromKonnectors.getSlugs(state.cozy)
   )
 
-export const getConnectionsQueue = state =>
-  fromConnections.getQueue(
-    state.connections,
-    fromKonnectors.getIndexedKonnectors(state.cozy)
-  )
-
 export const getCreatedConnectionAccount = state =>
   fromAccounts.getAccount(
     state.cozy,
