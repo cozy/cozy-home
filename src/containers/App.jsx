@@ -22,7 +22,6 @@ import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
-import ConnectionsQueue from 'ducks/connections/components/queue/index'
 import DemoTimeline from 'assets/images/timeline.png'
 import withCustomWallpaper from 'hoc/withCustomWallpaper'
 
@@ -151,7 +150,6 @@ class App extends Component {
               <Redirect from="*" to="/connected" />
             </Switch>
           )}
-          <ConnectionsQueue />
           <IconSprite />
         </div>
         {showTimeline && (
