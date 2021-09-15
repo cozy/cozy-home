@@ -10,6 +10,7 @@ import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import KonnectorErrors from 'components/KonnectorErrors'
 import FooterLogo from 'components/FooterLogo'
+import Shortcuts from 'components/Shortcuts'
 
 class Home extends Component {
   render() {
@@ -21,6 +22,7 @@ class Home extends Component {
           <Applications />
           <KonnectorErrors />
           <Services />
+          <Shortcuts />
           <FooterLogo />
         </Content>
         <Route path="/connected/:konnectorSlug" component={Konnector} />

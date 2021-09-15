@@ -6,6 +6,8 @@ mobileTileSize = 4rem
 outsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)
 lightShadow = 0 4px 12px 0 rgba(0, 0, 0, .08)
 heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
+serviceTileSize = 5rem
+serviceGridGutter = 17px
 
 .app-list
     appTileSize = 6rem
@@ -56,10 +58,16 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
                 width rem(32)
                 height rem(32)
 
+.shortcuts-spinner
+.shortcuts-name
+    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
+    margin spacing_values.l auto
+
+    +tiny-screen()
+        margin spacing_values.l
 
 .services-list
-    serviceTileSize = 5rem
-    serviceGridGutter = 17px
+.shortcuts-list
     width 100%
     max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
     margin: spacing_values.l auto
@@ -69,11 +77,12 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
     grid-gap (serviceGridGutter)
     justify-content center
     opacity .99 // required for the blend mode difference to work
+    padding-left 0 // browser default style reset
+    list-style none
 
     +tiny-screen()
         margin: spacing_values.m auto
         grid-template-columns repeat(auto-fit, mobileTileSize)
-        grid-auto-rows mobileTileSize
         grid-gap rem(3)
 
     .item
@@ -142,10 +151,6 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
         height rem(32)
         position relative
 
-        +tiny-screen()
-            width rem(24)
-            height rem(24)
-
     .item-grid-icon
         width rem(16)
         height rem(16)
@@ -213,6 +218,7 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
             margin-bottom rem(4)
 
 .item-title
+h3.item-title // Required to override Material UI styles that we do not want here
         width 100%
         margin 0
         color var(--charcoalGrey)

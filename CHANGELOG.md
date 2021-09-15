@@ -12,3 +12,8 @@
 
 ## 🔧 Tech
 
+# 1.42.0
+
+## ✨ Features
+
+* Display custom shortcuts in the homepage below existing Konnectors

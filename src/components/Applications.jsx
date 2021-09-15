@@ -6,7 +6,7 @@ import flag from 'cozy-flags'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
-import ShortcutTile from 'components/ShortcutTile'
+import ShortcutLink from 'components/ShortcutLink'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import homeConfig from 'config/home.json'
 import { receiveApps } from 'ducks/apps'
@@ -61,7 +61,7 @@ export const Applications = memo(({ receiveApps }) => {
           .map((app, index) => <AppTile key={index} app={app} />)
       )}
       {shortcuts.map((shortcut, index) => (
-        <ShortcutTile key={index} file={shortcut} />
+        <ShortcutLink key={index} file={shortcut} desktopSize={40} />
       ))}
       {showLogout && <LogoutTile />}
     </div>
