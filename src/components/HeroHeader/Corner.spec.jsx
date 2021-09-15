@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { HeroHeader } from './index'
-import { createMockClient } from 'cozy-client/dist/mock'
+import Corner from './Corner'
 import flag from 'cozy-flags'
-import AppLike from '../../../test/AppLike'
-import useInstanceSettings from 'hooks/useInstanceSettings'
+import I18n from 'cozy-ui/transpiled/react/I18n'
+import enLocale from '../../locales/en.json'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 jest.mock(
   './SettingsButton',
@@ -13,28 +13,18 @@ jest.mock(
       return <div>Settings</div>
     }
 )
-jest.mock('hooks/useInstanceSettings', () => jest.fn())
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
 
-useInstanceSettings.mockReturnValue({
-  fetchStatus: 'loaded',
-  data: {}
-})
-
-describe('HeroHeader', () => {
-  const mockClient = createMockClient({
-    clientOptions: {
-      uri: 'http://cozy.example.com'
-    }
-  })
-
+describe('Corner', () => {
   it('should only render the log out button', () => {
     const root = render(
-      <AppLike client={mockClient}>
-        <HeroHeader />
-      </AppLike>
+      <BreakpointsProvider>
+        <I18n dictRequire={() => enLocale} lang="en">
+          <Corner />
+        </I18n>
+      </BreakpointsProvider>
     )
 
     expect(root.getByText('Log out')).toBeTruthy()
@@ -49,11 +39,7 @@ describe('HeroHeader', () => {
       else if (flagName === 'home.corner.help-is-displayed') return false
       else return null
     })
-    const root = render(
-      <AppLike client={mockClient}>
-        <HeroHeader />
-      </AppLike>
-    )
+    const root = render(<Corner />)
     expect(root.queryByText('Log out')).toBeFalsy()
     expect(root.getByText('Settings')).toBeTruthy()
     expect(root.queryByText('Help')).toBeFalsy()
