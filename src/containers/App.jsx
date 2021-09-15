@@ -18,6 +18,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import appEntryPoint from 'components/appEntryPoint'
 import MoveModal from 'components/MoveModal'
 import HeroHeader from 'components/HeroHeader'
+import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
@@ -112,6 +113,7 @@ class App extends Component {
 
     return (
       <div className="App" style={{ backgroundImage: `url(${backgroundURL})` }}>
+        <Corner />
         <div
           className="App-MainCol"
           ref={
