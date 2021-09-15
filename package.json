@@ -2,6 +2,9 @@
   "name": "cozy-home",
   "version": "1.42.0",
   "main": "src/index.jsx",
+  "engines": {
+    "node": "~16"
+  },
   "scripts": {
     "tx": "tx pull --all || true",
     "posttx": "./scripts/check-locales.sh",
@@ -46,7 +49,7 @@
     "cozy-logger": "1.7.0",
     "cozy-realtime": "3.13.0",
     "cozy-stack-client": "23.17.0",
-    "cozy-ui": "50.1.2",
+    "cozy-ui": "^51.12.0",
     "date-fns": "1.30.1",
     "form-data": "2.5.1",
     "husky": "1.3.1",
@@ -68,9 +71,11 @@
     "redux-thunk": "2.3.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react-hooks": "^7.0.2",
     "cozy-bar": "7.7.6",
     "cozy-client-js": "0.16.4",
-    "cozy-scripts": "5.4.2",
+    "cozy-scripts": "^5.13.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.2",
     "git-directory-deploy": "1.5.1",
