@@ -7,6 +7,9 @@ yarn-error.log
 # Build
 build/
 
+# Stack
+storage/
+
 # OS generated files
 .DS_Store
 .DS_Store?

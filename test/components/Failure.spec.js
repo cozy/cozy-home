@@ -23,7 +23,10 @@ describe('Failure component', () => {
   })
 
   it('should correctly call the reload function on button click', () => {
-    window.location.reload = jest.fn()
+    Object.defineProperty(window, 'location', {
+      value: { reload: jest.fn() }
+    })
+
     const root = render(
       <AppLike>
         <Failure errorType="initial" />

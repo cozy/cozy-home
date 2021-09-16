@@ -34,3 +34,51 @@ export const mkHomeShorcutsConn = folderId => {
     fetchPolicy: defaultFetchPolicy
   }
 }
+
+export const mkHomeCustomShorcutsDirConn = ({
+  currentFolderId,
+  type = 'directory',
+  sortAttribute = 'name',
+  sortOrder = 'asc'
+}) => ({
+  query: Q('io.cozy.files')
+    .where({
+      dir_id: currentFolderId,
+      type,
+      [sortAttribute]: { $gt: null }
+    })
+    .partialIndex({
+      _id: {
+        $ne: 'io.cozy.files.trash-dir'
+      }
+    })
+    .indexFields(['dir_id', 'type', sortAttribute])
+    .sortBy([
+      { dir_id: sortOrder },
+      { type: sortOrder },
+      { [sortAttribute]: sortOrder }
+    ])
+    .limitBy(100),
+  options: {
+    as: `${type} ${currentFolderId} ${sortAttribute} ${sortOrder}`,
+    fetchPolicy: defaultFetchPolicy
+  }
+})
+
+export const mkHomeCustomShorcutsConn = foldersId => {
+  return {
+    query: Q('io.cozy.files')
+      .where({
+        class: 'shortcut',
+        dir_id: {
+          $in: foldersId
+        },
+        name: { $gt: null }
+      })
+      .indexFields(['class', 'dir_id', 'name'])
+      .sortBy([{ class: 'asc' }, { dir_id: 'asc' }, { name: 'asc' }])
+      .limitBy(100),
+    as: 'home-shortcuts',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
