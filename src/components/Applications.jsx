@@ -49,11 +49,11 @@ export const Applications = memo(({ receiveApps }) => {
     }
   }, [data, fetchStatus, lastUpdate, receiveApps])
   return (
-    <div className="app-list-wrapper">
+    <div className="app-list-wrapper u-m-auto u-w-100">
       <MuiCozyTheme variant="inverted">
-        <Divider />
+        <Divider className="u-mv-1" />
       </MuiCozyTheme>
-      <div className="app-list">
+      <div className="app-list u-w-100 u-mv-3 u-mh-auto u-flex-justify-center">
         {fetchStatus !== 'loaded' ? (
           <LoadingAppTiles num="3" />
         ) : (

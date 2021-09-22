@@ -4,13 +4,6 @@
 whiteOnWhiteShadow = drop-shadow(0 1px 1px rgba(50, 54, 63, .32)) drop-shadow(0 2px 8px rgba(50, 54, 63, .08)) drop-shadow(0 1px 4px rgba(50, 54, 63, .16))
 
 .hero-header
-    box-sizing border-box
-    display flex
-    flex-direction column
-    justify-content center
-    align-items center
-    flex-shrink 0
-    position relative
     padding 3rem 4rem
     +tiny-screen()
         padding 3rem 4rem 2rem
@@ -21,7 +14,6 @@ whiteOnWhiteShadow = drop-shadow(0 1px 1px rgba(50, 54, 63, .32)) drop-shadow(0 
         border-radius 50%
         border 2px solid var(--white)
         box-shadow 0 2px 16px 0 textShadowHeavy
-        margin-bottom 1rem
 
         +tiny-screen()
             width 4.5rem
@@ -29,30 +21,21 @@ whiteOnWhiteShadow = drop-shadow(0 1px 1px rgba(50, 54, 63, .32)) drop-shadow(0 
             margin-bottom .25rem
 
     .hero-title
-        color var(--primaryContrastTextColor)
         font-size 3rem
-        font-weight bold
-        letter-spacing -.8px
-        line-height 1.08333
-        margin 0 1rem
+        letter-spacing rem(-.8)
+        line-height rem(52)
         max-width 50rem
-        text-align center
         filter whiteOnWhiteShadow
 
         +tiny-screen()
             font-size 2rem
-            line-height 1.15625
+            line-height rem(37)
 
     .hero-subtitle
-        color var(--primaryContrastTextColor)
-        font-size 1rem
-        font-weight normal
-        line-height 1.3125
-        margin 0 1rem
+        line-height rem(21)
         max-width 50rem
-        text-align center
         filter whiteOnWhiteShadow
 
         +tiny-screen()
-            font-size .75rem
-            line-height 1.3333
+            font-size rem(12)
+            line-height rem(16)

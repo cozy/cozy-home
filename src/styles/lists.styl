@@ -10,14 +10,11 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
 .app-list, .services-list, .shortcuts-list
     appTileSize = 4rem
     appGridGutter = 2rem
-    width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
-    margin 3rem auto
     display grid
     grid-template-columns repeat(auto-fit, appTileSize)
     grid-template-rows appTileSize repeat(auto-fit, appTileSize) // first row is for the divider
     grid-gap (appGridGutter)
-    justify-content center
     opacity .99 // required for the blend mode difference to work
     padding-left 0 // browser default style reset
 
@@ -98,9 +95,7 @@ heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
             transform none
 
 .app-list-wrapper, .services-list-wrapper
-    width 100%
     max-width 50rem
-    margin auto
 
 .EmptyServicesListTip
     box-sizing border-box
