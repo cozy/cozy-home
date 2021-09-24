@@ -6,6 +6,7 @@
   * cozy-client 24.2.0 : fetchAppLatestVersion
   * cozy-harvest-lib 6.5.O : client side connectors specificities
   * cozy-harvest-lib 6.6.O : new BI slug for palatine bank
+* Change matomo url from piwik.cozycloud.cc to matomo.cozycloud.cc
 
 ## 🐛 Bug Fixes
 
