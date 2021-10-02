@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
+import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
