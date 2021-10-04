@@ -11,7 +11,7 @@ import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
+import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
