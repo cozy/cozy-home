@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.31.3",
+  "version": "1.42.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "apps": {
@@ -115,6 +115,10 @@
     "bank-accounts": {
       "description": "Required to edit bank accounts",
       "type": "io.cozy.bank.accounts"
+    },
+    "geojson-timeseries": {
+      "description": "Required to display geojson timeseries",
+      "type": "io.cozy.timeseries.geojson"
     }
   },
   "routes": {
