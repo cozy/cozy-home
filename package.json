@@ -78,7 +78,7 @@
     "cozy-client-js": "0.16.4",
     "cozy-scripts": "^5.13.0",
     "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "1.15.2",
+    "enzyme-adapter-react-16": "1.15.6",
     "git-directory-deploy": "1.5.1",
     "ignore-not-found-export-webpack-plugin": "1.0.2",
     "mockdate": "2.0.5",
