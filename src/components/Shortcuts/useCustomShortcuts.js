@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import get from 'lodash/get'
 
 import { useClient } from 'cozy-client'
 import logger from 'cozy-logger'
@@ -21,16 +20,18 @@ export const useCustomShortcuts = () => {
   useEffect(() => {
     const load = async () => {
       try {
+        // Get the magic dir
         const homeMagicFolderConn = mkHomeMagicFolderConn(t)
-        const folder = await client.query(
+        const { data: magicFolder } = await client.query(
           homeMagicFolderConn.query,
           homeMagicFolderConn
         )
 
-        if (!folder) return abort()
+        if (!magicFolder || magicFolder.length === 0) return abort()
 
+        // Get all shortcuts directories inside the magic dir
         const homeShortcutsDirConn = mkHomeCustomShorcutsDirConn({
-          currentFolderId: get(folder, 'data[0]._id')
+          currentFolderId: magicFolder[0]._id
         })
         const { data: folders } = await client.query(
           homeShortcutsDirConn.query,
@@ -39,6 +40,7 @@ export const useCustomShortcuts = () => {
 
         if (!folders || folders.length === 0) return abort()
 
+        // Get all shortcuts items inside those shortcuts directories
         const homeShortcutsConn = mkHomeCustomShorcutsConn(
           folders.map(folder => folder._id)
         )
@@ -49,6 +51,7 @@ export const useCustomShortcuts = () => {
 
         if (!shortcuts || shortcuts.length === 0) return abort()
 
+        // Merge directories and shortcuts into an object that the view can process
         setDirectories(formatShortcuts(folders, shortcuts))
       } catch (error) {
         logger.error(error)
