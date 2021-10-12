@@ -58,7 +58,7 @@
     "leaflet": "^1.7.1",
     "lint-staged": "8.2.1",
     "lodash": "4.17.21",
-    "moment": "2.24.0",
+    "moment": "2.29.1",
     "papaparse": "^5.2.0",
     "piwik-react-router": "0.12.1",
     "react-inspector": "5.1.1",
