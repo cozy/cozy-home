@@ -39,7 +39,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
               ))}
             </IconGrid>
           </div>
-          <span className="item-title">{t(`category.${category}`)}</span>
+          <h3 className="item-title">{t(`category.${category}`)}</h3>
         </a>
       )}
     </AppLinker>
