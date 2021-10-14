@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient } from 'cozy-client'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const FallbackCandidateServiceTile = ({ slug }) => {
-  const { t } = useI18n()
   const client = useClient()
   const cozyURL = new URL(client.getStackClient().uri)
   const app = 'store'
@@ -31,11 +29,8 @@ const FallbackCandidateServiceTile = ({ slug }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a onClick={onClick} href={href} className="item item--ghost">
-          <div className="item-icon">
-            <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
-          </div>
-          <span className="item-title">{name}</span>
+        <a onClick={onClick} href={href}>
+          <SquareAppIcon app={slug} name={name} variant="ghost" />
         </a>
       )}
     </AppLinker>

@@ -1,17 +1,11 @@
 import React from 'react'
-import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import get from 'lodash/get'
 
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import palette from 'cozy-ui/stylus/settings/palette.json'
-import WrenchCircleIcon from 'cozy-ui/transpiled/react/Icons/WrenchCircle'
-import WarningCircleIcon from 'cozy-ui/transpiled/react/Icons/WarningCircle'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
@@ -38,8 +32,13 @@ const STATUS = {
   NO_ACCOUNT: 4
 }
 
-const getKonnectorStatus = ({
-  konnector,
+const statusMap = {
+  [STATUS.NO_ACCOUNT]: 'ghost',
+  [STATUS.MAINTENANCE]: 'maintenance',
+  [STATUS.ERROR]: 'error'
+}
+
+export const getKonnectorStatus = ({
   isInMaintenance,
   error,
   userError,
@@ -52,26 +51,8 @@ const getKonnectorStatus = ({
   else return STATUS.OK
 }
 
-const statusThemes = {
-  [STATUS.NO_ACCOUNT]: {
-    className: 'item--ghost',
-    icon: null,
-    color: null
-  },
-  [STATUS.MAINTENANCE]: {
-    className: 'item--maintenance',
-    icon: WrenchCircleIcon,
-    color: palette.coolGrey
-  },
-  [STATUS.ERROR]: {
-    className: null,
-    icon: WarningCircleIcon,
-    color: palette.pomegranate
-  }
-}
-
 export const KonnectorTile = props => {
-  const { t, lang } = useI18n()
+  const { lang } = useI18n()
   const {
     accountsCount,
     error,
@@ -92,26 +73,14 @@ export const KonnectorTile = props => {
         userError,
         accountsCount
       })
-  const { className: statusClassName, icon, color } = get(
-    statusThemes,
-    status,
-    {}
-  )
 
   return (
-    <NavLink
-      className={classNames('item', statusClassName)}
-      to={route}
-      title={getKonnectorError({ error, lang, konnector })}
-    >
-      <div className="item-icon">
-        <AppIcon
-          alt={t('app.logo.alt', { name: konnector.name })}
-          app={konnector}
-        />
-        {icon && <Icon icon={icon} className="item-status" color={color} />}
-      </div>
-      <h3 className="item-title">{konnector.name}</h3>
+    <NavLink to={route} title={getKonnectorError({ error, lang, konnector })}>
+      <SquareAppIcon
+        app={konnector}
+        name={konnector.name}
+        variant={statusMap[status]}
+      />
     </NavLink>
   )
 }
@@ -119,10 +88,10 @@ export const KonnectorTile = props => {
 KonnectorTile.propTypes = {
   accountsCount: PropTypes.number,
   error: PropTypes.object,
-  isInMaintenance: PropTypes.bool.isRequired,
+  // isInMaintenance: PropTypes.bool.isRequired,
   userError: PropTypes.object,
-  konnector: PropTypes.object,
-  route: PropTypes.string.isRequired
+  konnector: PropTypes.object
+  // route: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, props) => {

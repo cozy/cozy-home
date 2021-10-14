@@ -1,10 +1,8 @@
 import React from 'react'
 import { useClient } from 'cozy-client'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
-import palette from 'cozy-ui/stylus/settings/palette.json'
 
-import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const AddServiceTile = ({ label }) => {
   const client = useClient()
@@ -25,15 +23,8 @@ const AddServiceTile = ({ label }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a
-          onClick={onClick}
-          href={href}
-          className="item item--ghost item--add-service"
-        >
-          <div className="item-icon">
-            <Icon icon={PlusIcon} size={16} color={palette['dodgerBlue']} />
-          </div>
-          <span className="item-title">{label}</span>
+        <a onClick={onClick} href={href}>
+          <SquareAppIcon name={label} variant="add" />
         </a>
       )}
     </AppLinker>
