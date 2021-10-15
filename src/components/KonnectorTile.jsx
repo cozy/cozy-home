@@ -24,9 +24,8 @@ const getKonnectorError = ({ error, lang, konnector }) => {
   return getErrorLocaleBound(konnError, konnector, lang, 'title')
 }
 
-const STATUS = {
+export const STATUS = {
   OK: 0,
-  UPDATE: 1,
   MAINTENANCE: 2,
   ERROR: 3,
   NO_ACCOUNT: 4
@@ -44,8 +43,7 @@ export const getKonnectorStatus = ({
   userError,
   accountsCount
 }) => {
-  if (konnector.available_version) return STATUS.UPDATE
-  else if (isInMaintenance) return STATUS.MAINTENANCE
+  if (isInMaintenance) return STATUS.MAINTENANCE
   else if (error || userError) return STATUS.ERROR
   else if (!accountsCount) return STATUS.NO_ACCOUNT
   else return STATUS.OK

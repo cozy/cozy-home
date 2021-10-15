@@ -5,6 +5,7 @@ import flag from 'cozy-flags'
 import AppLike from '../../test/AppLike'
 import { Applications } from './Applications'
 import useHomeShortcuts from '../hooks/useHomeShortcuts'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
@@ -15,7 +16,9 @@ jest.mock('hooks/useHomeShortcuts', () => jest.fn().mockReturnValue([]))
 const setup = () => {
   const root = render(
     <AppLike>
-      <Applications />
+      <MuiCozyTheme>
+        <Applications />
+      </MuiCozyTheme>
     </AppLike>
   )
   return { root }

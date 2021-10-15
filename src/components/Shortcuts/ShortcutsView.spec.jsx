@@ -5,12 +5,15 @@ import '@testing-library/jest-dom'
 
 import { ShortcutsView } from './ShortcutsView'
 import AppLike from '../../../test/AppLike'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 describe('Shortcuts', () => {
   it('Should display a spinner on first render', () => {
     render(
       <AppLike>
-        <ShortcutsView />
+        <MuiCozyTheme>
+          <ShortcutsView />
+        </MuiCozyTheme>
       </AppLike>
     )
 
@@ -20,7 +23,9 @@ describe('Shortcuts', () => {
   it('Should display nothing if nothing was found', () => {
     const { container } = render(
       <AppLike>
-        <ShortcutsView shortcutsDirectories={null} />
+        <MuiCozyTheme>
+          <ShortcutsView shortcutsDirectories={null} />
+        </MuiCozyTheme>
       </AppLike>
     )
     expect(container).toBeEmptyDOMElement()
@@ -32,15 +37,17 @@ describe('Shortcuts', () => {
 
     render(
       <AppLike>
-        <ShortcutsView
-          shortcutsDirectories={[
-            { name: listName, shortcuts: [{ name: listItem }] }
-          ]}
-        />
+        <MuiCozyTheme>
+          <ShortcutsView
+            shortcutsDirectories={[
+              { name: listName, shortcuts: [{ name: listItem }] }
+            ]}
+          />
+        </MuiCozyTheme>
       </AppLike>
     )
 
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+    expect(screen.getAllByRole('heading', { level: 2 })[0]).toHaveTextContent(
       listName
     )
     expect(screen.getByRole('listitem')).toBeInTheDocument()
@@ -54,12 +61,14 @@ describe('Shortcuts', () => {
 
     render(
       <AppLike>
-        <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
+        <MuiCozyTheme>
+          <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
+        </MuiCozyTheme>
       </AppLike>
     )
 
     expect(screen.getAllByRole('group')).toHaveLength(2)
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(4)
     expect(screen.getAllByRole('listitem')).toHaveLength(2)
   })
 })

@@ -67,7 +67,7 @@ export const Applications = memo(({ receiveApps }) => {
             .map((app, index) => <AppTile key={index} app={app} />)
         )}
         {shortcuts.map((shortcut, index) => (
-          <ShortcutLink key={index} file={shortcut} desktopSize={40} />
+          <ShortcutLink key={index} file={shortcut} />
         ))}
         {showLogout && <LogoutTile />}
       </div>
