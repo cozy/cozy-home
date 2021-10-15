@@ -4,24 +4,14 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
-import { KonnectorTile } from 'components/KonnectorTile'
+import {
+  KonnectorTile,
+  getKonnectorStatus,
+  STATUS
+} from 'components/KonnectorTile'
 import AppLike from '../AppLike'
-
-jest.mock(
-  'cozy-ui/transpiled/react/Icons/WrenchCircle',
-  () =>
-    function WrenchCircleIcon() {
-      return <span>WrenchCircleIcon</span>
-    }
-)
-jest.mock(
-  'cozy-ui/transpiled/react/Icons/WarningCircle',
-  () =>
-    function WarningCircleIcon() {
-      return <span>WarningCircleIcon</span>
-    }
-)
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -34,12 +24,12 @@ const mockKonnector = {
   available_version: null
 }
 
-const getMockProps = (
+const getMockProps = ({
   error,
   userError,
   konnector = mockKonnector,
   isInMaintenance = false
-) => ({
+} = {}) => ({
   accountsCount: 2,
   error,
   isInMaintenance,
@@ -51,7 +41,9 @@ const getMockProps = (
 const setup = mockProps => {
   return render(
     <AppLike>
-      <KonnectorTile {...mockProps} />
+      <MuiCozyTheme>
+        <KonnectorTile {...mockProps} />
+      </MuiCozyTheme>
     </AppLike>
   )
 }
@@ -72,73 +64,25 @@ describe('KonnectorTile component', () => {
     expect(root.getByText('Mock')).toBeTruthy()
   })
 
-  it('should display correct status if update', () => {
-    const mockProps = getMockProps(
-      null,
-      null,
-      Object.assign({}, mockKonnector, { available_version: '5.0.0' })
-    )
-
-    const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
+  it('should display correct status if in maintenance', () => {
+    const status = getKonnectorStatus({
+      konnector: mockKonnector,
+      isInMaintenance: true
+    })
+    expect(status).toEqual(STATUS.MAINTENANCE)
   })
 
-  it('should display correct status if update even if user error', () => {
-    const mockProps = getMockProps(
-      null,
-      new Error('Expected test user error'),
-      Object.assign({}, mockKonnector, { available_version: '5.0.0' })
-    )
-
-    const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
+  it('should display correct error status if user error but not in maintenance', () => {
+    const status = getKonnectorStatus({
+      error: null,
+      userError: new Error('Expected test user error')
+    })
+    expect(status).toEqual(STATUS.ERROR)
   })
 
-  it('should display correct status if update even if other error', () => {
-    const mockProps = getMockProps(
-      new Error('Expected test error'),
-      null,
-      Object.assign({}, mockKonnector, { available_version: '5.0.0' })
-    )
-
-    const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
-  })
-
-  it('should display correct status if update even if in maintenance', () => {
-    const mockProps = getMockProps(
-      null,
-      null,
-      Object.assign({}, mockKonnector, { available_version: '5.0.0' }),
-      true
-    )
-
-    const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
-  })
-
-  it('should display correct status if in maintenance but no update', () => {
-    const mockProps = getMockProps(null, null, mockKonnector, true)
-
-    const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
-    expect(root.getByText('WrenchCircleIcon')).toBeTruthy()
-  })
-
-  it('should display correct error status if user error but no update and not in maintenance', () => {
-    const mockProps = getMockProps(null, new Error('Expected test user error'))
-
-    const root = setup(mockProps)
-    expect(root.getByText('WarningCircleIcon')).toBeTruthy()
-    expect(root.getByText('Mock')).toBeTruthy()
-  })
-
-  it('should display correct error status if other error but no update and not in maintenance', () => {
-    const mockProps = getMockProps(new Error('LOGIN_FAILED'))
-
-    const root = setup(mockProps)
-    expect(root.getByText('WarningCircleIcon')).toBeTruthy()
-    expect(root.getByText('Mock')).toBeTruthy()
+  it('should display correct error status if other error but not in maintenance', () => {
+    const status = getKonnectorStatus({ error: new Error('LOGIN_FAILED') })
+    expect(status).toEqual(STATUS.ERROR)
   })
 
   it('should display correct error status if no accounts and no errors', () => {
