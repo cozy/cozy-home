@@ -26,22 +26,14 @@ body
         overflow auto
 
 .App
-    display flex
-    flex-direction column
-    min-width 100%
-    width 100%
-    background-color var(--defaultBackgroundColor)
     background-repeat no-repeat
     background-size cover
     background-position center
     mix-blend-mode multiply
-    align-items center
     overflow-y auto
     .corner
-        position relative
-        align-self flex-end
         margin rem(12) 2rem rem(-44) 0
-        a, button
+        .corner-button
             color: var(--white)
             +small-screen()
                 height 3rem
@@ -50,6 +42,7 @@ body
         +small-screen()
             margin 0 0 -3rem
 
+// black filter effect above the wallpaper image
 .App::before
     content ''
     position absolute
@@ -59,14 +52,6 @@ body
     height 100%
     background-color rgba(0, 0, 0, .32)
     backdrop-filter saturate(124%)
-
-.App-MainCol
-    display flex
-    flex-direction column
-    justify-content flex-start
-    align-items stretch
-    width 100%
-    margin auto
 
 .Timeline
     flex-shrink 0
@@ -89,15 +74,6 @@ body
     justify-content center
     align-items center
     flex-grow 1
-
-.main-content
-    flex-grow 1
-
-.lists-wrapper
-    display flex
-    flex-direction column
-    padding-left 1rem
-    padding-right 1rem
 
 .col-content
     margin 0 auto

@@ -112,10 +112,13 @@ class App extends Component {
     const showTimeline = flag('home.timeline.show') // used in demo envs
 
     return (
-      <div className="App" style={{ backgroundImage: `url(${backgroundURL})` }}>
+      <div
+        className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
+        style={{ backgroundImage: `url(${backgroundURL})` }}
+      >
         <Corner />
         <div
-          className="App-MainCol"
+          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto"
           ref={
             isReady
               ? div => {

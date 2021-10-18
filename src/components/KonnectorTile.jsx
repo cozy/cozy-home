@@ -86,10 +86,8 @@ export const KonnectorTile = props => {
 KonnectorTile.propTypes = {
   accountsCount: PropTypes.number,
   error: PropTypes.object,
-  // isInMaintenance: PropTypes.bool.isRequired,
   userError: PropTypes.object,
   konnector: PropTypes.object
-  // route: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, props) => {

@@ -28,7 +28,7 @@ const flagWithFallbackValue = (flagName, fallback) =>
 
 export const Corner = () => {
   return (
-    <div className="corner">
+    <div className="corner u-pos-relative u-flex-self-end">
       {cornerButtons.map(({ flagName, isDisplayedByDefault, Button }) =>
         flagWithFallbackValue(
           `home.corner.${flagName}`,

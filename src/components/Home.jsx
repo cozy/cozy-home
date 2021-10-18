@@ -16,9 +16,9 @@ class Home extends Component {
   render() {
     const { wrapper } = this.props
     return (
-      <Main className="main-content">
+      <Main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />
-        <Content className="lists-wrapper">
+        <Content className="u-flex u-flex-column u-ph-1">
           <Applications />
           <KonnectorErrors />
           <Services />
