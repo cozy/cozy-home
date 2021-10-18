@@ -4,25 +4,19 @@ import { models } from 'cozy-client'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 const { applications } = models
 
 export class AppTile extends Component {
   render() {
-    const { app, t, lang } = this.props
+    const { app, lang } = this.props
     const displayName = applications.getAppDisplayName(app, lang)
     const appHref = app.links && app.links.related
     return (
       <AppLinker slug={app.slug} href={appHref}>
         {({ onClick, href }) => (
           <a onClick={onClick} href={href} className="item">
-            <div className="item-icon">
-              <AppIcon
-                alt={t('app.logo.alt', { name: displayName })}
-                app={app}
-              />
-            </div>
-            <h3 className="item-title">{displayName}</h3>
+            <SquareAppIcon app={app} name={displayName} />
           </a>
         )}
       </AppLinker>

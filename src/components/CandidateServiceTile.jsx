@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useClient } from 'cozy-client'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const CandidateServiceTile = ({ konnector }) => {
   const { t } = useI18n()
@@ -33,11 +33,8 @@ const CandidateServiceTile = ({ konnector }) => {
           }}
         />
       )}
-      <div className="item item--ghost" onClick={() => setModalDisplayed(true)}>
-        <div className="item-icon">
-          <AppIcon alt={t('app.logo.alt', { name })} app={slug} />
-        </div>
-        <span className="item-title">{name}</span>
+      <div className="item" onClick={() => setModalDisplayed(true)}>
+        <SquareAppIcon app={slug} name={name} variant="ghost" />
       </div>
     </>
   )

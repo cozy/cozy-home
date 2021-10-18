@@ -18,12 +18,13 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import appEntryPoint from 'components/appEntryPoint'
 import MoveModal from 'components/MoveModal'
 import HeroHeader from 'components/HeroHeader'
+import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
-import ConnectionsQueue from 'ducks/connections/components/queue/index'
 import DemoTimeline from 'assets/images/timeline.png'
+import withCustomWallpaper from 'hoc/withCustomWallpaper'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -82,10 +83,23 @@ class App extends Component {
   }
 
   render() {
-    const { accounts, konnectors, triggers } = this.props
+    const {
+      client,
+      accounts,
+      konnectors,
+      triggers,
+      wallpaperFetchStatus,
+      wallpaperLink
+    } = this.props
     const isFetching = [accounts, konnectors, triggers].find(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
+
+    const { cozyDefaultWallpaper } = client.getInstanceOptions()
+    let backgroundURL = null
+    if (wallpaperFetchStatus !== 'loading') {
+      backgroundURL = wallpaperLink || cozyDefaultWallpaper
+    }
 
     const hasError = [accounts, konnectors, triggers].find(
       collection => collection.fetchStatus === 'failed'
@@ -98,9 +112,13 @@ class App extends Component {
     const showTimeline = flag('home.timeline.show') // used in demo envs
 
     return (
-      <div className="App">
+      <div
+        className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
+        style={{ backgroundImage: `url(${backgroundURL})` }}
+      >
+        <Corner />
         <div
-          className="App-MainCol"
+          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto"
           ref={
             isReady
               ? div => {
@@ -137,7 +155,6 @@ class App extends Component {
               <Redirect from="*" to="/connected" />
             </Switch>
           )}
-          <ConnectionsQueue />
           <IconSprite />
         </div>
         {showTimeline && (
@@ -158,4 +175,4 @@ App.contextTypes = {
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withClient(withRouter(appEntryPoint(App)))
+export default withClient(withRouter(withCustomWallpaper(appEntryPoint(App))))

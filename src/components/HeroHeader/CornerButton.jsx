@@ -9,7 +9,7 @@ const CornerButton = props => {
 
   return (
     <ButtonComp
-      size="small"
+      size={isMobile ? 'normal' : 'small'}
       theme="text"
       className="corner-button"
       iconOnly={isMobile}

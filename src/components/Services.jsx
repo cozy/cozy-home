@@ -20,6 +20,8 @@ import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const { t } = useI18n()
@@ -50,8 +52,11 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
       fallbackKonnectorSuggestions.length >= 1)
 
   return (
-    <>
-      <div className={'services-list'}>
+    <div className="services-list-wrapper u-m-auto u-w-100">
+      <MuiCozyTheme variant="inverted">
+        <Divider className="u-mv-1" />
+      </MuiCozyTheme>
+      <div className="services-list u-w-100 u-mv-3 u-mh-auto u-flex-justify-center">
         {installedKonnectors.map((konnector, index) => (
           <KonnectorTile
             key={index}
@@ -81,7 +86,7 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
         {<AddServiceTile label={t('add_service')} />}
       </div>
       {displayTutorialTip && <EmptyServicesListTip />}
-    </>
+    </div>
   )
 }
 

@@ -8,6 +8,7 @@ import { createMockClient } from 'cozy-client/dist/mock'
 import { Services } from './Services'
 import AppLike from '../../test/AppLike'
 import useAppsInMaintenance from 'hooks/withAppsInMaintenance'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 jest.mock('hooks/withAppsInMaintenance', () => jest.fn())
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
@@ -16,7 +17,8 @@ jest.mock('components/KonnectorTile', () => ({ konnector }) => (
 jest.mock('hooks/useRegistryInformation', () => (client, slug) => slug)
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
-  getCssVariableValue: () => '#fff'
+  getCssVariableValue: () => '#fff',
+  getInvertedCssVariableValue: () => '#fff'
 }))
 
 describe('Services component', () => {
@@ -29,10 +31,12 @@ describe('Services component', () => {
     useAppsInMaintenance.mockReturnValue([])
     const root = render(
       <AppLike client={client}>
-        <Services
-          installedKonnectors={installedKonnectors || []}
-          suggestedKonnectorsQuery={suggestedKonnectorsQuery || { data: [] }}
-        />
+        <MuiCozyTheme>
+          <Services
+            installedKonnectors={installedKonnectors || []}
+            suggestedKonnectorsQuery={suggestedKonnectorsQuery || { data: [] }}
+          />
+        </MuiCozyTheme>
       </AppLike>
     )
     return { root }

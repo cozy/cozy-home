@@ -26,16 +26,32 @@ body
         overflow auto
 
 .App
-    display flex
-    min-width 100%
-    width 100%
+    background-repeat no-repeat
+    background-size cover
+    background-position center
+    mix-blend-mode multiply
+    overflow-y auto
+    .corner
+        margin rem(12) 2rem rem(-44) 0
+        .corner-button
+            color: var(--white)
+            +small-screen()
+                height 3rem
+                width 3rem
+                margin 0
+        +small-screen()
+            margin 0 0 -3rem
 
-.App-MainCol
-    display flex
-    flex-direction column
-    justify-content flex-start
-    align-items stretch
+// black filter effect above the wallpaper image
+.App::before
+    content ''
+    position absolute
+    top 0
+    left 0
     width 100%
+    height 100%
+    background-color rgba(0, 0, 0, .32)
+    backdrop-filter saturate(124%)
 
 .Timeline
     flex-shrink 0
@@ -58,13 +74,6 @@ body
     justify-content center
     align-items center
     flex-grow 1
-
-.main-content
-    flex-grow 1
-
-.lists-wrapper
-    display flex
-    flex-direction column
 
 .col-content
     margin 0 auto
