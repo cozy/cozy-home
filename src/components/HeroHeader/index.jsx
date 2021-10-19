@@ -3,6 +3,8 @@ import { useClient } from 'cozy-client'
 import get from 'lodash/get'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 
+import Typography from 'cozy-ui/transpiled/react/Typography'
+
 export const HeroHeader = () => {
   const client = useClient()
   const rootURL = client.getStackClient().uri
@@ -16,12 +18,15 @@ export const HeroHeader = () => {
       <div>
         <img className="hero-avatar u-mb-1" src={`${rootURL}/public/avatar`} />
       </div>
-      <h1 className="hero-title u-ta-center u-mv-0 u-mh-1 u-fw-bold u-primaryContrastTextColor">
+      <Typography
+        variant="h1"
+        className="hero-title u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor"
+      >
         {publicName}
-      </h1>
-      <h2 className="hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor">
+      </Typography>
+      <Typography className="hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor">
         {host}
-      </h2>
+      </Typography>
     </header>
   )
 }
