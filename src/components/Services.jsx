@@ -54,7 +54,7 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
       <MuiCozyTheme variant="inverted">
-        <Divider className="u-mv-1" />
+        <Divider className="u-mv-0" />
       </MuiCozyTheme>
       <div className="services-list u-w-100 u-mv-3 u-mh-auto u-flex-justify-center">
         {installedKonnectors.map((konnector, index) => (
