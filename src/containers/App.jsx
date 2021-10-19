@@ -118,7 +118,7 @@ class App extends Component {
       >
         <Corner />
         <div
-          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto"
+          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
           ref={
             isReady
               ? div => {
