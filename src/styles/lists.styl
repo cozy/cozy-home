@@ -10,7 +10,7 @@
     width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
     display grid
-    grid-template-columns repeat(auto-fit, appTileSize)
+    grid-template-columns repeat(auto-fill, appTileSize)
     grid-template-rows rem(91) repeat(auto-fit, rem(91)) // first row is for the divider
     grid-gap rem(35) appGridGutter
     justify-content center
@@ -35,6 +35,7 @@
             border-radius .75rem
             .item-icon
                 filter saturate(0%)
+                backdrop-filter blur(48px)
                 border 1px dashed var(--white)
                 svg, img
                     mix-blend-mode overlay
