@@ -30,20 +30,17 @@
                 transform none
 
     .item--ghost
-        .item-icon
-            filter saturate(0%)
-            backdrop-filter blur(48px)
+        .item-icon-wrapper
             background-color rgba(255, 255, 255, .32) // need to apply opacity in background-color or else mix-blend-mode in svg, img does not work
-            border 1px dashed var(--white)
-            svg, img
-                mix-blend-mode overlay
-            div
-                height 3rem
-                width 3rem
+            border-radius .75rem
+            .item-icon
+                filter saturate(0%)
+                border 1px dashed var(--white)
+                svg, img
+                    mix-blend-mode overlay
 
     .item-icon
         box-sizing border-box
-        background var(--white)
         border-radius .5rem
         padding rem(10)
         width 4rem
@@ -51,8 +48,9 @@
         position relative
 
         +small-screen()
-            width rem(24)
-            height rem(24)
+            width 3rem
+            height 3rem
+            padding rem(6)
 
     .item-grid-icon
         width rem(16)
