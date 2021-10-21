@@ -45,12 +45,12 @@ describe('KonnectorErrors', () => {
     return { root }
   }
 
-  it('should render nothing when there are no errors', () => {
+  it('should render divider when there are no errors', () => {
     const { root } = setup()
-    expect(root.container.firstChild).toBe(null)
+    expect(root.container).toMatchSnapshot()
   })
 
-  it('should render nothing when there are errors but no installed konnector', () => {
+  it('should render divider when there are errors but no installed konnector', () => {
     const triggersInError = [
       {
         _id: '2',
@@ -67,10 +67,10 @@ describe('KonnectorErrors', () => {
     ]
     const { root } = setup({ triggersInError })
 
-    expect(root.container.firstChild).toBe(null)
+    expect(root.container).toMatchSnapshot()
   })
 
-  it('should render nothing when all errors are muted', () => {
+  it('should render divider when all errors are muted', () => {
     const triggersInError = [
       {
         _id: '2',
@@ -104,7 +104,7 @@ describe('KonnectorErrors', () => {
       installedKonnectors
     })
 
-    expect(root.container.firstChild).toBe(null)
+    expect(root.container).toMatchSnapshot()
   })
 
   it('should render active errors', async () => {
@@ -219,7 +219,7 @@ describe('KonnectorErrors', () => {
       accountsWithErrors,
       installedKonnectors
     })
-    expect(root.container.firstChild).toBe(null)
+    expect(root.container).toMatchSnapshot()
   })
 
   it('should not show slide indicator with only one slide', () => {

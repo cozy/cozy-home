@@ -8,7 +8,6 @@ import Konnector from 'components/Konnector'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
-import KonnectorErrors from 'components/KonnectorErrors'
 import FooterLogo from 'components/FooterLogo'
 import Shortcuts from 'components/Shortcuts'
 
@@ -20,7 +19,6 @@ class Home extends Component {
         <ScrollToTopOnMount target={wrapper} />
         <Content className="u-flex u-flex-column u-ph-1">
           <Applications />
-          <KonnectorErrors />
           <Services />
           <Shortcuts />
           <FooterLogo />

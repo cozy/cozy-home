@@ -15,6 +15,8 @@ import CrossButton from 'cozy-ui/transpiled/react/Icons/Cross'
 import { Media, Bd } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import {
   getTriggersInError,
   getAccountsWithErrors,
@@ -187,7 +189,11 @@ export const KonnectorErrors = ({
         ))}
       </InfosCarrousel>
     </div>
-  ) : null
+  ) : (
+    <MuiCozyTheme variant="inverted">
+      <Divider className="u-mv-0" />
+    </MuiCozyTheme>
+  )
 }
 
 KonnectorErrors.propTypes = {

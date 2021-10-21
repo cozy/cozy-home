@@ -14,6 +14,7 @@ jest.mock('hooks/withAppsInMaintenance', () => jest.fn())
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
   <div>{konnector.slug}</div>
 ))
+jest.mock('components/KonnectorErrors', () => () => null)
 jest.mock('hooks/useRegistryInformation', () => (client, slug) => slug)
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
