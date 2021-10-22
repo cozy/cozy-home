@@ -25,8 +25,7 @@ module.exports = {
   plugins: [
     environment === 'development'
       ? new webpack.ProvidePlugin({
-          'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-          'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
+          'cozy.client': 'cozy-client-js/dist/cozy-client.js'
         })
       : null,
 
