@@ -336,6 +336,11 @@
       "reload": "Volver a cargar la página ahora"
     }
   },
+  "move_modal": {
+    "title": "Traslado terminado",
+    "text": "El traslado de sus datos desde %{de} ha sido exitoso.",
+    "button": "Acceder a mi Cozy"
+  },
   "tutorial": {
     "cozy_collect": {
       "title": "Automatice la recolección de sus datos",
@@ -369,6 +374,7 @@
   },
 
   "connector": {
+    "mute": "Error desconocido",
     "debug": {
       "successMessage": "Este konnector es sólo para fines de debug, este es un mensaje habitual adicional de éxito."
     },
