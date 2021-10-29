@@ -15,7 +15,7 @@ export class AppTile extends Component {
     return (
       <AppLinker slug={app.slug} href={appHref}>
         {({ onClick, href }) => (
-          <a onClick={onClick} href={href} className="item">
+          <a onClick={onClick} href={href} className="scale-hover">
             <SquareAppIcon app={app} name={displayName} />
           </a>
         )}

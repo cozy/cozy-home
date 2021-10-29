@@ -7,12 +7,13 @@
     appTileSize = 4rem
     appGridGutter = 2rem
     mobileTileSize = 3rem
+    appTileWithGutter = appTileSize + appGridGutter
     width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
     display grid
-    grid-template-columns repeat(auto-fill, appTileSize)
+    grid-template-columns repeat(auto-fill, appTileWithGutter)
     grid-template-rows rem(91) repeat(auto-fit, rem(91)) // first row is for the divider
-    grid-gap rem(35) appGridGutter
+    grid-gap rem(35) 0
     justify-content center
 
     +small-screen()
@@ -22,6 +23,8 @@
         grid-gap 1rem rem(20)
 
     .item
+        margin-right 1rem
+        margin-left 1rem
         position relative
         &:hover
             transform scale(1.05)
@@ -106,8 +109,6 @@
 
 .item
     box-sizing border-box
-    width 100%
-    height 100%
     cursor pointer
     text-decoration none
     text-align center
@@ -127,3 +128,6 @@
         margin .25rem 0 0
         font-size rem(11)
         line-height 1rem
+
+.scale-hover:hover
+    transform scale(1.05)

@@ -20,7 +20,7 @@ export const ShortcutLink = ({ file }) => {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="item"
+      className="scale-hover"
     >
       <SquareAppIcon name={filename} variant="shortcut" />
     </Link>
