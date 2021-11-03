@@ -8,6 +8,7 @@
   * cozy-harvest-lib 6.6.O : new BI slug for palatine bank
   * new home layout
 * Change matomo url from piwik.cozycloud.cc to matomo.cozycloud.cc
+* New home design
 
 ## 🐛 Bug Fixes
 

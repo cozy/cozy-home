@@ -59,7 +59,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-31 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
               >
                 List item
               </h6>
@@ -124,7 +124,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-31 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
             >
               List item
             </h6>
@@ -246,7 +246,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
               >
                 b
               </h6>
@@ -308,7 +308,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
               >
                 d
               </h6>
@@ -373,7 +373,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
             >
               b
             </h6>
@@ -435,7 +435,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
             >
               d
             </h6>
