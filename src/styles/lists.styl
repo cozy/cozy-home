@@ -6,8 +6,10 @@
 .app-list, .services-list, .shortcuts-list
     appTileSize = 4rem
     appGridGutter = 2rem
+    mobileGridGutter = 1rem
     mobileTileSize = 3rem
     appTileWithGutter = appTileSize + appGridGutter
+    mobileTileWithGutter = mobileTileSize + mobileGridGutter
     width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
     display grid
@@ -17,10 +19,9 @@
     justify-content center
 
     +small-screen()
-        margin 2rem auto
-        grid-template-columns repeat(auto-fit, mobileTileSize)
+        grid-template-columns repeat(auto-fill, mobileTileWithGutter)
         grid-template-rows rem(68) repeat(auto-fit, rem(68)) // first row is for the divider
-        grid-gap 1rem rem(20)
+        grid-gap rem(20) 0
 
     .item
         margin-right 1rem
