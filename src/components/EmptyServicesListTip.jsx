@@ -11,11 +11,13 @@ export const EmptyServicesListTip = () => {
   return (
     <Media align="top" className="EmptyServicesListTip">
       <Img>
-        <img src={ArrowIllustration} />
+        <img src={ArrowIllustration} color="white" />
       </Img>
       <Bd className="EmptyServicesListTip-text">
-        <Typography variant="h4">{t('connector.empty.title')}</Typography>
-        <Typography tag="p" className="u-mv-half" variant="body1">
+        <Typography className="u-white" variant="h4">
+          {t('connector.empty.title')}
+        </Typography>
+        <Typography tag="p" className="u-mv-half u-white" variant="body1">
           {t('connector.empty.text')}
         </Typography>
       </Bd>

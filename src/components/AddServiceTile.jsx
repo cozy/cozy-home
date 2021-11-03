@@ -23,7 +23,7 @@ const AddServiceTile = ({ label }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a onClick={onClick} href={href}>
+        <a onClick={onClick} href={href} className="scale-hover">
           <SquareAppIcon name={label} variant="add" />
         </a>
       )}

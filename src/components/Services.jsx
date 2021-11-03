@@ -8,6 +8,7 @@ import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 import flow from 'lodash/flow'
 
+import KonnectorErrors from 'components/KonnectorErrors'
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
@@ -20,8 +21,6 @@ import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const { t } = useI18n()
@@ -53,10 +52,8 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
 
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
-      <MuiCozyTheme variant="inverted">
-        <Divider className="u-mv-1" />
-      </MuiCozyTheme>
-      <div className="services-list u-w-100 u-mv-3 u-mh-auto u-flex-justify-center">
+      <KonnectorErrors />
+      <div className="services-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
         {installedKonnectors.map((konnector, index) => (
           <KonnectorTile
             key={index}

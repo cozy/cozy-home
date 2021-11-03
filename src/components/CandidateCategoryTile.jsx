@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IconGrid from 'cozy-ui/transpiled/react/Labs/IconGrid'
+import Grid from 'cozy-ui/transpiled/react/MuiCozyTheme/Grid'
 import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
@@ -27,17 +27,18 @@ const CandidateCategoryTile = ({ slugs, category }) => {
     >
       {({ onClick, href }) => (
         <a onClick={onClick} href={href} className="item item--ghost">
-          <div className="item-icon">
-            <IconGrid>
+          <div className="item-icon-wrapper">
+            <Grid container spacing={0} className="item-icon">
               {slugs.map(slug => (
-                <AppIcon
-                  alt={t('app.logo.alt', { name: category })}
-                  app={slug}
-                  key={slug}
-                  className="item-grid-icon"
-                />
+                <Grid item xs={6} key={slug}>
+                  <AppIcon
+                    alt={t('app.logo.alt', { name: category })}
+                    app={slug}
+                    className="item-grid-icon"
+                  />
+                </Grid>
               ))}
-            </IconGrid>
+            </Grid>
           </div>
           <h3 className="item-title">{t(`category.${category}`)}</h3>
         </a>

@@ -73,7 +73,11 @@ export const KonnectorTile = props => {
       })
 
   return (
-    <NavLink to={route} title={getKonnectorError({ error, lang, konnector })}>
+    <NavLink
+      to={route}
+      title={getKonnectorError({ error, lang, konnector })}
+      className="scale-hover"
+    >
       <SquareAppIcon
         app={konnector}
         name={konnector.name}

@@ -35,7 +35,7 @@ describe('Shortcuts', () => {
     const listName = 'List title'
     const listItem = 'List item'
 
-    render(
+    const root = render(
       <AppLike>
         <MuiCozyTheme>
           <ShortcutsView
@@ -46,11 +46,7 @@ describe('Shortcuts', () => {
         </MuiCozyTheme>
       </AppLike>
     )
-
-    expect(screen.getAllByRole('heading', { level: 2 })[0]).toHaveTextContent(
-      listName
-    )
-    expect(screen.getByRole('listitem')).toBeInTheDocument()
+    expect(root).toMatchSnapshot()
   })
 
   it('Should display multiple sections for multiple directories', () => {
@@ -59,7 +55,7 @@ describe('Shortcuts', () => {
       { name: 'c', shortcuts: [{ name: 'd' }] }
     ]
 
-    render(
+    const root = render(
       <AppLike>
         <MuiCozyTheme>
           <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
@@ -67,8 +63,6 @@ describe('Shortcuts', () => {
       </AppLike>
     )
 
-    expect(screen.getAllByRole('group')).toHaveLength(2)
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(4)
-    expect(screen.getAllByRole('listitem')).toHaveLength(2)
+    expect(root).toMatchSnapshot()
   })
 })

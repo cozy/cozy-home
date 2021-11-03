@@ -1,0 +1,499 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shortcuts Should display a shortcut directory with its files 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="shortcuts-list-wrapper u-m-auto u-w-100"
+      >
+        <p
+          class="MuiTypography-root-1 styles__divider___-oC9I u-mv-0 MuiTypography-body2-2 MuiTypography-colorTextPrimary-26"
+        >
+          List title
+        </p>
+        <div
+          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+        >
+          <a
+            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+            href="#"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div
+              class="makeStyles-tileWrapper-35"
+              data-testid="square-app-icon"
+            >
+              <span
+                class="MuiBadge-root"
+              >
+                <span
+                  class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-33"
+                  style="background-color: rgb(53, 206, 104);"
+                >
+                  <h2
+                    class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-alignCenter"
+                  >
+                    L
+                  </h2>
+                  <span
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  />
+                </span>
+                <span
+                  class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangle"
+                >
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <path
+                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <h6
+                class="MuiTypography-root makeStyles-name-31 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              >
+                List item
+              </h6>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="shortcuts-list-wrapper u-m-auto u-w-100"
+    >
+      <p
+        class="MuiTypography-root-1 styles__divider___-oC9I u-mv-0 MuiTypography-body2-2 MuiTypography-colorTextPrimary-26"
+      >
+        List title
+      </p>
+      <div
+        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+      >
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+          href="#"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="makeStyles-tileWrapper-35"
+            data-testid="square-app-icon"
+          >
+            <span
+              class="MuiBadge-root"
+            >
+              <span
+                class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-33"
+                style="background-color: rgb(53, 206, 104);"
+              >
+                <h2
+                  class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-alignCenter"
+                >
+                  L
+                </h2>
+                <span
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                />
+              </span>
+              <span
+                class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangle"
+              >
+                <svg
+                  class="styles__icon___23x3R"
+                  height="10"
+                  viewBox="0 0 16 16"
+                  width="10"
+                >
+                  <path
+                    d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+            <h6
+              class="MuiTypography-root makeStyles-name-31 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+            >
+              List item
+            </h6>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Shortcuts Should display multiple sections for multiple directories 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="shortcuts-list-wrapper u-m-auto u-w-100"
+      >
+        <p
+          class="MuiTypography-root-37 styles__divider___-oC9I u-mv-0 MuiTypography-body2-38 MuiTypography-colorTextPrimary-62"
+        >
+          a
+        </p>
+        <div
+          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+        >
+          <a
+            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+            href="#"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div
+              class="makeStyles-tileWrapper-71"
+              data-testid="square-app-icon"
+            >
+              <span
+                class="MuiBadge-root"
+              >
+                <span
+                  class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-69"
+                  style="background-color: rgb(252, 109, 0);"
+                >
+                  <h2
+                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                  >
+                    B
+                  </h2>
+                  <span
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  />
+                </span>
+                <span
+                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                >
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <path
+                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <h6
+                class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              >
+                b
+              </h6>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        class="shortcuts-list-wrapper u-m-auto u-w-100"
+      >
+        <p
+          class="MuiTypography-root-73 styles__divider___-oC9I u-mv-0 MuiTypography-body2-74 MuiTypography-colorTextPrimary-98"
+        >
+          c
+        </p>
+        <div
+          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+        >
+          <a
+            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+            href="#"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div
+              class="makeStyles-tileWrapper-71"
+              data-testid="square-app-icon"
+            >
+              <span
+                class="MuiBadge-root"
+              >
+                <span
+                  class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-69"
+                  style="background-color: rgb(255, 150, 47);"
+                >
+                  <h2
+                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                  >
+                    D
+                  </h2>
+                  <span
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  />
+                </span>
+                <span
+                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                >
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <path
+                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <h6
+                class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+              >
+                d
+              </h6>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="shortcuts-list-wrapper u-m-auto u-w-100"
+    >
+      <p
+        class="MuiTypography-root-37 styles__divider___-oC9I u-mv-0 MuiTypography-body2-38 MuiTypography-colorTextPrimary-62"
+      >
+        a
+      </p>
+      <div
+        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+      >
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+          href="#"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="makeStyles-tileWrapper-71"
+            data-testid="square-app-icon"
+          >
+            <span
+              class="MuiBadge-root"
+            >
+              <span
+                class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-69"
+                style="background-color: rgb(252, 109, 0);"
+              >
+                <h2
+                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                >
+                  B
+                </h2>
+                <span
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                />
+              </span>
+              <span
+                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+              >
+                <svg
+                  class="styles__icon___23x3R"
+                  height="10"
+                  viewBox="0 0 16 16"
+                  width="10"
+                >
+                  <path
+                    d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+            <h6
+              class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+            >
+              b
+            </h6>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div
+      class="shortcuts-list-wrapper u-m-auto u-w-100"
+    >
+      <p
+        class="MuiTypography-root-73 styles__divider___-oC9I u-mv-0 MuiTypography-body2-74 MuiTypography-colorTextPrimary-98"
+      >
+        c
+      </p>
+      <div
+        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+      >
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+          href="#"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="makeStyles-tileWrapper-71"
+            data-testid="square-app-icon"
+          >
+            <span
+              class="MuiBadge-root"
+            >
+              <span
+                class="MuiBadge-root styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-69"
+                style="background-color: rgb(255, 150, 47);"
+              >
+                <h2
+                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                >
+                  D
+                </h2>
+                <span
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                />
+              </span>
+              <span
+                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+              >
+                <svg
+                  class="styles__icon___23x3R"
+                  height="10"
+                  viewBox="0 0 16 16"
+                  width="10"
+                >
+                  <path
+                    d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+            <h6
+              class="MuiTypography-root makeStyles-name-67 u-ellipsis u-ov-hidden MuiTypography-h6 MuiTypography-alignCenter"
+            >
+              d
+            </h6>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

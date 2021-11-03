@@ -29,7 +29,7 @@ const FallbackCandidateServiceTile = ({ slug }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a onClick={onClick} href={href}>
+        <a onClick={onClick} href={href} className="scale-hover">
           <SquareAppIcon app={slug} name={name} variant="ghost" />
         </a>
       )}
