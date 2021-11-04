@@ -8,6 +8,7 @@
     appGridGutter = 2rem
     mobileGridGutter = 1rem
     mobileTileSize = 3rem
+    white = #fff
     appTileWithGutter = appTileSize + appGridGutter
     mobileTileWithGutter = mobileTileSize + mobileGridGutter
     width 100%
@@ -42,7 +43,7 @@
             border-radius .75rem
             .item-icon
                 filter saturate(0%)
-                backdrop-filter blur(48px)
+                background-color rgba(white, .48)
                 border 1px dashed var(--white)
                 svg, img
                     mix-blend-mode overlay
