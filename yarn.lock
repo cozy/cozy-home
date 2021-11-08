@@ -3732,10 +3732,10 @@ cozy-flags@2.7.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@6.12.0:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.12.0.tgz#0baaa1b02915379c2b92846f49e2c0274f898901"
-  integrity sha512-oTyZUYQUA/1QfYvbSMw2TX4muu8xtrTP0kf3ukuBvNvQrGsrsNqk8RB1X9nF/JWNkSiMFfxQK1+XS0uRUEGHLw==
+cozy-harvest-lib@6.13.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.13.0.tgz#b0fd9fea3d09e7b0a0d3d172af5bb7f99792c0fc"
+  integrity sha512-1l+ASXIk43k0X6yJWOikERn263lULjmMvU9UwoiV9vrnA8MNEt7xzeBePj5a6YlW5LNZcl8U4DNI2KNi+Oyxng==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -3895,10 +3895,10 @@ cozy-stack-client@^24.0.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@57.5.2:
-  version "57.5.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-57.5.2.tgz#119733fb586151371ca59675e7549e2f13c9e919"
-  integrity sha512-ScHuq/64pibbt1RYkcSPxFNTUPUntpV19l9lpGx4zG6SSc/I7pU4p18rfNvKWEY7sbjrIKcr/W0D3foX+iivdQ==
+cozy-ui@57.6.0:
+  version "57.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-57.6.0.tgz#587246ba48e0bd41166efec77d876d4367d1fb38"
+  integrity sha512-62h7Z0cbEoNInJRkmw3ExU00xFLD8/66bEDNJRKH4H9KYMnFaaar8GbJz/VxxHK7mHqazTdtixDp1KJd0eIVdg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
