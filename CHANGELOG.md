@@ -14,6 +14,7 @@
 
 * ignore manifest's id if any to avoid a crash
 * login and passwords fields do not enforce upercase on first letter anymore when login to a Konnector
+* avoid blur effect when hover icon
 
 ## 🔧 Tech
 
