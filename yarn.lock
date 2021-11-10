@@ -3351,10 +3351,10 @@ cozy-bar@7.7.6:
     redux-persist "5.10.0"
     redux-thunk "2.3.0"
 
-cozy-bi-auth@0.0.22:
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.22.tgz#44a85e06695304e2a682362ac20c38904fccb6c3"
-  integrity sha512-5hqTOCep4SZhIg14lqo53BHWuWpn9Zz4R4jIipFOaK8HV9ZWpBCXRHEsGwxTk98Fwpo3R+K+XIm63s65aJSqwA==
+cozy-bi-auth@0.0.24:
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.24.tgz#b9232e5c5a9828e59c88b6130a8d50043ed050b0"
+  integrity sha512-7Dr08b6uE81x1jjO8jZfy2738mvaQpUS4N+tfZthpO1MB7kSeB0RPlULG+IEMBll+NDlixypjcmVPdJ8ZJUkNA==
   dependencies:
     cozy-logger "^1.3.0"
     lodash "^4.17.20"
@@ -3426,10 +3426,10 @@ cozy-doctypes@1.81.0:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.82.2:
-  version "1.82.2"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.82.2.tgz#7c7d6f44e3aaee18ba51253468e84d2d1a70fde6"
-  integrity sha512-NWbQ6rKj2a+Rq19MX9uNa8GNlzwdlye9pxiC1V3jd+76T5fQMQN+tjHr9jK468V/NJvC/oQowAcWsRoMaB5A+Q==
+cozy-doctypes@^1.83.1:
+  version "1.83.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.1.tgz#939b62f9992199b142221fd88a3ee793776791ec"
+  integrity sha512-UROUuo6ums12c+4By3e+KpJ+eGWd1Yh2LyK835Fs0UM247fzLRJ2h2A89271pOE0Hg32CUiPU4x8hWQ2XZY5og==
   dependencies:
     cozy-logger "^1.7.0"
     date-fns "^1.30.1"
@@ -3451,15 +3451,15 @@ cozy-flags@2.7.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.4.0.tgz#3514cbc36f9db5ade865e8c9ff1b268cb9f961d1"
-  integrity sha512-JzPE5nsKMVBom5JvY2AtSGM6iDZIetBmxI/mfcEBsbUm0CQRot9EB4ZwTwWkdM1VvK0428hfgl4scAlM86ERGQ==
+cozy-harvest-lib@^6.13.1:
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.13.1.tgz#f89f3ec6384aab86279e6ed9bb0299f959854599"
+  integrity sha512-UfSTnWnpJcOGo7lKzEojQJLMLPLy56//+nVt0OdDVAfm+/ttJD/noKvWr8dbSRmXN1MhnDyAWxWNeVtv+jMbzw==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
-    cozy-bi-auth "0.0.22"
-    cozy-doctypes "^1.82.2"
+    cozy-bi-auth "0.0.24"
+    cozy-doctypes "^1.83.1"
     cozy-logger "^1.7.0"
     date-fns "^1.30.1"
     final-form "^4.18.5"
