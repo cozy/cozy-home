@@ -29,10 +29,8 @@
         margin-left 1rem
         position relative
         &:hover
-            @supports (zoom : 1.05)
-                zoom 1.05
-            @supports not (zoom : 1.05)
-                transform scale(1.05)
+            transform scale(1.06)
+            transition transform 50ms ease
         @media (pointer coarse)
             &:hover
                 transform none
@@ -138,9 +136,5 @@
         line-height 1rem
 
 .scale-hover:hover
-    /* transform scale can be blurry in other browser than firefox
-       and firefox does not support the zoom property */
-    @supports (zoom : 1.05)
-        zoom 1.05
-    @supports not (zoom : 1.05)
-        transform scale(1.05)
+    transform scale(1.06)
+    transition transform 50ms ease
