@@ -38,6 +38,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
                     <AppIcon
                       alt={t('app.logo.alt', { name: category })}
                       app={slug}
+                      type="konnector"
                       className="item-grid-icon"
                     />
                   </Grid>

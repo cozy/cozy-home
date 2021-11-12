@@ -37,7 +37,12 @@ const CandidateServiceTile = ({ konnector }) => {
         className="scale-hover u-c-pointer"
         onClick={() => setModalDisplayed(true)}
       >
-        <SquareAppIcon app={slug} name={name} variant="ghost" />
+        <SquareAppIcon
+          app={slug}
+          type="konnector"
+          name={name}
+          variant="ghost"
+        />
       </div>
     </>
   )
