@@ -15,21 +15,20 @@ import { receiveApps } from 'ducks/apps'
 import useHomeShortcuts from 'hooks/useHomeShortcuts'
 import { appsConn } from 'queries'
 
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+
 const LoadingAppTiles = memo(({ num }) => {
   return (
     <>
       {Array(num)
         .fill(null)
         .map((e, i) => (
-          <div className="item-wrapper" key={i}>
-            <header className="item-header">
-              <div className="item-icon">
-                <LoadingPlaceholder />
-              </div>
-            </header>
-            <h3 className="item-title">
-              <LoadingPlaceholder />
-            </h3>
+          <div key={i}>
+            <SquareAppIcon
+              variant="ghost"
+              name={<LoadingPlaceholder />}
+              IconContent={<LoadingPlaceholder />}
+            />
           </div>
         ))}
     </>

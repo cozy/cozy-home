@@ -5,6 +5,7 @@ import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const CandidateCategoryTile = ({ slugs, category }) => {
   const { t } = useI18n()
@@ -26,21 +27,25 @@ const CandidateCategoryTile = ({ slugs, category }) => {
       })}
     >
       {({ onClick, href }) => (
-        <a onClick={onClick} href={href} className="item item--ghost">
-          <div className="item-icon-wrapper">
-            <Grid container spacing={0} className="item-icon">
-              {slugs.map(slug => (
-                <Grid item xs={6} key={slug}>
-                  <AppIcon
-                    alt={t('app.logo.alt', { name: category })}
-                    app={slug}
-                    className="item-grid-icon"
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </div>
-          <h3 className="item-title">{t(`category.${category}`)}</h3>
+        <a onClick={onClick} href={href} className="scale-hover u-c-pointer">
+          <SquareAppIcon
+            variant="ghost"
+            name={t(`category.${category}`)}
+            IconContent={
+              <Grid container spacing={0}>
+                {slugs.map(slug => (
+                  <Grid item xs={6} key={slug}>
+                    <AppIcon
+                      alt={t('app.logo.alt', { name: category })}
+                      app={slug}
+                      type="konnector"
+                      className="item-grid-icon"
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            }
+          />
         </a>
       )}
     </AppLinker>

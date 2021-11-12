@@ -106,6 +106,7 @@ const KonnectorError = ({
             <AppIcon
               alt={t('app.logo.alt', { name: konnectorSlug })}
               app={konnectorSlug}
+              type="konnector"
               className="u-w-2 u-h-2 u-w-1-half-s u-h-1-half-s u-mr-1"
             />
             <Bd>

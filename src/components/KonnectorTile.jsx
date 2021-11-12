@@ -80,6 +80,7 @@ export const KonnectorTile = props => {
     >
       <SquareAppIcon
         app={konnector}
+        type="konnector"
         name={konnector.name}
         variant={statusMap[status]}
       />
