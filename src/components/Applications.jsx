@@ -26,7 +26,7 @@ const LoadingAppTiles = memo(({ num }) => {
           <div key={i}>
             <SquareAppIcon
               variant="ghost"
-              name={<LoadingPlaceholder />}
+              name="loading"
               IconContent={<LoadingPlaceholder />}
             />
           </div>
