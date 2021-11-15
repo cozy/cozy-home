@@ -14,6 +14,7 @@
   <% _.forEach(htmlWebpackPlugin.files.css, function(file) { %>
     <link rel="stylesheet" href="<%- file %>">
     <% }); %>
+  <link rel="stylesheet" href="//{{.Domain}}/assets/fonts/fonts.css">
       {{.ThemeCSS}}
       <% if (__STACK_ASSETS__) { %>
         {{.CozyClientJS}}
