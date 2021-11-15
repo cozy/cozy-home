@@ -16,12 +16,14 @@
     display grid
     grid-template-columns repeat(auto-fill, appTileWithGutter)
     grid-template-rows rem(91) repeat(auto-fit, rem(91)) // first row is for the divider
+    grid-auto-rows rem(91)
     grid-gap rem(35) 0
     justify-content center
 
     +small-screen()
         grid-template-columns repeat(auto-fill, mobileTileWithGutter)
         grid-template-rows rem(68) repeat(auto-fit, rem(68)) // first row is for the divider
+        grid-auto-rows rem(68)
         grid-gap rem(20) 0
 
     .item-grid-icon
