@@ -16,7 +16,10 @@ export const HeroHeader = () => {
   return (
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <div>
-        <img className="hero-avatar u-mb-1" src={`${rootURL}/public/avatar`} />
+        <img
+          className="hero-avatar u-mb-1 u-mb-half-s"
+          src={`${rootURL}/public/avatar`}
+        />
       </div>
       <Typography
         variant="h1"
