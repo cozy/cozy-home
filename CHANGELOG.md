@@ -1,7 +1,8 @@
-# 1.43.0
+# 1.42.0
 
 ## ✨ Features
 
+* Display custom shortcuts in the homepage below existing Konnectors
 * Integration of client-side connectors
   * cozy-client 24.2.0 : fetchAppLatestVersion
   * cozy-harvest-lib 6.5.O : client side connectors specificities
@@ -17,9 +18,3 @@
 * avoid blur effect when hover icon
 
 ## 🔧 Tech
-
-# 1.42.0
-
-## ✨ Features
-
-* Display custom shortcuts in the homepage below existing Konnectors
