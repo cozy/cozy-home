@@ -3,7 +3,7 @@
 ## ✨ Features
 
 ## 🐛 Bug Fixes
-
+* We had a bug in Harvest that when we opened, then closed then opened again the modal,the konnector's translations were not good
 ## 🔧 Tech
 
 # 1.42.0
