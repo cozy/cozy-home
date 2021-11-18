@@ -9,9 +9,6 @@ const LogoutButton = () => {
   const { t } = useI18n()
   const client = useClient()
   const logout = useCallback(async () => {
-    if (window.cozy.isWebview)
-      return window.ReactNativeWebView.postMessage('LOGOUT')
-
     await client.logout()
     window.location.reload()
   }, [client])
