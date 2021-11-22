@@ -3,6 +3,9 @@
 ## ✨ Features
 
 ## 🐛 Bug Fixes
+
+* We had a bug in Harvest which caused a fatal error for OAuth connectors : See [this PR](https://github.com/cozy/cozy-libs/pull/1390)
+
 ## 🔧 Tech
 
 # 1.43.0
