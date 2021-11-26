@@ -2,7 +2,8 @@
 ## ✨ Features
 
 ## 🐛 Bug Fixes
-
+- fix translation during the loading phase
+- fix spinner position for the ShortcutView during the loading phase
 ## 🔧 Tech
 
 # 1.44.0

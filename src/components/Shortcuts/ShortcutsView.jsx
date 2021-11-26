@@ -9,7 +9,7 @@ import { ShortcutLink } from 'components/ShortcutLink'
 export const ShortcutsView = ({ shortcutsDirectories }) => {
   return !shortcutsDirectories ? (
     shortcutsDirectories === null ? null : (
-      <div className="shortcuts-spinner">
+      <div className="u-flex u-flex-justify-center">
         <Spinner size="xxlarge" role="progressbar" />
       </div>
     )
