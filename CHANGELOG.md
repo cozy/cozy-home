@@ -5,6 +5,8 @@
 
 ## 🔧 Tech
 
+* useAppsInMaintenance hook is now moved in cozy client and can be used in other apps
+
 # 1.44.0
 
 ## ✨ Features
