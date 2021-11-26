@@ -5,6 +5,7 @@ import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
@@ -18,6 +19,7 @@ import { appsConn } from 'queries'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const LoadingAppTiles = memo(({ num }) => {
+  const { t } = useI18n()
   return (
     <>
       {Array(num)
@@ -26,7 +28,7 @@ const LoadingAppTiles = memo(({ num }) => {
           <div key={i}>
             <SquareAppIcon
               variant="ghost"
-              name="loading"
+              name={t('loading.working')}
               IconContent={<LoadingPlaceholder />}
             />
           </div>
