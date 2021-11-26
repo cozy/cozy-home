@@ -2,7 +2,8 @@
 ## ✨ Features
 
 ## 🐛 Bug Fixes
-
+- fix translation during the loading phase
+- fix spinner position for the ShortcutView during the loading phase
 ## 🔧 Tech
 
 * useAppsInMaintenance hook is now moved in cozy client and can be used in other apps
