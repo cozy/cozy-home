@@ -4,6 +4,7 @@
 ## 🐛 Bug Fixes
 - fix translation during the loading phase
 - fix spinner position for the ShortcutView during the loading phase
+- cozy-harvest-lib 6.14.4 : change timeout for createTemporaryToken [PR](https://github.com/cozy/cozy-libs/pull/1391)
 ## 🔧 Tech
 
 * useAppsInMaintenance hook is now moved in cozy client and can be used in other apps
