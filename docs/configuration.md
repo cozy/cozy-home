@@ -1,6 +1,6 @@
 # Cozy Home Configuration
 
-The main configuration file is [/src/config.collect.json](../src/config/collect.json). Its provides a convenient way to centralize global parameters of Cozy Home.
+The main configuration file is [/src/config/home.json](../src/config/home.json). Its provides a convenient way to centralize global parameters of Cozy Home.
 
 Configuration parameters are:
 
