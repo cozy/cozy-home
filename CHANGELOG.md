@@ -1,5 +1,6 @@
 # 1.45.0
 ## ✨ Features
+- cozy-harvest-lib 6.15.0 : get support email according to the contect [PR](https://github.com/cozy/cozy-libs/pull/1392)
 
 ## 🐛 Bug Fixes
 - fix translation during the loading phase
