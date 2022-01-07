@@ -3897,13 +3897,6 @@ cozy-client@24.2.0:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-device-helper@1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.14.0.tgz#ef834e4c731130348cde830f26f56b7e04c3b700"
-  integrity sha512-qZPg41xksIiLkSrOm+5+u3qOBp1V6EavetyV7/QNzuNwA7Ibtbi3kFmnwH28Pi0QNlalk0uktJaquowwv/uYcA==
-  dependencies:
-    lodash "^4.17.19"
-
 cozy-device-helper@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.12.0.tgz#619a24b0d3caf2d3f616a1524daef7c7b71eab7a"
@@ -3915,6 +3908,13 @@ cozy-device-helper@^1.14.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.14.0.tgz#ef834e4c731130348cde830f26f56b7e04c3b700"
   integrity sha512-qZPg41xksIiLkSrOm+5+u3qOBp1V6EavetyV7/QNzuNwA7Ibtbi3kFmnwH28Pi0QNlalk0uktJaquowwv/uYcA==
+  dependencies:
+    lodash "^4.17.19"
+
+cozy-device-helper@^1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.0.tgz#76f124724b340cac222d33789787e3c841f4b123"
+  integrity sha512-VcHkceUaYT79wu0wiYR8BrcTloVqY+GrLMGgJAFPdH1d8r3Vzcs3v/juor77TTOPcYEWuG702U93kx1u5rXpCg==
   dependencies:
     lodash "^4.17.19"
 
@@ -3980,10 +3980,14 @@ cozy-harvest-lib@6.15.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@../cozy-libs/packages/cozy-intent:
-  version "1.0.0"
+cozy-intent@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.1.0.tgz#07463bfc3b88ab38ace124ed44b4257477948040"
+  integrity sha512-PYlxWBWfoOyEdENfouo84OWnMVCUmLvKN9IL4BfkwOjiNTA2rDu7soqZwyFDwxoKTSnG2YfoJc87jMa/NELM8g==
   dependencies:
+    cozy-device-helper "^1.16.0"
     post-me "0.4.5"
+    typescript "^4.5.2"
 
 cozy-interapp@^0.5.4:
   version "0.5.7"
@@ -12968,6 +12972,11 @@ typescript@^4.3.5:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
   integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
+
+typescript@^4.5.2:
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.4.tgz#a17d3a0263bf5c8723b9c52f43c5084edf13c2e8"
+  integrity sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==
 
 uglify-js@3.4.x:
   version "3.4.10"
