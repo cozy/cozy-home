@@ -5,6 +5,7 @@ import flag from 'cozy-flags'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import enLocale from '../../locales/en.json'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { WebviewIntentProvider } from 'cozy-intent'
 
 jest.mock(
   './SettingsButton',
@@ -20,11 +21,13 @@ jest.mock('cozy-flags', () => {
 describe('Corner', () => {
   it('should only render the log out button', () => {
     const root = render(
-      <BreakpointsProvider>
-        <I18n dictRequire={() => enLocale} lang="en">
-          <Corner />
-        </I18n>
-      </BreakpointsProvider>
+      <WebviewIntentProvider>
+        <BreakpointsProvider>
+          <I18n dictRequire={() => enLocale} lang="en">
+            <Corner />
+          </I18n>
+        </BreakpointsProvider>
+      </WebviewIntentProvider>
     )
 
     expect(root.getByText('Log out')).toBeTruthy()
@@ -39,7 +42,11 @@ describe('Corner', () => {
       else if (flagName === 'home.corner.help-is-displayed') return false
       else return null
     })
-    const root = render(<Corner />)
+    const root = render(
+      <WebviewIntentProvider>
+        <Corner />
+      </WebviewIntentProvider>
+    )
     expect(root.queryByText('Log out')).toBeFalsy()
     expect(root.getByText('Settings')).toBeTruthy()
     expect(root.queryByText('Help')).toBeFalsy()

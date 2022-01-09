@@ -9,6 +9,7 @@ import { render } from 'react-dom'
 import 'url-search-params-polyfill'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { WebviewIntentProvider } from 'cozy-intent'
 
 import homeConfig from 'config/home.json'
 import AppWrapper from 'components/AppWrapper'
@@ -21,7 +22,9 @@ const renderApp = () => {
     <AppWrapper>
       <BreakpointsProvider>
         <PiwikHashRouter>
-          <App {...homeConfig} />
+          <WebviewIntentProvider>
+            <App {...homeConfig} />
+          </WebviewIntentProvider>
         </PiwikHashRouter>
       </BreakpointsProvider>
     </AppWrapper>,
