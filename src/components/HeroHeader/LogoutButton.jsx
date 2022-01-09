@@ -16,7 +16,7 @@ const LogoutButton = () => {
   const logout = useCallback(async () => {
     await client.logout()
 
-    return isFlagshipApp()
+    return isFlagshipApp() && webviewIntent
       ? webviewIntent.call('logout')
       : window.location.reload()
   }, [client, webviewIntent])
