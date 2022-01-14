@@ -2,9 +2,6 @@
   "name": "cozy-home",
   "version": "1.45.0",
   "main": "src/index.jsx",
-  "engines": {
-    "node": "~16"
-  },
   "scripts": {
     "tx": "tx pull --all || true",
     "posttx": "./scripts/check-locales.sh",
