@@ -13,7 +13,7 @@ export class AppTile extends Component {
     const displayName = applications.getAppDisplayName(app, lang)
     const appHref = app.links && app.links.related
     return (
-      <AppLinker slug={app.slug} href={appHref}>
+      <AppLinker slug={app.slug} href={appHref} app={app}>
         {({ onClick, href }) => (
           <a onClick={onClick} href={href} className="scale-hover">
             <SquareAppIcon app={app} name={displayName} />
