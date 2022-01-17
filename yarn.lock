@@ -3898,6 +3898,13 @@ cozy-client@^27.7.0:
     sift "^6.0.0"
     url-search-params-polyfill "^8.0.0"
 
+cozy-device-helper@1.16.0, cozy-device-helper@^1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.0.tgz#76f124724b340cac222d33789787e3c841f4b123"
+  integrity sha512-VcHkceUaYT79wu0wiYR8BrcTloVqY+GrLMGgJAFPdH1d8r3Vzcs3v/juor77TTOPcYEWuG702U93kx1u5rXpCg==
+  dependencies:
+    lodash "^4.17.19"
+
 cozy-device-helper@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.12.0.tgz#619a24b0d3caf2d3f616a1524daef7c7b71eab7a"
@@ -3909,13 +3916,6 @@ cozy-device-helper@^1.14.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.14.0.tgz#ef834e4c731130348cde830f26f56b7e04c3b700"
   integrity sha512-qZPg41xksIiLkSrOm+5+u3qOBp1V6EavetyV7/QNzuNwA7Ibtbi3kFmnwH28Pi0QNlalk0uktJaquowwv/uYcA==
-  dependencies:
-    lodash "^4.17.19"
-
-cozy-device-helper@^1.16.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.0.tgz#76f124724b340cac222d33789787e3c841f4b123"
-  integrity sha512-VcHkceUaYT79wu0wiYR8BrcTloVqY+GrLMGgJAFPdH1d8r3Vzcs3v/juor77TTOPcYEWuG702U93kx1u5rXpCg==
   dependencies:
     lodash "^4.17.19"
 
@@ -3981,14 +3981,13 @@ cozy-harvest-lib@6.15.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.1.2.tgz#25c0546d5a28989af9622629b5d53ebd907ced52"
-  integrity sha512-vOvntehwpukHofvuCwqgQhNCEzZVDekTfyIBeggFz+XYHJrEaiYe1IfyW1Mx2kjEF6meJ0G07M0JVAtes/w2Rw==
+cozy-intent@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.2.0.tgz#ae3719fa7122567db4bc7c4af41d0f336eb29a9a"
+  integrity sha512-raBy3RFurtvTkpOr9FqbYIHaBgyORst4iyCo5RYlRHmBE+JOS9YGjJZRt8fdMhZ2JZfmOWNkUdwIRSGIYJB7+g==
   dependencies:
-    cozy-device-helper "^1.16.0"
+    cozy-device-helper "1.16.0"
     post-me "0.4.5"
-    typescript "^4.5.2"
 
 cozy-interapp@^0.5.4:
   version "0.5.7"
@@ -8933,9 +8932,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
@@ -12973,11 +12972,6 @@ typescript@^4.3.5:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
   integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
-
-typescript@^4.5.2:
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.4.tgz#a17d3a0263bf5c8723b9c52f43c5084edf13c2e8"
-  integrity sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==
 
 uglify-js@3.4.x:
   version "3.4.10"
