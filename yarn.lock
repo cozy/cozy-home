@@ -3962,10 +3962,10 @@ cozy-flags@2.7.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@6.15.0:
-  version "6.15.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.15.0.tgz#1d286dce3731fbd0619f2f5b7f88432688ae0a83"
-  integrity sha512-+c84ltBGVKdCMHtHPD7KLUo0M62rdEwj+Q7u4pIjwSi0OyRmn/RocXffz48q464ycZlBIi8LAl/8aJU18hjGyQ==
+cozy-harvest-lib@7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-7.1.0.tgz#6093487402e6831dfa2cc4c574e7ae9199c368ad"
+  integrity sha512-PPhcR+RTqQnpwt1FX947YqgDuAv9h0zXEhz8FAOc0L7oWXAYqeEFbww+DzQZmmpPfOZM9dIa+abn0wnK0caD8Q==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
