@@ -5,7 +5,7 @@ import CozyClient, { CozyProvider } from 'cozy-client'
 import useInstanceSettings from 'hooks/useInstanceSettings'
 import AppLike from '../../test/AppLike'
 
-configure({ testIdAttribute: 'data-test-id' })
+configure({ testIdAttribute: 'data-testid' })
 
 jest.mock('hooks/useInstanceSettings', () => jest.fn())
 
