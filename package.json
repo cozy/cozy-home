@@ -46,7 +46,7 @@
     "cozy-keys-lib": "3.8.0",
     "cozy-logger": "1.7.0",
     "cozy-realtime": "3.13.1",
-    "cozy-sharing": "3.12.9",
+    "cozy-sharing": "3.12.10",
     "cozy-stack-client": "23.17.0",
     "cozy-ui": "^60.8.1",
     "date-fns": "1.30.1",
