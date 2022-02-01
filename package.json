@@ -73,7 +73,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react-hooks": "7.0.2",
-    "cozy-client-js": "0.16.4",
+    "cozy-client-js": "0.20.0",
     "cozy-scripts": "5.13.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
