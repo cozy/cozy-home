@@ -1544,7 +1544,7 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
   integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
 
-"@material-ui/core@4":
+"@material-ui/core@4.11.3":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.3.tgz#f22e41775b0bd075e36a7a093d43951bf7f63850"
   integrity sha512-Adt40rGW6Uds+cAyk3pVgcErpzU/qxc7KBR94jFHBYretU4AtWZltYcNsbeMn9tXL86jjVL1kuGcIHsgLgFGRw==
@@ -1562,7 +1562,7 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/lab@^4.0.0-alpha.57":
+"@material-ui/lab@4.0.0-alpha.57":
   version "4.0.0-alpha.57"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.57.tgz#e8961bcf6449e8a8dabe84f2700daacfcafbf83a"
   integrity sha512-qo/IuIQOmEKtzmRD2E4Aa6DB4A87kmY6h0uYhjUmrrgmEAgbbw9etXpWPVXuRK6AGIQCjFzV6WO2i21m1R4FCw==
@@ -1806,7 +1806,7 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^7.0.2":
+"@testing-library/react-hooks@7.0.2":
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/@testing-library/react-hooks/-/react-hooks-7.0.2.tgz#3388d07f562d91e7f2431a4a21b5186062ecfee0"
   integrity sha512-dYxpz8u9m4q1TuzfcUApqi8iFfR6R0FaMbr2hjZJy1uC8z+bO/K4v8Gs9eogGKYQop7QsrBTFkv/BCF7MzD2Cg==
@@ -3871,7 +3871,7 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@^27.7.0:
+cozy-client@27.7.0:
   version "27.7.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-27.7.0.tgz#507663c671ff677a1b0a43e956cb053ab03803cb"
   integrity sha512-3p6DRsa9VGnSjWiusMwhcmOEbCUikzMUPPQOWI3KJ4fcUBNU2ekjMzdygXr5+nlU4Dcg48hNFClC9bk2NcZ1QA==
@@ -3898,7 +3898,7 @@ cozy-client@^27.7.0:
     sift "^6.0.0"
     url-search-params-polyfill "^8.0.0"
 
-cozy-device-helper@1.16.0, cozy-device-helper@^1.16.0:
+cozy-device-helper@1.16.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.0.tgz#76f124724b340cac222d33789787e3c841f4b123"
   integrity sha512-VcHkceUaYT79wu0wiYR8BrcTloVqY+GrLMGgJAFPdH1d8r3Vzcs3v/juor77TTOPcYEWuG702U93kx1u5rXpCg==
@@ -3981,7 +3981,7 @@ cozy-harvest-lib@7.1.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@^1.2.0:
+cozy-intent@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.2.0.tgz#ae3719fa7122567db4bc7c4af41d0f336eb29a9a"
   integrity sha512-raBy3RFurtvTkpOr9FqbYIHaBgyORst4iyCo5RYlRHmBE+JOS9YGjJZRt8fdMhZ2JZfmOWNkUdwIRSGIYJB7+g==
@@ -4046,7 +4046,7 @@ cozy-release@1.10.0:
   dependencies:
     exec-sh "0.3.2"
 
-cozy-scripts@^5.13.0:
+cozy-scripts@5.13.0:
   version "5.13.0"
   resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.13.0.tgz#a7f18dff151ebdc11ef9cb71b6d641a17e90d20a"
   integrity sha512-2Z9cnliIxnRh5hcnpe6nIfHOxGNSNUlEWa9Q607PNUPmvMj6OP2xAYKg5knyc4RjtNBPafbsJgaGdtf+Rj0EoQ==
@@ -4141,7 +4141,7 @@ cozy-stack-client@^27.6.5:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@^60.8.1:
+cozy-ui@60.8.1:
   version "60.8.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-60.8.1.tgz#22481f5685403483a9fcf8ed1a4ede5ba68f0c2e"
   integrity sha512-n6cDxeg6ADVrnBVFOhkF5JKGYCd3cZ+Bu7ZTmtpvhmzvZqZgfXuIynSgQblNsl37Jp81NEOfKY1/G/10AXJPdQ==
@@ -4154,7 +4154,7 @@ cozy-ui@^60.8.1:
     filesize "8.0.7"
     hammerjs "^2.0.8"
     intersection-observer "0.11.0"
-    mui-bottom-sheet "https://github.com/cozy/mui-bottom-sheet.git#v1.0.6"
+    mui-bottom-sheet "git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6"
     node-polyglot "^2.2.2"
     normalize.css "^7.0.0"
     react-markdown "^4.0.8"
@@ -8189,7 +8189,7 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet@^1.7.1:
+leaflet@1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
@@ -8938,10 +8938,10 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
   uid "494c40416ecde95732c864f9b921e7e545075aa5"
-  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
@@ -9635,7 +9635,7 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
 
-papaparse@^5.1.1, papaparse@^5.2.0:
+papaparse@5.2.0, papaparse@^5.1.1:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.2.0.tgz#97976a1b135c46612773029153dc64995caa3b7b"
   integrity sha512-ylq1wgUSnagU+MKQtNeVqrPhZuMYBvOSL00DHycFTCxownF95gpLAk1HiHdUW77N8yxRq1qHXLdlIPyBSG9NSA==
@@ -10615,7 +10615,7 @@ react-final-form@^3.7.0:
   dependencies:
     "@babel/runtime" "^7.1.2"
 
-react-hot-loader@^4.13.0:
+react-hot-loader@4.13.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.13.0.tgz#c27e9408581c2a678f5316e69c061b226dc6a202"
   integrity sha512-JrLlvUPqh6wIkrK2hZDfOyq/Uh/WeVEr8nc7hkn2/3Ul0sx1Kr5y4kOGNacNRoj7RhwLNcQ3Udf1KJXrqc0ZtA==
@@ -10833,7 +10833,7 @@ react-swipeable-views-utils@^0.13.9:
     react-swipeable-views-core "^0.13.7"
     shallow-equal "^1.2.1"
 
-react-swipeable-views@^0.13.3, react-swipeable-views@^0.13.9:
+react-swipeable-views@0.13.9, react-swipeable-views@^0.13.3:
   version "0.13.9"
   resolved "https://registry.yarnpkg.com/react-swipeable-views/-/react-swipeable-views-0.13.9.tgz#d6a6c508bf5288ad55509f9c65916db5df0f2cec"
   integrity sha512-WXC2FKYvZ9QdJ31v9LjEJEl1bA7E4AcaloTkbW0uU0dYf5uvv4aOpiyxubvOkVl1a5L2UAHmKSif4TmJ9usrSg==
@@ -11338,7 +11338,7 @@ remark-parse@^5.0.0:
     vfile-location "^2.0.0"
     xtend "^4.0.1"
 
-remark-preset-lint-recommended@^5.0.0:
+remark-preset-lint-recommended@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/remark-preset-lint-recommended/-/remark-preset-lint-recommended-5.0.0.tgz#cc0da5bf532a47392e01ad2ee34c8076edad1207"
   integrity sha512-uu+Ab8JCwMMaKvvB0LOWTWtM3uAvJbKQM/oyWCEJqj7lUVNTKZS575Ro5rKM3Dx7kQjjR1iw0e99bpAYTc5xNA==
