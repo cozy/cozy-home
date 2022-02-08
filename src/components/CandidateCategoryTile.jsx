@@ -17,7 +17,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
 
   return (
     <AppLinker
-      slug={app}
+      app={{ slug: app }}
       nativePath={nativePath}
       href={generateWebLink({
         cozyUrl: cozyURL.origin,

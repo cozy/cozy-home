@@ -19,7 +19,7 @@ const FallbackCandidateServiceTile = ({ slug }) => {
 
   return (
     <AppLinker
-      slug={app}
+      app={{ slug: app }}
       nativePath={nativePath}
       href={generateWebLink({
         cozyUrl: cozyURL.origin,

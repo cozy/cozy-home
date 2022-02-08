@@ -18,7 +18,7 @@ const SettingsButton = ({ settingsAppQuery: { data } }) => {
   const displayName = applications.getAppDisplayName(app, lang)
 
   return slug && appHref ? (
-    <AppLinker slug={slug} href={appHref}>
+    <AppLinker app={app} href={appHref}>
       {({ onClick, href }) => (
         <CornerButton
           label={displayName}

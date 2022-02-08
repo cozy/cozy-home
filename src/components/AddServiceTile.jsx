@@ -13,7 +13,7 @@ const AddServiceTile = ({ label }) => {
 
   return (
     <AppLinker
-      slug={'store'}
+      app={{ slug: 'store' }}
       nativePath={nativePath}
       href={generateWebLink({
         cozyUrl: cozyURL.origin,

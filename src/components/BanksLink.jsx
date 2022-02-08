@@ -13,7 +13,7 @@ const BanksLink = ({ banksUrl }) => {
   const { t } = useI18n()
 
   return banksUrl ? (
-    <AppLinker slug="banks" href={banksUrl}>
+    <AppLinker app={{ slug: 'banks' }} href={banksUrl}>
       {({ href, onClick, name }) => (
         <a
           className={styles['col-account-success-link']}
