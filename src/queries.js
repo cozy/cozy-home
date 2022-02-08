@@ -11,8 +11,8 @@ export const suggestedKonnectorsConn = {
   query: () =>
     Q('io.cozy.apps.suggestions')
       .where({ silenced: false })
-      .sortBy([{ silenced: 'asc' }, { slug: 'asc' }])
-      .indexFields(['silenced', 'slug']),
+      .indexFields(['silenced', 'slug'])
+      .sortBy([{ silenced: 'asc' }, { slug: 'asc' }]),
   as: 'app-suggestions',
   fetchPolicy: defaultFetchPolicy
 }
