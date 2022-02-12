@@ -3905,7 +3905,7 @@ cozy-device-helper@1.16.0:
   dependencies:
     lodash "^4.17.19"
 
-cozy-device-helper@1.16.1:
+cozy-device-helper@1.16.1, cozy-device-helper@^1.15.0:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.1.tgz#559b6c3f104541b53603590ccd6fc89296878f26"
   integrity sha512-20IZGl7O1+J9qft+zMElL5nrSakAgqOx00IDsbbnJSFDLYtbA6wW6tIKOahYB+YLsDXEwiw6bzccqjiBXU0JAQ==
@@ -3916,13 +3916,6 @@ cozy-device-helper@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.12.0.tgz#619a24b0d3caf2d3f616a1524daef7c7b71eab7a"
   integrity sha512-7pFbltgkD8rSO0PEf8pd6aBB37RUnNYH7fb3pkbcvo5rk4quCfSLREV94gZwXxowzP4vjZcAumTM09DfI42mJA==
-  dependencies:
-    lodash "^4.17.19"
-
-cozy-device-helper@^1.15.0:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.1.tgz#559b6c3f104541b53603590ccd6fc89296878f26"
-  integrity sha512-20IZGl7O1+J9qft+zMElL5nrSakAgqOx00IDsbbnJSFDLYtbA6wW6tIKOahYB+YLsDXEwiw6bzccqjiBXU0JAQ==
   dependencies:
     lodash "^4.17.19"
 
@@ -4001,10 +3994,10 @@ cozy-interapp@^0.5.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
   integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
 
-cozy-keys-lib@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.8.0.tgz#655a6d05d012081d595ece7f25c6e8efa832b91f"
-  integrity sha512-uwuX3btRlItvaSsxTyuX2XiAFMmVjCJYYAKyQjQNgGsRfOiwVGUBp6GxjU54fd6X5tLTNdIysODNlbt+0WuS9Q==
+cozy-keys-lib@3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.11.0.tgz#4c7c89247e15b1deb298ba0ef5d1341ae3942d53"
+  integrity sha512-5HxzThZ2oK/g8l3eOFWqh7PZ0j5pE4hmkXiaDCSCV5ZeKwwG/eYumljaYOOsBWmhS7FDNlaNwowMWuhfppZk0Q==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
@@ -4014,7 +4007,7 @@ cozy-keys-lib@3.8.0:
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
-    minilog "https://github.com/cozy/minilog.git#master"
+    minilog "git+https://github.com/cozy/minilog.git#master"
     node-forge "^0.9.0"
     papaparse "^5.1.1"
     prop-types "^15.7.2"
@@ -8793,9 +8786,10 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-"minilog@https://github.com/cozy/minilog.git#master":
+"minilog@git+https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  uid "6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
+  resolved "git+https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
   dependencies:
     microee "0.0.6"
 
