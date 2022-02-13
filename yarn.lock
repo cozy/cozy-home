@@ -1791,10 +1791,10 @@
     lz-string "^1.4.4"
     pretty-format "^26.6.2"
 
-"@testing-library/jest-dom@5.16.1":
-  version "5.16.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.16.1.tgz#3db7df5ae97596264a7da9696fe14695ba02e51f"
-  integrity sha512-ajUJdfDIuTCadB79ukO+0l8O+QwN0LiSxDaYUTI4LndbbUsGi6rWU1SCexXzBA2NSjlVB9/vbkasQIL3tmPBjw==
+"@testing-library/jest-dom@5.16.2":
+  version "5.16.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.16.2.tgz#f329b36b44aa6149cd6ced9adf567f8b6aa1c959"
+  integrity sha512-6ewxs1MXWwsBFZXIk4nKKskWANelkdUehchEOokHsN8X7c2eKXGw+77aRV63UU8f/DTSVUPLaGxdrj4lN7D/ug==
   dependencies:
     "@babel/runtime" "^7.9.2"
     "@types/testing-library__jest-dom" "^5.9.1"
@@ -3905,7 +3905,7 @@ cozy-device-helper@1.16.0:
   dependencies:
     lodash "^4.17.19"
 
-cozy-device-helper@1.16.1:
+cozy-device-helper@1.16.1, cozy-device-helper@^1.15.0:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.1.tgz#559b6c3f104541b53603590ccd6fc89296878f26"
   integrity sha512-20IZGl7O1+J9qft+zMElL5nrSakAgqOx00IDsbbnJSFDLYtbA6wW6tIKOahYB+YLsDXEwiw6bzccqjiBXU0JAQ==
@@ -3916,13 +3916,6 @@ cozy-device-helper@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.12.0.tgz#619a24b0d3caf2d3f616a1524daef7c7b71eab7a"
   integrity sha512-7pFbltgkD8rSO0PEf8pd6aBB37RUnNYH7fb3pkbcvo5rk4quCfSLREV94gZwXxowzP4vjZcAumTM09DfI42mJA==
-  dependencies:
-    lodash "^4.17.19"
-
-cozy-device-helper@^1.15.0:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.1.tgz#559b6c3f104541b53603590ccd6fc89296878f26"
-  integrity sha512-20IZGl7O1+J9qft+zMElL5nrSakAgqOx00IDsbbnJSFDLYtbA6wW6tIKOahYB+YLsDXEwiw6bzccqjiBXU0JAQ==
   dependencies:
     lodash "^4.17.19"
 
