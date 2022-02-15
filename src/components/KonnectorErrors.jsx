@@ -212,7 +212,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default flow(
-  connect(mapStateToProps),
-  withRouter
-)(KonnectorErrors)
+export default flow(connect(mapStateToProps), withRouter)(KonnectorErrors)

@@ -10,6 +10,9 @@ module.exports = {
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index'
   },
+  transform: {
+    '^.+\\.(ts|tsx|js|jsx)?$': 'babel-jest'
+  },
   transformIgnorePatterns: [
     'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core)'
   ],

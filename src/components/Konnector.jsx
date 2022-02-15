@@ -30,7 +30,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default flow(
-  connect(mapStateToProps),
-  withRouter
-)(Konnector)
+export default flow(connect(mapStateToProps), withRouter)(Konnector)

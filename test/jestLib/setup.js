@@ -21,7 +21,7 @@ log.setLevel('error')
 // eslint-disable-next-line no-console
 const originalWarn = console.warn
 // eslint-disable-next-line no-console
-console.warn = function(msg, msg2) {
+console.warn = function (msg, msg2) {
   if (
     msg &&
     msg.includes &&

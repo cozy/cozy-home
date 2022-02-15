@@ -51,14 +51,8 @@ export const getKonnectorStatus = ({
 
 export const KonnectorTile = props => {
   const { lang } = useI18n()
-  const {
-    accountsCount,
-    error,
-    isInMaintenance,
-    userError,
-    konnector,
-    route
-  } = props
+  const { accountsCount, error, isInMaintenance, userError, konnector, route } =
+    props
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 

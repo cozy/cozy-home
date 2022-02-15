@@ -19,6 +19,7 @@ class IntentHandler extends Component {
 
     this.store
       .createIntentService()
+      // eslint-disable-next-line promise/always-return
       .then(service => {
         this.setState({
           isInitializing: false,

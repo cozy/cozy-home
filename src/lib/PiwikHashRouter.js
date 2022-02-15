@@ -4,7 +4,7 @@ import {
   getTracker
 } from 'cozy-ui/transpiled/react/helpers/tracker'
 
-const addPiwik = function(history) {
+const addPiwik = function (history) {
   if (shouldEnableTracking() && getTracker()) {
     let trackerInstance = getTracker()
     history = trackerInstance.connectToHistory(history)
