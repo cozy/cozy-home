@@ -38,7 +38,7 @@
     "@material-ui/lab": "4.0.0-alpha.57",
     "@testing-library/react": "11.2.7",
     "cozy-client": "27.15.0",
-    "cozy-device-helper": "1.16.1",
+    "cozy-device-helper": "1.17.0",
     "cozy-doctypes": "1.83.5",
     "cozy-flags": "2.6.0",
     "cozy-harvest-lib": "7.2.3",
