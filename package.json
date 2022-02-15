@@ -65,7 +65,7 @@
     "react-proptypes": "1.0.0",
     "react-redux": "7.2.6",
     "react-router-dom": "4.3.1",
-    "react-swipeable-views": "0.13.9",
+    "react-swipeable-views": "0.14.0",
     "redux": "4.1.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.3.0"
