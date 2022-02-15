@@ -4032,13 +4032,13 @@ cozy-logger@^1.8.0:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
 
-cozy-realtime@3.13.1:
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.13.1.tgz#bee71d6289e0cf3ba84ca5cc351e742644d92aa4"
-  integrity sha512-tY20GGWqsvdIfgoXsFfIi+DBaHBm6X7+ErvChag9BVgWFrgCwn0Fq8trOsBMhCeF9e2zZS1TF2XfFYeBG+jshA==
+cozy-realtime@3.14.4:
+  version "3.14.4"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.14.4.tgz#fb92d8c39838fa58006e3c6ea5547c445e4bf665"
+  integrity sha512-bI4yq+BDWEWAb7hIi5qMUqlU6Sh4Q3QiWzjTIv5zNkIVb12BW0uVOPPNfNcDRAi0JOzTn5q3FYVJ0pg3KhxaHg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
-    cozy-device-helper "^1.12.0"
+    cozy-device-helper "^1.15.0"
 
 cozy-release@1.10.0:
   version "1.10.0"
