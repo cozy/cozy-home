@@ -132,24 +132,27 @@ export default class HomeStore {
 
   // Get the drive and banks application url using the list of application
   fetchUrls() {
-    return cozy.client
-      .fetchJSON('GET', '/apps/')
-      .then(body => {
-        body.forEach(item => {
-          if (!item.attributes || !item.attributes.slug || !item.links) return
-          switch (item.attributes.slug) {
-            case 'banks':
-              this.banksUrl = `${item.links.related}`
-              break
-            default:
-              break
-          }
+    return (
+      cozy.client
+        .fetchJSON('GET', '/apps/')
+        // eslint-disable-next-line promise/always-return
+        .then(body => {
+          body.forEach(item => {
+            if (!item.attributes || !item.attributes.slug || !item.links) return
+            switch (item.attributes.slug) {
+              case 'banks':
+                this.banksUrl = `${item.links.related}`
+                break
+              default:
+                break
+            }
+          })
         })
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.warn(err.message)
-        return false
-      })
+        .catch(err => {
+          // eslint-disable-next-line no-console
+          console.warn(err.message)
+          return false
+        })
+    )
   }
 }

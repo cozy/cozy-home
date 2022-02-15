@@ -23,12 +23,12 @@ describe('polyfillFetch', () => {
 
   describe('when fetch and related objects already exist in global scope', () => {
     beforeEach(() => {
-      global.fetch = function() {}
-      global.Headers = function() {}
-      global.Response = function() {}
-      global.Request = function() {}
-      global.FormData = function() {}
-      global.URL = function() {}
+      global.fetch = function () {}
+      global.Headers = function () {}
+      global.Response = function () {}
+      global.Request = function () {}
+      global.FormData = function () {}
+      global.URL = function () {}
     })
 
     it('should do nothing', () => {

@@ -124,8 +124,9 @@ export const getKonnectorMessage = (t, konnector, message) => {
     hasDescriptions && hasDescriptions[legacyMessages[message] || message]
   if (providesLegacyMessage)
     return t(
-      `connector.${konnector.slug}.description.${legacyMessages[message] ||
-        message}`
+      `connector.${konnector.slug}.description.${
+        legacyMessages[message] || message
+      }`
     )
 
   return null

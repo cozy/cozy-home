@@ -25,8 +25,9 @@ const withCustomWallpaper = WrappedComponent => {
       />
     )
   }
-  Wrapped.displayName = `withCustomWallpaper(${WrappedComponent.displayName ||
-    WrappedComponent.name})`
+  Wrapped.displayName = `withCustomWallpaper(${
+    WrappedComponent.displayName || WrappedComponent.name
+  })`
   return Wrapped
 }
 

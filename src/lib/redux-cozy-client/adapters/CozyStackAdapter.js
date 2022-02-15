@@ -36,6 +36,7 @@ export default class CozyStackAdapter {
       // WARN: the JSON response from the stack is not homogenous with other routes (offset? rows? total_rows?)
       // see https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#list-all-the-documents
       // WARN: looks like this route returns something looking like a couchDB design doc, we need to filter it:
+      // eslint-disable-next-line no-prototype-builtins
       const rows = resp.rows.filter(row => !row.doc.hasOwnProperty('views'))
       // we normalize the data (note that we add _type so that cozy.client.data.listReferencedFiles works...)
       const docs = rows.map(row =>

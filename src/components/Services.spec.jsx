@@ -14,6 +14,7 @@ jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
   useAppsInMaintenance: jest.fn()
 }))
+// eslint-disable-next-line react/display-name
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
   <div>{konnector.slug}</div>
 ))

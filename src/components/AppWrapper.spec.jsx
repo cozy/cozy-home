@@ -1,4 +1,3 @@
-import 'isomorphic-fetch'
 import { setupAppContext } from './AppWrapper'
 
 jest.mock('cozy-client')

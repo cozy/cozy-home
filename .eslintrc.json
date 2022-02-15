@@ -1,6 +1,3 @@
 {
-  "extends": ["cozy-app/react"],
-  "rules": {
-    "react/no-deprecated":1
-  }
+  "extends": ["cozy-app/react"]
 }
