@@ -4138,10 +4138,10 @@ cozy-stack-client@^27.15.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@60.8.1:
-  version "60.8.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-60.8.1.tgz#22481f5685403483a9fcf8ed1a4ede5ba68f0c2e"
-  integrity sha512-n6cDxeg6ADVrnBVFOhkF5JKGYCd3cZ+Bu7ZTmtpvhmzvZqZgfXuIynSgQblNsl37Jp81NEOfKY1/G/10AXJPdQ==
+cozy-ui@60.12.0:
+  version "60.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-60.12.0.tgz#41f54ee9aecfd3e224ba34de236515844a15b7a4"
+  integrity sha512-Y0Xa+ArzUiIeEu+uFG6l7WRCr+cxIbWI6vwLmYk7U5JAY3bRIDB6oWeD/ur4fBzJMHiATJINj2Enu6STqiotyQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
