@@ -5256,10 +5256,10 @@ cozy-harvest-lib@7.3.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.10.1.tgz#414a633abe592498e430a0a4a32b898163c12d31"
-  integrity sha512-+cPBZ33e/Tzh0bTAeSnXIjGbvbL0pVGcEUvxOnyAuo3IRSntOyuXltpFejqjqOvpmsmWIDOZJlQvEJylPX0Isg==
+cozy-intent@1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.10.3.tgz#8c57e54b3f70228b8e7189a63cabc9e021c701f6"
+  integrity sha512-DOy40/BtJOoPEZjv1+eiPCQaXB1QVenbTQWYWVfq3PqdRyfjeuSGntIlLL79BqOco/yFAwHP6yL89GBVG9UwTA==
   dependencies:
     post-me "0.4.5"
 
