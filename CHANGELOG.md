@@ -11,6 +11,7 @@
 ## 🔧 Tech
 
 * useAppsInMaintenance hook is now moved in cozy client and can be used in other apps
+- Revert to cozy-keys-lib 3.11.0 to avoid a bug with intent
 
 # 1.44.0
 
