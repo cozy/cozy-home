@@ -5328,10 +5328,10 @@ cozy-release@1.10.0:
   dependencies:
     exec-sh "0.3.2"
 
-cozy-scripts@6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-6.1.1.tgz#64689a5881582516c14f41339e6c6747dd0712b4"
-  integrity sha512-P8h7olr85dHcYqVoMzemTQ3C1yUmdts2ySJCd3hQXke2379CcXQDMMUDTBPtO3+CY9isWBaFB3GjPXClOtYDIA==
+cozy-scripts@6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-6.1.5.tgz#7776e0c6f9c050fa7414705615a9c7b7ae8bc335"
+  integrity sha512-JtZjle4d2F71pyMDC14fb1f2Ud1Jpz80NXlNaXeaK0cfE0BuXFFJD6ZaFcCwVrUMfOjUFICYDDWZtewkZi16Ww==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
@@ -10448,9 +10448,9 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-"minilog@git+https://github.com/cozy/minilog.git#master":
+"minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  resolved "git+https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
+  resolved "https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
   dependencies:
     microee "0.0.6"
 
