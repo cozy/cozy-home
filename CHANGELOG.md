@@ -1,12 +1,11 @@
 # 1.45.0
 
 ## ✨ Features
-
+* Loading App's icons: Should be faster. We now rely on img src=http directly if we are not in OAuth. Otherwise we do a fetch.
 * cozy-harvest-lib 6.15.0 : get support email according to the contect [PR](https://github.com/cozy/cozy-libs/pull/1392)
 * cozy-harvest-lib 7.1.0 : no multi account for client side connectors [PR](https://github.com/cozy/cozy-libs/pull/1406)
 * cozy-harvest-lib 7.3.0 : Do not allow multiple accounts with same BI connection ID [PR](https://github.com/cozy/cozy-libs/pull/1464)
-* cozy-client 27.19.2 : Get Icon Url uses preloaded url when oAuth not needed [PR](https://github.com/cozy/cozy-client/pull/1134/files)
-* cozy-ui 62.1.3 : Add appData to getIconUrl [PR](https://github.com/cozy/cozy-ui/pull/2064/)
+
 
 ## 🐛 Bug Fixes
 
@@ -18,6 +17,8 @@
 
 * useAppsInMaintenance hook is now moved in cozy client and can be used in other apps
 * Revert to cozy-keys-lib 3.11.0 to avoid a bug with intent
+* cozy-client 27.19.2 : Get Icon Url uses preloaded url when oAuth not needed [PR](https://github.com/cozy/cozy-client/pull/1134/files)
+* cozy-ui 62.1.3 : Add appData to getIconUrl [PR](https://github.com/cozy/cozy-ui/pull/2064/)
 
 # 1.44.0
 
