@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'react-proptypes'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import isObjectLike from 'lodash/isObjectLike'
@@ -42,129 +42,106 @@ export const toFlagNames = (flagName, prefix = '') => {
       keys(flagName).map(key => toFlagNames(flagName[key], `${prefix}${key}.`))
     )
 }
+const App = ({
+  // eslint-disable-next-line no-unused-vars
+  store,
+  client,
+  accounts,
+  konnectors,
+  triggers,
+  wallpaperFetchStatus,
+  wallpaperLink
+}) => {
+  const [status, setStatus] = useState(IDLE)
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState(null)
+  const [contentWrapper, setContentWrapper] = useState(undefined)
 
-class App extends Component {
-  state = {
-    error: null,
-    status: IDLE
-  }
+  useEffect(() => {
+    setStatus(FETCHING_CONTEXT)
 
-  constructor(props, context) {
-    super(props, context)
-    this.store = context.store
-  }
-
-  componentDidMount() {
-    this.fetchContext()
-  }
-
-  async fetchContext() {
-    this.setState({
-      status: FETCHING_CONTEXT
-    })
-    const { client } = this.props
-    const context = await client.stackClient
-      .fetchJSON('GET', '/settings/context')
-      .catch(error => {
-        this.setState({
-          error,
-          status: IDLE
+    async function fetchContext() {
+      return await client.stackClient
+        .fetchJSON('GET', '/settings/context')
+        .catch(error => {
+          setError(error)
+          setStatus(IDLE)
         })
-      })
+    }
 
+    const context = fetchContext()
     if (context && context.attributes && context.attributes.features) {
       const flags = toFlagNames(context.attributes.features)
       enableFlags(flags)
     }
 
-    this.setState({
-      status: IDLE
-    })
+    setStatus(IDLE)
+  }, [client.stackClient])
+
+  const isFetching = [accounts, konnectors, triggers].find(collection =>
+    ['pending', 'loading'].includes(collection.fetchStatus)
+  )
+
+  const { cozyDefaultWallpaper } = client.getInstanceOptions()
+  let backgroundURL = null
+  if (wallpaperFetchStatus !== 'loading') {
+    backgroundURL = wallpaperLink || cozyDefaultWallpaper
   }
 
-  render() {
-    const {
-      client,
-      accounts,
-      konnectors,
-      triggers,
-      wallpaperFetchStatus,
-      wallpaperLink
-    } = this.props
-    const isFetching = [accounts, konnectors, triggers].find(collection =>
-      ['pending', 'loading'].includes(collection.fetchStatus)
-    )
+  const hasError = [accounts, konnectors, triggers].find(
+    collection => collection.fetchStatus === 'failed'
+  )
 
-    const { cozyDefaultWallpaper } = client.getInstanceOptions()
-    let backgroundURL = null
-    if (wallpaperFetchStatus !== 'loading') {
-      backgroundURL = wallpaperLink || cozyDefaultWallpaper
-    }
+  const isFetchingContext = status === FETCHING_CONTEXT
 
-    const hasError = [accounts, konnectors, triggers].find(
-      collection => collection.fetchStatus === 'failed'
-    )
+  const isReady = !hasError && !isFetching && !isFetchingContext
+  const showTimeline = flag('home.timeline.show') // used in demo envs
 
-    const { status } = this.state
-    const isFetchingContext = status === FETCHING_CONTEXT
-
-    const isReady = !hasError && !isFetching && !isFetchingContext
-    const showTimeline = flag('home.timeline.show') // used in demo envs
-
-    return (
+  return (
+    <div
+      className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
+      style={{ backgroundImage: `url(${backgroundURL})` }}
+    >
+      <Corner />
       <div
-        className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
-        style={{ backgroundImage: `url(${backgroundURL})` }}
+        className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
+        ref={isReady ? div => setContentWrapper(div) : null}
       >
-        <Corner />
-        <div
-          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
-          ref={
-            isReady
-              ? div => {
-                  this.contentWrapper = div
-                }
-              : null
-          }
-        >
-          <Alerter />
-          <MoveModal />
-          <HeroHeader />
-          {hasError && (
-            <Main className="main-loader">
-              <Failure errorType="initial" />
-            </Main>
-          )}
-          {isFetching && (
-            <Main className="main-loader">
-              <Spinner size="xxlarge" />
-            </Main>
-          )}
-          {isReady && (
-            <Switch>
-              <Route path="/redirect" component={IntentRedirect} />
-              <Route
-                path="/connected"
-                render={() => (
-                  <Home base="/connected" wrapper={this.contentWrapper} />
-                )}
-              />
-              <Route exact path="/providers" component={StoreRedirection} />
-              <Route path="/providers/:category" component={StoreRedirection} />
-              <Redirect exact from="/" to="/connected" />
-              <Redirect from="*" to="/connected" />
-            </Switch>
-          )}
-          <IconSprite />
-        </div>
-        {showTimeline && (
-          <div className="Timeline">
-            <img src={DemoTimeline} width="420px" />
-          </div>
+        <Alerter />
+        <MoveModal />
+        <HeroHeader />
+        {hasError && (
+          <Main className="main-loader">
+            <Failure errorType="initial" />
+          </Main>
         )}
+        {isFetching && (
+          <Main className="main-loader">
+            <Spinner size="xxlarge" />
+          </Main>
+        )}
+        {isReady && (
+          <Switch>
+            <Route path="/redirect" component={IntentRedirect} />
+            <Route
+              path="/connected"
+              render={() => <Home base="/connected" wrapper={contentWrapper} />}
+            />
+            <Route exact path="/providers" component={StoreRedirection} />
+            <Route path="/providers/:category" component={StoreRedirection} />
+            <Redirect exact from="/" to="/connected" />
+            <Redirect from="*" to="/connected" />
+          </Switch>
+        )}
+        <IconSprite />
       </div>
-    )
-  }
+      {showTimeline && (
+        <div className="Timeline">
+          <img src={DemoTimeline} width="420px" />
+        </div>
+      )}
+    </div>
+  )
 }
 
 App.contextTypes = {
