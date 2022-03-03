@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'react-proptypes'
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import isObjectLike from 'lodash/isObjectLike'
 import isArray from 'lodash/isArray'
 import keys from 'lodash/keys'
@@ -43,8 +42,6 @@ export const toFlagNames = (flagName, prefix = '') => {
     )
 }
 const App = ({
-  // eslint-disable-next-line no-unused-vars
-  store,
   client,
   accounts,
   konnectors,
@@ -53,23 +50,12 @@ const App = ({
   wallpaperLink
 }) => {
   const [status, setStatus] = useState(IDLE)
-  // eslint-disable-next-line no-unused-vars
-  const [error, setError] = useState(null)
   const [contentWrapper, setContentWrapper] = useState(undefined)
 
   useEffect(() => {
     setStatus(FETCHING_CONTEXT)
 
-    async function fetchContext() {
-      return await client.stackClient
-        .fetchJSON('GET', '/settings/context')
-        .catch(error => {
-          setError(error)
-          setStatus(IDLE)
-        })
-    }
-
-    const context = fetchContext()
+    const context = client.stackClient.fetchJSON('GET', '/settings/context')
     if (context && context.attributes && context.attributes.features) {
       const flags = toFlagNames(context.attributes.features)
       enableFlags(flags)
@@ -142,10 +128,6 @@ const App = ({
       )}
     </div>
   )
-}
-
-App.contextTypes = {
-  store: PropTypes.object
 }
 
 /*
