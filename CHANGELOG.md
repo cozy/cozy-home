@@ -1,5 +1,13 @@
 # 1.46.0
 
+## ✨ Features
+
+* When displaying cozy-home from Cozy's native application, the splash screen is now correctly shown during the page loading
+
+## 🐛 Bug Fixes
+
+## 🔧 Tech
+
 # 1.45.0
 
 ## ✨ Features
