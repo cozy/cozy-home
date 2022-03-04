@@ -66,15 +66,17 @@ const App = ({
   useEffect(() => {
     setStatus(FETCHING_CONTEXT)
 
-    const context = client
-      .getStackClient()
-      .fetchJSON('GET', '/settings/context')
-    if (context && context.attributes && context.attributes.features) {
-      const flags = toFlagNames(context.attributes.features)
-      enableFlags(flags)
+    const fetchContext = async () => {
+      const context = await client
+        .getStackClient()
+        .fetchJSON('GET', '/settings/context')
+      if (context && context.attributes && context.attributes.features) {
+        const flags = toFlagNames(context.attributes.features)
+        enableFlags(flags)
+      }
+      setStatus(IDLE)
     }
-
-    setStatus(IDLE)
+    fetchContext()
   }, [client])
 
   useEffect(() => {
