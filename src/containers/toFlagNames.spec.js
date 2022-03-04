@@ -1,4 +1,4 @@
-import { toFlagNames } from './App'
+import { toFlagNames } from './toFlagNames'
 
 describe('toFlagNames', () => {
   it('should convert a data structure to flag names', () => {

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
-import isObjectLike from 'lodash/isObjectLike'
-import isArray from 'lodash/isArray'
-import keys from 'lodash/keys'
-import flatten from 'lodash/flatten'
 
 import { withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
@@ -24,6 +20,7 @@ import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
 import DemoTimeline from 'assets/images/timeline.png'
 import withCustomWallpaper from 'hoc/withCustomWallpaper'
+import { toFlagNames } from './toFlagNames'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -31,16 +28,6 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 window.flag = window.flag || flag
 window.minilog = minilog
 
-// TODO add this to cozy-flags ?
-export const toFlagNames = (flagName, prefix = '') => {
-  if (typeof flagName === 'string') return `${prefix}${flagName}`
-  else if (isArray(flagName))
-    return flatten(flagName.map(flagName => toFlagNames(flagName, prefix)))
-  else if (isObjectLike(flagName))
-    return flatten(
-      keys(flagName).map(key => toFlagNames(flagName[key], `${prefix}${key}.`))
-    )
-}
 const App = ({
   client,
   accounts,
