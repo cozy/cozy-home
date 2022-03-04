@@ -51,6 +51,30 @@ const App = ({
 }) => {
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
+  const [isFetching, setIsFetching] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [isReady, setIsReady] = useState(false)
+  const [backgroundURL, setBackgroundURL] = useState(null)
+
+  const showTimeline = flag('home.timeline.show') // used in demo envs
+
+  useEffect(() => {
+    const { cozyDefaultWallpaper } = client.getInstanceOptions()
+    setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
+  }, [wallpaperLink, wallpaperFetchStatus, client])
+
+  useEffect(() => {
+    setIsFetching(
+      [accounts, konnectors, triggers].find(collection =>
+        ['pending', 'loading'].includes(collection.fetchStatus)
+      )
+    )
+    setHasError(
+      [accounts, konnectors, triggers].find(
+        collection => collection.fetchStatus === 'failed'
+      )
+    )
+  }, [accounts, konnectors, triggers])
 
   useEffect(() => {
     setStatus(FETCHING_CONTEXT)
@@ -64,24 +88,9 @@ const App = ({
     setStatus(IDLE)
   }, [client.stackClient])
 
-  const isFetching = [accounts, konnectors, triggers].find(collection =>
-    ['pending', 'loading'].includes(collection.fetchStatus)
-  )
-
-  const { cozyDefaultWallpaper } = client.getInstanceOptions()
-  let backgroundURL = null
-  if (wallpaperFetchStatus !== 'loading') {
-    backgroundURL = wallpaperLink || cozyDefaultWallpaper
-  }
-
-  const hasError = [accounts, konnectors, triggers].find(
-    collection => collection.fetchStatus === 'failed'
-  )
-
-  const isFetchingContext = status === FETCHING_CONTEXT
-
-  const isReady = !hasError && !isFetching && !isFetchingContext
-  const showTimeline = flag('home.timeline.show') // used in demo envs
+  useEffect(() => {
+    setIsReady(!hasError && !isFetching && !(status === FETCHING_CONTEXT))
+  }, [hasError, isFetching, status])
 
   return (
     <div
