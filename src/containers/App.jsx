@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 
-import { withClient } from 'cozy-client'
+import { Q, withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
+import { isFlagshipApp } from 'cozy-device-helper'
+import { useWebviewIntent } from 'cozy-intent'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
@@ -42,6 +44,7 @@ const App = ({
   const [hasError, setHasError] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [backgroundURL, setBackgroundURL] = useState(null)
+  const webviewIntent = useWebviewIntent()
 
   const showTimeline = flag('home.timeline.show') // used in demo envs
 
@@ -67,9 +70,9 @@ const App = ({
     setStatus(FETCHING_CONTEXT)
 
     const fetchContext = async () => {
-      const context = await client
-        .getStackClient()
-        .fetchJSON('GET', '/settings/context')
+      const context = await client.query(
+        Q('io.cozy.settings').getById('context')
+      )
       if (context && context.attributes && context.attributes.features) {
         const flags = toFlagNames(context.attributes.features)
         enableFlags(flags)
@@ -82,6 +85,14 @@ const App = ({
   useEffect(() => {
     setIsReady(!hasError && !isFetching && !(status === FETCHING_CONTEXT))
   }, [hasError, isFetching, status])
+
+  useEffect(() => {
+    if (isReady) {
+      if (isFlagshipApp() && webviewIntent) {
+        webviewIntent.call('hideSplashScreen')
+      }
+    }
+  }, [webviewIntent, isReady])
 
   return (
     <div
