@@ -79,14 +79,16 @@ const App = ({
   useEffect(() => {
     setStatus(FETCHING_CONTEXT)
 
-    const context = client.stackClient.fetchJSON('GET', '/settings/context')
+    const context = client
+      .getStackClient()
+      .fetchJSON('GET', '/settings/context')
     if (context && context.attributes && context.attributes.features) {
       const flags = toFlagNames(context.attributes.features)
       enableFlags(flags)
     }
 
     setStatus(IDLE)
-  }, [client.stackClient])
+  }, [client])
 
   useEffect(() => {
     setIsReady(!hasError && !isFetching && !(status === FETCHING_CONTEXT))
