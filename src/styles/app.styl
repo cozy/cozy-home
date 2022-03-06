@@ -54,6 +54,19 @@ body
     background-color rgba(0, 0, 0, .32)
     backdrop-filter saturate(124%)
 
+.flagship-app
+    .App
+        padding-top var(--flagship-top-height)
+        padding-bottom var(--flagship-bottom-height)
+
+    .MuiDialog-root
+        margin-top var(--flagship-top-height)
+        padding-bottom var(--flagship-bottom-height)
+
+    // Overriding an inline JS style that we do not want in flagship-app
+    .MuiBackdrop-root
+        opacity 0 !important // @stylint ignore
+
 .Timeline
     flex-shrink 0
 
