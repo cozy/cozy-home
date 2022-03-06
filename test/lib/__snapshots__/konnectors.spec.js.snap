@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`konnectors lib buildKonnectorError builds an complex error from a konnector to expected format 1`] = `[Error: USER_ACTION_NEEDED.ACCOUNT_REMOVED]`;
-
-exports[`konnectors lib buildKonnectorError builds an error from a konnector to expected format 1`] = `[Error: LOGIN_FAILED]`;
