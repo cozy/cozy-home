@@ -6,6 +6,8 @@
 
 ## 🐛 Bug Fixes
 
+* On IOS Safari, the URL and Navigation bar were always displayed
+
 ## 🔧 Tech
 
 # 1.45.0
