@@ -10,14 +10,15 @@ body
     // has been solved
     height 100% !important // @stylint ignore
     +medium-screen()
-        height 100% !important // @stylint ignore
-
         main > [role=main].u-flex
             display flex
 
+    +mobile()
+        height inherit !important // @stylint ignore
+
 body
     // Allows horizontal swipe on mobile
-    +mobile()
+    +mobile() // @stylint ignore
         max-width 100vw
         overflow-x hidden
 
