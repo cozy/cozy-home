@@ -10,6 +10,7 @@ import 'url-search-params-polyfill'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { WebviewIntentProvider } from 'cozy-intent'
+import { register as registerServiceWorker } from 'src/targets/browser/serviceWorkerRegistration'
 
 import homeConfig from 'config/home.json'
 import AppWrapper from 'components/AppWrapper'
@@ -40,3 +41,5 @@ if (module.hot) {
   renderApp()
   module.hot.accept()
 }
+
+registerServiceWorker()
