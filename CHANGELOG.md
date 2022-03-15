@@ -10,7 +10,7 @@
 
 ## 🔧 Tech
 
-* Remove useless demo timeline
+* Remove unused demo timeline
 
 # 1.45.0
 
