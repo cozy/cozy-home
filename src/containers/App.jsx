@@ -20,7 +20,6 @@ import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
-import DemoTimeline from 'assets/images/timeline.png'
 import withCustomWallpaper from 'hoc/withCustomWallpaper'
 import { toFlagNames } from './toFlagNames'
 
@@ -45,8 +44,6 @@ const App = ({
   const [isReady, setIsReady] = useState(false)
   const [backgroundURL, setBackgroundURL] = useState(null)
   const webviewIntent = useWebviewIntent()
-
-  const showTimeline = flag('home.timeline.show') // used in demo envs
 
   useEffect(() => {
     const { cozyDefaultWallpaper } = client.getInstanceOptions()
@@ -132,11 +129,6 @@ const App = ({
         )}
         <IconSprite />
       </div>
-      {showTimeline && (
-        <div className="Timeline">
-          <img src={DemoTimeline} width="420px" />
-        </div>
-      )}
     </div>
   )
 }

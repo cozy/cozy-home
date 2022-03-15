@@ -10,6 +10,8 @@
 
 ## 🔧 Tech
 
+* Remove useless demo timeline
+
 # 1.45.0
 
 ## ✨ Features
