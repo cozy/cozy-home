@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
 
 import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
+import { useWebviewIntent } from 'cozy-intent'
 
 import { getKonnector } from 'ducks/konnectors'
 
@@ -12,6 +13,21 @@ import { getTriggersByKonnector } from 'reducers'
 
 const Konnector = ({ konnector, history, triggers }) => {
   const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
+  const webviewIntent = useWebviewIntent()
+
+  useEffect(() => {
+    webviewIntent?.call('setFlagshipUI', {
+      bottomColor: 'dark',
+      topColor: 'dark'
+    })
+
+    return () =>
+      webviewIntent?.call('setFlagshipUI', {
+        bottomColor: 'light',
+        topColor: 'light'
+      })
+  }, [webviewIntent])
+
   return (
     <HarvestRoutes
       konnectorRoot={`/connected/${konnector.slug}`}
