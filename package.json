@@ -10,6 +10,7 @@
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "build": "yarn build:browser",
     "build:browser": "cozy-scripts build --browser",
+    "postbuild:browser": "workbox injectManifest config/workbox.config.js && rm -rf build/serviceWorker",
     "build:mobile": "cozy-scripts build --mobile",
     "watch": "yarn watch:browser",
     "watch:browser": "cozy-scripts start --browser --hot",
@@ -91,7 +92,9 @@
     "remark-preset-lint-recommended": "5.0.0",
     "stylint": "2.0.0",
     "stylus": "0.55.0",
-    "url-search-params-polyfill": "8.1.1"
+    "url-search-params-polyfill": "8.1.1",
+    "workbox-cli": "6.5.1",
+    "workbox-precaching": "6.5.1"
   },
   "lint-staged": {
     "{src,test}/**/*.{js,jsx}": [

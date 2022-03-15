@@ -14,15 +14,6 @@ export function register() {
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkLocalhostValidServiceWorker(swUrl)
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
-            'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://cra.link/PWA'
-          )
-        })
       } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl)
@@ -56,11 +47,10 @@ function checkLocalhostValidServiceWorker(swUrl) {
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
-          registration.unregister().then(() => {
-            window.location.reload()
-          })
-        })
+        // eslint-disable-next-line promise/no-nesting
+        navigator.serviceWorker.ready
+          .then(registration => registration.unregister())
+          .then(() => window.location.reload())
       } else {
         // Service worker found. Proceed as normal.
         registerValidSW(swUrl)
@@ -69,9 +59,9 @@ function checkLocalhostValidServiceWorker(swUrl) {
         }
       }
     })
-    .catch(() => {
+    .catch(() =>
       console.log(
         'No internet connection found. App is running in offline mode.'
       )
-    })
+    )
 }
