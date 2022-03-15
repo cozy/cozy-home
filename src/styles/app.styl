@@ -54,6 +54,14 @@ body
     background-color rgba(0, 0, 0, .32)
     backdrop-filter saturate(124%)
 
+.flagship-app
+    .App, [role='presentation'] .MuiPaper-root
+        padding-top var(--flagship-top-height)
+        padding-bottom var(--flagship-bottom-height)
+
+    [class*='DialogCloseButton']
+        margin-top var(--flagship-top-height)
+
 .Timeline
     flex-shrink 0
 
