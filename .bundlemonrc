@@ -1,0 +1,59 @@
+{
+  "verbose": true,
+  "baseDir": "./build",
+  "files": [
+    {
+      "path": "app-home.<hash>.min.css",
+      "maxSize": "14 KB"
+    },
+    {
+      "path": "app/home.<hash>.js",
+      "maxSize": "38 KB"
+    },
+    {
+      "path": "intents-home.<hash>.min.css",
+      "maxSize": "6 KB"
+    },
+    {
+      "path": "intents/home.<hash>.js",
+      "maxSize": "32 KB"
+    },
+    {
+      "path": "intents/index.html",
+      "maxSize": "1 KB"
+    },
+    {
+      "path": "services/attributesHelpers/home.js",
+      "maxSize": "16 KB"
+    },
+    {
+      "path": "services/deleteAccounts/home.js",
+      "maxSize": "314 KB"
+    },
+    {
+      "path": "services/myselfFromIdenties/home.js",
+      "maxSize": "235 KB"
+    },
+    {
+      "path": "services/polyfillFetch/home.js",
+      "maxSize": "99 KB"
+    },
+    {
+      "path": "services/softDeleteOrRestoreAccounts/home.js",
+      "maxSize": "487 KB"
+    },
+    {
+      "path": "services/updateAccounts/home.js",
+      "maxSize": "464 KB"
+    },
+    {
+      "path": "vendors/home.<hash>.js",
+      "maxSize": "1.5 MB"
+    },
+    {
+      "path": "vendors-home.<hash>.<hash>.min.css",
+      "maxSize": "34 KB"
+    }
+  ],
+  "reportOutput": ["github"]
+}
