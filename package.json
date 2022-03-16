@@ -86,6 +86,7 @@
     "npm-run-all": "4.1.5",
     "react": "16.14.0",
     "react-dom": "16.14.0",
+    "react-hot-loader": "^4.13.0",
     "react-test-renderer": "16.14.0",
     "remark-preset-lint-recommended": "5.0.0",
     "stylint": "2.0.0",
