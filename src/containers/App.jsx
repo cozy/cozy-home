@@ -94,7 +94,11 @@ const App = ({
   return (
     <div
       className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
-      style={{ backgroundImage: `url(${backgroundURL})` }}
+      style={{
+        backgroundImage: `url(${backgroundURL})`,
+        position: 'fixed',
+        height: '100%'
+      }}
     >
       <Corner />
       <div
