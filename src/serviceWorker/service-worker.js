@@ -2,12 +2,10 @@ import { precacheAndRoute } from 'workbox-precaching'
 
 precacheAndRoute(self.__WB_MANIFEST)
 
-self.addEventListener('install', () => {
-  self.skipWaiting()
-
-  // Perform any other actions required for your
-  // service worker to install, potentially inside
-  // of event.waitUntil();
+addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
 })
 
 // I choose https://developer.chrome.com/docs/workbox/the-ways-of-workbox/#workbox-cli
