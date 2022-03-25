@@ -14,9 +14,9 @@ export class AppTile extends Component {
     const appHref = app.links && app.links.related
     return (
       <AppLinker href={appHref} app={app}>
-        {({ onClick, href }) => (
+        {({ onClick, href, iconRef }) => (
           <a onClick={onClick} href={href} className="scale-hover">
-            <SquareAppIcon app={app} name={displayName} />
+            <SquareAppIcon app={app} name={displayName} iconRef={iconRef} />
           </a>
         )}
       </AppLinker>
