@@ -7,7 +7,19 @@ const isLocalhost = Boolean(
 )
 
 export function register() {
+  console.log('🚀 register method')
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    let refreshing
+    // The event listener that is fired when the service worker updates
+    // Here we reload the page
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      console.log('🚀 controller change => je refresh')
+      if (refreshing) return
+      window.location.reload()
+      refreshing = true
+    })
+
     window.addEventListener('load', () => {
       const swUrl = `/service-worker.js`
 
@@ -22,12 +34,23 @@ export function register() {
   }
 }
 
+navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+  reg.onupdatefound = function () {
+    var newSW = reg.installing
+    newSW.onstatechange = function () {
+      if (newSW.state === 'waiting') {
+        newSW.postMessage('skipWaiting')
+      }
+      // Handle whatever other SW states you care about, like 'active'.
+    }
+  }
+})
+
 function registerValidSW(swUrl) {
+  console.log('🚀 SWR: register valid SW')
   navigator.serviceWorker
     .register(swUrl)
-    .then(registration => {
-      return registration.update()
-    })
+    .then(registration => registration.update())
     .catch(error => {
       console.error('Error during service worker registration:', error)
     })
