@@ -4,7 +4,6 @@
 
 * Fix position of background wallpaper image, preventing scroll showing white background inside Cozy's native application.
 * When displaying cozy-home from Cozy's native application, the splash screen is now correctly shown during the page loading
-* Add service-worker to cache bundle assets, to load the page faster
 
 ## 🐛 Bug Fixes
 
