@@ -98,6 +98,11 @@
       "folder": "/intents",
       "index": "index.html",
       "public": false
+    },
+    "/service-worker.js": {
+      "folder": "/",
+      "index": "service-worker.js",
+      "public": false
     }
   },
   "intents": [
