@@ -40,3 +40,21 @@ if (module.hot) {
   renderApp()
   module.hot.accept()
 }
+
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then(async registrations => {
+        for (let registration of registrations) {
+          await registration.unregister()
+        }
+        // eslint-disable-next-line no-console
+        return console.info('Service worker unregistered')
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error during service worker registration:', error)
+      })
+  })
+}
