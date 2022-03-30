@@ -12,6 +12,8 @@
 ## 🔧 Tech
 
 * Remove unused demo timeline
+* Unregister any service worker that could have been registered during development
+
 
 # 1.45.0
 
