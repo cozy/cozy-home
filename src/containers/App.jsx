@@ -20,6 +20,7 @@ import Failure from 'components/Failure'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
+import { MainView } from 'components/MainView'
 import withCustomWallpaper from 'hoc/withCustomWallpaper'
 import { toFlagNames } from './toFlagNames'
 
@@ -100,39 +101,43 @@ const App = ({
         height: '100%'
       }}
     >
-      <Corner />
-      <div
-        className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
-        ref={isReady ? div => setContentWrapper(div) : null}
-      >
-        <Alerter />
-        <MoveModal />
-        <HeroHeader />
-        {hasError && (
-          <Main className="main-loader">
-            <Failure errorType="initial" />
-          </Main>
-        )}
-        {isFetching && (
-          <Main className="main-loader">
-            <Spinner size="xxlarge" />
-          </Main>
-        )}
-        {isReady && (
-          <Switch>
-            <Route path="/redirect" component={IntentRedirect} />
-            <Route
-              path="/connected"
-              render={() => <Home base="/connected" wrapper={contentWrapper} />}
-            />
-            <Route exact path="/providers" component={StoreRedirection} />
-            <Route path="/providers/:category" component={StoreRedirection} />
-            <Redirect exact from="/" to="/connected" />
-            <Redirect from="*" to="/connected" />
-          </Switch>
-        )}
-        <IconSprite />
-      </div>
+      <MainView>
+        <Corner />
+        <div
+          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
+          ref={isReady ? div => setContentWrapper(div) : null}
+        >
+          <Alerter />
+          <MoveModal />
+          <HeroHeader />
+          {hasError && (
+            <Main className="main-loader">
+              <Failure errorType="initial" />
+            </Main>
+          )}
+          {isFetching && (
+            <Main className="main-loader">
+              <Spinner size="xxlarge" />
+            </Main>
+          )}
+          {isReady && (
+            <Switch>
+              <Route path="/redirect" component={IntentRedirect} />
+              <Route
+                path="/connected"
+                render={() => (
+                  <Home base="/connected" wrapper={contentWrapper} />
+                )}
+              />
+              <Route exact path="/providers" component={StoreRedirection} />
+              <Route path="/providers/:category" component={StoreRedirection} />
+              <Redirect exact from="/" to="/connected" />
+              <Redirect from="*" to="/connected" />
+            </Switch>
+          )}
+          <IconSprite />
+        </div>
+      </MainView>
     </div>
   )
 }
