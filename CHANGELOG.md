@@ -14,6 +14,7 @@
 
 * Remove unused demo timeline
 * Unregister any service worker that could have been registered during development
+* Upgrade cozy-flags to remove useless some warnings flag.enable
 
 
 # 1.45.0
