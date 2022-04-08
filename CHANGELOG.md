@@ -8,6 +8,7 @@
 ## 🐛 Bug Fixes
 
 * On IOS Safari, the URL and Navigation bar were always displayed
+* Now show the jobs as running after first account configuration in Harvest [PR](https://github.com/cozy/cozy-libs/pull/1515)
 
 ## 🔧 Tech
 
