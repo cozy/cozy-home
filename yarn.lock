@@ -5306,10 +5306,10 @@ cozy-flags@2.7.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-flags@2.8.4:
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.8.4.tgz#e14c181adb4a2caadcb0f56b9ad3008503212e64"
-  integrity sha512-BeCNxzM9jx3ldYj4TxK+f0cGBIyY6N2JYwIGjZzwaEMhQKfJfj3aBlk9y1ba1GNzZIyu4aRRln2g4EYLv5lUlg==
+cozy-flags@2.8.7:
+  version "2.8.7"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.8.7.tgz#d600019b66c41af6dfff2d1941e78c8284c54a22"
+  integrity sha512-TXi0el5uD2PbM7abpe+MY+lCKWDJUMohALnoRdjSPgiGzKn135NuY+MRcK1pPKOxUMkYT1hh3XGEY2+BD6Q2ng==
   dependencies:
     microee "^0.0.6"
 
