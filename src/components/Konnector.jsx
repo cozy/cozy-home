@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
@@ -10,14 +10,15 @@ import { getKonnector } from 'ducks/konnectors'
 
 import { getTriggersByKonnector } from 'reducers'
 
-const Konnector = ({ konnector, history, triggers }) => {
+export const Konnector = ({ konnector, history, triggers }) => {
   const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
+  const onDismiss = useCallback(() => history.replace('/connected'), [history])
 
   return (
     <HarvestRoutes
       konnectorRoot={`/connected/${konnector.slug}`}
       konnector={konnectorWithTriggers}
-      onDismiss={() => history.push('/connected')}
+      onDismiss={onDismiss}
       datacardOptions={datacardOptions}
     />
   )
