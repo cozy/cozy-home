@@ -12,7 +12,7 @@ import { getTriggersByKonnector } from 'reducers'
 
 export const Konnector = ({ konnector, history, triggers }) => {
   const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
-  const onDismiss = useCallback(() => history.replace('/connected'), [history])
+  const onDismiss = useCallback(() => history.push('/connected'), [history])
 
   return (
     <HarvestRoutes

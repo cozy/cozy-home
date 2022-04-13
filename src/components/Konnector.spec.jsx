@@ -13,7 +13,7 @@ jest.mock('cozy-harvest-lib', () => ({
   )
 }))
 
-it('it correctly goes back to the home page onDismiss', () => {
+it('it correctly goes back to the home page onDismiss and allows nav goBack', () => {
   const history = createMemoryHistory()
 
   const { getByText } = render(
@@ -23,7 +23,12 @@ it('it correctly goes back to the home page onDismiss', () => {
   )
 
   history.push('connected/alan/accounts/123')
+
   fireEvent.click(getByText('alan'))
 
   expect(history.location.pathname).toBe('/connected')
+
+  history.go(-1)
+
+  expect(history.location.pathname).toBe('/connected/alan/accounts/123')
 })
