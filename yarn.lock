@@ -5210,10 +5210,10 @@ cozy-app-publish@^0.27.2:
     request "^2.88.0"
     tar "^4.4.13"
 
-cozy-bi-auth@0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.24.tgz#b9232e5c5a9828e59c88b6130a8d50043ed050b0"
-  integrity sha512-7Dr08b6uE81x1jjO8jZfy2738mvaQpUS4N+tfZthpO1MB7kSeB0RPlULG+IEMBll+NDlixypjcmVPdJ8ZJUkNA==
+cozy-bi-auth@0.0.25:
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.25.tgz#00947925dc3cbb664f4fa54cedde80e47d55fdd0"
+  integrity sha512-GsGuQ+tWbD6qhoD3EaAb9+qtGY90dY1F2n3+4Y1GHy5NBjPyRORPygOADaFgQmrX+u6QrrSJLAWh7EMAzxUH6w==
   dependencies:
     cozy-logger "^1.3.0"
     lodash "^4.17.20"
@@ -5313,14 +5313,14 @@ cozy-flags@2.8.7:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-8.2.0.tgz#ec3f9f5ec5be368c0140376bb98d461cd95e7117"
-  integrity sha512-gmDkNtoq1TNFLeVA2+yQrDyCnJq8U6pufCTb/wkacXL9qMO7ImL60sG+qnmYzc4ll2xIidQ6yoYI2Lh0O2AV7Q==
+cozy-harvest-lib@8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-8.2.1.tgz#bca9a5be7c5c672414d0757bd645e96fb9898436"
+  integrity sha512-3x00IhipdtBaYeZGhn3os5NFt+5qEY6dmAppXCpIkfXyR8Ou0AbCI7PjBqrkNnAIjLTJHb7K58aOJyceZ7qcQg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
-    cozy-bi-auth "0.0.24"
+    cozy-bi-auth "0.0.25"
     cozy-doctypes "^1.83.7"
     cozy-logger "^1.9.0"
     date-fns "^1.30.1"
