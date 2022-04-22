@@ -4,8 +4,6 @@ import omit from 'lodash/omit'
 import get from 'lodash/get'
 import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
 
-import { getTriggerLastJob } from 'ducks/jobs'
-
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
@@ -402,15 +400,6 @@ export const getTriggerIdByKonnectorAndAccount = (
       state.konnectors[konnector.slug].triggers[triggerId].account ===
       account._id
   )
-
-export const getTriggerLastSuccess = (state, trigger) => {
-  const lastJob = getTriggerLastJob(state, trigger)
-  const lastJobIsSuccess = lastJob && lastJob.state === 'done'
-  if (lastJobIsSuccess) return lastJob.started_at
-  return (
-    !!trigger && !!trigger.current_state && trigger.current_state.last_success
-  )
-}
 
 // get trigger from state, in state.konnectors[konnectorSlug].triggers[triggerId]
 const getTriggerState = (state, trigger) => {
