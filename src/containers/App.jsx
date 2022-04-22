@@ -40,7 +40,11 @@ const App = ({
 }) => {
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
-  const [isFetching, setIsFetching] = useState(false)
+  const [isFetching, setIsFetching] = useState(
+    [accounts, konnectors, triggers].some(collection =>
+      ['pending', 'loading'].includes(collection.fetchStatus)
+    )
+  )
   const [hasError, setHasError] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [backgroundURL, setBackgroundURL] = useState(null)
@@ -53,7 +57,7 @@ const App = ({
 
   useEffect(() => {
     setIsFetching(
-      [accounts, konnectors, triggers].find(collection =>
+      [accounts, konnectors, triggers].some(collection =>
         ['pending', 'loading'].includes(collection.fetchStatus)
       )
     )
