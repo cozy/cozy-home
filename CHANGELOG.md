@@ -10,14 +10,13 @@
 * On IOS Safari, the URL and Navigation bar were always displayed
 * Now show the jobs as running after first account configuration in Harvest [PR](https://github.com/cozy/cozy-libs/pull/1515)
 * cozy-harvest-lib 8.2.1 : Get correct bi mapping for bnp_es and cic_es [PR](https://github.com/cozy/cozy-libs/pull/1531)
-
+* Fix a bug when opening a konnector from the store is opening briefly the home to redirect to... the store. Now we redirect to the right place.
 ## 🔧 Tech
 
 * Remove unused demo timeline
 * Unregister any service worker that could have been registered during development
 * Upgrade cozy-flags to remove useless some warnings flag.enable
 * Upgrade cozy-keys-lib to remove warning in the console
-
 
 # 1.45.0
 
