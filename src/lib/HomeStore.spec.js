@@ -1,10 +1,29 @@
+import CozyClient from 'cozy-client'
+import HomeStore, {
+  ACCOUNTS_DOCTYPE,
+  JOBS_DOCTYPE,
+  KONS_DOCTYPE,
+  TRIGGERS_DOCTYPE
+} from './HomeStore'
+import triggers from 'lib/triggers'
+import { dummyKonnector } from 'lib/redux-cozy-client/reducer.spec'
+import {
+  RECEIVE_CREATED_KONNECTOR,
+  RECEIVE_DELETED_KONNECTOR,
+  RECEIVE_UPDATED_KONNECTOR
+} from 'lib/redux-cozy-client/reducer'
+
+const mockSubscribe = jest.fn()
+jest.mock('cozy-realtime', () => {
+  return {
+    __esModule: true,
+    default: () => ({ subscribe: mockSubscribe })
+  }
+})
+
 jest.mock('lib/triggers', () => ({
   fetch: jest.fn()
 }))
-
-import triggers from 'lib/triggers'
-import HomeStore from './HomeStore'
-import CozyClient from 'cozy-client'
 
 global.cozy = {
   client: {}
@@ -61,5 +80,135 @@ describe('HomeStore', () => {
     }
     await store.updateUnfinishedJob(unfinishedJob)
     expect(triggers.fetch).not.toHaveBeenCalled()
+  })
+
+  describe('initializeRealtime', () => {
+    it('should subscribe to realtime events - on construct', () => {
+      // Given
+      mockSubscribe.mockReset()
+
+      // When
+      setup()
+
+      // Then
+      expect(mockSubscribe).toHaveBeenCalledTimes(11)
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        1,
+        'created',
+        JOBS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        2,
+        'updated',
+        JOBS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        3,
+        'created',
+        ACCOUNTS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        4,
+        'updated',
+        ACCOUNTS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        5,
+        'deleted',
+        ACCOUNTS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        6,
+        'created',
+        TRIGGERS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        7,
+        'updated',
+        TRIGGERS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        8,
+        'deleted',
+        TRIGGERS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        9,
+        'created',
+        KONS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        10,
+        'updated',
+        KONS_DOCTYPE,
+        expect.any(Function)
+      )
+      expect(mockSubscribe).toHaveBeenNthCalledWith(
+        11,
+        'deleted',
+        KONS_DOCTYPE,
+        expect.any(Function)
+      )
+    })
+  })
+
+  describe('onKonnectorCreated', () => {
+    it('should dispatch action RECEIVE_CREATED_KONNECTOR', () => {
+      // Given
+      const { store } = setup()
+
+      // When
+      store.onKonnectorCreated(dummyKonnector())
+
+      // Then
+      expect(store.dispatch).toHaveBeenCalledWith({
+        type: RECEIVE_CREATED_KONNECTOR,
+        response: { data: [dummyKonnector()] },
+        updateCollections: ['konnectors']
+      })
+    })
+  })
+
+  describe('onKonnectorUpdated', () => {
+    it('should dispatch action RECEIVE_CREATED_KONNECTOR', () => {
+      // Given
+      const { store } = setup()
+
+      // When
+      store.onKonnectorUpdated(dummyKonnector())
+
+      // Then
+      expect(store.dispatch).toHaveBeenCalledWith({
+        type: RECEIVE_UPDATED_KONNECTOR,
+        response: { data: [dummyKonnector()] },
+        updateCollections: ['konnectors']
+      })
+    })
+  })
+
+  describe('onKonnectorDeleted', () => {
+    it('should dispatch action RECEIVE_CREATED_KONNECTOR', () => {
+      // Given
+      const { store } = setup()
+
+      // When
+      store.onKonnectorDeleted(dummyKonnector())
+
+      // Then
+      expect(store.dispatch).toHaveBeenCalledWith({
+        type: RECEIVE_DELETED_KONNECTOR,
+        response: { data: [dummyKonnector()] },
+        updateCollections: ['konnectors']
+      })
+    })
   })
 })

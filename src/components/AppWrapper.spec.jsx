@@ -1,10 +1,31 @@
-import { setupAppContext } from './AppWrapper'
+// eslint-disable-next-line no-unused-vars
+/* global __DEVELOPMENT__ */
 
-jest.mock('cozy-client')
-jest.mock('lib/redux-cozy-client')
-jest.mock('store/configureStore', () => () => ({}))
+import AppWrapper, { setupAppContext } from './AppWrapper'
+import { render } from '@testing-library/react'
+import React from 'react'
 
-describe('app context', () => {
+const mockClient = { registerPlugin: jest.fn() }
+
+jest.mock('cozy-client', () => ({
+  __esModule: true,
+  CozyProvider: ({ children }) => children,
+  RealTimeQueries: ({ doctype }) => (
+    <div data-testid="RealTimeQueries">{doctype}</div>
+  ),
+  default: () => mockClient
+}))
+jest.mock('lib/redux-cozy-client', () => ({
+  CozyClient: children => children,
+  CozyProvider: ({ children }) => children
+}))
+jest.mock('store/configureStore', () => () => ({
+  subscribe: () => {},
+  dispatch: () => {},
+  getState: () => {}
+}))
+
+describe('AppWrapper.jsx', () => {
   beforeEach(() => {
     document.documentElement.setAttribute('lang', 'fr')
     document.body.innerHTML = `
@@ -12,16 +33,43 @@ describe('app context', () => {
       </div>
     `
   })
-  it('should create a context with the right properties', () => {
-    const appContext = setupAppContext()
-    expect(appContext).toEqual(
-      expect.objectContaining({
-        cozyClient: expect.any(Object),
-        store: expect.any(Object),
-        data: expect.any(Object),
-        lang: 'fr',
-        context: expect.any(String)
-      })
-    )
+
+  describe('app context', () => {
+    it('should create a context with the right properties', () => {
+      const appContext = setupAppContext()
+      expect(appContext).toEqual(
+        expect.objectContaining({
+          cozyClient: expect.any(Object),
+          store: expect.any(Object),
+          data: expect.any(Object),
+          lang: 'fr',
+          context: expect.any(String)
+        })
+      )
+    })
+  })
+
+  describe('AppWrapper', () => {
+    it('should render children', () => {
+      // Given
+      window.__DEVELOPMENT__ = 'defined'
+
+      // When
+      const { getByText } = render(<AppWrapper>children</AppWrapper>)
+
+      // Then
+      expect(getByText('children')).toBeTruthy()
+    })
+
+    it('should contain RealTimeQueries', () => {
+      // Given
+      window.__DEVELOPMENT__ = 'defined'
+
+      // When
+      const { getByTestId } = render(<AppWrapper>children</AppWrapper>)
+
+      // Then
+      expect(getByTestId('RealTimeQueries')).toBeTruthy()
+    })
   })
 })

@@ -5,16 +5,18 @@ import { Provider as ReduxProvider } from 'react-redux'
 import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
-import CozyClient, { CozyProvider } from 'cozy-client'
+import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import { CozyProvider as LegacyCozyProvider } from 'lib/redux-cozy-client'
+import {
+  CozyClient as LegacyCozyClient,
+  CozyProvider as LegacyCozyProvider
+} from 'lib/redux-cozy-client'
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
-import { CozyClient as LegacyCozyClient } from 'lib/redux-cozy-client'
 import { RealtimePlugin } from 'cozy-realtime'
 
 import schema from '../schema'
@@ -80,6 +82,7 @@ const AppWrapper = ({ children }) => {
               <ReduxProvider store={store}>
                 <I18n lang={lang} dictRequire={dictRequire} context={context}>
                   {children}
+                  <RealTimeQueries doctype="io.cozy.apps" />
                   {process.env.NODE_ENV !== 'production' ? (
                     <CozyDevtools />
                   ) : null}

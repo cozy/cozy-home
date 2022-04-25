@@ -3,16 +3,16 @@ import * as triggers from 'lib/triggers'
 import { isKonnectorJob } from 'ducks/connections'
 
 import CozyRealtime from 'cozy-realtime'
+import {
+  RECEIVE_CREATED_KONNECTOR,
+  RECEIVE_DELETED_KONNECTOR,
+  RECEIVE_UPDATED_KONNECTOR
+} from 'lib/redux-cozy-client/reducer'
 
-export const CONNECTION_STATUS = {
-  ERRORED: 'errored',
-  RUNNING: 'running',
-  CONNECTED: 'connected'
-}
-
-const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
-const JOBS_DOCTYPE = 'io.cozy.jobs'
-const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
+export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
+export const JOBS_DOCTYPE = 'io.cozy.jobs'
+export const TRIGGERS_DOCTYPE = 'io.cozy.triggers'
+export const KONS_DOCTYPE = 'io.cozy.konnectors'
 
 const normalize = (dbObject, doctype) => {
   return {
@@ -36,7 +36,11 @@ export default class HomeStore {
     this.onAccountUpdated = this.onAccountUpdated.bind(this)
     this.onAccountDeleted = this.onAccountDeleted.bind(this)
     this.onTriggerCreated = this.onTriggerCreated.bind(this)
+    this.onTriggerUpdated = this.onTriggerUpdated.bind(this)
     this.onTriggerDeleted = this.onTriggerDeleted.bind(this)
+    this.onKonnectorCreated = this.onKonnectorCreated.bind(this)
+    this.onKonnectorUpdated = this.onKonnectorUpdated.bind(this)
+    this.onKonnectorDeleted = this.onKonnectorDeleted.bind(this)
 
     this.initializeRealtime()
   }
@@ -52,7 +56,12 @@ export default class HomeStore {
     this.realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted)
 
     this.realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated)
+    this.realtime.subscribe('updated', TRIGGERS_DOCTYPE, this.onTriggerUpdated)
     this.realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted)
+
+    this.realtime.subscribe('created', KONS_DOCTYPE, this.onKonnectorCreated)
+    this.realtime.subscribe('updated', KONS_DOCTYPE, this.onKonnectorUpdated)
+    this.realtime.subscribe('deleted', KONS_DOCTYPE, this.onKonnectorDeleted)
   }
 
   async onAccountCreated(account) {
@@ -100,6 +109,30 @@ export default class HomeStore {
       type: 'RECEIVE_DELETED_DOCUMENT',
       response: { data: [normalize(trigger, TRIGGERS_DOCTYPE)] },
       updateCollections: ['triggers']
+    })
+  }
+
+  async onKonnectorCreated(konnector) {
+    this.dispatch({
+      type: RECEIVE_CREATED_KONNECTOR,
+      response: { data: [normalize(konnector, KONS_DOCTYPE)] },
+      updateCollections: ['konnectors']
+    })
+  }
+
+  async onKonnectorUpdated(konnector) {
+    this.dispatch({
+      type: RECEIVE_UPDATED_KONNECTOR,
+      response: { data: [normalize(konnector, KONS_DOCTYPE)] },
+      updateCollections: ['konnectors']
+    })
+  }
+
+  async onKonnectorDeleted(konnector) {
+    this.dispatch({
+      type: RECEIVE_DELETED_KONNECTOR,
+      response: { data: [normalize(konnector, KONS_DOCTYPE)] },
+      updateCollections: ['konnectors']
     })
   }
 
