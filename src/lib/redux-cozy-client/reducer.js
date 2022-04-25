@@ -1,9 +1,15 @@
 import { combineReducers } from 'redux'
-import { removeObjectProperty, mapValues } from './utils'
+import { mapValues, removeObjectProperty } from 'lib/redux-cozy-client/utils'
+import uniq from 'lodash/uniq'
+import without from 'lodash/without'
 
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
 const RECEIVE_DATA = 'RECEIVE_DATA'
 const RECEIVE_ERROR = 'RECEIVE_ERROR'
+
+export const RECEIVE_CREATED_KONNECTOR = 'RECEIVE_CREATED_KONNECTOR'
+export const RECEIVE_UPDATED_KONNECTOR = 'RECEIVE_UPDATED_KONNECTOR'
+export const RECEIVE_DELETED_KONNECTOR = 'RECEIVE_DELETED_KONNECTOR'
 
 const RECEIVE_APP = 'RECEIVE_APP'
 const RECEIVE_NEW_DOCUMENT = 'RECEIVE_NEW_DOCUMENT'
@@ -15,6 +21,26 @@ const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
 
 const documents = (state = {}, action) => {
   switch (action.type) {
+    case RECEIVE_CREATED_KONNECTOR:
+    case RECEIVE_UPDATED_KONNECTOR: {
+      const { data } = action.response
+      if (data.length === 0) return state
+      const dataDoctype = getArrayDoctype(data)
+      return {
+        ...state,
+        [dataDoctype]: {
+          ...state[dataDoctype],
+          ...objectifyDocumentsArray(data)
+        }
+      }
+    }
+    case RECEIVE_DELETED_KONNECTOR: {
+      const deleted = action.response.data[0]
+      return {
+        ...state,
+        [deleted._type]: removeObjectProperty(state[deleted._type], deleted.id)
+      }
+    }
     case RECEIVE_DATA: {
       const { data } = action.response
       if (data.length === 0) return state
@@ -153,6 +179,31 @@ const collection = (state = collectionInitialState, action) => {
         options: action.options,
         fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
       }
+    case RECEIVE_CREATED_KONNECTOR:
+    case RECEIVE_UPDATED_KONNECTOR: {
+      const updatedIds = uniq([
+        ...state.ids,
+        ...action.response.data.map(({ _id }) => _id)
+      ])
+      return {
+        ...state,
+        count: updatedIds.length,
+        lastFetch: Date.now(),
+        ids: updatedIds
+      }
+    }
+    case RECEIVE_DELETED_KONNECTOR: {
+      const updatedIds = without(
+        state.ids,
+        ...action.response.data.map(({ _id }) => _id)
+      )
+      return {
+        ...state,
+        count: updatedIds.length,
+        lastFetch: Date.now(),
+        ids: updatedIds
+      }
+    }
     case RECEIVE_APP:
     case RECEIVE_DATA: {
       const response = action.response
@@ -228,6 +279,9 @@ const collections = (state = {}, action) => {
         ...state,
         [action.collection]: collection(state[action.collection], action)
       }
+    case RECEIVE_CREATED_KONNECTOR:
+    case RECEIVE_DELETED_KONNECTOR:
+    case RECEIVE_UPDATED_KONNECTOR:
     case RECEIVE_NEW_DOCUMENT:
     case RECEIVE_DELETED_DOCUMENT:
       if (!action.updateCollections) {

@@ -2,6 +2,7 @@
 
 ## ✨ Features
 
+* Update the applications and the connectors displayed on the Home page in realtime.
 * Fix position of background wallpaper image, preventing scroll showing white background inside Cozy's native application.
 * When displaying cozy-home from Cozy's native application, the splash screen is now correctly shown during the page loading
 
