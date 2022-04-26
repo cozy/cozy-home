@@ -1,1 +1,45 @@
-<!DOCTYPE html><html lang="{{.Locale}}"><head><meta charset="utf-8"><title>Cozy Home intents</title>{{.Favicon}}<meta name="msapplication-TileColor" content="#2b5797"><meta name="theme-color" content="#ffffff"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../vendors-home.4740287bb69e5ea49e26.0.min.css"><link rel="stylesheet" href="../intents-home.4b06cad8e269994c7a6d.min.css">{{.ThemeCSS}} {{.CozyClientJS}}</head><body><div role="application" data-cozy="{{.CozyData}}" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}" data-cozy-locale="{{.Locale}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-app-name="{{.AppName}}" data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-icon-path="{{.IconPath}}"><script src="../vendors/home.363db206d5b0a27d3c0f.js"></script><script src="../intents/home.535d6c4be0bf26aa8f03.js"></script></div></body></html>
+Html Webpack Plugin:<pre>
+  Error: Child compilation failed:
+  Module build failed (from ./node_modules/html-webpack-plugin/lib/loader.js):
+  Error: ENOENT: no such file or directory, open '/Users/recontact/projects/cozy/cozy-home/src/targets/intents/index.ejs':
+  Error: ENOENT: no such file or directory, open '/Users/recontact/projects/cozy/cozy-home/src/targets/intents/index.ejs'
+  
+  - compiler.js:79 
+    [cozy-home]/[html-webpack-plugin]/lib/compiler.js:79:16
+  
+  - Compiler.js:343 
+    [cozy-home]/[webpack]/lib/Compiler.js:343:11
+  
+  - Compiler.js:681 
+    [cozy-home]/[webpack]/lib/Compiler.js:681:15
+  
+  
+  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
+    [cozy-home]/[tapable]/lib/Hook.js:154:20
+  
+  - Compiler.js:678 
+    [cozy-home]/[webpack]/lib/Compiler.js:678:31
+  
+  
+  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
+    [cozy-home]/[tapable]/lib/Hook.js:154:20
+  
+  - Compilation.js:1423 
+    [cozy-home]/[webpack]/lib/Compilation.js:1423:35
+  
+  
+  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
+    [cozy-home]/[tapable]/lib/Hook.js:154:20
+  
+  - Compilation.js:1414 
+    [cozy-home]/[webpack]/lib/Compilation.js:1414:32
+  
+  
+  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
+    [cozy-home]/[tapable]/lib/Hook.js:154:20
+  
+  - Compilation.js:1409 
+    [cozy-home]/[webpack]/lib/Compilation.js:1409:36
+  
+  
+</pre>
