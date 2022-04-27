@@ -3,7 +3,7 @@ import CozyClient, { Q } from 'cozy-client'
 export const defaultFetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
 export const appsConn = {
   query: Q('io.cozy.apps'),
-  as: 'apps',
+  as: 'io.cozy.apps',
   fetchPolicy: defaultFetchPolicy
 }
 
