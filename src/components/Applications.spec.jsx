@@ -2,7 +2,7 @@ import React from 'react'
 import { render, act } from '@testing-library/react'
 import flag from 'cozy-flags'
 
-import AppLike from '../../test/AppLike'
+import AppLike from 'test/AppLike'
 import { Applications } from './Applications'
 import useHomeShortcuts from '../hooks/useHomeShortcuts'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'

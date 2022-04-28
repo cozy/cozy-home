@@ -8,7 +8,7 @@ import { shallow } from 'enzyme'
 import {
   ReactMarkdownWrapper,
   reactMarkdownRendererOptions
-} from '../../src/components/ReactMarkdownWrapper'
+} from 'components/ReactMarkdownWrapper'
 
 describe('ReactMarkdownWrapper component', () => {
   beforeEach(() => {

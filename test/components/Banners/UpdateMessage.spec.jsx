@@ -3,7 +3,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 
-import AppLike from '../../../test/AppLike'
+import AppLike from 'test/AppLike'
 
 import UpdateMessage from 'components/Banners/UpdateMessage'
 

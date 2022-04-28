@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import App from './App'
-import AppLike from '../../test/AppLike'
+import AppLike from 'test/AppLike'
 
-jest.mock('../../src/lib/redux-cozy-client/connect.jsx')
-jest.mock('../../src/lib/redux-cozy-client', () => ({
+jest.mock('lib/redux-cozy-client/connect.jsx')
+jest.mock('lib/redux-cozy-client', () => ({
   cozyConnect: () => App => {
     return () =>
       App({

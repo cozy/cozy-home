@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import Corner from './Corner'
 import flag from 'cozy-flags'
 import I18n from 'cozy-ui/transpiled/react/I18n'
-import enLocale from '../../locales/en.json'
+import enLocale from 'locales/en.json'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { WebviewIntentProvider } from 'cozy-intent'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { EmptyServicesListTip } from './EmptyServicesListTip'
-import AppLike from '../../test/AppLike'
+import AppLike from 'test/AppLike'
 
 describe('EmptyServicesListTip', () => {
   it('should match the snapshot', () => {

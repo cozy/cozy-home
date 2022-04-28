@@ -1,3 +1,21 @@
 {
-  "extends": ["cozy-app/react"]
+  "extends": ["cozy-app/react"],
+  "plugins": ["import-alias"],
+  "rules": {
+    "import-alias/import-alias": [
+      "error",
+      {
+        "relativeDepth": 1,
+        "aliases": [
+          { "alias": "components", "matcher": "^components" },
+          { "alias": "config", "matcher": "^config" },
+          { "alias": "containers", "matcher": "^containers" },
+          { "alias": "locales", "matcher": "^locales" },
+          { "alias": "lib", "matcher": "^lib" },
+          { "alias": "styles", "matcher": "^styles" },
+          { "alias": "test", "matcher": "^test" }
+        ]
+      }
+    ]
+  }
 }
