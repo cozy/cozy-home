@@ -38,17 +38,10 @@ const LoadingAppTiles = memo(({ num }) => {
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
-export const Applications = memo(({ receiveApps }) => {
+export const Applications = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const shortcuts = useHomeShortcuts()
-  const { data, fetchStatus, lastUpdate } = useQuery(appsConn.query, appsConn)
-
-  // TODO Find a workaround so that we do not have to do receiveApps here
-  useEffect(() => {
-    if (fetchStatus === 'loaded') {
-      receiveApps(data)
-    }
-  }, [data, fetchStatus, lastUpdate, receiveApps])
+  const { data, fetchStatus } = useQuery(appsConn.query, appsConn)
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <MuiCozyTheme variant="inverted">
@@ -74,13 +67,8 @@ export const Applications = memo(({ receiveApps }) => {
       </div>
     </div>
   )
-})
-Applications.displayName = 'Applications'
-
-const mapDispatchToProps = dispatch => {
-  return {
-    receiveApps: apps => dispatch(receiveApps(apps))
-  }
 }
 
-export default connect(null, mapDispatchToProps)(Applications)
+
+
+export default Applications

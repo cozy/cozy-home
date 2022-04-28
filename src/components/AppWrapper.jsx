@@ -11,10 +11,6 @@ import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import {
-  CozyClient as LegacyCozyClient,
-  CozyProvider as LegacyCozyProvider
-} from 'lib/redux-cozy-client'
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
@@ -40,24 +36,21 @@ export const setupAppContext = memoize(() => {
   const cozyClient = new CozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema,
-    token: data.cozyToken
+    token: data.cozyToken,
+    store: false
   })
-
+ // store
+ const store = configureStore(cozyClient, context, {
+  lang,
+  ...homeConfig
+})
+cozyClient.setStore(store)
   cozyClient.registerPlugin(flag.plugin)
   cozyClient.registerPlugin(RealtimePlugin)
 
-  const legacyClient = new LegacyCozyClient({
-    cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken,
-    cozyClient
-  })
 
-  // store
-  const store = configureStore(legacyClient, cozyClient, context, {
-    lang,
-    ...homeConfig
-  })
 
+ 
   return { cozyClient, store, data, lang, context }
 })
 
@@ -68,17 +61,12 @@ export const setupAppContext = memoize(() => {
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
   const { store, cozyClient, data, context, lang } = appContext
+  console.log('AppWrapper')
   return (
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <MuiCozyTheme>
           <CozyProvider client={cozyClient}>
-            <LegacyCozyProvider
-              store={store}
-              client={cozyClient}
-              domain={data.cozyDomain}
-              secure={!__DEVELOPMENT__}
-            >
               <ReduxProvider store={store}>
                 <I18n lang={lang} dictRequire={dictRequire} context={context}>
                   {children}
@@ -88,7 +76,6 @@ const AppWrapper = ({ children }) => {
                   ) : null}
                 </I18n>
               </ReduxProvider>
-            </LegacyCozyProvider>
           </CozyProvider>
         </MuiCozyTheme>
       </BreakpointsProvider>

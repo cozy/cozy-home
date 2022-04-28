@@ -1,11 +1,8 @@
 import keyBy from 'lodash/keyBy'
-import { fetchKonnectors as cozyClientFetchKonnectors } from 'lib/redux-cozy-client'
 
 export const DOCTYPE = 'io.cozy.konnectors'
-const konnectorsCollectionKey = 'konnectors'
 
-export const fetchKonnectors = () =>
-  cozyClientFetchKonnectors(konnectorsCollectionKey)
+
 
 // Action creators
 export const receiveInstalledKonnector = konnector => {

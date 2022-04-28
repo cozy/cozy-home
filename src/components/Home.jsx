@@ -14,6 +14,7 @@ import Shortcuts from 'components/Shortcuts'
 class Home extends Component {
   render() {
     const { wrapper } = this.props
+    console.log('home')
     return (
       <Main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />

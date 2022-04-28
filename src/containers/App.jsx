@@ -95,7 +95,7 @@ const App = ({
       }
     }
   }, [webviewIntent, isReady])
-
+  console.log('App ?')
   return (
     <div
       className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"

@@ -1,13 +1,4 @@
-import { fetchTriggers as cozyClientFetchTriggers } from 'lib/redux-cozy-client'
-
 export const DOCTYPE = 'io.cozy.triggers'
-
-const triggersCollectionKey = 'triggers'
-
-// CRUD action creators
-
-export const fetchTriggers = () =>
-  cozyClientFetchTriggers(triggersCollectionKey, ['client', 'konnector'])
 
 // selectors
 export const getKonnectorTriggers = (
