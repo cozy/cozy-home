@@ -65,7 +65,7 @@ export const Applications = memo(({ receiveApps }) => {
                 !homeConfig.filteredApps.includes(app.slug) &&
                 !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
             )
-            .map((app, index) => <AppTile key={index} app={app} />)
+            .map(app => <AppTile key={app.id} app={app} />)
         )}
         {shortcuts.map((shortcut, index) => (
           <ShortcutLink key={index} file={shortcut} />
