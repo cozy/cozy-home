@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import * as konnectors from '../../src/lib/konnectors'
+import * as konnectors from 'lib/konnectors'
 
 // TODO: mutualize this code with jobs
 // just to tests calling, results are tested in cozy-client-js

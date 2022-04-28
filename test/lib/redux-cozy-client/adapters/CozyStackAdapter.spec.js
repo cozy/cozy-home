@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import CozyStackAdapter from '../../../../src/lib/redux-cozy-client/adapters/CozyStackAdapter'
+import CozyStackAdapter from 'lib/redux-cozy-client/adapters/CozyStackAdapter'
 
 describe('CozyStack Adapter', () => {
   describe('fetchKonnectors', () => {

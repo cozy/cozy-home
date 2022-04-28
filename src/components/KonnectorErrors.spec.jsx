@@ -1,7 +1,7 @@
 import React from 'react'
 import MockDate from 'mockdate'
 import { KonnectorErrors } from './KonnectorErrors'
-import AppLike from '../../test/AppLike'
+import AppLike from 'test/AppLike'
 import { render, fireEvent } from '@testing-library/react'
 
 jest.mock('cozy-ui/transpiled/react/AppIcon', () => () => null)

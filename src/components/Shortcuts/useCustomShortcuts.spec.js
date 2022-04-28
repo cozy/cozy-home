@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks'
 import { useCustomShortcuts } from './useCustomShortcuts'
 import { createMockClient } from 'cozy-client'
 
-import AppLike from '../../../test/AppLike'
+import AppLike from 'test/AppLike'
 
 const initialState = { shortcutsDirectories: undefined }
 const errorState = { shortcutsDirectories: null }

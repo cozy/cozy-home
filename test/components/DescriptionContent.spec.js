@@ -6,7 +6,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { tMock } from '../jestLib/I18n'
-import { DescriptionContent } from '../../src/components/DescriptionContent'
+import { DescriptionContent } from 'components/DescriptionContent'
 
 describe('DescriptionContent component', () => {
   beforeEach(() => {
