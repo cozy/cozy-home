@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Route, withRouter } from 'react-router'
+import { Route } from 'react-router'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 
 import Konnector from 'components/Konnector'
@@ -30,4 +29,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(translate()(Home))
+export default Home
