@@ -53,9 +53,9 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
     <div className="services-list-wrapper u-m-auto u-w-100">
       <KonnectorErrors />
       <div className="services-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
-        {installedKonnectors.map((konnector, index) => (
+        {installedKonnectors.map(konnector => (
           <KonnectorTile
-            key={index}
+            key={konnector.id}
             konnector={konnector}
             route={`connected/${konnector.slug}`}
             isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
