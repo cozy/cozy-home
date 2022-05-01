@@ -38,7 +38,7 @@
     "@material-ui/lab": "4.0.0-alpha.60",
     "cozy-client": "^27.22.0",
     "cozy-device-helper": "1.18.0",
-    "cozy-doctypes": "1.83.5",
+    "cozy-doctypes": "1.83.7",
     "cozy-flags": "2.8.7",
     "cozy-harvest-lib": "^9.0.0",
     "cozy-intent": "1.16.1",
