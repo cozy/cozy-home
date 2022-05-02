@@ -5325,10 +5325,10 @@ cozy-flags@2.8.7:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.0.0.tgz#5ef52251891b771e0afac74835624f8bed741b00"
-  integrity sha512-6AH/x22YZKzGxMcenRBWXnUFrrFH9i02NTqlaX32GiPIqU3XUAcvEHGn2a77oRrKPUsUMvDDJ+VJb4cNQia3/A==
+cozy-harvest-lib@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.1.1.tgz#98dadbf28d0ac49a3d9ce825d056c71ff86b032e"
+  integrity sha512-11jjppcEJm55a79JoqusQ2p45WO4bn9jTMHRKhEc67yfQZ2lOmfBa18vkY3QetLikaeX8RKe4VyjrwVSTQiVwg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -5344,10 +5344,10 @@ cozy-harvest-lib@^9.0.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@1.16.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.16.1.tgz#ec75d4eff6db966998b6881580319134c9aec7bd"
-  integrity sha512-5Gl9a+kYicX1xV4s0P3BdAOwfjgrRvTubRKvT2EVIT7rwK0puPwQDidLFf3bbPtdJAtwjdWh/OHEuQ0HqK1gTw==
+cozy-intent@1.17.1:
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.17.1.tgz#0e246ebf0308a7aaac04c8b2b66bc3ccf7146fae"
+  integrity sha512-oe5T9/igq9VZ99VZpUFR/ZWUg5wAHrccVe6oKjEAhLSFQ8UL2vA4sQdmNerMffTKEYy3bHm98tUGjhU0h8NeTA==
   dependencies:
     post-me "0.4.5"
 
