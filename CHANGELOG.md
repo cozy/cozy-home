@@ -6,6 +6,7 @@
 * Fix position of background wallpaper image, preventing scroll showing white background inside Cozy's native application.
 * When displaying cozy-home from Cozy's native application, the splash screen is now correctly shown during the page loading
 * Display InAppBrowser in flagship app for OAuth connectors
+* cozy-harvest-lib 9.2.1 : Add BI connection creation via BI webview  [PR](https://github.com/cozy/cozy-libs/pull/1570)
 
 ## 🐛 Bug Fixes
 
