@@ -47,7 +47,7 @@ export const Konnector = ({ konnector, history, triggers }) => {
 const mapStateToProps = (state, ownProps) => {
   const { konnectorSlug } = ownProps.match.params
   return {
-    konnector: getKonnector(state.cozy, konnectorSlug),
+    konnector: getKonnector(state.oldcozy, konnectorSlug),
     triggers: getTriggersByKonnector(state, konnectorSlug)
   }
 }

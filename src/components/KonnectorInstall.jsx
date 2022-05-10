@@ -89,7 +89,7 @@ export class KonnectorInstall extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  konnector: getKonnector(state.cozy, ownProps.connector.slug)
+  konnector: getKonnector(state.oldcozy, ownProps.connector.slug)
 })
 
 export default translate()(connect(mapStateToProps)(KonnectorInstall))

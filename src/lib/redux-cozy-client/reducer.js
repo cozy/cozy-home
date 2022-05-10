@@ -301,14 +301,14 @@ const mapDocumentsToIds = (documents, doctype, ids) =>
   ids.map(id => documents[doctype][id])
 
 export const getCollection = (state, name) => {
-  const collection = state.cozy.collections[name]
+  const collection = state.oldcozy.collections[name]
   if (!collection) {
     return { ...collectionInitialState, data: null }
   }
   return {
     ...collection,
     data: mapDocumentsToIds(
-      state.cozy.documents,
+      state.oldcozy.documents,
       collection.type,
       collection.ids
     )

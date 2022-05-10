@@ -64,6 +64,7 @@
     "react-swipeable-views": "0.14.0",
     "redux": "4.1.2",
     "redux-logger": "3.0.6",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "2.3.0"
   },
   "devDependencies": {
