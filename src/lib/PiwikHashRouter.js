@@ -5,13 +5,14 @@ import {
 } from 'cozy-ui/transpiled/react/helpers/tracker'
 
 const addPiwik = function (history) {
+  let trackHistory = history
   if (shouldEnableTracking() && getTracker()) {
     let trackerInstance = getTracker()
-    history = trackerInstance.connectToHistory(history)
+    trackHistory = trackerInstance.connectToHistory(history)
     // when using a hash history, the initial visit is not tracked by piwik react router
-    trackerInstance.track(history.location)
+    trackerInstance.track(trackHistory.location)
   }
-  return history
+  return trackHistory
 }
 
 export default class PiwikHashRouter extends HashRouter {

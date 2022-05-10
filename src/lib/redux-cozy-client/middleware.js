@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-callback-in-promise */
 const cozyMiddleware =
   client =>
   ({ dispatch }) => {
