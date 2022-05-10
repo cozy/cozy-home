@@ -72,7 +72,17 @@ const App = ({
   }, [accounts, konnectors, triggers])
 
   useEffect(() => {
-    setStatus(FETCHING_CONTEXT)
+    // if we already have the query, let's refresh in "background"
+    // aka without loading state
+    const alreadyRequestedContext = client.getQueryFromState(
+      'io.cozy.settings/context'
+    )
+    if (
+      !alreadyRequestedContext ||
+      alreadyRequestedContext.fetchStatus !== 'loaded'
+    ) {
+      setStatus(FETCHING_CONTEXT)
+    }
 
     const fetchContext = async () => {
       const context = await client.query(
@@ -98,7 +108,6 @@ const App = ({
       }
     }
   }, [webviewIntent, isReady])
-
   return (
     <div
       className={`App ${getAppState} u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center`}

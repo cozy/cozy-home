@@ -10,7 +10,19 @@ const useInstanceSettings = client => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setFetchStatus('loading')
+        const instanceSettings = client.getQueryFromState(
+          'io.cozy.settings/instance'
+        )
+        if (
+          instanceSettings &&
+          (instanceSettings.fetchStatus === 'loaded' ||
+            instanceSettings.lastFetch)
+        ) {
+          setSettings(get(instanceSettings, 'data.attributes', {}))
+          setFetchStatus('loaded')
+        } else {
+          setFetchStatus('loading')
+        }
         const response = await client.query(
           Q('io.cozy.settings').getById('instance')
         )
@@ -22,7 +34,6 @@ const useInstanceSettings = client => {
     }
     fetchData()
   }, [client])
-
   return {
     data: settings,
     fetchStatus
