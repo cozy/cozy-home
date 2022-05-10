@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import get from 'lodash/get'
 
 import { reducer } from 'lib/redux-cozy-client'
-import apps from 'ducks/apps'
 import * as fromAccounts from 'ducks/accounts'
 import * as fromKonnectors from 'ducks/konnectors'
 import * as fromTriggers from 'ducks/triggers'
