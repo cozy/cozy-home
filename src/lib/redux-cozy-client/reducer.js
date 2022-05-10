@@ -45,11 +45,27 @@ const documents = (state = {}, action) => {
       const { data } = action.response
       if (data.length === 0) return state
       const dataDoctype = getArrayDoctype(data)
-      return {
-        ...state,
-        [dataDoctype]: {
-          ...state[dataDoctype],
-          ...objectifyDocumentsArray(data)
+      // This is a temporary fix since old cozyclient is reading the
+      // documents from this slice even if its queries don't contain
+      // all the fields. So this hack is here to remove data when
+      // receiving data...
+      if (
+        state[dataDoctype] &&
+        data.length < Object.values(state[dataDoctype]).length
+      ) {
+        return {
+          ...state,
+          [dataDoctype]: {
+            ...objectifyDocumentsArray(data)
+          }
+        }
+      } else {
+        return {
+          ...state,
+          [dataDoctype]: {
+            ...state[dataDoctype],
+            ...objectifyDocumentsArray(data)
+          }
         }
       }
     }
@@ -177,7 +193,12 @@ const collection = (state = collectionInitialState, action) => {
         ...state,
         type: action.doctype || 'io.cozy.files',
         options: action.options,
-        fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
+        fetchStatus:
+          state.fetchStatus === 'loaded'
+            ? 'loaded'
+            : action.skip > 0
+            ? 'loadingMore'
+            : 'loading'
       }
     case RECEIVE_CREATED_KONNECTOR:
     case RECEIVE_UPDATED_KONNECTOR: {
