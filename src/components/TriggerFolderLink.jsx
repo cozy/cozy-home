@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react'
 import classNames from 'classnames'
-import { connect } from 'react-redux'
 
-import { withClient, Q } from 'cozy-client'
+import { Q, useQuery } from 'cozy-client'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-import { getApp, receiveApps } from 'ducks/apps'
 import styles from 'styles/triggerFolderLink.styl'
 
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
@@ -26,44 +24,25 @@ class MaybeLink extends PureComponent {
   }
 }
 
-export class TriggerFolderLink extends PureComponent {
-  async componentDidMount() {
-    const { client, driveApp, receiveApps } = this.props
-    if (!driveApp) {
-      const { data } = await client.query(Q('io.cozy.apps'))
-      receiveApps(data)
-    }
-  }
+export const TriggerFolderLink = ({ folderId, label }) => {
+  const driveQuery = useQuery(Q('io.cozy.apps').getById('io.cozy.apps/drive'))
 
-  render() {
-    const { driveApp, label, folderId } = this.props
-    const disabled = !driveApp
-    return (
-      <MaybeLink
-        className={classNames(styles['col-trigger-folder-link'], {
-          'u-silver': disabled,
-          'u-c-not-allowed': disabled
-        })}
-        href={driveApp && `${driveApp.links.related}#/files/${folderId}`}
-      >
-        <Icon className="u-mr-half" icon={OpenwithIcon} />
-        {label}
-      </MaybeLink>
-    )
-  }
+  return (
+    <MaybeLink
+      className={classNames(styles['col-trigger-folder-link'], {
+        'u-silver': driveQuery.fetchStatus !== 'loaded',
+        'u-c-not-allowed': driveQuery.fetchStatus !== 'loaded'
+      })}
+      href={
+        driveQuery.data &&
+        driveQuery.data.length > 0 &&
+        `${driveQuery.data.links.related}#/files/${folderId}`
+      }
+    >
+      <Icon className="u-mr-half" icon={OpenwithIcon} />
+      {label}
+    </MaybeLink>
+  )
 }
 
-const mapStateToProps = state => ({
-  driveApp: getApp(state.apps, 'drive')
-})
-
-const mapDispatchToProps = dispatch => {
-  return {
-    receiveApps: apps => dispatch(receiveApps(apps))
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withClient(TriggerFolderLink))
+export default TriggerFolderLink
