@@ -17,8 +17,8 @@ const persistConfig = {
 
 const configureStore = (legacyClient, cozyClient, context, options = {}) => {
   // Enable Redux dev tools
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose
-
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const persistedReducer = persistReducer(
     persistConfig,
     getReducers(cozyClient)
