@@ -19,6 +19,47 @@ module.exports = {
   resolve: {
     modules: [SRC_DIR, 'node_modules'],
     alias: {
+      '@babel/runtime': path.resolve(SRC_DIR, '../node_modules/@babel/runtime'),
+      'cozy-device-helper': path.resolve(
+        __dirname,
+        '../node_modules/cozy-device-helper'
+      ),
+      'cozy-doctypes': path.resolve(SRC_DIR, '../node_modules/cozy-doctypes'),
+      'cozy-logger': path.resolve(SRC_DIR, '../node_modules/cozy-logger'),
+      'es-abstract': path.resolve(SRC_DIR, '../node_modules/es-abstract'),
+      'has-symbols': path.resolve(SRC_DIR, '../node_modules/has-symbols'),
+      'hoist-non-react-statics': path.resolve(
+        SRC_DIR,
+        '../node_modules/hoist-non-react-statics'
+      ),
+      inherits: path.resolve(SRC_DIR, '../node_modules/inherits'),
+      'is-callable': path.resolve(SRC_DIR, '../node_modules/is-callable'),
+      isarray: path.resolve(SRC_DIR, '../node_modules/isarray'),
+      'node-forge': path.resolve(SRC_DIR, '../node_modules/node-forge'),
+      'node-polyglot': path.resolve(SRC_DIR, '../node_modules/node-polyglot'),
+      'object-assign': path.resolve(SRC_DIR, '../node_modules/object-assign'),
+      'prop-types': path.resolve(SRC_DIR, '../node_modules/prop-types'),
+      'react-is': path.resolve(SRC_DIR, '../node_modules/react-is'),
+      'react-redux': path.resolve(SRC_DIR, '../node_modules/react-redux'),
+      'react-swipeable-views': path.resolve(
+        SRC_DIR,
+        '../node_modules/react-swipeable-views'
+      ),
+      'react-swipeable-views-core': path.resolve(
+        SRC_DIR,
+        '../node_modules/react-swipeable-views-core'
+      ),
+      redux: path.resolve(SRC_DIR, '../node_modules/redux'),
+      'string.prototype.trim': path.resolve(
+        SRC_DIR,
+        '../node_modules/string.prototype.trim'
+      ),
+      'unist-util-visit-parents': path.resolve(
+        SRC_DIR,
+        '../node_modules/unist-util-visit-parents'
+      ),
+      warning: path.resolve(SRC_DIR, '../node_modules/warning'),
+
       config: path.resolve(SRC_DIR, './config')
     }
   },
