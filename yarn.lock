@@ -4474,7 +4474,7 @@ bundlemon-utils@^0.4.0:
   dependencies:
     bytes "^3.1.0"
 
-bundlemon@1.3.2:
+bundlemon@1.3.2, bundlemon@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/bundlemon/-/bundlemon-1.3.2.tgz#164a038b1f4e8f520119367d3ba3b11a2372d19d"
   integrity sha512-Mc2OWqZK2rJge6htxeFtK6imjgyOPn8mniH7RcqUv4GLeNG7LWbu+p9QNbW2tEWtuk+AKhkBZdlNCdo1KP4v8Q==
@@ -5523,13 +5523,14 @@ cozy-stack-client@^28.2.1:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@66.0.0:
-  version "66.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-66.0.0.tgz#29230a839abed2720d49bfa81d20b40d5419aac0"
-  integrity sha512-2CeAEjbwlfaC8hKUyVTMc+GTyNU+I6TQxHZVR0cJU+bQy4f+MEe8P2e65PFg8XCwvyV/XJU3idSuiO9rLiImHA==
+cozy-ui@67.0.1:
+  version "67.0.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-67.0.1.tgz#59b80933a0293b106c3a73e10513951979f08eae"
+  integrity sha512-I0Hh+g74fAWsIMOsUt9GMjYjMODKa1PORMDa6PWwxjma73fp7EnyNYu1c9sWrKwmibcixXoqoGXlrRvhXLckdw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
+    bundlemon "^1.3.2"
     chart.js "3.7.1"
     classnames "^2.2.5"
     cozy-interapp "^0.5.4"
@@ -10723,9 +10724,9 @@ mini-css-extract-plugin@0.5.0:
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
 
-"minilog@git+https://github.com/cozy/minilog.git#master":
+"minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  resolved "git+https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
+  resolved "https://github.com/cozy/minilog.git#6da0aa58759c4f1a1a7e0fd093dbe2a67c035c55"
   dependencies:
     microee "0.0.6"
 
@@ -10887,9 +10888,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
