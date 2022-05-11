@@ -15,6 +15,7 @@
 * cozy-harvest-lib 8.2.1 : Get correct bi mapping for bnp_es and cic_es [PR](https://github.com/cozy/cozy-libs/pull/1531)
 * Fix a bug when opening a konnector from the store is opening briefly the home to redirect to... the store. Now we redirect to the right place.
 * Fix a bug when configuring a konnector from the intent. The form was empty if a vault was active on the cozy
+* Fix a bug when opening a PDF from Harvest, display was truncated.
 
 ## 🔧 Tech
 
