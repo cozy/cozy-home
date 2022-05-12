@@ -1,6 +1,6 @@
 'use strict'
 
-import { I18n } from 'cozy-ui/react/I18n'
+import { I18n } from 'cozy-ui/transpiled/react/I18n'
 
 const I18nComponent = new I18n({
   lang: 'en',
