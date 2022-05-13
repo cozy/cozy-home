@@ -5,7 +5,6 @@ import HomeStore, {
   KONS_DOCTYPE,
   TRIGGERS_DOCTYPE
 } from './HomeStore'
-import triggers from 'lib/triggers'
 const dummyKonnector = konnector => ({
   _type: KONS_DOCTYPE,
   type: 'konnector',
@@ -26,13 +25,8 @@ jest.mock('cozy-realtime', () => {
   }
 })
 
-jest.mock('lib/triggers', () => ({
-  fetch: jest.fn()
-}))
 
-global.cozy = {
-  client: {}
-}
+
 
 describe('HomeStore', () => {
   const setup = () => {
