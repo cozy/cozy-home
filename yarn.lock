@@ -5356,21 +5356,29 @@ cozy-intent@1.17.1:
   dependencies:
     post-me "0.4.5"
 
+cozy-intent@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-2.0.2.tgz#81330389c7b8cfc1433608a435873b362691931c"
+  integrity sha512-E+9WqbYhFiV/KCGFArSJu/jcvdliI58Vfa3ajrJFRV2AsPtej6wN5qfn6Wex53xpdTAZSjLfmYAQLNt0cl6xGw==
+  dependencies:
+    post-me "0.4.5"
+
 cozy-interapp@^0.5.4:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
   integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
 
-cozy-keys-lib@3.11.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.11.0.tgz#4c7c89247e15b1deb298ba0ef5d1341ae3942d53"
-  integrity sha512-5HxzThZ2oK/g8l3eOFWqh7PZ0j5pE4hmkXiaDCSCV5ZeKwwG/eYumljaYOOsBWmhS7FDNlaNwowMWuhfppZk0Q==
+cozy-keys-lib@3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.11.1.tgz#0a758ae5c4fe5d7f60ba21d887c2d517e7ea8c18"
+  integrity sha512-MGIogMDYavu75Qq9O4xAZ7XRl/bdXo8Lz7+bVesmntx+SeuGDjztcXmEKSsENpqqToiImx8qInr6f0saDuyFPw==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
     big-integer "^1.6.44"
     classnames "^2.2.6"
     cozy-device-helper "^1.7.5"
+    cozy-intent "^2.0.2"
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
@@ -10888,9 +10896,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
