@@ -39,11 +39,11 @@ Object {
                     L
                   </h2>
                   <span
-                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                   />
                 </span>
                 <span
-                  class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangle"
+                  class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangular"
                 >
                   <svg
                     class="styles__icon___23x3R"
@@ -104,11 +104,11 @@ Object {
                   L
                 </h2>
                 <span
-                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                 />
               </span>
               <span
-                class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangle"
+                class="MuiBadge-badge Component-qualifier-36 MuiBadge-anchorOriginBottomRightRectangular"
               >
                 <svg
                   class="styles__icon___23x3R"
@@ -226,11 +226,11 @@ Object {
                     B
                   </h2>
                   <span
-                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                   />
                 </span>
                 <span
-                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangular"
                 >
                   <svg
                     class="styles__icon___23x3R"
@@ -288,11 +288,11 @@ Object {
                     D
                   </h2>
                   <span
-                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                    class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                   />
                 </span>
                 <span
-                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                  class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangular"
                 >
                   <svg
                     class="styles__icon___23x3R"
@@ -353,11 +353,11 @@ Object {
                   B
                 </h2>
                 <span
-                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                 />
               </span>
               <span
-                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangular"
               >
                 <svg
                   class="styles__icon___23x3R"
@@ -415,11 +415,11 @@ Object {
                   D
                 </h2>
                 <span
-                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangle"
+                  class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
                 />
               </span>
               <span
-                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangle"
+                class="MuiBadge-badge Component-qualifier-72 MuiBadge-anchorOriginBottomRightRectangular"
               >
                 <svg
                   class="styles__icon___23x3R"

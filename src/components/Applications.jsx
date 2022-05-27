@@ -36,7 +36,7 @@ const LoadingAppTiles = memo(({ num }) => {
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
-const Applications = () => {
+export const Applications = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const shortcuts = useHomeShortcuts()
   const { data, fetchStatus } = useQuery(appsConn.query, appsConn)

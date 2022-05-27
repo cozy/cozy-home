@@ -25,7 +25,9 @@ class MaybeLink extends PureComponent {
 }
 
 export const TriggerFolderLink = ({ folderId, label }) => {
-  const driveQuery = useQuery(Q('io.cozy.apps').getById('io.cozy.apps/drive'))
+  const driveQuery = useQuery(Q('io.cozy.apps').getById('io.cozy.apps/drive'), {
+    as: 'driveQuery'
+  })
 
   return (
     <MaybeLink

@@ -15,7 +15,8 @@ jest.mock('lib/redux-cozy-client', () => ({
           query: () => {},
           getInstanceOptions: () => ({
             cozyDefaultWallpaper: 'cozyDefaultWallpaper'
-          })
+          }),
+          getQueryFromState: jest.fn
         }
       })
   }
