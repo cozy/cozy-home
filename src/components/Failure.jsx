@@ -16,11 +16,18 @@ export const Failure = ({ errorType }) => {
   const { t } = useI18n()
 
   return (
-    <Stack className="u-flex u-flex-column u-flex-items-center">
-      <Icon icon={EmptyIcon} size={64} />
-      <Typography tag="h2" className="u-ta-center" variant="h3" component="h1">
+    <Stack className="failure-wrapper u-flex u-flex-column u-flex-items-center u-ph-1">
+      <Icon icon={EmptyIcon} size={64} className="u-mb-1" />
+
+      <Typography
+        tag="h2"
+        className="u-ta-center u-primaryContrastTextColor u-mb-1"
+        variant="h3"
+        component="h1"
+      >
         {t(`error.${errorType}`)}
       </Typography>
+
       <Button label={t('error.button.reload')} onClick={reload} />
     </Stack>
   )
