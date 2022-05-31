@@ -323,7 +323,7 @@ const mapDocumentsToIds = (documents, doctype, ids) =>
 
 export const getCollection = (state, name) => {
   const collection =
-    state.oldcozy?.collections[name] || state.cozy?.collections[name]
+    state.oldcozy?.collections?.[name] || state.cozy?.collections?.[name]
 
   if (!collection) return { ...collectionInitialState, data: null }
 

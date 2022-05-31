@@ -73,6 +73,15 @@ export const setupAppContext = memoize(() => {
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
   const { store, cozyClient, data, context, lang, persistor } = appContext
+
+  const Inner = () => (
+    <I18n lang={lang} dictRequire={dictRequire} context={context}>
+      {children}
+      <RealTimeQueries doctype="io.cozy.apps" />
+      {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
+    </I18n>
+  )
+
   return (
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
@@ -85,15 +94,13 @@ const AppWrapper = ({ children }) => {
               secure={!__DEVELOPMENT__}
             >
               <ReduxProvider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
-                  <I18n lang={lang} dictRequire={dictRequire} context={context}>
-                    {children}
-                    <RealTimeQueries doctype="io.cozy.apps" />
-                    {process.env.NODE_ENV !== 'production' ? (
-                      <CozyDevtools />
-                    ) : null}
-                  </I18n>
-                </PersistGate>
+                {persistor ? (
+                  <PersistGate loading={null} persistor={persistor}>
+                    <Inner />
+                  </PersistGate>
+                ) : (
+                  <Inner />
+                )}
               </ReduxProvider>
             </LegacyCozyProvider>
           </CozyProvider>
