@@ -14,6 +14,7 @@ import { WebviewIntentProvider } from 'cozy-intent'
 import homeConfig from 'config/home.json'
 import AppWrapper from 'components/AppWrapper'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
+import { closeApp, openApp } from 'hooks/useOpenApp'
 
 const renderApp = () => {
   if (handleOAuthResponse()) return
@@ -22,7 +23,7 @@ const renderApp = () => {
     <AppWrapper>
       <BreakpointsProvider>
         <PiwikHashRouter>
-          <WebviewIntentProvider>
+          <WebviewIntentProvider methods={{ openApp, closeApp }}>
             <App {...homeConfig} />
           </WebviewIntentProvider>
         </PiwikHashRouter>

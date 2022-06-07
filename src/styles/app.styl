@@ -55,6 +55,17 @@ body
     background-color rgba(0, 0, 0, .32)
     backdrop-filter saturate(124%)
 
++small-screen()
+    .main-view, .background-container
+        transition transform 200ms ease-out
+
+    .App--opened
+        .main-view
+            transform scale(1.3)
+
+        .background-container
+            transform scale(1.1)
+
 .KonnectorErrors
     p
         margin: spacing_values.xs 0
