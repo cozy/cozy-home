@@ -19,5 +19,8 @@
         ]
       }
     ]
+  },
+  "parserOptions": {
+    "project": "tsconfig.json"
   }
 }

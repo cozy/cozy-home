@@ -23,6 +23,8 @@ import StoreRedirection from 'components/StoreRedirection'
 import { MainView } from 'components/MainView'
 import withCustomWallpaper from 'hoc/withCustomWallpaper'
 import { toFlagNames } from './toFlagNames'
+import { useOpenApp } from 'hooks/useOpenApp'
+import { BackgroundContainer } from 'components/BackgroundContainer'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -49,6 +51,7 @@ const App = ({
   const [isReady, setIsReady] = useState(false)
   const [backgroundURL, setBackgroundURL] = useState(null)
   const webviewIntent = useWebviewIntent()
+  const { getAppState } = useOpenApp()
 
   useEffect(() => {
     const { cozyDefaultWallpaper } = client.getInstanceOptions()
@@ -98,13 +101,14 @@ const App = ({
 
   return (
     <div
-      className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
+      className={`App ${getAppState} u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center`}
       style={{
-        backgroundImage: `url(${backgroundURL})`,
         position: 'fixed',
         height: '100%'
       }}
     >
+      <BackgroundContainer backgroundURL={backgroundURL} />
+
       <MainView>
         <Corner />
         <div

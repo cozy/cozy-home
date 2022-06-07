@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import flow from 'lodash/flow'
@@ -10,11 +10,18 @@ import log from 'cozy-logger'
 import { getKonnector } from 'ducks/konnectors'
 
 import { getTriggersByKonnector } from 'reducers'
+import { closeApp, openApp } from 'hooks/useOpenApp'
 
 export const Konnector = ({ konnector, history, triggers }) => {
   const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
   const onDismiss = useCallback(() => history.push('/connected'), [history])
   const slug = konnector?.slug || location.hash.split('/')[2]
+
+  useEffect(() => {
+    openApp()
+
+    return closeApp
+  }, [])
 
   if (!slug) {
     log(

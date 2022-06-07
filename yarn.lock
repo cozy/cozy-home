@@ -5294,7 +5294,7 @@ cozy-device-helper@^1.7.5:
   dependencies:
     lodash "4.17.19"
 
-cozy-doctypes@1.83.8:
+cozy-doctypes@1.83.8, cozy-doctypes@^1.83.8:
   version "1.83.8"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.8.tgz#99ec864059034bd032f6f01e322b57fea130a5d3"
   integrity sha512-S88VzjnfZTHo7Mix7M3qId0YF6gOmL+C0X2LZnQp6F2cEOKa7sOlDiMD18u2kfPwyvlxxM+tQBI9ArEM/Xqkog==
@@ -5311,17 +5311,6 @@ cozy-doctypes@^1.83.5:
   integrity sha512-r4YEMoEuLTwl5iJ//rkxjpylkqAvZVIrUhdIHTtEdiFkJ7Oo4vpNQznzOAqP3Jdw8tfZkWE3rR3TE/wk1Elseg==
   dependencies:
     cozy-logger "^1.8.0"
-    date-fns "^1.30.1"
-    es6-promise-pool "^2.5.0"
-    lodash "^4.17.19"
-    prop-types "^15.7.2"
-
-cozy-doctypes@^1.83.8:
-  version "1.83.8"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.8.tgz#99ec864059034bd032f6f01e322b57fea130a5d3"
-  integrity sha512-S88VzjnfZTHo7Mix7M3qId0YF6gOmL+C0X2LZnQp6F2cEOKa7sOlDiMD18u2kfPwyvlxxM+tQBI9ArEM/Xqkog==
-  dependencies:
-    cozy-logger "^1.9.0"
     date-fns "^1.30.1"
     es6-promise-pool "^2.5.0"
     lodash "^4.17.19"
@@ -5360,17 +5349,17 @@ cozy-harvest-lib@^9.7.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@1.17.1:
-  version "1.17.1"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.17.1.tgz#0e246ebf0308a7aaac04c8b2b66bc3ccf7146fae"
-  integrity sha512-oe5T9/igq9VZ99VZpUFR/ZWUg5wAHrccVe6oKjEAhLSFQ8UL2vA4sQdmNerMffTKEYy3bHm98tUGjhU0h8NeTA==
-  dependencies:
-    post-me "0.4.5"
-
 cozy-intent@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-2.0.2.tgz#81330389c7b8cfc1433608a435873b362691931c"
   integrity sha512-E+9WqbYhFiV/KCGFArSJu/jcvdliI58Vfa3ajrJFRV2AsPtej6wN5qfn6Wex53xpdTAZSjLfmYAQLNt0cl6xGw==
+  dependencies:
+    post-me "0.4.5"
+
+cozy-intent@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-2.2.0.tgz#bb32115c48bf239338166b90aaa2171f8295b8d5"
+  integrity sha512-DbThgCn3BkHfbe/zzofbzGuzLtSV/dkbuTV+pFKRDxTp3+qe1QsiFZtBS7ClcjPVP/kYKVTPv2gGnpejIgBx5g==
   dependencies:
     post-me "0.4.5"
 
