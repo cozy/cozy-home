@@ -53,8 +53,6 @@ describe('App', () => {
           '.App.u-flex.u-flex-column.u-w-100.u-miw-100.u-flex-items-center'
         )
         .getAttribute('style')
-    ).toEqual(
-      'background-image: url(cozyDefaultWallpaper); position: fixed; height: 100%;'
-    )
+    ).toEqual('position: fixed; height: 100%;')
   })
 })

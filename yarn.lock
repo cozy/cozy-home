@@ -5531,10 +5531,10 @@ cozy-stack-client@^28.2.1:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@67.0.1:
-  version "67.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-67.0.1.tgz#59b80933a0293b106c3a73e10513951979f08eae"
-  integrity sha512-I0Hh+g74fAWsIMOsUt9GMjYjMODKa1PORMDa6PWwxjma73fp7EnyNYu1c9sWrKwmibcixXoqoGXlrRvhXLckdw==
+cozy-ui@^68.2.0:
+  version "68.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-68.2.0.tgz#c360b3c260094ad0670fe44af8f4a36125844fd2"
+  integrity sha512-pd3Tztq1sWcMCXEaUyWJNrak+1Sakrc6EQmkicV5+jkJzftc+zq6GFYdWV8vpu+fAsrH3i/i9xsD4yiDFN8Zgw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
