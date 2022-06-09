@@ -75,7 +75,7 @@ const mapStateToProps = (state, ownProps) => {
   const { data } = ownProps
   const { slug } = data
   return {
-    konnector: slug && getKonnector(state.cozy, slug)
+    konnector: slug && getKonnector(state.oldcozy, slug)
   }
 }
 

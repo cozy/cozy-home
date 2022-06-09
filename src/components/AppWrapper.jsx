@@ -10,6 +10,7 @@ import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import {
   CozyClient as LegacyCozyClient,
@@ -40,25 +41,29 @@ export const setupAppContext = memoize(() => {
   const cozyClient = new CozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema,
-    token: data.cozyToken
+    token: data.cozyToken,
+    store: false
   })
-
-  cozyClient.registerPlugin(flag.plugin)
-  cozyClient.registerPlugin(RealtimePlugin)
-
   const legacyClient = new LegacyCozyClient({
     cozyURL: `//${data.cozyDomain}`,
     token: data.cozyToken,
     cozyClient
   })
-
   // store
-  const store = configureStore(legacyClient, cozyClient, context, {
-    lang,
-    ...homeConfig
-  })
+  const { store, persistor } = configureStore(
+    legacyClient,
+    cozyClient,
+    context,
+    {
+      lang,
+      ...homeConfig
+    }
+  )
+  cozyClient.setStore(store)
+  cozyClient.registerPlugin(flag.plugin)
+  cozyClient.registerPlugin(RealtimePlugin)
 
-  return { cozyClient, store, data, lang, context }
+  return { cozyClient, store, data, lang, context, persistor }
 })
 
 /**
@@ -67,7 +72,16 @@ export const setupAppContext = memoize(() => {
  */
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
-  const { store, cozyClient, data, context, lang } = appContext
+  const { store, cozyClient, data, context, lang, persistor } = appContext
+
+  const Inner = () => (
+    <I18n lang={lang} dictRequire={dictRequire} context={context}>
+      {children}
+      <RealTimeQueries doctype="io.cozy.apps" />
+      {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
+    </I18n>
+  )
+
   return (
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
@@ -80,13 +94,13 @@ const AppWrapper = ({ children }) => {
               secure={!__DEVELOPMENT__}
             >
               <ReduxProvider store={store}>
-                <I18n lang={lang} dictRequire={dictRequire} context={context}>
-                  {children}
-                  <RealTimeQueries doctype="io.cozy.apps" />
-                  {process.env.NODE_ENV !== 'production' ? (
-                    <CozyDevtools />
-                  ) : null}
-                </I18n>
+                {persistor ? (
+                  <PersistGate loading={null} persistor={persistor}>
+                    <Inner />
+                  </PersistGate>
+                ) : (
+                  <Inner />
+                )}
               </ReduxProvider>
             </LegacyCozyProvider>
           </CozyProvider>

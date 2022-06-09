@@ -5,7 +5,7 @@ import AppWrapper, { setupAppContext } from './AppWrapper'
 import { render } from '@testing-library/react'
 import React from 'react'
 
-const mockClient = { registerPlugin: jest.fn() }
+const mockClient = { registerPlugin: jest.fn(), setStore: jest.fn() }
 
 jest.mock('cozy-client', () => ({
   __esModule: true,
@@ -20,9 +20,15 @@ jest.mock('lib/redux-cozy-client', () => ({
   CozyProvider: ({ children }) => children
 }))
 jest.mock('store/configureStore', () => () => ({
-  subscribe: () => {},
-  dispatch: () => {},
-  getState: () => {}
+  store: {
+    dispatch: () => jest.fn(),
+    getState: () => jest.fn(),
+    subscribe: () => jest.fn()
+  },
+  persistor: { getState: () => jest.fn(), subscribe: () => jest.fn() }
+}))
+jest.mock('redux-persist/integration/react', () => ({
+  PersistGate: ({ children }) => children
 }))
 
 describe('AppWrapper.jsx', () => {

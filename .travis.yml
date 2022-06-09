@@ -31,6 +31,9 @@ jobs:
       node_js:
         - 16
       script: yarn lint
+    - name: Test
+      stage: test
+      script: yarn test --silent
     - name: Build
       stage: build
       node_js:
