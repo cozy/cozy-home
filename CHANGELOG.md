@@ -8,6 +8,7 @@
 * Display InAppBrowser in flagship app for OAuth connectors
 * cozy-harvest-lib 9.2.1 : Add BI connection creation via BI webview  [PR](https://github.com/cozy/cozy-libs/pull/1570)
 * cozy-harvest-lib 9.7.0 : Add contract activation/deactivation via BI webview  [PR](https://github.com/cozy/cozy-libs/pull/1627)
+* cozy-harvest-lib 9.8.0 : Add reconnect to bi Webviews  [PR](https://github.com/cozy/cozy-libs/pull/1656)
 
 ## 🐛 Bug Fixes
 
