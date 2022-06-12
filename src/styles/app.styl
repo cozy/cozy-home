@@ -66,6 +66,18 @@ body
         .background-container
             transform scale(1.1)
 
+    /*
+    * @HACK
+    * The <Dialog /> `cozy-ui` component used by Harvest has a flaw in its design
+    * In small screens, it will display (probably by error) the modal title in a padding '12 16 16 48' setting
+    * This is highly undesired and unfortunately we can't add class or any styling props to this part of <Dialog />
+    * At the time of this commit, the simplest way to handle the issue is to override `.dialogTitleWithBack` class
+    * This way we can apply our desired design in a limited scope: only Home, only Mobile
+    * Issue created: https://github.com/cozy/cozy-ui/issues/2165
+    */
+    .dialogTitleWithBack
+        padding spacing_values.xl spacing_values.m spacing_values.m !important // @stylint ignore
+
 .KonnectorErrors
     p
         margin: spacing_values.xs 0
