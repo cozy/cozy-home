@@ -25,7 +25,7 @@ export const HeroHeader = () => {
         variant="h1"
         className="hero-title u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor"
       >
-        {publicName}
+        {publicName || '&nbsp;'}
       </Typography>
       <Typography className="hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor">
         {host}

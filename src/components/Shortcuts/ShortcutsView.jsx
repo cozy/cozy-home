@@ -1,19 +1,12 @@
 import React from 'react'
 
-import { Spinner } from 'cozy-ui/transpiled/react'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 import { ShortcutLink } from 'components/ShortcutLink'
 
 export const ShortcutsView = ({ shortcutsDirectories }) => {
-  return !shortcutsDirectories ? (
-    shortcutsDirectories === null ? null : (
-      <div className="u-flex u-flex-justify-center">
-        <Spinner size="xxlarge" role="progressbar" />
-      </div>
-    )
-  ) : (
+  return !shortcutsDirectories ? null : (
     <>
       {shortcutsDirectories.map(directory => (
         <div
