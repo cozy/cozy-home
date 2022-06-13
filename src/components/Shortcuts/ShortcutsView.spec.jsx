@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { ShortcutsView } from './ShortcutsView'
@@ -8,18 +8,6 @@ import AppLike from 'test/AppLike'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 
 describe('Shortcuts', () => {
-  it('Should display a spinner on first render', () => {
-    render(
-      <AppLike>
-        <MuiCozyTheme>
-          <ShortcutsView />
-        </MuiCozyTheme>
-      </AppLike>
-    )
-
-    expect(screen.getByRole('progressbar')).toBeInTheDocument()
-  })
-
   it('Should display nothing if nothing was found', () => {
     const { container } = render(
       <AppLike>
