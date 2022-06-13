@@ -20,15 +20,15 @@ const renderApp = () => {
   if (handleOAuthResponse()) return
   const App = require('containers/App').default
   render(
-    <AppWrapper>
-      <BreakpointsProvider>
-        <PiwikHashRouter>
-          <WebviewIntentProvider methods={{ openApp, closeApp }}>
+    <WebviewIntentProvider methods={{ openApp, closeApp }}>
+      <AppWrapper>
+        <BreakpointsProvider>
+          <PiwikHashRouter>
             <App {...homeConfig} />
-          </WebviewIntentProvider>
-        </PiwikHashRouter>
-      </BreakpointsProvider>
-    </AppWrapper>,
+          </PiwikHashRouter>
+        </BreakpointsProvider>
+      </AppWrapper>
+    </WebviewIntentProvider>,
     document.querySelector('[role=application]')
   )
 }
