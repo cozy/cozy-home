@@ -11,8 +11,7 @@ export const HeroHeader = () => {
   const { host } = new URL(rootURL)
 
   const { data: instanceSettings } = useInstanceSettings(client)
-  const publicName = get(instanceSettings, 'public_name', '')
-
+  const publicName = get(instanceSettings, 'public_name', '\u00A0')
   return (
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <div>
@@ -25,7 +24,7 @@ export const HeroHeader = () => {
         variant="h1"
         className="hero-title u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor"
       >
-        {publicName || '&nbsp;'}
+        {publicName}
       </Typography>
       <Typography className="hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryContrastTextColor">
         {host}
