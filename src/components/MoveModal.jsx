@@ -13,7 +13,7 @@ export const MoveModal = () => {
   const { t } = useI18n()
   const { data: instanceSettings } = useInstanceSettings(client)
 
-  const movedFrom = instanceSettings['moved_from']
+  const movedFrom = instanceSettings?.['moved_from']
   const [hasBeenClosed, setClosed] = useState(false)
   const displayModal = Boolean(movedFrom && !hasBeenClosed)
 
