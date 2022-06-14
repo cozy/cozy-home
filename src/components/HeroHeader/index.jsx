@@ -1,7 +1,6 @@
 import React from 'react'
 import { useClient } from 'cozy-client'
-import get from 'lodash/get'
-import useInstanceSettings from 'hooks/useInstanceSettings'
+import { useInstanceSettings } from 'hooks/useInstanceSettings'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
@@ -10,8 +9,9 @@ export const HeroHeader = () => {
   const rootURL = client.getStackClient().uri
   const { host } = new URL(rootURL)
 
-  const { data: instanceSettings } = useInstanceSettings(client)
-  const publicName = get(instanceSettings, 'public_name', '\u00A0')
+  const { instanceSettings } = useInstanceSettings(client)
+  const publicName = instanceSettings?.['public_name'] || '\u00A0'
+
   return (
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <div>
