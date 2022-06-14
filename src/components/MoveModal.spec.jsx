@@ -2,12 +2,14 @@ import React from 'react'
 import { render, fireEvent, configure } from '@testing-library/react'
 import MoveModal from './MoveModal'
 import CozyClient, { CozyProvider } from 'cozy-client'
-import useInstanceSettings from 'hooks/useInstanceSettings'
 import AppLike from 'test/AppLike'
 
 configure({ testIdAttribute: 'data-testid' })
 
-jest.mock('hooks/useInstanceSettings', () => jest.fn())
+const mockUseInstanceSettings = jest.fn()
+jest.mock('hooks/useInstanceSettings', () => ({
+  useInstanceSettings: () => mockUseInstanceSettings()
+}))
 
 describe('MoveModal', () => {
   const setup = () => {
@@ -24,10 +26,8 @@ describe('MoveModal', () => {
   }
 
   it('should send a delete request and hide itself on close', () => {
-    useInstanceSettings.mockReturnValue({
-      data: {
-        moved_from: 'source.cozy.tools'
-      }
+    mockUseInstanceSettings.mockReturnValue({
+      instanceSettings: { moved_from: 'source.cozy.tools' }
     })
     const { client, root } = setup()
     expect(

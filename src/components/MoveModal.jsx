@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useInstanceSettings from 'hooks/useInstanceSettings'
-import { useClient } from 'cozy-client'
 
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useClient } from 'cozy-client'
 import { Button } from 'cozy-ui/transpiled/react/Button'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+
+import { useInstanceSettings } from 'hooks/useInstanceSettings'
 
 const importImage = require('assets/images/moved-cozy.svg')
 
 export const MoveModal = () => {
   const client = useClient()
   const { t } = useI18n()
-  const { data: instanceSettings } = useInstanceSettings(client)
+  const { instanceSettings } = useInstanceSettings(client)
 
   const movedFrom = instanceSettings?.['moved_from']
   const [hasBeenClosed, setClosed] = useState(false)
