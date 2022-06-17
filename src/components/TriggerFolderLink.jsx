@@ -38,7 +38,7 @@ export const TriggerFolderLink = ({ folderId, label }) => {
       href={
         driveQuery.data &&
         driveQuery.data.length > 0 &&
-        `${driveQuery.data.links.related}#/files/${folderId}`
+        `${driveQuery.data[0].links.related}#/files/${folderId}`
       }
     >
       <Icon className="u-mr-half" icon={OpenwithIcon} />
