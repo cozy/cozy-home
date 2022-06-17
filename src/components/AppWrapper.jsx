@@ -21,6 +21,7 @@ import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
 
 import schema from '../schema'
+import { ConditionalWrapper } from './ConditionalWrapper'
 
 const dictRequire = lang => require(`locales/${lang}.json`)
 
@@ -66,6 +67,14 @@ export const setupAppContext = memoize(() => {
   return { cozyClient, store, data, lang, context, persistor }
 })
 
+const Inner = ({ children, lang, context }) => (
+  <I18n lang={lang} dictRequire={dictRequire} context={context}>
+    {children}
+    <RealTimeQueries doctype="io.cozy.apps" />
+    {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
+  </I18n>
+)
+
 /**
  * Setups the app context and creates all context providers and wrappers
  * for an app
@@ -73,14 +82,6 @@ export const setupAppContext = memoize(() => {
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
   const { store, cozyClient, data, context, lang, persistor } = appContext
-
-  const Inner = () => (
-    <I18n lang={lang} dictRequire={dictRequire} context={context}>
-      {children}
-      <RealTimeQueries doctype="io.cozy.apps" />
-      {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
-    </I18n>
-  )
 
   return (
     <AppContext.Provider value={appContext}>
@@ -94,13 +95,18 @@ const AppWrapper = ({ children }) => {
               secure={!__DEVELOPMENT__}
             >
               <ReduxProvider store={store}>
-                {persistor ? (
-                  <PersistGate loading={null} persistor={persistor}>
-                    <Inner />
-                  </PersistGate>
-                ) : (
-                  <Inner />
-                )}
+                <ConditionalWrapper
+                  condition={persistor}
+                  wrapper={children => (
+                    <PersistGate loading={null} persistor={persistor}>
+                      {children}
+                    </PersistGate>
+                  )}
+                >
+                  <Inner lang={lang} context={context}>
+                    {children}
+                  </Inner>
+                </ConditionalWrapper>
               </ReduxProvider>
             </LegacyCozyProvider>
           </CozyProvider>
