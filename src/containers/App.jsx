@@ -139,7 +139,10 @@ const App = ({
           )}
           {isReady && (
             <Switch>
-              <Route path="/redirect" component={IntentRedirect} />
+              <Route
+                path="/redirect"
+                render={routeProps => <IntentRedirect {...routeProps} />}
+              />
               <Route
                 path="/connected"
                 render={() => (
