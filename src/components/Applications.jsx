@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -36,10 +36,19 @@ const LoadingAppTiles = memo(({ num }) => {
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
-export const Applications = () => {
+export const Applications = ({ onAppsFetched }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const shortcuts = useHomeShortcuts()
-  const { data, fetchStatus } = useQuery(appsConn.query, appsConn)
+  const { data, fetchStatus, lastFetch } = useQuery(appsConn.query, appsConn)
+  const hasFetched = useRef(false)
+
+  useEffect(() => {
+    !hasFetched.current &&
+      fetchStatus === 'loaded' &&
+      lastFetch &&
+      onAppsFetched() &&
+      (hasFetched.current = true)
+  }, [fetchStatus, lastFetch, onAppsFetched])
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">

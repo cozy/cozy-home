@@ -13,12 +13,12 @@ import Shortcuts from 'components/Shortcuts'
 
 class Home extends Component {
   render() {
-    const { wrapper } = this.props
+    const { setAppsReady, wrapper } = this.props
     return (
       <Main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />
         <Content className="u-flex u-flex-column u-ph-1">
-          <Applications />
+          <Applications onAppsFetched={setAppsReady} />
           <Services />
           <Shortcuts />
           <FooterLogo />
