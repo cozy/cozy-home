@@ -4,7 +4,6 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { Q, withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
-import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -49,6 +48,7 @@ const App = ({
   )
   const [hasError, setHasError] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [appsReady, setAppsReady] = useState(false)
   const [backgroundURL, setBackgroundURL] = useState(null)
   const webviewIntent = useWebviewIntent()
   const { getAppState } = useOpenApp()
@@ -98,16 +98,15 @@ const App = ({
   }, [client])
 
   useEffect(() => {
-    setIsReady(!hasError && !isFetching && !(status === FETCHING_CONTEXT))
-  }, [hasError, isFetching, status])
+    setIsReady(
+      appsReady && !hasError && !isFetching && !(status === FETCHING_CONTEXT)
+    )
+  }, [appsReady, hasError, isFetching, status])
 
   useEffect(() => {
-    if (isReady) {
-      if (isFlagshipApp() && webviewIntent) {
-        webviewIntent.call('hideSplashScreen')
-      }
-    }
-  }, [webviewIntent, isReady])
+    isReady && webviewIntent?.call('hideSplashScreen')
+  }, [isReady, webviewIntent])
+
   return (
     <div
       className={`App ${getAppState} u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center`}
@@ -137,7 +136,7 @@ const App = ({
               <Spinner size="xxlarge" />
             </Main>
           )}
-          {isReady && (
+          {!isFetching && (
             <Switch>
               <Route
                 path="/redirect"
@@ -146,7 +145,11 @@ const App = ({
               <Route
                 path="/connected"
                 render={() => (
-                  <Home base="/connected" wrapper={contentWrapper} />
+                  <Home
+                    base="/connected"
+                    wrapper={contentWrapper}
+                    setAppsReady={() => setAppsReady(true)}
+                  />
                 )}
               />
               <Route exact path="/providers" component={StoreRedirection} />
