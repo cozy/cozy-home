@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react'
+import memoize from 'lodash/memoize'
 
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -36,41 +37,49 @@ const LoadingAppTiles = memo(({ num }) => {
 })
 LoadingAppTiles.displayName = LoadingAppTiles
 
+const isValidData = memoize(data => Array.isArray(data) && data.length > 0)
+
+const getApplicationsList = memoize(data =>
+  isValidData(data) ? (
+    data
+      .filter(
+        app =>
+          app.state !== 'hidden' &&
+          !homeConfig.filteredApps.includes(app.slug) &&
+          !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
+      )
+      .map(app => <AppTile key={app.id} app={app} />)
+  ) : (
+    <LoadingAppTiles num={3} />
+  )
+)
+
 export const Applications = ({ onAppsFetched }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const shortcuts = useHomeShortcuts()
-  const { data, fetchStatus, lastFetch } = useQuery(appsConn.query, appsConn)
-  const hasFetched = useRef(false)
+  const { data } = useQuery(appsConn.query, appsConn)
+  const didLoad = useRef(false)
 
   useEffect(() => {
-    !hasFetched.current &&
-      fetchStatus === 'loaded' &&
-      lastFetch &&
-      onAppsFetched() &&
-      (hasFetched.current = true)
-  }, [fetchStatus, lastFetch, onAppsFetched])
+    const isReady =
+      didLoad.current === false && onAppsFetched && isValidData(data)
+
+    isReady && onAppsFetched(data) && (didLoad.current = true)
+  }, [data, onAppsFetched])
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <MuiCozyTheme variant="inverted">
         <Divider className="u-mv-0" />
       </MuiCozyTheme>
+
       <div className="app-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
-        {fetchStatus !== 'loaded' ? (
-          <LoadingAppTiles num="3" />
-        ) : (
-          data
-            .filter(
-              app =>
-                app.state !== 'hidden' &&
-                !homeConfig.filteredApps.includes(app.slug) &&
-                !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
-            )
-            .map(app => <AppTile key={app.id} app={app} />)
-        )}
+        {getApplicationsList(data)}
+
         {shortcuts.map((shortcut, index) => (
           <ShortcutLink key={index} file={shortcut} />
         ))}
+
         {showLogout && <LogoutTile />}
       </div>
     </div>
