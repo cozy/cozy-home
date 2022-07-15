@@ -28,6 +28,7 @@
 * Unregister any service worker that could have been registered during development
 * Upgrade cozy-flags to remove useless some warnings flag.enable
 * Upgrade cozy-client to get ability to force HTTPs fetches when `window.cozy.isSecureProtocol` is `true`
+* Remove the pull request template [PR](https://github.com/cozy/cozy-home/pull/1808)
 
 # 1.45.0
 
