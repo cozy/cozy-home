@@ -12,8 +12,11 @@ import { getKonnector } from 'ducks/konnectors'
 import { getTriggersByKonnector } from 'reducers'
 import { closeApp, openApp } from 'hooks/useOpenApp'
 
-export const Konnector = ({ konnector, history, triggers }) => {
-  const konnectorWithTriggers = { ...konnector, triggers: { data: triggers } }
+export const Konnector = ({ konnector, history, match, triggers }) => {
+  const { konnectorSlug } = match ? match.params : {}
+  const konnectorWithTriggers = konnector
+    ? { ...konnector, triggers: { data: triggers } }
+    : undefined
   const onDismiss = useCallback(() => history.push('/connected'), [history])
   const slug = konnector?.slug || location.hash.split('/')[2]
 
@@ -38,6 +41,7 @@ export const Konnector = ({ konnector, history, triggers }) => {
     <HarvestRoutes
       konnectorRoot={`/connected/${slug}`}
       konnector={konnectorWithTriggers}
+      konnectorSlug={konnectorSlug}
       onDismiss={onDismiss}
       datacardOptions={datacardOptions}
     />
