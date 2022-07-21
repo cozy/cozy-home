@@ -17,6 +17,12 @@
   "add_service": "Toevoegen",
   "fix_konnector_error": "Nu oplossen",
   "logout": "Uitloggen",
+  "logout_dialog": {
+    "title": "Uitloggen",
+    "content": "Weet je zeker dat je wilt uitloggen?",
+    "cancel": "Annuleren",
+    "confirm": "Uitloggen"
+  },
   "help": "Hulp",
   "help_link": "https://help.cozy.io/",
   "home_config_magic_folder": "/Settings/Home",
@@ -374,6 +380,7 @@
   },
 
   "connector": {
+    "mute": "Fout tijdens dempen",
     "debug": {
       "successMessage": "Deze connector wordt alleen gebruikt voor foutopsporing; dit is een extra bericht."
     },
