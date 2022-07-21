@@ -17,6 +17,12 @@
   "add_service": "Ajouter",
   "fix_konnector_error": "Corriger maintenant",
   "logout": "Déconnexion",
+  "logout_dialog": {
+    "title": "Déconnexion",
+    "content": "Êtes-vous sûr de vouloir vous déconnecter de votre Cozy ?",
+    "cancel": "Annuler",
+    "confirm": "Déconnecter"
+  },
   "help": "Aide",
   "help_link": "https://support.cozy.io/",
   "home_config_magic_folder": "/Settings/Home",
