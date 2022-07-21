@@ -1,26 +1,46 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { useClient } from 'cozy-client'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
+import { useClient } from 'cozy-client'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { useWebviewIntent } from 'cozy-intent'
-import { isFlagshipApp } from 'cozy-device-helper'
 
 import CornerButton from './CornerButton'
+import { LogoutDialog } from 'components/HeroHeader/LogoutModal'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 const LogoutButton = () => {
-  const { t } = useI18n()
+  const [isOpen, setIsOpen] = useState(false)
   const client = useClient()
   const webviewIntent = useWebviewIntent()
+  const { t } = useI18n()
 
-  const logout = useCallback(async () => {
+  const handleConfirm = useCallback(async () => {
     await client.logout()
 
-    return isFlagshipApp() && webviewIntent
-      ? webviewIntent.call('logout')
-      : window.location.reload()
+    return webviewIntent?.call('logout') || window.location.reload()
   }, [client, webviewIntent])
-  return <CornerButton label={t('logout')} icon={LogoutIcon} onClick={logout} />
+
+  const handleButton = useCallback(
+    () => (isFlagshipApp() ? setIsOpen(true) : handleConfirm()),
+    [handleConfirm]
+  )
+
+  return (
+    <>
+      <LogoutDialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        onConfirm={handleConfirm}
+      />
+
+      <CornerButton
+        label={t('logout')}
+        icon={LogoutIcon}
+        onClick={handleButton}
+      />
+    </>
+  )
 }
 
 export default LogoutButton
