@@ -34,7 +34,7 @@ Object {
                   style="background-color: rgb(53, 206, 104);"
                 >
                   <h2
-                    class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-alignCenter"
+                    class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                   >
                     L
                   </h2>
@@ -59,7 +59,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
               >
                 List item
               </h6>
@@ -99,7 +99,7 @@ Object {
                 style="background-color: rgb(53, 206, 104);"
               >
                 <h2
-                  class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-letter-32 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   L
                 </h2>
@@ -124,7 +124,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-31 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
             >
               List item
             </h6>
@@ -221,7 +221,7 @@ Object {
                   style="background-color: rgb(252, 109, 0);"
                 >
                   <h2
-                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                   >
                     B
                   </h2>
@@ -246,7 +246,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
               >
                 b
               </h6>
@@ -283,7 +283,7 @@ Object {
                   style="background-color: rgb(255, 150, 47);"
                 >
                   <h2
-                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                    class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                   >
                     D
                   </h2>
@@ -308,7 +308,7 @@ Object {
                 </span>
               </span>
               <h6
-                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
               >
                 d
               </h6>
@@ -348,7 +348,7 @@ Object {
                 style="background-color: rgb(252, 109, 0);"
               >
                 <h2
-                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   B
                 </h2>
@@ -373,7 +373,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
             >
               b
             </h6>
@@ -410,7 +410,7 @@ Object {
                 style="background-color: rgb(255, 150, 47);"
               >
                 <h2
-                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-letter-68 MuiTypography-h2 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   D
                 </h2>
@@ -435,7 +435,7 @@ Object {
               </span>
             </span>
             <h6
-              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-alignCenter"
+              class="MuiTypography-root makeStyles-name-67 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
             >
               d
             </h6>

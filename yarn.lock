@@ -5531,12 +5531,13 @@ cozy-stack-client@^30.0.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@^68.5.1:
-  version "68.5.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-68.5.1.tgz#4f4b6cb8a70a53fa1347c3b3e037c747351c6df8"
-  integrity sha512-PhxDn+g7WujewEoKrrbm9T1FKrwJXttAsh+h16l01HqrdaytgRoBAtZc54kw8Rd3sERu4vod0AYbygoiY1+wlg==
+cozy-ui@^70.2.2:
+  version "70.2.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-70.2.2.tgz#b932a454eb821d233e3f8a543f42c5d1ff27bc5d"
+  integrity sha512-ttUUuROs8B4NQSgXf+IFTUlE9lhNi9Bhgiy2jDtocP0YhZNotgvdwb869NPCZHQdWWQRQa8/BSDGn2U8SX61jQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
+    "@material-ui/core" "4.12.3"
     "@popperjs/core" "^2.4.4"
     bundlemon "^1.3.2"
     chart.js "3.7.1"
@@ -10899,7 +10900,6 @@ msgpack5@^4.0.2:
 
 "mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  uid "494c40416ecde95732c864f9b921e7e545075aa5"
   resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
