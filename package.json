@@ -53,7 +53,7 @@
     "intro.js-fix-cozy": "2.9.5",
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
-    "moment": "2.29.2",
+    "moment": "2.29.4",
     "papaparse": "5.3.1",
     "piwik-react-router": "0.12.1",
     "prop-types": "^15.8.1",
