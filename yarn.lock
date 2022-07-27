@@ -5349,10 +5349,10 @@ cozy-intent@^2.0.2:
   dependencies:
     post-me "0.4.5"
 
-cozy-intent@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-2.2.0.tgz#bb32115c48bf239338166b90aaa2171f8295b8d5"
-  integrity sha512-DbThgCn3BkHfbe/zzofbzGuzLtSV/dkbuTV+pFKRDxTp3+qe1QsiFZtBS7ClcjPVP/kYKVTPv2gGnpejIgBx5g==
+cozy-intent@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-2.3.0.tgz#b44dd0c8f914718cf12018fa99f223951af8930d"
+  integrity sha512-NFZ1lOX5EIljeZVdZj2pelexFh5qTxTvYHjz7tJWdtuxMOAERNqEMn6gICZF2zjlQV+OCOq4qum3URD5oRkkeQ==
   dependencies:
     post-me "0.4.5"
 
