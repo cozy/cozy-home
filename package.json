@@ -45,7 +45,7 @@
     "cozy-logger": "1.8.1",
     "cozy-realtime": "4.2.2",
     "cozy-sharing": "4.5.2",
-    "cozy-stack-client": "^27.21.0",
+    "cozy-stack-client": "^27.26.0",
     "cozy-ui": "^70.4.1",
     "date-fns": "2.28.0",
     "form-data": "2.5.1",
