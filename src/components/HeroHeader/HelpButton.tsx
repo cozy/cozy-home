@@ -1,7 +1,6 @@
 import React from 'react'
 
 import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
-import { isFlagshipApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import CornerButton from './CornerButton'
@@ -11,12 +10,11 @@ const HelpButton = (): JSX.Element => {
 
   return (
     <CornerButton
-      label={t('help')}
       href={t('help_link')}
       icon={HelpIcon}
-      {...(isFlagshipApp()
-        ? { target: '_blank', rel: 'noopener noreferrer' }
-        : {})}
+      label={t('help')}
+      rel="noopener noreferrer"
+      target="_blank"
     />
   )
 }
