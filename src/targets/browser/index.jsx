@@ -9,6 +9,7 @@ import { render } from 'react-dom'
 import 'url-search-params-polyfill'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 
 import homeConfig from 'config/home.json'
@@ -17,7 +18,13 @@ import PiwikHashRouter from 'lib/PiwikHashRouter'
 import { closeApp, openApp } from 'hooks/useOpenApp'
 
 const renderApp = () => {
-  if (handleOAuthResponse()) return
+  if (handleOAuthResponse()) {
+    render(
+      <Spinner size="xxlarge" middle={true} />,
+      document.querySelector('[role=application]')
+    )
+    return
+  }
   const App = require('containers/App').default
   render(
     <WebviewIntentProvider methods={{ openApp, closeApp }}>
