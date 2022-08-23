@@ -78,6 +78,10 @@
       "description": "Required to edit bank accounts",
       "type": "io.cozy.bank.accounts"
     },
+    "bank-settings": {
+      "description": "Required to edit bank settings",
+      "type": "io.cozy.bank.settings"
+    },
     "geojson-timeseries": {
       "description": "Required to display geojson timeseries",
       "type": "io.cozy.timeseries.geojson"
