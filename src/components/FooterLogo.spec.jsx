@@ -1,5 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+
 import { FooterLogo } from './FooterLogo'
 
 describe('FooterLogo', () => {
@@ -15,8 +16,8 @@ describe('FooterLogo', () => {
         attributes: {}
       }
     })
-    const component = shallow(<FooterLogo client={mockClient} />)
-    expect(component.getElement()).toEqual(null)
+    render(<FooterLogo client={mockClient} />)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 
   it('should render multiple logos', async () => {
@@ -30,8 +31,7 @@ describe('FooterLogo', () => {
         }
       }
     })
-    const component = shallow(<FooterLogo client={mockClient} />)
-    await new Promise(resolve => setImmediate(resolve)) // await the didMount
-    expect(component.getElement()).toMatchSnapshot()
+    render(<FooterLogo client={mockClient} />)
+    expect((await screen.findAllByRole('img')).length).toEqual(2)
   })
 })

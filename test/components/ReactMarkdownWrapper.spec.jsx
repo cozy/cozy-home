@@ -1,9 +1,5 @@
-'use strict'
-
-/* eslint-env jest */
-
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 
 import {
   ReactMarkdownWrapper,
@@ -16,21 +12,21 @@ describe('ReactMarkdownWrapper component', () => {
   })
 
   it('should be displayed correctly if source provided', () => {
-    const component = shallow(
+    const { container } = render(
       <ReactMarkdownWrapper source={'**test** using `markdown`'} />
-    ).getElement()
-    expect(component).toMatchSnapshot()
+    )
+    expect(container).toMatchSnapshot()
   })
 
   it('should be displayed correctly if source with link', () => {
-    const component = shallow(
+    const { container } = render(
       <ReactMarkdownWrapper
         source={
           '**test** using [markdown](https://en.wikipedia.org/wiki/Markdown)'
         }
       />
-    ).getElement()
-    expect(component).toMatchSnapshot()
+    )
+    expect(container).toMatchSnapshot()
   })
 })
 
