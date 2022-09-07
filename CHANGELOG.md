@@ -28,6 +28,7 @@
 * Fix a bug when configuring a konnector from the intent. The form was empty if a vault was active on the cozy
 * Fix a bug when opening a PDF from Harvest, display was truncated.
 * Fix a bug when creating an OAuth account, no oauth window displayed
+* Fix a bug to hide BIContractActivationWindow behind the bi webview flag
 
 ## 🔧 Tech
 
