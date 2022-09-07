@@ -1,10 +1,21 @@
-# 1.47.0
+# 1.48.0
 
 ## ✨ Features
+
 
 ## 🐛 Bug Fixes
 
 ## 🔧 Tech
+
+
+
+# 1.47.0
+
+## 🐛 Bug Fixes
+
+* Fix a bug when creating an OAuth account, no oauth window displayed
+* Fix a bug to hide BIContractActivationWindow behind the bi webview flag
+
 
 # 1.46.0
 
@@ -27,8 +38,6 @@
 * Fix a bug when opening a konnector from the store is opening briefly the home to redirect to... the store. Now we redirect to the right place.
 * Fix a bug when configuring a konnector from the intent. The form was empty if a vault was active on the cozy
 * Fix a bug when opening a PDF from Harvest, display was truncated.
-* Fix a bug when creating an OAuth account, no oauth window displayed
-* Fix a bug to hide BIContractActivationWindow behind the bi webview flag
 
 ## 🔧 Tech
 
