@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactMarkdown options should correctly return an anchor HTML element 1`] = `
+<a
+  href="https://testlink.mock"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  example link test for test
+</a>
+`;
+
+exports[`ReactMarkdownWrapper component should be displayed correctly if source provided 1`] = `
+<div>
+  <p>
+    <strong>
+      test
+    </strong>
+     using 
+    <code>
+      markdown
+    </code>
+  </p>
+</div>
+`;
+
+exports[`ReactMarkdownWrapper component should be displayed correctly if source with link 1`] = `
+<div>
+  <p>
+    <strong>
+      test
+    </strong>
+     using 
+    <a
+      href="https://en.wikipedia.org/wiki/Markdown"
+    >
+      markdown
+    </a>
+  </p>
+</div>
+`;

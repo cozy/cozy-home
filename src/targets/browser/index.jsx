@@ -5,7 +5,7 @@ import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
 
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import 'url-search-params-polyfill'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -17,16 +17,17 @@ import AppWrapper from 'components/AppWrapper'
 import PiwikHashRouter from 'lib/PiwikHashRouter'
 import { closeApp, openApp } from 'hooks/useOpenApp'
 
+const container = document.querySelector('[role=application]')
+const root = createRoot(container)
+
 const renderApp = () => {
   if (handleOAuthResponse()) {
-    render(
-      <Spinner size="xxlarge" middle={true} />,
-      document.querySelector('[role=application]')
-    )
+    root.render(<Spinner size="xxlarge" middle={true} />)
     return
   }
+
   const App = require('containers/App').default
-  render(
+  root.render(
     <WebviewIntentProvider methods={{ openApp, closeApp }}>
       <AppWrapper>
         <BreakpointsProvider>
@@ -35,8 +36,7 @@ const renderApp = () => {
           </PiwikHashRouter>
         </BreakpointsProvider>
       </AppWrapper>
-    </WebviewIntentProvider>,
-    document.querySelector('[role=application]')
+    </WebviewIntentProvider>
   )
 }
 

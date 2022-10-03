@@ -1,11 +1,6 @@
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import '@testing-library/jest-dom'
+
 import log from 'cozy-logger'
-
-// for cozy-ui components
-process.env.USE_REACT = true
-
-configure({ adapter: new Adapter() })
 
 // installed by cozy-scripts
 require('@babel/polyfill')

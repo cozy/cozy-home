@@ -52,7 +52,7 @@
     },
     {
       "path": "vendors-home.<hash>.<hash>.min.css",
-      "maxSize": "34 KB"
+      "maxSize": "35 KB"
     }
   ],
   "reportOutput": ["github"]

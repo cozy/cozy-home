@@ -1,53 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DescriptionContent component should be displayed correctly with just title and children 1`] = `
-<div
-  className=""
->
-  <h4
-    className="col-account-description-title"
+<div>
+  <div
+    class=""
   >
-    A title mock
-  </h4>
-  Test description component children
+    <h4
+      class="col-account-description-title"
+    >
+      A title mock
+    </h4>
+    Test description component children
+  </div>
 </div>
 `;
 
 exports[`DescriptionContent component should be displayed correctly with two messages 1`] = `
-<div
-  className=""
->
-  <h4
-    className="col-account-description-title"
-  >
-    A title mock
-  </h4>
+<div>
   <div
-    className="col-account-description-message"
+    class=""
   >
-    <ReactMarkdownWrapper
-      source="**First** message \`here\`"
-    />
+    <h4
+      class="col-account-description-title"
+    >
+      A title mock
+    </h4>
+    <div
+      class="col-account-description-message"
+    >
+      <p>
+        <strong>
+          First
+        </strong>
+         message 
+        <code>
+          here
+        </code>
+      </p>
+    </div>
+    <div
+      class="col-account-description-message"
+    >
+      <p>
+        second message with 
+        <a
+          href="https://examplelink.mock"
+        >
+          link
+        </a>
+      </p>
+    </div>
+    Test description component children
   </div>
-  <div
-    className="col-account-description-message"
-  >
-    <ReactMarkdownWrapper
-      source="second message with [link](https://examplelink.mock)"
-    />
-  </div>
-  Test description component children
 </div>
 `;
 
 exports[`DescriptionContent component should handle css from props via cssClassesObject 1`] = `
-<div
-  className="col-mock-class"
->
-  <h4
-    className="col-account-description-title"
+<div>
+  <div
+    class="col-mock-class"
   >
-    A title mock
-  </h4>
+    <h4
+      class="col-account-description-title"
+    >
+      A title mock
+    </h4>
+  </div>
 </div>
 `;

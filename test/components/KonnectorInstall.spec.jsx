@@ -1,10 +1,16 @@
-import { KonnectorInstall } from 'components/KonnectorInstall'
 import React from 'react'
-import { mount } from 'enzyme'
-import { IntentTriggerManager } from 'cozy-harvest-lib'
+import { render, screen } from '@testing-library/react'
+
+import { KonnectorInstall } from 'components/KonnectorInstall'
 
 jest.mock('cozy-harvest-lib', () => {
-  const FakeIntentTriggerManager = () => <div>Fake trigger manager</div>
+  const FakeIntentTriggerManager = props => (
+    <div>
+      <span data-testid="vault-status">
+        Vault is {props.vaultClosable ? 'closable' : 'sealed'}
+      </span>
+    </div>
+  )
 
   return {
     IntentTriggerManager: FakeIntentTriggerManager
@@ -13,7 +19,7 @@ jest.mock('cozy-harvest-lib', () => {
 
 describe('KonnectorInstall', () => {
   it('should show a non-closable vault', () => {
-    const wrapper = mount(
+    render(
       <KonnectorInstall
         account={{}}
         konnector={{ name: 'konnector' }}
@@ -21,8 +27,8 @@ describe('KonnectorInstall', () => {
       />
     )
 
-    const triggerManager = wrapper.find(IntentTriggerManager)
-
-    expect(triggerManager.props().vaultClosable).toBe(false)
+    expect(screen.getByTestId('vault-status')).toHaveTextContent(
+      'Vault is sealed'
+    )
   })
 })
