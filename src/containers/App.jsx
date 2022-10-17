@@ -20,7 +20,6 @@ import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import StoreRedirection from 'components/StoreRedirection'
 import { MainView } from 'components/MainView'
-import withCustomWallpaper from 'hoc/withCustomWallpaper'
 import { toFlagNames } from './toFlagNames'
 import { BackgroundContainer } from 'components/BackgroundContainer'
 
@@ -30,14 +29,7 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 window.flag = window.flag || flag
 window.minilog = minilog
 
-const App = ({
-  client,
-  accounts,
-  konnectors,
-  triggers,
-  wallpaperFetchStatus,
-  wallpaperLink
-}) => {
+const App = ({ client, accounts, konnectors, triggers }) => {
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
@@ -48,13 +40,7 @@ const App = ({
   const [hasError, setHasError] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [appsReady, setAppsReady] = useState(false)
-  const [backgroundURL, setBackgroundURL] = useState(null)
   const webviewIntent = useWebviewIntent()
-
-  useEffect(() => {
-    const { cozyDefaultWallpaper } = client.getInstanceOptions()
-    setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
-  }, [wallpaperLink, wallpaperFetchStatus, client])
 
   useEffect(() => {
     setIsFetching(
@@ -107,7 +93,7 @@ const App = ({
 
   return (
     <>
-      <BackgroundContainer backgroundURL={backgroundURL} />
+      <BackgroundContainer />
 
       <MainView>
         <Corner />
@@ -161,4 +147,4 @@ const App = ({
 withRouter is necessary here to deal with redux
 https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
 */
-export default withClient(withRouter(withCustomWallpaper(appEntryPoint(App))))
+export default withClient(withRouter(appEntryPoint(App)))

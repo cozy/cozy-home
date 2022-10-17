@@ -1,6 +1,6 @@
-import React from 'react'
-
-type BackgroundContainerProps = { backgroundURL?: string; children?: void }
+import React, { useEffect, useState } from 'react'
+import useCustomWallpaper from 'hooks/useCustomWallpaper'
+import { useClient } from 'cozy-client'
 
 type BackgroundContainerComputedProps = {
   className: string
@@ -8,7 +8,7 @@ type BackgroundContainerComputedProps = {
 }
 
 const makeProps = (
-  backgroundURL?: string
+  backgroundURL: string | null
 ): BackgroundContainerComputedProps => ({
   className: 'background-container',
   ...(backgroundURL && {
@@ -16,8 +16,20 @@ const makeProps = (
   })
 })
 
-export const BackgroundContainer = ({
-  backgroundURL
-}: BackgroundContainerProps): JSX.Element => (
-  <div {...makeProps(backgroundURL)} />
-)
+export const BackgroundContainer = (): JSX.Element => {
+  const client = useClient()
+  const {
+    fetchStatus,
+    data: { wallpaperLink }
+  } = useCustomWallpaper()
+
+  const [backgroundURL, setBackgroundURL] = useState<string | null>(null)
+
+  useEffect(() => {
+    const { cozyDefaultWallpaper } = client.getInstanceOptions() as {
+      cozyDefaultWallpaper: string
+    }
+    setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
+  }, [wallpaperLink, fetchStatus, client])
+  return <div {...makeProps(backgroundURL)} />
+}

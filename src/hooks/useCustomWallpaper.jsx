@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import homeConfig from 'config/home.json'
+import { useClient } from 'cozy-client'
 
-const useCustomWallpaper = client => {
+const useCustomWallpaper = () => {
+  const client = useClient()
   const [wallpaperLink, setWallpaperLink] = useState(null)
   const [fetchStatus, setFetchStatus] = useState('idle')
 
