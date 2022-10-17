@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import App from './App'
+import App from '../components/AnimatedWrapper'
 import AppLike from 'test/AppLike'
 
 jest.mock('lib/redux-cozy-client/connect.jsx')
