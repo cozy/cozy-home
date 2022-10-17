@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
-
+import flag from 'cozy-flags'
 /** Internals */
+declare global {
+  interface Window {
+    openApp: () => boolean
+    closeApp: () => boolean
+  }
+}
 
 enum AppAction {
   CloseApp = 'closeApp',
@@ -31,4 +37,9 @@ export const useOpenApp = (): { getAppState: AppState } => {
   }, [])
 
   return { getAppState: state }
+}
+
+if (flag('debug')) {
+  window.openApp = openApp
+  window.closeApp = closeApp
 }
