@@ -116,4 +116,4 @@ const AppWrapper = ({ children }) => {
   )
 }
 
-export default AppWrapper
+export default React.memo(AppWrapper)
