@@ -41,7 +41,7 @@
     "cozy-flags": "2.10.0",
     "cozy-harvest-lib": "^9.26.10",
     "cozy-intent": "^2.3.0",
-    "cozy-keys-lib": "^3.11.2",
+    "cozy-keys-lib": "^4.3.0",
     "cozy-logger": "1.8.1",
     "cozy-realtime": "4.2.2",
     "cozy-sharing": "4.5.2",
