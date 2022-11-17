@@ -2,11 +2,27 @@
 
 ## ✨ Features
 
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.29.5
+ - Popup display after BI connection removal from BI webview
+ - Reconnection with BI webviews & webhooks
+ - Use BI manage url to update contract synchronization
+ - Close Harvest when BI connection is removed in webview
 
 ## 🐛 Bug Fixes
 
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.29.5
+ - Deal with empty and malformed encrypted values
+ - Add explicit blocked popup message
+
 ## 🔧 Tech
 
+* Upgrade to React 18
+* Performance optimizations
+* Upgrade cozy-keys-lib to 4.3.0
+* Do not depend only on konnector.slug for useEffect dependencies
+* Add useEffect dependencies to useOAuthExtraParams hook
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.29.5
+  - Allow to pass custom Properties to OAuthForm wrapper
 
 
 # 1.47.0
