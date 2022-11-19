@@ -43,7 +43,7 @@
     "cozy-intent": "^2.3.0",
     "cozy-keys-lib": "^4.3.0",
     "cozy-logger": "1.8.1",
-    "cozy-realtime": "4.2.2",
+    "cozy-realtime": "4.2.9",
     "cozy-sharing": "4.5.2",
     "cozy-stack-client": "^27.21.0",
     "cozy-ui": "^75.6.1",
