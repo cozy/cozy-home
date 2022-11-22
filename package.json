@@ -55,7 +55,6 @@
     "lodash": "4.17.21",
     "moment": "2.29.4",
     "papaparse": "5.3.1",
-    "piwik-react-router": "0.12.1",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
