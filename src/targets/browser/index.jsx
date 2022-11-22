@@ -13,7 +13,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 
 import AppWrapper from 'components/AppWrapper'
-import PiwikHashRouter from 'lib/PiwikHashRouter'
+import { HashRouter } from 'react-router-dom'
 import { closeApp, openApp } from 'hooks/useOpenApp'
 
 const container = document.querySelector('[role=application]')
@@ -29,9 +29,9 @@ const renderApp = () => {
     <WebviewIntentProvider methods={{ openApp, closeApp }}>
       <AppWrapper>
         <BreakpointsProvider>
-          <PiwikHashRouter>
+          <HashRouter>
             <AnimatedWrapper />
-          </PiwikHashRouter>
+          </HashRouter>
         </BreakpointsProvider>
       </AppWrapper>
     </WebviewIntentProvider>
