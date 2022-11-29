@@ -10,21 +10,24 @@ import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import FooterLogo from 'components/FooterLogo'
 import Shortcuts from 'components/Shortcuts'
+import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 
 class Home extends Component {
   render() {
     const { setAppsReady, wrapper } = this.props
     return (
-      <Main className="u-flex-grow-1">
-        <ScrollToTopOnMount target={wrapper} />
-        <Content className="u-flex u-flex-column u-ph-1">
-          <Applications onAppsFetched={setAppsReady} />
-          <Services />
-          <Shortcuts />
-          <FooterLogo />
-        </Content>
-        <Route path="/connected/:konnectorSlug" component={Konnector} />
-      </Main>
+      <CozyConfirmDialogProvider>
+        <Main className="u-flex-grow-1">
+          <ScrollToTopOnMount target={wrapper} />
+          <Content className="u-flex u-flex-column u-ph-1">
+            <Applications onAppsFetched={setAppsReady} />
+            <Services />
+            <Shortcuts />
+            <FooterLogo />
+          </Content>
+          <Route path="/connected/:konnectorSlug" component={Konnector} />
+        </Main>
+      </CozyConfirmDialogProvider>
     )
   }
 }
