@@ -19,7 +19,7 @@ class Home extends Component {
       <CozyConfirmDialogProvider>
         <Main className="u-flex-grow-1">
           <ScrollToTopOnMount target={wrapper} />
-          <Content className="u-flex u-flex-column u-ph-1">
+          <Content className="u-flex u-flex-column u-ph-1 u-pb-3-s">
             <Applications onAppsFetched={setAppsReady} />
             <Services />
             <Shortcuts />
