@@ -5,7 +5,13 @@ import { Provider as ReduxProvider } from 'react-redux'
 import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
-import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
+import CozyClient, {
+  CozyProvider,
+  RealTimeQueries,
+  StackLink
+} from 'cozy-client'
+import PouchLink from 'cozy-pouch-link'
+
 import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
@@ -27,23 +33,45 @@ const dictRequire = lang => require(`locales/${lang}.json`)
 
 export const AppContext = createContext()
 
+const getAdapterPlugin = () => {
+  // can also be pouchdb-adapter-idb since indexeddb
+  // has a few issues...
+  return require('pouchdb-adapter-indexeddb').default
+}
 /**
  * Setups clients and store
  *
  * Is memoized to avoid several clients in case of hot-reload
  */
+
 export const setupAppContext = memoize(() => {
   const lang = document.documentElement.getAttribute('lang') || 'en'
   const context = window.context || 'cozy'
   const root = document.querySelector('[role=application]')
   const data = root.dataset
+  const stackLink = new StackLink()
+  const adapter = 'indexeddb'
 
+  const pouchLinkOptions = {
+    doctypes: ['io.cozy.files', 'io.cozy.contacts'],
+    pouch: {
+      plugins: [getAdapterPlugin()],
+      options: {
+        adapter,
+        location: 'default'
+      }
+    },
+    initialSync: true
+  }
+
+  const pouchLink = new PouchLink(pouchLinkOptions)
   // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema,
     token: data.cozyToken,
-    store: false
+    store: false,
+    links: [pouchLink, stackLink]
   })
   const legacyClient = new LegacyCozyClient({
     cozyURL: `//${data.cozyDomain}`,
