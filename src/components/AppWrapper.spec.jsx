@@ -30,6 +30,8 @@ jest.mock('store/configureStore', () => () => ({
 jest.mock('redux-persist/integration/react', () => ({
   PersistGate: ({ children }) => children
 }))
+const AddButtonMock = () => <></>
+jest.mock('./AddButton/AddButton', () => AddButtonMock)
 
 describe('AppWrapper.jsx', () => {
   beforeEach(() => {
