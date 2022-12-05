@@ -586,5 +586,8 @@
         "format": "DD MMM"
       }
     }
+  },
+  "addButton": {
+    "add": "Ajouter"
   }
 }
