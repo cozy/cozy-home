@@ -32,6 +32,7 @@
 * Add useEffect dependencies to useOAuthExtraParams hook
 * Upgrade cozy-harvest-lib from 9.26.10 to 9.29.5
   - Allow to pass custom Properties to OAuthForm wrapper
+* Renew Github Token for CI
 
 
 # 1.47.0
