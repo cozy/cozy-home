@@ -24,6 +24,7 @@ desktop.ini
 # Editors / IDEs
 .floo
 .flooignore
+.vscode
 
 
 # Mobile
