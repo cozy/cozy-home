@@ -1,12 +1,47 @@
-# 1.48.0
+# 1.49.0
 
 ## ✨ Features
-
 
 ## 🐛 Bug Fixes
 
 ## 🔧 Tech
 
+
+# 1.48.0
+
+## ✨ Features
+
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.32.5
+ - Popup display after BI connection removal from BI webview
+ - Reconnection with BI webviews & webhooks
+ - Use BI manage url to update contract synchronization
+ - Close Harvest when BI connection is removed in webview
+ - Add independent confirm dialog
+ - Use independant OAuth window
+ - Follow current trigger jobs even after the first load
+ - Nuke matomo/piwik
+
+## 🐛 Bug Fixes
+
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.32.5
+ - Deal with empty and malformed encrypted values
+ - Add explicit blocked popup message
+ - Prevent createTemporaryToken to updateCache twice at the same time
+ - Add konnector slug in fake trigger passed to onLoginSuccess
+ - Only update cozy-client store when refreshing contract
+ - Use correct button to close CozyConfirmDialog
+ - Do not use CozyRealtime.unsubscribeAll anymore
+
+## 🔧 Tech
+
+* Upgrade to React 18
+* Performance optimizations
+* Upgrade cozy-keys-lib to 4.3.0
+* Do not depend only on konnector.slug for useEffect dependencies
+* Add useEffect dependencies to useOAuthExtraParams hook
+* Upgrade cozy-harvest-lib from 9.26.10 to 9.29.5
+  - Allow to pass custom Properties to OAuthForm wrapper
+* Renew Github Token for CI
 
 
 # 1.47.0
