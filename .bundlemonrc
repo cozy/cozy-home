@@ -28,7 +28,7 @@
     },
     {
       "path": "services/deleteAccounts/home.js",
-      "maxSize": "314 KB"
+      "maxSize": "500 KB"
     },
     {
       "path": "services/myselfFromIdenties/home.js",
