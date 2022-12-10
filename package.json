@@ -36,7 +36,7 @@
     "@cozy/minilog": "1.0.0",
     "@material-ui/lab": "4.0.0-alpha.60",
     "cozy-client": "^32.3.3",
-    "cozy-device-helper": "2.2.1",
+    "cozy-device-helper": "2.6.0",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "2.10.0",
     "cozy-harvest-lib": "^9.32.5",
