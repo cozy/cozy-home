@@ -15,8 +15,8 @@ const ACTIONS = [
     path: '/new',
     icon: 'file-type-note',
     text: {
-      fr: 'Créer une note',
-      en: 'Create a note'
+      fr: 'Note',
+      en: 'Note'
     }
   },
   {
@@ -103,11 +103,11 @@ describe('AddButton', () => {
 
     const { root } = setup()
 
-    expect(root.queryByText('Create a note')).toBeFalsy()
+    expect(root.queryByText('Note')).toBeFalsy()
     fireEvent.click(root.getByRole('button'))
-    expect(root.queryByText('Create a note')).toBeTruthy()
+    expect(root.queryByText('Note')).toBeTruthy()
 
-    const link = root.getByRole('link', { name: 'Create a note' })
+    const link = root.getByRole('link', { name: 'Note' })
     expect(link.href).toBe('http://cozy-notes.cloud/#/new')
   })
 
@@ -118,11 +118,11 @@ describe('AddButton', () => {
 
     const { root } = setup()
 
-    expect(root.queryByText('Create a note')).toBeFalsy()
+    expect(root.queryByText('Note')).toBeFalsy()
     fireEvent.click(root.getByRole('button'))
-    expect(root.queryByText('Create a note')).toBeTruthy()
+    expect(root.queryByText('Note')).toBeTruthy()
 
-    const link = root.getByRole('link', { name: 'Create a note' })
+    const link = root.getByRole('link', { name: 'Note' })
     expect(link.href).toBe('http://cozy-store.cloud/#/discover/notes')
   })
 
