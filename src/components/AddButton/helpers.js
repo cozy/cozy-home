@@ -10,8 +10,8 @@ export const DEFAULT_ACTIONS = [
     path: '/new',
     icon: 'file-type-note',
     text: {
-      fr: 'Créer une note',
-      en: 'Create a note'
+      fr: 'Note',
+      en: 'Note'
     }
   },
   {
@@ -20,7 +20,7 @@ export const DEFAULT_ACTIONS = [
     icon: 'file-type-text',
     text: {
       fr: 'Traitement de texte',
-      en: 'Traitement de texte'
+      en: 'Text document'
     },
     flag: {
       name: 'drive.onlyoffice.enabled',
@@ -33,7 +33,7 @@ export const DEFAULT_ACTIONS = [
     icon: 'file-type-sheet',
     text: {
       fr: 'Tableur',
-      en: 'Tableur'
+      en: 'Spreadsheet'
     },
     flag: {
       name: 'drive.onlyoffice.enabled',
@@ -46,7 +46,7 @@ export const DEFAULT_ACTIONS = [
     icon: 'file-type-slide',
     text: {
       fr: 'Présentation',
-      en: 'Présentation'
+      en: 'Presentation'
     },
     flag: {
       name: 'drive.onlyoffice.enabled',
@@ -61,8 +61,8 @@ export const DEFAULT_ACTIONS = [
     path: '/paper/create?backgroundPath=/paper',
     icon: 'papers',
     text: {
-      fr: 'Ajouter un papier administratif',
-      en: 'Add an administrative paper'
+      fr: 'Papier administratif',
+      en: 'Administrative paper'
     }
   },
   {
@@ -70,8 +70,8 @@ export const DEFAULT_ACTIONS = [
     path: '/new',
     icon: 'contacts',
     text: {
-      fr: 'Créer un contact',
-      en: 'Create a contact'
+      fr: 'Contact',
+      en: 'Contact'
     }
   },
   {
@@ -79,8 +79,8 @@ export const DEFAULT_ACTIONS = [
     path: '/discover?type=konnector&category=banking',
     icon: 'file-type-banking-account',
     text: {
-      fr: 'Compte banc.',
-      en: 'Banks account'
+      fr: 'Compte bancaire',
+      en: 'Bank account'
     }
   },
   {
@@ -88,8 +88,8 @@ export const DEFAULT_ACTIONS = [
     path: '/vault?action=add',
     icon: 'keychain',
     text: {
-      fr: 'Créer un mot de passe',
-      en: 'Create a password'
+      fr: 'Mot de passe',
+      en: 'Password'
     }
   },
   {
@@ -100,8 +100,8 @@ export const DEFAULT_ACTIONS = [
     path: '/',
     icon: 'store',
     text: {
-      fr: 'Installer une application',
-      en: 'Install an app'
+      fr: 'Application',
+      en: 'App'
     }
   }
 ]
