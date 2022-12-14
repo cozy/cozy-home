@@ -41,7 +41,15 @@ export const ActionsBottomSheet = ({ anchorRef, hideMenu, actionsLists }) => {
             return (
               <AppLinker app={action.app} href={url} key={action.id}>
                 {({ href, onClick }) => (
-                  <ListItem button component="a" href={href} onClick={onClick}>
+                  <ListItem
+                    button
+                    component="a"
+                    href={href}
+                    onClick={e => {
+                      onClick(e)
+                      hideMenu()
+                    }}
+                  >
                     <ListItemIcon>
                       <Icon icon={action.icon} size={32} />
                     </ListItemIcon>
