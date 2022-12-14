@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 
 import flag from 'cozy-flags'
 import { useQuery, isQueryLoading } from 'cozy-client'
+import { getFlagshipMetadata } from 'cozy-device-helper'
 import Fab from 'cozy-ui/transpiled/react/Fab'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { appsConn } from 'queries'
@@ -18,11 +19,12 @@ import {
 import ActionsBottomSheet from './ActionsBottomSheet'
 
 const styles = {
-  fab: {
+  fab: immersive => ({
     right: '1rem',
     bottom: '1rem',
-    position: 'fixed'
-  }
+    position: 'fixed',
+    marginBottom: immersive ? 'var(--flagship-bottom-height)' : 0
+  })
 }
 
 export const AddButton = () => {
@@ -51,7 +53,7 @@ export const AddButton = () => {
         color="primary"
         aria-label="add"
         ref={anchorRef}
-        style={styles.fab}
+        style={styles.fab(getFlagshipMetadata().immersive)}
         onClick={showMenu}
       >
         <Icon icon="plus" />
