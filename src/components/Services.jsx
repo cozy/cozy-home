@@ -24,10 +24,13 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const { t } = useI18n()
   const client = useClient()
-  const appsInMaintenance = useAppsInMaintenance(client)
-  const appsInMaintenanceBySlug = keyBy(appsInMaintenance, 'slug')
+  const appsAndKonnectorsInMaintenance = useAppsInMaintenance(client)
+  const appsAndKonnectorsInMaintenanceBySlug = keyBy(
+    appsAndKonnectorsInMaintenance,
+    'slug'
+  )
 
-  const candidatesSlugBlacklist = appsInMaintenance
+  const candidatesSlugBlacklist = appsAndKonnectorsInMaintenance
     .map(({ slug }) => slug)
     .concat(installedKonnectors.map(({ slug }) => slug))
 
@@ -39,7 +42,13 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const fallbackKonnectorSuggestions = candidatesConfig.konnectors.filter(
     ({ slug }) => !candidatesSlugBlacklist.includes(slug)
   )
-  const categorySuggestions = Object.entries(candidatesConfig.categories)
+
+  const categorySuggestions = Object.entries(candidatesConfig.categories).map(
+    ([category, slugs]) => [
+      category,
+      slugs.filter(slug => !candidatesSlugBlacklist.includes(slug))
+    ]
+  )
 
   const hasZeroInstalledKonnectors = !installedKonnectors.length
   const displayFallbackSuggestions =
@@ -58,7 +67,10 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
             key={konnector.id}
             konnector={konnector}
             route={`connected/${konnector.slug}`}
-            isInMaintenance={has(appsInMaintenanceBySlug, konnector.slug)}
+            isInMaintenance={has(
+              appsAndKonnectorsInMaintenanceBySlug,
+              konnector.slug
+            )}
           />
         ))}
         {suggestedKonnectors.map(suggestion => (
