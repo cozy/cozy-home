@@ -7,6 +7,8 @@ import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
+const MIN_SLUGS = 4
+
 const CandidateCategoryTile = ({ slugs, category }) => {
   const { t } = useI18n()
   const client = useClient()
@@ -14,6 +16,8 @@ const CandidateCategoryTile = ({ slugs, category }) => {
   const app = 'store'
   const nativePath = `/discover?type=konnector&category=${category}`
   const { subdomain: subDomainType } = client.getInstanceOptions()
+
+  if (slugs.length < MIN_SLUGS) return null
 
   return (
     <AppLinker
@@ -33,7 +37,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
             name={t(`category.${category}`)}
             IconContent={
               <Grid container spacing={0}>
-                {slugs.map(slug => (
+                {slugs.slice(0, 4).map(slug => (
                   <Grid item xs={6} key={slug}>
                     <AppIcon
                       alt={t('app.logo.alt', { name: category })}

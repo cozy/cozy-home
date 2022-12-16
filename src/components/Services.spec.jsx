@@ -27,13 +27,17 @@ jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
 }))
 
 describe('Services component', () => {
-  const setup = ({ installedKonnectors, suggestedKonnectorsQuery } = {}) => {
+  const setup = ({
+    installedKonnectors,
+    suggestedKonnectorsQuery,
+    appsAndKonnectorsInMaintenance = []
+  } = {}) => {
     const client = createMockClient({
       clientOptions: {
         uri: 'http://cozy.tools:8080'
       }
     })
-    useAppsInMaintenance.mockReturnValue([])
+    useAppsInMaintenance.mockReturnValue(appsAndKonnectorsInMaintenance)
     const root = render(
       <AppLike client={client}>
         <MuiCozyTheme>
@@ -109,5 +113,31 @@ describe('Services component', () => {
     root.getByText('suggestion-1')
     root.getByText('suggestion-2')
     root.getByText('test-1')
+  })
+
+  it('should show category if enough working konnectors in category', () => {
+    const installedKonnectors = []
+    const { root } = setup({
+      installedKonnectors,
+      suggestedKonnectorsQuery: { data: [] }
+    })
+    root.getByRole('heading', { name: 'Energy' })
+  })
+
+  it('should hide category if not enough working konnectors in category', () => {
+    const installedKonnectors = []
+    const appsAndKonnectorsInMaintenance = [
+      { slug: 'engie' },
+      { slug: 'planeteoui' },
+      { slug: 'veoliaeau' },
+      { slug: 'ekwateur' },
+      { slug: 'enercoop' }
+    ]
+    const { root } = setup({
+      installedKonnectors,
+      suggestedKonnectorsQuery: { data: [] },
+      appsAndKonnectorsInMaintenance
+    })
+    expect(root.queryByRole('heading', { name: 'Energy' })).toBeNull
   })
 })
