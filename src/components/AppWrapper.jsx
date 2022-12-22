@@ -9,11 +9,8 @@ import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
-import useBreakpoints, {
-  BreakpointsProvider
-} from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
-import AddButton from 'components/AddButton/AddButton'
 
 import {
   CozyClient as LegacyCozyClient,
@@ -25,7 +22,6 @@ import { RealtimePlugin } from 'cozy-realtime'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { FLAG_FAB_BUTTON_ENABLED } from './AddButton/helpers'
 const dictRequire = lang => require(`locales/${lang}.json`)
 
 export const AppContext = createContext()
@@ -70,18 +66,13 @@ export const setupAppContext = memoize(() => {
   return { cozyClient, store, data, lang, context, persistor }
 })
 
-const Inner = ({ children, lang, context }) => {
-  const { isMobile } = useBreakpoints()
-
-  return (
-    <I18n lang={lang} dictRequire={dictRequire} context={context}>
-      {children}
-      <RealTimeQueries doctype="io.cozy.apps" />
-      {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
-      {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
-    </I18n>
-  )
-}
+const Inner = ({ children, lang, context }) => (
+  <I18n lang={lang} dictRequire={dictRequire} context={context}>
+    {children}
+    <RealTimeQueries doctype="io.cozy.apps" />
+    {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
+  </I18n>
+)
 
 /**
  * Setups the app context and creates all context providers and wrappers

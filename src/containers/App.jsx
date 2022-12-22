@@ -22,6 +22,9 @@ import StoreRedirection from 'components/StoreRedirection'
 import { MainView } from 'components/MainView'
 import { toFlagNames } from './toFlagNames'
 import { BackgroundContainer } from 'components/BackgroundContainer'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import AddButton from 'components/AddButton/AddButton'
+import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -30,6 +33,7 @@ window.flag = window.flag || flag
 window.minilog = minilog
 
 const App = ({ client, accounts, konnectors, triggers }) => {
+  const { isMobile } = useBreakpoints()
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
@@ -139,6 +143,7 @@ const App = ({ client, accounts, konnectors, triggers }) => {
           <IconSprite />
         </div>
       </MainView>
+      {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
 }
