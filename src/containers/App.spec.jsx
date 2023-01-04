@@ -42,6 +42,15 @@ jest.mock('react-router-dom', () => ({
   withRouter: children => children
 }))
 
+jest.mock('cozy-device-helper', () => ({
+  isFlagshipApp: jest.fn(),
+  getFlagshipMetadata: jest.fn().mockReturnValue({
+    immersive: jest.fn()
+  }),
+  isAndroidApp: jest.fn(),
+  isIOS: jest.fn()
+}))
+
 describe('App', () => {
   it('should keep backgroundImage fixed on Flagship app scroll', () => {
     // Given
