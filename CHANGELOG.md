@@ -1,5 +1,18 @@
 # 1.49.0
 
+## ✨ Features
+
+* Add FAB button on mobile to quickly create new docs
+* Hide fallback category konnectors in maintenance
+
+## 🐛 Bug Fixes
+
+* Fix interaction freeze that may happen when scrolling the app from iOS
+
+## 🔧 Tech
+
+* Upgrade cozy-ui to latest (79.3.0)
+
 # 1.48.0
 
 ## ✨ Features
