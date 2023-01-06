@@ -39,7 +39,7 @@
     "cozy-device-helper": "2.6.0",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "2.10.0",
-    "cozy-harvest-lib": "^9.32.5",
+    "cozy-harvest-lib": "^11.3.0",
     "cozy-intent": "^2.3.0",
     "cozy-keys-lib": "^4.3.0",
     "cozy-logger": "1.8.1",
