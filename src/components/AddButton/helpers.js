@@ -19,7 +19,7 @@ export const DEFAULT_ACTIONS = [
     path: '/onlyoffice/create/io.cozy.files.root-dir/text',
     icon: 'file-type-text',
     text: {
-      fr: 'Traitement de texte',
+      fr: 'Document texte',
       en: 'Text document'
     },
     flag: {
@@ -32,7 +32,7 @@ export const DEFAULT_ACTIONS = [
     path: '/onlyoffice/create/io.cozy.files.root-dir/spreadsheet',
     icon: 'file-type-sheet',
     text: {
-      fr: 'Tableur',
+      fr: 'Feuille de calcul',
       en: 'Spreadsheet'
     },
     flag: {
