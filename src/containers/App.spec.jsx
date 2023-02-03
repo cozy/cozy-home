@@ -5,6 +5,7 @@ import App from '../components/AnimatedWrapper'
 import AppLike from 'test/AppLike'
 
 jest.mock('lib/redux-cozy-client/connect.jsx')
+
 jest.mock('lib/redux-cozy-client', () => ({
   cozyConnect: () => App => {
     return () =>
@@ -23,24 +24,8 @@ jest.mock('lib/redux-cozy-client', () => ({
   }
 }))
 
-jest.mock('cozy-device-helper', () => ({
-  isFlagshipApp: jest.fn(),
-  isAndroidApp: jest.fn(),
-  isIOS: jest.fn()
-}))
-
 // eslint-disable-next-line react/display-name
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
-// jest.mock('components/Home', () => () => <div />)
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  Route: ({ path, exact }) => (
-    <div data-testId="route" data-path={path} data-exact={exact} />
-  ),
-  Redirect: ({ children }) => <div data-testId="Redirect">{children}</div>,
-  Switch: ({ children }) => <div data-testId="Switch">{children}</div>,
-  withRouter: children => children
-}))
 
 jest.mock('cozy-device-helper', () => ({
   isFlagshipApp: jest.fn(),
@@ -49,6 +34,28 @@ jest.mock('cozy-device-helper', () => ({
   }),
   isAndroidApp: jest.fn(),
   isIOS: jest.fn()
+}))
+
+jest.mock('cozy-harvest-lib', () => ({
+  Routes: ({ konnector, triggers, onDismiss }) => (
+    <div konnector={konnector} triggers={triggers} onClick={onDismiss}>
+      {konnector.slug}
+    </div>
+  )
+}))
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  // eslint-disable-next-line react/display-name
+  Routes: jest.fn(),
+  // eslint-disable-next-line react/display-name
+  withRouter: Component => props => <Component {...props} />
+}))
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  // eslint-disable-next-line react/display-name
+  withRouter: Component => props => <Component {...props} />
 }))
 
 describe('App', () => {

@@ -1,31 +1,33 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { useClient, models } from 'cozy-client'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import keyBy from 'lodash/keyBy'
+import React from 'react'
 import flow from 'lodash/flow'
-import Infos from 'cozy-ui/transpiled/react/Infos'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
+import keyBy from 'lodash/keyBy'
+import { connect } from 'react-redux'
+import { useClient, models } from 'cozy-client'
+import { useNavigate } from 'react-router-dom'
+
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import Button from 'cozy-ui/transpiled/react/Button'
+import CrossButton from 'cozy-ui/transpiled/react/Icons/Cross'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import CrossButton from 'cozy-ui/transpiled/react/Icons/Cross'
-import { Media, Bd } from 'cozy-ui/transpiled/react/Media'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Infos from 'cozy-ui/transpiled/react/Infos'
+import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { Media, Bd } from 'cozy-ui/transpiled/react/Media'
+import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
 import {
-  getTriggersInError,
   getAccountsWithErrors,
-  getInstalledKonnectors
+  getInstalledKonnectors,
+  getTriggersInError
 } from 'reducers/index'
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import homeConfig from 'config/home.json'
-import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const {
   triggers: { triggers: triggersModel, triggerStates: triggerStatesModel },
@@ -70,8 +72,7 @@ const KonnectorError = ({
   triggerErrors,
   index,
   konnectorsBySlug,
-  accountsById,
-  history
+  accountsById
 }) => {
   const client = useClient()
   const { t, lang } = useI18n()
@@ -81,6 +82,7 @@ const KonnectorError = ({
   const konnectorSlug = triggersModel.getKonnector(trigger)
   const konnectorAccount = triggersModel.getAccountId(trigger)
   const konnector = konnectorsBySlug[konnectorSlug]
+  const navigate = useNavigate()
 
   const errorTitle = getErrorLocaleBound(konnError, konnector, lang, 'title')
 
@@ -139,9 +141,7 @@ const KonnectorError = ({
           className="u-mh-0"
           size={isMobile ? 'small' : 'normal'}
           onClick={() =>
-            history.push(
-              `/connected/${konnectorSlug}/accounts/${konnectorAccount}`
-            )
+            navigate(`/connected/${konnectorSlug}/accounts/${konnectorAccount}`)
           }
         />
       }
@@ -152,8 +152,7 @@ const KonnectorError = ({
 export const KonnectorErrors = ({
   triggersInError,
   accountsWithErrors,
-  installedKonnectors,
-  history
+  installedKonnectors
 }) => {
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
   const installedKonnectorsBySlug = keyBy(installedKonnectors, getKonnectorSlug)
@@ -180,7 +179,6 @@ export const KonnectorErrors = ({
         {nonMutedTriggerErrors.map((trigger, index) => (
           <KonnectorError
             key={trigger._id}
-            history={history}
             trigger={trigger}
             triggerErrors={nonMutedTriggerErrors}
             konnectorsBySlug={installedKonnectorsBySlug}
@@ -198,18 +196,17 @@ export const KonnectorErrors = ({
 }
 
 KonnectorErrors.propTypes = {
-  triggersInError: PropTypes.array.isRequired,
   accountsWithErrors: PropTypes.array.isRequired,
   installedKonnectors: PropTypes.arrayOf(PropTypes.object.isRequired),
-  history: PropTypes.object.isRequired
+  triggersInError: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => {
   return {
-    triggersInError: getTriggersInError(state),
     accountsWithErrors: getAccountsWithErrors(state),
-    installedKonnectors: getInstalledKonnectors(state)
+    installedKonnectors: getInstalledKonnectors(state),
+    triggersInError: getTriggersInError(state)
   }
 }
 
-export default flow(connect(mapStateToProps), withRouter)(KonnectorErrors)
+export default flow(connect(mapStateToProps))(KonnectorErrors)

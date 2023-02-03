@@ -1,20 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import flag from 'cozy-flags'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
-
+import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
+import { getKonnectorTriggersCount } from 'reducers'
 import {
   getFirstError,
   getFirstUserError,
   getLastSyncDate
 } from 'ducks/connections'
-import { getKonnectorTriggersCount } from 'reducers'
 
 const getKonnectorError = ({ error, lang, konnector }) => {
   if (!error || !error.message) {
@@ -51,8 +50,7 @@ export const getKonnectorStatus = ({
 
 export const KonnectorTile = props => {
   const { lang } = useI18n()
-  const { accountsCount, error, isInMaintenance, userError, konnector, route } =
-    props
+  const { accountsCount, error, isInMaintenance, userError, konnector } = props
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
@@ -68,7 +66,7 @@ export const KonnectorTile = props => {
 
   return (
     <NavLink
-      to={route}
+      to={konnector.slug}
       title={getKonnectorError({ error, lang, konnector })}
       className="scale-hover"
     >
@@ -85,19 +83,21 @@ export const KonnectorTile = props => {
 KonnectorTile.propTypes = {
   accountsCount: PropTypes.number,
   error: PropTypes.object,
-  userError: PropTypes.object,
-  konnector: PropTypes.object
+  isInMaintenance: PropTypes.bool,
+  konnector: PropTypes.object,
+  userError: PropTypes.object
 }
 
 const mapStateToProps = (state, props) => {
   const { konnector } = props
+
   return {
+    accountsCount: getKonnectorTriggersCount(state, konnector),
     // /!\ error can also be a userError.
     error: getFirstError(state.connections, konnector.slug),
-    userError: getFirstUserError(state.connections, konnector.slug),
     lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
-    accountsCount: getKonnectorTriggersCount(state, konnector)
+    userError: getFirstUserError(state.connections, konnector.slug)
   }
 }
 
-export default connect(mapStateToProps)(withRouter(KonnectorTile))
+export default connect(mapStateToProps)(KonnectorTile)

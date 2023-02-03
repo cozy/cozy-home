@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import { Route, withRouter } from 'react-router'
+import { Outlet } from 'react-router-dom'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 
-import Konnector from 'components/Konnector'
 import Applications from 'components/Applications'
+import FooterLogo from 'components/FooterLogo'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
-import FooterLogo from 'components/FooterLogo'
 import Shortcuts from 'components/Shortcuts'
-import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 
 class Home extends Component {
   render() {
     const { setAppsReady, wrapper } = this.props
+
     return (
       <CozyConfirmDialogProvider>
         <Main className="u-flex-grow-1">
@@ -25,11 +24,12 @@ class Home extends Component {
             <Shortcuts />
             <FooterLogo />
           </Content>
-          <Route path="/connected/:konnectorSlug" component={Konnector} />
         </Main>
+
+        <Outlet />
       </CozyConfirmDialogProvider>
     )
   }
 }
 
-export default withRouter(translate()(Home))
+export default Home

@@ -6,6 +6,11 @@ import { render, fireEvent } from '@testing-library/react'
 
 jest.mock('cozy-ui/transpiled/react/AppIcon', () => () => null)
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn()
+}))
+
 describe('KonnectorErrors', () => {
   const MOCKED_DATE = '2020-01-08T09:49:23.589Z'
   beforeAll(() => {
@@ -20,8 +25,6 @@ describe('KonnectorErrors', () => {
   const mockClient = {
     save: jest.fn()
   }
-
-  const mockHistory = {}
 
   const DEFAULT_INSTALLED_KONNECTORS = [
     { slug: 'test', name: 'Test Konnector' }
@@ -38,7 +41,6 @@ describe('KonnectorErrors', () => {
           triggersInError={triggersInError}
           accountsWithErrors={accountsWithErrors}
           installedKonnectors={installedKonnectors}
-          history={mockHistory}
         />
       </AppLike>
     )

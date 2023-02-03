@@ -1,21 +1,20 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import KonnectorInstall from 'components/KonnectorInstall'
 import KonnectorMaintenance from 'components/KonnectorMaintenance'
 import UpdateMessage from 'components/Banners/UpdateMessage'
+import styles from 'styles/accountConnection.styl'
+import { isKonnectorUpdateNeededError } from 'lib/konnectors'
 import {
   enqueueConnection,
   getConnectionError,
   isConnectionConnected,
   isConnectionEnqueued
 } from 'ducks/connections'
-import { isKonnectorUpdateNeededError } from 'lib/konnectors'
-import styles from 'styles/accountConnection.styl'
 
 class AccountConnection extends Component {
   constructor(props, context) {
@@ -95,16 +94,16 @@ class AccountConnection extends Component {
   render() {
     const {
       createdAccount,
+      error,
       handleConnectionSuccess,
       konnector,
-      error,
+      lang,
       onCancel,
       onDone,
       queued,
-      t,
-      lang,
       success,
-      successButtonLabel
+      successButtonLabel,
+      t
     } = this.props
     const { connectionError, oAuthError, maintenance } = this.state
     const successMessages =
@@ -149,9 +148,9 @@ AccountConnection.contextTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  success: isConnectionConnected(state.connections, ownProps.trigger),
   error: getConnectionError(state.connections, ownProps.trigger),
-  queued: isConnectionEnqueued(state.connections, ownProps.trigger)
+  queued: isConnectionEnqueued(state.connections, ownProps.trigger),
+  success: isConnectionConnected(state.connections, ownProps.trigger)
 })
 
 const mapDispatchToProps = dispatch => {
@@ -163,4 +162,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(translate()(AccountConnection)))
+)(translate()(AccountConnection))
