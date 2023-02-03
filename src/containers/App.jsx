@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Q, withClient } from 'cozy-client'
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
+import { Q, useClient } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
-import { Main } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import { Main } from 'cozy-ui/transpiled/react/Layout'
 
-import appEntryPoint from 'components/appEntryPoint'
-import MoveModal from 'components/MoveModal'
-import HeroHeader from 'components/HeroHeader'
+import AddButton from 'components/AddButton/AddButton'
 import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
+import HeroHeader from 'components/HeroHeader'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
+import MoveModal from 'components/MoveModal'
 import StoreRedirection from 'components/StoreRedirection'
+import appEntryPoint from 'components/appEntryPoint'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BackgroundContainer } from 'components/BackgroundContainer'
+import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
 import { toFlagNames } from './toFlagNames'
-import { BackgroundContainer } from 'components/BackgroundContainer'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import AddButton from 'components/AddButton/AddButton'
-import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
+import { Konnector } from 'components/Konnector'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -32,7 +33,8 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 window.flag = window.flag || flag
 window.minilog = minilog
 
-const App = ({ client, accounts, konnectors, triggers }) => {
+const App = ({ accounts, konnectors, triggers }) => {
+  const client = useClient()
   const { isMobile } = useBreakpoints()
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
@@ -119,26 +121,27 @@ const App = ({ client, accounts, konnectors, triggers }) => {
             </Main>
           )}
           {!isFetching && (
-            <Switch>
-              <Route
-                path="/redirect"
-                render={routeProps => <IntentRedirect {...routeProps} />}
-              />
+            <Routes>
               <Route
                 path="/connected"
-                render={() => (
+                element={
                   <Home
-                    base="/connected"
                     wrapper={contentWrapper}
                     setAppsReady={() => setAppsReady(true)}
                   />
-                )}
-              />
-              <Route exact path="/providers" component={StoreRedirection} />
-              <Route path="/providers/:category" component={StoreRedirection} />
-              <Redirect exact from="/" to="/connected" />
-              <Redirect from="*" to="/connected" />
-            </Switch>
+                }
+              >
+                <Route path=":konnectorSlug/*" element={<Konnector />} />
+
+                <Route path="providers" element={<StoreRedirection />}>
+                  <Route path=":category" element={<StoreRedirection />} />
+                </Route>
+              </Route>
+
+              <Route path="/redirect" element={<IntentRedirect />} />
+
+              <Route path="*" element={<Navigate to="connected" />} />
+            </Routes>
           )}
           <IconSprite />
         </div>
@@ -148,8 +151,4 @@ const App = ({ client, accounts, konnectors, triggers }) => {
   )
 }
 
-/*
-withRouter is necessary here to deal with redux
-https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
-*/
-export default withClient(withRouter(appEntryPoint(App)))
+export default appEntryPoint(App)

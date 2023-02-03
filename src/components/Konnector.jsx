@@ -1,24 +1,23 @@
 import React, { useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import flow from 'lodash/flow'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 import log from 'cozy-logger'
+import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 
-import { getKonnector } from 'ducks/konnectors'
-
-import { getTriggersByKonnector } from 'reducers'
 import { closeApp, openApp } from 'hooks/useOpenApp'
+import { getKonnector } from 'ducks/konnectors'
+import { getTriggersByKonnector } from 'reducers'
 
-export const Konnector = ({ konnector, history, match, triggers }) => {
-  const { konnectorSlug } = match ? match.params : {}
+export const StatelessKonnector = ({ konnector, triggers, slug }) => {
+  const navigate = useNavigate()
   const konnectorWithTriggers = konnector
     ? { ...konnector, triggers: { data: triggers } }
     : undefined
-  const onDismiss = useCallback(() => history.push('/connected'), [history])
-  const slug = konnector?.slug || location.hash.split('/')[2]
+  const onDismiss = useCallback(() => navigate('/connected'), [navigate])
+  const konnectorSlug = slug || konnector?.slug || location.hash.split('/')[2]
+  const location = useLocation()
 
   useEffect(() => {
     openApp()
@@ -39,21 +38,24 @@ export const Konnector = ({ konnector, history, match, triggers }) => {
 
   return (
     <HarvestRoutes
-      konnectorRoot={`/connected/${slug}`}
+      datacardOptions={datacardOptions}
       konnector={konnectorWithTriggers}
+      konnectorRoot={`/connected/${konnectorSlug}`}
       konnectorSlug={konnectorSlug}
       onDismiss={onDismiss}
-      datacardOptions={datacardOptions}
     />
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const { konnectorSlug } = ownProps.match.params
-  return {
-    konnector: getKonnector(state.oldcozy, konnectorSlug),
-    triggers: getTriggersByKonnector(state, konnectorSlug)
-  }
+const StatefulKonnector = connect((state, { slug }) => ({
+  konnector: getKonnector(state.oldcozy, slug),
+  triggers: getTriggersByKonnector(state, slug)
+}))(StatelessKonnector)
+
+export const Konnector = () => {
+  const { konnectorSlug } = useParams()
+
+  return <StatefulKonnector slug={konnectorSlug} />
 }
 
-export default flow(connect(mapStateToProps), withRouter)(Konnector)
+export default Konnector

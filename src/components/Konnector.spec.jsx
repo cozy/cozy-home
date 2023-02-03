@@ -1,9 +1,12 @@
-import React from 'react'
-import { Router } from 'react-router-dom'
-import { createMemoryHistory } from 'history'
-import { fireEvent, render } from '@testing-library/react'
+import { enableFetchMocks } from 'jest-fetch-mock'
+enableFetchMocks()
 
-import { Konnector } from './Konnector'
+import React from 'react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { Navigate, createMemoryRouter, RouterProvider } from 'react-router-dom'
+
+import { StatelessKonnector } from './Konnector'
+import { act } from 'react-dom/test-utils'
 
 jest.mock('cozy-harvest-lib', () => ({
   Routes: ({ konnector, triggers, onDismiss }) => (
@@ -13,22 +16,47 @@ jest.mock('cozy-harvest-lib', () => ({
   )
 }))
 
-it('it correctly goes back to the home page onDismiss and allows nav goBack', () => {
-  const history = createMemoryHistory()
-
-  const { getByText } = render(
-    <Router history={history} initialEntries={['/connected']}>
-      <Konnector history={history} konnector={{ slug: 'alan' }} />
-    </Router>
+const setupMyTest = () => {
+  const router = createMemoryRouter(
+    [
+      {
+        path: '*',
+        element: <Navigate to="/connected" />
+      },
+      {
+        path: '/connected',
+        element: <div>Home</div>
+      },
+      {
+        path: '/connected/:konnectorSlug/*',
+        element: <StatelessKonnector slug="alan" konnector={{ slug: 'alan' }} />
+      }
+    ],
+    {
+      initialEntries: ['/connected'],
+      initialIndex: 0
+    }
   )
 
-  history.push('connected/alan/accounts/123')
+  render(<RouterProvider router={router} />)
 
-  fireEvent.click(getByText('alan'))
+  return { router }
+}
 
-  expect(history.location.pathname).toBe('/connected')
+it('it correctly goes back to the home page onDismiss and allows nav goBack', () => {
+  const { router } = setupMyTest()
 
-  history.go(-1)
+  act(() => {
+    router.navigate('/connected/alan/accounts/123')
+  })
 
-  expect(history.location.pathname).toBe('/connected/alan/accounts/123')
+  fireEvent.click(screen.getByText('alan'))
+
+  expect(router.state.location.pathname).toBe('/connected')
+
+  act(() => {
+    router.navigate(-1)
+  })
+
+  expect(router.state.location.pathname).toBe('/connected/alan/accounts/123')
 })
