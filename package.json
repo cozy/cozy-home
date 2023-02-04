@@ -41,7 +41,7 @@
     "cozy-harvest-lib": "^12.8.1",
     "cozy-intent": "^2.3.0",
     "cozy-keys-lib": "^4.3.0",
-    "cozy-logger": "1.8.1",
+    "cozy-logger": "1.10.0",
     "cozy-realtime": "4.2.9",
     "cozy-sharing": "4.5.2",
     "cozy-stack-client": "^34.1.5",

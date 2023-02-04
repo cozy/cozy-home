@@ -5856,10 +5856,10 @@ cozy-keys-lib@^4.3.0:
     tldjs "^2.3.1"
     zxcvbn "^4.4.2"
 
-cozy-logger@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.8.1.tgz#35971969d01cc9f8b2ca374a6197e29a16b7f501"
-  integrity sha512-a/bSV7xdsZs2eBwfTcd6BFGvD4DcnuvXxQ/g+4fsrD7DUk1B529ZMmL9is4pqegUngMDYHX/J7ZJSgPHp2FAZg==
+cozy-logger@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.0.tgz#c040081976921c73021f0acc81d515700241a3f1"
+  integrity sha512-cChOYvbZ0rtzo6MEY4+ZLniKaDv46V8fdJ0qgRcPjDE1dDrfVvxyRWsKrSGIw+LTBqdrlfDpPoqjEiYC24xr+A==
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
