@@ -35,7 +35,7 @@
   "dependencies": {
     "@cozy/minilog": "1.0.0",
     "cozy-client": "^34.10.1",
-    "cozy-device-helper": "2.6.0",
+    "cozy-device-helper": "2.7.0",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "2.10.0",
     "cozy-harvest-lib": "^12.5.2",
