@@ -101,7 +101,11 @@ Documentation improvements are very welcome. We try to keep a good documentation
 
 ## Translations
 
-The Cozy Drive is translated on a platform called [Transifex][tx]. [This tutorial][tx-start] can help you to learn how to make your first steps here. If you have any question, don't hesitate to ask us!
+Localization and translations are handled by [Transifex][tx], which is used by all Cozy's apps.
+
+As a _translator_, you can login to [Transifex][tx-signin] (using your Github account) and claim an access to the [app repository][tx-app]. Transifex will then create pull request on the repository, and the locales are merged after validating the pull request. [This tutorial][tx-start] can help you to learn how to make your first steps here. If you have any question, don't hesitate to ask us!
+
+As a _developer_, you just have to modify json in `/src/locales`. New locales will be automatically added to Transifex. If you need to pull or push manually locales, you can use [Transifex CLI](tx-cli). If you were using a [transifex-client](tx-client), you must move to [Transifex CLI](tx-cli) to be compatible with the v3 API.
 
 ## Community
 
@@ -117,12 +121,15 @@ You can help us by making our community even more vibrant. For example, you can 
 
 [commitmsg]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 
-[localization]: https://github.com/cozy/cozy-home/blob/master/README.md#localization
+[localization]: https://github.com/cozy/cozy-home/blob/master/CONTRIBUTING.md#translations
 
 [hub]: https://hub.github.com/
 
 [tx]: https://www.transifex.com/cozy/
-
-[tx-start]: http://docs.transifex.com/getting-started/translators/
+[tx-signin]: https://www.transifex.com/signin/
+[tx-app]: https://www.transifex.com/cozy/cozy-home/dashboard/
+[tx-cli]: https://developers.transifex.com/docs/cli
+[tx-client]: https://github.com/transifex/transifex-client
+[tx-start]: https://help.transifex.com/en/articles/6248698-getting-started-as-a-translator
 
 [forum]: https://forum.cozy.io/
