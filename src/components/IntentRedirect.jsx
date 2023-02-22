@@ -1,42 +1,27 @@
 /* global cozy */
 import React from 'react'
-import { Redirect, useSearchParams } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { getInstalledKonnectors } from 'reducers'
 
 const IntentRedirect = ({ installedKonnectors }) => {
-  const queryString = useSearchParams()
-  const query =
-    queryString &&
-    queryString
-      .substring(1)
-      .split('&')
-      .reduce((accumulator, keyValue) => {
-        const splitted = keyValue.split('=')
-        accumulator[splitted[0]] = splitted[1] || true
-        return accumulator
-      }, {})
+  const [searchParams] = useSearchParams()
+  const queryConnector = searchParams.get('konnector')
+  const queryAccount = searchParams.get('account')
 
-  if (!query.konnector) {
-    return <Redirect to={`/connected`} />
-  }
+  if (!queryConnector) return <Navigate to="/connected" />
 
-  if (
-    !installedKonnectors.find(konnector => konnector.slug === query.konnector)
-  ) {
+  if (!installedKonnectors.find(konnector => konnector.slug === queryConnector))
     return cozy.client.intents.redirect('io.cozy.apps', {
-      slug: query.konnector
+      slug: queryConnector
     })
-  }
 
-  let redirectRoute = `/connected/${query.konnector}`
+  const redirectRoute = queryAccount
+    ? `${redirectRoute}/accounts/${queryAccount}`
+    : `/connected/${queryConnector}`
 
-  if (query.account) {
-    redirectRoute = `${redirectRoute}/accounts/${query.account}`
-  }
-
-  return <Redirect to={redirectRoute} />
+  return <Navigate to={redirectRoute} />
 }
 
 const mapStateToProps = state => ({
