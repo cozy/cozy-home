@@ -137,6 +137,11 @@
       "type": "node",
       "file": "services/softDeleteOrRestoreAccounts/home.js",
       "trigger": "@event com.bitwarden.ciphers:UPDATED:!=:deletedDate"
+    },
+    "cliskTimeout": {
+      "type": "node",
+      "file": "services/cliskTimeout/home.js",
+      "comment": "This service must be called programmatically from the flagship app. It stopps the given job with a context deadline exceeded error"
     }
   }
 }
