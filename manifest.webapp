@@ -14,15 +14,20 @@
   "version": "1.51.0",
   "licence": "AGPL-3.0",
   "permissions": {
+    "home": {
+      "description": "Required to manage default redirection update",
+      "type": "io.cozy.home.settings",
+      "verbs": ["GET", "POST", "PUT"]
+    },
     "apps": {
       "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
       "verbs": ["GET", "POST", "PUT"]
     },
     "settings": {
-      "description": "Required by the cozy-bar display Claudy and to know which applications are coming soon",
+      "description": "Required by the cozy-bar display Claudy, to know which applications are coming soon and to manage default redirection update",
       "type": "io.cozy.settings",
-      "verbs": ["GET"]
+      "verbs": ["GET", "PUT"]
     },
     "konnectors": {
       "description": "Required to get the list of konnectors",
