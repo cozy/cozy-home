@@ -55,7 +55,8 @@ const configureWithPersistor = (
 }
 
 const configureDefault = (legacyClient, cozyClient, context, options) => {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   const reduxStore = createStore(
     getReducers(cozyClient),
