@@ -22,7 +22,7 @@
     "settings": {
       "description": "Required by the cozy-bar display Claudy and to know which applications are coming soon",
       "type": "io.cozy.settings",
-      "verbs": ["GET"]
+      "verbs": ["GET", "PUT"]
     },
     "konnectors": {
       "description": "Required to get the list of konnectors",
