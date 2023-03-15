@@ -74,10 +74,10 @@ describe('AppWrapper.jsx', () => {
       window.__DEVELOPMENT__ = 'defined'
 
       // When
-      const { getByTestId } = render(<AppWrapper>children</AppWrapper>)
+      const { getAllByTestId } = render(<AppWrapper>children</AppWrapper>)
 
       // Then
-      expect(getByTestId('RealTimeQueries')).toBeTruthy()
+      expect(getAllByTestId('RealTimeQueries')).toBeTruthy()
     })
   })
 })

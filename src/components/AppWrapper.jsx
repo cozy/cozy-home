@@ -70,6 +70,7 @@ const Inner = ({ children, lang, context }) => (
   <I18n lang={lang} dictRequire={dictRequire} context={context}>
     {children}
     <RealTimeQueries doctype="io.cozy.apps" />
+    <RealTimeQueries doctype="io.cozy.jobs" />
     {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
   </I18n>
 )
