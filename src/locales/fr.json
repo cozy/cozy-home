@@ -589,5 +589,12 @@
   },
   "addButton": {
     "add": "Ajouter"
+  },
+  "defaultRedirection": {
+    "snackbar": {
+      "description": "Définir cette page comme écran d'accueil de votre application mobile ?",
+      "refuse": "Non, merci",
+      "accept": "OK"
+    }
   }
 }

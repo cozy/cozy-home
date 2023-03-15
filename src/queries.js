@@ -1,9 +1,23 @@
 import CozyClient, { Q } from 'cozy-client'
 
 export const defaultFetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
+
 export const appsConn = {
   query: Q('io.cozy.apps'),
   as: 'io.cozy.apps',
+  fetchPolicy: defaultFetchPolicy
+}
+
+export const instanceSettingsConn = {
+  query: Q('io.cozy.settings').getById('io.cozy.settings.instance'),
+  as: 'io.cozy.settings/instance',
+  fetchPolicy: defaultFetchPolicy,
+  singleDocData: true
+}
+
+export const homeSettingsConn = {
+  query: Q('io.cozy.home.settings').limitBy(1),
+  as: 'io.cozy.home.settings',
   fetchPolicy: defaultFetchPolicy
 }
 
