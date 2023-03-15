@@ -26,6 +26,7 @@ import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
 import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
+import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -146,6 +147,7 @@ const App = ({ accounts, konnectors, triggers }) => {
           <IconSprite />
         </div>
       </MainView>
+      <DefaultRedirectionSnackbar />
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
