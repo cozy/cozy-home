@@ -22,7 +22,7 @@ declare module 'cozy-ui/transpiled/react/I18n' {
 }
 
 declare module 'cozy-ui/transpiled/react/Button' {
-  export const Button: (props: React.PropsWithChildren) => JSX.Element
+  export const Button: (props: Record<string, unknown>) => JSX.Element
 }
 
 declare module 'cozy-ui/transpiled/react/Icons/Help' {

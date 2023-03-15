@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+// @ts-expect-error -- TODO: type useCustomWallpaper
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import { useClient } from 'cozy-client'
 
@@ -26,7 +27,7 @@ export const BackgroundContainer = (): JSX.Element => {
   const [backgroundURL, setBackgroundURL] = useState<string | null>(null)
 
   useEffect(() => {
-    const { cozyDefaultWallpaper } = client.getInstanceOptions() as {
+    const { cozyDefaultWallpaper } = client?.getInstanceOptions() as {
       cozyDefaultWallpaper: string
     }
     setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
