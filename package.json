@@ -5,7 +5,7 @@
   "scripts": {
     "tx": "tx pull --all || true",
     "posttx": "./scripts/check-locales.sh",
-    "lint": "yarn lint:js && yarn lint:styles",
+    "lint": "yarn lint:js && yarn lint:styles && yarn typecheck",
     "lint:js": "eslint '{src,test}/**/*.{js,jsx}'",
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "build": "yarn build:browser",
@@ -17,7 +17,8 @@
     "start": "yarn watch",
     "cozyPublish": "cozy-scripts publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-origin}",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "yarn tsc"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "cozy-realtime": "4.2.9",
     "cozy-sharing": "4.5.2",
     "cozy-stack-client": "^35.6.0",
+    "cozy-tsconfig": "1.2.0",
     "cozy-ui": "^81.5.0",
     "date-fns": "2.28.0",
     "es-abstract": "1.20.2",
