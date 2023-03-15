@@ -589,5 +589,12 @@
   },
   "addButton": {
     "add": "Ajouter"
+  },
+  "defaultRedirection": {
+    "snackbar": {
+      "description": "Définir cet écran en page d'accueil de l'application ?",
+      "refuse": "Non, merci",
+      "accept": "OK"
+    }
   }
 }
