@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { connect } from 'react-redux'
-import { useClient, useAppsInMaintenance } from 'cozy-client'
+import { useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
 import { queryConnect } from 'cozy-client'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
@@ -20,6 +20,10 @@ import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
+import {
+  fetchRunningKonnectors,
+  getRunningKonnectors
+} from 'lib/konnectors_typed'
 
 export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const { t } = useI18n()
@@ -58,6 +62,16 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
     (suggestedKonnectors.length >= 1 ||
       fallbackKonnectorSuggestions.length >= 1)
 
+  const { data: jobData } = useQuery(
+    fetchRunningKonnectors.definition,
+    fetchRunningKonnectors.options
+  )
+
+  const runningKonnectors = useMemo(
+    () => getRunningKonnectors(jobData),
+    [jobData]
+  )
+
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
       <KonnectorErrors />
@@ -71,6 +85,7 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
               appsAndKonnectorsInMaintenanceBySlug,
               konnector.slug
             )}
+            loading={runningKonnectors.includes(konnector.slug)}
           />
         ))}
         {suggestedKonnectors.map(suggestion => (

@@ -27,21 +27,25 @@ export const STATUS = {
   OK: 0,
   MAINTENANCE: 2,
   ERROR: 3,
-  NO_ACCOUNT: 4
+  NO_ACCOUNT: 4,
+  LOADING: 5
 }
 
 const statusMap = {
   [STATUS.NO_ACCOUNT]: 'ghost',
   [STATUS.MAINTENANCE]: 'maintenance',
-  [STATUS.ERROR]: 'error'
+  [STATUS.ERROR]: 'error',
+  [STATUS.LOADING]: 'loading'
 }
 
 export const getKonnectorStatus = ({
   isInMaintenance,
   error,
   userError,
-  accountsCount
+  accountsCount,
+  loading
 }) => {
+  if (loading) return STATUS.LOADING
   if (isInMaintenance) return STATUS.MAINTENANCE
   else if (error || userError) return STATUS.ERROR
   else if (!accountsCount) return STATUS.NO_ACCOUNT
@@ -50,18 +54,26 @@ export const getKonnectorStatus = ({
 
 export const KonnectorTile = props => {
   const { lang } = useI18n()
-  const { accountsCount, error, isInMaintenance, userError, konnector } = props
+  const {
+    accountsCount,
+    error,
+    isInMaintenance,
+    userError,
+    konnector,
+    loading
+  } = props
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
   const status = hideKonnectorErrors
     ? STATUS.OK
     : getKonnectorStatus({
-        konnector,
-        isInMaintenance,
+        accountsCount,
         error,
-        userError,
-        accountsCount
+        isInMaintenance,
+        konnector,
+        loading,
+        userError
       })
 
   return (
