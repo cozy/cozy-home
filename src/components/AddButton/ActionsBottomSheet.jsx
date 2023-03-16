@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { useClient } from 'cozy-client'
+import { useClient, generateWebLink } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import BottomSheet, {
   BottomSheetItem
@@ -12,8 +12,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-
-import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 
 export const ActionsBottomSheet = ({ anchorRef, hideMenu, actionsLists }) => {
   const { t } = useI18n()
@@ -33,8 +32,9 @@ export const ActionsBottomSheet = ({ anchorRef, hideMenu, actionsLists }) => {
           const listContent = actionsList.map(action => {
             const url = generateWebLink({
               cozyUrl,
-              nativePath: action.path,
               slug: action.slug,
+              pathname: '/',
+              hash: action.path,
               subDomainType
             })
 
