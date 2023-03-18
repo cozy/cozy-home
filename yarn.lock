@@ -5749,13 +5749,6 @@ cozy-device-helper@^1.7.5:
   dependencies:
     lodash "4.17.19"
 
-cozy-device-helper@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-2.2.1.tgz#d5822afd818919fa871527e6f78b0265fc1e009b"
-  integrity sha512-1zVQag2OI+6sEGEC70w77urnk4GpWa/ncvCYuyrOOgib4bH6v2YbBrymOD9T3MH0yVF/LVMnXnugSHQfhNLVhA==
-  dependencies:
-    lodash "^4.17.19"
-
 cozy-device-helper@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-2.6.0.tgz#07d83e6e412244f92bba30a0e04560bf3e1abb79"
@@ -5774,12 +5767,12 @@ cozy-doctypes@1.83.8:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.85.0:
-  version "1.85.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.85.0.tgz#f777a74befc059d40ddbbd2fc523c9537f801d4d"
-  integrity sha512-+T9Y6ELMFiOM3uIQ79WDB0C1KvQzwCoUS9G9ss7OMWkmjrxRJvXaeVpr0WThh8q26zEjuSixKo8qYUfrNjnajQ==
+cozy-doctypes@^1.86.1:
+  version "1.88.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.88.1.tgz#cdb032296e4f18aa1ed713b84085dcb20759c60b"
+  integrity sha512-WcMxxLSC9NN5BlPtzcaEOwSIBsD0cHP+x49NW8TdQ7jw6ouNhbZcaKjUJmMet+IGxD7+EL7RXqgv5oc0tqddHQ==
   dependencies:
-    cozy-logger "^1.9.0"
+    cozy-logger "^1.10.0"
     date-fns "^1.30.1"
     es6-promise-pool "^2.5.0"
     lodash "^4.17.19"
@@ -5955,16 +5948,16 @@ cozy-scripts@^6.4.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-sharing@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/cozy-sharing/-/cozy-sharing-4.5.2.tgz#c9c4006713f68174d76edfaa7a16a3d065fde522"
-  integrity sha512-gzwcTbmTsZu/5uAO1QQPkK+plME3RANtiUoQVQPaXikjj4ETQeM0++W+PHS6DUKStHVn3EkOZQtYFY6fGUuJlg==
+cozy-sharing@4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/cozy-sharing/-/cozy-sharing-4.9.0.tgz#c900f0792888a24f96cebd7ef1905b71726ded58"
+  integrity sha512-dqwTDbffZbFzalNiSH7l7PFPK2vLwUs3/Tck5LYIEmHBHvs4GxG9ndmcWbGMCEuHH5jfx3aTR3D9ORBR8iYnvQ==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     classnames "^2.2.6"
     copy-text-to-clipboard "^2.1.1"
-    cozy-device-helper "^2.2.1"
-    cozy-doctypes "^1.85.0"
+    cozy-device-helper "^2.6.0"
+    cozy-doctypes "^1.86.1"
     lodash "^4.17.19"
     react-autosuggest "^9.4.3"
     react-tooltip "^3.11.1"
