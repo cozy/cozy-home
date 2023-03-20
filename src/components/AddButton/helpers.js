@@ -106,13 +106,25 @@ export const DEFAULT_ACTIONS = [
   }
 ]
 
+export function hasActionFlagCorrectValue({ name, value, operator }) {
+  const flagValue = flag(name) === null ? 'null' : flag(name).toString()
+  return operator === '$ne' ? flagValue !== value : flagValue === value
+}
+
 export const filterAvailableActions = actions => {
-  return actions.filter(action =>
-    action.flag
-      ? flag(action.flag.name) &&
-        flag(action.flag.name).toString() === action.flag.value
-      : true
-  )
+  return actions.filter(action => {
+    const actionFlag = action.flag
+
+    if (actionFlag) {
+      if (Array.isArray(actionFlag)) {
+        return actionFlag.every(hasActionFlagCorrectValue)
+      } else {
+        return hasActionFlagCorrectValue(actionFlag)
+      }
+    }
+
+    return true
+  })
 }
 
 export const reworkActions = (actions, apps) => {
