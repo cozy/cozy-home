@@ -22,10 +22,17 @@ export const DEFAULT_ACTIONS = [
       fr: 'Document texte',
       en: 'Text document'
     },
-    flag: {
-      name: 'drive.onlyoffice.enabled',
-      value: 'true'
-    }
+    flag: [
+      {
+        name: 'drive.office.enabled',
+        value: 'true'
+      },
+      {
+        name: 'drive.office.disableMobileEditing',
+        value: 'true',
+        operator: '$ne'
+      }
+    ]
   },
   {
     slug: 'drive',
@@ -35,10 +42,17 @@ export const DEFAULT_ACTIONS = [
       fr: 'Feuille de calcul',
       en: 'Spreadsheet'
     },
-    flag: {
-      name: 'drive.onlyoffice.enabled',
-      value: 'true'
-    }
+    flag: [
+      {
+        name: 'drive.office.enabled',
+        value: 'true'
+      },
+      {
+        name: 'drive.office.disableMobileEditing',
+        value: 'true',
+        operator: '$ne'
+      }
+    ]
   },
   {
     slug: 'drive',
@@ -48,10 +62,17 @@ export const DEFAULT_ACTIONS = [
       fr: 'Présentation',
       en: 'Presentation'
     },
-    flag: {
-      name: 'drive.onlyoffice.enabled',
-      value: 'true'
-    }
+    flag: [
+      {
+        name: 'drive.office.enabled',
+        value: 'true'
+      },
+      {
+        name: 'drive.office.disableMobileEditing',
+        value: 'true',
+        operator: '$ne'
+      }
+    ]
   },
   {
     divider: true
