@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
-import { useClient } from 'cozy-client'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import { useClient, generateWebLink } from 'cozy-client'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
@@ -22,9 +22,10 @@ const FallbackCandidateServiceTile = ({ slug }) => {
       app={{ slug: app }}
       nativePath={nativePath}
       href={generateWebLink({
+        pathname: '/',
         cozyUrl: cozyURL.origin,
         slug: app,
-        nativePath,
+        hash: nativePath,
         subDomainType
       })}
     >

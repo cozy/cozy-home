@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Grid from 'cozy-ui/transpiled/react/MuiCozyTheme/Grid'
-import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
-import { useClient } from 'cozy-client'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import { useClient, generateWebLink } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
@@ -24,9 +24,10 @@ const CandidateCategoryTile = ({ slugs, category }) => {
       app={{ slug: app }}
       nativePath={nativePath}
       href={generateWebLink({
+        pathname: '/',
         cozyUrl: cozyURL.origin,
         slug: app,
-        nativePath,
+        hash: nativePath,
         subDomainType
       })}
     >

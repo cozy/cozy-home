@@ -1,6 +1,6 @@
 import React from 'react'
-import { useClient } from 'cozy-client'
-import AppLinker, { generateWebLink } from 'cozy-ui/transpiled/react/AppLinker'
+import { useClient, generateWebLink } from 'cozy-client'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
@@ -16,9 +16,10 @@ const AddServiceTile = ({ label }) => {
       app={{ slug: 'store' }}
       nativePath={nativePath}
       href={generateWebLink({
+        pathname: '/',
         cozyUrl: cozyURL.origin,
         slug,
-        nativePath,
+        hash: nativePath,
         subDomainType
       })}
     >
