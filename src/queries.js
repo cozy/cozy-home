@@ -9,10 +9,16 @@ export const appsConn = {
 }
 
 export const instanceSettingsConn = {
-  query: Q('io.cozy.settings').getById('instance'),
-  as: 'io.cozy.settings/instance',
+  query: Q('io.cozy.settings').getById('io.cozy.settings/instance'),
+  as: 'io.cozy.settings/instance3',
   fetchPolicy: defaultFetchPolicy,
   singleDocData: true
+}
+
+export const homeSettingsConn = {
+  query: Q('io.cozy.home.settings').limitBy(1),
+  as: 'io.cozy.home.settings',
+  fetchPolicy: defaultFetchPolicy
 }
 
 export const suggestedKonnectorsConn = {

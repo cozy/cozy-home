@@ -8,22 +8,33 @@ import {
 
 import { NAV_APP_SHOW_THRESHOLD, incrementNavAppShowCount } from './helpers'
 
-export const useIncrementNavAppShowCount = instanceSettingsResult => {
+export const useIncrementNavAppShowCount = (
+  instanceSettingsResult,
+  homeSettingsResult
+) => {
   const client = useClient()
   const [hasIncremented, setHasIncremented] = useState(false)
 
   useEffect(() => {
-    if (!hasQueryBeenLoaded(instanceSettingsResult)) return
+    if (
+      !hasQueryBeenLoaded(instanceSettingsResult) ||
+      !hasQueryBeenLoaded(homeSettingsResult) ||
+      !instanceSettingsResult.data
+    ) {
+      return
+    }
 
     const {
       data: {
-        attributes: {
-          default_redirection,
-          default_redirection_snackbar_disabled,
-          nav_app_show_count
-        }
+        attributes: { default_redirection }
       }
     } = instanceSettingsResult
+
+    const homeSettings =
+      (homeSettingsResult.data && homeSettingsResult.data[0]) || {}
+
+    const { default_redirection_snackbar_disabled, nav_app_show_count } =
+      homeSettings
 
     const { slug } = deconstructRedirectLink(default_redirection)
 
@@ -39,8 +50,8 @@ export const useIncrementNavAppShowCount = instanceSettingsResult => {
       !isShowThresholdReached &&
       !isDisabled
     ) {
-      incrementNavAppShowCount(client, instanceSettingsResult)
+      incrementNavAppShowCount(client, homeSettings)
       setHasIncremented(true)
     }
-  }, [client, hasIncremented, instanceSettingsResult])
+  }, [client, hasIncremented, instanceSettingsResult, homeSettingsResult])
 }

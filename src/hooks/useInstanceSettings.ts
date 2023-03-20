@@ -59,7 +59,7 @@ const fetchAttributes = async (
   client: CozyClient
 ): Promise<InstanceAttributes | void> => {
   const res = (await client.query(
-    Q('io.cozy.settings').getById('instance')
+    Q('io.cozy.settings').getById('io.cozy.settings/instance')
   )) as FetchAttributesResponse
 
   return res?.data?.attributes

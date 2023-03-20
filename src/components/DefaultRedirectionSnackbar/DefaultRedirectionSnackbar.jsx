@@ -9,7 +9,7 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
 
-import { instanceSettingsConn } from 'queries'
+import { instanceSettingsConn, homeSettingsConn } from 'queries'
 import { useIncrementNavAppShowCount } from './hooks'
 import {
   shouldShowDefaultRedirectionSnackbar,
@@ -36,21 +36,24 @@ const DefaultAppSnackbar = () => {
     instanceSettingsConn
   )
 
-  useIncrementNavAppShowCount(instanceSettingsResult)
+  const homeSettingsResult = useQuery(homeSettingsConn.query, homeSettingsConn)
+
+  useIncrementNavAppShowCount(instanceSettingsResult, homeSettingsResult)
 
   const showDefaultAppSnackbar = shouldShowDefaultRedirectionSnackbar(
     instanceSettingsResult,
+    homeSettingsResult,
     isOpen
   )
 
   const onRefuse = () => {
     setIsOpen(false)
-    disableDefaultRedirectionSnackbar(client, instanceSettingsResult)
+    disableDefaultRedirectionSnackbar(client, homeSettingsResult)
   }
 
-  const onAccept = () => {
+  const onAccept = async () => {
     setIsOpen(false)
-    disableDefaultRedirectionSnackbar(client, instanceSettingsResult)
+    // disableDefaultRedirectionSnackbar(client, homeSettingsResult)
     setDefaultRedirectionToHome(client, instanceSettingsResult)
   }
 
