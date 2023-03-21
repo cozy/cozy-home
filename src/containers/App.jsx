@@ -5,6 +5,7 @@ import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
 import { Q, useClient } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
@@ -147,7 +148,7 @@ const App = ({ accounts, konnectors, triggers }) => {
           <IconSprite />
         </div>
       </MainView>
-      <DefaultRedirectionSnackbar />
+      {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
