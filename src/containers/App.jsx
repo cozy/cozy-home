@@ -77,7 +77,7 @@ const App = ({ accounts, konnectors, triggers }) => {
 
     const fetchContext = async () => {
       const context = await client.query(
-        Q('io.cozy.settings').getById('context')
+        Q('io.cozy.settings').getById('io.cozy.settings.context')
       )
       if (context && context.attributes && context.attributes.features) {
         const flags = toFlagNames(context.attributes.features)
