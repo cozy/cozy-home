@@ -17,6 +17,7 @@ export const HeroHeader = () => {
       <div>
         <img
           className="hero-avatar u-mb-1 u-mb-half-s"
+          aria-hidden="true"
           src={`${rootURL}/public/avatar`}
         />
       </div>
