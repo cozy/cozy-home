@@ -1,4 +1,5 @@
 import { deconstructRedirectLink, hasQueryBeenLoaded } from 'cozy-client'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 export const VIEW_COUNT_THRESHOLD = 3
 
@@ -38,7 +39,8 @@ export const disableDefaultRedirectionSnackbar = async (
 
 export const setDefaultRedirectionToHome = async (
   client,
-  instanceSettingsResult
+  instanceSettingsResult,
+  webviewIntent
 ) => {
   const instanceSettings = {
     _id: instanceSettingsResult.data._id,
@@ -53,7 +55,13 @@ export const setDefaultRedirectionToHome = async (
     }
   }
 
-  return await client.save(instanceSettings)
+  const res = await client.save(instanceSettings)
+
+  if (isFlagshipApp()) {
+    webviewIntent.call('setDefaultRedirection', HOME_DEFAULT_REDIRECTION)
+  }
+
+  return res
 }
 
 export const shouldShowDefaultRedirectionSnackbar = (

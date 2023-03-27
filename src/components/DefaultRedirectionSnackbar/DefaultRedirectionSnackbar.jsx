@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useClient, useQuery } from 'cozy-client'
+import { useWebviewIntent } from 'cozy-intent'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
@@ -31,6 +32,8 @@ const DefaultAppSnackbar = () => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(true)
 
+  const webviewIntent = useWebviewIntent()
+
   const instanceSettingsResult = useQuery(
     instanceSettingsConn.query,
     instanceSettingsConn
@@ -57,7 +60,7 @@ const DefaultAppSnackbar = () => {
   const onAccept = () => {
     setIsOpen(false)
     disableDefaultRedirectionSnackbar(client, homeSettingsResult)
-    setDefaultRedirectionToHome(client, instanceSettingsResult)
+    setDefaultRedirectionToHome(client, instanceSettingsResult, webviewIntent)
   }
 
   return (
