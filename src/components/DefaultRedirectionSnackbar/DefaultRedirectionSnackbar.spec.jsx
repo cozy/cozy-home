@@ -16,8 +16,8 @@ jest.mock('cozy-client', () => ({
   useQuery: jest.fn(),
   useClient: jest.fn()
 }))
-jest.mock('./hooks')
 jest.mock('./helpers')
+jest.mock('./useIncrementDefaultRedirectionViewCount')
 
 const setup = () => {
   const root = render(
