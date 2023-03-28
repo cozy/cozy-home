@@ -10,13 +10,22 @@ import {
   VIEW_COUNT_THRESHOLD,
   incrementDefaultRedirectionViewCount
 } from './helpers'
+import useHomeAppOpened from './useHomeAppOpened'
 
-export const useIncrementDefaultRedirectionViewCount = (
+const useIncrementDefaultRedirectionViewCount = (
   instanceSettingsResult,
   homeSettingsResult
 ) => {
   const client = useClient()
   const [hasIncremented, setHasIncremented] = useState(false)
+  const { homeJustOpenedOnFlagshipApp, homeJustQuitOnFlagshipApp } =
+    useHomeAppOpened()
+
+  useEffect(() => {
+    if (hasIncremented && homeJustQuitOnFlagshipApp) {
+      setHasIncremented(false)
+    }
+  }, [hasIncremented, homeJustQuitOnFlagshipApp])
 
   useEffect(() => {
     if (
@@ -51,6 +60,7 @@ export const useIncrementDefaultRedirectionViewCount = (
 
     if (
       !hasIncremented &&
+      homeJustOpenedOnFlagshipApp &&
       !isDefaultRedirectionAppHomeApp &&
       !isShowThresholdReached &&
       !isDisabled
@@ -58,5 +68,13 @@ export const useIncrementDefaultRedirectionViewCount = (
       incrementDefaultRedirectionViewCount(client, homeSettings)
       setHasIncremented(true)
     }
-  }, [client, hasIncremented, instanceSettingsResult, homeSettingsResult])
+  }, [
+    client,
+    hasIncremented,
+    homeJustOpenedOnFlagshipApp,
+    instanceSettingsResult,
+    homeSettingsResult
+  ])
 }
+
+export default useIncrementDefaultRedirectionViewCount

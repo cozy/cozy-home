@@ -3,10 +3,12 @@ import { renderHook } from '@testing-library/react-hooks'
 import { deconstructRedirectLink, hasQueryBeenLoaded } from 'cozy-client'
 
 import { incrementDefaultRedirectionViewCount } from './helpers'
-import { useIncrementDefaultRedirectionViewCount } from './hooks'
+import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
+import useHomeAppOpened from './useHomeAppOpened'
 
 jest.mock('cozy-client')
 jest.mock('./helpers')
+jest.mock('./useHomeAppOpened')
 
 describe('useIncrementDefaultRedirectionViewCount', () => {
   beforeEach(() => {
@@ -30,6 +32,10 @@ describe('useIncrementDefaultRedirectionViewCount', () => {
     }
     hasQueryBeenLoaded.mockReturnValue(true)
     deconstructRedirectLink.mockReturnValue({ slug: 'drive' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: true,
+      homeJustQuitOnFlagshipApp: false
+    })
 
     const { rerender } = renderHook(() =>
       useIncrementDefaultRedirectionViewCount(instance, homeSettings)
@@ -60,6 +66,10 @@ describe('useIncrementDefaultRedirectionViewCount', () => {
     }
     hasQueryBeenLoaded.mockReturnValue(false)
     deconstructRedirectLink.mockReturnValue({ slug: 'drive' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: true,
+      homeJustQuitOnFlagshipApp: false
+    })
 
     renderHook(() =>
       useIncrementDefaultRedirectionViewCount(instance, homeSettings)
@@ -85,6 +95,10 @@ describe('useIncrementDefaultRedirectionViewCount', () => {
     }
     hasQueryBeenLoaded.mockReturnValue(true)
     deconstructRedirectLink.mockReturnValue({ slug: 'home' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: true,
+      homeJustQuitOnFlagshipApp: false
+    })
 
     renderHook(() =>
       useIncrementDefaultRedirectionViewCount(instance, homeSettings)
@@ -110,6 +124,10 @@ describe('useIncrementDefaultRedirectionViewCount', () => {
     }
     hasQueryBeenLoaded.mockReturnValue(true)
     deconstructRedirectLink.mockReturnValue({ slug: 'drive' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: true,
+      homeJustQuitOnFlagshipApp: false
+    })
 
     renderHook(() =>
       useIncrementDefaultRedirectionViewCount(instance, homeSettings)
@@ -136,11 +154,44 @@ describe('useIncrementDefaultRedirectionViewCount', () => {
     }
     hasQueryBeenLoaded.mockReturnValue(true)
     deconstructRedirectLink.mockReturnValue({ slug: 'drive' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: true,
+      homeJustQuitOnFlagshipApp: false
+    })
 
     renderHook(() =>
       useIncrementDefaultRedirectionViewCount(instance, homeSettings)
     )
 
     expect(incrementDefaultRedirectionViewCount).not.toHaveBeenCalled()
+  })
+
+  it('should not increment when home not just opened on flagship app', () => {
+    const instance = {
+      data: {
+        attributes: {
+          default_redirection: 'drive/#/folder'
+        }
+      }
+    }
+    const homeSettings = {
+      data: [
+        {
+          default_redirection_view_count: 2
+        }
+      ]
+    }
+    hasQueryBeenLoaded.mockReturnValue(true)
+    deconstructRedirectLink.mockReturnValue({ slug: 'drive' })
+    useHomeAppOpened.mockReturnValue({
+      homeJustOpenedOnFlagshipApp: false,
+      homeJustQuitOnFlagshipApp: false
+    })
+
+    renderHook(() =>
+      useIncrementDefaultRedirectionViewCount(instance, homeSettings)
+    )
+
+    expect(incrementDefaultRedirectionViewCount).not.toHaveBee
   })
 })

@@ -11,12 +11,12 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
 
 import { instanceSettingsConn, homeSettingsConn } from 'queries'
-import { useIncrementDefaultRedirectionViewCount } from './hooks'
 import {
   shouldShowDefaultRedirectionSnackbar,
   disableDefaultRedirectionSnackbar,
   setDefaultRedirectionToHome
 } from './helpers'
+import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 
 const useStyles = makeStyles(theme => ({
   snackbar: {
