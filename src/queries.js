@@ -10,7 +10,7 @@ export const appsConn = {
 
 export const instanceSettingsConn = {
   query: Q('io.cozy.settings').getById('io.cozy.settings.instance'),
-  as: 'io.cozy.settings/instance',
+  as: 'io.cozy.settings/instance_standalone',
   fetchPolicy: defaultFetchPolicy,
   singleDocData: true
 }
