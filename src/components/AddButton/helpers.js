@@ -28,7 +28,7 @@ export const DEFAULT_ACTIONS = [
         value: 'true'
       },
       {
-        name: 'drive.office.disableMobileEditing',
+        name: 'drive.office.touchScreen.readOnly',
         value: 'true',
         operator: '$ne'
       }
@@ -48,7 +48,7 @@ export const DEFAULT_ACTIONS = [
         value: 'true'
       },
       {
-        name: 'drive.office.disableMobileEditing',
+        name: 'drive.office.touchScreen.readOnly',
         value: 'true',
         operator: '$ne'
       }
@@ -68,7 +68,7 @@ export const DEFAULT_ACTIONS = [
         value: 'true'
       },
       {
-        name: 'drive.office.disableMobileEditing',
+        name: 'drive.office.touchScreen.readOnly',
         value: 'true',
         operator: '$ne'
       }
