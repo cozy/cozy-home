@@ -19,7 +19,9 @@ export const suggestedKonnectorsConn = {
 
 export const mkHomeMagicFolderConn = t => {
   return {
-    query: Q('io.cozy.files').where({ path: t('home_config_magic_folder') }),
+    query: Q('io.cozy.files')
+      .where({ path: t('home_config_magic_folder') })
+      .indexFields(['path']),
     as: 'home/io.cozy.files/path=magic-folder',
     fetchPolicy: defaultFetchPolicy
   }
