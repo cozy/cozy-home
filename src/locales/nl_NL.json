@@ -586,5 +586,15 @@
         "format": "DD MMM"
       }
     }
+  },
+  "addButton": {
+    "add": "Toevoegen"
+  },
+  "defaultRedirection": {
+    "snackbar": {
+      "description": "Wil je deze pagina instellen als startscherm van je mobiele app?",
+      "refuse": "Nee, bedankt",
+      "accept": "Oké"
+    }
   }
 }
