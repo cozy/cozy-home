@@ -24,7 +24,7 @@ export const DEFAULT_ACTIONS = [
     },
     flag: [
       {
-        name: 'drive.office.enabled',
+        name: 'drive.office.touchScreen.enabled',
         value: 'true'
       },
       {
@@ -44,7 +44,7 @@ export const DEFAULT_ACTIONS = [
     },
     flag: [
       {
-        name: 'drive.office.enabled',
+        name: 'drive.office.touchScreen.enabled',
         value: 'true'
       },
       {
@@ -64,7 +64,7 @@ export const DEFAULT_ACTIONS = [
     },
     flag: [
       {
-        name: 'drive.office.enabled',
+        name: 'drive.office.touchScreen.enabled',
         value: 'true'
       },
       {
