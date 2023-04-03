@@ -82,7 +82,7 @@ const configureDefault = (legacyClient, cozyClient, context, options) => {
 }
 
 const configureStore = (legacyClient, cozyClient, context, options = {}) => {
-  return isFlagshipApp()
+  return isFlagshipApp() || flag('home.store.persist')
     ? configureWithPersistor(legacyClient, cozyClient, context, options)
     : configureDefault(legacyClient, cozyClient, context, options)
 }
