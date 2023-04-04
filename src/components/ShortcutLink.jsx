@@ -8,7 +8,7 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-export const ShortcutLink = ({ file, desktopSize = 32 }) => {
+export const ShortcutLink = ({ file, desktopSize = 44 }) => {
   const client = useClient()
   const { shortcutInfos } = useFetchShortcut(client, file._id)
   const { isMobile } = useBreakpoints()
