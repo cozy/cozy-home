@@ -16,7 +16,17 @@ export const ShortcutLink = ({ file, desktopSize = 32 }) => {
 
   const { filename } = CozyFile.splitFilename(file)
   const url = get(shortcutInfos, 'data.attributes.url', '#')
-  const iconBinary = get(shortcutInfos, 'data.attributes.metadata.icon')
+
+  /**
+   * If we don't have iconMimeType, we consider that the icon is a binary svg.
+   * Otherwise we consider that the icon comes from Iconizer api so it is in base64 directly.
+   */
+  const icon = get(shortcutInfos, 'data.attributes.metadata.icon')
+  const iconMimeType = get(
+    shortcutInfos,
+    'data.attributes.metadata.iconMimeType'
+  )
+
   return (
     <Link
       underline="none"
@@ -25,13 +35,17 @@ export const ShortcutLink = ({ file, desktopSize = 32 }) => {
       rel="noopener noreferrer"
       className="scale-hover"
     >
-      {iconBinary ? (
+      {icon ? (
         <SquareAppIcon
           name={filename}
           variant="shortcut"
           IconContent={
             <img
-              src={`data:image/svg+xml;base64,${window.btoa(iconBinary)}`}
+              src={
+                iconMimeType
+                  ? `data:${iconMimeType};base64,${icon}`
+                  : `data:image/svg+xml;base64,${window.btoa(icon)}`
+              }
               width={computedSize}
               height={computedSize}
               alt={filename}
