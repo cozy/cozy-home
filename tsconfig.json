@@ -5,5 +5,9 @@
   "compilerOptions": {
     "emitDeclarationOnly": false,
     "noEmit": true,
+    "paths": {
+      "components/*": ["./src/components/*"],
+      "hooks/*": ["./src/hooks/*"],
+    }
   }
 }

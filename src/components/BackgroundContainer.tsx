@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// @ts-expect-error -- TODO: type useCustomWallpaper
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import { useClient } from 'cozy-client'
 
