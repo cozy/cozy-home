@@ -1,48 +1,21 @@
-import 'cozy-ui/transpiled/react/stylesheet.css'
-import 'cozy-ui/dist/cozy-ui.utils.min.css'
-
-import 'intro.js-fix-cozy/minified/introjs.min.css'
-import 'styles/index.styl'
-
-import React from 'react'
 import { createRoot } from 'react-dom/client'
-import 'url-search-params-polyfill'
-import { handleOAuthResponse } from 'cozy-harvest-lib'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { WebviewIntentProvider } from 'cozy-intent'
 
-import AppWrapper from 'components/AppWrapper'
-import { HashRouter } from 'react-router-dom'
-import { closeApp, openApp } from 'hooks/useOpenApp'
+import { renderApp } from './renderApp'
 
-const container = document.querySelector('[role=application]')
-const root = createRoot(container)
+const onReady = () => {
+  const container = document.querySelector('[role=application]')
+  if (!container) throw new Error('No container found')
+  const root = createRoot(container)
 
-const renderApp = () => {
-  if (handleOAuthResponse()) {
-    root.render(<Spinner size="xxlarge" middle={true} />)
-    return
+  renderApp(root)
+}
+
+export const _main = () => {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady)
+  } else {
+    onReady()
   }
-  const AnimatedWrapper = require('components/AnimatedWrapper').default
-  root.render(
-    <WebviewIntentProvider methods={{ openApp, closeApp }}>
-      <AppWrapper>
-        <BreakpointsProvider>
-          <HashRouter>
-            <AnimatedWrapper />
-          </HashRouter>
-        </BreakpointsProvider>
-      </AppWrapper>
-    </WebviewIntentProvider>
-  )
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderApp()
-})
-
-if (module.hot) {
-  renderApp()
-  module.hot.accept()
-}
+if (process.env.NODE_ENV !== 'test') _main()
