@@ -11,12 +11,14 @@
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover">
-  <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Bold.immutable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Regular.immutable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Bold.immutable.woff2" as="font" type="font/woff2"
+    crossorigin>
+  <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Regular.immutable.woff2" as="font" type="font/woff2"
+    crossorigin>
   <% _.forEach(htmlWebpackPlugin.files.css, function(file) { %>
     <link rel="stylesheet" href="<%- file %>">
     <% }); %>
-  <link rel="stylesheet" href="//{{.Domain}}/assets/fonts/fonts.css">
+      <link rel="stylesheet" href="//{{.Domain}}/assets/fonts/fonts.css">
       {{.ThemeCSS}}
       <% if (__STACK_ASSETS__) { %>
         {{.CozyClientJS}}
@@ -30,8 +32,12 @@
     data-cozy-icon-path="{{.IconPath}}" data-cozy-subdomain-type="{{.SubDomain}}"
     data-cozy-default-wallpaper="{{.DefaultWallpaper}}" data-cozy-flags="{{.Flags}}">
     <% _.forEach(htmlWebpackPlugin.files.js, function(file) { %>
-      <script src="<%- file %>"></script>
-      <% }); %>
+      <% if (process.env.NODE_ENV==='development' ) { %>
+        <script src="<%- file %>?cacheBuster=<%= Date.now() %>"></script>
+        <% } else { %>
+          <script src="<%- file %>"></script>
+          <% } %>
+            <% }); %>
 </body>
 
 </html>
