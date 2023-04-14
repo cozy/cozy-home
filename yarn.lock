@@ -5983,10 +5983,10 @@ cozy-tsconfig@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-tsconfig/-/cozy-tsconfig-1.2.0.tgz#17e61f960f139fae4d26cbac2254b9ab632b269e"
   integrity sha512-TRHnY9goF3FzVlUbP7BcHxuN2XAA4AmppT4fHHZmTKaSwYTByVR1Al+riFMDbce94kJZ1wzl9WNLWQuqzGZ6Cw==
 
-cozy-ui@^82.1.1:
-  version "82.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-82.1.1.tgz#e781901b3041fd9e355de3cd16893252a5c0ac8a"
-  integrity sha512-+SquVqZTxiEInZ7OcB6op8bMdhlvOIT9Td5KHySe3eQs1sChZoHfi0/Gapb5D/pT1o5ORYT8xFoKbQlCmiAWCQ==
+cozy-ui@^82.14.0:
+  version "82.14.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-82.14.0.tgz#4a58ae3460f6a11d9803022754b4fc4cce721175"
+  integrity sha512-EvdWUTH3ScdJLPfc8znnufr1fppACj262v2q94rBHSa+d/hyC98+YnW8IDQpTCIadUIrOxCHpoWgtQbp/pOmIQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@material-ui/core" "4.12.3"
@@ -6001,7 +6001,7 @@ cozy-ui@^82.1.1:
     hammerjs "^2.0.8"
     intersection-observer "0.11.0"
     mime-types "2.1.35"
-    mui-bottom-sheet "https://github.com/cozy/mui-bottom-sheet.git#v1.0.9"
+    mui-bottom-sheet "git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.9"
     node-polyglot "^2.2.2"
     normalize.css "^8.0.0"
     piwik-react-router "0.12.1"
@@ -11747,9 +11747,10 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.9":
+"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.9":
   version "1.0.8"
-  resolved "https://github.com/cozy/mui-bottom-sheet.git#3dc4c2a245ab39079bc2f73546bccf80847be14c"
+  uid "3dc4c2a245ab39079bc2f73546bccf80847be14c"
+  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#3dc4c2a245ab39079bc2f73546bccf80847be14c"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
