@@ -163,7 +163,8 @@
     }
   },
   "apps": {
-    "title": "Mis apps"
+    "title": "Mis apps",
+    "installing": "Instalando…"
   },
   "connection": {
     "CTA": {

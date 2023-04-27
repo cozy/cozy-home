@@ -169,7 +169,8 @@
     }
   },
   "apps": {
-    "title": "Mijn apps"
+    "title": "Mijn apps",
+    "installing": "Installeren…"
   },
   "connection": {
     "CTA": {

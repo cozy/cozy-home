@@ -163,7 +163,8 @@
     }
   },
   "apps": {
-    "title": "マイ アプリ"
+    "title": "マイ アプリ",
+    "installing": "インストール中…"
   },
   "connection": {
     "CTA": {

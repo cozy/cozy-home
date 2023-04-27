@@ -163,7 +163,8 @@
     }
   },
   "apps": {
-    "title": "Meine Apps"
+    "title": "Meine Apps",
+    "installing": "Installieren…"
   },
   "connection": {
     "CTA": {
