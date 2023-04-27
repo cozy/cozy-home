@@ -98,3 +98,11 @@ export const mkHomeCustomShorcutsConn = foldersId => {
     fetchPolicy: defaultFetchPolicy
   }
 }
+
+export const fetchAppInfo = async (appId, client) => {
+  const appQuery = Q('io.cozy.apps').getById(appId)
+  const { data } = await client.query(appQuery, {
+    as: `io.cozy.apps/${appId}`
+  })
+  return data
+}

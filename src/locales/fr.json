@@ -169,7 +169,8 @@
     }
   },
   "apps": {
-    "title": "Mes applications"
+    "title": "Mes applications",
+    "installing": "Installation…"
   },
   "connection": {
     "CTA": {
