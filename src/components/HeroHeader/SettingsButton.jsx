@@ -10,9 +10,8 @@ import CornerButton from './CornerButton'
 
 const { applications } = models
 
-const SettingsButton = ({ settingsAppQuery: { data } }) => {
+const SettingsButton = ({ settingsAppQuery: { data: app } }) => {
   const { lang } = useI18n()
-  const app = get(data, '[0]')
   const appHref = get(app, 'links.related')
   const slug = get(app, 'slug')
   const displayName = applications.getAppDisplayName(app, lang)
