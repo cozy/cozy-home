@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react'
 import flag from 'cozy-flags'
 import { useQuery, isQueryLoading } from 'cozy-client'
 import { getFlagshipMetadata } from 'cozy-device-helper'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Fab from 'cozy-ui/transpiled/react/Fab'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { appsConn } from 'queries'
@@ -59,11 +60,13 @@ export const AddButton = () => {
         <Icon icon="plus" />
       </Fab>
       {isOpen && (
-        <ActionsBottomSheet
-          hideMenu={hideMenu}
-          anchorRef={anchorRef}
-          actionsLists={actionsLists}
-        />
+        <CozyTheme variant="normal">
+          <ActionsBottomSheet
+            hideMenu={hideMenu}
+            anchorRef={anchorRef}
+            actionsLists={actionsLists}
+          />
+        </CozyTheme>
       )}
     </>
   )
