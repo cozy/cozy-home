@@ -9,6 +9,7 @@ import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
 import { closeApp, openApp } from 'hooks/useOpenApp'
 import { getKonnector } from 'ducks/konnectors'
 import { getTriggersByKonnector } from 'reducers'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   const navigate = useNavigate()
@@ -37,13 +38,15 @@ export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   }
 
   return (
-    <HarvestRoutes
-      datacardOptions={datacardOptions}
-      konnector={konnectorWithTriggers}
-      konnectorRoot={`/connected/${konnectorSlug}`}
-      konnectorSlug={konnectorSlug}
-      onDismiss={onDismiss}
-    />
+    <CozyTheme variant="normal">
+      <HarvestRoutes
+        datacardOptions={datacardOptions}
+        konnector={konnectorWithTriggers}
+        konnectorRoot={`/connected/${konnectorSlug}`}
+        konnectorSlug={konnectorSlug}
+        onDismiss={onDismiss}
+      />
+    </CozyTheme>
   )
 }
 
