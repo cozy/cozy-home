@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import { useClient } from 'cozy-client'
+import cx from 'classnames'
+import { usePreferedTheme } from 'hooks/usePreferedTheme'
 
 type BackgroundContainerComputedProps = {
   className: string
@@ -8,9 +10,13 @@ type BackgroundContainerComputedProps = {
 }
 
 const makeProps = (
-  backgroundURL: string | null
+  backgroundURL: string | null,
+  preferedTheme: string
 ): BackgroundContainerComputedProps => ({
-  className: 'background-container',
+  className: cx('background-container', {
+    'background-container-darken': preferedTheme === 'inverted',
+    'home-default-partner-background': preferedTheme === 'normal'
+  }),
   ...(backgroundURL && {
     style: { backgroundImage: `url(${backgroundURL})` }
   })
@@ -22,7 +28,7 @@ export const BackgroundContainer = (): JSX.Element => {
     fetchStatus,
     data: { wallpaperLink }
   } = useCustomWallpaper()
-
+  const preferedTheme = usePreferedTheme()
   const [backgroundURL, setBackgroundURL] = useState<string | null>(null)
 
   useEffect(() => {
@@ -31,5 +37,6 @@ export const BackgroundContainer = (): JSX.Element => {
     }
     setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
   }, [wallpaperLink, fetchStatus, client])
-  return <div {...makeProps(backgroundURL)} />
+
+  return <div {...makeProps(backgroundURL, preferedTheme)} />
 }
