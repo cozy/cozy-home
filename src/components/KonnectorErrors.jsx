@@ -14,7 +14,6 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Infos from 'cozy-ui/transpiled/react/Infos'
 import InfosCarrousel from 'cozy-ui/transpiled/react/InfosCarrousel'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd } from 'cozy-ui/transpiled/react/Media'
@@ -189,9 +188,7 @@ export const KonnectorErrors = ({
       </InfosCarrousel>
     </div>
   ) : (
-    <MuiCozyTheme variant="inverted">
-      <Divider className="u-mv-0" />
-    </MuiCozyTheme>
+    <Divider className="u-mv-0" />
   )
 }
 

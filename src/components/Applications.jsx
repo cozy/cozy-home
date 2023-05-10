@@ -4,7 +4,6 @@ import memoize from 'lodash/memoize'
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
 import AppTile from 'components/AppTile'
@@ -69,9 +68,7 @@ export const Applications = ({ onAppsFetched }) => {
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
-      <MuiCozyTheme variant="inverted">
-        <Divider className="u-mv-0" />
-      </MuiCozyTheme>
+      <Divider className="u-mv-0" />
 
       <div className="app-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
         {getApplicationsList(data)}
