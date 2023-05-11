@@ -8,7 +8,7 @@ import flag from 'cozy-flags'
 import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
 import I18n from 'cozy-ui/transpiled/react/I18n'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -19,6 +19,8 @@ import {
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
+
+import { usePreferedTheme } from 'hooks/usePreferedTheme'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
@@ -75,6 +77,19 @@ const Inner = ({ children, lang, context }) => (
   </I18n>
 )
 
+const ThemeProvider = ({ children }) => {
+  const preferedTheme = usePreferedTheme()
+
+  return (
+    <CozyTheme
+      variant={preferedTheme}
+      className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
+    >
+      {children}
+    </CozyTheme>
+  )
+}
+
 /**
  * Setups the app context and creates all context providers and wrappers
  * for an app
@@ -86,8 +101,8 @@ const AppWrapper = ({ children }) => {
   return (
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
-        <MuiCozyTheme>
-          <CozyProvider client={cozyClient}>
+        <CozyProvider client={cozyClient}>
+          <ThemeProvider>
             <LegacyCozyProvider
               store={store}
               client={cozyClient}
@@ -109,8 +124,8 @@ const AppWrapper = ({ children }) => {
                 </ConditionalWrapper>
               </ReduxProvider>
             </LegacyCozyProvider>
-          </CozyProvider>
-        </MuiCozyTheme>
+          </ThemeProvider>
+        </CozyProvider>
       </BreakpointsProvider>
     </AppContext.Provider>
   )
