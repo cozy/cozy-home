@@ -3,9 +3,9 @@ import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import { useClient } from 'cozy-client'
 
 const getHomeThemeCssVariable = (): string => {
-  return getComputedStyle(
-    document.getElementsByTagName('body')[0]
-  ).getPropertyValue('--home-theme')
+  return getComputedStyle(document.getElementsByTagName('body')[0])
+    .getPropertyValue('--home-theme')
+    .trim()
 }
 
 export const usePreferedTheme = (): string => {
