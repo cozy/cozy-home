@@ -38,5 +38,11 @@ export const BackgroundContainer = (): JSX.Element => {
     setBackgroundURL(wallpaperLink || cozyDefaultWallpaper)
   }, [wallpaperLink, fetchStatus, client])
 
-  return <div {...makeProps(backgroundURL, preferedTheme)} />
+  return (
+    <div {...makeProps(backgroundURL, preferedTheme)}>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  )
 }
