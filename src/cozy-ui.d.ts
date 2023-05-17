@@ -17,6 +17,15 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
   export { ConfirmDialog, ConfirmDialogProps }
 }
 
+declare module 'cozy-ui/transpiled/react/CozyTheme' {
+  interface CozyThemeProps {
+    variant?: 'normal' | 'inverted'
+    children?: JSX.Element
+    className?: string
+  }
+  export default function CozyTheme(props: CozyThemeProps): JSX.Element
+}
+
 declare module 'cozy-ui/transpiled/react/I18n' {
   export const useI18n: () => { t: (key: string) => string }
 }
