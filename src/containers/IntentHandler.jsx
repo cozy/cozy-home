@@ -7,6 +7,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import appEntryPoint from 'components/appEntryPoint'
 import IntentService from 'containers/IntentService'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 class IntentHandler extends Component {
   constructor(props, context) {
@@ -71,36 +72,38 @@ class IntentHandler extends Component {
       )
 
     return (
-      <div className="coz-service">
-        {isInitializing && (
-          <div className="coz-service-loading">
-            <Spinner size="xxlarge" />
-          </div>
-        )}
-        {error && (
-          <div className="coz-error coz-service-error">
-            <p>{t(error.message)}</p>
-            <p>{t('intent.service.error.cause', { error: error.reason })}</p>
-          </div>
-        )}
-        {!isInitializing && !error && (
-          // Here we should render a component based on the intent action.
-          // For now, our action is only CREATE on io.cozy.accounts. So here
-          // we should render a component named CreateAccountService.
-          // IntentService is just here for legacy reason and should
-          // disappear.
-          // In the future we may test the intent action and render a
-          // specific component for every action.
-          <IntentService
-            appData={appData}
-            data={service.getData()}
-            onTerminate={account => this.terminate(account)}
-            onCancel={() => this.cancel()}
-            service={service}
-          />
-        )}
-        <IconSprite />
-      </div>
+      <CozyTheme variant="normal" className="u-pos-absolute">
+        <div className="coz-service">
+          {isInitializing && (
+            <div className="coz-service-loading">
+              <Spinner size="xxlarge" />
+            </div>
+          )}
+          {error && (
+            <div className="coz-error coz-service-error">
+              <p>{t(error.message)}</p>
+              <p>{t('intent.service.error.cause', { error: error.reason })}</p>
+            </div>
+          )}
+          {!isInitializing && !error && (
+            // Here we should render a component based on the intent action.
+            // For now, our action is only CREATE on io.cozy.accounts. So here
+            // we should render a component named CreateAccountService.
+            // IntentService is just here for legacy reason and should
+            // disappear.
+            // In the future we may test the intent action and render a
+            // specific component for every action.
+            <IntentService
+              appData={appData}
+              data={service.getData()}
+              onTerminate={account => this.terminate(account)}
+              onCancel={() => this.cancel()}
+              service={service}
+            />
+          )}
+          <IconSprite />
+        </div>
+      </CozyTheme>
     )
   }
 }
