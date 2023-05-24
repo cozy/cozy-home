@@ -9,7 +9,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const useStyles = makeStyles(theme => ({
   shadow: {
-    boxShadow: theme.shadows[2]
+    boxShadow: theme.shadows[1]
   },
   nameInverted: {
     textShadow: theme.textShadows[1]
