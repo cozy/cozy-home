@@ -19,7 +19,11 @@ export const fetchRunningKonnectors = {
       .select(['message.konnector', 'worker', 'state'])
       .indexFields(['started_at'])
       .sortBy([{ started_at: 'desc' }])
-      .partialIndex({ worker: 'konnector', state: 'running' }),
+      .partialIndex({
+        worker: { $or: ['konnector', 'client'] },
+        state: 'running'
+      }),
+
   options: { as: 'io.cozy.jobs/running/konnector/messageKonnector' }
 }
 
