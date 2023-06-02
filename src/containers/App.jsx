@@ -28,7 +28,7 @@ import { MainView } from 'components/MainView'
 import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
-
+import ReloadFocus from './ReloadFocus'
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 
@@ -102,7 +102,7 @@ const App = ({ accounts, konnectors, triggers }) => {
   return (
     <>
       <BackgroundContainer />
-
+      <ReloadFocus />
       <MainView>
         <Corner />
         <div
