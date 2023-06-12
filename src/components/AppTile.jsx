@@ -12,11 +12,11 @@ const { applications } = models
 
 // AppTileWrapper is responsible for fetching the app's information
 // if the app state changes from 'installing' to 'ready'
-const AppTileWrapper = ({ app, lang }) => {
+const AppTileWrapper = ({ app }) => {
   const client = useClient()
   const [appInfo, setAppInfo] = useState(app.state === 'ready' ? app : null)
   const prevState = useRef(app.state)
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
 
   // If app state changes from 'installing' to 'ready', fetch app info
   useEffect(() => {
