@@ -48,7 +48,8 @@ export class KonnectorInstall extends Component {
       successMessage,
       successMessages,
       successButtonLabel,
-      t
+      t,
+      onCancel
     } = this.props
 
     const { trigger, success } = this.state
@@ -81,6 +82,7 @@ export class KonnectorInstall extends Component {
             onLoginSuccess={this.handleLoginSuccess}
             onSuccess={this.handleSuccess}
             vaultClosable={false}
+            onClose={onCancel}
           />
         </div>
       </div>
