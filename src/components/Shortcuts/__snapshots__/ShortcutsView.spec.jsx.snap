@@ -27,7 +27,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="palette__CozyTheme--normal___3UmMb"
+                class="CozyTheme--normal"
               >
                 <span
                   class="MuiBadge-root-9"
@@ -96,7 +96,7 @@ Object {
             data-testid="square-app-icon"
           >
             <div
-              class="palette__CozyTheme--normal___3UmMb"
+              class="CozyTheme--normal"
             >
               <span
                 class="MuiBadge-root-9"
@@ -222,7 +222,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="palette__CozyTheme--normal___3UmMb"
+                class="CozyTheme--normal"
               >
                 <span
                   class="MuiBadge-root-70"
@@ -288,7 +288,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="palette__CozyTheme--normal___3UmMb"
+                class="CozyTheme--normal"
               >
                 <span
                   class="MuiBadge-root-124"
@@ -357,7 +357,7 @@ Object {
             data-testid="square-app-icon"
           >
             <div
-              class="palette__CozyTheme--normal___3UmMb"
+              class="CozyTheme--normal"
             >
               <span
                 class="MuiBadge-root-70"
@@ -423,7 +423,7 @@ Object {
             data-testid="square-app-icon"
           >
             <div
-              class="palette__CozyTheme--normal___3UmMb"
+              class="CozyTheme--normal"
             >
               <span
                 class="MuiBadge-root-124"
