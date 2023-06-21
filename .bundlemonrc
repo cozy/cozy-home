@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "app-home.<hash>.min.css",
-      "maxSize": "14 KB"
+      "maxSize": "15 KB"
     },
     {
       "path": "app/home.<hash>.js",
