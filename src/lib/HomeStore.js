@@ -2,7 +2,6 @@
 import * as triggers from 'lib/triggers'
 import { isKonnectorJob } from 'ducks/connections'
 
-import CozyRealtime from 'cozy-realtime'
 import {
   RECEIVE_CREATED_KONNECTOR,
   RECEIVE_DELETED_KONNECTOR,
@@ -46,22 +45,22 @@ export default class HomeStore {
   }
 
   initializeRealtime() {
-    this.realtime = new CozyRealtime({ client: this.client })
+    const realtime = this.client.plugins.realtime
 
-    this.realtime.subscribe('created', JOBS_DOCTYPE, this.updateUnfinishedJob)
-    this.realtime.subscribe('updated', JOBS_DOCTYPE, this.updateUnfinishedJob)
+    realtime.subscribe('created', JOBS_DOCTYPE, this.updateUnfinishedJob)
+    realtime.subscribe('updated', JOBS_DOCTYPE, this.updateUnfinishedJob)
 
-    this.realtime.subscribe('created', ACCOUNTS_DOCTYPE, this.onAccountCreated)
-    this.realtime.subscribe('updated', ACCOUNTS_DOCTYPE, this.onAccountUpdated)
-    this.realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted)
+    realtime.subscribe('created', ACCOUNTS_DOCTYPE, this.onAccountCreated)
+    realtime.subscribe('updated', ACCOUNTS_DOCTYPE, this.onAccountUpdated)
+    realtime.subscribe('deleted', ACCOUNTS_DOCTYPE, this.onAccountDeleted)
 
-    this.realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated)
-    this.realtime.subscribe('updated', TRIGGERS_DOCTYPE, this.onTriggerUpdated)
-    this.realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted)
+    realtime.subscribe('created', TRIGGERS_DOCTYPE, this.onTriggerCreated)
+    realtime.subscribe('updated', TRIGGERS_DOCTYPE, this.onTriggerUpdated)
+    realtime.subscribe('deleted', TRIGGERS_DOCTYPE, this.onTriggerDeleted)
 
-    this.realtime.subscribe('created', KONS_DOCTYPE, this.onKonnectorCreated)
-    this.realtime.subscribe('updated', KONS_DOCTYPE, this.onKonnectorUpdated)
-    this.realtime.subscribe('deleted', KONS_DOCTYPE, this.onKonnectorDeleted)
+    realtime.subscribe('created', KONS_DOCTYPE, this.onKonnectorCreated)
+    realtime.subscribe('updated', KONS_DOCTYPE, this.onKonnectorUpdated)
+    realtime.subscribe('deleted', KONS_DOCTYPE, this.onKonnectorDeleted)
   }
 
   async onAccountCreated(account) {

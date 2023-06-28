@@ -14,12 +14,6 @@ import {
 } from 'lib/redux-cozy-client/reducer'
 
 const mockSubscribe = jest.fn()
-jest.mock('cozy-realtime', () => {
-  return {
-    __esModule: true,
-    default: () => ({ subscribe: mockSubscribe })
-  }
-})
 
 jest.mock('lib/triggers', () => ({
   fetch: jest.fn()
@@ -35,6 +29,9 @@ describe('HomeStore', () => {
     const client = new CozyClient({
       uri: 'http://cozy.tools:8080'
     })
+    client.plugins.realtime = {
+      subscribe: mockSubscribe
+    }
     HomeStore.prototype.fetchUrls = jest.fn()
     const store = new HomeStore(context, client)
     store.dispatch = jest.fn()

@@ -51,6 +51,8 @@ export const setupAppContext = memoize(() => {
     token: data.cozyToken,
     cozyClient
   })
+  cozyClient.registerPlugin(flag.plugin)
+  cozyClient.registerPlugin(RealtimePlugin)
   // store
   const { store, persistor } = configureStore(
     legacyClient,
@@ -62,8 +64,6 @@ export const setupAppContext = memoize(() => {
     }
   )
   cozyClient.setStore(store)
-  cozyClient.registerPlugin(flag.plugin)
-  cozyClient.registerPlugin(RealtimePlugin)
 
   return { cozyClient, store, data, lang, context, persistor }
 })
