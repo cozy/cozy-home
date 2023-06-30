@@ -9,7 +9,7 @@ Object {
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
         <p
-          class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
         >
           List title
         </p>
@@ -78,7 +78,7 @@ Object {
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
       <p
-        class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
       >
         List title
       </p>
@@ -204,7 +204,7 @@ Object {
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
         <p
-          class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
         >
           a
         </p>
@@ -270,7 +270,7 @@ Object {
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
         <p
-          class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
         >
           c
         </p>
@@ -339,7 +339,7 @@ Object {
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
       <p
-        class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
       >
         a
       </p>
@@ -405,7 +405,7 @@ Object {
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
       <p
-        class="MuiTypography-root styles__divider___-oC9I u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
       >
         c
       </p>
