@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Grid from 'cozy-ui/transpiled/react/MuiCozyTheme/Grid'
+import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient, generateWebLink } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'

@@ -2,8 +2,8 @@
 
 import React, { useState, useCallback } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
-import Infos from 'cozy-ui/transpiled/react/Infos'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
+import Infos from 'cozy-ui/transpiled/react/deprecated/Infos'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import PropTypes from 'prop-types'
 

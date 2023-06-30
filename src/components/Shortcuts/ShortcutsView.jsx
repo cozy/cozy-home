@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 
 import { ShortcutLink } from 'components/ShortcutLink'
 

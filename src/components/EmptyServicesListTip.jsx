@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import { Media, Img, Bd } from 'cozy-ui/transpiled/react/deprecated/Media'
 import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Typography from 'cozy-ui/transpiled/react/Typography'

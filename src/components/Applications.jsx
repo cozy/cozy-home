@@ -3,7 +3,7 @@ import memoize from 'lodash/memoize'
 
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
 import AppTile from 'components/AppTile'
