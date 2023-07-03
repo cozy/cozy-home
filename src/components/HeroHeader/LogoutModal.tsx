@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button } from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
@@ -18,12 +18,12 @@ export const LogoutDialog = (props: {
         actions={
           <>
             <Button
-              theme="secondary"
+              variant="secondary"
               label={t('logout_dialog.cancel')}
               onClick={props.onCancel}
             />
             <Button
-              theme="primary"
+              variant="primary"
               label={t('logout_dialog.confirm')}
               onClick={props.onConfirm}
             />

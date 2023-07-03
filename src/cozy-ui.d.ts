@@ -30,8 +30,8 @@ declare module 'cozy-ui/transpiled/react/I18n' {
   export const useI18n: () => { t: (key: string) => string }
 }
 
-declare module 'cozy-ui/transpiled/react/Button' {
-  export const Button: (props: Record<string, unknown>) => JSX.Element
+declare module 'cozy-ui/transpiled/react/Buttons' {
+  export default function Button(props: Record<string, unknown>): JSX.Element
 }
 
 declare module 'cozy-ui/transpiled/react/Icons/Help' {
