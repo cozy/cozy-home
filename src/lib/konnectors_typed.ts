@@ -24,7 +24,9 @@ export const fetchRunningKonnectors = {
         state: 'running'
       }),
 
-  options: { as: 'io.cozy.jobs/running/konnector/messageKonnector' }
+  options: {
+    as: 'io.cozy.jobs/running/konnector/messageKonnector'
+  }
 }
 
 /**
