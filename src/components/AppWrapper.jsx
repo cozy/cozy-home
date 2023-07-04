@@ -19,6 +19,7 @@ import {
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 import { usePreferedTheme } from 'hooks/usePreferedTheme'
 
@@ -44,7 +45,9 @@ export const setupAppContext = memoize(() => {
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     schema,
     token: data.cozyToken,
-    store: false
+    store: false,
+    backgroundFetching:
+      isFlagshipApp() || flag('home.store.persist') ? true : false
   })
   const legacyClient = new LegacyCozyClient({
     cozyURL: `//${data.cozyDomain}`,
