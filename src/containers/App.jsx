@@ -20,6 +20,7 @@ import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
 import MoveModal from 'components/MoveModal'
 import StoreRedirection from 'components/StoreRedirection'
+import BackupNotification from 'components/BackupNotification/BackupNotification'
 import appEntryPoint from 'components/appEntryPoint'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { BackgroundContainer } from 'components/BackgroundContainer'
@@ -109,6 +110,7 @@ const App = ({ accounts, konnectors, triggers }) => {
       <BackgroundContainer />
       <ReloadFocus />
       <MainView>
+        <BackupNotification />
         <Corner />
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"

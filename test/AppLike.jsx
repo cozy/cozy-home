@@ -6,6 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import I18n from 'cozy-ui/transpiled/react/I18n'
+import { BackupDataProvider } from 'components/BackupNotification/useBackupData'
 import enLocale from '../src/locales/en.json'
 
 const fakeDefaultReduxState = {
@@ -34,7 +35,7 @@ class AppLike extends React.Component {
         <CozyProvider client={this.props.client || defaultClient}>
           <ReduxProvider store={this.props.store || defaultClient.store}>
             <I18n dictRequire={() => enLocale} lang="en">
-              {this.props.children}
+              <BackupDataProvider>{this.props.children}</BackupDataProvider>
             </I18n>
           </ReduxProvider>
         </CozyProvider>

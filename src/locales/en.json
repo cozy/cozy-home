@@ -597,5 +597,14 @@
       "refuse": "No, thank you",
       "accept": "OK"
     }
+  },
+  "backup": {
+    "backupInProgress": "Backup in progress",
+    "confirmStopBackupModal": {
+      "title": "Stop backup?",
+      "description": "Your backup is not yet complete - do you really want to stop it? Photos that have already been saved will remain in your Cozy, and you can resume the backup at a later date.",
+      "cancel": "Cancel",
+      "stop": "Stop"
+    }
   }
 }
