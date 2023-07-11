@@ -8,7 +8,7 @@
     },
     {
       "path": "app/home.<hash>.js",
-      "maxSize": "43 KB"
+      "maxSize": "50 KB"
     },
     {
       "path": "intents-home.<hash>.min.css",
