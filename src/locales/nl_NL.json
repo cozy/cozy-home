@@ -597,5 +597,14 @@
       "refuse": "Nee, bedankt",
       "accept": "Oké"
     }
+  },
+  "backup": {
+    "backupInProgress": "Er wordt een reservekopie gemaakt",
+    "confirmStopBackupModal": {
+      "title": "Reservekopie afbreken?",
+      "description": "De reservekopie is nog niet voltooid. Weet je zeker dat je het proces wilt afbreken? Reeds opgeslagen foto's blĳven bewaard op je Cozy en je kunt de reservekopie te allen tĳde hervatten.",
+      "cancel": "Annuleren",
+      "stop": "Afbreken"
+    }
   }
 }
