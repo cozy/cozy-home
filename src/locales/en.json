@@ -605,6 +605,9 @@
       "description": "Your backup is not yet complete - do you really want to stop it? Photos that have already been saved will remain in your Cozy, and you can resume the backup at a later date.",
       "cancel": "Cancel",
       "stop": "Stop"
+    },
+    "appHighlightAlert": {
+      "description": "Save your photos safely in your Cozy to protect them of loss or theft!"
     }
   }
 }
