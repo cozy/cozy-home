@@ -10,6 +10,7 @@ import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
 import ShortcutLink from 'components/ShortcutLink'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
+import BackupAppHighlightAlert from 'components/AppHighlightAlert/BackupAppHighlightAlert'
 import homeConfig from 'config/home.json'
 import useHomeShortcuts from 'hooks/useHomeShortcuts'
 import { appsConn } from 'queries'
@@ -38,20 +39,24 @@ LoadingAppTiles.displayName = LoadingAppTiles
 
 const isValidData = memoize(data => Array.isArray(data) && data.length > 0)
 
-const getApplicationsList = memoize(data =>
-  isValidData(data) ? (
-    data
-      .filter(
-        app =>
-          app.state !== 'hidden' &&
-          !homeConfig.filteredApps.includes(app.slug) &&
-          !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
-      )
-      .map(app => <AppTile key={app.id} app={app} />)
-  ) : (
-    <LoadingAppTiles num={3} />
-  )
-)
+const getApplicationsList = memoize(data => {
+  if (isValidData(data)) {
+    const apps = data.filter(
+      app =>
+        app.state !== 'hidden' &&
+        !homeConfig.filteredApps.includes(app.slug) &&
+        !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
+    )
+
+    const array = apps.map(app => <AppTile key={app.id} app={app} />)
+
+    array.push(<BackupAppHighlightAlert apps={apps} />)
+
+    return array
+  } else {
+    return <LoadingAppTiles num={3} />
+  }
+})
 
 export const Applications = ({ onAppsFetched }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
