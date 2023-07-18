@@ -37,13 +37,13 @@ const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 window.flag = window.flag || flag
 window.minilog = minilog
 
-const App = ({ accounts, konnectors, triggers }) => {
+const App = ({ accounts, konnectors }) => {
   const client = useClient()
   const { isMobile } = useBreakpoints()
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors, triggers].some(collection =>
+    [accounts, konnectors].some(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
   )
@@ -55,17 +55,21 @@ const App = ({ accounts, konnectors, triggers }) => {
 
   useEffect(() => {
     setIsFetching(
-      [accounts, konnectors, triggers].some(collection =>
+      [accounts, konnectors].some(collection =>
         ['pending', 'loading'].includes(collection.fetchStatus)
       )
     )
     setHasError(
-      [accounts, konnectors, triggers].find(
+      [accounts, konnectors].find(
         collection => collection.fetchStatus === 'failed'
       )
     )
-  }, [accounts, konnectors, triggers])
-
+  }, [accounts, konnectors])
+  useEffect(() => {
+    client.query(Q('io.cozy.triggers'))
+    client.query(Q('io.cozy.jobs'))
+    client.query(Q('io.cozy.accounts'))
+  }, [])
   useEffect(() => {
     // if we already have the query, let's refresh in "background"
     // aka without loading state

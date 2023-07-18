@@ -1,25 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { connect } from 'react-redux'
-
+import { useSelector } from 'react-redux'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
-import { getKonnectorTriggersCount } from 'reducers'
-import {
-  getFirstError,
-  getFirstUserError,
-  getLastSyncDate
-} from 'ducks/connections'
-
 const getKonnectorError = ({ error, lang, konnector }) => {
-  if (!error || !error.message) {
+  if (!error) {
     return null
   }
-  const konnError = new KonnectorJobError(error.message)
+  const konnError = new KonnectorJobError(error)
   return getErrorLocaleBound(konnError, konnector, lang, 'title')
 }
 
@@ -41,39 +33,71 @@ const statusMap = {
 export const getKonnectorStatus = ({
   isInMaintenance,
   error,
-  userError,
   accountsCount,
   loading
 }) => {
   if (loading) return STATUS.LOADING
   if (isInMaintenance) return STATUS.MAINTENANCE
-  else if (error || userError) return STATUS.ERROR
+  else if (error) return STATUS.ERROR
   else if (!accountsCount) return STATUS.NO_ACCOUNT
   else return STATUS.OK
 }
-
+function getTriggersBySlug(triggers, slug) {
+  return Object.values(triggers).filter(trigger => {
+    return (
+      trigger.message &&
+      trigger.message.konnector &&
+      trigger.message.konnector === slug
+    )
+  })
+}
+function getErrorsForTriggers(triggers, jobs) {
+  const triggersInError = triggers.filter(
+    t => t.current_state.status === 'errored'
+  )
+  if (triggersInError?.length > 0) {
+    const job = Object.values(jobs).find(
+      job => job.trigger_id === triggersInError[0]._id
+    )
+    // we can have triggers without job?
+    if (!job) {
+      return true
+    }
+    return job.error
+  }
+  return null
+}
+const getAccountsFromTrigger = (accounts, triggers) => {
+  const triggerAccountIds = triggers.map(trigger => trigger.message.account)
+  const matchingAccounts = Object.values(accounts).filter(account =>
+    triggerAccountIds.includes(account.id)
+  )
+  return matchingAccounts
+}
 export const KonnectorTile = props => {
+  const test = useSelector(state => state.cozy.documents['io.cozy.triggers'])
+  const triggers = getTriggersBySlug(test, props.konnector.slug)
+  const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs'])
+  const accounts = useSelector(
+    state => state.cozy.documents['io.cozy.accounts']
+  )
+  const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
+  const error = getErrorsForTriggers(triggers, jobs)
+  const hasAtLeastOneError = error !== null
+
   const { lang } = useI18n()
-  const {
-    accountsCount,
-    error,
-    isInMaintenance,
-    userError,
-    konnector,
-    loading
-  } = props
+  const { isInMaintenance, konnector, loading } = props
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
   const status = hideKonnectorErrors
     ? STATUS.OK
     : getKonnectorStatus({
-        accountsCount,
-        error,
+        accountsForKonnector,
+        error: hasAtLeastOneError,
         isInMaintenance,
         konnector,
-        loading,
-        userError
+        loading
       })
 
   return (
@@ -100,16 +124,4 @@ KonnectorTile.propTypes = {
   userError: PropTypes.object
 }
 
-const mapStateToProps = (state, props) => {
-  const { konnector } = props
-
-  return {
-    accountsCount: getKonnectorTriggersCount(state, konnector),
-    // /!\ error can also be a userError.
-    error: getFirstError(state.connections, konnector.slug),
-    lastSyncDate: getLastSyncDate(state.connections, konnector.slug),
-    userError: getFirstUserError(state.connections, konnector.slug)
-  }
-}
-
-export default connect(mapStateToProps)(KonnectorTile)
+export default /* connect(mapStateToProps)( */ KonnectorTile // )
