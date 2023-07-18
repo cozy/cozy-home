@@ -23,10 +23,6 @@ export default class CozyClient {
     return this.stackAdapter.fetchDocuments(doctype)
   }
 
-  fetchTriggers(name, worker) {
-    return this.stackAdapter.fetchTriggers(worker)
-  }
-
   fetchKonnectors() {
     return this.stackAdapter.fetchKonnectors()
   }

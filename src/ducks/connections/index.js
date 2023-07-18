@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux'
-import moment from 'moment'
 import omit from 'lodash/omit'
 import get from 'lodash/get'
-import { buildKonnectorError, isKonnectorUserError } from 'lib/konnectors'
+import { buildKonnectorError } from 'lib/konnectors'
 
 // constant
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
@@ -303,65 +302,6 @@ export const getConnectionsByKonnector = (
   return Object.values(state.konnectors[konnectorSlug].triggers).filter(
     trigger => validAccounts.includes(trigger.account)
   )
-}
-
-export const getFirstError = (state, konnectorSlug) => {
-  const firstTriggerHavingError =
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    Object.values(state.konnectors[konnectorSlug].triggers).find(
-      trigger => !!trigger.error
-    )
-  return firstTriggerHavingError ? firstTriggerHavingError.error : null
-}
-
-export const getFirstUserError = (state, konnectorSlug) => {
-  const firstTriggerHavingUserError =
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    Object.values(state.konnectors[konnectorSlug].triggers).find(trigger =>
-      isKonnectorUserError(trigger.error)
-    )
-  return firstTriggerHavingUserError ? firstTriggerHavingUserError.error : null
-}
-
-/**
- * Converts the input date string to a valid ISO 8601 format if needed.
- *
- * This function checks if the input date string is in the extended ISO 8601 format
- * and trims the fractional seconds part to 6 digits if it has more than 6 digits.
- * This is done to avoid deprecation warnings from Moment.js regarding
- * non-standard date formats, as Moment.js expects a maximum of 6 digits for
- * fractional seconds in the ISO 8601 format.
- *
- * @param {string} dateStr - The input date string
- * @returns {string|null} - The converted date string in a valid ISO 8601 format, or null if input is falsy
- */
-const convertDateFormat = dateStr => {
-  if (!dateStr) return null
-  const iso8601Pattern =
-    /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{1,6}(?:\+|-)\d{2}:\d{2}/
-  if (iso8601Pattern.test(dateStr)) {
-    return dateStr.slice(0, 23) + dateStr.slice(23)
-  }
-  return dateStr
-}
-
-export const getLastSyncDate = (state, konnectorSlug) => {
-  const lastExecutions =
-    !!state.konnectors &&
-    !!state.konnectors[konnectorSlug] &&
-    !!state.konnectors[konnectorSlug].triggers &&
-    Object.values(state.konnectors[konnectorSlug].triggers)
-      .map(trigger => trigger.lastSyncDate)
-      .sort((dateA, dateB) => {
-        const momentA = moment.utc(convertDateFormat(dateA))
-        const momentB = moment.utc(convertDateFormat(dateB))
-        return momentA.isAfter(momentB) ? -1 : momentA.isBefore(momentB) ? 1 : 0
-      })
-  return lastExecutions.length && lastExecutions[0]
 }
 
 // Map the trigger status to a status compatible with queue

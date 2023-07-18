@@ -32,13 +32,6 @@ export const getCreatedConnectionAccount = state =>
     fromConnections.getCreatedAccount(state.connections)
   )
 
-export const getKonnectorTriggersCount = (state, konnector) =>
-  fromTriggers.getKonnectorTriggers(
-    state.oldcozy,
-    konnector,
-    fromAccounts.getIds(state.oldcozy)
-  ).length
-
 export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
   const triggerId = fromConnections.getTriggerIdByKonnectorAndAccount(
     state.connections,

@@ -85,28 +85,4 @@ export default class CozyStackAdapter {
       next: !!meta && meta.count > skip + FETCH_LIMIT
     }
   }
-
-  async fetchTriggers(worker, skip = 0) {
-    const { data, meta } = await this.stackClient.fetchJSON(
-      'GET',
-      `/jobs/triggers?Worker=${worker}`,
-      null,
-      {
-        processJSONAPI: false
-      }
-    )
-
-    return {
-      data: data
-        ? data.map(trigger => ({
-            ...trigger,
-            ...trigger.attributes,
-            _type: 'io.cozy.triggers'
-          }))
-        : [],
-      meta: meta,
-      skip,
-      next: !!meta && meta.count > skip + FETCH_LIMIT
-    }
-  }
 }
