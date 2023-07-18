@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import { fetchAccounts } from 'ducks/accounts'
 import { fetchKonnectors } from 'ducks/konnectors'
-import { fetchTriggers } from 'ducks/triggers'
 import { withClient, Q } from 'cozy-client'
 class RealoadFocus extends React.Component {
   static contextTypes = {
@@ -15,8 +14,8 @@ class RealoadFocus extends React.Component {
     window.addEventListener('focus', () => {
       dispatch(fetchAccounts())
       dispatch(fetchKonnectors())
-      dispatch(fetchTriggers())
       client.query(Q('io.cozy.jobs'))
+      client.query(Q('io.cozy.triggers'))
       client.query(Q('io.cozy.apps'))
     })
   }
