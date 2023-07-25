@@ -19,9 +19,9 @@
   "logout": "Déconnexion",
   "logout_dialog": {
     "title": "Déconnexion",
-    "content": "Êtes-vous sûr de vouloir vous déconnecter de votre Cozy ?",
-    "cancel": "Annuler",
-    "confirm": "Déconnecter"
+    "content": "Souhaitez vous réellement vous déconnecter ?",
+    "cancel": "Annuler ?",
+    "confirm": "Se déconnecter"
   },
   "help": "Aide",
   "help_link": "https://support.cozy.io/",
@@ -170,7 +170,7 @@
   },
   "apps": {
     "title": "Mes applications",
-    "installing": "Installation…"
+    "installing": "Installation en cours ..."
   },
   "connection": {
     "CTA": {
@@ -593,8 +593,8 @@
   },
   "defaultRedirection": {
     "snackbar": {
-      "description": "Définir cette page comme écran d'accueil de votre application mobile ?",
-      "refuse": "Non, merci",
+      "description": "Définir cette page comme page par défaut sur votre application mobile ?",
+      "refuse": "Non merci",
       "accept": "OK"
     }
   },
@@ -602,7 +602,7 @@
     "backupInProgress": "Sauvegarde en cours",
     "confirmStopBackupModal": {
       "title": "Arrêter la sauvegarde ?",
-      "description": "Votre sauvegarde n’est pas entièrement terminée, souhaitez-vous vraiment l’arrêter ? Les photos déjà sauvegardées seront conservées dans votre Cozy, et vous pourrez reprendre la sauvegarde ultérieurement.",
+      "description": "Votre sauvegarde n'est pas terminée. Souhaitez vous l'arrêter ? Les photo et video resteront dans votre Cozy. Vous pourrez reprendre la sauvegarde plus tard.",
       "cancel": "Annuler",
       "stop": "Arrêter"
     }
