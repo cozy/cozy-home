@@ -62,6 +62,13 @@ const BackupNotification = () => {
                 size={32}
                 className="u-pos-absolute"
               />
+              <CircularProgress
+                variant="determinate"
+                value={100}
+                size={32}
+                className="u-pos-absolute"
+                classes={{ svg: styles['backup-circular-progress-background'] }}
+              />
             </ListItemIcon>
             <ListItemText
               primary={
