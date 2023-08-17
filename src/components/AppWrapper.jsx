@@ -1,5 +1,3 @@
-/* global __DEVELOPMENT__ */
-
 import React, { createContext } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import memoize from 'lodash/memoize'
@@ -12,10 +10,6 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import {
-  CozyClient as LegacyCozyClient,
-  CozyProvider as LegacyCozyProvider
-} from 'lib/redux-cozy-client'
 import configureStore from 'store/configureStore'
 import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
@@ -52,23 +46,14 @@ export const setupAppContext = memoize(() => {
       ? true
       : false
   })
-  const legacyClient = new LegacyCozyClient({
-    cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken,
-    cozyClient
-  })
+
   cozyClient.registerPlugin(flag.plugin)
   cozyClient.registerPlugin(RealtimePlugin)
   // store
-  const { store, persistor } = configureStore(
-    legacyClient,
-    cozyClient,
-    context,
-    {
-      lang,
-      ...homeConfig
-    }
-  )
+  const { store, persistor } = configureStore(cozyClient, context, {
+    lang,
+    ...homeConfig
+  })
   cozyClient.setStore(store)
 
   return { cozyClient, store, data, lang, context, persistor }
@@ -103,34 +88,27 @@ const ThemeProvider = ({ children }) => {
  */
 const AppWrapper = ({ children }) => {
   const appContext = setupAppContext()
-  const { store, cozyClient, data, context, lang, persistor } = appContext
+  const { store, cozyClient, context, lang, persistor } = appContext
 
   return (
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
           <ThemeProvider>
-            <LegacyCozyProvider
-              store={store}
-              client={cozyClient}
-              domain={data.cozyDomain}
-              secure={!__DEVELOPMENT__}
-            >
-              <ReduxProvider store={store}>
-                <ConditionalWrapper
-                  condition={persistor}
-                  wrapper={children => (
-                    <PersistGate loading={null} persistor={persistor}>
-                      {children}
-                    </PersistGate>
-                  )}
-                >
-                  <Inner lang={lang} context={context}>
+            <ReduxProvider store={store}>
+              <ConditionalWrapper
+                condition={persistor}
+                wrapper={children => (
+                  <PersistGate loading={null} persistor={persistor}>
                     {children}
-                  </Inner>
-                </ConditionalWrapper>
-              </ReduxProvider>
-            </LegacyCozyProvider>
+                  </PersistGate>
+                )}
+              >
+                <Inner lang={lang} context={context}>
+                  {children}
+                </Inner>
+              </ConditionalWrapper>
+            </ReduxProvider>
           </ThemeProvider>
         </CozyProvider>
       </BreakpointsProvider>

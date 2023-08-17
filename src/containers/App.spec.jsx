@@ -4,26 +4,6 @@ import { render } from '@testing-library/react'
 import App from '../components/AnimatedWrapper'
 import AppLike from 'test/AppLike'
 
-jest.mock('lib/redux-cozy-client/connect.jsx')
-
-jest.mock('lib/redux-cozy-client', () => ({
-  cozyConnect: () => App => {
-    return () =>
-      App({
-        accounts: [{ fetchStatus: 'failed' }],
-        konnectors: [{ fetchStatus: 'failed' }],
-        triggers: [{ fetchStatus: 'failed' }],
-        client: {
-          query: () => {},
-          getInstanceOptions: () => ({
-            cozyDefaultWallpaper: 'cozyDefaultWallpaper'
-          }),
-          getQueryFromState: jest.fn
-        }
-      })
-  }
-}))
-
 // eslint-disable-next-line react/display-name
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
 

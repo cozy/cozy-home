@@ -1,34 +1,31 @@
 import { combineReducers } from 'redux'
 import get from 'lodash/get'
 
-import { reducer } from 'lib/redux-cozy-client'
 import * as fromAccounts from 'ducks/accounts'
 import * as fromKonnectors from 'ducks/konnectors'
-import * as fromTriggers from 'ducks/triggers'
 import connections, * as fromConnections from 'ducks/connections'
 
 export default cozyClient =>
   combineReducers({
     connections,
-    oldcozy: reducer,
     cozy: cozyClient.reducer()
   })
 
 // selectors
 export const getInstalledKonnectors = state =>
-  fromKonnectors.getInstalledKonnectors(state.oldcozy)
+  fromKonnectors.getInstalledKonnectors(state.cozy)
 
 export const getConnectionsByKonnector = (state, konnectorSlug) =>
   fromConnections.getConnectionsByKonnector(
     state.connections,
     konnectorSlug,
-    fromAccounts.getIds(state.oldcozy),
-    fromKonnectors.getSlugs(state.oldcozy)
+    fromAccounts.getIds(state.cozy),
+    fromKonnectors.getSlugs(state.cozy)
   )
 
 export const getCreatedConnectionAccount = state =>
   fromAccounts.getAccount(
-    state.oldcozy,
+    state.cozy,
     fromConnections.getCreatedAccount(state.connections)
   )
 
@@ -37,15 +34,15 @@ export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
     state.connections,
     konnector,
     account,
-    fromAccounts.getIds(state.oldcozy)
+    fromAccounts.getIds(state.cozy)
   )
-  return fromTriggers.getTrigger(state.oldcozy, triggerId)
+  return fromTriggers.getTrigger(state.cozy, triggerId)
 }
 
 export const getTriggersByKonnector = (state, konnectorSlug) => {
-  const triggersInState = state.oldcozy.documents['io.cozy.triggers'] || {}
+  const triggersInState = state.cozy.documents['io.cozy.triggers'] || {}
   const triggers = Object.keys(triggersInState).reduce((acc, key) => {
-    const document = state.oldcozy.documents['io.cozy.triggers'][key]
+    const document = state.cozy.documents['io.cozy.triggers'][key]
     if (
       fromConnections.isKonnectorTrigger(document) &&
       get(document, 'message.konnector') === konnectorSlug
