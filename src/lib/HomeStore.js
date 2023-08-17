@@ -1,5 +1,6 @@
 import { isKonnectorJob } from 'ducks/connections'
 
+import Intents from 'cozy-interapp'
 import { Q } from 'cozy-client'
 
 const RECEIVE_CREATED_KONNECTOR = 'RECEIVE_CREATED_KONNECTOR'
@@ -25,7 +26,7 @@ export default class HomeStore {
     this.client = client
     this.listener = null
     this.options = options
-
+    this.intents = new Intents({ client })
     this.categories = require('../config/categories')
 
     this.updateUnfinishedJob = this.updateUnfinishedJob.bind(this)

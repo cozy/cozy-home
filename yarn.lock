@@ -6036,6 +6036,11 @@ cozy-interapp@^0.5.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
   integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
 
+cozy-interapp@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.8.1.tgz#960fb98a2e93192980449b0b75521f47b4de7d22"
+  integrity sha512-yYCOMVKRjGzvu/TuTj/9jir+Zr3OvXGWJUu9J9dk1jMcBZqXq4D9uIdnqxMJlpovUUJnehzIdgCfbL3JKaZc0Q==
+
 cozy-keys-lib@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-6.0.0.tgz#1f664ecacea4260043aaa0339e34fa7189745e8d"
@@ -6184,6 +6189,15 @@ cozy-stack-client@^45.0.1:
   version "45.0.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-45.0.1.tgz#4028aad131e40b7ba58528b39e411028bfd319d0"
   integrity sha512-VWBbBdGmsnzxarQhUFUbnQZn4VxgWp98umUpSF9PexNmBTwvHG7eNH64/1GaChQjc7xhe8yggzCeQ7wyjQsq0g==
+  dependencies:
+    detect-node "^2.0.4"
+    mime "^2.4.0"
+    qs "^6.7.0"
+
+cozy-stack-client@^40.2.1:
+  version "40.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-40.2.1.tgz#ce67d260226d7cd9f4314c15428880fd87016812"
+  integrity sha512-BMhIn1/3y2zzEYx4WmIlMcGUrzfKj7fRZdtrIjYimNapW0Xsy6nJlDCInA3cH1tNKqKBMIC5F4UQn3vTo/9hGg==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
