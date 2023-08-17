@@ -8,7 +8,6 @@ module.exports = {
   moduleDirectories: ['src', 'node_modules'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'styl'],
   moduleNameMapper: {
-    '^lib/redux-cozy-client$': '<rootDir>/src/lib/redux-cozy-client',
     '\\.(png|gif|jpe?g|svg|css)$': '<rootDir>/test/__mocks__/fileMock.js',
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index',

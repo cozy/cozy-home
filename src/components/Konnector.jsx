@@ -51,7 +51,7 @@ export const StatelessKonnector = ({ konnector, triggers, slug }) => {
 }
 
 const StatefulKonnector = connect((state, { slug }) => ({
-  konnector: getKonnector(state.oldcozy, slug),
+  konnector: getKonnector(state.cozy, slug),
   triggers: getTriggersByKonnector(state, slug)
 }))(StatelessKonnector)
 

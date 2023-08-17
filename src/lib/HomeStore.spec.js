@@ -5,23 +5,20 @@ import HomeStore, {
   KONS_DOCTYPE,
   TRIGGERS_DOCTYPE
 } from './HomeStore'
-import triggers from 'lib/triggers'
-import { dummyKonnector } from 'lib/redux-cozy-client/reducer.spec'
-import {
-  RECEIVE_CREATED_KONNECTOR,
-  RECEIVE_DELETED_KONNECTOR,
-  RECEIVE_UPDATED_KONNECTOR
-} from 'lib/redux-cozy-client/reducer'
+
+const dummyKonnector = konnector => ({
+  _type: KONS_DOCTYPE,
+  type: 'konnector',
+  id: `${KONS_DOCTYPE}/ameli`,
+  _id: `${KONS_DOCTYPE}/ameli`,
+  name: 'Ameli',
+  ...konnector
+})
+const RECEIVE_CREATED_KONNECTOR = 'RECEIVE_CREATED_KONNECTOR'
+const RECEIVE_UPDATED_KONNECTOR = 'RECEIVE_UPDATED_KONNECTOR'
+const RECEIVE_DELETED_KONNECTOR = 'RECEIVE_DELETED_KONNECTOR'
 
 const mockSubscribe = jest.fn()
-
-jest.mock('lib/triggers', () => ({
-  fetch: jest.fn()
-}))
-
-global.cozy = {
-  client: {}
-}
 
 describe('HomeStore', () => {
   const setup = () => {

@@ -1,12 +1,10 @@
-/* global cozy */
-import * as triggers from 'lib/triggers'
 import { isKonnectorJob } from 'ducks/connections'
 
-import {
-  RECEIVE_CREATED_KONNECTOR,
-  RECEIVE_DELETED_KONNECTOR,
-  RECEIVE_UPDATED_KONNECTOR
-} from 'lib/redux-cozy-client/reducer'
+import { Q } from 'cozy-client'
+
+const RECEIVE_CREATED_KONNECTOR = 'RECEIVE_CREATED_KONNECTOR'
+const RECEIVE_UPDATED_KONNECTOR = 'RECEIVE_UPDATED_KONNECTOR'
+const RECEIVE_DELETED_KONNECTOR = 'RECEIVE_DELETED_KONNECTOR'
 
 export const ACCOUNTS_DOCTYPE = 'io.cozy.accounts'
 export const JOBS_DOCTYPE = 'io.cozy.jobs'
@@ -154,19 +152,21 @@ export default class HomeStore {
       response: { data: [normalizedJob] },
       updateCollections: ['jobs']
     })
-    const trigger = await triggers.fetch(cozy.client, normalizedJob.trigger_id)
+    const trigger = await this.client.query(
+      Q('io.cozy.triggers').getById(normalizedJob.trigger_id)
+    )
     this.onTriggerUpdated(trigger)
   }
 
   createIntentService(intent, window) {
-    return cozy.client.intents.createService(intent, window)
+    return this.intents.createService(intent, window)
   }
 
   // Get the drive and banks application url using the list of application
   fetchUrls() {
     return (
-      cozy.client
-        .fetchJSON('GET', '/apps/')
+      this.client
+        .query(Q('io.cozy.apps'))
         // eslint-disable-next-line promise/always-return
         .then(body => {
           body.forEach(item => {

@@ -15,10 +15,7 @@ jest.mock('cozy-client', () => ({
   ),
   default: () => mockClient
 }))
-jest.mock('lib/redux-cozy-client', () => ({
-  CozyClient: children => children,
-  CozyProvider: ({ children }) => children
-}))
+
 jest.mock('store/configureStore', () => () => ({
   store: {
     dispatch: () => jest.fn(),
