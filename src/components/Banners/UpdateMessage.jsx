@@ -1,22 +1,23 @@
-/* global cozy */
-
 import React, { useState, useCallback } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import Infos from 'cozy-ui/transpiled/react/deprecated/Infos'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import PropTypes from 'prop-types'
+import { useClient } from 'cozy-client'
+import Intents from 'cozy-interapp'
 
 const UpdateMessage = props => {
   const [isRedirecting, setIsRedirecting] = useState(false)
   const { t } = useI18n()
   const { isBlocking, konnector } = props
-
+  const client = useClient()
+  const intents = new Intents({ client })
   const handleRedirectToStore = useCallback(async () => {
     setIsRedirecting(true)
 
     try {
-      await cozy.client.intents.redirect('io.cozy.apps', {
+      await intents.redirect('io.cozy.apps', {
         slug: konnector.slug,
         step: 'update'
       })
