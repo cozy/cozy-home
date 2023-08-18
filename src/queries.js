@@ -8,6 +8,12 @@ export const appsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
+export const konnectorsConn = {
+  query: Q('io.cozy.konnectors'),
+  as: 'io.cozy.konnectors',
+  fetchPolicy: defaultFetchPolicy
+}
+
 export const instanceSettingsConn = {
   query: Q('io.cozy.settings').getById('io.cozy.settings.instance'),
   as: 'io.cozy.settings/instance_standalone',
