@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react'
-import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
-import { connect } from 'react-redux'
 import { useAppsInMaintenance, useQuery } from 'cozy-client'
-import { queryConnect } from 'cozy-client'
+import { useSelector } from 'react-redux'
+
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
-import flow from 'lodash/flow'
 
 import KonnectorErrors from 'components/KonnectorErrors'
 import AddServiceTile from 'components/AddServiceTile'
@@ -15,7 +13,6 @@ import CandidateCategoryTile from 'components/CandidateCategoryTile'
 import CandidateServiceTile from 'components/CandidateServiceTile'
 import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
 import EmptyServicesListTip from 'components/EmptyServicesListTip'
-import { getInstalledKonnectors } from 'reducers/index'
 import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
@@ -25,12 +22,21 @@ import {
   getRunningKonnectors
 } from 'lib/konnectors_typed'
 
-export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
+import { getInstalledKonnectors } from '../selectors/konnectors'
+export const Services = () => {
   const { t } = useI18n()
   const appsAndKonnectorsInMaintenance = useAppsInMaintenance()
   const appsAndKonnectorsInMaintenanceBySlug = keyBy(
     appsAndKonnectorsInMaintenance,
     'slug'
+  )
+  const konnectors = useSelector(getInstalledKonnectors)
+  const installedKonnectors = sortBy(konnectors, konnector =>
+    konnector.name.toLowerCase()
+  )
+  const suggestedKonnectorsQuery = useQuery(
+    suggestedKonnectorsConn.query,
+    suggestedKonnectorsConn
   )
 
   const candidatesSlugBlacklist = appsAndKonnectorsInMaintenance
@@ -112,24 +118,4 @@ export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   )
 }
 
-Services.propTypes = {
-  installedKonnectors: PropTypes.arrayOf(
-    PropTypes.shape({ slug: PropTypes.string })
-  ).isRequired,
-  suggestedKonnectorsQuery: PropTypes.shape({
-    data: PropTypes.array
-  }).isRequired
-}
-
-const mapStateToProps = state => {
-  return {
-    installedKonnectors: sortBy(getInstalledKonnectors(state), konnector =>
-      konnector.name.toLowerCase()
-    )
-  }
-}
-
-export default flow(
-  connect(mapStateToProps),
-  queryConnect({ suggestedKonnectorsQuery: suggestedKonnectorsConn })
-)(Services)
+export default Services
