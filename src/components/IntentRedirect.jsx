@@ -1,20 +1,34 @@
 import React from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { useClient } from 'cozy-client'
+import {
+  useClient,
+  useQuery,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import Intents from 'cozy-interapp'
-import { getInstalledKonnectors } from 'reducers'
-
-const IntentRedirect = ({ installedKonnectors }) => {
+import { konnectorsConn } from 'queries'
+const IntentRedirect = () => {
   const client = useClient()
   const intents = new Intents({ client })
   const [searchParams] = useSearchParams()
   const queryConnector = searchParams.get('konnector')
   const queryAccount = searchParams.get('account')
+  const konnectorsDataResult = useQuery(konnectorsConn.query, konnectorsConn)
+
+  if (
+    isQueryLoading(konnectorsDataResult) &&
+    !hasQueryBeenLoaded(konnectorsDataResult)
+  )
+    return null
 
   if (!queryConnector) return <Navigate to="/connected" />
 
-  if (!installedKonnectors.find(konnector => konnector.slug === queryConnector))
+  if (
+    !konnectorsDataResult.data.find(
+      konnector => konnector.slug === queryConnector
+    )
+  )
     return intents.redirect('io.cozy.apps', {
       slug: queryConnector
     })
@@ -26,8 +40,4 @@ const IntentRedirect = ({ installedKonnectors }) => {
   return <Navigate to={redirectRoute} />
 }
 
-const mapStateToProps = state => ({
-  installedKonnectors: getInstalledKonnectors(state)
-})
-
-export default connect(mapStateToProps)(IntentRedirect)
+export default IntentRedirect
