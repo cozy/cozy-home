@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React from 'react'
 
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
@@ -7,11 +5,14 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import styles from 'styles/konnectorSuccess.styl'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import { useClient } from 'cozy-client'
+import Intents from 'cozy-interapp'
 
 const BanksLink = ({ banksUrl }) => {
   const { t } = useI18n()
-
+  const client = useClient()
+  const intents = new Intents({ client })
   return banksUrl ? (
     <AppLinker app={{ slug: 'banks' }} href={banksUrl}>
       {({ href, onClick, name }) => (
@@ -32,7 +33,7 @@ const BanksLink = ({ banksUrl }) => {
     <a
       className={styles['col-account-success-link']}
       onClick={() =>
-        cozy.client.intents.redirect('io.cozy.apps', { slug: 'banks' }, url => {
+        intents.redirect('io.cozy.apps', { slug: 'banks' }, url => {
           window.top.location.href = url
         })
       }
