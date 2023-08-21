@@ -59,7 +59,9 @@ const AppHighlightAlert = ({
         borderRadius: '0.5rem',
         position: 'relative',
         gridRow: rowIndex,
-        gridColumn: '1 / -1'
+        gridColumn: '1 / -1',
+        paddingTop: 0,
+        paddingBottom: 0
       }}
     >
       <span
