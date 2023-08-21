@@ -1,5 +1,3 @@
-import { isKonnectorJob } from 'ducks/connections'
-
 import Intents from 'cozy-interapp'
 import { Q } from 'cozy-client'
 

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import CreateAccountIntent from 'components/intents/CreateAccountIntent'
 import { useClient } from 'cozy-client'
 import { fetchKonnectorBySlug } from 'queries'
+import { useNavigate } from 'react-router-dom'
 
-const IntentService = ({ data, service, appData, onCancel }) => {
+const IntentService = ({ data, service }) => {
   const client = useClient()
+  const navigate = useNavigate()
 
-  const [konnectorData, setKonnectorData] = useState(null)
   useEffect(() => {
     const fetchData = async () => {
       let konnectorReq
@@ -27,33 +27,26 @@ const IntentService = ({ data, service, appData, onCancel }) => {
             data
           )
           console.log('installedKonnector', installedKonnector)
-          setKonnectorData(installedKonnector)
-
+          // setKonnectorData(installedKonnector)
+          navigate(`/${service.getData().slug}/new`)
           // if installedKonnector is null, it means the installation have been
           // cancelled
           if (!installedKonnector) {
-            return service.cancel()
+            service.cancel()
           }
         } else {
-          setKonnectorData(konnectorReq.data)
+          // setKonnectorData(konnectorReq.data)
+
+          // setTimeout(() => {
+          // console.log('will navigate ?')
+          navigate(`/${service.getData().slug}/new`)
+          // }, 500)
         }
       }
     }
     fetchData()
   }, [])
 
-  if (!konnectorData) {
-    return null
-  }
-  return (
-    <div className="coz-service">
-      <CreateAccountIntent
-        appData={appData}
-        konnector={konnectorData}
-        onCancel={onCancel}
-        onTerminate={service.terminate}
-      />
-    </div>
-  )
+  return null
 }
 export default IntentService
