@@ -46,7 +46,13 @@ export const mkHomeMagicFolderConn = t => {
     fetchPolicy: defaultFetchPolicy
   }
 }
-
+export const fetchKonnectorBySlug = slug => {
+  return {
+    query: Q('io.cozy.konnectors').getById(`io.cozy.konnectors/${slug}`),
+    as: `io.cozy.konnectors/${slug}`,
+    fetchPolicy: defaultFetchPolicy
+  }
+}
 export const mkHomeShorcutsConn = folderId => {
   return {
     query: Q('io.cozy.files')
