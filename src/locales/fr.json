@@ -348,7 +348,7 @@
     "text": "Le déplacement de vos données depuis %{from} est terminé avec succès.",
     "button": "Accéder à mon Cozy"
   },
-  
+
   "maintenance": {
     "icon": "Ce connecteur est en cours de maintenance",
     "service": "Service interrompu",
