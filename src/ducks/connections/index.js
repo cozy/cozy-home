@@ -373,13 +373,8 @@ const getTriggerState = (state, trigger) => {
   return (!!triggers && !!triggers[trigger._id] && triggers[trigger._id]) || {}
 }
 
-export const isCreatingConnection = state => !!state.creation
-
 export const isConnectionConnected = (state, trigger) =>
   getTriggerState(state, trigger).isConnected
 
 export const isConnectionEnqueued = (state, trigger) =>
   getTriggerState(state, trigger).isEnqueued
-
-export const isConnectionRunning = (state, trigger) =>
-  getTriggerState(state, trigger).isRunning
