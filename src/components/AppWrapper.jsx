@@ -65,6 +65,7 @@ const Inner = ({ children, lang, context }) => (
     <RealTimeQueries doctype="io.cozy.apps" />
     <RealTimeQueries doctype="io.cozy.jobs" />
     <RealTimeQueries doctype="io.cozy.triggers" />
+    <RealTimeQueries doctype="io.cozy.konnectors" />
     {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
   </I18n>
 )
