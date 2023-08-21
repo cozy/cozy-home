@@ -348,31 +348,7 @@
     "text": "Le déplacement de vos données depuis %{from} est terminé avec succès.",
     "button": "Accéder à mon Cozy"
   },
-  "tutorial": {
-    "cozy_collect": {
-      "title": "Automatisez la récupération de vos données",
-      "text": "Elles seront conservées dans votre Cozy pour que vous n'ayez plus à les chercher.",
-      "button": "Suivant"
-    },
-    "home": {
-      "apps": {
-        "button": "Suivant",
-        "text": "Gérez facilement toute votre vie numérique (photos, fichiers, compte bancaires, …)",
-        "title": "Retrouvez toutes les applications de votre Cozy"
-      },
-      "services": {
-        "button": "Je connecte mes comptes",
-        "text": "Elles seront conservées dans votre Cozy pour que vous n'ayez plus à les chercher.",
-        "title": "Automatisez la récupération de vos données"
-      }
-    },
-    "menu_apps": {
-      "title": "Votre Cozy est bien plus qu’un simple agrégateur de données",
-      "text": "Ouvrez le menu Applications pour découvrir toutes les possibilités offertes par votre Cozy.",
-      "button": "Je découvre mes Applications"
-    }
-  },
-
+  
   "maintenance": {
     "icon": "Ce connecteur est en cours de maintenance",
     "service": "Service interrompu",

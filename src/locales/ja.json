@@ -337,31 +337,7 @@
       "reload": "今すぐ更新"
     }
   },
-  "tutorial": {
-    "cozy_collect": {
-      "title": "データの収集を自動化",
-      "text": "それらはお使いの Cozy に保管されます。それ以上気にする必要はありません。",
-      "button": "次へ"
-    },
-    "home": {
-      "apps": {
-        "button": "次へ",
-        "text": "デジタルライフ (ファイル、写真、銀行口座など...) を簡単に管理できます",
-        "title": "すべての Cozy アプリケーションにアクセスしてください"
-      },
-      "services": {
-        "button": "自分のアカウントを設定しましょう",
-        "text": "お使いの Cozy に保管されます。それ以外気にする必要はありません。",
-        "title": "データの収集を自動化します"
-      }
-    },
-    "menu_apps": {
-      "title": "Cozy は単純なデータ収集だけではありません",
-      "text": "アプリケーションメニューを開いて、Cozy が提供しているすべての機能を見つけてください。",
-      "button": "自分のアプリを見つける"
-    }
-  },
-
+ 
   "maintenance": {
     "icon": "This connector is under maintenance",
     "service": "Service interrupted",
