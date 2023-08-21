@@ -348,7 +348,7 @@
     "text": "De gegevens van %{from} zijn verplaatst.",
     "button": "Open mijn Cozy"
   },
- 
+
   "maintenance": {
     "icon": "Aan deze connector wordt momenteel gewerkt",
     "service": "Dienst onderbroken",
