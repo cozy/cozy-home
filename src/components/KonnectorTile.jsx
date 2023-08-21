@@ -53,7 +53,7 @@ function getTriggersBySlug(triggers, slug) {
 }
 function getErrorsForTriggers(triggers, jobs) {
   const triggersInError = triggers.filter(
-    t => t.current_state.status === 'errored'
+    t => t.current_state?.status === 'errored'
   )
   if (triggersInError?.length > 0) {
     const job = Object.values(jobs).find(
@@ -75,8 +75,10 @@ const getAccountsFromTrigger = (accounts, triggers) => {
   return matchingAccounts
 }
 export const KonnectorTile = props => {
-  const test = useSelector(state => state.cozy.documents['io.cozy.triggers'])
-  const triggers = getTriggersBySlug(test, props.konnector.slug)
+  const allTriggers = useSelector(
+    state => state.cozy.documents['io.cozy.triggers']
+  )
+  const triggers = getTriggersBySlug(allTriggers, props.konnector.slug)
   const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs'])
   const accounts = useSelector(
     state => state.cozy.documents['io.cozy.accounts']
