@@ -1,6 +1,5 @@
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
-import 'intro.js-fix-cozy/minified/introjs.min.css'
 import 'styles/index.styl'
 import 'url-search-params-polyfill'
 

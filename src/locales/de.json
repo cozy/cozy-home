@@ -337,31 +337,7 @@
       "reload": "Jetzt aktualisieren"
     }
   },
-  "tutorial": {
-    "cozy_collect": {
-      "title": "Automatisiere deine Datenerfassung",
-      "text": "Sie werden in deinem Cozy aufbewahrt, sodass du sie nicht mehr suchen musst.",
-      "button": "Weiter"
-    },
-    "home": {
-      "apps": {
-        "button": "Weiter",
-        "text": "Verwalte dein digitales Leben ganz einfach (Dateien, Bilder, Bankkonten, ...)",
-        "title": "Zugriff auf alle meine Cozy Anwendungen"
-      },
-      "services": {
-        "button": "Konfigurieren wir meine Konten",
-        "text": "Sie werden in deinem Cozy aufbewahrt, sodass du sie nicht mehr suchen musst.",
-        "title": "Automatisiere deine Datenerfassung"
-      }
-    },
-    "menu_apps": {
-      "title": "Dein Cozy ist so viel mehr, als ein einfacher Datenimportierer",
-      "text": "Öffne das Menü \"Anwendungen\", um alle Funktionen zu entdecken, die Cozy zu bieten hat.",
-      "button": "Meine Anwendungen entdecken"
-    }
-  },
-
+  
   "maintenance": {
     "icon": "Dieser Connector wird gerade gewartet.",
     "service": "Dienst unterbrochen",

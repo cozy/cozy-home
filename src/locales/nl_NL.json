@@ -348,31 +348,7 @@
     "text": "De gegevens van %{from} zijn verplaatst.",
     "button": "Open mijn Cozy"
   },
-  "tutorial": {
-    "cozy_collect": {
-      "title": "Automatiseer het ophalen van je gegevens",
-      "text": "Ze worden opgeslagen in je Cozy, zodat je er niet meer naar hoeft te zoeken.",
-      "button": "Volgende"
-    },
-    "home": {
-      "apps": {
-        "button": "Volgende",
-        "text": "Beheer op eenvoudige wijze je digitale leven (bestanden, afbeeldingen, bankrekeningen, etc.)",
-        "title": "Toegang tot al je Cozy-apps"
-      },
-      "services": {
-        "button": "We gaan nu mijn accounts instellen",
-        "text": "Ze worden opgeslagen in je Cozy, zodat je er niet meer naar hoeft te zoeken.",
-        "title": "Automatiseer het ophalen van je gegevens"
-      }
-    },
-    "menu_apps": {
-      "title": "Je Cozy is zoveel meer dan een bron die gegevens verzamelt",
-      "text": "Open het app-menu om alle functies te ontdekken die Cozy je te bieden heeft.",
-      "button": "Ontdek mijn apps"
-    }
-  },
-
+ 
   "maintenance": {
     "icon": "Aan deze connector wordt momenteel gewerkt",
     "service": "Dienst onderbroken",

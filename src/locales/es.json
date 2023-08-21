@@ -342,31 +342,7 @@
     "text": "El traslado de sus datos desde %{de} ha sido exitoso.",
     "button": "Acceder a mi Cozy"
   },
-  "tutorial": {
-    "cozy_collect": {
-      "title": "Automatice la recolección de sus datos",
-      "text": "Ellos serán almacenados en su Cozy, usted no tendrá que buscarlos en parte alguna.",
-      "button": "Siguiente"
-    },
-    "home": {
-      "apps": {
-        "button": "Siguiente",
-        "text": "Organice facilmente su vida numérica (archivos, imágenes, cuentas de banco, ...)",
-        "title": "Acceda a todas sus aplicaciones Cozy"
-      },
-      "services": {
-        "button": "Configurar mis cuentas",
-        "text": "Ellos serán almacenados en su Cozy, usted no tendrá que buscarlos en parte alguna.",
-        "title": "Automatice la recolección de sus datos"
-      }
-    },
-    "menu_apps": {
-      "title": "Su Cozy es mucho más que un simple agregador de datos",
-      "text": "Abra el menú de Aplicaciones para descubrir las características que Cozy puede ofrecerle.",
-      "button": "Descubrir mis aplicaciones"
-    }
-  },
-
+ 
   "maintenance": {
     "icon": "Este conector está en mantenimiento",
     "service": "Servicio interrumpido",
