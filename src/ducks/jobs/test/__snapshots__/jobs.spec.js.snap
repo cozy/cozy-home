@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Jobs Duck isJobRunning returns true for error job 1`] = `false`;
-
-exports[`Jobs Duck isJobRunning returns true for queued job 1`] = `true`;
-
-exports[`Jobs Duck isJobRunning returns true for running job 1`] = `true`;

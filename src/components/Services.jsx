@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
-import KonnectorErrors from 'components/KonnectorErrors'
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
@@ -79,7 +78,6 @@ export const Services = () => {
 
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
-      <KonnectorErrors />
       <div className="services-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
         {installedKonnectors.map(konnector => (
           <KonnectorTile

@@ -1,50 +1,21 @@
 import { combineReducers } from 'redux'
 import get from 'lodash/get'
 
-import * as fromAccounts from 'ducks/accounts'
-import * as fromKonnectors from 'ducks/konnectors'
-import connections, * as fromConnections from 'ducks/connections'
-
+const isKonnectorTrigger = doc =>
+  doc._type === 'io.cozy.triggers' && !!doc.message && !!doc.message.konnector
 export default cozyClient =>
   combineReducers({
-    connections,
     cozy: cozyClient.reducer()
   })
 
 // selectors
-export const getInstalledKonnectors = state =>
-  fromKonnectors.getInstalledKonnectors(state.cozy)
-
-export const getConnectionsByKonnector = (state, konnectorSlug) =>
-  fromConnections.getConnectionsByKonnector(
-    state.connections,
-    konnectorSlug,
-    fromAccounts.getIds(state.cozy),
-    fromKonnectors.getSlugs(state.cozy)
-  )
-
-export const getCreatedConnectionAccount = state =>
-  fromAccounts.getAccount(
-    state.cozy,
-    fromConnections.getCreatedAccount(state.connections)
-  )
-
-export const getTriggerByKonnectorAndAccount = (state, konnector, account) => {
-  const triggerId = fromConnections.getTriggerIdByKonnectorAndAccount(
-    state.connections,
-    konnector,
-    account,
-    fromAccounts.getIds(state.cozy)
-  )
-  return fromTriggers.getTrigger(state.cozy, triggerId)
-}
 
 export const getTriggersByKonnector = (state, konnectorSlug) => {
   const triggersInState = state.cozy.documents['io.cozy.triggers'] || {}
   const triggers = Object.keys(triggersInState).reduce((acc, key) => {
     const document = state.cozy.documents['io.cozy.triggers'][key]
     if (
-      fromConnections.isKonnectorTrigger(document) &&
+      isKonnectorTrigger(document) &&
       get(document, 'message.konnector') === konnectorSlug
     ) {
       acc.push(document)
