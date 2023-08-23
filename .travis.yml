@@ -22,25 +22,24 @@ cache:
   directories:
     - node_modules
 stages:
- - lint
- - test
+ - prebuild
  - build
 jobs:
   include:
     - name: Lint
-      stage: lint
+      stage: prebuild
       node_js:
         - 16
       script: yarn lint
-    - name: Test
-      stage: test
+    - name: "Unit test node 16"
+      stage: prebuild
       script: yarn test --silent
     - name: "Unit tests node 18"
-      stage: "prebuild"
+      stage: prebuild
       <<: *node
       node_js:
         - 18
-      script: yarn test
+      script: node --no-experimental-fetch ./node_modules/.bin/jest
     - name: Build
       stage: build
       node_js:
