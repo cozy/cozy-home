@@ -2,6 +2,7 @@ dist: focal
 language: node_js
 node_js:
   - 16
+  - 18
 env:
   global:
     - MATTERMOST_CHANNEL='{"dev":"app---home","beta":"app---home,publication","stable":"app---home,publication"}'
@@ -34,6 +35,12 @@ jobs:
     - name: Test
       stage: test
       script: yarn test --silent
+    - name: "Unit tests node 18"
+      stage: "prebuild"
+      <<: *node
+      node_js:
+        - 18
+      script: yarn test
     - name: Build
       stage: build
       node_js:
