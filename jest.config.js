@@ -23,6 +23,6 @@ module.exports = {
     '^.+\\.(ts|tsx|js|jsx)?$': 'babel-jest'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core)'
+    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core|copy-text-to-clipboard)'
   ]
 }
