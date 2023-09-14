@@ -102,6 +102,11 @@
       "folder": "/intents",
       "index": "index.html",
       "public": false
+    },
+    "/intro": {
+      "folder": "/",
+      "index": "index.html",
+      "public": false
     }
   },
   "intents": [
