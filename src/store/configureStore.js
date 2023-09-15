@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-import { isFlagshipApp } from 'cozy-device-helper'
+// import { isFlagshipApp } from 'cozy-device-helper'
 
 import HomeStore from 'lib/HomeStore'
 import flag from 'cozy-flags'
@@ -82,7 +82,7 @@ const configureDefault = (legacyClient, cozyClient, context, options) => {
 }
 
 const configureStore = (legacyClient, cozyClient, context, options = {}) => {
-  return isFlagshipApp() || flag('home.store.persist')
+  return /* isFlagshipApp() ||  */ flag('home.store.persist')
     ? configureWithPersistor(legacyClient, cozyClient, context, options)
     : configureDefault(legacyClient, cozyClient, context, options)
 }
