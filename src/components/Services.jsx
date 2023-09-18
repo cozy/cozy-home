@@ -29,7 +29,7 @@ export const Services = () => {
     appsAndKonnectorsInMaintenance,
     'slug'
   )
-  const konnectors = useSelector(getInstalledKonnectors)
+  const konnectors = useSelector(getInstalledKonnectors) || []
   const installedKonnectors = sortBy(konnectors, konnector =>
     konnector.name.toLowerCase()
   )
