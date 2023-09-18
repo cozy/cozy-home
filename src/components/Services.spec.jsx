@@ -18,7 +18,6 @@ jest.mock('cozy-client', () => ({
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
   <div>{konnector.slug}</div>
 ))
-jest.mock('components/KonnectorErrors', () => () => null)
 jest.mock('hooks/useRegistryInformation', () => (client, slug) => slug)
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
@@ -35,11 +34,26 @@ describe('Services component', () => {
     const client = createMockClient({
       clientOptions: {
         uri: 'http://cozy.tools:8080'
+      },
+      queries: {
+        installedKonnectors: {
+          lastUpdate: new Date(),
+          data: installedKonnectors,
+          doctype: 'io.cozy.konnectors',
+          hasMore: false
+        },
+        'app-suggestions': {
+          lastUpdate: new Date(),
+          data: suggestedKonnectorsQuery ? suggestedKonnectorsQuery.data : [],
+          doctype: 'io.cozy.apps.suggestions',
+          hasMore: false
+        }
       }
     })
+
     useAppsInMaintenance.mockReturnValue(appsAndKonnectorsInMaintenance)
     const root = render(
-      <AppLike client={client}>
+      <AppLike client={client} store={client.store}>
         <MuiCozyTheme>
           <Services
             installedKonnectors={installedKonnectors || []}
@@ -53,9 +67,9 @@ describe('Services component', () => {
 
   it('should display a list of services', () => {
     const installedKonnectors = [
-      { slug: 'test1' },
-      { slug: 'test2' },
-      { slug: 'test3' }
+      { slug: 'test1', _id: '1', name: 'Test1' },
+      { slug: 'test2', _id: '2', name: 'Test 2' },
+      { slug: 'test3', _id: 3, name: 'Test 3' }
     ]
     const { root } = setup({ installedKonnectors })
     root.getByText('test1')
@@ -81,9 +95,9 @@ describe('Services component', () => {
       installedKonnectors: [],
       suggestedKonnectorsQuery: {
         data: [
-          { slug: 'suggestion-1' },
-          { slug: 'suggestion-2' },
-          { slug: 'test-1' }
+          { slug: 'suggestion-1', _id: 1 },
+          { slug: 'suggestion-2', _id: 2 },
+          { slug: 'test-1', _id: 3 }
         ]
       }
     })
@@ -96,17 +110,17 @@ describe('Services component', () => {
 
   it('should display suggestions after services have been installed', () => {
     const installedKonnectors = [
-      { slug: 'test-1' },
-      { slug: 'test-2' },
-      { slug: 'test-3' }
+      { slug: 'test-1', _id: '1', name: 'Test1' },
+      { slug: 'test-2', _id: '2', name: 'Test 2' },
+      { slug: 'test-3', _id: '3', name: 'Test 3' }
     ]
     const { root } = setup({
       installedKonnectors,
       suggestedKonnectorsQuery: {
         data: [
-          { slug: 'suggestion-1' },
-          { slug: 'suggestion-2' },
-          { slug: 'test-1' }
+          { slug: 'suggestion-1', _id: 1 },
+          { slug: 'suggestion-2', _id: 2 },
+          { slug: 'test-1', _id: 3 }
         ]
       }
     })
