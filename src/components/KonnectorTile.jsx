@@ -1,3 +1,4 @@
+// @ts-check
 import PropTypes from 'prop-types'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
@@ -7,10 +8,19 @@ import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+/**
+ *
+ * @param {object} param
+ * @param {string|null|true|Error} param.error Error message
+ * @param {string} param.lang Lang (fr/en/es/...)
+ * @param {import('cozy-client/types/types').IOCozyKonnector} param.konnector
+ * @returns
+ */
 const getKonnectorError = ({ error, lang, konnector }) => {
   if (!error || !error.message) {
     return null
   }
+
   const konnError = new KonnectorJobError(error)
   return getErrorLocaleBound(konnError, konnector, lang, 'title')
 }
@@ -29,7 +39,16 @@ const statusMap = {
   [STATUS.ERROR]: 'error',
   [STATUS.LOADING]: 'loading'
 }
-
+/**
+ *
+ * @param {object} props
+ * @param {boolean} props.isInMaintenance Is in maintenance?
+ * @param {number} props.accountsCount Number of Accounts
+ * @param {boolean} props.error isInError
+ * @param {boolean} props.userError user error
+ * @param {boolean} props.loading Loading status
+ * @returns {number} The status
+ */
 export const getKonnectorStatus = ({
   isInMaintenance,
   error,
@@ -43,6 +62,13 @@ export const getKonnectorStatus = ({
   else if (!accountsCount) return STATUS.NO_ACCOUNT
   else return STATUS.OK
 }
+
+/**
+ * @param {object} triggers
+ * @param {import('cozy-client/types/types').IOCozyTrigger} triggers.trigger - io.cozy.triggers object
+ * @param {import('cozy-client/types/types').IOCozyKonnector['slug']} slug
+ * @returns
+ */
 function getTriggersBySlug(triggers, slug) {
   return Object.values(triggers).filter(trigger => {
     return (
@@ -52,6 +78,11 @@ function getTriggersBySlug(triggers, slug) {
     )
   })
 }
+/**
+ * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers - io.cozy.triggers object
+ * @param {object} jobs
+ * @returns {null|true|string}
+ */
 function getErrorsForTriggers(triggers, jobs) {
   const triggersInError = triggers.filter(
     t => t.current_state?.status === 'errored'
@@ -75,11 +106,20 @@ const getAccountsFromTrigger = (accounts, triggers) => {
   )
   return matchingAccounts
 }
-export const KonnectorTile = props => {
+
+/**
+ *
+ * @param {object} props
+ * @param {boolean} props.isInMaintenance Is in maintenance
+ * @param {boolean} props.loading isLoading ?
+ * @param {import('cozy-client/types/types').IOCozyKonnector} props.konnector
+ * @returns
+ */
+export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
   const allTriggers = useSelector(
     state => state.cozy.documents['io.cozy.triggers']
   )
-  const triggers = getTriggersBySlug(allTriggers, props.konnector.slug)
+  const triggers = getTriggersBySlug(allTriggers, konnector.slug)
   const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs'])
   const accounts = useSelector(
     state => state.cozy.documents['io.cozy.accounts']
@@ -89,17 +129,15 @@ export const KonnectorTile = props => {
   const hasAtLeastOneError = error !== null
 
   const { lang } = useI18n()
-  const { isInMaintenance, konnector, loading } = props
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
 
   const status = hideKonnectorErrors
     ? STATUS.OK
     : getKonnectorStatus({
-        accountsForKonnector,
+        accountsCount: accountsForKonnector.length,
         error: hasAtLeastOneError,
         isInMaintenance,
-        konnector,
         loading
       })
 
@@ -120,11 +158,9 @@ export const KonnectorTile = props => {
 }
 
 KonnectorTile.propTypes = {
-  accountsCount: PropTypes.number,
-  error: PropTypes.object,
   isInMaintenance: PropTypes.bool,
   konnector: PropTypes.object,
-  userError: PropTypes.object
+  loading: PropTypes.bool
 }
 
 export default /* connect(mapStateToProps)( */ KonnectorTile // )
