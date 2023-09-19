@@ -28,7 +28,7 @@ declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
 }
 
 declare module 'cozy-ui/transpiled/react/providers/I18n' {
-  export const useI18n: () => { t: (key: string) => string }
+  export const useI18n: () => { t: (key: string) => string; lang: string }
 }
 
 declare module 'cozy-ui/transpiled/react/Buttons' {
