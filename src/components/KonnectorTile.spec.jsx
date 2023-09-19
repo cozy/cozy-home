@@ -11,7 +11,7 @@ import {
   getKonnectorStatus,
   STATUS
 } from 'components/KonnectorTile'
-import AppLike from '../AppLike'
+import AppLike from 'test/AppLike'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -61,28 +61,7 @@ describe('KonnectorTile component', () => {
   it('should render correctly if success', () => {
     const mockProps = getMockProps()
     const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
-  })
-
-  it('should display correct status if in maintenance', () => {
-    const status = getKonnectorStatus({
-      konnector: mockKonnector,
-      isInMaintenance: true
-    })
-    expect(status).toEqual(STATUS.MAINTENANCE)
-  })
-
-  it('should display correct error status if user error but not in maintenance', () => {
-    const status = getKonnectorStatus({
-      error: null,
-      userError: new Error('Expected test user error')
-    })
-    expect(status).toEqual(STATUS.ERROR)
-  })
-
-  it('should display correct error status if other error but not in maintenance', () => {
-    const status = getKonnectorStatus({ error: new Error('LOGIN_FAILED') })
-    expect(status).toEqual(STATUS.ERROR)
+    expect(root.getByText(mockKonnector.name)).toBeTruthy()
   })
 
   it('should display correct error status if no accounts and no errors', () => {
@@ -90,6 +69,29 @@ describe('KonnectorTile component', () => {
     mockProps.accountsCount = 0
 
     const root = setup(mockProps)
-    expect(root.getByText('Mock')).toBeTruthy()
+    expect(root.getByText(mockKonnector.name)).toBeTruthy()
+  })
+
+  describe('Util methods', () => {
+    it('should display correct status if in maintenance', () => {
+      const status = getKonnectorStatus({
+        konnector: mockKonnector,
+        isInMaintenance: true
+      })
+      expect(status).toEqual(STATUS.MAINTENANCE)
+    })
+
+    it('should display correct error status if user error but not in maintenance', () => {
+      const status = getKonnectorStatus({
+        error: null,
+        userError: new Error('Expected test user error')
+      })
+      expect(status).toEqual(STATUS.ERROR)
+    })
+
+    it('should display correct error status if other error but not in maintenance', () => {
+      const status = getKonnectorStatus({ error: new Error('LOGIN_FAILED') })
+      expect(status).toEqual(STATUS.ERROR)
+    })
   })
 })
