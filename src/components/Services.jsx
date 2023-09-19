@@ -83,7 +83,6 @@ export const Services = () => {
           <KonnectorTile
             key={konnector.id}
             konnector={konnector}
-            route={`connected/${konnector.slug}`}
             isInMaintenance={has(
               appsAndKonnectorsInMaintenanceBySlug,
               konnector.slug
