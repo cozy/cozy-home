@@ -8,7 +8,7 @@ import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const getKonnectorError = ({ error, lang, konnector }) => {
-  if (!error) {
+  if (!error || !error.message) {
     return null
   }
   const konnError = new KonnectorJobError(error)
@@ -33,12 +33,13 @@ const statusMap = {
 export const getKonnectorStatus = ({
   isInMaintenance,
   error,
+  userError,
   accountsCount,
   loading
 }) => {
   if (loading) return STATUS.LOADING
   if (isInMaintenance) return STATUS.MAINTENANCE
-  else if (error) return STATUS.ERROR
+  else if (error || userError) return STATUS.ERROR
   else if (!accountsCount) return STATUS.NO_ACCOUNT
   else return STATUS.OK
 }
