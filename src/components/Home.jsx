@@ -5,7 +5,7 @@ import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 
 import Applications from 'components/Applications'
-import FooterLogo from 'components/FooterLogo'
+import FooterLogo from 'components/FooterLogo/FooterLogo'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import Shortcuts from 'components/Shortcuts'
