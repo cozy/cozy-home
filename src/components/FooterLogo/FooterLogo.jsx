@@ -1,35 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import get from 'lodash/get'
-import { withClient } from 'cozy-client'
+import React from 'react'
+import { useClient, useQuery } from 'cozy-client'
+import { buildContextQuery } from 'queries'
 
-const fetchHomeLogos = async client => {
-  try {
-    const rootURL = client.getStackClient().uri
-    const context = await client
-      .getStackClient()
-      .fetchJSON('GET', '/settings/context')
-    const logos = get(context, 'data.attributes.home_logos', {})
+import { getHomeLogos } from 'components/FooterLogo/helpers'
 
-    return Object.keys(logos).reduce((acc, logoSrc) => {
-      acc[`${rootURL}/assets${logoSrc}`] = logos[logoSrc]
-      return acc
-    }, {})
-  } catch (error) {
-    return {}
-  }
-}
+export const FooterLogo = () => {
+  const client = useClient()
+  const rootURL = client.getStackClient().uri
 
-export const FooterLogo = ({ client }) => {
-  const [logos, setLogos] = useState([])
+  const contextQuery = buildContextQuery()
+  const { data } = useQuery(contextQuery.definition, contextQuery.options)
 
-  useEffect(() => {
-    const fetch = async () => {
-      const logos = await fetchHomeLogos(client)
-      setLogos(logos)
-    }
-    fetch()
-  }, [])
+  const logos = getHomeLogos(data, rootURL)
 
   if (Object.keys(logos).length === 0) return null
 
@@ -47,8 +29,4 @@ export const FooterLogo = ({ client }) => {
   )
 }
 
-PropTypes.propTypes = {
-  client: PropTypes.object
-}
-
-export default withClient(FooterLogo)
+export default FooterLogo

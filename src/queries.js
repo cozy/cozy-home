@@ -106,3 +106,12 @@ export const fetchAppInfo = async (appId, client) => {
   })
   return data
 }
+
+export const buildContextQuery = () => ({
+  definition: () => Q('io.cozy.settings').getById('context'),
+  options: {
+    as: 'io.cozy.settings/context',
+    fetchPolicy: defaultFetchPolicy,
+    singleDocData: true
+  }
+})
