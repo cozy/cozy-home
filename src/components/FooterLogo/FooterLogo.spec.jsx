@@ -39,15 +39,48 @@ describe('FooterLogo', () => {
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 
-  it('should render multiple logos', async () => {
+  it('should render secondaries logo only', () => {
     setup({
       attributes: {
         home_logos: {
-          '/path1/cozy.svg': 'alt text 1',
-          '/path/2/cozy-with_complex-name.svg': 'alt text 2'
+          '/logo/1_partner.svg': 'Partner n°1',
+          '/logo/2_partner.svg': 'Partner n°2'
         }
       }
     })
-    expect((await screen.findAllByRole('img')).length).toEqual(2)
+
+    const images = screen.getAllByAltText(/Partner n°*?/i)
+    expect(images.length).toEqual(2)
+  })
+
+  it('should render main logo only', () => {
+    setup({
+      attributes: {
+        home_logos: {
+          '/lgoo/main_partner.svg': 'Main partner'
+        }
+      }
+    })
+
+    const image = screen.getByAltText('Main partner')
+    expect(image).toBeInTheDocument()
+  })
+
+  it('should render both', () => {
+    setup({
+      attributes: {
+        home_logos: {
+          '/lgoo/main_partner.svg': 'Main partner',
+          '/logo/1_partner.svg': 'Partner n°1',
+          '/logo/2_partner.svg': 'Partner n°2'
+        }
+      }
+    })
+
+    const main = screen.getByAltText('Main partner')
+    expect(main).toBeInTheDocument()
+
+    const secondaries = screen.getAllByAltText(/Partner n°*?/i)
+    expect(secondaries.length).toEqual(2)
   })
 })
