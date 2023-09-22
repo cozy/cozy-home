@@ -31,6 +31,8 @@ import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import ReloadFocus from './ReloadFocus'
+import FooterLogo from 'components/FooterLogo/FooterLogo'
+
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
 
@@ -130,30 +132,34 @@ const App = ({ accounts, konnectors, triggers }) => {
             </Main>
           )}
           {!isFetching && (
-            <Routes>
-              <Route
-                path="/connected"
-                element={
-                  <Home
-                    wrapper={contentWrapper}
-                    setAppsReady={() => setAppsReady(true)}
-                  />
-                }
-              >
-                <Route path=":konnectorSlug/*" element={<Konnector />} />
+            <>
+              <Routes>
+                <Route
+                  path="/connected"
+                  element={
+                    <Home
+                      wrapper={contentWrapper}
+                      setAppsReady={() => setAppsReady(true)}
+                    />
+                  }
+                >
+                  <Route path=":konnectorSlug/*" element={<Konnector />} />
 
-                <Route path="providers" element={<StoreRedirection />}>
-                  <Route path=":category" element={<StoreRedirection />} />
+                  <Route path="providers" element={<StoreRedirection />}>
+                    <Route path=":category" element={<StoreRedirection />} />
+                  </Route>
                 </Route>
-              </Route>
 
-              <Route path="/redirect" element={<IntentRedirect />} />
+                <Route path="/redirect" element={<IntentRedirect />} />
 
-              <Route path="*" element={<Navigate to="connected" />} />
-            </Routes>
+                <Route path="*" element={<Navigate to="connected" />} />
+              </Routes>
+            </>
           )}
+
           <IconSprite />
         </div>
+        <FooterLogo />
       </MainView>
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
