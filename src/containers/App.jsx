@@ -11,6 +11,7 @@ import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AddButton from 'components/AddButton/AddButton'
 import Corner from 'components/HeroHeader/Corner'
@@ -26,7 +27,6 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { BackgroundContainer } from 'components/BackgroundContainer'
 import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
-import { usePreferedTheme } from 'hooks/usePreferedTheme'
 import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
@@ -54,7 +54,7 @@ const App = ({ accounts, konnectors, triggers }) => {
   const [isReady, setIsReady] = useState(false)
   const [appsReady, setAppsReady] = useState(false)
   const webviewIntent = useWebviewIntent()
-  const preferedTheme = usePreferedTheme()
+  const theme = useCozyTheme()
 
   const { shortcutsDirectories } = useCustomShortcuts()
   useEffect(() => {
@@ -108,10 +108,10 @@ const App = ({ accounts, konnectors, triggers }) => {
 
   useEffect(() => {
     if (isReady && webviewIntent) {
-      webviewIntent.call('setTheme', preferedTheme)
+      webviewIntent.call('setTheme', theme)
       webviewIntent.call('hideSplashScreen')
     }
-  }, [isReady, preferedTheme, webviewIntent])
+  }, [isReady, theme, webviewIntent])
 
   return (
     <>
