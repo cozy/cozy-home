@@ -17,7 +17,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
  * @returns
  */
 const getKonnectorError = ({ error, lang, konnector }) => {
-  if (!error || !error.message) {
+  if (!error) {
     return null
   }
 
@@ -83,7 +83,7 @@ function getTriggersBySlug(triggers, slug) {
  * @param {object} jobs
  * @returns {null|true|string}
  */
-function getErrorsForTriggers(triggers, jobs) {
+function getErrorForTriggers(triggers, jobs) {
   const triggersInError = triggers.filter(
     t => t.current_state?.status === 'errored'
   )
@@ -107,6 +107,21 @@ const getAccountsFromTrigger = (accounts, triggers) => {
   return matchingAccounts
 }
 
+const getFirstUserError = triggers => {
+  const triggersInError = Object.values(triggers).filter(
+    t => t.current_state?.status === 'errored'
+  )
+  const firstTriggerHavingUserError = Object.values(triggersInError).find(
+    trigger => {
+      const e = new KonnectorJobError(trigger.current_state.last_error)
+      const isUserError = e.isUserError()
+      return isUserError
+    }
+  )
+  return firstTriggerHavingUserError
+    ? firstTriggerHavingUserError.current_state.last_error
+    : null
+}
 /**
  *
  * @param {object} props
@@ -116,16 +131,15 @@ const getAccountsFromTrigger = (accounts, triggers) => {
  * @returns
  */
 export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
-  const allTriggers = useSelector(
-    state => state.cozy.documents['io.cozy.triggers']
-  )
+  const allTriggers =
+    useSelector(state => state.cozy.documents['io.cozy.triggers']) || {}
   const triggers = getTriggersBySlug(allTriggers, konnector.slug)
-  const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs'])
-  const accounts = useSelector(
-    state => state.cozy.documents['io.cozy.accounts']
-  )
+  const userError = getFirstUserError(triggers, konnector.slug)
+  const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs']) || {}
+  const accounts =
+    useSelector(state => state.cozy.documents['io.cozy.accounts']) || {}
   const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
-  const error = getErrorsForTriggers(triggers, jobs)
+  const error = getErrorForTriggers(triggers, jobs)
   const hasAtLeastOneError = error !== null
 
   const { lang } = useI18n()
@@ -138,13 +152,19 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
         accountsCount: accountsForKonnector.length,
         error: hasAtLeastOneError,
         isInMaintenance,
-        loading
+        loading,
+        userError
       })
-
+  const errorToDisplay =
+    userError !== true && userError !== null ? userError : error
   return (
     <NavLink
       to={konnector.slug}
-      title={getKonnectorError({ error, lang, konnector })}
+      title={getKonnectorError({
+        error: errorToDisplay,
+        lang,
+        konnector
+      })}
       className="scale-hover"
     >
       <SquareAppIcon
