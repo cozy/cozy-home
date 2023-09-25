@@ -16,6 +16,7 @@ import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
@@ -78,6 +79,7 @@ export const Services = () => {
 
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
+      <Divider className="u-mv-0" />
       <div className="services-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
         {installedKonnectors.map(konnector => (
           <KonnectorTile
