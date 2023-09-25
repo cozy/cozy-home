@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Divider from 'cozy-ui/transpiled/react/Divider'
+
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
@@ -15,8 +18,6 @@ import EmptyServicesListTip from 'components/EmptyServicesListTip'
 import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import Divider from 'cozy-ui/transpiled/react/Divider'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
