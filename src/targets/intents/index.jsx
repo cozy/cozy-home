@@ -1,7 +1,7 @@
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'styles/intents.styl'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { HarvestRoutes } from './HarvestRoute'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
