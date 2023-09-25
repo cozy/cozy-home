@@ -1,4 +1,3 @@
-/* konnector lib ready to be added to cozy-client-js */
 export const ERROR_TYPES = {
   CHALLENGE_ASKED: 'CHALLENGE_ASKED',
   LOGIN_FAILED: 'LOGIN_FAILED',

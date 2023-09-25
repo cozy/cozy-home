@@ -64,12 +64,6 @@ module.exports = {
     }
   },
   plugins: [
-    environment === 'development'
-      ? new webpack.ProvidePlugin({
-          'cozy.client': 'cozy-client-js/dist/cozy-client.js'
-        })
-      : null,
-
     new ContextReplacementPlugin(
       /moment[/\\]locale$/,
       regexpMomentDateFnsLocales

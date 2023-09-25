@@ -1,8 +1,5 @@
 /* eslint-env jest */
 import * as konnectors from 'lib/konnectors'
-
-// TODO: mutualize this code with jobs
-// just to tests calling, results are tested in cozy-client-js
 const cozyMock = {
   fetchJSON: jest.fn((method, endpoint, data) => Promise.resolve(data))
 }
