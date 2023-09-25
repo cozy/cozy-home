@@ -9,9 +9,11 @@ class RealoadFocus extends React.Component {
   componentDidMount() {
     const client = this.props.client
     window.addEventListener('focus', () => {
-      client.query(Q('io.cozy.jobs'))
-      client.query(Q('io.cozy.triggers'))
-      client.query(Q('io.cozy.apps'))
+      client.query(Q('io.cozy.jobs')),
+        client.query(
+          Q('io.cozy.triggers').where({ worker: ['client', 'konnector'] })
+        ),
+        client.query(Q('io.cozy.apps'))
     })
   }
 

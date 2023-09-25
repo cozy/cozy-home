@@ -10,17 +10,17 @@ const OLDER_THAN_THIRTY_SECONDS = CozyClient.fetchPolicies.olderThan(30 * 1000)
 const appEntryPoint = queryConnect({
   accounts: {
     query: () => Q(ACCOUNT_DOCTYPE),
-    as: 'accounts',
+    as: 'io.cozy.accounts',
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   },
   konnectors: {
     query: () => Q(KONNECTOR_DOCTYPE),
-    as: 'konnectors',
+    as: 'io.cozy.konnectors',
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   },
   triggers: {
-    query: () => Q(TRIGGER_DOCTYPE),
-    as: 'triggers',
+    query: () => Q(TRIGGER_DOCTYPE).where({ worker: ['client', 'konnector'] }),
+    as: 'io.cozy.triggers/by_worker_client_konnector',
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   }
 })
