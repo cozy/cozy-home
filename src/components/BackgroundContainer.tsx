@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
 import { useClient } from 'cozy-client'
 import cx from 'classnames'
-import { usePreferedTheme } from 'hooks/usePreferedTheme'
-
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 type BackgroundContainerComputedProps = {
   className: string
   style?: { backgroundImage: string }
@@ -28,7 +27,7 @@ export const BackgroundContainer = (): JSX.Element => {
     fetchStatus,
     data: { wallpaperLink }
   } = useCustomWallpaper()
-  const preferedTheme = usePreferedTheme()
+  const theme = useCozyTheme()
   const [backgroundURL, setBackgroundURL] = useState<string | null>(null)
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export const BackgroundContainer = (): JSX.Element => {
   }, [wallpaperLink, fetchStatus, client])
 
   return (
-    <div {...makeProps(backgroundURL, preferedTheme)}>
+    <div {...makeProps(backgroundURL, theme)}>
       <div></div>
       <div></div>
       <div></div>

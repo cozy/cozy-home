@@ -24,6 +24,7 @@ declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
     className?: string
   }
   export default function CozyTheme(props: CozyThemeProps): JSX.Element
+  export function useCozyTheme(): string
 }
 
 declare module 'cozy-ui/transpiled/react/providers/I18n' {
