@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client'
 
+import flag from 'cozy-flags'
+
 import { renderApp } from './renderApp'
 
 const onReady = () => {
@@ -11,6 +13,10 @@ const onReady = () => {
 }
 
 export const _main = () => {
+  if (flag('home.override-title')) {
+    document.title = flag('home.override-title')
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', onReady)
   } else {
