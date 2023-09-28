@@ -18,10 +18,10 @@ export const FooterLogo = () => {
     logos.secondaries && Object.keys(logos.secondaries).length !== 0
   const hasMain = logos.main !== undefined
 
-  if (!hasMain && !hasSecondaries) return null
+  if (!hasMain && !hasSecondaries) return <div className="u-mt-3-s"></div>
 
   return (
-    <footer className="u-mt-auto">
+    <footer>
       <Divider />
       <div className="u-flex">
         <div className="u-flex u-mh-auto u-maw-100 u-flex-items-center">
