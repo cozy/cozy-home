@@ -3,7 +3,7 @@ import React from 'react'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const ConfirmStopBackupDialog = ({ onClose, onStop }) => {
   const { t } = useI18n()

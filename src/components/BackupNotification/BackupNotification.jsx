@@ -15,7 +15,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import CircularProgress from 'cozy-ui/transpiled/react/CircularProgress'
 import PhoneUploadIcon from 'cozy-ui/transpiled/react/Icons/PhoneUpload'
 import CrossCircleOutlineIcon from 'cozy-ui/transpiled/react/Icons/CrossCircleOutline'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import ConfirmStopBackupDialog from 'components/BackupNotification/ConfirmStopBackupDialog'
 import { useBackupData } from 'components/BackupNotification/useBackupData'

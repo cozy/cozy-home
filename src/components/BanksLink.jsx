@@ -7,7 +7,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import styles from 'styles/konnectorSuccess.styl'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const BanksLink = ({ banksUrl }) => {
   const { t } = useI18n()

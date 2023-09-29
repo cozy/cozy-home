@@ -3,7 +3,7 @@ import React from 'react'
 import ReactMarkdownWrapper from 'components/ReactMarkdownWrapper'
 
 import styles from 'styles/konnectorMaintenance.styl'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const KonnectorMaintenance = ({ maintenance, lang, konnectorName }) => {
   const { t } = useI18n()
