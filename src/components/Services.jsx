@@ -19,7 +19,7 @@ import { getInstalledKonnectors } from 'reducers/index'
 import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors

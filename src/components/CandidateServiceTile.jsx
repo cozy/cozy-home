@@ -5,7 +5,7 @@ import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { useClient } from 'cozy-client'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const CandidateServiceTile = ({ konnector }) => {

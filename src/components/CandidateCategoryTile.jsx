@@ -4,7 +4,7 @@ import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import { useClient, generateWebLink } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const MIN_SLUGS = 4
