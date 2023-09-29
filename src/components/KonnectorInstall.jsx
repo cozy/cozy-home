@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { IntentTriggerManager } from 'cozy-harvest-lib'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import KonnectorSuccess from 'components/KonnectorSuccess'
 import { getKonnector } from 'ducks/konnectors'

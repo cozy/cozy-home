@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import { useClient } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useWebviewIntent } from 'cozy-intent'
 
 import CornerButton from './CornerButton'

@@ -6,7 +6,7 @@ import { CozyFile } from 'cozy-doctypes'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const ShortcutLink = ({ file, desktopSize = 44 }) => {
   const client = useClient()

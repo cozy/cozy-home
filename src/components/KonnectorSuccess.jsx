@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from 'cozy-ui/transpiled/react/deprecated/Button'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import styles from 'styles/konnectorSuccess.styl'
 import DescriptionContent from 'components/DescriptionContent'

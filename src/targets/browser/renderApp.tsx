@@ -7,7 +7,7 @@ import React from 'react'
 import { HashRouter } from 'react-router-dom'
 
 import { handleOAuthResponse } from 'cozy-harvest-lib'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import Alert from 'cozy-ui/transpiled/react/Alert'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useContainerDimensions } from 'hooks/useContainerDimensions'
 

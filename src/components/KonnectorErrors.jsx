@@ -15,10 +15,10 @@ import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Infos from 'cozy-ui/transpiled/react/deprecated/Infos'
 import InfosCarrousel from 'cozy-ui/transpiled/react/deprecated/InfosCarrousel'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { Media, Bd } from 'cozy-ui/transpiled/react/deprecated/Media'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import {
   getAccountsWithErrors,

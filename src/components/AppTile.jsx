@@ -6,7 +6,7 @@ import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 import { fetchAppInfo } from 'queries'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const { applications } = models
 
