@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useClient } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import get from 'lodash/get'
 import { mkHomeMagicFolderConn, mkHomeShorcutsConn } from 'queries'
 

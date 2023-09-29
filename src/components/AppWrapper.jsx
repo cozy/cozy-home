@@ -7,9 +7,9 @@ import memoize from 'lodash/memoize'
 import flag from 'cozy-flags'
 import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
-import I18n from 'cozy-ui/transpiled/react/I18n'
-import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import I18n from 'cozy-ui/transpiled/react/providers/I18n'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import {

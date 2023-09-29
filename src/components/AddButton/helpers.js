@@ -1,5 +1,5 @@
 import flag from 'cozy-flags'
-import { extend as extendI18n } from 'cozy-ui/transpiled/react/I18n'
+import { extend as extendI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const FLAG_FAB_ACTIONS = 'home.fab.actions'
 export const FLAG_FAB_BUTTON_ENABLED = 'home.fab.button.enabled'

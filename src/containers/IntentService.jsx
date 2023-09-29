@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import CreateAccountIntent from 'components/intents/CreateAccountIntent'
 import { getKonnector, receiveInstalledKonnector } from 'ducks/konnectors'
 

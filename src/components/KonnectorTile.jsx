@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { getKonnectorTriggersCount } from 'reducers'
 import {

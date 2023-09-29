@@ -1,7 +1,7 @@
 import React from 'react'
 
 import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from "cozy-ui/transpiled/react/providers/I18n"
 
 import CornerButton from './CornerButton'
 

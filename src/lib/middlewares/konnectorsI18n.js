@@ -1,4 +1,4 @@
-import { extend as extendI18n } from 'cozy-ui/transpiled/react/I18n'
+import { extend as extendI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const KONNECTORS_DOCTYPE = 'io.cozy.konnectors'
 

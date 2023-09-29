@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import Corner from './Corner'
 import flag from 'cozy-flags'
-import I18n from 'cozy-ui/transpiled/react/I18n'
+import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import enLocale from 'locales/en.json'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { WebviewIntentProvider } from 'cozy-intent'
 
 jest.mock(
