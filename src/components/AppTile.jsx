@@ -25,7 +25,11 @@ const AppTileWrapper = ({ app }) => {
       setAppInfo(fetchedAppInfo)
     }
 
-    if (prevState.current === 'installing' && app.state === 'ready') {
+    if (
+      (prevState.current === 'installing' ||
+        prevState.current === 'upgrading') &&
+      app.state === 'ready'
+    ) {
       prevState.current = app.state
       loadAppInfo()
     }

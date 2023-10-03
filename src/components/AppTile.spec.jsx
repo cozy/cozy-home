@@ -32,6 +32,13 @@ const mockAppInstalling = {
   state: 'installing'
 }
 
+const mockAppUpgrading = {
+  _id: 'mock-app-id',
+  name: 'mock-app-name',
+  slug: 'mock-app-slug',
+  state: 'upgrading'
+}
+
 describe('<AppTile />', () => {
   it('renders loading icon when app is in installing state', () => {
     const { getByText } = render(
@@ -39,6 +46,20 @@ describe('<AppTile />', () => {
         <MuiCozyTheme>
           <I18n dictRequire={() => enLocale} lang="en">
             <AppTileWrapper app={mockAppInstalling} lang="en" />
+          </I18n>
+        </MuiCozyTheme>
+      </AppLike>
+    )
+
+    expect(getByText('Installing…')).toBeInTheDocument()
+  })
+
+  it('renders loading icon when app is in upgrading state', () => {
+    const { getByText } = render(
+      <AppLike>
+        <MuiCozyTheme>
+          <I18n dictRequire={() => enLocale} lang="en">
+            <AppTileWrapper app={mockAppUpgrading} lang="en" />
           </I18n>
         </MuiCozyTheme>
       </AppLike>
@@ -64,6 +85,31 @@ describe('<AppTile />', () => {
       <AppLike client={mockClient}>
         <MuiCozyTheme>
           <AppTileWrapper app={mockAppInstalling} lang="en" />
+        </MuiCozyTheme>
+      </AppLike>
+    )
+
+    await act(async () => {
+      rerender(
+        <AppLike client={mockClient}>
+          <MuiCozyTheme>
+            <AppTileWrapper app={mockAppReady} lang="en" />
+          </MuiCozyTheme>
+        </AppLike>
+      )
+    })
+
+    const appReadyElement = await screen.findByText(
+      `${mockAppReady.name_prefix} ${mockAppReady.name}`
+    )
+    expect(appReadyElement).toBeInTheDocument()
+  })
+
+  it('updates app state from upgrading to ready and fetches app info', async () => {
+    const { rerender } = render(
+      <AppLike client={mockClient}>
+        <MuiCozyTheme>
+          <AppTileWrapper app={mockAppUpgrading} lang="en" />
         </MuiCozyTheme>
       </AppLike>
     )
