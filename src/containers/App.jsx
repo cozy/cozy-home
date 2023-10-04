@@ -32,6 +32,7 @@ import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import ReloadFocus from './ReloadFocus'
 import FooterLogo from 'components/FooterLogo/FooterLogo'
+import useCustomShortcuts from 'components/Shortcuts/useCustomShortcuts'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -55,6 +56,7 @@ const App = ({ accounts, konnectors, triggers }) => {
   const webviewIntent = useWebviewIntent()
   const preferedTheme = usePreferedTheme()
 
+  const { shortcutsDirectories } = useCustomShortcuts()
   useEffect(() => {
     setIsFetching(
       [accounts, konnectors, triggers].some(collection =>
@@ -96,9 +98,13 @@ const App = ({ accounts, konnectors, triggers }) => {
 
   useEffect(() => {
     setIsReady(
-      appsReady && !hasError && !isFetching && !(status === FETCHING_CONTEXT)
+      appsReady &&
+        !hasError &&
+        !isFetching &&
+        !(status === FETCHING_CONTEXT) &&
+        shortcutsDirectories !== undefined
     )
-  }, [appsReady, hasError, isFetching, status])
+  }, [appsReady, hasError, isFetching, status, shortcutsDirectories])
 
   useEffect(() => {
     if (isReady && webviewIntent) {
@@ -140,6 +146,7 @@ const App = ({ accounts, konnectors, triggers }) => {
                     <Home
                       wrapper={contentWrapper}
                       setAppsReady={() => setAppsReady(true)}
+                      shortcutsDirectories={shortcutsDirectories}
                     />
                   }
                 >

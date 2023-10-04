@@ -14,7 +14,7 @@ import { formatShortcuts } from './utils'
 export const useCustomShortcuts = () => {
   const client = useClient()
   const { t } = useI18n()
-  const [shortcutsDirectories, setDirectories] = useState()
+  const [shortcutsDirectories, setDirectories] = useState(undefined)
   const abort = () => setDirectories(null)
 
   useEffect(() => {
