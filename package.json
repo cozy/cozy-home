@@ -47,7 +47,7 @@
     "cozy-sharing": "10.0.0",
     "cozy-stack-client": "^41.2.0",
     "cozy-tsconfig": "1.2.0",
-    "cozy-ui": "^93.4.0",
+    "cozy-ui": "^93.5.0",
     "date-fns": "2.28.0",
     "es-abstract": "1.20.2",
     "form-data": "2.5.1",
