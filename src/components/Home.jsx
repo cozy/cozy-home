@@ -16,8 +16,8 @@ const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
         <ScrollToTopOnMount target={wrapper} />
         <Content className="u-flex u-flex-column u-ph-1">
           <Applications onAppsFetched={setAppsReady} />
-          <Services />
           <Shortcuts shortcutsDirectories={shortcutsDirectories} />
+          <Services />
         </Content>
       </Main>
       <Outlet />

@@ -357,6 +357,7 @@
   },
 
   "connector": {
+    "title": "Mes services connectés",
     "mute": "Erreur silencieuse",
     "debug": {
       "successMessage": "Ce konnecteur est utilisé uniquement pour déboguer l'application, ceci est un message de succès additionnel."

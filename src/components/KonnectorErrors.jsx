@@ -153,6 +153,7 @@ export const KonnectorErrors = ({
   accountsWithErrors,
   installedKonnectors
 }) => {
+  const { t } = useI18n()
   const accountsWithErrorsById = keyBy(accountsWithErrors, '_id')
   const installedKonnectorsBySlug = keyBy(installedKonnectors, getKonnectorSlug)
   const nonMutedTriggerErrors = triggersInError.filter(trigger => {
@@ -188,7 +189,7 @@ export const KonnectorErrors = ({
       </InfosCarrousel>
     </div>
   ) : (
-    <Divider className="u-mv-0" />
+    <Divider className="u-mv-0">{t('connector.title')}</Divider>
   )
 }
 
