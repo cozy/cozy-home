@@ -50,7 +50,9 @@ const getApplicationsList = memoize(data => {
 
     const array = apps.map(app => <AppTile key={app.id} app={app} />)
 
-    array.push(<BackupAppHighlightAlert apps={apps} />)
+    array.push(
+      <BackupAppHighlightAlert key="BackupAppHighlightAlert" apps={apps} />
+    )
 
     return array
   } else {

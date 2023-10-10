@@ -71,7 +71,6 @@ const BackupAppHighlightAlert = ({ apps }) => {
 
   return (
     <AppHighlightAlert
-      key="BackupAppHighlightAlert"
       apps={apps}
       appToHighlightSlug="photos"
       onClose={onClose}
