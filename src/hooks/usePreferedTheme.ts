@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import useCustomWallpaper from 'hooks/useCustomWallpaper'
-import { useClient } from 'cozy-client'
 
 const getHomeThemeCssVariable = (): string => {
   return getComputedStyle(document.getElementsByTagName('body')[0])
@@ -9,9 +8,7 @@ const getHomeThemeCssVariable = (): string => {
 }
 
 export const usePreferedTheme = (): string => {
-  const client = useClient()
   const {
-    fetchStatus,
     data: { wallpaperLink }
   } = useCustomWallpaper()
   const [preferedTheme, setPreferedTheme] = useState('inverted')
@@ -24,7 +21,7 @@ export const usePreferedTheme = (): string => {
     } else {
       setPreferedTheme(preferedTheme || 'inverted')
     }
-  }, [wallpaperLink, fetchStatus, client])
+  }, [wallpaperLink])
 
   return preferedTheme
 }
