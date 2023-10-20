@@ -10,7 +10,7 @@ import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
 import ShortcutLink from 'components/ShortcutLink'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
-import BackupAppHighlightAlert from 'components/AppHighlightAlert/BackupAppHighlightAlert'
+import AppHighlightAlertWrapper from 'components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from 'config/home.json'
 import useHomeShortcuts from 'hooks/useHomeShortcuts'
 import { appsConn } from 'queries'
@@ -51,7 +51,7 @@ const getApplicationsList = memoize(data => {
     const array = apps.map(app => <AppTile key={app.id} app={app} />)
 
     array.push(
-      <BackupAppHighlightAlert key="BackupAppHighlightAlert" apps={apps} />
+      <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
     )
 
     return array
