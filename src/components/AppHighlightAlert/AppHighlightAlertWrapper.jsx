@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
 import { getBackupAppHighlightAlert } from 'components/AppHighlightAlert/BackupAppHighlightAlert'
+import { getGeolocationTrackingAppHighlightAlert } from 'components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
 
 const AppHighlightAlertWrapper = ({ apps }) => {
   const [appHighlightAlerts, setAppHighlightAlerts] = useState([])
 
   useEffect(() => {
-    const appHighlightAlerts = [getBackupAppHighlightAlert()]
+    const appHighlightAlerts = [
+      getBackupAppHighlightAlert(),
+      getGeolocationTrackingAppHighlightAlert()
+    ]
 
     const availableAppHighlightAlerts = appHighlightAlerts.filter(
       status => status.available
