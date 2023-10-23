@@ -21,7 +21,7 @@ const isAvailable = () => {
 
 const isDisplayable = () => {
   const appStartCount =
-    parseInt(localStorage.getItem(APP_START_COUNT_KEY), 10) ?? 0
+    parseInt(localStorage.getItem(APP_START_COUNT_KEY), 10) || 0
 
   return appStartCount >= MAX_COUNT_VALUE - 1
 }
