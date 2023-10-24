@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useClient } from 'cozy-client'
 import { fetchKonnectorBySlug } from 'queries'
@@ -18,6 +18,7 @@ const IntentService = ({ data, service }) => {
         )
       } catch (e) {
         // why an error is throwed?
+        // eslint-disable-next-line
         console.log('e', e)
       } finally {
         if (service && (!konnectorReq || konnectorReq.data.length === 0)) {
@@ -26,7 +27,6 @@ const IntentService = ({ data, service }) => {
             'io.cozy.apps',
             data
           )
-          console.log('installedKonnector', installedKonnector)
           // setKonnectorData(installedKonnector)
           navigate(`/${service.getData().slug}/new`)
           // if installedKonnector is null, it means the installation have been
@@ -45,6 +45,7 @@ const IntentService = ({ data, service }) => {
       }
     }
     fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return null
