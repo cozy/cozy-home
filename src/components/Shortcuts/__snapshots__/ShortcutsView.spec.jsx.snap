@@ -8,11 +8,11 @@ Object {
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
-        <p
-          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        <h6
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
         >
           List title
-        </p>
+        </h6>
         <div
           class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
         >
@@ -77,11 +77,11 @@ Object {
     <div
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
-      <p
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+      <h6
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
       >
         List title
-      </p>
+      </h6>
       <div
         class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
       >
@@ -203,11 +203,11 @@ Object {
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
-        <p
-          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        <h6
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
         >
           a
-        </p>
+        </h6>
         <div
           class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
         >
@@ -269,11 +269,11 @@ Object {
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
-        <p
-          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+        <h6
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
         >
           c
-        </p>
+        </h6>
         <div
           class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
         >
@@ -338,11 +338,11 @@ Object {
     <div
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
-      <p
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+      <h6
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
       >
         a
-      </p>
+      </h6>
       <div
         class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
       >
@@ -404,11 +404,11 @@ Object {
     <div
       class="shortcuts-list-wrapper u-m-auto u-w-100"
     >
-      <p
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-body2 MuiTypography-colorTextPrimary"
+      <h6
+        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
       >
         c
-      </p>
+      </h6>
       <div
         class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
       >

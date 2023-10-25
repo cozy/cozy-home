@@ -12,7 +12,9 @@ export const ShortcutsView = ({ shortcutsDirectories }) => {
           key={directory.name}
           className="shortcuts-list-wrapper u-m-auto u-w-100"
         >
-          <Divider className="u-mv-0">{directory.name}</Divider>
+          <Divider className="u-mv-0" variant="subtitle2">
+            {directory.name}
+          </Divider>
           <div className="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
             {directory.shortcuts.map(shortcut => (
               <ShortcutLink key={shortcut.name} file={shortcut} />
