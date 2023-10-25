@@ -189,7 +189,9 @@ export const KonnectorErrors = ({
       </InfosCarrousel>
     </div>
   ) : (
-    <Divider className="u-mv-0">{t('connector.title')}</Divider>
+    <Divider className="u-mv-0" variant="subtitle2">
+      {t('connector.title')}
+    </Divider>
   )
 }
 
