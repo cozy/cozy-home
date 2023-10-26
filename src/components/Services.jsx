@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { connect } from 'react-redux'
-import { useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
+import { useAppsInMaintenance, useQuery } from 'cozy-client'
 import { queryConnect } from 'cozy-client'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
@@ -27,8 +27,7 @@ import {
 
 export const Services = ({ installedKonnectors, suggestedKonnectorsQuery }) => {
   const { t } = useI18n()
-  const client = useClient()
-  const appsAndKonnectorsInMaintenance = useAppsInMaintenance(client)
+  const appsAndKonnectorsInMaintenance = useAppsInMaintenance()
   const appsAndKonnectorsInMaintenanceBySlug = keyBy(
     appsAndKonnectorsInMaintenance,
     'slug'
