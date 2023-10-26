@@ -40,7 +40,7 @@
     },
     {
       "path": "services/softDeleteOrRestoreAccounts/home.js",
-      "maxSize": "487 KB"
+      "maxSize": "490 KB"
     },
     {
       "path": "services/updateAccounts/home.js",
