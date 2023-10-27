@@ -77,7 +77,7 @@ export const Applications = ({ onAppsFetched }) => {
     <div className="app-list-wrapper u-m-auto u-w-100">
       <Divider className="u-mv-0" />
 
-      <div className="app-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
+      <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
         {getApplicationsList(data)}
 
         {shortcuts.map((shortcut, index) => (
