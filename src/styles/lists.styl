@@ -15,16 +15,14 @@
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
     display grid
     grid-template-columns repeat(auto-fill, appTileWithGutter)
-    grid-template-rows rem(91) repeat(auto-fit, rem(91)) // first row is for the divider
-    grid-auto-rows rem(91)
-    grid-gap rem(35) 0
+    grid-auto-rows minmax(rem(91), auto)
+    grid-gap rem(10) 0
     justify-content center
 
     +small-screen()
         grid-template-columns repeat(auto-fill, mobileTileWithGutter)
-        grid-template-rows rem(68) repeat(auto-fit, rem(68)) // first row is for the divider
-        grid-auto-rows rem(68)
-        grid-gap rem(20) 0
+        grid-auto-rows minmax(rem(68), auto)
+        grid-gap rem(5) 0
 
     .item-grid-icon
         width rem(16)

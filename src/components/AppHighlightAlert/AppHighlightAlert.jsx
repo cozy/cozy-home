@@ -61,7 +61,8 @@ const AppHighlightAlert = ({
         gridRow: rowIndex,
         gridColumn: '1 / -1',
         paddingTop: 0,
-        paddingBottom: 0
+        paddingBottom: 0,
+        marginBottom: '1.25rem' // to correspond to the margin of SquareAppIcon name in the CSS Grid
       }}
     >
       <span
