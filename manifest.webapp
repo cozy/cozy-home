@@ -113,7 +113,8 @@
     {
       "action": "CREATE",
       "type": ["io.cozy.accounts"],
-      "href": "/intents"
+      "href": "/intents",
+      "data": ["slug"]
     },
     {
       "action": "REDIRECT",
