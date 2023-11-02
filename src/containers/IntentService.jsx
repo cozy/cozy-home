@@ -35,6 +35,9 @@ const IntentService = ({ data, service }) => {
             service.cancel()
           }
         } else {
+          if (service) {
+            service.hideCross()
+          }
           // setKonnectorData(konnectorReq.data)
 
           // setTimeout(() => {
