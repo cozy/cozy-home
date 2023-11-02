@@ -27,7 +27,6 @@ export const HarvestRoutes = () => {
         konnectorSlug={konnectorSlug}
         onDismiss={() => (service ? service.cancel() : undefined)}
         datacardOptions={datacardOptions}
-        closable={false}
       />
     </CozyTheme>
   )
