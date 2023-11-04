@@ -9010,10 +9010,10 @@ cozy-client-js@0.20.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@^42.0.1:
-  version "42.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-42.0.1.tgz#c04cb31e9192f98ee9aaf03734123a242d964136"
-  integrity sha512-QxOJ1AvLQzSJNXmMfhqtQGIVXsQnVhDxt+IGRpFPEXbvtBMtLdxJTmYH2xdUKVqnQ2gxxAoL8eo5zuNWwTBBcQ==
+cozy-client@^42.2.0:
+  version "42.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-42.2.0.tgz#19aec8b97c0cfd803ba535d177578a7d7d2e5363"
+  integrity sha512-HvKDIOf+wQMhhvUb75GuuzljSWESB/N/PxmeZQ525TckzETAUbKihLFXLfHY2b2wonejrjQJpnwGwBOj4XjA1Q==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@types/jest" "^26.0.20"
