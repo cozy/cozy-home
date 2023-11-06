@@ -36,14 +36,19 @@ const IntentService = ({ data, service }) => {
           }
         } else {
           if (service) {
-            service.hideCross()
+            const intent = service.getIntent()
+            if (service.hideCross) {
+              service.hideCross()
+            }
+            if (
+              intent.attributes.action === 'VIEW' &&
+              intent.attributes.type === 'io.cozy.accounts'
+            ) {
+              navigate(`/${service.getData().slug}/accounts/${data.accountId}`)
+            } else {
+              navigate(`/${service.getData().slug}/new`)
+            }
           }
-          // setKonnectorData(konnectorReq.data)
-
-          // setTimeout(() => {
-          // console.log('will navigate ?')
-          navigate(`/${service.getData().slug}/new`)
-          // }, 500)
         }
       }
     }
