@@ -17,8 +17,9 @@ const isAvailable = () => {
     flag('home.push.coachco2.opencount') &&
     flag('home.push.coachco2.opencount') >= 0 &&
     (!bikegoalSettings ||
-      bikegoalSettings.sourceId === null ||
-      (bikegoalSettings.sourceId !== null && flag('coachco2.bikegoal.enabled')))
+      bikegoalSettings.sourceOffer === null ||
+      (bikegoalSettings.sourceOffer !== null &&
+        flag('coachco2.bikegoal.enabled')))
   )
 }
 
@@ -65,13 +66,13 @@ const onDisplayed = () => {
 const getAlertDescription = t => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
-  if (bikegoalSettings?.sourceId) {
-    if (bikegoalSettings.sourceId === 'employer') {
+  if (bikegoalSettings?.sourceOffer) {
+    if (bikegoalSettings.sourceOffer === 'employer') {
       return t(
         'appHighlightAlert.geolocationTracking.bikegoalSourceEmployerDescription',
         {
           sourceType: bikegoalSettings.sourceType,
-          sourceIdentity: bikegoalSettings.sourceIdentity
+          sourceName: bikegoalSettings.sourceName
         }
       )
     } else {
@@ -79,7 +80,7 @@ const getAlertDescription = t => {
         'appHighlightAlert.geolocationTracking.bikegoalSourceDefaultDescription',
         {
           sourceType: bikegoalSettings.sourceType,
-          sourceIdentity: bikegoalSettings.sourceIdentity
+          sourceName: bikegoalSettings.sourceName
         }
       )
     }

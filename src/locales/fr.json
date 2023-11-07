@@ -590,8 +590,8 @@
   "appHighlightAlert": {
     "geolocationTracking": {
       "defaultDescription": "Suivez vos déplacements et votre empreinte carbone avec le Coach CO2",
-      "bikegoalSourceEmployerDescription": "Votre %{sourceType} %{sourceIdentity} vous invite à participer à l’amélioration du territoire et bénéficier de la \"prime vélo\", cette application vous aidera à mesurer son avancement, et bien plus !",
-      "bikegoalSourceDefaultDescription": "Votre %{sourceType} %{sourceIdentity} vous invite à participer à l'amélioration du territoire, mémorisez et analysez vos déplacements !"
+      "bikegoalSourceEmployerDescription": "Votre %{sourceType} %{sourceName} vous invite à participer à l’amélioration du territoire et bénéficier de la \"prime vélo\", cette application vous aidera à mesurer son avancement, et bien plus !",
+      "bikegoalSourceDefaultDescription": "Votre %{sourceType} %{sourceName} vous invite à participer à l'amélioration du territoire, mémorisez et analysez vos déplacements !"
     }
   }
 }
