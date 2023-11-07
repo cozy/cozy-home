@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')
   const root = createRoot(container)
   //
+  const params = new URL(document.location).searchParams
+  const intentId = params.get('intent')
   root.render(
     <AppWrapper>
       <HashRouter>
@@ -20,7 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
           {({ data }) => (
             <Routes>
               <Route path="/" element={<IntentHandler appData={data} />} />
-              <Route path=":konnectorSlug/*" element={<HarvestRoutes />} />
+              <Route
+                path=":konnectorSlug/*"
+                element={
+                  <HarvestRoutes intentData={data} intentId={intentId} />
+                }
+              />
             </Routes>
           )}
         </AppContext.Consumer>

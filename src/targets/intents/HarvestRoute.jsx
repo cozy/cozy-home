@@ -6,7 +6,7 @@ import { useClient } from 'cozy-client'
 import Intents from 'cozy-interapp'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 
-export const HarvestRoutes = () => {
+export const HarvestRoutes = ({ intentData, intentId }) => {
   const { konnectorSlug } = useParams()
   const client = useClient()
 
@@ -27,6 +27,8 @@ export const HarvestRoutes = () => {
         konnectorSlug={konnectorSlug}
         onDismiss={() => (service ? service.cancel() : undefined)}
         datacardOptions={datacardOptions}
+        intentData={intentData}
+        intentId={intentId}
       />
     </CozyTheme>
   )
