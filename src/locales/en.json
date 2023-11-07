@@ -590,8 +590,8 @@
   "appHighlightAlert": {
     "geolocationTracking": {
       "defaultDescription": "Track your travel and carbon footprint with the CO2 Coach",
-      "bikegoalSourceEmployerDescription": "Your %{sourceType} %{sourceIdentity} invites you to take part in improving the area and benefit from the \"prime vélo\", this application will help you measure its progress, and much more!",
-      "bikegoalSourceDefaultDescription": "Your %{sourceType} %{sourceIdentity} invites you to play your part in improving the region. Save and analyse your journeys!"
+      "bikegoalSourceEmployerDescription": "Your %{sourceType} %{sourceName} invites you to take part in improving the area and benefit from the \"prime vélo\", this application will help you measure its progress, and much more!",
+      "bikegoalSourceDefaultDescription": "Your %{sourceType} %{sourceName} invites you to play your part in improving the region. Save and analyse your journeys!"
     }
   }
 }
