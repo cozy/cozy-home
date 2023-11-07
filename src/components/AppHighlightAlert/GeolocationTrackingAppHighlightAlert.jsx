@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import flag from 'cozy-flags'
-import { isFlagshipApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import AppHighlightAlert from 'components/AppHighlightAlert/AppHighlightAlert'
@@ -15,7 +14,6 @@ const isAvailable = () => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
   return (
-    isFlagshipApp() &&
     flag('home.push.coachco2.opencount') &&
     flag('home.push.coachco2.opencount') >= 0 &&
     (!bikegoalSettings ||
