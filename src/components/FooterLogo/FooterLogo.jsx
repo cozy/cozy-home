@@ -3,8 +3,6 @@ import { useClient, useQuery } from 'cozy-client'
 import { buildContextQuery } from 'queries'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 
-import { getHomeLogos } from 'components/FooterLogo/helpers'
-
 export const FooterLogo = () => {
   const client = useClient()
   const rootURL = client.getStackClient().uri
@@ -12,11 +10,12 @@ export const FooterLogo = () => {
   const contextQuery = buildContextQuery()
   const { data } = useQuery(contextQuery.definition, contextQuery.options)
 
-  const logos = getHomeLogos(data, rootURL)
+  const logos = data?.logos?.home?.light || []
+  const secondaries = logos.filter(logos => logos.type === 'secondary')
+  const main = logos.find(logos => logos.type === 'main')
 
-  const hasSecondaries =
-    logos.secondaries && Object.keys(logos.secondaries).length !== 0
-  const hasMain = logos.main !== undefined
+  const hasSecondaries = secondaries.length !== 0
+  const hasMain = main !== undefined
 
   if (!hasMain && !hasSecondaries) return <div className="u-mt-3-s"></div>
 
@@ -27,9 +26,9 @@ export const FooterLogo = () => {
         <div className="u-flex u-mh-auto u-maw-100 u-flex-items-center">
           {hasMain ? (
             <img
-              key={logos.main.url}
-              src={logos.main.url}
-              alt={logos.main.alt}
+              key={main.src}
+              src={`${rootURL}/assets${main.src}`}
+              alt={main.alt}
               className="u-ph-1 u-pv-1 u-mah-3"
             />
           ) : null}
@@ -40,11 +39,11 @@ export const FooterLogo = () => {
           ) : null}
           {hasSecondaries ? (
             <div className="u-flex u-flex-grow-1 u-ov-auto u-filter-gray-100 u-pv-1">
-              {Object.entries(logos.secondaries).map(([logoSrc, logoAlt]) => (
+              {secondaries.map(({ src, alt }) => (
                 <img
-                  key={logoSrc}
-                  src={logoSrc}
-                  alt={logoAlt}
+                  key={src}
+                  src={`${rootURL}/assets${src}`}
+                  alt={alt}
                   className="u-ph-1 u-mah-3"
                   style={{
                     objectFit: 'contain'

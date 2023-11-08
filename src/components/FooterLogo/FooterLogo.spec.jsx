@@ -6,7 +6,8 @@ import { CozyProvider, createMockClient } from 'cozy-client'
 import { FooterLogo } from './FooterLogo'
 
 describe('FooterLogo', () => {
-  const setup = ({ attributes = {} } = {}) => {
+  const setup = mockLogos => {
+    const homeLogos = mockLogos ? { logos: { home: { light: mockLogos } } } : {}
     const mockClient = createMockClient({
       queries: {
         'io.cozy.settings/context': {
@@ -18,7 +19,7 @@ describe('FooterLogo', () => {
           data: [
             {
               id: 'io.cozy.settings/context',
-              attributes
+              ...homeLogos
             }
           ]
         }
@@ -40,42 +41,54 @@ describe('FooterLogo', () => {
   })
 
   it('should render secondaries logo only', () => {
-    setup({
-      attributes: {
-        home_logos: {
-          '/logo/1_partner.svg': 'Partner n°1',
-          '/logo/2_partner.svg': 'Partner n°2'
-        }
+    setup([
+      {
+        src: '/logo/partner1.png',
+        alt: 'Partner n°1',
+        type: 'secondary'
+      },
+      {
+        src: '/logo/partner2.png',
+        alt: 'Partner n°2',
+        type: 'secondary'
       }
-    })
+    ])
 
     const images = screen.getAllByAltText(/Partner n°*?/i)
     expect(images.length).toEqual(2)
   })
 
   it('should render main logo only', () => {
-    setup({
-      attributes: {
-        home_logos: {
-          '/lgoo/main_partner.svg': 'Main partner'
-        }
+    setup([
+      {
+        src: '/logo/partner_main.png',
+        alt: 'Main partner',
+        type: 'main'
       }
-    })
+    ])
 
     const image = screen.getByAltText('Main partner')
     expect(image).toBeInTheDocument()
   })
 
   it('should render both', () => {
-    setup({
-      attributes: {
-        home_logos: {
-          '/lgoo/main_partner.svg': 'Main partner',
-          '/logo/1_partner.svg': 'Partner n°1',
-          '/logo/2_partner.svg': 'Partner n°2'
-        }
+    setup([
+      {
+        src: '/logo/partner_main.png',
+        alt: 'Main partner',
+        type: 'main'
+      },
+      {
+        src: '/logo/partner1.png',
+        alt: 'Partner n°1',
+        type: 'secondary'
+      },
+      {
+        src: '/logo/partner2.png',
+        alt: 'Partner n°2',
+        type: 'secondary'
       }
-    })
+    ])
 
     const main = screen.getByAltText('Main partner')
     expect(main).toBeInTheDocument()
