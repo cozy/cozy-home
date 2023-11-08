@@ -4,13 +4,23 @@ import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import AppHighlightAlert from 'components/AppHighlightAlert/AppHighlightAlert'
+import { buildExistingTimeseriesGeojsonQuery } from 'queries'
 
 const APP_START_COUNT_KEY =
   'GeolocationTrackingAppHighlightAlert__appStartCount'
 
 const DISABLED_COUNT_VALUE = -1
 
-const isAvailable = () => {
+const hasAtLeastOneTimeseriesGeojson = async client => {
+  const existingTimeseriesGeojsonQuery = buildExistingTimeseriesGeojsonQuery()
+  const { data: timeseries } = await client.fetchQueryAndGetFromState(
+    existingTimeseriesGeojsonQuery
+  )
+
+  return timeseries.length >= 1
+}
+
+const isAvailable = async client => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
   return (
@@ -19,7 +29,8 @@ const isAvailable = () => {
     (!bikegoalSettings ||
       bikegoalSettings.sourceOffer === null ||
       (bikegoalSettings.sourceOffer !== null &&
-        flag('coachco2.bikegoal.enabled')))
+        flag('coachco2.bikegoal.enabled'))) &&
+    (await hasAtLeastOneTimeseriesGeojson(client))
   )
 }
 
@@ -30,11 +41,11 @@ const isDisplayable = () => {
   return appStartCount >= flag('home.push.coachco2.opencount') - 1
 }
 
-export const getGeolocationTrackingAppHighlightAlert = () => {
+export const getGeolocationTrackingAppHighlightAlert = async client => {
   return {
     name: 'GeolocationTrackingAppHighlightAlert',
     Component: GeolocationTrackingAppHighlightAlert,
-    available: isAvailable(),
+    available: await isAvailable(client),
     displayable: isDisplayable(),
     onNotDisplayed: onNotDisplayed,
     onDisplayed: onDisplayed

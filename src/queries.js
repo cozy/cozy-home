@@ -115,3 +115,14 @@ export const buildContextQuery = () => ({
     singleDocData: true
   }
 })
+
+export const buildExistingTimeseriesGeojsonQuery = () => ({
+  definition: Q('io.cozy.timeseries.geojson')
+    .where({ _id: { $gt: null } })
+    .select(['_id'])
+    .limitBy(1),
+  options: {
+    as: 'io.cozy.timeseries.geojson/existing-timeseries-geojson',
+    fetchPolicy: CozyClient.fetchPolicies.olderThan(60 * 60 * 24 * 365 * 1000)
+  }
+})
