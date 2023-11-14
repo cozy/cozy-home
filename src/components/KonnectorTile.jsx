@@ -45,7 +45,7 @@ const statusMap = {
  * @param {boolean} props.isInMaintenance Is in maintenance?
  * @param {number} props.accountsCount Number of Accounts
  * @param {boolean} props.error isInError
- * @param {boolean} props.userError user error
+ * @param {string?} props.userError user error
  * @param {boolean} props.loading Loading status
  * @returns {number} The status
  */
@@ -99,6 +99,12 @@ function getErrorForTriggers(triggers, jobs) {
   }
   return null
 }
+/**
+ *
+ * @param {import('cozy-client/types/types').IOCozyAccount[]} accounts
+ * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers
+ * @returns
+ */
 const getAccountsFromTrigger = (accounts, triggers) => {
   const triggerAccountIds = triggers.map(trigger => trigger.message.account)
   const matchingAccounts = Object.values(accounts).filter(account =>
@@ -106,19 +112,23 @@ const getAccountsFromTrigger = (accounts, triggers) => {
   )
   return matchingAccounts
 }
-
+/**
+ *
+ * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers
+ * @returns
+ */
 const getFirstUserError = triggers => {
   const triggersInError = Object.values(triggers).filter(
     t => t.current_state?.status === 'errored'
   )
   const firstTriggerHavingUserError = Object.values(triggersInError).find(
     trigger => {
-      const e = new KonnectorJobError(trigger.current_state.last_error)
+      const e = new KonnectorJobError(trigger.current_state?.last_error)
       const isUserError = e.isUserError()
       return isUserError
     }
   )
-  return firstTriggerHavingUserError
+  return firstTriggerHavingUserError?.current_state
     ? firstTriggerHavingUserError.current_state.last_error
     : null
 }
@@ -132,11 +142,14 @@ const getFirstUserError = triggers => {
  */
 export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
   const allTriggers =
+    // @ts-ignore
     useSelector(state => state.cozy.documents['io.cozy.triggers']) || {}
   const triggers = getTriggersBySlug(allTriggers, konnector.slug)
-  const userError = getFirstUserError(triggers, konnector.slug)
+  const userError = getFirstUserError(triggers)
+  // @ts-ignore
   const jobs = useSelector(state => state.cozy.documents['io.cozy.jobs']) || {}
   const accounts =
+    // @ts-ignore
     useSelector(state => state.cozy.documents['io.cozy.accounts']) || {}
   const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
   const error = getErrorForTriggers(triggers, jobs)
@@ -155,8 +168,7 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
         loading,
         userError
       })
-  const errorToDisplay =
-    userError !== true && userError !== null ? userError : error
+  const errorToDisplay = !userError && userError !== null ? userError : error
   return (
     <NavLink
       to={konnector.slug}
