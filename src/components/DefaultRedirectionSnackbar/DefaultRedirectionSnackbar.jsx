@@ -20,6 +20,7 @@ import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedire
 
 const useStyles = makeStyles(theme => ({
   snackbar: {
+    marginBottom: 'var(--flagship-bottom-height, 0)',
     [theme.breakpoints.down('xs')]: {
       bottom: 90
     }
