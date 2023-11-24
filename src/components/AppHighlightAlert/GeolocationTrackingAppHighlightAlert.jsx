@@ -11,13 +11,13 @@ const APP_START_COUNT_KEY =
 
 const DISABLED_COUNT_VALUE = -1
 
-const hasAtLeastOneTimeseriesGeojson = async client => {
+const hasNoTimeseriesGeojson = async client => {
   const existingTimeseriesGeojsonQuery = buildExistingTimeseriesGeojsonQuery()
   const { data: timeseries } = await client.fetchQueryAndGetFromState(
     existingTimeseriesGeojsonQuery
   )
 
-  return timeseries.length >= 1
+  return timeseries.length === 0
 }
 
 const isAvailable = async client => {
@@ -30,7 +30,7 @@ const isAvailable = async client => {
       bikegoalSettings.sourceOffer === null ||
       (bikegoalSettings.sourceOffer !== null &&
         flag('coachco2.bikegoal.enabled'))) &&
-    (await hasAtLeastOneTimeseriesGeojson(client))
+    (await hasNoTimeseriesGeojson(client))
   )
 }
 
