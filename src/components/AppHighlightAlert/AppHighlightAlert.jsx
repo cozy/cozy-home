@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import Alert from 'cozy-ui/transpiled/react/Alert'
+import PointerAlert from 'cozy-ui/transpiled/react/PointerAlert'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useContainerDimensions } from 'hooks/useContainerDimensions'
@@ -50,13 +50,12 @@ const AppHighlightAlert = ({
     APP_TILE_PX_WIDTH / 2
 
   return (
-    <Alert
+    <PointerAlert
       ref={ref}
       icon={false}
       onClose={onClose}
+      severity="secondary"
       style={{
-        background: 'rgba(255, 255, 255, 0.16)',
-        borderRadius: '0.5rem',
         position: 'relative',
         gridRow: rowIndex,
         gridColumn: '1 / -1',
@@ -64,22 +63,11 @@ const AppHighlightAlert = ({
         paddingBottom: 0,
         marginBottom: '1.25rem' // to correspond to the margin of SquareAppIcon name in the CSS Grid
       }}
+      direction="bottom"
+      position={`${leftAbsolutePosition}px`}
     >
-      <span
-        style={{
-          // create the arrow
-          borderLeft: '0.75rem solid transparent',
-          borderRight: '0.75rem solid transparent',
-          borderTop: '0.75rem solid rgba(255, 255, 255, 0.16)',
-          // position the arrow
-          position: 'absolute',
-          top: '100%',
-          left: leftAbsolutePosition + 'px',
-          marginLeft: '-0.75rem'
-        }}
-      ></span>
       {description}
-    </Alert>
+    </PointerAlert>
   )
 }
 
