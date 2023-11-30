@@ -59,66 +59,64 @@ const BackupNotification = () => {
 
   return (
     <div>
-      <CozyTheme variant="inverted">
-        <AppLinker
-          app={{ slug: app }}
-          nativePath={nativePath}
-          href={generateWebLink({
-            pathname: '/',
-            cozyUrl: cozyURL.origin,
-            slug: app,
-            hash: nativePath,
-            subDomainType
-          })}
-        >
-          {({ onClick, href }) => (
-            <div className={styles['backup-notification-wrapper']}>
-              <ListItem
-                component="a"
-                ContainerComponent="div"
-                onClick={onClick}
-                href={href}
-              >
-                <ListItemIcon className="u-pos-relative">
-                  <Icon icon={PhoneUploadIcon} size={12} />
-                  <CircularProgress
-                    variant="determinate"
-                    value={backupProgressPercentage}
-                    size={32}
-                    className="u-pos-absolute"
-                  />
-                  <CircularProgress
-                    variant="determinate"
-                    value={100}
-                    size={32}
-                    className="u-pos-absolute"
-                    classes={{
-                      svg: styles['backup-circular-progress-background']
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant="body1" className="u-primaryTextColor">
-                      {t('backup.backupInProgress')}
-                    </Typography>
-                  }
-                  secondary={`${
-                    totalMediasToBackupCount - mediasToBackupCount
-                  } / ${totalMediasToBackupCount}`}
+      <AppLinker
+        app={{ slug: app }}
+        nativePath={nativePath}
+        href={generateWebLink({
+          pathname: '/',
+          cozyUrl: cozyURL.origin,
+          slug: app,
+          hash: nativePath,
+          subDomainType
+        })}
+      >
+        {({ onClick, href }) => (
+          <div className={styles['backup-notification-wrapper']}>
+            <ListItem
+              component="a"
+              ContainerComponent="div"
+              onClick={onClick}
+              href={href}
+            >
+              <ListItemIcon className="u-pos-relative">
+                <Icon icon={PhoneUploadIcon} size={12} />
+                <CircularProgress
+                  variant="determinate"
+                  value={backupProgressPercentage}
+                  size={32}
+                  className="u-pos-absolute"
                 />
-                <ListItemSecondaryAction
-                  onClick={() => setIsConfirmStopBackupDialogOpen(true)}
-                >
-                  <ListItemIcon className="u-mr-half">
-                    <Icon icon={CrossCircleOutlineIcon} size={16} />
-                  </ListItemIcon>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </div>
-          )}
-        </AppLinker>
-      </CozyTheme>
+                <CircularProgress
+                  variant="determinate"
+                  value={100}
+                  size={32}
+                  className="u-pos-absolute"
+                  classes={{
+                    svg: styles['backup-circular-progress-background']
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant="body1" className="u-primaryTextColor">
+                    {t('backup.backupInProgress')}
+                  </Typography>
+                }
+                secondary={`${
+                  totalMediasToBackupCount - mediasToBackupCount
+                } / ${totalMediasToBackupCount}`}
+              />
+              <ListItemSecondaryAction
+                onClick={() => setIsConfirmStopBackupDialogOpen(true)}
+              >
+                <ListItemIcon className="u-mr-half">
+                  <Icon icon={CrossCircleOutlineIcon} size={16} />
+                </ListItemIcon>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </div>
+        )}
+      </AppLinker>
       <CozyTheme variant="normal">
         {isConfirmStopBackupDialogOpen && (
           <ConfirmStopBackupDialog
