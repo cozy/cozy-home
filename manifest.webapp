@@ -158,21 +158,7 @@
       "type": [
         "io.cozy.accounts"
       ],
-      "href": "/intents",
-      "data": [
-        "slug"
-      ]
-    },
-    {
-      "action": "VIEW",
-      "type": [
-        "io.cozy.accounts"
-      ],
-      "href": "/intents",
-      "data": [
-        "slug",
-        "accountId"
-      ]
+      "href": "/intents"
     },
     {
       "action": "REDIRECT",
