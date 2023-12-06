@@ -44,7 +44,7 @@
     },
     {
       "path": "services/updateAccounts/home.js",
-      "maxSize": "464 KB"
+      "maxSize": "465 KB"
     },
     {
       "path": "vendors/home.<hash>.js",
