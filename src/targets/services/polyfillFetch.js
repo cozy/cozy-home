@@ -8,12 +8,12 @@ import { URL } from 'url'
  */
 const polyfillFetch = () => {
   if (global) {
-    global.fetch = global.fetch || fetch
-    global.Headers = global.Headers || fetch.Headers
-    global.Response = global.Response || fetch.Response
-    global.Request = global.Request || fetch.Request
-    global.FormData = global.FormData || FormData
-    global.URL = global.URL || URL
+    if (!global.fetch) global.fetch = fetch
+    if (!global.Headers) global.Headers = fetch.Headers
+    if (!global.Response) global.Response = fetch.Response
+    if (!global.Request) global.Request = fetch.Request
+    if (!global.FormData) global.FormData = FormData
+    if (!global.URL) global.URL = URL
   }
 }
 
