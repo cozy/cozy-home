@@ -23,7 +23,6 @@ cache:
     - node_modules
 stages:
  - lint
- - prebuild
  - build
 jobs:
   include:
