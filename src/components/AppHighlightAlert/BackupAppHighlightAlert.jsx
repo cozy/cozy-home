@@ -11,8 +11,9 @@ const APP_START_COUNT_KEY = 'BackupAppHighlightAlert__appStartCount'
 const MAX_COUNT_VALUE = 2
 const DISABLED_COUNT_VALUE = -1
 
-const isAvailable = () => {
+const isAvailable = installedApps => {
   return (
+    installedApps.find(app => app.slug === 'photos') &&
     isFlagshipApp() &&
     flag('flagship.backup.enabled') &&
     flag('flagship.backup.homeHighlightEnabled')
@@ -26,11 +27,11 @@ const isDisplayable = () => {
   return appStartCount >= MAX_COUNT_VALUE - 1
 }
 
-export const getBackupAppHighlightAlert = () => {
+export const getBackupAppHighlightAlert = installedApps => {
   return {
     name: 'BackupAppHighlightAlert',
     Component: BackupAppHighlightAlert,
-    available: isAvailable(),
+    available: isAvailable(installedApps),
     displayable: isDisplayable(),
     onNotDisplayed: onNotDisplayed,
     onDisplayed: onDisplayed

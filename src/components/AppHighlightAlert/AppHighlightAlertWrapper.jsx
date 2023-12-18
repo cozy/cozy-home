@@ -10,14 +10,17 @@ const AppHighlightAlertWrapper = ({ apps }) => {
   useEffect(() => {
     const getAppHighlightAlerts = async () => {
       const availableAppHighlightAlerts = await getAvailableAppHighlightAlerts(
-        client
+        client,
+        apps
       )
 
       setAppHighlightAlerts(availableAppHighlightAlerts)
     }
 
-    getAppHighlightAlerts()
-  }, [client])
+    if (apps && appHighlightAlerts.length === 0) {
+      getAppHighlightAlerts()
+    }
+  }, [client, apps, appHighlightAlerts.length])
 
   useEffect(() => {
     appHighlightAlerts.forEach(component => {

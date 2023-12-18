@@ -1,10 +1,10 @@
 import { getBackupAppHighlightAlert } from 'components/AppHighlightAlert/BackupAppHighlightAlert'
 import { getGeolocationTrackingAppHighlightAlert } from 'components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
 
-export const getAvailableAppHighlightAlerts = async client => {
+export const getAvailableAppHighlightAlerts = async (client, installedApps) => {
   const appHighlightAlerts = [
-    getBackupAppHighlightAlert(),
-    await getGeolocationTrackingAppHighlightAlert(client)
+    getBackupAppHighlightAlert(installedApps),
+    await getGeolocationTrackingAppHighlightAlert(client, installedApps)
   ]
 
   const availableAppHighlightAlerts = appHighlightAlerts.filter(
