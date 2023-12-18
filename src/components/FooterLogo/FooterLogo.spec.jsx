@@ -10,7 +10,7 @@ describe('FooterLogo', () => {
     const homeLogos = mockLogos ? { logos: { home: { light: mockLogos } } } : {}
     const mockClient = createMockClient({
       queries: {
-        'io.cozy.settings/context': {
+        'io.cozy.settings/io.cozy.settings.context': {
           doctype: 'io.cozy.settings',
           definition: {
             doctype: 'io.cozy.settings',
