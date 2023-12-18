@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { getBackupAppHighlightAlert } from 'components/AppHighlightAlert/BackupAppHighlightAlert'
-import { getGeolocationTrackingAppHighlightAlert } from 'components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
+import { getAvailableAppHighlightAlerts } from 'components/AppHighlightAlert/helpers'
 import { useClient } from 'cozy-client'
 
 const AppHighlightAlertWrapper = ({ apps }) => {
@@ -10,21 +9,9 @@ const AppHighlightAlertWrapper = ({ apps }) => {
 
   useEffect(() => {
     const getAppHighlightAlerts = async () => {
-      const appHighlightAlerts = [
-        getBackupAppHighlightAlert(),
-        await getGeolocationTrackingAppHighlightAlert(client)
-      ]
-
-      const availableAppHighlightAlerts = appHighlightAlerts.filter(
-        status => status.available
+      const availableAppHighlightAlerts = await getAvailableAppHighlightAlerts(
+        client
       )
-
-      const selectedIndex = availableAppHighlightAlerts.findIndex(
-        status => status.displayable
-      )
-      if (selectedIndex !== -1) {
-        availableAppHighlightAlerts[selectedIndex].displayed = true
-      }
 
       setAppHighlightAlerts(availableAppHighlightAlerts)
     }
