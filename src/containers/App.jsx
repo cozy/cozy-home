@@ -78,7 +78,7 @@ const App = ({ accounts, konnectors, triggers }) => {
     // if we already have the query, let's refresh in "background"
     // aka without loading state
     const alreadyRequestedContext = client.getQueryFromState(
-      'io.cozy.settings/context'
+      'io.cozy.settings/io.cozy.settings.context'
     )
     if (
       !alreadyRequestedContext ||
