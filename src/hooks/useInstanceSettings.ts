@@ -77,7 +77,7 @@ export const useInstanceSettings = (client: CozyClient): InstanceSettings => {
         setFetchStatus(FetchStatus.Loading)
 
         const instanceSettings = client.getQueryFromState(
-          'io.cozy.settings/instance'
+          'io.cozy.settings/io.cozy.settings.instance'
         )
 
         if (shouldSetLocal(instanceSettings)) {

@@ -16,7 +16,7 @@ export const konnectorsConn = {
 
 export const instanceSettingsConn = {
   query: Q('io.cozy.settings').getById('io.cozy.settings.instance'),
-  as: 'io.cozy.settings/instance_standalone',
+  as: 'io.cozy.settings/io.cozy.settings.instance',
   fetchPolicy: defaultFetchPolicy,
   singleDocData: true
 }
