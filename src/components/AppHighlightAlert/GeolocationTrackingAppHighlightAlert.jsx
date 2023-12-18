@@ -20,10 +20,11 @@ const hasNoTimeseriesGeojson = async client => {
   return timeseries.length === 0
 }
 
-const isAvailable = async client => {
+const isAvailable = async (client, installedApps) => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
   return (
+    installedApps.find(app => app.slug === 'coachco2') &&
     flag('home.push.coachco2.opencount') &&
     flag('home.push.coachco2.opencount') >= 0 &&
     (!bikegoalSettings ||
@@ -41,11 +42,14 @@ const isDisplayable = () => {
   return appStartCount >= flag('home.push.coachco2.opencount') - 1
 }
 
-export const getGeolocationTrackingAppHighlightAlert = async client => {
+export const getGeolocationTrackingAppHighlightAlert = async (
+  client,
+  installedApps
+) => {
   return {
     name: 'GeolocationTrackingAppHighlightAlert',
     Component: GeolocationTrackingAppHighlightAlert,
-    available: await isAvailable(client),
+    available: await isAvailable(client, installedApps),
     displayable: isDisplayable(),
     onNotDisplayed: onNotDisplayed,
     onDisplayed: onDisplayed
