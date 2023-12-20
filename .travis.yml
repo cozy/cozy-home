@@ -3,6 +3,11 @@ language: node_js
 node_js:
   - 16
   - 20
+branches:
+  only:
+    - master
+     # detect also tag like x.y.z or x.y.z-beta.n as travis consider them to be branches
+    - /^\d+\.\d+\.\d+(\-beta.\d+)?$/
 env:
   global:
     - MATTERMOST_CHANNEL='{"dev":"app---home","beta":"app---home,publication","stable":"app---home,publication"}'
