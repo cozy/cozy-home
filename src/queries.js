@@ -132,6 +132,7 @@ export const buildExistingTimeseriesGeojsonQuery = () => ({
   definition: Q('io.cozy.timeseries.geojson')
     .where({ _id: { $gt: null } })
     .select(['_id'])
+    .indexFields(['_id'])
     .limitBy(1),
   options: {
     as: 'io.cozy.timeseries.geojson/existing-timeseries-geojson',
