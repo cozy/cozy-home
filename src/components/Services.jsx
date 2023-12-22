@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 
 import AddServiceTile from 'components/AddServiceTile'
