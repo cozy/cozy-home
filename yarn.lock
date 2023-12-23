@@ -6006,7 +6006,12 @@ cozy-intent@^2.3.0:
   dependencies:
     post-me "0.4.5"
 
-cozy-interapp@0.9.0, cozy-interapp@^0.5.4, cozy-interapp@^0.9.0:
+cozy-interapp@^0.5.4:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
+  integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
+
+cozy-interapp@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.9.0.tgz#ddc0e1f650fa2e64f6f10f699d21de29d365a23a"
   integrity sha512-gI5MIhPqOlAYBBykOHrgYXgnuxvgnvH4jwM980WtFASieb4icI+2q4nBz0ZTubfCCB4bLgI5n34CCKzihwdUvA==
@@ -6080,10 +6085,10 @@ cozy-release@1.10.0:
   dependencies:
     exec-sh "0.3.2"
 
-cozy-scripts@8.1.1:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-8.1.1.tgz#ad8e61e8acef0be08c120e650ee2b6b2061e9b39"
-  integrity sha512-T6q86zE1iE3sqV0alSjoWjg7lgbmUA4QOBEqZio8GNxy4fOnmZOKusBX/iUvgVRRXBEEa7b91efnqiPz5Wo+7Q==
+cozy-scripts@8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-8.2.0.tgz#a3286078ab331e55e24fcc41ef3d20b90a5c64cc"
+  integrity sha512-kAHBOkPBP/2nkpP/EU9I54HrUEcTusxx2j745RWuTK+Ag/QtqVccLxYQdFo+Bf69akNXJ8cMfM3YQc24VpqFRQ==
   dependencies:
     "@babel/core" "7.10.0"
     "@babel/polyfill" "^7.10.4"
