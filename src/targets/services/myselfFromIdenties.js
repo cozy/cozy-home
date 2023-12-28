@@ -8,8 +8,8 @@ global.fetch = fetch
 const client = new CozyClient({
   uri: process.env.COZY_URL.trim(),
   token: process.env.COZY_CREDENTIALS.trim()
-}).getStackClient()
-const contactCollection = client.collection('io.cozy.contacts')
+})
+const contactCollection = client.getStackClient().collection('io.cozy.contacts')
 
 async function main() {
   const newIdentity = getIdentity()
@@ -18,10 +18,11 @@ async function main() {
   if (currentMyselfContact) {
     log('info', `Updating the me contact with new attributes`)
     updateMyselfWithIdentity(newIdentity, currentMyselfContact)
-    await contactCollection.update(currentMyselfContact)
+    await client.save(currentMyselfContact)
   } else {
     log('info', `The "me" contact could not be found, creating it`)
-    await contactCollection.create({
+    await client.save({
+      _type: 'io.cozy.contacts',
       me: true,
       ...newIdentity.contact
     })
