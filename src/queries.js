@@ -111,14 +111,6 @@ export const mkHomeCustomShorcutsConn = foldersId => {
   }
 }
 
-export const fetchAppInfo = async (appId, client) => {
-  const appQuery = Q('io.cozy.apps').getById(appId)
-  const { data } = await client.query(appQuery, {
-    as: `io.cozy.apps/${appId}`
-  })
-  return data
-}
-
 export const buildContextQuery = () => ({
   definition: () => Q('io.cozy.settings').getById('io.cozy.settings.context'),
   options: {
@@ -139,3 +131,11 @@ export const buildExistingTimeseriesGeojsonQuery = () => ({
     fetchPolicy: CozyClient.fetchPolicies.olderThan(60 * 60 * 24 * 365 * 1000)
   }
 })
+
+export const contextQuery = {
+  definition: Q('io.cozy.settings').getById('io.cozy.settings.context'),
+  options: {
+    as: 'io.cozy.settings/io.cozy.settings.context',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
