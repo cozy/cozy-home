@@ -11,7 +11,6 @@ import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoi
 import { PersistGate } from 'redux-persist/integration/react'
 
 import configureStore from 'store/configureStore'
-import homeConfig from 'config/home.json'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
@@ -50,10 +49,7 @@ export const setupAppContext = memoize(() => {
   cozyClient.registerPlugin(flag.plugin)
   cozyClient.registerPlugin(RealtimePlugin)
   // store
-  const { store, persistor } = configureStore(cozyClient, context, {
-    lang,
-    ...homeConfig
-  })
+  const { store, persistor } = configureStore(cozyClient)
   cozyClient.setStore(store)
 
   return { cozyClient, store, data, lang, context, persistor }
