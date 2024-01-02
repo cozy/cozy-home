@@ -6,7 +6,6 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import HomeStore from 'lib/HomeStore'
 import flag from 'cozy-flags'
 import getReducers from 'reducers'
 
@@ -15,7 +14,7 @@ const persistConfig = {
   storage
 }
 
-const configureWithPersistor = (cozyClient, context, options = {}) => {
+const configureWithPersistor = cozyClient => {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -36,15 +35,12 @@ const configureWithPersistor = (cozyClient, context, options = {}) => {
   )
   let persistor = persistStore(reduxStore)
   return {
-    store: Object.assign(
-      new HomeStore(context, cozyClient, options),
-      reduxStore
-    ),
+    store: reduxStore,
     persistor
   }
 }
 
-const configureDefault = (cozyClient, context, options) => {
+const configureDefault = cozyClient => {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -61,17 +57,14 @@ const configureDefault = (cozyClient, context, options) => {
   )
 
   return {
-    store: Object.assign(
-      new HomeStore(context, cozyClient, options),
-      reduxStore
-    )
+    store: reduxStore
   }
 }
 
-const configureStore = (legacyClient, cozyClient, context, options = {}) => {
+const configureStore = cozyClient => {
   return /* isFlagshipApp() ||  */ flag('home.store.persist')
-    ? configureWithPersistor(legacyClient, cozyClient, context, options)
-    : configureDefault(legacyClient, cozyClient, context, options)
+    ? configureWithPersistor(cozyClient)
+    : configureDefault(cozyClient)
 }
 
 export default configureStore
