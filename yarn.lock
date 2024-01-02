@@ -6006,7 +6006,12 @@ cozy-intent@^2.3.0:
   dependencies:
     post-me "0.4.5"
 
-cozy-interapp@0.9.0, cozy-interapp@^0.5.4, cozy-interapp@^0.9.0:
+cozy-interapp@^0.5.4:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
+  integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
+
+cozy-interapp@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.9.0.tgz#ddc0e1f650fa2e64f6f10f699d21de29d365a23a"
   integrity sha512-gI5MIhPqOlAYBBykOHrgYXgnuxvgnvH4jwM980WtFASieb4icI+2q4nBz0ZTubfCCB4bLgI5n34CCKzihwdUvA==
