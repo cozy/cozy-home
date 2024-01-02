@@ -19,4 +19,8 @@ describe('formatShortcuts', () => {
   it('Merges directories and shortcuts arrays', () => {
     expect(formatShortcuts(directories, shortcuts)).toEqual(expected)
   })
+  it('merges with null / empty array', () => {
+    expect(formatShortcuts(null, [])).toBeUndefined()
+    expect(formatShortcuts([], null)).toBeUndefined()
+  })
 })

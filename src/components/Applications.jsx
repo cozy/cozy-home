@@ -12,8 +12,7 @@ import ShortcutLink from 'components/ShortcutLink'
 import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import AppHighlightAlertWrapper from 'components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from 'config/home.json'
-import useHomeShortcuts from 'hooks/useHomeShortcuts'
-import { appsConn } from 'queries'
+import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from 'queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
@@ -62,15 +61,32 @@ const getApplicationsList = memoize(data => {
 
 export const Applications = ({ onAppsFetched }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
-  const shortcuts = useHomeShortcuts()
+  const { t } = useI18n()
+
   const { data } = useQuery(appsConn.query, appsConn)
+
+  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const magicHomeFolder = useQuery(
+    homeMagicFolderConn.query,
+    homeMagicFolderConn
+  )
+  const magicHomeFolderId = magicHomeFolder?.data?.[0]?._id
+  const homeShortcutsConn = mkHomeShorcutsConn(magicHomeFolderId)
+  const { data: shortcuts } = useQuery(homeShortcutsConn.query, {
+    ...homeShortcutsConn,
+    enabled: !!magicHomeFolderId
+  })
+
   const didLoad = useRef(false)
 
   useEffect(() => {
     const isReady =
       didLoad.current === false && onAppsFetched && isValidData(data)
 
-    isReady && onAppsFetched(data) && (didLoad.current = true)
+    if (isReady) {
+      onAppsFetched(data)
+      didLoad.current = true
+    }
   }, [data, onAppsFetched])
 
   return (
@@ -80,9 +96,10 @@ export const Applications = ({ onAppsFetched }) => {
       <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
         {getApplicationsList(data)}
 
-        {shortcuts.map((shortcut, index) => (
-          <ShortcutLink key={index} file={shortcut} />
-        ))}
+        {shortcuts &&
+          shortcuts.map((shortcut, index) => (
+            <ShortcutLink key={index} file={shortcut} />
+          ))}
 
         {showLogout && <LogoutTile />}
       </div>

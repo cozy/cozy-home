@@ -1,5 +1,6 @@
-export const formatShortcuts = (folders, shortcuts) =>
-  folders
+export const formatShortcuts = (folders, shortcuts) => {
+  if (!folders || !shortcuts) return undefined
+  return folders
     .map(folder => ({
       name: folder.attributes.name,
       shortcuts: shortcuts.filter(
@@ -7,3 +8,4 @@ export const formatShortcuts = (folders, shortcuts) =>
       )
     }))
     .filter(folder => folder.shortcuts.length > 0)
+}
