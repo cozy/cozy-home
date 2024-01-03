@@ -101,7 +101,7 @@ const App = ({ accounts, konnectors, triggers }) => {
     )
   }, [accounts, konnectors, triggers, context])
 
-  if (context && context.attributes && context.attributes.features) {
+  if (context?.attributes?.features) {
     const flags = toFlagNames(context.attributes.features)
     enableFlags(flags)
   }
