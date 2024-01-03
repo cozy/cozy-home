@@ -136,6 +136,7 @@ export const contextQuery = {
   definition: Q('io.cozy.settings').getById('io.cozy.settings.context'),
   options: {
     as: 'io.cozy.settings/io.cozy.settings.context',
-    fetchPolicy: defaultFetchPolicy
+    fetchPolicy: defaultFetchPolicy,
+    singleDocData: true
   }
 }
