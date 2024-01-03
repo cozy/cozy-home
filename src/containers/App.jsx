@@ -48,7 +48,7 @@ const App = ({ accounts, konnectors, triggers }) => {
   const { isMobile } = useBreakpoints()
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors].some(collection =>
+    [accounts, konnectors, triggers].some(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
   )
@@ -86,20 +86,21 @@ const App = ({ accounts, konnectors, triggers }) => {
   )
 
   const shortcutsDirectories = formatShortcuts(folders, customHomeShortcuts)
+  const context = useQuery(contextQuery.definition, contextQuery.options)
+
   useEffect(() => {
     setIsFetching(
-      [accounts, konnectors, triggers].some(collection =>
+      [accounts, konnectors, triggers, context].some(collection =>
         ['pending', 'loading'].includes(collection.fetchStatus)
       )
     )
     setHasError(
-      [accounts, konnectors, triggers].find(
+      [accounts, konnectors, triggers, context].find(
         collection => collection.fetchStatus === 'failed'
       )
     )
-  }, [accounts, konnectors, triggers])
+  }, [accounts, konnectors, triggers, context])
 
-  const context = useQuery(contextQuery.definition, contextQuery.options)
   if (context && context.attributes && context.attributes.features) {
     const flags = toFlagNames(context.attributes.features)
     enableFlags(flags)
@@ -109,10 +110,9 @@ const App = ({ accounts, konnectors, triggers }) => {
       appsReady &&
         !hasError &&
         !isFetching &&
-        context.fetchStatus === 'loaded' &&
         shortcutsDirectories !== undefined
     )
-  }, [appsReady, hasError, isFetching, context, shortcutsDirectories])
+  }, [appsReady, hasError, isFetching, shortcutsDirectories])
 
   useEffect(() => {
     if (isReady && webviewIntent) {
