@@ -1,27 +1,39 @@
 import React from 'react'
 import { render, act } from '@testing-library/react'
 import flag from 'cozy-flags'
+import { createMockClient } from 'cozy-client/dist/mock'
 
 import AppLike from 'test/AppLike'
 import { Applications } from './Applications'
-import useHomeShortcuts from '../hooks/useHomeShortcuts'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
 
-jest.mock('hooks/useHomeShortcuts', () => jest.fn().mockReturnValue([]))
-
-const setup = () => {
-  const root = render(
-    <AppLike>
-      <MuiCozyTheme>
-        <Applications />
-      </MuiCozyTheme>
-    </AppLike>
-  )
-  return { root }
+const setup = ({ queries } = {}) => {
+  if (!queries) {
+    const root = render(
+      <AppLike>
+        <CozyTheme>
+          <Applications />
+        </CozyTheme>
+      </AppLike>
+    )
+    return { root }
+  } else {
+    const client = createMockClient({
+      queries
+    })
+    const root = render(
+      <AppLike client={client} store={client.store}>
+        <CozyTheme>
+          <Applications />
+        </CozyTheme>
+      </AppLike>
+    )
+    return { root }
+  }
 }
 
 describe('Applications', () => {
@@ -44,8 +56,22 @@ describe('Applications', () => {
       { id: '1', name: 'toto.txt' },
       { id: '2', name: 'tata.txt' }
     ]
-    useHomeShortcuts.mockImplementation(() => shortcuts)
-    const { root } = setup()
+    const { root } = setup({
+      queries: {
+        'home/io.cozy.files/path=magic-folder': {
+          lastUpdate: new Date(),
+          data: [{ id: 'folderId' }],
+          doctype: 'io.cozy.files',
+          hasMore: false
+        },
+        'home/io.cozy.files/dir_id=folderId,class=shortcut': {
+          lastUpdate: new Date(),
+          data: shortcuts,
+          doctype: 'io.cozy.files',
+          hasMore: false
+        }
+      }
+    })
 
     // This is necessary since there are asynchronous effects in the
     // shortcut tile
