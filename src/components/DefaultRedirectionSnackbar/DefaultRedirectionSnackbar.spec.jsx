@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AppLike from 'test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
@@ -22,9 +22,9 @@ jest.mock('./useIncrementDefaultRedirectionViewCount')
 const setup = () => {
   const root = render(
     <AppLike>
-      <MuiCozyTheme>
+      <CozyTheme>
         <DefaultRedirectionSnackbar />
-      </MuiCozyTheme>
+      </CozyTheme>
     </AppLike>
   )
   return { root }

@@ -4,7 +4,7 @@ import '@testing-library/jest-dom'
 
 import { ShortcutLink } from './ShortcutLink'
 import { useFetchShortcut } from 'cozy-client'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 jest.mock('cozy-client', () => {
   return {
@@ -27,9 +27,9 @@ describe('ShortcutLink', () => {
     const file = { _id: '123', name: 'cozy.io.url', type: 'file' }
 
     render(
-      <MuiCozyTheme>
+      <CozyTheme>
         <ShortcutLink file={file} />
-      </MuiCozyTheme>
+      </CozyTheme>
     )
 
     expect(screen.getByRole('heading', { level: 6 })).toHaveTextContent(
@@ -53,9 +53,9 @@ describe('ShortcutLink', () => {
     const file = { _id: '123', name: 'cozy.io.url', type: 'file' }
 
     render(
-      <MuiCozyTheme>
+      <CozyTheme>
         <ShortcutLink file={file} />
-      </MuiCozyTheme>
+      </CozyTheme>
     )
 
     expect(screen.getByRole('heading', { level: 6 })).toHaveTextContent(

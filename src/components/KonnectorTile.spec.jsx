@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { createMockClient } from 'cozy-client/dist/mock'
 
 import {
@@ -160,9 +160,9 @@ const setup = mockProps => {
   })
   return render(
     <AppLike client={client} store={client.store}>
-      <MuiCozyTheme>
+      <CozyTheme>
         <KonnectorTile {...mockProps} />
-      </MuiCozyTheme>
+      </CozyTheme>
     </AppLike>
   )
 }

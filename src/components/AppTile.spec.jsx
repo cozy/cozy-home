@@ -1,6 +1,6 @@
 import AppLike from 'test/AppLike'
 import AppTileWrapper from './AppTile'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { render, waitFor, screen } from '@testing-library/react'
@@ -43,11 +43,11 @@ describe('<AppTile />', () => {
   it('renders loading icon when app is in installing state', () => {
     const { getByText } = render(
       <AppLike>
-        <MuiCozyTheme>
+        <CozyTheme>
           <I18n dictRequire={() => enLocale} lang="en">
             <AppTileWrapper app={mockAppInstalling} lang="en" />
           </I18n>
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
@@ -57,11 +57,11 @@ describe('<AppTile />', () => {
   it('renders loading icon when app is in upgrading state', () => {
     const { getByText } = render(
       <AppLike>
-        <MuiCozyTheme>
+        <CozyTheme>
           <I18n dictRequire={() => enLocale} lang="en">
             <AppTileWrapper app={mockAppUpgrading} lang="en" />
           </I18n>
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
@@ -71,9 +71,9 @@ describe('<AppTile />', () => {
   it('renders AppTile when app is in ready state', async () => {
     const { queryByText } = render(
       <AppLike client={mockClient}>
-        <MuiCozyTheme>
+        <CozyTheme>
           <AppTileWrapper app={mockAppReady} lang="en" />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
@@ -83,18 +83,18 @@ describe('<AppTile />', () => {
   it('updates app state from installing to ready and fetches app info', async () => {
     const { rerender } = render(
       <AppLike client={mockClient}>
-        <MuiCozyTheme>
+        <CozyTheme>
           <AppTileWrapper app={mockAppInstalling} lang="en" />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
     await act(async () => {
       rerender(
         <AppLike client={mockClient}>
-          <MuiCozyTheme>
+          <CozyTheme>
             <AppTileWrapper app={mockAppReady} lang="en" />
-          </MuiCozyTheme>
+          </CozyTheme>
         </AppLike>
       )
     })
@@ -108,18 +108,18 @@ describe('<AppTile />', () => {
   it('updates app state from upgrading to ready and fetches app info', async () => {
     const { rerender } = render(
       <AppLike client={mockClient}>
-        <MuiCozyTheme>
+        <CozyTheme>
           <AppTileWrapper app={mockAppUpgrading} lang="en" />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
     await act(async () => {
       rerender(
         <AppLike client={mockClient}>
-          <MuiCozyTheme>
+          <CozyTheme>
             <AppTileWrapper app={mockAppReady} lang="en" />
-          </MuiCozyTheme>
+          </CozyTheme>
         </AppLike>
       )
     })
@@ -133,18 +133,18 @@ describe('<AppTile />', () => {
   it('does not update app state from installing to ready if app state is not ready', async () => {
     const { rerender } = render(
       <AppLike client={mockClient}>
-        <MuiCozyTheme>
+        <CozyTheme>
           <AppTileWrapper app={mockAppInstalling} lang="en" />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 
     await waitFor(() => {
       rerender(
         <AppLike client={mockClient}>
-          <MuiCozyTheme>
+          <CozyTheme>
             <AppTileWrapper app={mockAppInstalling} lang="en" />
-          </MuiCozyTheme>
+          </CozyTheme>
         </AppLike>
       )
     })
