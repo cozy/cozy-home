@@ -4,7 +4,7 @@ import flag from 'cozy-flags'
 import { useQuery } from 'cozy-client'
 
 import AppLike from 'test/AppLike'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import AddButton from './AddButton'
 
 import { FLAG_FAB_ACTIONS } from './helpers'
@@ -67,9 +67,9 @@ jest.mock('cozy-flags')
 const setup = () => {
   const root = render(
     <AppLike>
-      <MuiCozyTheme>
+      <CozyTheme>
         <AddButton />
-      </MuiCozyTheme>
+      </CozyTheme>
     </AppLike>
   )
   return { root }

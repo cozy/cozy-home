@@ -8,7 +8,7 @@ import { useAppsInMaintenance } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { Services } from './Services'
 import AppLike from 'test/AppLike'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
@@ -54,12 +54,12 @@ describe('Services component', () => {
     useAppsInMaintenance.mockReturnValue(appsAndKonnectorsInMaintenance)
     const root = render(
       <AppLike client={client} store={client.store}>
-        <MuiCozyTheme>
+        <CozyTheme>
           <Services
             installedKonnectors={installedKonnectors || []}
             suggestedKonnectorsQuery={suggestedKonnectorsQuery || { data: [] }}
           />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
     return { root }

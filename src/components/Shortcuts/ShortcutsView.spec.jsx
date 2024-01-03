@@ -5,18 +5,18 @@ import '@testing-library/jest-dom'
 
 import { ShortcutsView } from './ShortcutsView'
 import AppLike from 'test/AppLike'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 describe('Shortcuts', () => {
   it('Should display nothing if nothing was found', () => {
     const { container } = render(
       <AppLike>
-        <MuiCozyTheme>
+        <CozyTheme>
           <ShortcutsView shortcutsDirectories={null} />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
-    expect(container).toBeEmptyDOMElement()
+    expect(container).toMatchSnapshot()
   })
 
   it('Should display a shortcut directory with its files', async () => {
@@ -25,13 +25,13 @@ describe('Shortcuts', () => {
 
     const root = render(
       <AppLike>
-        <MuiCozyTheme>
+        <CozyTheme>
           <ShortcutsView
             shortcutsDirectories={[
               { name: listName, shortcuts: [{ name: listItem }] }
             ]}
           />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
     expect(root).toMatchSnapshot()
@@ -45,9 +45,9 @@ describe('Shortcuts', () => {
 
     const root = render(
       <AppLike>
-        <MuiCozyTheme>
+        <CozyTheme>
           <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
-        </MuiCozyTheme>
+        </CozyTheme>
       </AppLike>
     )
 

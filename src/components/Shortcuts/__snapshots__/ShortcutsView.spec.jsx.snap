@@ -6,6 +6,82 @@ Object {
   "baseElement": <body>
     <div>
       <div
+        class="CozyTheme--normal u-dc"
+      >
+        <div
+          class="shortcuts-list-wrapper u-m-auto u-w-100"
+        >
+          <h6
+            class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
+          >
+            List title
+          </h6>
+          <div
+            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          >
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div
+                class="makeStyles-tileWrapper-7"
+                data-testid="square-app-icon"
+              >
+                <div
+                  class="CozyTheme--normal u-dc"
+                >
+                  <span
+                    class="MuiBadge-root-9"
+                  >
+                    <span
+                      class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
+                      style="background-color: rgb(53, 206, 104);"
+                    >
+                      <h2
+                        class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
+                      >
+                        L
+                      </h2>
+                      <span
+                        class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
+                      />
+                    </span>
+                    <span
+                      class="MuiBadge-badge-10 Component-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
+                    >
+                      <svg
+                        class="styles__icon___23x3R"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <path
+                          d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+                <h6
+                  class="MuiTypography-root makeStyles-name-1 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                >
+                  List item
+                </h6>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="CozyTheme--normal u-dc"
+    >
+      <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
         <h6
@@ -72,74 +148,6 @@ Object {
         </div>
       </div>
     </div>
-  </body>,
-  "container": <div>
-    <div
-      class="shortcuts-list-wrapper u-m-auto u-w-100"
-    >
-      <h6
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
-      >
-        List title
-      </h6>
-      <div
-        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
-      >
-        <a
-          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <div
-            class="makeStyles-tileWrapper-7"
-            data-testid="square-app-icon"
-          >
-            <div
-              class="CozyTheme--normal u-dc"
-            >
-              <span
-                class="MuiBadge-root-9"
-              >
-                <span
-                  class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
-                  style="background-color: rgb(53, 206, 104);"
-                >
-                  <h2
-                    class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
-                  >
-                    L
-                  </h2>
-                  <span
-                    class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
-                  />
-                </span>
-                <span
-                  class="MuiBadge-badge-10 Component-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
-                >
-                  <svg
-                    class="styles__icon___23x3R"
-                    height="10"
-                    viewBox="0 0 16 16"
-                    width="10"
-                  >
-                    <path
-                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-            <h6
-              class="MuiTypography-root makeStyles-name-1 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
-            >
-              List item
-            </h6>
-          </div>
-        </a>
-      </div>
-    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -200,6 +208,148 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <div
+        class="CozyTheme--normal u-dc"
+      >
+        <div
+          class="shortcuts-list-wrapper u-m-auto u-w-100"
+        >
+          <h6
+            class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
+          >
+            a
+          </h6>
+          <div
+            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          >
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div
+                class="makeStyles-tileWrapper-68"
+                data-testid="square-app-icon"
+              >
+                <div
+                  class="CozyTheme--normal u-dc"
+                >
+                  <span
+                    class="MuiBadge-root-70"
+                  >
+                    <span
+                      class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                      style="background-color: rgb(252, 109, 0);"
+                    >
+                      <h2
+                        class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
+                      >
+                        B
+                      </h2>
+                      <span
+                        class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
+                      />
+                    </span>
+                    <span
+                      class="MuiBadge-badge-71 Component-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
+                    >
+                      <svg
+                        class="styles__icon___23x3R"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <path
+                          d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+                <h6
+                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                >
+                  b
+                </h6>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="shortcuts-list-wrapper u-m-auto u-w-100"
+        >
+          <h6
+            class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
+          >
+            c
+          </h6>
+          <div
+            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          >
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div
+                class="makeStyles-tileWrapper-68"
+                data-testid="square-app-icon"
+              >
+                <div
+                  class="CozyTheme--normal u-dc"
+                >
+                  <span
+                    class="MuiBadge-root-124"
+                  >
+                    <span
+                      class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                      style="background-color: rgb(255, 150, 47);"
+                    >
+                      <h2
+                        class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
+                      >
+                        D
+                      </h2>
+                      <span
+                        class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
+                      />
+                    </span>
+                    <span
+                      class="MuiBadge-badge-125 Component-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
+                    >
+                      <svg
+                        class="styles__icon___23x3R"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <path
+                          d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+                <h6
+                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                >
+                  d
+                </h6>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="CozyTheme--normal u-dc"
+    >
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
       >
@@ -333,140 +483,6 @@ Object {
         </div>
       </div>
     </div>
-  </body>,
-  "container": <div>
-    <div
-      class="shortcuts-list-wrapper u-m-auto u-w-100"
-    >
-      <h6
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
-      >
-        a
-      </h6>
-      <div
-        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
-      >
-        <a
-          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <div
-            class="makeStyles-tileWrapper-68"
-            data-testid="square-app-icon"
-          >
-            <div
-              class="CozyTheme--normal u-dc"
-            >
-              <span
-                class="MuiBadge-root-70"
-              >
-                <span
-                  class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
-                  style="background-color: rgb(252, 109, 0);"
-                >
-                  <h2
-                    class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
-                  >
-                    B
-                  </h2>
-                  <span
-                    class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
-                  />
-                </span>
-                <span
-                  class="MuiBadge-badge-71 Component-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
-                >
-                  <svg
-                    class="styles__icon___23x3R"
-                    height="10"
-                    viewBox="0 0 16 16"
-                    width="10"
-                  >
-                    <path
-                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-            <h6
-              class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
-            >
-              b
-            </h6>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div
-      class="shortcuts-list-wrapper u-m-auto u-w-100"
-    >
-      <h6
-        class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
-      >
-        c
-      </h6>
-      <div
-        class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
-      >
-        <a
-          class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <div
-            class="makeStyles-tileWrapper-68"
-            data-testid="square-app-icon"
-          >
-            <div
-              class="CozyTheme--normal u-dc"
-            >
-              <span
-                class="MuiBadge-root-124"
-              >
-                <span
-                  class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
-                  style="background-color: rgb(255, 150, 47);"
-                >
-                  <h2
-                    class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
-                  >
-                    D
-                  </h2>
-                  <span
-                    class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
-                  />
-                </span>
-                <span
-                  class="MuiBadge-badge-125 Component-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
-                >
-                  <svg
-                    class="styles__icon___23x3R"
-                    height="10"
-                    viewBox="0 0 16 16"
-                    width="10"
-                  >
-                    <path
-                      d="M9 0v2h3.5L6 8.5 7.5 10 14 3.5V7h2V1.003A.996.996 0 0014.997 0H9zM7 2V0H1.003A1 1 0 000 1v14c0 .552.445 1 1 1h14c.552 0 1-.438 1-1.003V9h-2v5H2V2h5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-            <h6
-              class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
-            >
-              d
-            </h6>
-          </div>
-        </a>
-      </div>
-    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -520,4 +536,12 @@ Object {
   "rerender": [Function],
   "unmount": [Function],
 }
+`;
+
+exports[`Shortcuts Should display nothing if nothing was found 1`] = `
+<div>
+  <div
+    class="CozyTheme--normal u-dc"
+  />
+</div>
 `;
