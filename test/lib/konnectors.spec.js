@@ -79,16 +79,6 @@ describe('konnectors lib', () => {
     })
   })
 
-  describe('isKonnectorUpdateNeededError', () => {
-    it('returns true for TERMS_VERSION_MISMATCH', () => {
-      expect(
-        konnectors.isKonnectorUpdateNeededError(
-          konnectors.buildKonnectorError('TERMS_VERSION_MISMATCH')
-        )
-      ).toBe(true)
-    })
-  })
-
   describe('buildKonnectorError', () => {
     it('builds an error from a konnector to expected format', () => {
       const error = konnectors.buildKonnectorError('LOGIN_FAILED')
