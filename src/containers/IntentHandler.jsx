@@ -1,25 +1,26 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+
+import { withClient } from 'cozy-client'
+import Intents from 'cozy-interapp'
 
 import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import appEntryPoint from 'components/appEntryPoint'
 import IntentService from 'containers/IntentService'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 class IntentHandler extends Component {
   constructor(props, context) {
     super(props, context)
-    this.store = context.store
 
     this.state = {
       isInitializing: true
     }
-
-    this.store
-      .createIntentService()
+    const intent = new Intents({ client: this.props.client })
+    intent
+      .createService()
       // eslint-disable-next-line promise/always-return
       .then(service => {
         this.setState({
@@ -108,8 +109,4 @@ class IntentHandler extends Component {
   }
 }
 
-IntentHandler.contextTypes = {
-  store: PropTypes.object
-}
-
-export default appEntryPoint(translate()(IntentHandler))
+export default appEntryPoint(translate()(withClient(IntentHandler)))
