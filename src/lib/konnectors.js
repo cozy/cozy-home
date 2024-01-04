@@ -68,14 +68,6 @@ export function isKonnectorKnownError(error) {
   return error && error.type && Object.keys(ERROR_TYPES).includes(error.type)
 }
 
-export function isKonnectorUpdateNeededError(error) {
-  return (
-    error &&
-    error.type &&
-    Object.keys(UPDATE_NEEDED_ERRORS_TYPES).includes(error.type)
-  )
-}
-
 export function buildKonnectorError(message) {
   var error = new Error(message)
   error.type = message.split('.')[0]
