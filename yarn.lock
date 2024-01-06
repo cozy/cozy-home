@@ -6027,10 +6027,10 @@ cozy-keys-lib@^6.0.0:
     tldjs "^2.3.1"
     zxcvbn "^4.4.2"
 
-cozy-logger@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.0.tgz#c040081976921c73021f0acc81d515700241a3f1"
-  integrity sha512-cChOYvbZ0rtzo6MEY4+ZLniKaDv46V8fdJ0qgRcPjDE1dDrfVvxyRWsKrSGIw+LTBqdrlfDpPoqjEiYC24xr+A==
+cozy-logger@1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.4.tgz#8a55a0b1fc23db9cf90524043d959c274d376c24"
+  integrity sha512-zDpG+edSqghx6HAIh6wIWmqQ49IX85anv+Y4P5pjHs4w697n5yI13UzhW7NczhFlflVF9ibxeKXqBNYvb4DW+Q==
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
