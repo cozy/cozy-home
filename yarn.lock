@@ -5960,6 +5960,17 @@ cozy-doctypes@^1.89.1:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
+cozy-doctypes@^1.89.4:
+  version "1.89.4"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.89.4.tgz#3d9d2c796bf666293cb7702593cb9961a5fe7018"
+  integrity sha512-TEbM0FRY3uFoL+vez5eFB/RDXlJ6zEf4o6Wi/P85kCJnBOUtSTl767bjjmFZ/x764vBfkn3VaLE1ct5qkyLkcQ==
+  dependencies:
+    cozy-logger "^1.10.4"
+    date-fns "^1.30.1"
+    es6-promise-pool "^2.5.0"
+    lodash "^4.17.19"
+    prop-types "^15.7.2"
+
 cozy-flags@3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-3.2.2.tgz#778b148ec6db0d9d9988fee43952e4b21547fb71"
@@ -5967,17 +5978,17 @@ cozy-flags@3.2.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^22.0.0:
-  version "22.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.0.0.tgz#4e35fa3431493365fdd420b6ae2462832bec8c59"
-  integrity sha512-lobbkweUORYM2HZtN9BjnGWQ/e91ukqOrVbUwDFHsXki9NuZ5zNv0oZOpeGXLPsVU2XylbojuqPOAWP3vjJD3g==
+cozy-harvest-lib@^22.0.4:
+  version "22.0.4"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.0.4.tgz#db8d29367b10d18f4d4adb379e3efb186d91e512"
+  integrity sha512-FSX/Qi9lDYZYdXKijpX7Eb/9BAsO0Hj8l8P4YfJJcU2NutnXt+sjncDHe8WaXHkg0Zf6dlspbFEiQdNb/LKY1w==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
     classnames "^2.3.1"
     cozy-bi-auth "0.0.25"
-    cozy-doctypes "^1.89.1"
-    cozy-logger "^1.10.2"
+    cozy-doctypes "^1.89.4"
+    cozy-logger "^1.10.4"
     date-fns "^1.30.1"
     final-form "^4.18.5"
     lodash "^4.17.19"
@@ -6047,6 +6058,14 @@ cozy-logger@^1.10.2:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.2.tgz#eef29b76a69995e21a5635ed40f74657aa74d1a3"
   integrity sha512-Z7QFU2bbmNhl02chQLnXgh7LZ+75SISvIdOD9HsmZakBcQj5wgVA8s/KSDPc0MnPbrPH3Ymkv8CPV53Zsyl1HA==
+  dependencies:
+    chalk "^2.4.2"
+    json-stringify-safe "5.0.1"
+
+cozy-logger@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.4.tgz#8a55a0b1fc23db9cf90524043d959c274d376c24"
+  integrity sha512-zDpG+edSqghx6HAIh6wIWmqQ49IX85anv+Y4P5pjHs4w697n5yI13UzhW7NczhFlflVF9ibxeKXqBNYvb4DW+Q==
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
