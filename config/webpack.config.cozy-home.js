@@ -88,6 +88,10 @@ module.exports = {
         /WebVaultClient/, // EEFLongWordList
         /cozy-ui\/transpiled\/react\/Portal\/index\.js/ // preact-portal
       ]
+    }),
+
+    new webpack.DefinePlugin({
+      __SIMULATE_FLAGSHIP__: true
     })
   ].filter(Boolean)
 }
