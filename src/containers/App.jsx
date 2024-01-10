@@ -1,3 +1,4 @@
+/* global __SIMULATE_FLAGSHIP__ */
 import React, { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -118,6 +119,9 @@ const App = ({ accounts, konnectors, triggers }) => {
     if (isReady && webviewIntent) {
       webviewIntent.call('setTheme', theme)
       webviewIntent.call('hideSplashScreen')
+    }
+    if (isReady && !webviewIntent && __SIMULATE_FLAGSHIP__) {
+      document.getElementById('splashscreen').style.display = 'none'
     }
   }, [isReady, theme, webviewIntent])
 

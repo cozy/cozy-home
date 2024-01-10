@@ -22,7 +22,10 @@
       {{.ThemeCSS}}
 </head>
 
-<body>
+<body style="display: block;margin: 0">
+  <% if (__SIMULATE_FLAGSHIP__) { %>
+  <div style="position:absolute; z-index: 1000; height: 100%; width: 100%; background-color: blue; opacity: 0.5;" id="splashscreen">splashscreen</div>
+  <% }; %>
   <div role="application" data-cozy="{{.CozyData}}" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}"
     data-cozy-locale="{{.Locale}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-app-name="{{.AppName}}"
     data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-tracking="{{.Tracking}}"
