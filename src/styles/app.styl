@@ -1,6 +1,5 @@
 @require 'tools/mixins.styl'
 @require 'settings/breakpoints.styl'
-@require 'settings/palette.styl'
 @require 'settings/spaces.styl'
 
 // overriding the general layout to allow a sticky footer
@@ -65,70 +64,6 @@ body
         .background-container
             transform scale(1.1)
 
-.KonnectorErrors
-    p
-        margin: spacing_values.xs 0
-
-.main-loader
-    display flex
-    justify-content center
-    align-items center
-    flex-grow 1
-
-.col-content
-    margin 0 auto
-    width 60rem
-
-    @media (max-width: 60rem)
-        width auto
-
-.col-initial-error,
-.col-initial-loading
-    display         flex
-    width           100vw
-    align-items     center
-    justify-content center
-
-.col-top-bar
-    display         flex
-    flex-direction  row
-    justify-content space-between
-    align-items     center
-
-    +small-screen()
-        margin-top .5rem
-
-        button
-            width   100%
-
-[role=banner] .col-view-title
-    padding     0
-    margin      0
-    display     flex
-    align-self  center
-
-.col-button
-    @extend $button
-    @extend $button--regular
-
-
-.col-account-connection-header
-    @media (max-width: rem(930))
-        width   100%
-
-    svg
-        max-height rem(48)
-
-.col-account-connection-back
-    height 2em
-    display block
-    float left
-    margin-right 1em
-    padding-top .25em
-
-    svg
-        height 1.5em
-        width 1.5em
 
 .flagship-app .main-view
     bottom var(--flagship-bottom-height)
