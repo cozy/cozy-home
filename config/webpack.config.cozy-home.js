@@ -91,7 +91,7 @@ module.exports = {
     }),
 
     new webpack.DefinePlugin({
-      __SIMULATE_FLAGSHIP__: true
+      __SIMULATE_FLAGSHIP__: false
     })
   ].filter(Boolean)
 }
