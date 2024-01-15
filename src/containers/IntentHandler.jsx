@@ -4,7 +4,6 @@ import { withClient } from 'cozy-client'
 import Intents from 'cozy-interapp'
 
 import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
-import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
@@ -102,7 +101,6 @@ class IntentHandler extends Component {
               service={service}
             />
           )}
-          <IconSprite />
         </div>
       </CozyTheme>
     )
