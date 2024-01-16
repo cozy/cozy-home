@@ -53,6 +53,7 @@
     "es-abstract": "1.20.2",
     "form-data": "2.5.1",
     "leaflet": "1.7.1",
+    "localforage": "^1.10.0",
     "lodash": "4.17.21",
     "moment": "2.29.4",
     "papaparse": "5.3.1",
