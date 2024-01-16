@@ -9,11 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Bold.immutable.woff2" as="font" type="font/woff2"
     crossorigin>
-  <link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Regular.immutable.woff2" as="font" type="font/woff2"
+<link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Regular.immutable.woff2" as="font" type="font/woff2"
     crossorigin>
+
 <% _.forEach(htmlWebpackPlugin.files.css, function(file) { %>
   <link rel="stylesheet" href="<%- file %>">
 <% }); %>
+<link rel="stylesheet" href="//{{.Domain}}/assets/fonts/fonts.css">
 {{.ThemeCSS}}
 </head>
 <body>
