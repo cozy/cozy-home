@@ -3,6 +3,9 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import { render } from '@testing-library/react'
 import App from '../components/AnimatedWrapper'
 import AppLike from 'test/AppLike'
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { act } from 'react-dom/test-utils'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 // eslint-disable-next-line react/display-name
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
@@ -39,17 +42,21 @@ jest.mock('react-router', () => ({
 }))
 
 describe('App', () => {
-  it('should keep backgroundImage fixed on Flagship app scroll', () => {
+  it('should keep backgroundImage fixed on Flagship app scroll', async () => {
     // Given
     isFlagshipApp.mockReturnValue(true)
 
     // When
     const { container } = render(
       <AppLike>
-        <App />
+        <CozyTheme>
+          <CustomWallPaperProvider>
+            <App />
+          </CustomWallPaperProvider>
+        </CozyTheme>
       </AppLike>
     )
-
+    await act(async () => {})
     // Then
     expect(
       container
@@ -60,17 +67,21 @@ describe('App', () => {
     ).toEqual('position: fixed; height: 100%;')
   })
 
-  it(`should not keep backgroundImage fixed on mobile's browser scroll`, () => {
+  it(`should not keep backgroundImage fixed on mobile's browser scroll`, async () => {
     // Given
     isFlagshipApp.mockReturnValue(false)
 
     // When
     const { container } = render(
       <AppLike>
-        <App />
+        <CozyTheme>
+          <CustomWallPaperProvider>
+            <App />
+          </CustomWallPaperProvider>
+        </CozyTheme>
       </AppLike>
     )
-
+    await act(async () => {})
     // Then
     expect(
       container

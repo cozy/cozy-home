@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import useCustomWallpaper from 'hooks/useCustomWallpaper'
+import { useCustomWallpaperContext } from './useCustomWallpaperContext'
 
 const getHomeThemeCssVariable = (): string => {
   return getComputedStyle(document.getElementsByTagName('body')[0])
@@ -9,19 +9,19 @@ const getHomeThemeCssVariable = (): string => {
 
 export const usePreferedTheme = (): string => {
   const {
-    data: { wallpaperLink }
-  } = useCustomWallpaper()
+    data: { wallpaperLink, binaryCustomWallpaper }
+  } = useCustomWallpaperContext()
   const [preferedTheme, setPreferedTheme] = useState('inverted')
 
   useEffect(() => {
     const preferedTheme = getHomeThemeCssVariable()
 
-    if (wallpaperLink) {
+    if (wallpaperLink || binaryCustomWallpaper) {
       setPreferedTheme('inverted')
     } else {
       setPreferedTheme(preferedTheme || 'inverted')
     }
-  }, [wallpaperLink])
+  }, [wallpaperLink, binaryCustomWallpaper])
 
   return preferedTheme
 }

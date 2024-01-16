@@ -4,8 +4,17 @@
 import AppWrapper, { setupAppContext } from './AppWrapper'
 import { render } from '@testing-library/react'
 import React from 'react'
+import AppLike from 'test/AppLike'
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { act } from 'react-dom/test-utils'
 
-const mockClient = { registerPlugin: jest.fn(), setStore: jest.fn() }
+const mockClient = {
+  registerPlugin: jest.fn(),
+  setStore: jest.fn(),
+  getInstanceOptions: () => ({
+    cozyDefaultWallpaper: 'defaultWallpaper'
+  })
+}
 
 jest.mock('cozy-client', () => ({
   __esModule: true,
@@ -13,7 +22,8 @@ jest.mock('cozy-client', () => ({
   RealTimeQueries: ({ doctype }) => (
     <div data-testid="RealTimeQueries">{doctype}</div>
   ),
-  default: () => mockClient
+  default: () => mockClient,
+  useClient: () => mockClient
 }))
 
 jest.mock('store/configureStore', () => () => ({
@@ -58,24 +68,36 @@ describe('AppWrapper.jsx', () => {
   })
 
   describe('AppWrapper', () => {
-    it('should render children', () => {
+    it('should render children', async () => {
       // Given
       window.__DEVELOPMENT__ = 'defined'
-
+      // act(() => {
       // When
-      const { getByText } = render(<AppWrapper>children</AppWrapper>)
+      const { getByText } = render(
+        <AppLike>
+          <CustomWallPaperProvider>
+            <AppWrapper>children</AppWrapper>
+          </CustomWallPaperProvider>
+        </AppLike>
+      )
+      await act(async () => {})
 
       // Then
       expect(getByText('children')).toBeTruthy()
+      // })
     })
 
-    it('should contain RealTimeQueries', () => {
+    it('should contain RealTimeQueries', async () => {
       // Given
       window.__DEVELOPMENT__ = 'defined'
 
       // When
-      const { getAllByTestId } = render(<AppWrapper>children</AppWrapper>)
-
+      const { getAllByTestId } = render(
+        <AppWrapper>
+          <CustomWallPaperProvider>children </CustomWallPaperProvider>
+        </AppWrapper>
+      )
+      await act(async () => {})
       // Then
       expect(getAllByTestId('RealTimeQueries')).toBeTruthy()
     })

@@ -18,6 +18,7 @@ import { usePreferedTheme } from 'hooks/usePreferedTheme'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
 
 export const AppContext = createContext()
@@ -91,22 +92,24 @@ const AppWrapper = ({ children }) => {
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
-          <ThemeProvider>
-            <ReduxProvider store={store}>
-              <ConditionalWrapper
-                condition={persistor}
-                wrapper={children => (
-                  <PersistGate loading={null} persistor={persistor}>
+          <CustomWallPaperProvider>
+            <ThemeProvider>
+              <ReduxProvider store={store}>
+                <ConditionalWrapper
+                  condition={persistor}
+                  wrapper={children => (
+                    <PersistGate loading={null} persistor={persistor}>
+                      {children}
+                    </PersistGate>
+                  )}
+                >
+                  <Inner lang={lang} context={context}>
                     {children}
-                  </PersistGate>
-                )}
-              >
-                <Inner lang={lang} context={context}>
-                  {children}
-                </Inner>
-              </ConditionalWrapper>
-            </ReduxProvider>
-          </ThemeProvider>
+                  </Inner>
+                </ConditionalWrapper>
+              </ReduxProvider>
+            </ThemeProvider>
+          </CustomWallPaperProvider>
         </CozyProvider>
       </BreakpointsProvider>
     </AppContext.Provider>
