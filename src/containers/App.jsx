@@ -140,12 +140,12 @@ const App = ({ accounts, konnectors, triggers }) => {
           <MoveModal />
           <HeroHeader />
           {hasError && (
-            <Main className="main-loader">
+            <Main className="u-flex u-flex-items-center u-flex-justify-center">
               <Failure errorType="initial" />
             </Main>
           )}
           {isFetching && (
-            <Main className="main-loader">
+            <Main className="u-flex u-flex-items-center u-flex-justify-center">
               <Spinner size="xxlarge" />
             </Main>
           )}
