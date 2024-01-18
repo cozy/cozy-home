@@ -21,6 +21,7 @@ describe('formatShortcuts', () => {
   })
   it('merges with null / empty array', () => {
     expect(formatShortcuts(null, [])).toBeUndefined()
-    expect(formatShortcuts([], null)).toBeUndefined()
+    expect(formatShortcuts([], null)).toEqual([])
+    expect(formatShortcuts(directories, null)).toBeUndefined()
   })
 })
