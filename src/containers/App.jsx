@@ -71,9 +71,10 @@ const App = ({ accounts, konnectors, triggers }) => {
   const homeShortcutsDirConn = mkHomeCustomShorcutsDirConn({
     currentFolderId: magicHomeFolderId
   })
+  const canHaveShortcuts = !!magicHomeFolderId
   const { data: folders } = useQuery(homeShortcutsDirConn.query, {
     ...homeShortcutsDirConn.options,
-    enabled: !!magicHomeFolderId
+    enabled: canHaveShortcuts
   })
   const customHomeShortcutsConn = mkHomeCustomShorcutsConn(
     folders && folders.map(folder => folder._id)
@@ -85,8 +86,9 @@ const App = ({ accounts, konnectors, triggers }) => {
       enabled: Boolean(folders && folders.length > 0)
     }
   )
-
-  const shortcutsDirectories = formatShortcuts(folders, customHomeShortcuts)
+  const shortcutsDirectories = canHaveShortcuts
+    ? formatShortcuts(folders, customHomeShortcuts)
+    : null
   const context = useQuery(contextQuery.definition, contextQuery.options)
 
   useEffect(() => {
