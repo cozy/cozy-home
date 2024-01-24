@@ -1,17 +1,27 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistStore, persistReducer, createMigrate } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 // import { isFlagshipApp } from 'cozy-device-helper'
 
 import flag from 'cozy-flags'
 import getReducers from 'reducers'
+const migrations = {
+  0: () => {
+    return {}
+  },
+  1: () => {
+    return {}
+  }
+}
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  version: 2,
+  migrate: createMigrate(migrations, { debug: false })
 }
 
 const configureWithPersistor = cozyClient => {
