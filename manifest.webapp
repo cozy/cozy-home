@@ -90,6 +90,14 @@
     "geojson-timeseries": {
       "description": "Required to display geojson timeseries",
       "type": "io.cozy.timeseries.geojson"
+    },
+    "bills": {
+      "description": "Required to display bills debug data",
+      "type": "io.cozy.bills"
+    },
+    "identities": {
+      "description": "Required to display identities debug data",
+      "type": "io.cozy.identities"
     }
   },
   "routes": {
