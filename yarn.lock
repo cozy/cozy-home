@@ -5892,16 +5892,16 @@ cozy-bi-auth@0.0.25:
     lodash "^4.17.20"
     node-jose "^1.1.4"
 
-cozy-client@^45.1.0:
-  version "45.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-45.1.0.tgz#5755bc4d766c467da98a043a6e16657bfffb41b2"
-  integrity sha512-acQwXj6dNFT9rv06SfzHu3bYprjZzK0tkvRX14MpYRMRoIho5G4uLEB44BLEZ0+6i141e3LjMsfQj1BN3pMk5w==
+cozy-client@^45.8.0:
+  version "45.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-45.8.0.tgz#0910938541b91f4432e494023f9e28afd15cc318"
+  integrity sha512-N0V+goOPm73TiZB8Tt0LdXhvQRw2vx/eTHhx5iBav6jJs+ZpCZL6MMIFLSSfqiRjdC3CWLO6F7g9Vl7LBuvnQg==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@types/jest" "^26.0.20"
     "@types/lodash" "^4.14.170"
     btoa "^1.2.1"
-    cozy-stack-client "^45.0.1"
+    cozy-stack-client "^45.2.0"
     date-fns "2.29.3"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.13"
@@ -5960,10 +5960,10 @@ cozy-flags@3.2.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^22.0.8:
-  version "22.0.8"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.0.8.tgz#c36be2796822682e91aa5cb4206d08774eae52dd"
-  integrity sha512-K39rb5pgZsBQEpEPgOsXjeLZvB3IORV82VIx8HLxDqv4yqFoUwtK6LXpkOBq7A7p8mgXlm2i1Yf0d4qGE/NR6g==
+cozy-harvest-lib@^22.3.0:
+  version "22.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.3.0.tgz#e604378e4ec493753be7de88fa85dc32c45cf435"
+  integrity sha512-z8ct/Mf2QSityxHl4FrMmR7z5HBob7AMtmFCyY5EqHPu0WWvEI2Zm7nI75vlIX4hKTFqJ8qwkFE87wZy42/qCQ==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -5977,6 +5977,7 @@ cozy-harvest-lib@^22.0.8:
     microee "^0.0.6"
     node-polyglot "^2.4.0"
     react-final-form "^3.7.0"
+    react-json-print "^0.1.3"
     react-markdown "^4.2.2"
     use-deep-compare-effect "^1.8.1"
     uuid "^3.3.2"
@@ -6146,6 +6147,15 @@ cozy-stack-client@^45.0.1:
   version "45.0.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-45.0.1.tgz#4028aad131e40b7ba58528b39e411028bfd319d0"
   integrity sha512-VWBbBdGmsnzxarQhUFUbnQZn4VxgWp98umUpSF9PexNmBTwvHG7eNH64/1GaChQjc7xhe8yggzCeQ7wyjQsq0g==
+  dependencies:
+    detect-node "^2.0.4"
+    mime "^2.4.0"
+    qs "^6.7.0"
+
+cozy-stack-client@^45.2.0:
+  version "45.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-45.2.0.tgz#c0d20d6e11a57477752cd38f1ca8732c668f5d14"
+  integrity sha512-XpbD568C+gG2ZSkWcdlBQIfXb2kefpQpwjgMISZ0raHk6cA1c626pptfbadXzmNaj9IiDG/gTCztzbnxZ3xBUA==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -13573,6 +13583,11 @@ react-is@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-json-print@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/react-json-print/-/react-json-print-0.1.3.tgz#a773233d76d7b6d01e764d826ffde9940af1e08a"
+  integrity sha512-PxLI+cuhpZ7AKlcwZWXWxK6UnDjTkA9YcXyFKlwo9rw44vELsXBr0t5jYKTja1mDm6XzI+vdmhAVPyeNUNAUug==
 
 react-layout-effect@^1.0.1:
   version "1.0.5"
