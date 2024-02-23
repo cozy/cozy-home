@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="CozyTheme--normal u-dc"
+        class="CozyTheme--light-normal u-dc"
       >
         <div
           class="shortcuts-list-wrapper u-m-auto u-w-100"
@@ -30,7 +30,7 @@ Object {
                 data-testid="square-app-icon"
               >
                 <div
-                  class="CozyTheme--normal u-dc"
+                  class="CozyTheme--light-normal u-dc"
                 >
                   <span
                     class="MuiBadge-root-9"
@@ -79,7 +79,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="CozyTheme--normal u-dc"
+      class="CozyTheme--light-normal u-dc"
     >
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
@@ -103,7 +103,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="CozyTheme--normal u-dc"
+                class="CozyTheme--light-normal u-dc"
               >
                 <span
                   class="MuiBadge-root-9"
@@ -209,7 +209,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="CozyTheme--normal u-dc"
+        class="CozyTheme--light-normal u-dc"
       >
         <div
           class="shortcuts-list-wrapper u-m-auto u-w-100"
@@ -233,7 +233,7 @@ Object {
                 data-testid="square-app-icon"
               >
                 <div
-                  class="CozyTheme--normal u-dc"
+                  class="CozyTheme--light-normal u-dc"
                 >
                   <span
                     class="MuiBadge-root-70"
@@ -299,7 +299,7 @@ Object {
                 data-testid="square-app-icon"
               >
                 <div
-                  class="CozyTheme--normal u-dc"
+                  class="CozyTheme--light-normal u-dc"
                 >
                   <span
                     class="MuiBadge-root-124"
@@ -348,7 +348,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="CozyTheme--normal u-dc"
+      class="CozyTheme--light-normal u-dc"
     >
       <div
         class="shortcuts-list-wrapper u-m-auto u-w-100"
@@ -372,7 +372,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="CozyTheme--normal u-dc"
+                class="CozyTheme--light-normal u-dc"
               >
                 <span
                   class="MuiBadge-root-70"
@@ -438,7 +438,7 @@ Object {
               data-testid="square-app-icon"
             >
               <div
-                class="CozyTheme--normal u-dc"
+                class="CozyTheme--light-normal u-dc"
               >
                 <span
                   class="MuiBadge-root-124"
@@ -541,7 +541,7 @@ Object {
 exports[`Shortcuts Should display nothing if nothing was found 1`] = `
 <div>
   <div
-    class="CozyTheme--normal u-dc"
+    class="CozyTheme--light-normal u-dc"
   />
 </div>
 `;

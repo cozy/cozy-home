@@ -21,6 +21,7 @@ jest.mock('components/KonnectorTile', () => ({ konnector }) => (
 jest.mock('hooks/useRegistryInformation', () => (client, slug) => slug)
 
 jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
+  createNodeWithThemeCssVars: () => null, // Fix error: "TypeError: (0 , _color.createNodeWithThemeCssVars) is not a function"
   getCssVariableValue: () => '#fff',
   getInvertedCssVariableValue: () => '#fff'
 }))
