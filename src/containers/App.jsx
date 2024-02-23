@@ -119,7 +119,7 @@ const App = ({ accounts, konnectors, triggers }) => {
 
   useEffect(() => {
     if (isReady && webviewIntent) {
-      webviewIntent.call('setTheme', theme)
+      webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
     if (isReady && !webviewIntent && __SIMULATE_FLAGSHIP__) {

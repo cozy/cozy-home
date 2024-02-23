@@ -42,7 +42,7 @@ export const HeroHeader = () => {
         variant="h1"
         className={cx(
           'hero-title u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
-          { [classes.nameInverted]: theme === 'inverted' }
+          { [classes.nameInverted]: theme.variant === 'inverted' }
         )}
       >
         {publicName}
@@ -50,7 +50,7 @@ export const HeroHeader = () => {
       <Typography
         className={cx(
           'hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
-          { [classes.hostInverted]: theme === 'inverted' }
+          { [classes.hostInverted]: theme.variant === 'inverted' }
         )}
       >
         {host}

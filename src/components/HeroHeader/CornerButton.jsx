@@ -29,8 +29,8 @@ const CornerButton = props => {
       size={isMobile ? 'normal' : 'small'}
       theme="text"
       className={cx('corner-button', {
-        [classes.cornerButton]: theme === 'normal',
-        [classes.cornerButtonInverted]: theme === 'inverted'
+        [classes.cornerButton]: theme.variant === 'normal',
+        [classes.cornerButtonInverted]: theme.variant === 'inverted'
       })}
       iconOnly={isMobile}
       extension={isMobile ? 'narrow' : null}

@@ -33,7 +33,7 @@ export const BackgroundContainer = (): JSX.Element => {
   const theme = useCozyTheme()
 
   return (
-    <div {...makeProps(wallpaperLink, theme, binaryCustomWallpaper)}>
+    <div {...makeProps(wallpaperLink, theme.variant, binaryCustomWallpaper)}>
       <div></div>
       <div></div>
       <div></div>

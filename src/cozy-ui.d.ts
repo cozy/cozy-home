@@ -23,8 +23,12 @@ declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
     children?: JSX.Element
     className?: string
   }
+  interface CozyTheme {
+    type: string
+    variant: string
+  }
   export default function CozyTheme(props: CozyThemeProps): JSX.Element
-  export function useCozyTheme(): string
+  export function useCozyTheme(): CozyTheme
 }
 
 declare module 'cozy-ui/transpiled/react/providers/I18n' {
