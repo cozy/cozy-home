@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.69.0",
+  "version": "1.73.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "home": {
@@ -133,6 +133,14 @@
     "geojson-timeseries": {
       "description": "Required to display geojson timeseries",
       "type": "io.cozy.timeseries.geojson"
+    },
+    "bills": {
+      "description": "Required to display bills debug data",
+      "type": "io.cozy.bills"
+    },
+    "identities": {
+      "description": "Required to display identities debug data",
+      "type": "io.cozy.identities"
     }
   },
   "routes": {
@@ -158,7 +166,21 @@
       "type": [
         "io.cozy.accounts"
       ],
-      "href": "/intents"
+      "href": "/intents",
+      "data": [
+        "slug"
+      ]
+    },
+    {
+      "action": "VIEW",
+      "type": [
+        "io.cozy.accounts"
+      ],
+      "href": "/intents",
+      "data": [
+        "slug",
+        "accountId"
+      ]
     },
     {
       "action": "REDIRECT",
@@ -197,6 +219,11 @@
       "type": "node",
       "file": "services/cliskTimeout/home.js",
       "comment": "This service must be called programmatically from the flagship app. It stopps the given job with a context deadline exceeded error"
+    },
+    "sourceAccountIdentifierNormalizer": {
+      "type": "node",
+      "file": "services/sourceAccountIdentifierNormalizer/home.js",
+      "comment": "This service must be called manually"
     }
   },
   "locales": {
