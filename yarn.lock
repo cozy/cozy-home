@@ -6175,10 +6175,10 @@ cozy-tsconfig@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-tsconfig/-/cozy-tsconfig-1.2.0.tgz#17e61f960f139fae4d26cbac2254b9ab632b269e"
   integrity sha512-TRHnY9goF3FzVlUbP7BcHxuN2XAA4AmppT4fHHZmTKaSwYTByVR1Al+riFMDbce94kJZ1wzl9WNLWQuqzGZ6Cw==
 
-cozy-ui@^103.6.2:
-  version "103.6.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-103.6.2.tgz#6867e06082aec4c82b2ccd2a626540f22e774984"
-  integrity sha512-cSc6mQj3L81Opux3GpJwJ5mh+c6895vZywr8uFK/xY08yijIMHruivb/HFCAOM34ypQEEpIsmyxxbld+sUT8iQ==
+cozy-ui@^103.12.0:
+  version "103.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-103.12.0.tgz#111aec19c38ec7899532def34430c8033ab5d9c7"
+  integrity sha512-izwOiTja/S2JpAgB2dt6GgdSgqlVIghcYPw7Hx7uhWRQ/1334Ng0X2iGqasxOtcQRN/7IycNv0/FDuh9acH+CQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@material-ui/core" "4.12.3"
@@ -6200,7 +6200,6 @@ cozy-ui@^103.6.2:
     piwik-react-router "0.12.1"
     react-chartjs-2 "4.1.0"
     react-markdown "^4.0.8"
-    react-middle-ellipsis "1.2.2"
     react-pdf "^5.7.2"
     react-popper "^2.2.3"
     react-remove-scroll "^2.4.0"
@@ -11952,9 +11951,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.9":
+"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.9":
   version "1.0.8"
-  resolved "https://github.com/cozy/mui-bottom-sheet.git#3dc4c2a245ab39079bc2f73546bccf80847be14c"
+  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#3dc4c2a245ab39079bc2f73546bccf80847be14c"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
@@ -13637,11 +13636,6 @@ react-markdown@^4.0.8, react-markdown@^4.2.2:
     unified "^6.1.5"
     unist-util-visit "^1.3.0"
     xtend "^4.0.1"
-
-react-middle-ellipsis@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/react-middle-ellipsis/-/react-middle-ellipsis-1.2.2.tgz#e1676fe2fbc864ea7e2fc25bedc53db2635bb2a9"
-  integrity sha512-tTsyS/hOjT3C5WjpueAx1/WsYUVnNlUnDRCKSffGT1ns7b0NbSi6FGVVPDLTxn207B0sVjNTbMnk1HFGWd5hzA==
 
 react-pdf@^5.7.2:
   version "5.7.2"
