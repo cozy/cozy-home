@@ -19,7 +19,8 @@ const appEntryPoint = queryConnect({
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   },
   triggers: {
-    query: () => Q(TRIGGER_DOCTYPE).where({ worker: ['client', 'konnector'] }),
+    query: () =>
+      Q(TRIGGER_DOCTYPE).where({ worker: { $in: ['client', 'konnector'] } }),
     as: 'io.cozy.triggers/by_worker_client_konnector',
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   }
