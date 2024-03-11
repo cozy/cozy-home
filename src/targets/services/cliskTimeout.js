@@ -21,6 +21,7 @@
  */
 import CozyClient, { Q } from 'cozy-client'
 import logger from 'cozy-logger'
+
 import polyfillFetch from './polyfillFetch'
 
 const log = logger.namespace('cliskTimeout')

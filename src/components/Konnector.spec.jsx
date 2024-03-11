@@ -3,10 +3,10 @@ enableFetchMocks()
 
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { Navigate, createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { StatelessKonnector } from './Konnector'
-import { act } from 'react-dom/test-utils'
 
 jest.mock('cozy-harvest-lib', () => ({
   Routes: ({ konnector, triggers, onDismiss }) => (

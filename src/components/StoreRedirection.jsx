@@ -1,8 +1,8 @@
 import React from 'react'
-import Intents from 'cozy-interapp'
 
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { useClient } from 'cozy-client'
+import Intents from 'cozy-interapp'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 const StoreRedirection = props => {
   const client = useClient()

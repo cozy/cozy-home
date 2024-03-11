@@ -1,14 +1,16 @@
 import React, { useState, useRef } from 'react'
 
-import flag from 'cozy-flags'
 import { useQuery, isQueryLoading } from 'cozy-client'
 import { getFlagshipMetadata } from 'cozy-device-helper'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import flag from 'cozy-flags'
 import Fab from 'cozy-ui/transpiled/react/Fab'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { appsConn } from 'queries'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import { appsConn } from 'queries'
+
+import ActionsBottomSheet from './ActionsBottomSheet'
 import {
   FLAG_FAB_ACTIONS,
   filterAvailableActions,
@@ -16,8 +18,6 @@ import {
   extendDict,
   DEFAULT_ACTIONS
 } from './helpers'
-
-import ActionsBottomSheet from './ActionsBottomSheet'
 
 const styles = {
   fab: immersive => ({

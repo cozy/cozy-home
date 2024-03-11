@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+
 import { useClient } from 'cozy-client'
-import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+
+import useRegistryInformation from 'hooks/useRegistryInformation'
 
 const CandidateServiceTile = ({ konnector }) => {
   const { t } = useI18n()

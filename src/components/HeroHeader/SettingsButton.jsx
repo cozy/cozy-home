@@ -1,10 +1,10 @@
-import React from 'react'
-import { queryConnect, Q, models, fetchPolicies } from 'cozy-client'
 import get from 'lodash/get'
+import React from 'react'
 
+import { queryConnect, Q, models, fetchPolicies } from 'cozy-client'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import CornerButton from './CornerButton'
 

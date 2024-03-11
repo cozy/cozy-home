@@ -1,15 +1,21 @@
 import 'cozy-ui/dist/cozy-ui.min.css'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
-import 'styles/intents.styl'
-import { Route, Routes } from 'react-router-dom'
-import { HarvestRoutes } from './HarvestRoute'
+
+import AppWrapper, { AppContext } from 'components/AppWrapper'
+import IntentHandler from 'containers/IntentHandler'
+
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
-import IntentHandler from 'containers/IntentHandler'
-import AppWrapper, { AppContext } from 'components/AppWrapper'
+
+import 'styles/intents.styl'
+
+import { Route, Routes } from 'react-router-dom'
+
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
+
+import { HarvestRoutes } from './HarvestRoute'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')

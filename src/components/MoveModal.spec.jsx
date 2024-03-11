@@ -1,8 +1,11 @@
-import React from 'react'
 import { render, fireEvent, configure } from '@testing-library/react'
-import MoveModal from './MoveModal'
+import React from 'react'
+
 import CozyClient, { CozyProvider } from 'cozy-client'
+
 import AppLike from 'test/AppLike'
+
+import MoveModal from './MoveModal'
 
 configure({ testIdAttribute: 'data-testid' })
 

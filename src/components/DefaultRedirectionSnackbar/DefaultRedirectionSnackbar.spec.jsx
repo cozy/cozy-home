@@ -1,9 +1,10 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
+import React from 'react'
 
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AppLike from 'test/AppLike'
+
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
 import {
   shouldShowDefaultRedirectionSnackbar,

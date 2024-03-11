@@ -1,4 +1,5 @@
 import CozyClient, { Q, queryConnect } from 'cozy-client'
+
 import '../flags'
 
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
