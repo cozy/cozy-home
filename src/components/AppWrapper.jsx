@@ -1,24 +1,25 @@
+import memoize from 'lodash/memoize'
 import React, { createContext } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
-import memoize from 'lodash/memoize'
+import { PersistGate } from 'redux-persist/integration/react'
+import configureStore from 'store/configureStore'
 
-import flag from 'cozy-flags'
 import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { PersistGate } from 'redux-persist/integration/react'
-
-import configureStore from 'store/configureStore'
+import flag from 'cozy-flags'
 import { RealtimePlugin } from 'cozy-realtime'
-// import { isFlagshipApp } from 'cozy-device-helper'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
 import { usePreferedTheme } from 'hooks/usePreferedTheme'
 
-import schema from '../schema'
+// import { isFlagshipApp } from 'cozy-device-helper'
+
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import schema from '../schema'
+
 const dictRequire = lang => require(`locales/${lang}.json`)
 
 export const AppContext = createContext()

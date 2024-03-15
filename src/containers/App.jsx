@@ -1,46 +1,47 @@
 /* global __SIMULATE_FLAGSHIP__ */
+
 import React, { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
 import { useQuery } from 'cozy-client'
-import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
-
-import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import flag, { enable as enableFlags } from 'cozy-flags'
+import { useWebviewIntent } from 'cozy-intent'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import AddButton from 'components/AddButton/AddButton'
-import Corner from 'components/HeroHeader/Corner'
+import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
+import { BackgroundContainer } from 'components/BackgroundContainer'
+import BackupNotification from 'components/BackupNotification/BackupNotification'
+import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import Failure from 'components/Failure'
+import FooterLogo from 'components/FooterLogo/FooterLogo'
 import HeroHeader from 'components/HeroHeader'
+import Corner from 'components/HeroHeader/Corner'
 import Home from 'components/Home'
 import IntentRedirect from 'components/IntentRedirect'
-import MoveModal from 'components/MoveModal'
-import StoreRedirection from 'components/StoreRedirection'
-import BackupNotification from 'components/BackupNotification/BackupNotification'
-import appEntryPoint from 'components/appEntryPoint'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { BackgroundContainer } from 'components/BackgroundContainer'
-import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
-import { MainView } from 'components/MainView'
-import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
-import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
-import ReloadFocus from './ReloadFocus'
-import FooterLogo from 'components/FooterLogo/FooterLogo'
+import { MainView } from 'components/MainView'
+import MoveModal from 'components/MoveModal'
 import { formatShortcuts } from 'components/Shortcuts/utils'
+import StoreRedirection from 'components/StoreRedirection'
+import appEntryPoint from 'components/appEntryPoint'
 import {
   mkHomeMagicFolderConn,
   mkHomeCustomShorcutsConn,
   mkHomeCustomShorcutsDirConn,
   contextQuery
 } from 'queries'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+
+import ReloadFocus from './ReloadFocus'
+import { toFlagNames } from './toFlagNames'
 
 window.flag = window.flag || flag
 window.minilog = minilog

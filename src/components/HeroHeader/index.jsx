@@ -1,11 +1,12 @@
-import React from 'react'
-import { useClient } from 'cozy-client'
-import { useInstanceSettings } from 'hooks/useInstanceSettings'
 import cx from 'classnames'
+import React from 'react'
 
+import { useClient } from 'cozy-client'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
-import Typography from 'cozy-ui/transpiled/react/Typography'
+
+import { useInstanceSettings } from 'hooks/useInstanceSettings'
 
 const useStyles = makeStyles(theme => ({
   shadow: {

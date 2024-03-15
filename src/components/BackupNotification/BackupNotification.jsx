@@ -3,23 +3,21 @@ import React, { useState } from 'react'
 import { useClient, generateWebLink } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
-
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
-import Typography from 'cozy-ui/transpiled/react/Typography'
+import CircularProgress from 'cozy-ui/transpiled/react/CircularProgress'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import CrossCircleOutlineIcon from 'cozy-ui/transpiled/react/Icons/CrossCircleOutline'
+import PhoneUploadIcon from 'cozy-ui/transpiled/react/Icons/PhoneUpload'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import CircularProgress from 'cozy-ui/transpiled/react/CircularProgress'
-import PhoneUploadIcon from 'cozy-ui/transpiled/react/Icons/PhoneUpload'
-import CrossCircleOutlineIcon from 'cozy-ui/transpiled/react/Icons/CrossCircleOutline'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import ConfirmStopBackupDialog from 'components/BackupNotification/ConfirmStopBackupDialog'
 import { useBackupData } from 'components/BackupNotification/useBackupData'
-
 import styles from 'styles/backupNotification.styl'
 
 const BackupNotification = () => {

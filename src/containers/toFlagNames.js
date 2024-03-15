@@ -1,7 +1,7 @@
-import isObjectLike from 'lodash/isObjectLike'
-import isArray from 'lodash/isArray'
-import keys from 'lodash/keys'
 import flatten from 'lodash/flatten'
+import isArray from 'lodash/isArray'
+import isObjectLike from 'lodash/isObjectLike'
+import keys from 'lodash/keys'
 
 // TODO add this to cozy-flags ?
 export const toFlagNames = (flagName, prefix = '') => {

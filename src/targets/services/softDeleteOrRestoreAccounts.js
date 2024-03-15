@@ -1,9 +1,9 @@
-import NodeVaultClient from 'cozy-keys-lib/transpiled/NodeVaultClient'
 import CozyClient from 'cozy-client'
-import logger from 'cozy-logger'
-import polyfillFetch from './polyfillFetch'
-
 import softDeleteOrRestoreAccounts from 'cozy-harvest-lib/dist/services/softDeleteOrRestoreAccounts'
+import NodeVaultClient from 'cozy-keys-lib/transpiled/NodeVaultClient'
+import logger from 'cozy-logger'
+
+import polyfillFetch from './polyfillFetch'
 
 const log = logger.namespace('softDeleteOrRestoreAccounts')
 

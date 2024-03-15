@@ -1,12 +1,11 @@
+import EmptyIcon from 'assets/icons/color/default.svg'
 import React from 'react'
 
-import Stack from 'cozy-ui/transpiled/react/Stack'
-import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import EmptyIcon from 'assets/icons/color/default.svg'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-
+import Stack from 'cozy-ui/transpiled/react/Stack'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const reload = () => {
   window.location.reload()

@@ -1,10 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import { models } from 'cozy-client'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
-
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const { applications } = models

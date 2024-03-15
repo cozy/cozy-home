@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useClient } from 'cozy-client'
 import cx from 'classnames'
+import React from 'react'
+
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
 import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
+
 type BackgroundContainerComputedProps = {
   className: string
   style?: { backgroundImage: string }

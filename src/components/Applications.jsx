@@ -1,20 +1,20 @@
-import React, { memo, useEffect, useRef } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
+import React, { memo, useEffect, useRef } from 'react'
+
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/Divider'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import AppHighlightAlertWrapper from 'components/AppHighlightAlert/AppHighlightAlertWrapper'
 import AppTile from 'components/AppTile'
+import LoadingPlaceholder from 'components/LoadingPlaceholder'
 import LogoutTile from 'components/LogoutTile'
 import ShortcutLink from 'components/ShortcutLink'
-import LoadingPlaceholder from 'components/LoadingPlaceholder'
-import AppHighlightAlertWrapper from 'components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from 'config/home.json'
 import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from 'queries'
-
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const LoadingAppTiles = memo(({ num }) => {
   const { t } = useI18n()

@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { useClient, useQuery } from 'cozy-client'
-import { buildContextQuery } from 'queries'
 import Divider from 'cozy-ui/transpiled/react/Divider'
+
+import { buildContextQuery } from 'queries'
 
 export const FooterLogo = () => {
   const client = useClient()

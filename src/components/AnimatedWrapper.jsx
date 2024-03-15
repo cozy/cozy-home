@@ -1,10 +1,11 @@
 import React from 'react'
-import { isFlagshipApp } from 'cozy-device-helper'
-import homeConfig from 'config/home.json'
-import { useOpenApp } from 'hooks/useOpenApp'
 import { RemoveScroll } from 'react-remove-scroll'
 
+import { isFlagshipApp } from 'cozy-device-helper'
+
+import homeConfig from 'config/home.json'
 import App from 'containers/App'
+import { useOpenApp } from 'hooks/useOpenApp'
 
 const RemoveScrollOnFlaghsip = ({ children }) => {
   if (isFlagshipApp()) {

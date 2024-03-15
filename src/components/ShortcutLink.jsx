@@ -1,11 +1,10 @@
-import React from 'react'
 import get from 'lodash/get'
+import React from 'react'
 
 import { useClient, useFetchShortcut } from 'cozy-client'
 import { CozyFile } from 'cozy-doctypes'
-
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const ShortcutLink = ({ file, desktopSize = 44 }) => {

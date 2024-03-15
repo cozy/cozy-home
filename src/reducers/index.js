@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
 import get from 'lodash/get'
+import { combineReducers } from 'redux'
 
 const isKonnectorTrigger = doc =>
   doc._type === 'io.cozy.triggers' && !!doc.message && !!doc.message.konnector

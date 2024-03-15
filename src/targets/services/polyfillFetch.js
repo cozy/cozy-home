@@ -1,6 +1,7 @@
-import fetch from 'node-fetch'
-import FormData from 'form-data'
 import { URL } from 'url'
+
+import FormData from 'form-data'
+import fetch from 'node-fetch'
 
 /**
  * Polyfill fetch function and related objects only if the global scope
