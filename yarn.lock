@@ -5962,6 +5962,17 @@ cozy-doctypes@^1.89.4:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
+cozy-doctypes@^1.89.5:
+  version "1.89.5"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.89.5.tgz#9bd2f650e537124aaf634a831320c8b76a965cc2"
+  integrity sha512-oMdITpn8J8k7XEzBOGE+ZZLiEA7RUZTKOF8ZA8r1OrZF6A1FTxCha8EDySGLlVr+QXyMkoYT5GFsqkEUn9LkbA==
+  dependencies:
+    cozy-logger "^1.10.4"
+    date-fns "^1.30.1"
+    es6-promise-pool "^2.5.0"
+    lodash "^4.17.19"
+    prop-types "^15.7.2"
+
 cozy-flags@3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-3.2.2.tgz#778b148ec6db0d9d9988fee43952e4b21547fb71"
@@ -5969,16 +5980,16 @@ cozy-flags@3.2.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^22.5.2:
-  version "22.5.2"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.5.2.tgz#b521d5bdb95937fa458c73f24a4e1a3d3bc77ee5"
-  integrity sha512-7lXeUiJdm1ZwlpHQ7gp4t5FAjBnO46HXsI0EcD3IizPa0NJtptNRjAmcx17QdpHp1sgcUFd/3qYFRvXdh8cqEw==
+cozy-harvest-lib@^22.5.5:
+  version "22.5.5"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-22.5.5.tgz#71111ac185c104b350d26301f3a18a6e1165f399"
+  integrity sha512-JVD1x7iOwkDU4VTzeWjwd2JzmUAjMCicvrtoHcYk5PXsoLIcmm6celcZ3lx332/8Ak6t5i+/mx5Aq5cG7igXUA==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
     classnames "^2.3.1"
     cozy-bi-auth "0.0.25"
-    cozy-doctypes "^1.89.4"
+    cozy-doctypes "^1.89.5"
     cozy-logger "^1.10.4"
     date-fns "^1.30.1"
     final-form "^4.18.5"
