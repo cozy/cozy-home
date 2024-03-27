@@ -1,7 +1,7 @@
 import {
   normalizeIdentities,
   normalizeBills
-} from './sourceAccountIdentifierNormalizer'
+} from './sourceAccountIdentifierNormalizerHelper'
 
 describe('normalizeIdentities', () => {
   it('should normalize identities with the identifier attribute', async () => {
