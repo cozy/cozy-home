@@ -25,6 +25,7 @@ const main = async () => {
     await main()
   } catch (error) {
     log('critical', error.message)
+    process.exit(1)
   }
 })()
 
