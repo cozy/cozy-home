@@ -123,7 +123,7 @@ export async function normalizeBills(client) {
         const file = billsFilesMap.get(fileId)
         if (file?.cozyMetadata?.sourceAccountIdentifier) {
           sourceAccountIdentifier = file.cozyMetadata.sourceAccountIdentifier
-        } else if (file.cozyMetadata?.sourceAccount) {
+        } else if (file?.cozyMetadata?.sourceAccount) {
           const account = billsAndFilesAccountsMap.get(
             file.cozyMetadata.sourceAccount
           )
