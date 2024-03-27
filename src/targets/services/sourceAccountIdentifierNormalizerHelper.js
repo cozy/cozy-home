@@ -83,9 +83,10 @@ export async function normalizeBills(client) {
       } else if (!sourceAccountIdentifier && bill.invoice) {
         const fileId = bill.invoice?.split(':').pop()
         const file = billsFilesMap.get(fileId)
-        if (file?.cozyMetadata?.sourceAccountIdentifier) {
+        const fileCozyMetadata = file?.cozyMetadata
+        if (fileCozyMetadata?.sourceAccountIdentifier) {
           sourceAccountIdentifier = file.cozyMetadata.sourceAccountIdentifier
-        } else if (file?.cozyMetadata?.sourceAccount) {
+        } else if (fileCozyMetadata?.sourceAccount) {
           const account = billsAndFilesAccountsMap.get(
             file.cozyMetadata.sourceAccount
           )
