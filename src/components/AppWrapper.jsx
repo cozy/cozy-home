@@ -9,6 +9,7 @@ import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
+import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
 
 import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
@@ -94,20 +95,22 @@ const AppWrapper = ({ children }) => {
         <CozyProvider client={cozyClient}>
           <CustomWallPaperProvider>
             <ThemeProvider>
-              <ReduxProvider store={store}>
-                <ConditionalWrapper
-                  condition={persistor}
-                  wrapper={children => (
-                    <PersistGate loading={null} persistor={persistor}>
+              <AlertProvider>
+                <ReduxProvider store={store}>
+                  <ConditionalWrapper
+                    condition={persistor}
+                    wrapper={children => (
+                      <PersistGate loading={null} persistor={persistor}>
+                        {children}
+                      </PersistGate>
+                    )}
+                  >
+                    <Inner lang={lang} context={context}>
                       {children}
-                    </PersistGate>
-                  )}
-                >
-                  <Inner lang={lang} context={context}>
-                    {children}
-                  </Inner>
-                </ConditionalWrapper>
-              </ReduxProvider>
+                    </Inner>
+                  </ConditionalWrapper>
+                </ReduxProvider>
+              </AlertProvider>
             </ThemeProvider>
           </CustomWallPaperProvider>
         </CozyProvider>
