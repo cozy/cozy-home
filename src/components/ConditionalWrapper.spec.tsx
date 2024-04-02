@@ -1,5 +1,6 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
+
 import { ConditionalWrapper } from './ConditionalWrapper'
 
 const Component = (): JSX.Element => <div>Component</div>

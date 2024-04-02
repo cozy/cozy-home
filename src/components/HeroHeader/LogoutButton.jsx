@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from 'react'
 
-import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import { useClient } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
+import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+
+import { LogoutDialog } from 'components/HeroHeader/LogoutModal'
 
 import CornerButton from './CornerButton'
-import { LogoutDialog } from 'components/HeroHeader/LogoutModal'
-import { isFlagshipApp } from 'cozy-device-helper'
 
 const LogoutButton = () => {
   const [isOpen, setIsOpen] = useState(false)

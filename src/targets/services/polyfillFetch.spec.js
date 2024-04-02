@@ -2,10 +2,12 @@
  * @jest-environment node
  */
 
-import polyfillFetch from './polyfillFetch'
-import fetch from 'node-fetch'
-import FormData from 'form-data'
 import { URL } from 'url'
+
+import FormData from 'form-data'
+import fetch from 'node-fetch'
+
+import polyfillFetch from './polyfillFetch'
 
 describe('polyfillFetch', () => {
   // In order to deal with node 16 / node 20 migration

@@ -1,25 +1,23 @@
-import 'cozy-ui/transpiled/react/stylesheet.css'
-import 'cozy-ui/dist/cozy-ui.utils.min.css'
-import 'styles/index.styl'
+import React from 'react'
+import { Root } from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
 import 'url-search-params-polyfill'
 
-import React from 'react'
-import { HashRouter } from 'react-router-dom'
-
 import { handleOAuthResponse } from 'cozy-harvest-lib'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
+import 'cozy-ui/dist/cozy-ui.utils.min.css'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import AppWrapper from 'components/AppWrapper'
-import { closeApp, openApp } from 'hooks/useOpenApp'
-import { Root } from 'react-dom/client'
-
 import {
   BackupDataProvider,
   useBackupData,
   BackupInfo
 } from 'components/BackupNotification/useBackupData'
+import { closeApp, openApp } from 'hooks/useOpenApp'
+import 'styles/index.styl'
 
 export const renderApp = (root?: Root): void => {
   if (handleOAuthResponse()) {

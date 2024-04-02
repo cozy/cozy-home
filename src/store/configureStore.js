@@ -1,13 +1,14 @@
+import getReducers from 'reducers'
 import { compose, createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistReducer, createMigrate } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import thunkMiddleware from 'redux-thunk'
+
+import flag from 'cozy-flags'
 
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import flag from 'cozy-flags'
-import getReducers from 'reducers'
 const migrations = {
   0: () => {
     return {}

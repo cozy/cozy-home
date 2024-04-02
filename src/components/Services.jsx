@@ -1,27 +1,25 @@
-import React, { useMemo } from 'react'
+import has from 'lodash/has'
+import keyBy from 'lodash/keyBy'
 import sortBy from 'lodash/sortBy'
-import { useAppsInMaintenance, useQuery } from 'cozy-client'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
-import keyBy from 'lodash/keyBy'
-import has from 'lodash/has'
-
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useAppsInMaintenance, useQuery } from 'cozy-client'
 import Divider from 'cozy-ui/transpiled/react/Divider'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import AddServiceTile from 'components/AddServiceTile'
-import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
 import CandidateServiceTile from 'components/CandidateServiceTile'
-import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
 import EmptyServicesListTip from 'components/EmptyServicesListTip'
+import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
+import KonnectorTile from 'components/KonnectorTile'
 import candidatesConfig from 'config/candidates'
-import { suggestedKonnectorsConn } from 'queries'
-
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
 } from 'lib/konnectors_typed'
+import { suggestedKonnectorsConn } from 'queries'
 
 import { getInstalledKonnectors } from '../selectors/konnectors'
 export const Services = () => {

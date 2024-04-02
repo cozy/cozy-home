@@ -1,12 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 /* global __DEVELOPMENT__ */
 
-import AppWrapper, { setupAppContext } from './AppWrapper'
 import { render } from '@testing-library/react'
 import React from 'react'
-import AppLike from 'test/AppLike'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
 import { act } from 'react-dom/test-utils'
+
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import AppLike from 'test/AppLike'
+
+import AppWrapper, { setupAppContext } from './AppWrapper'
 
 const mockClient = {
   registerPlugin: jest.fn(),

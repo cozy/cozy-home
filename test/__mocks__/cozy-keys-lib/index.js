@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import CipherType from 'cozy-keys-lib/transpiled/CipherType'
 import FieldType from 'cozy-keys-lib/transpiled/FieldType'
 import UriMatchType from 'cozy-keys-lib/transpiled/UriMatchType'

@@ -1,10 +1,11 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import React from 'react'
 
-import { ShortcutLink } from './ShortcutLink'
 import { useFetchShortcut } from 'cozy-client'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
+import { ShortcutLink } from './ShortcutLink'
 
 jest.mock('cozy-client', () => {
   return {

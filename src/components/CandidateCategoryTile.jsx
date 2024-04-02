@@ -1,11 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import Grid from 'cozy-ui/transpiled/react/Grid'
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import React from 'react'
+
 import { useClient, generateWebLink } from 'cozy-client'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import Grid from 'cozy-ui/transpiled/react/Grid'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const MIN_SLUGS = 4
 

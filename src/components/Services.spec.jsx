@@ -2,13 +2,16 @@
 
 /* eslint-env jest */
 
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
+
 import { useAppsInMaintenance } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
-import { Services } from './Services'
-import AppLike from 'test/AppLike'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
+import AppLike from 'test/AppLike'
+
+import { Services } from './Services'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),

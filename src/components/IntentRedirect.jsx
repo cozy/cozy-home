@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
+
 import {
   useClient,
   useQuery,
@@ -7,7 +8,9 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import Intents from 'cozy-interapp'
+
 import { konnectorsConn } from 'queries'
+
 const IntentRedirect = () => {
   const client = useClient()
   const intents = new Intents({ client })

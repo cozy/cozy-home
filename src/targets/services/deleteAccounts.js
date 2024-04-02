@@ -1,8 +1,8 @@
 import CozyClient from 'cozy-client'
-import logger from 'cozy-logger'
-import polyfillFetch from './polyfillFetch'
-
 import deleteAccounts from 'cozy-harvest-lib/dist/services/deleteAccounts'
+import logger from 'cozy-logger'
+
+import polyfillFetch from './polyfillFetch'
 
 const log = logger.namespace('deleteAccounts')
 

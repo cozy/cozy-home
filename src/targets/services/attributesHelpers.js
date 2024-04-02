@@ -1,5 +1,6 @@
-import log from 'cozy-logger'
 import omit from 'lodash/omit'
+
+import log from 'cozy-logger'
 
 export const updateMyselfWithIdentity = (newIdentity, currentMyselfContact) => {
   log('info', `Found a me contact`)

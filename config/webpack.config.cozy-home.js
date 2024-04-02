@@ -1,10 +1,12 @@
 'use strict'
 
-const webpack = require('webpack')
 const path = require('path')
-const { environment } = require('cozy-scripts/config/webpack.vars')
-const { DefinePlugin, ContextReplacementPlugin } = require('webpack')
+
 const IgnoreNotFoundExportPlugin = require('ignore-not-found-export-webpack-plugin')
+const webpack = require('webpack')
+const { DefinePlugin, ContextReplacementPlugin } = require('webpack')
+
+const { environment } = require('cozy-scripts/config/webpack.vars')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 

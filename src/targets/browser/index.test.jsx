@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
-import { renderApp } from './renderApp'
+
 import { _main } from './index'
+import { renderApp } from './renderApp'
 
 jest.mock('react-dom/client', () => ({
   createRoot: jest.fn()

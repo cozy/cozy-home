@@ -5,6 +5,7 @@
  */
 import CozyClient, { Q, models } from 'cozy-client'
 import logger from 'cozy-logger'
+
 import polyfillFetch from './polyfillFetch'
 
 const log = logger.namespace('sourceAccountIdentifierNormalizer')

@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import styles from 'styles/konnectorHeaderIcon.styl'
 

@@ -1,5 +1,6 @@
-import { hasActionFlagCorrectValue, filterAvailableActions } from './helpers'
 import flag from 'cozy-flags'
+
+import { hasActionFlagCorrectValue, filterAvailableActions } from './helpers'
 
 jest.mock('cozy-flags')
 

@@ -2,10 +2,11 @@
 
 /* eslint-env jest */
 
-import React from 'react'
 import { render } from '@testing-library/react'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import React from 'react'
+
 import { createMockClient } from 'cozy-client/dist/mock'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import {
   KonnectorTile,

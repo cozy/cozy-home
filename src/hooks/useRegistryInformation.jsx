@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import { Registry } from 'cozy-client'
 
 const useRegistryInformation = (client, slug) => {

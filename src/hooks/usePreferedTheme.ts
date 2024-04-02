@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useCustomWallpaperContext } from './useCustomWallpaperContext'
+
 import { useClient } from 'cozy-client'
+
+import { useCustomWallpaperContext } from './useCustomWallpaperContext'
 
 const getHomeThemeCssVariable = (): string => {
   return getComputedStyle(document.getElementsByTagName('body')[0])

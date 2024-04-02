@@ -1,9 +1,10 @@
 import React from 'react'
+
 import flag from 'cozy-flags'
 
+import HelpButton from './HelpButton'
 import LogoutButton from './LogoutButton'
 import SettingsButton from './SettingsButton'
-import HelpButton from './HelpButton'
 
 const cornerButtons = [
   {

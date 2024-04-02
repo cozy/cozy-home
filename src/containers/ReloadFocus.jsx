@@ -1,7 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import { withClient, Q } from 'cozy-client'
+
 class RealoadFocus extends React.Component {
   static contextTypes = {
     store: PropTypes.object

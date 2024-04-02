@@ -1,11 +1,14 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import Corner from './Corner'
+import React from 'react'
+
 import flag from 'cozy-flags'
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import enLocale from 'locales/en.json'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { WebviewIntentProvider } from 'cozy-intent'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import I18n from 'cozy-ui/transpiled/react/providers/I18n'
+
+import enLocale from 'locales/en.json'
+
+import Corner from './Corner'
 
 jest.mock(
   './SettingsButton',

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useClient } from 'cozy-client'
-import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { useInstanceSettings } from 'hooks/useInstanceSettings'
 

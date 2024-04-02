@@ -1,9 +1,9 @@
+import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
 import React from 'react'
 
-import { Media, Img, Bd } from 'cozy-ui/transpiled/react/deprecated/Media'
-import ArrowIllustration from 'assets/images/drawing-arrow-up.svg'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import { Media, Img, Bd } from 'cozy-ui/transpiled/react/deprecated/Media'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const EmptyServicesListTip = () => {
   const { t } = useI18n()

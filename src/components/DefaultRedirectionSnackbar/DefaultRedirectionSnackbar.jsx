@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 
 import { useClient, useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { makeStyles } from 'cozy-ui/transpiled/react/styles'
-import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
 import Alert from 'cozy-ui/transpiled/react/Alert'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
+import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 
 import { instanceSettingsConn, homeSettingsConn } from 'queries'
+
 import {
   shouldShowDefaultRedirectionSnackbar,
   disableDefaultRedirectionSnackbar,

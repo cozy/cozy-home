@@ -1,12 +1,13 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import flag from 'cozy-flags'
+import React from 'react'
+
 import { useQuery } from 'cozy-client'
+import flag from 'cozy-flags'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AppLike from 'test/AppLike'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import AddButton from './AddButton'
 
+import AddButton from './AddButton'
 import { FLAG_FAB_ACTIONS } from './helpers'
 
 const ACTIONS = [

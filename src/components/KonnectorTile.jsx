@@ -1,11 +1,12 @@
 // @ts-check
 import PropTypes from 'prop-types'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import { NavLink } from 'react-router-dom'
+
 import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 /**

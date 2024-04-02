@@ -1,11 +1,12 @@
+import '@testing-library/jest-dom'
+import { render } from '@testing-library/react'
 import React from 'react'
 
-import { render } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
+import AppLike from 'test/AppLike'
 
 import { ShortcutsView } from './ShortcutsView'
-import AppLike from 'test/AppLike'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 describe('Shortcuts', () => {
   it('Should display nothing if nothing was found', () => {

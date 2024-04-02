@@ -1,11 +1,14 @@
-import React from 'react'
-import { isFlagshipApp } from 'cozy-device-helper'
 import { render } from '@testing-library/react'
-import App from '../components/AnimatedWrapper'
-import AppLike from 'test/AppLike'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import React from 'react'
 import { act } from 'react-dom/test-utils'
+
+import { isFlagshipApp } from 'cozy-device-helper'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
+import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import AppLike from 'test/AppLike'
+
+import App from '../components/AnimatedWrapper'
 
 // eslint-disable-next-line react/display-name
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)

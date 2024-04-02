@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
 
 import { useClient } from 'cozy-client'
-import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useWebviewIntent } from 'cozy-intent'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import LogoutLargeIcon from 'cozy-ui/transpiled/react/Icons/LogoutLarge'
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const LogoutTile = () => {
   const { t } = useI18n()

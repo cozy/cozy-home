@@ -3,8 +3,8 @@ import { renderHook } from '@testing-library/react-hooks'
 import { deconstructRedirectLink, hasQueryBeenLoaded } from 'cozy-client'
 
 import { incrementDefaultRedirectionViewCount } from './helpers'
-import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 import useHomeAppOpened from './useHomeAppOpened'
+import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 
 jest.mock('cozy-client')
 jest.mock('./helpers')

@@ -1,19 +1,18 @@
 import React, { Fragment } from 'react'
 
 import { useClient, generateWebLink } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import BottomSheet, {
   BottomSheetItem
 } from 'cozy-ui/transpiled/react/BottomSheet'
+import Divider from 'cozy-ui/transpiled/react/Divider'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/List'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import Divider from 'cozy-ui/transpiled/react/Divider'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const ActionsBottomSheet = ({ anchorRef, hideMenu, actionsLists }) => {
   const { t } = useI18n()

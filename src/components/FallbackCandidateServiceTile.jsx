@@ -1,10 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import { useClient, generateWebLink } from 'cozy-client'
-import useRegistryInformation from 'hooks/useRegistryInformation'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+
+import useRegistryInformation from 'hooks/useRegistryInformation'
 
 const FallbackCandidateServiceTile = ({ slug }) => {
   const client = useClient()
