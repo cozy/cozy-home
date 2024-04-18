@@ -1,20 +1,19 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 
+import { useSettings } from 'cozy-client'
+
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AppLike from 'test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
-import {
-  shouldShowDefaultRedirectionSnackbar,
-  disableDefaultRedirectionSnackbar,
-  setDefaultRedirectionToHome
-} from './helpers'
+import { useShouldShowDefaultRedirectionSnackbar } from './helpers'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
   useQuery: jest.fn(),
-  useClient: jest.fn()
+  useClient: jest.fn(),
+  useSettings: jest.fn()
 }))
 jest.mock('./helpers')
 jest.mock('./useIncrementDefaultRedirectionViewCount')
@@ -36,7 +35,26 @@ describe('DefaultRedirectionSnackbar', () => {
   })
 
   it('should display default redirection snackbar', () => {
-    shouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+    useShouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+    const mockSaveInstance = jest.fn()
+    const mockSaveHome = jest.fn()
+    useSettings.mockImplementation((...args) => {
+      if (args[0] === 'instance') {
+        return {
+          values: {
+            default_redirection: 'drive/#/folder'
+          },
+          save: mockSaveInstance
+        }
+      } else if (args[0] === 'home') {
+        return {
+          values: {
+            default_redirection_view_count: 4
+          },
+          save: mockSaveHome
+        }
+      }
+    })
 
     const { root } = setup()
 
@@ -45,24 +63,70 @@ describe('DefaultRedirectionSnackbar', () => {
   })
 
   it('should disable default redirection snackbar and set default redirection to home when accepting', () => {
-    shouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+    useShouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+
+    const mockSaveInstance = jest.fn()
+    const mockSaveHome = jest.fn()
+    useSettings.mockImplementation((...args) => {
+      if (args[0] === 'instance') {
+        return {
+          values: {
+            default_redirection: 'drive/#/folder'
+          },
+          save: mockSaveInstance
+        }
+      } else if (args[0] === 'home') {
+        return {
+          values: {
+            default_redirection_view_count: 4
+          },
+          save: mockSaveHome
+        }
+      }
+    })
 
     const { root } = setup()
 
     fireEvent.click(root.queryByText('OK'))
 
-    expect(disableDefaultRedirectionSnackbar).toHaveBeenCalled()
-    expect(setDefaultRedirectionToHome).toHaveBeenCalled()
+    expect(mockSaveInstance).toHaveBeenCalledWith({
+      default_redirection: 'home/'
+    })
+    expect(mockSaveHome).toHaveBeenCalledWith({
+      default_redirection_snackbar_disabled: true
+    })
   })
 
   it('should disable default redirection snackbar when refusing', () => {
-    shouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+    useShouldShowDefaultRedirectionSnackbar.mockReturnValue(true)
+
+    const mockSaveInstance = jest.fn()
+    const mockSaveHome = jest.fn()
+    useSettings.mockImplementation((...args) => {
+      if (args[0] === 'instance') {
+        return {
+          values: {
+            default_redirection: 'drive/#/folder'
+          },
+          save: mockSaveInstance
+        }
+      } else if (args[0] === 'home') {
+        return {
+          values: {
+            default_redirection_view_count: 4
+          },
+          save: mockSaveHome
+        }
+      }
+    })
 
     const { root } = setup()
 
     fireEvent.click(root.queryByText('No, thank you'))
 
-    expect(disableDefaultRedirectionSnackbar).toHaveBeenCalled()
-    expect(setDefaultRedirectionToHome).not.toHaveBeenCalled()
+    expect(mockSaveHome).toHaveBeenCalledWith({
+      default_redirection_snackbar_disabled: true
+    })
+    expect(mockSaveInstance).not.toHaveBeenCalled()
   })
 })
