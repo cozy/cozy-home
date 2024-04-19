@@ -10,7 +10,7 @@ import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedire
 import useHomeAppOpened from './useHomeAppOpened'
 
 jest.mock('cozy-client')
-jest.mock('./helpers')
+jest.mock('./useShouldShowDefaultRedirectionSnackbar')
 jest.mock('./useHomeAppOpened')
 
 describe('useIncrementDefaultRedirectionViewCount', () => {

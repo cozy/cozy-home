@@ -7,7 +7,7 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 
-import { VIEW_COUNT_THRESHOLD } from './helpers'
+import { VIEW_COUNT_THRESHOLD } from './useShouldShowDefaultRedirectionSnackbar'
 import useHomeAppOpened from './useHomeAppOpened'
 
 const useIncrementDefaultRedirectionViewCount = () => {
