@@ -7,7 +7,7 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import AppLike from 'test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
-import { useShouldShowDefaultRedirectionSnackbar } from './helpers'
+import { useShouldShowDefaultRedirectionSnackbar } from './useShouldShowDefaultRedirectionSnackbar'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
@@ -15,7 +15,7 @@ jest.mock('cozy-client', () => ({
   useClient: jest.fn(),
   useSettings: jest.fn()
 }))
-jest.mock('./helpers')
+jest.mock('./useShouldShowDefaultRedirectionSnackbar')
 jest.mock('./useIncrementDefaultRedirectionViewCount')
 
 const setup = () => {
