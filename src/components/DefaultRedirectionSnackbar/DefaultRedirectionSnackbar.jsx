@@ -13,7 +13,7 @@ import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
 import {
   HOME_DEFAULT_REDIRECTION,
   useShouldShowDefaultRedirectionSnackbar
-} from './helpers'
+} from './useShouldShowDefaultRedirectionSnackbar'
 import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 import { isFlagshipApp } from 'cozy-device-helper'
 

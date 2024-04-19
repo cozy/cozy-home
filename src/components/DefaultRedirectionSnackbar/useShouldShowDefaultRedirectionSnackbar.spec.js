@@ -6,7 +6,7 @@ import {
   useSettings
 } from 'cozy-client'
 
-import { useShouldShowDefaultRedirectionSnackbar } from './helpers'
+import { useShouldShowDefaultRedirectionSnackbar } from './useShouldShowDefaultRedirectionSnackbar'
 
 jest.mock('cozy-client')
 
