@@ -1,5 +1,6 @@
 language: node_js
-node_js: 16
+node_js:
+  - '20.11.0'
 dist: jammy
 cache:
   npm: false
@@ -22,26 +23,13 @@ env:
     - secure: A7pRywtbi1an4bW+Hi3gDtPja4D1hA0x+P4X6XbafZQWA9GmjUY7esUVg22jjF5G+UQDe/UTC2IqCnZXcZA8WoAWTKMg/7UHp9NiehXk0qNwfl0QHhqj5Woc4rLoTQ2Xxv8aJfcRbRPAxS4dXRGW0OHJQOAl3IdtsJpxRLy3EYClRu+JviWEu+SB3rN4ffz1Ylm8E47JtuozEQF8MswOqWKZRMrzGBocXYiMuIRKPXcPT8S53HmgOl9jLEjx857thNrvwCnQ9kt8HAF3k+ev2DPGB2HPm9efEppq8frIr1AXuPZ7NzZNtHGAEwwArE4geb6uu09dB8dcAqPTYGYFTT3thTZwCw7C2M3jiKPSv9Vhy7WsFcviikm8rRwtpNxhRmmQUasliY0Mn57EQxj1Dud8FrD4Vd4cQDHz02tcacPrScisCBKmWx9PzaXqBM1dIzxPWgvQbbaxkgtg/jAEc8DpiC9GThU6RU+Cip4s1AANSHkVKBlqq7xVwgXju/E1i1yir4ldacaSM8FT1UN4nFyf992toGWa3l2P9dhRyeCYlx5SUQkojs7rKKdQPIbC5LskFKF9vu9jj4CF9CKICVVqYPu/lAr3W4pYbzn9j1hAwF9+Akcq9GwC06GKabVymDISei0aC0SWQ9pS/sJd3LeLZuP7tp4SAsC2IJIiieE=
     # RUNDECK_TOKEN
     - secure: TIuR4l+T3XBBWT1Nz/C93b8DGXO1lom8TbUiWzTcdNXNXAHW2Q/k2qt0KdohYa0m9ULemknxYMewBVyeDbmQIJ1cx/+SrgnrWkcH8Pk6GWkY2ugzicwQPPvLPS/u+MMZC0w7tcOpPdeL1AYF+f+eQxgYvumCnzR/kKWajFaYEHRXWxSQNypsbbkAQmtD4nhtg934MdNamPMMZAV7v7Y7VvmUQeZKV3B63zCr5L28KD2S1yH5l3qFcKm3KFcK5VJgOAjmhUQSg0lBztV2gXMbS/EHecCsUJtu/29EzG/6bGhjP5NSYl6gO2BaemY85oWVK9aWpnuB1fMbnzdJb9+jD4C5NQmVWTLmwlBr1Sf5GrHX0Inc+QNn/XcFe0bUg40FqAjlPPMsNuPSn745QEq+B3IKZGF9o94DIMalZdGoM6CGSqh0hDJ7B6e/7K5vEfw2PZQoVwKfzstrc6EUadkXohtdgv8+b33KHRfOH4A8171LrQn9a4J+SOcns31iGMg/0MXfA+bMZkGrwCQxcnKQ13Epvs3qDaOflbdE0YKOAsUpMDO3zLcY7uVu3FjsBp6x8PL6pYF3iKfp7jD6OSEpGBl39eUMavL8hv+2LFo1O/aiUZJ/9fLPoCqZ/Cbp87T8VMVHHiRfqWs+W0AWRCJs0BpY1qFnOxti/ZrXNo/T1qQ=
-stages:
- - prebuild
- - build
 jobs:
   include:
-    - name: Lint
-      stage: "prebuild"
-      node_js: 16
+    - name: "Lint"
       script: yarn lint
-    - name: "Unit tests node 16"
-      stage: "prebuild"
-      node_js: 16
+    - name: "Unit tests"
       script: yarn test
-    - name: "Unit tests node 20"
-      stage: "prebuild"
-      node_js: 20
-      script: yarn test
-    - name: Build
-      stage: build
-      node_js: 16
+    - name: "Build"
       before_install:
         - 'if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then openssl aes-256-cbc -K $encrypted_8431ed5600b0_key -iv $encrypted_8431ed5600b0_iv -in ./scripts/id_rsa.enc -out /tmp/deploy_rsa -d; fi'
         - 'if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then eval "$(ssh-agent -s)"; fi'
@@ -58,13 +46,13 @@ jobs:
       deploy:
         - provider: script
           repo: cozy/cozy-home
-          skip-cleanup: true
+          skip_cleanup: true
           script: yarn cozyPublish
           on:
             branch: master
         - provider: script
           repo: cozy/cozy-home
-          skip-cleanup: true
+          skip_cleanup: true
           script: yarn cozyPublish
           on:
             tags: true
