@@ -50,10 +50,6 @@ module.exports = {
         '../node_modules/react-swipeable-views-core'
       ),
       redux: path.resolve(SRC_DIR, '../node_modules/redux'),
-      'string.prototype.trim': path.resolve(
-        SRC_DIR,
-        '../node_modules/string.prototype.trim'
-      ),
       'unist-util-visit-parents': path.resolve(
         SRC_DIR,
         '../node_modules/unist-util-visit-parents'
