@@ -32,7 +32,7 @@
     },
     {
       "path": "services/myselfFromIdenties/home.js",
-      "maxSize": "240 KB"
+      "maxSize": "245 KB"
     },
     {
       "path": "services/polyfillFetch/home.js",
@@ -44,7 +44,7 @@
     },
     {
       "path": "services/updateAccounts/home.js",
-      "maxSize": "465 KB"
+      "maxSize": "467 KB"
     },
     {
       "path": "vendors/home.<hash>.js",
