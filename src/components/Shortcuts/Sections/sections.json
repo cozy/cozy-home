@@ -1,0 +1,74 @@
+[
+  {
+    "id": [
+      "io.cozy.apps"
+    ],
+    "originalName": "Applications Toutatice",
+    "createdByApp": [
+      "toutatice"
+    ],
+    "mobile": {
+      "detailed_lines": false,
+      "grouped": false
+    },
+    "desktop": {
+      "detailed_lines": false,
+      "grouped": false
+    },
+    "order": 3
+  },
+  {
+    "id": [
+      "io.cozy.konnectors"
+    ],
+    "originalName": "Infos",
+    "createdByApp": [
+      "infos"
+    ],
+    "mobile": {
+      "detailed_lines": true,
+      "grouped": true
+    },
+    "desktop": {
+      "detailed_lines": false,
+      "grouped": true
+    },
+    "order": 4
+  },
+  {
+    "id": [
+      "io.cozy.settings"
+    ],
+    "originalName": "Espace",
+    "createdByApp": [
+      "espace"
+    ],
+    "mobile": {
+      "detailed_lines": false,
+      "grouped": true
+    },
+    "desktop": {
+      "detailed_lines": true,
+      "grouped": true
+    },
+    "order": 1
+  },
+  {
+    "id": [
+      "io.cozy.files"
+    ],
+    "originalName": "Mes liens & raccourcis",
+    "createdByApp": [
+      "shortcuts"
+    ],
+    "mobile": {
+      "detailed_lines": true,
+      "grouped": true
+    },
+    "desktop": {
+      "detailed_lines": true,
+      "grouped": true
+    },
+    "order": 2
+  }
+]

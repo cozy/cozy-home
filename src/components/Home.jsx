@@ -8,6 +8,9 @@ import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import Shortcuts from 'components/Shortcuts'
+import { SectionsView } from 'components/Shortcuts/Sections/SectionsView'
+import sections from 'components/Shortcuts/Sections/sections.json' // TODO: to be fetched from home settings
+import flags from 'components/Shortcuts/Sections/flags.json' // TODO: to be fetched from cozy-flags
 
 const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
   return (
@@ -16,6 +19,7 @@ const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
         <ScrollToTopOnMount target={wrapper} />
         <Content className="u-flex u-flex-column u-ph-1">
           <Applications onAppsFetched={setAppsReady} />
+          {flags.showSectionsFeature && <SectionsView sections={sections} />}
           <Shortcuts shortcutsDirectories={shortcutsDirectories} />
           <Services />
         </Content>
