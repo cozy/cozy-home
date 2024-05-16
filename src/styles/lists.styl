@@ -14,6 +14,9 @@
     grid-gap rem(10) 0
     justify-content center
 
+    &.detailed
+        grid-template-columns repeat(auto-fill, 15.5rem)
+
     +small-screen()
         grid-template-columns repeat(auto-fill, mobileTileWithGutter)
         grid-auto-rows minmax(rem(68), auto)
@@ -33,6 +36,7 @@
 
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem
+    transition height 200ms ease
 
 .EmptyServicesListTip
     box-sizing border-box

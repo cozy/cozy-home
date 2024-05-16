@@ -1,6 +1,13 @@
+declare module 'cozy-ui/transpiled/react/*' {
+  const component: (props: Record<string, unknown>) => JSX.Element
+  export default component
+}
+
 declare module 'cozy-ui/transpiled/react/CozyDialogs' {
+  import { ReactNode } from 'react'
+
   interface ConfirmDialogProps {
-    actions?: React.ReactNode
+    actions?: ReactNode
     actionsLayout?: 'row' | 'column'
     content?: string
     disableGutters?: boolean
@@ -18,15 +25,19 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
 }
 
 declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
+  import { ReactNode } from 'react'
+
   interface CozyThemeProps {
     variant?: 'normal' | 'inverted'
-    children?: JSX.Element
+    children?: ReactNode
     className?: string
   }
+
   interface CozyTheme {
     type: string
     variant: string
   }
+
   export default function CozyTheme(props: CozyThemeProps): JSX.Element
   export function useCozyTheme(): CozyTheme
 }
@@ -40,7 +51,25 @@ declare module 'cozy-ui/transpiled/react/Buttons' {
 }
 
 declare module 'cozy-ui/transpiled/react/Icons/Help' {
+  import { SVGAttributes } from 'react'
+
   export default function HelpIcon(
-    props?: Omit<React.SVGAttributes<SVGElement>, 'children'>
+    props?: Omit<SVGAttributes<SVGElement>, 'children'>
   ): JSX.Element
+}
+
+declare module 'cozy-ui/transpiled/react/ActionsMenu/Actions' {
+  type Action = {
+    name: string
+    action: (doc: Section, opts: { handleAction: HandleActionCallback }) => void
+    Component: React.FC
+  }
+
+  export function makeActions(
+    arg1: (() => Action)[]
+  ): Record<string, () => Action>
+}
+
+declare module 'cozy-ui/transpiled/react/providers/Breakpoints' {
+  export default function useBreakpoints(): { isMobile: boolean }
 }
