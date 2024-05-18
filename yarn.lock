@@ -5867,11 +5867,6 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-text-to-clipboard@^2.1.1:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/copy-text-to-clipboard/-/copy-text-to-clipboard-2.2.0.tgz#329dd6daf8c42034c763ace567418401764579ae"
-  integrity sha512-WRvoIdnTs1rgPMkgA2pUOa/M4Enh2uzCwdKsOMYNAJiz/4ZvEJgmbF4OmninPmlFdAWisfeh0tH+Cpf7ni3RqQ==
-
 copy-webpack-plugin@4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-4.6.0.tgz#e7f40dd8a68477d405dd1b7a854aae324b158bae"
@@ -6201,14 +6196,13 @@ cozy-scripts@8.2.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-sharing@10.1.4:
-  version "10.1.4"
-  resolved "https://registry.yarnpkg.com/cozy-sharing/-/cozy-sharing-10.1.4.tgz#3959d5fb71daef94d99dd87d3a00f8bfd80c850f"
-  integrity sha512-dyVLtwtgmMtITnds1FQSU+K+JlKjfdWDgpxXiWvNHRJN1QJ8AzmnPnxdtRFYBddFDJ9toYSjqsJc8c06RVWLWg==
+cozy-sharing@10.4.1:
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/cozy-sharing/-/cozy-sharing-10.4.1.tgz#6fee8ca4e6554f54a1481e491f7c3a17f2e141c5"
+  integrity sha512-+OnJYVPV1RlI4FpkMdyHyFem/12sa6FmJ8SC1bKzU1f3tfS6KITCisc0Lj02Ksj75BvdhCtaJYM3NXVISQJuDA==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     classnames "^2.2.6"
-    copy-text-to-clipboard "^2.1.1"
     cozy-device-helper "^3.0.0"
     cozy-doctypes "^1.89.4"
     lodash "^4.17.19"

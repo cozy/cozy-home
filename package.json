@@ -45,7 +45,7 @@
     "cozy-keys-lib": "^6.0.0",
     "cozy-logger": "1.10.4",
     "cozy-realtime": "4.6.0",
-    "cozy-sharing": "10.1.4",
+    "cozy-sharing": "10.4.1",
     "cozy-stack-client": "^45.13.0",
     "cozy-tsconfig": "1.2.0",
     "cozy-ui": "^106.4.0",
