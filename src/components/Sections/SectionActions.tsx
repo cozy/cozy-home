@@ -5,10 +5,7 @@ import FileIcon from 'cozy-ui/transpiled/react/Icons/File'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import {
-  Action,
-  DisplayMode
-} from 'components/Shortcuts/Sections/SectionsTypes'
+import { Action, DisplayMode } from 'components/Sections/SectionsTypes'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
 const createCustomAction = (primaryText: DisplayMode): (() => Action) => {
