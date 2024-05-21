@@ -5,13 +5,13 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import flag from 'cozy-flags'
 
 import { actions } from 'components/Sections/SectionActions'
 import { SectionHeaderProps } from 'components/Sections/SectionsTypes'
 
 export const SectionHeader = ({
   name,
-  showMore,
   anchorRef,
   toggleMenu,
   menuState,
@@ -22,7 +22,7 @@ export const SectionHeader = ({
       {name}
     </Divider>
 
-    {showMore && (
+    {flag('home.showMore') && (
       <>
         <Button
           label={<Icon icon={DotsIcon} />}

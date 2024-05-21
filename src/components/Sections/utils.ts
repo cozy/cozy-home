@@ -1,5 +1,5 @@
 import { Section } from 'components/Sections/SectionsTypes'
-import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
+import { DirectoryDataArray } from 'components/Shortcuts/types'
 
 const defaultLayout: Section['layout'] = {
   mobile: {
@@ -24,13 +24,13 @@ export const formatSections = (
     return map
   }, {} as { [key: string]: Section })
 
-  const mergedMap = folders.map(folder => {
+  const mergedMap = folders?.map(folder => {
     const sectionLayout = sectionsMap[folder.id] || {}
 
     return {
       id: folder.id,
       name: folder.name,
-      items: folder.items as FileData[],
+      items: folder.items,
       layout: {
         ...defaultLayout,
         ...sectionLayout

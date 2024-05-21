@@ -46,7 +46,6 @@ export type Action = {
 
 export interface SectionHeaderProps {
   name: string
-  showMore: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
   toggleMenu: () => void
   menuState: boolean
