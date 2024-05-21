@@ -8,7 +8,11 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-export const ShortcutLink = ({ file, desktopSize = 44 }) => {
+export const ShortcutLink = ({
+  display = 'compact',
+  file,
+  desktopSize = 44
+}) => {
   const client = useClient()
   // We only need this call to useFetchShortcut in order to
   // get the URL of the shortcut. For the rest of the information
@@ -28,6 +32,7 @@ export const ShortcutLink = ({ file, desktopSize = 44 }) => {
    */
   const icon = get(file, 'attributes.metadata.icon')
   const iconMimeType = get(file, 'attributes.metadata.iconMimeType')
+  const description = get(file, 'attributes.metadata.description')
 
   return (
     <Link
@@ -41,6 +46,8 @@ export const ShortcutLink = ({ file, desktopSize = 44 }) => {
         <SquareAppIcon
           name={filename}
           variant="shortcut"
+          display={display}
+          description={description}
           IconContent={
             <img
               src={
@@ -55,7 +62,12 @@ export const ShortcutLink = ({ file, desktopSize = 44 }) => {
           }
         />
       ) : (
-        <SquareAppIcon name={filename} variant="shortcut" />
+        <SquareAppIcon
+          name={filename}
+          variant="shortcut"
+          display={display}
+          description={description}
+        />
       )}
     </Link>
   )

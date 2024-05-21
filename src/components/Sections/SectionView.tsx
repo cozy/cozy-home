@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import {
@@ -10,6 +9,7 @@ import {
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
+import { ShortcutLink } from 'components/ShortcutLink'
 
 const computeDisplayMode = (
   isMobile: boolean,
@@ -45,13 +45,7 @@ export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
         )}
       >
         {section.items.map((item, index) => (
-          <SquareAppIcon
-            key={index}
-            display={display}
-            name={item.name}
-            description={item.metadata.description}
-            variant="default"
-          />
+          <ShortcutLink key={index} file={item} display={display} />
         ))}
       </div>
     </div>
