@@ -10,7 +10,7 @@ import { actions } from 'components/Sections/SectionActions'
 import { SectionHeaderProps } from 'components/Sections/SectionsTypes'
 
 export const SectionHeader = ({
-  sectionName,
+  name,
   showMore,
   anchorRef,
   toggleMenu,
@@ -19,8 +19,9 @@ export const SectionHeader = ({
 }: SectionHeaderProps): JSX.Element => (
   <>
     <Divider className="u-mv-0" variant="subtitle2">
-      {sectionName}
+      {name}
     </Divider>
+
     {showMore && (
       <>
         <Button
@@ -35,7 +36,7 @@ export const SectionHeader = ({
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          docs={[sectionName]}
+          docs={[name]}
           actions={actions}
           autoClose
           onClose={toggleMenu}

@@ -3,35 +3,24 @@ import cx from 'classnames'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { useQuery } from 'cozy-client'
 
 import flags from 'components/Sections/flags.json' // TODO: to be fetched from cozy-flags
-import { fetchSectionItems } from 'components/Sections/SectionQueries'
 import {
   DisplayMode,
   Section,
-  SectionItem,
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 
 const useSectionDisplayMode = (
-  section: Section
+  section?: Section
 ): [DisplayMode, React.Dispatch<React.SetStateAction<DisplayMode>>] => {
   const { isMobile } = useBreakpoints()
-  const initialDisplayMode = section[isMobile ? 'mobile' : 'desktop']
-    .detailed_lines
+  const initialDisplayMode = section?.layout?.[isMobile ? 'mobile' : 'desktop']
+    ?.detailedLine
     ? DisplayMode.DETAILED
     : DisplayMode.COMPACT
   return useState(initialDisplayMode)
-}
-
-const useSectionItems = (sectionId: string): SectionItem[] | undefined => {
-  const { data } = useQuery(
-    fetchSectionItems(sectionId).query,
-    fetchSectionItems(sectionId)
-  ) as { data?: SectionItem[] }
-  return data
 }
 
 export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
@@ -41,12 +30,11 @@ export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
   const toggleMenu = (): void => setMenuState(!menuState)
   const handleAction = (action: DisplayMode): void =>
     void (action !== display && setDisplay(action))
-  const data = useSectionItems(section.id)
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
       <SectionHeader
-        sectionName={section.originalName}
+        name={section.name}
         showMore={flags.showMore}
         anchorRef={anchorRef}
         toggleMenu={toggleMenu}
@@ -59,7 +47,7 @@ export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
           { detailed: display === DisplayMode.DETAILED }
         )}
       >
-        {data?.map((item, index) => (
+        {section.items.map((item, index) => (
           <SquareAppIcon
             key={index}
             display={display}
