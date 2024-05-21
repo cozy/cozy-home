@@ -6,7 +6,7 @@ import { SectionsView } from 'components/Sections/SectionsView'
 
 export const Shortcuts = ({ shortcutsDirectories }) =>
   flag('home.sections') ? (
-    <SectionsView data={shortcutsDirectories} />
+    <SectionsView data={shortcutsDirectories} type="shortcuts" />
   ) : (
     <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
   )
