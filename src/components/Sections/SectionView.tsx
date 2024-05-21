@@ -5,15 +5,15 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useQuery } from 'cozy-client'
 
-import flags from 'components/Shortcuts/Sections/flags.json' // TODO: to be fetched from cozy-flags
-import { fetchSectionItems } from 'components/Shortcuts/Sections/SectionQueries'
+import flags from 'components/Sections/flags.json' // TODO: to be fetched from cozy-flags
+import { fetchSectionItems } from 'components/Sections/SectionQueries'
 import {
   DisplayMode,
   Section,
   SectionItem,
   SectionViewProps
-} from 'components/Shortcuts/Sections/SectionsTypes'
-import { SectionHeader } from 'components/Shortcuts/Sections/SectionHeader'
+} from 'components/Sections/SectionsTypes'
+import { SectionHeader } from 'components/Sections/SectionHeader'
 
 const useSectionDisplayMode = (
   section: Section

@@ -1,9 +1,6 @@
 import React from 'react'
-import {
-  Section,
-  SectionsViewProps
-} from 'components/Shortcuts/Sections/SectionsTypes'
-import { SectionView } from 'components/Shortcuts/Sections/SectionView'
+import { Section, SectionsViewProps } from 'components/Sections/SectionsTypes'
+import { SectionView } from 'components/Sections/SectionView'
 
 const sortSections = (sections: Section[]): Section[] =>
   [...sections].sort((a, b) => a.order - b.order)

@@ -6,8 +6,8 @@ import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-import { actions } from 'components/Shortcuts/Sections/SectionActions'
-import { SectionHeaderProps } from 'components/Shortcuts/Sections/SectionsTypes'
+import { actions } from 'components/Sections/SectionActions'
+import { SectionHeaderProps } from 'components/Sections/SectionsTypes'
 
 export const SectionHeader = ({
   sectionName,
