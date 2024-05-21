@@ -1,15 +1,19 @@
 export interface DeviceSettings {
-  detailed_lines: boolean
+  detailedLine: boolean
   grouped: boolean
 }
 
 export interface Section {
   id: string
-  originalName: string
-  createdByApp: string[]
-  mobile: DeviceSettings
-  desktop: DeviceSettings
-  order: number
+  name: string
+  items: SectionItem[]
+  layout: {
+    originalName: string
+    createdByApp: string
+    mobile: DeviceSettings
+    desktop: DeviceSettings
+    order: number
+  }
 }
 
 export interface SectionsLayout {
@@ -21,13 +25,13 @@ export interface SectionViewProps {
 }
 
 export interface SectionsViewProps {
-  sections: Section[]
+  data?: Section[]
 }
 
 export interface SectionItem {
   id: string
   name: string
-  description: string
+  description?: string
 }
 
 export enum DisplayMode {
@@ -44,7 +48,7 @@ export type Action = {
 }
 
 export interface SectionHeaderProps {
-  sectionName: string
+  name: string
   showMore: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
   toggleMenu: () => void
