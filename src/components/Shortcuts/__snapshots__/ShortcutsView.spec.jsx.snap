@@ -33,23 +33,23 @@ Object {
                   class="CozyTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-9"
+                    class="MuiBadge-root-10"
                   >
                     <span
-                      class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
+                      class="MuiBadge-root-10 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
                       style="background-color: rgb(53, 206, 104);"
                     >
                       <h2
-                        class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
+                        class="MuiTypography-root-33 makeStyles-letter-4 MuiTypography-h2-39 MuiTypography-colorTextPrimary-58 MuiTypography-alignCenter-49"
                       >
                         L
                       </h2>
                       <span
-                        class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
+                        class="MuiBadge-badge-11 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-17"
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-10 Component-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
+                      class="MuiBadge-badge-11 Component-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -106,23 +106,23 @@ Object {
                 class="CozyTheme--light-normal u-dc"
               >
                 <span
-                  class="MuiBadge-root-9"
+                  class="MuiBadge-root-10"
                 >
                   <span
-                    class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
+                    class="MuiBadge-root-10 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-5"
                     style="background-color: rgb(53, 206, 104);"
                   >
                     <h2
-                      class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
+                      class="MuiTypography-root-33 makeStyles-letter-4 MuiTypography-h2-39 MuiTypography-colorTextPrimary-58 MuiTypography-alignCenter-49"
                     >
                       L
                     </h2>
                     <span
-                      class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
+                      class="MuiBadge-badge-11 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-17"
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-10 Component-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
+                    class="MuiBadge-badge-11 Component-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
                   >
                     <svg
                       class="styles__icon___23x3R"
@@ -229,30 +229,30 @@ Object {
               target="_blank"
             >
               <div
-                class="makeStyles-tileWrapper-68"
+                class="makeStyles-tileWrapper-69"
                 data-testid="square-app-icon"
               >
                 <div
                   class="CozyTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-70"
+                    class="MuiBadge-root-72"
                   >
                     <span
-                      class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                      class="MuiBadge-root-72 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-67"
                       style="background-color: rgb(252, 109, 0);"
                     >
                       <h2
-                        class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
+                        class="MuiTypography-root-95 makeStyles-letter-66 MuiTypography-h2-101 MuiTypography-colorTextPrimary-120 MuiTypography-alignCenter-111"
                       >
                         B
                       </h2>
                       <span
-                        class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
+                        class="MuiBadge-badge-73 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-79"
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-71 Component-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
+                      class="MuiBadge-badge-73 Component-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -269,7 +269,7 @@ Object {
                   </span>
                 </div>
                 <h6
-                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-name-63 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   b
                 </h6>
@@ -295,30 +295,30 @@ Object {
               target="_blank"
             >
               <div
-                class="makeStyles-tileWrapper-68"
+                class="makeStyles-tileWrapper-69"
                 data-testid="square-app-icon"
               >
                 <div
                   class="CozyTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-124"
+                    class="MuiBadge-root-126"
                   >
                     <span
-                      class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                      class="MuiBadge-root-126 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-67"
                       style="background-color: rgb(255, 150, 47);"
                     >
                       <h2
-                        class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
+                        class="MuiTypography-root-149 makeStyles-letter-66 MuiTypography-h2-155 MuiTypography-colorTextPrimary-174 MuiTypography-alignCenter-165"
                       >
                         D
                       </h2>
                       <span
-                        class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
+                        class="MuiBadge-badge-127 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-133"
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-125 Component-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
+                      class="MuiBadge-badge-127 Component-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -335,7 +335,7 @@ Object {
                   </span>
                 </div>
                 <h6
-                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-name-63 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   d
                 </h6>
@@ -368,30 +368,30 @@ Object {
             target="_blank"
           >
             <div
-              class="makeStyles-tileWrapper-68"
+              class="makeStyles-tileWrapper-69"
               data-testid="square-app-icon"
             >
               <div
                 class="CozyTheme--light-normal u-dc"
               >
                 <span
-                  class="MuiBadge-root-70"
+                  class="MuiBadge-root-72"
                 >
                   <span
-                    class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                    class="MuiBadge-root-72 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-67"
                     style="background-color: rgb(252, 109, 0);"
                   >
                     <h2
-                      class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
+                      class="MuiTypography-root-95 makeStyles-letter-66 MuiTypography-h2-101 MuiTypography-colorTextPrimary-120 MuiTypography-alignCenter-111"
                     >
                       B
                     </h2>
                     <span
-                      class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
+                      class="MuiBadge-badge-73 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-79"
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-71 Component-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
+                    class="MuiBadge-badge-73 Component-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
                   >
                     <svg
                       class="styles__icon___23x3R"
@@ -408,7 +408,7 @@ Object {
                 </span>
               </div>
               <h6
-                class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-63 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
               >
                 b
               </h6>
@@ -434,30 +434,30 @@ Object {
             target="_blank"
           >
             <div
-              class="makeStyles-tileWrapper-68"
+              class="makeStyles-tileWrapper-69"
               data-testid="square-app-icon"
             >
               <div
                 class="CozyTheme--light-normal u-dc"
               >
                 <span
-                  class="MuiBadge-root-124"
+                  class="MuiBadge-root-126"
                 >
                   <span
-                    class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-66"
+                    class="MuiBadge-root-126 styles__SquareAppIcon-wrapper___2SEuM makeStyles-shadow-67"
                     style="background-color: rgb(255, 150, 47);"
                   >
                     <h2
-                      class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
+                      class="MuiTypography-root-149 makeStyles-letter-66 MuiTypography-h2-155 MuiTypography-colorTextPrimary-174 MuiTypography-alignCenter-165"
                     >
                       D
                     </h2>
                     <span
-                      class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
+                      class="MuiBadge-badge-127 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-133"
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-125 Component-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
+                    class="MuiBadge-badge-127 Component-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
                   >
                     <svg
                       class="styles__icon___23x3R"
@@ -474,7 +474,7 @@ Object {
                 </span>
               </div>
               <h6
-                class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                class="MuiTypography-root makeStyles-name-63 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
               >
                 d
               </h6>

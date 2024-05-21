@@ -28,7 +28,7 @@ describe('Shortcuts', () => {
         <CozyTheme>
           <ShortcutsView
             shortcutsDirectories={[
-              { name: listName, shortcuts: [{ name: listItem }] }
+              { name: listName, items: [{ name: listItem }] }
             ]}
           />
         </CozyTheme>
@@ -39,8 +39,8 @@ describe('Shortcuts', () => {
 
   it('Should display multiple sections for multiple directories', () => {
     const shortcutsDirectories = [
-      { name: 'a', shortcuts: [{ name: 'b' }] },
-      { name: 'c', shortcuts: [{ name: 'd' }] }
+      { name: 'a', items: [{ name: 'b' }] },
+      { name: 'c', items: [{ name: 'd' }] }
     ]
 
     const root = render(
