@@ -8,13 +8,13 @@ import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import { Action, DisplayMode } from 'components/Sections/SectionsTypes'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-const createCustomAction = (primaryText: DisplayMode): (() => Action) => {
+const createSectionAction = (primaryText: DisplayMode): (() => Action) => {
   return () => ({
     name: `customAction_${primaryText}`,
     action: (_doc, opts): void => {
       opts.handleAction(primaryText)
     },
-    Component: React.forwardRef(function CustomActionComponent(props, ref) {
+    Component: React.forwardRef(function SectionActionComponent(props, ref) {
       return (
         <ActionsMenuItem {...props} ref={ref}>
           <ListItemIcon>
@@ -28,8 +28,8 @@ const createCustomAction = (primaryText: DisplayMode): (() => Action) => {
 }
 
 const actionArray = [
-  createCustomAction(DisplayMode.COMPACT),
-  createCustomAction(DisplayMode.DETAILED)
+  createSectionAction(DisplayMode.COMPACT),
+  createSectionAction(DisplayMode.DETAILED)
 ]
 
 export const actions = makeActions(actionArray)

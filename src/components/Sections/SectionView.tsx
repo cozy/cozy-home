@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 
-import flag from 'cozy-flags'
-
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
@@ -13,30 +11,28 @@ import {
 } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 
-const useSectionDisplayMode = (
-  section?: Section
-): [DisplayMode, React.Dispatch<React.SetStateAction<DisplayMode>>] => {
-  const { isMobile } = useBreakpoints()
-  const initialDisplayMode = section?.layout?.[isMobile ? 'mobile' : 'desktop']
-    ?.detailedLine
-    ? DisplayMode.DETAILED
-    : DisplayMode.COMPACT
-  return useState(initialDisplayMode)
+const computeDisplayMode = (
+  isMobile: boolean,
+  section: Section
+): DisplayMode => {
+  const layout = section.layout[isMobile ? 'mobile' : 'desktop']
+  return layout.detailedLine ? DisplayMode.DETAILED : DisplayMode.COMPACT
 }
 
 export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
-  const [display, setDisplay] = useSectionDisplayMode(section)
   const [menuState, setMenuState] = useState(false)
   const anchorRef = React.useRef(null)
+  const { isMobile } = useBreakpoints()
   const toggleMenu = (): void => setMenuState(!menuState)
-  const handleAction = (action: DisplayMode): void =>
-    void (action !== display && setDisplay(action))
+  const display = computeDisplayMode(isMobile, section)
+  const handleAction = (): void => {
+    // noop for now, will be needed for switching display user side
+  }
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
       <SectionHeader
         name={section.name}
-        showMore={flag('home.showMore')}
         anchorRef={anchorRef}
         toggleMenu={toggleMenu}
         menuState={menuState}
