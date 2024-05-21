@@ -67,6 +67,7 @@ interface Relationships {
 }
 
 interface DirectoryData {
+  items: FileData[]
   id: string
   _id: string
   _type: string
@@ -84,7 +85,7 @@ interface DirectoryData {
   _rev: string
 }
 
-interface FileData {
+export interface FileData {
   id: string
   _id: string
   _type: string
@@ -105,12 +106,12 @@ interface FileData {
   trashed: boolean
   encrypted: boolean
   metadata: {
+    description?: string
     extractor_version: number
   }
   cozyMetadata: CozyMetadata
   path: string
   _rev: string
-  description?: string
 }
 
 export type DirectoryDataArray = DirectoryData[]

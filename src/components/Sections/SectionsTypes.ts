@@ -1,3 +1,5 @@
+import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
+
 export interface DeviceSettings {
   detailedLine: boolean
   grouped: boolean
@@ -6,7 +8,7 @@ export interface DeviceSettings {
 export interface Section {
   id: string
   name: string
-  items: SectionItem[]
+  items: FileData[]
   layout: {
     originalName: string
     createdByApp: string
@@ -25,13 +27,8 @@ export interface SectionViewProps {
 }
 
 export interface SectionsViewProps {
-  data?: Section[]
-}
-
-export interface SectionItem {
-  id: string
-  name: string
-  description?: string
+  data?: DirectoryDataArray
+  type: 'shortcuts' | 'konnectorCategories'
 }
 
 export enum DisplayMode {

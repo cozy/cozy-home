@@ -8,6 +8,7 @@
     "paths": {
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
+      "queries": ["./src/queries"]
     }
   }
 }

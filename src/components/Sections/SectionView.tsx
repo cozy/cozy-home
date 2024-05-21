@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 
+import flag from 'cozy-flags'
+
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import flags from 'components/Sections/flags.json' // TODO: to be fetched from cozy-flags
 import {
   DisplayMode,
   Section,
@@ -35,7 +36,7 @@ export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
       <SectionHeader
         name={section.name}
-        showMore={flags.showMore}
+        showMore={flag('home.showMore')}
         anchorRef={anchorRef}
         toggleMenu={toggleMenu}
         menuState={menuState}
@@ -52,7 +53,8 @@ export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
             key={index}
             display={display}
             name={item.name}
-            description={item.description}
+            description={item.metadata.description}
+            variant="default"
           />
         ))}
       </div>
