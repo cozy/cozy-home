@@ -69,7 +69,3 @@ declare module 'cozy-ui/transpiled/react/ActionsMenu/Actions' {
     arg1: (() => Action)[]
   ): Record<string, () => Action>
 }
-
-declare module 'cozy-ui/transpiled/react/providers/Breakpoints' {
-  export default function useBreakpoints(): { isMobile: boolean }
-}

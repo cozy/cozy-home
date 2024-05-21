@@ -11,8 +11,8 @@ const shortcuts = [
 ]
 
 const expected = [
-  { name: '1', shortcuts: [shortcuts[0]] },
-  { name: '2', shortcuts: [shortcuts[1]] }
+  { id: '1', name: '1', items: [shortcuts[0]] },
+  { id: '2', name: '2', items: [shortcuts[1]] }
 ]
 
 describe('formatShortcuts', () => {
