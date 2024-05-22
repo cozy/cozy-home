@@ -41,11 +41,15 @@ const TEMP_FIXTURE_DELETE_ASAP = [
 
 export const Shortcuts = ({ shortcutsDirectories }) => {
   const homeSettingsResult = useQuery(homeSettingsConn.query, homeSettingsConn)
-  const fetchedLayout =
-    homeSettingsResult.data?.[0]?.shortcutsLayout ?? TEMP_FIXTURE_DELETE_ASAP
-  const formattedSections = formatSections(shortcutsDirectories, fetchedLayout)
 
   if (flag('home.detailed_sections-dev')) {
+    const fetchedLayout =
+      homeSettingsResult.data?.[0]?.shortcutsLayout ?? TEMP_FIXTURE_DELETE_ASAP
+    const formattedSections = formatSections(
+      shortcutsDirectories,
+      fetchedLayout
+    )
+
     return (
       <>
         {formattedSections?.map(section => (
