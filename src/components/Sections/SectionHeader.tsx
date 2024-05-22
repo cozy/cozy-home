@@ -22,7 +22,7 @@ export const SectionHeader = ({
       {name}
     </Divider>
 
-    {flag('home.showMore') && (
+    {flag('home.detailed_section.show_more-dev') && (
       <>
         <Button
           label={<Icon icon={DotsIcon} />}

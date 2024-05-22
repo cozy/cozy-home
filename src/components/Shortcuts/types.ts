@@ -66,7 +66,7 @@ interface Relationships {
   }
 }
 
-interface DirectoryData {
+export interface DirectoryData {
   items: FileData[]
   id: string
   _id: string
