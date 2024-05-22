@@ -1,72 +1,87 @@
-import { DirectoryData } from 'components/Shortcuts/types'
-import { Section } from './SectionsTypes'
+import { DirectoryData, DirectoryDataArray } from 'components/Shortcuts/types'
+import { SectionSetting } from './SectionsTypes'
 import { _defaultLayout, formatSections } from './utils'
 
 describe('formatSections', () => {
   it('should merge sections and sort them correctly based on order and name', () => {
     const folders = [
       {
-        id: '968dae76ae098d95ef402552fd001fcc',
-        name: 'Applications Toutatice',
+        id: '1',
+        name: 'Name 1',
         items: [{ id: 'item1' }]
       },
       {
-        id: '968dae76ae098d95ef402552fd0009c0',
-        name: 'Infos',
+        id: '2',
+        name: 'Name 2',
         items: [{ id: 'item2' }]
       },
       {
-        id: '968dae76ae098d95ef402552fd001234',
-        name: 'Another Folder',
+        id: '3',
+        name: 'Name 3',
         items: [{ id: 'item3' }]
       }
-    ] as Array<DirectoryData>
+    ] as DirectoryDataArray
 
     const layout = [
       {
-        id: '968dae76ae098d95ef402552fd001fcc',
-        layout: {
-          originalName: 'Applications Toutatice',
-          createdByApp: 'toutatice',
-          mobile: {
-            detailedLine: false,
-            grouped: false
-          },
-          desktop: {
-            detailedLine: true,
-            grouped: true
-          },
-          order: 3
-        }
+        id: '1',
+        originalName: 'Name 1',
+        createdByApp: 'By 1',
+        mobile: {
+          detailedLine: false,
+          grouped: false
+        },
+        desktop: {
+          detailedLine: true,
+          grouped: true
+        },
+        order: 2
       },
       {
-        id: '968dae76ae098d95ef402552fd0009c0',
-        layout: {
-          originalName: 'Infos',
-          createdByApp: 'infos',
-          mobile: {
-            detailedLine: true,
-            grouped: true
-          },
-          desktop: {
-            detailedLine: false,
-            grouped: true
-          },
-          order: 4
-        }
+        id: '2',
+        originalName: 'Name 2',
+        createdByApp: 'By 2',
+        mobile: {
+          detailedLine: true,
+          grouped: true
+        },
+        desktop: {
+          detailedLine: false,
+          grouped: true
+        },
+        order: 1
       }
-    ] as Section[]
+    ] as SectionSetting[]
 
     const expectedOutput = [
       {
-        id: '968dae76ae098d95ef402552fd001fcc',
-        name: 'Applications Toutatice',
+        id: '2',
+        name: 'Name 2',
+        items: [{ id: 'item2' }],
+        layout: {
+          ..._defaultLayout,
+          order: 1,
+          originalName: 'Name 2',
+          createdByApp: 'By 2',
+          mobile: {
+            detailedLine: true,
+            grouped: true
+          },
+          desktop: {
+            detailedLine: false,
+            grouped: true
+          }
+        }
+      },
+      {
+        id: '1',
+        name: 'Name 1',
         items: [{ id: 'item1' }],
         layout: {
           ..._defaultLayout,
-          order: 3,
-          originalName: 'Applications Toutatice',
-          createdByApp: 'toutatice',
+          order: 2,
+          originalName: 'Name 1',
+          createdByApp: 'By 1',
           mobile: {
             detailedLine: false,
             grouped: false
@@ -78,32 +93,10 @@ describe('formatSections', () => {
         }
       },
       {
-        id: '968dae76ae098d95ef402552fd0009c0',
-        name: 'Infos',
-        items: [{ id: 'item2' }],
-        layout: {
-          ..._defaultLayout,
-          order: 4,
-          originalName: 'Infos',
-          createdByApp: 'infos',
-          mobile: {
-            detailedLine: true,
-            grouped: true
-          },
-          desktop: {
-            detailedLine: false,
-            grouped: true
-          }
-        }
-      },
-      {
-        id: '968dae76ae098d95ef402552fd001234',
-        name: 'Another Folder',
+        id: '3',
+        name: 'Name 3',
         items: [{ id: 'item3' }],
-        layout: {
-          ..._defaultLayout,
-          order: Infinity
-        }
+        layout: _defaultLayout
       }
     ]
 
@@ -119,10 +112,10 @@ describe('formatSections', () => {
     ] as Array<DirectoryData>
 
     const layout = [
-      { id: '1', layout: { order: 1 } },
-      { id: '2', layout: { order: 1 } },
-      { id: '3', layout: { order: 1 } }
-    ] as Section[]
+      { id: '1', order: 1 },
+      { id: '2', order: 1 },
+      { id: '3', order: 1 }
+    ] as SectionSetting[]
 
     const expectedOutput = [
       {
@@ -157,10 +150,10 @@ describe('formatSections', () => {
     ] as Array<DirectoryData>
 
     const layout = [
-      { id: '1', layout: { order: 2 } },
-      { id: '2', layout: {} }, // No order
-      { id: '3', layout: { order: 1 } }
-    ] as Section[]
+      { id: '1', order: 2 },
+      { id: '2' }, // No order
+      { id: '3', order: 1 }
+    ] as SectionSetting[]
 
     const expectedOutput = [
       {

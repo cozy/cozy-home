@@ -14,8 +14,17 @@ export interface Section {
     createdByApp: string
     mobile: DeviceSettings
     desktop: DeviceSettings
-    order?: number
+    order: number
   }
+}
+
+export interface SectionSetting {
+  id: string
+  originalName: string
+  createdByApp: string
+  mobile: DeviceSettings
+  desktop: DeviceSettings
+  order: number
 }
 
 export interface SectionsLayout {
