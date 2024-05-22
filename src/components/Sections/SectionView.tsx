@@ -16,7 +16,7 @@ const computeDisplayMode = (
   section: Section
 ): DisplayMode => {
   const layout = section.layout[isMobile ? 'mobile' : 'desktop']
-  return layout.detailedLine ? DisplayMode.DETAILED : DisplayMode.COMPACT
+  return layout.detailedLines ? DisplayMode.DETAILED : DisplayMode.COMPACT
 }
 
 export const SectionView = ({ section }: SectionViewProps): JSX.Element => {

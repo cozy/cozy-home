@@ -1,0 +1,30 @@
+[
+    {
+        "createdByApp": "toutatice",
+        "desktop": {
+            "detailedLines": true,
+            "grouped": false
+        },
+        "id": "2a76ec4e152e30fc90c8c91fba4ea9ad",
+        "mobile": {
+            "detailedLines": true,
+            "grouped": false
+        },
+        "order": 1,
+        "originalName": "Applications Toutatice"
+    },
+    {
+        "createdByApp": "toutatice",
+        "desktop": {
+            "detailedLines": true,
+            "grouped": false
+        },
+        "id": "2a76ec4e152e30fc90c8c91fba4eaaeb",
+        "mobile": {
+            "detailedLines": true,
+            "grouped": false
+        },
+        "order": 2,
+        "originalName": "Info"
+    }
+]

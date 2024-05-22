@@ -28,11 +28,11 @@ describe('formatSections', () => {
         originalName: 'Name 1',
         createdByApp: 'By 1',
         mobile: {
-          detailedLine: false,
+          detailedLines: false,
           grouped: false
         },
         desktop: {
-          detailedLine: true,
+          detailedLines: true,
           grouped: true
         },
         order: 2
@@ -42,11 +42,11 @@ describe('formatSections', () => {
         originalName: 'Name 2',
         createdByApp: 'By 2',
         mobile: {
-          detailedLine: true,
+          detailedLines: true,
           grouped: true
         },
         desktop: {
-          detailedLine: false,
+          detailedLines: false,
           grouped: true
         },
         order: 1
@@ -64,11 +64,11 @@ describe('formatSections', () => {
           originalName: 'Name 2',
           createdByApp: 'By 2',
           mobile: {
-            detailedLine: true,
+            detailedLines: true,
             grouped: true
           },
           desktop: {
-            detailedLine: false,
+            detailedLines: false,
             grouped: true
           }
         }
@@ -83,11 +83,11 @@ describe('formatSections', () => {
           originalName: 'Name 1',
           createdByApp: 'By 1',
           mobile: {
-            detailedLine: false,
+            detailedLines: false,
             grouped: false
           },
           desktop: {
-            detailedLine: true,
+            detailedLines: true,
             grouped: true
           }
         }
