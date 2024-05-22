@@ -3,11 +3,11 @@ import { DirectoryDataArray } from 'components/Shortcuts/types'
 
 export const _defaultLayout: Omit<SectionSetting, 'id'> = {
   mobile: {
-    detailedLine: false,
+    detailedLines: false,
     grouped: false
   },
   desktop: {
-    detailedLine: false,
+    detailedLines: false,
     grouped: false
   },
   order: Infinity, // This should be used only if no order is defined

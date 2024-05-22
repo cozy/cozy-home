@@ -1,7 +1,7 @@
 import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
 
 export interface DeviceSettings {
-  detailedLine: boolean
+  detailedLines: boolean
   grouped: boolean
 }
 
