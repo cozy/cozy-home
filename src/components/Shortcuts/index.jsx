@@ -14,11 +14,11 @@ const TEMP_FIXTURE_DELETE_ASAP = [
     originalName: 'Applications Toutatice',
     createdByApp: 'toutatice',
     mobile: {
-      detailedLine: false,
+      detailedLine: true,
       grouped: false
     },
     desktop: {
-      detailedLine: true,
+      detailedLine: false,
       grouped: true
     },
     order: 3
@@ -28,14 +28,14 @@ const TEMP_FIXTURE_DELETE_ASAP = [
     originalName: 'Infos',
     createdByApp: 'infos',
     mobile: {
-      detailedLine: true,
-      grouped: true
-    },
-    desktop: {
       detailedLine: false,
       grouped: true
     },
-    order: 4
+    desktop: {
+      detailedLine: true,
+      grouped: true
+    },
+    order: 1
   }
 ]
 

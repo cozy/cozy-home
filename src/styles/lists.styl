@@ -22,6 +22,10 @@
         grid-auto-rows minmax(rem(68), auto)
         grid-gap rem(5) 0
 
+        &.detailed
+            grid-template-columns 1fr
+            padding 0 1.5rem // TODO: decipher the magic number
+
     .item-grid-icon
         width rem(16)
         height rem(16)

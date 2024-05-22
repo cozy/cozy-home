@@ -1,7 +1,7 @@
-import { Section } from 'components/Sections/SectionsTypes'
+import { Section, SectionSetting } from 'components/Sections/SectionsTypes'
 import { DirectoryDataArray } from 'components/Shortcuts/types'
 
-export const _defaultLayout: Section['layout'] = {
+export const _defaultLayout: Omit<SectionSetting, 'id'> = {
   mobile: {
     detailedLine: false,
     grouped: false
@@ -16,25 +16,25 @@ export const _defaultLayout: Section['layout'] = {
 }
 
 export const formatSections = (
-  folders: DirectoryDataArray,
-  layout: Section[]
+  folders?: DirectoryDataArray,
+  layout?: SectionSetting[]
 ): Section[] => {
-  const sectionsMap = layout.reduce((map, section) => {
-    map[section.id] = section
-    return map
-  }, {} as { [key: string]: Section })
+  if (!folders || !layout) return []
 
-  const mergedMap = folders?.map(folder => {
+  const sectionsMap = layout.reduce((map, { id, ...rest }) => {
+    if (id) {
+      map[id] = rest
+    }
+    return map
+  }, {} as { [key: string]: Omit<SectionSetting, 'id'> })
+
+  const mergedMap: Section[] = folders.map(folder => {
     const sectionLayout = sectionsMap[folder.id] || {}
 
     // Merge layouts while keeping the defined order, defaulting to Infinity if not present
     const mergedLayout = {
       ..._defaultLayout,
-      ...sectionLayout.layout,
-      order:
-        sectionLayout.layout?.order !== undefined
-          ? sectionLayout.layout.order
-          : Infinity
+      ...sectionLayout
     }
 
     return {
