@@ -14,7 +14,7 @@ export interface Section {
     createdByApp: string
     mobile: DeviceSettings
     desktop: DeviceSettings
-    order: number
+    order?: number
   }
 }
 
