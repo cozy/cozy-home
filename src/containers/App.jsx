@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import flag, { enable as enableFlags } from 'cozy-flags'
-import minilog from '@cozy/minilog'
+import minilog from 'cozy-minilog'
 import { useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
