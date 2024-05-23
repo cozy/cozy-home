@@ -10,7 +10,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 
 const createSectionAction = (primaryText: DisplayMode): (() => Action) => {
   return () => ({
-    name: `customAction_${primaryText}`,
+    name: `sectionAction_${primaryText}`,
     action: (_doc, opts): void => {
       opts.handleAction(primaryText)
     },
