@@ -5,6 +5,7 @@
     mobileTileSize = 3rem
     white = #fff
     appTileWithGutter = appTileSize + appGridGutter
+    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - 2 * appGridGutter
     mobileTileWithGutter = mobileTileSize + mobileGridGutter
     width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
@@ -15,7 +16,8 @@
     justify-content center
 
     &.detailed
-        grid-template-columns repeat(auto-fill, 15.5rem) // TODO: decipher the magic number
+        grid-template-columns repeat(3, detailedAppTileWithGutter)
+        column-gap appGridGutter
 
     +small-screen()
         grid-template-columns repeat(auto-fill, mobileTileWithGutter)
@@ -23,8 +25,8 @@
         grid-gap rem(5) 0
 
         &.detailed
-            grid-template-columns 1fr
-            padding 0 1.5rem // TODO: decipher the magic number
+            grid-template-columns repeat(1, calc(100% - 2.5rem))
+            column-gap 0
 
     .item-grid-icon
         width rem(16)
