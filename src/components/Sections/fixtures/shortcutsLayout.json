@@ -5,7 +5,7 @@
             "detailedLines": true,
             "grouped": false
         },
-        "id": "2a76ec4e152e30fc90c8c91fba4ea9ad",
+        "id": "fb16fb9df555300c8693e48f622a0033",
         "mobile": {
             "detailedLines": true,
             "grouped": false
@@ -16,13 +16,13 @@
     {
         "createdByApp": "toutatice",
         "desktop": {
-            "detailedLines": true,
-            "grouped": false
+            "detailedLines": false,
+            "grouped": true
         },
-        "id": "2a76ec4e152e30fc90c8c91fba4eaaeb",
+        "id": "ad79a6e13c34730fc5badfff8424cc3b",
         "mobile": {
-            "detailedLines": true,
-            "grouped": false
+            "detailedLines": false,
+            "grouped": true
         },
         "order": 2,
         "originalName": "Info"
