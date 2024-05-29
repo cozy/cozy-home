@@ -2,49 +2,51 @@ import React from 'react'
 
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
 
-import { actions } from 'components/Sections/SectionActions'
 import { SectionHeaderProps } from 'components/Sections/SectionsTypes'
+import { actions } from 'components/Sections/SectionActions'
 
 export const SectionHeader = ({
-  name,
+  section,
   anchorRef,
   toggleMenu,
-  menuState,
-  handleAction
+  menuState
 }: SectionHeaderProps): JSX.Element => (
   <>
-    <Divider className="u-mv-0" variant="subtitle2">
-      {name}
-    </Divider>
+    <div className="u-flex u-w-100 u-flex-justify-between">
+      <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
+        {section.name}
+      </Divider>
 
-    {flag('home.detailed_section.show_more-dev') && (
-      <>
+      {flag('home.detailed-sections.show-more-dev') && (
         <Button
+          className="u-p-1"
           label={<Icon icon={DotsIcon} />}
-          ref={anchorRef}
           onClick={toggleMenu}
-        />
-        <ActionsMenu
           ref={anchorRef}
-          open={menuState}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
-          }}
-          docs={[name]}
-          actions={actions}
-          autoClose
-          onClose={toggleMenu}
-          componentsProps={{
-            actionsItems: { actionOptions: { handleAction } }
-          }}
+          variant="text"
         />
-      </>
-    )}
+      )}
+    </div>
+
+    <CozyTheme variant="normal">
+      <ActionsMenu
+        actions={actions}
+        anchorOrigin={{
+          horizontal: 'right',
+          vertical: 'bottom'
+        }}
+        autoClose
+        docs={[section]}
+        onClose={toggleMenu}
+        open={menuState}
+        ref={anchorRef}
+      />
+    </CozyTheme>
   </>
 )

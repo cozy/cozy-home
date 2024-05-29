@@ -1,6 +1,15 @@
 import { DirectoryData, DirectoryDataArray } from 'components/Shortcuts/types'
-import { SectionSetting } from './SectionsTypes'
-import { _defaultLayout, formatSections } from './utils'
+import {
+  DisplayMode,
+  Section,
+  SectionSetting
+} from 'components/Sections/SectionsTypes'
+import {
+  _defaultLayout,
+  formatSections,
+  computeDisplayMode,
+  handleSectionAction
+} from 'components/Sections/utils'
 
 describe('formatSections', () => {
   it('should merge sections and sort them correctly based on order and name', () => {
@@ -178,5 +187,118 @@ describe('formatSections', () => {
 
     const result = formatSections(folders, layout)
     expect(result).toEqual(expectedOutput)
+  })
+
+  it('should handle the case where no layout is provided', () => {
+    const folders = [
+      { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
+      { id: '2', name: 'A Folder', items: [{ id: 'item2' }] }
+    ] as Array<DirectoryData>
+
+    const expectedOutput = [
+      {
+        id: '2',
+        name: 'A Folder',
+        items: [{ id: 'item2' }],
+        layout: _defaultLayout
+      },
+      {
+        id: '1',
+        name: 'B Folder',
+        items: [{ id: 'item1' }],
+        layout: _defaultLayout
+      }
+    ]
+
+    const result = formatSections(folders)
+    expect(result).toEqual(expectedOutput)
+  })
+
+  it('should handle the case where an empty array is provided as layout', () => {
+    const folders = [
+      { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
+      { id: '2', name: 'A Folder', items: [{ id: 'item2' }] }
+    ] as Array<DirectoryData>
+
+    const layout: SectionSetting[] = []
+
+    const expectedOutput = [
+      {
+        id: '2',
+        name: 'A Folder',
+        items: [{ id: 'item2' }],
+        layout: _defaultLayout
+      },
+      {
+        id: '1',
+        name: 'B Folder',
+        items: [{ id: 'item1' }],
+        layout: _defaultLayout
+      }
+    ]
+
+    const result = formatSections(folders, layout)
+    expect(result).toEqual(expectedOutput)
+  })
+})
+
+describe('handleSectionAction', () => {
+  it('should save the updated section layout', () => {
+    const section = {
+      id: '1',
+      name: 'Section 1',
+      items: [{ id: 'item1' }],
+      layout: {
+        ..._defaultLayout,
+        mobile: { detailedLines: false, grouped: false },
+        desktop: { detailedLines: true, grouped: true }
+      }
+    } as Section
+
+    const isMobile = true
+    const displayMode = DisplayMode.DETAILED
+    const values = { shortcutsLayout: [] }
+    const save = jest.fn()
+
+    handleSectionAction(section, isMobile, displayMode, values, save)
+
+    expect(save).toHaveBeenCalledWith({
+      shortcutsLayout: [
+        {
+          ..._defaultLayout,
+          mobile: { detailedLines: true, grouped: false },
+          desktop: { detailedLines: true, grouped: true },
+          id: '1'
+        }
+      ]
+    })
+  })
+})
+
+describe('computeDisplayMode', () => {
+  it('should return DETAILED mode for mobile if detailedLines is true', () => {
+    const section = {
+      layout: {
+        mobile: { detailedLines: true, grouped: false },
+        desktop: { detailedLines: false, grouped: true }
+      }
+    } as Section
+
+    const isMobile = true
+    const result = computeDisplayMode(isMobile, section)
+    expect(result).toBe(DisplayMode.DETAILED)
+  })
+
+  it('should return COMPACT mode for desktop if detailedLines is false', () => {
+    const section = {
+      layout: {
+        mobile: { detailedLines: true, grouped: false },
+        desktop: { detailedLines: false, grouped: true }
+      }
+    } as Section
+
+    const isMobile = false
+    const result = computeDisplayMode(isMobile, section)
+    expect(result).toBe(DisplayMode.COMPACT)
   })
 })
