@@ -255,7 +255,6 @@
       }
     }
   },
-
   "intent": {
     "konnector": {
       "install": {
@@ -280,7 +279,6 @@
       "terminate": "Terminate"
     }
   },
-
   "field": {
     "password": {
       "visibility": {
@@ -293,11 +291,9 @@
       }
     }
   },
-
   "nav": {
     "services": "My services"
   },
-
   "category": {
     "all": "All",
     "banking": "Banks",
@@ -314,26 +310,22 @@
     "public_service": "Public Services",
     "other": "Others"
   },
-
   "loading": {
     "initial": "Loading accounts...",
     "working": "Loading"
   },
-
   "validation": {
     "exact_length": "It's must be made up of %{length} characters exactly.",
     "max_length": "The length maximum is %{length} characters.",
     "min_length": "It should contain at least %{length} characters.",
     "pattern": "The value must match a specific pattern: %{pattern}"
   },
-
   "update": {
     "title": "An update is available for this service.",
     "regular": "Perform this update to keep fetching your data and to have the latest features",
     "blocking": "Update it to keep fetching your data",
     "CTA": "Update"
   },
-
   "error": {
     "initial": "Something went wrong when fetching your connectors and informations. Please refresh the page.",
     "LOGIN_FAILED": "Bad credentials. Check the konnector fields and run the connection again.",
@@ -348,14 +340,12 @@
     "text": "The move of your data from %{from} has been successful.",
     "button": "Access my Cozy"
   },
-
   "maintenance": {
     "icon": "This connector is under maintenance",
     "service": "Service interrupted",
     "problem": "%{konnectorName} doesn't allow your Cozy to access your data",
     "title": "What is going on ?"
   },
-
   "connector": {
     "title": "My connected services",
     "mute": "Mute error",
@@ -593,5 +583,10 @@
       "bikegoalSourceEmployerDescription": "Your %{sourceType} %{sourceName} invites you to take part in improving the area and benefit from the \"prime vélo\", this application will help you measure its progress, and much more!",
       "bikegoalSourceDefaultDescription": "Your %{sourceType} %{sourceName} invites you to play your part in improving the region. Save and analyse your journeys!"
     }
+  },
+  "sections": {
+    "label_compact": "Compact Mosaic",
+    "label_detailed": "Detailed List",
+    "label_grouped": "Grouped in Folder"
   }
 }

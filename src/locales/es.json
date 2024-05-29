@@ -249,7 +249,6 @@
       }
     }
   },
-
   "intent": {
     "konnector": {
       "install": {
@@ -274,7 +273,6 @@
       "terminate": "Terminar"
     }
   },
-
   "field": {
     "password": {
       "visibility": {
@@ -287,11 +285,9 @@
       }
     }
   },
-
   "nav": {
     "services": "Servicios instalados"
   },
-
   "category": {
     "all": "Todo",
     "banking": "Bancos",
@@ -308,26 +304,22 @@
     "public_service": "Servicios Públicos",
     "other": "Otros"
   },
-
   "loading": {
     "initial": "Cargando cuentas...",
     "working": "Cargando"
   },
-
   "validation": {
     "exact_length": "Debe estar compuesto de %{length} caracteres exactamente.",
     "max_length": "La longitud máxima es de %{length}  caracteres.",
     "min_length": "Debe contener al menos %{length} caracteres.",
     "pattern": "El valor debe coincidir con un patrón específico: %{pattern}.\n"
   },
-
   "update": {
     "title": "Está disponible una actualización de este servicio.",
     "regular": "Actualice esta versión para seguir obteniendo sus datos y disponer de las últimas mejoras.",
     "blocking": "Actualícela para seguir obteniendo sus datos",
     "CTA": "Actualizar"
   },
-
   "error": {
     "initial": "Algo ocurrió al recolectar sus colectores y sus datos. por favor, vuelva a cargar la página.",
     "LOGIN_FAILED": "Malas credenciales. Controle los campos de su conector y vuelva a ejecutarlo.",
@@ -342,14 +334,12 @@
     "text": "El traslado de sus datos desde %{de} ha sido exitoso.",
     "button": "Acceder a mi Cozy"
   },
- 
   "maintenance": {
     "icon": "Este conector está en mantenimiento",
     "service": "Servicio interrumpido",
     "problem": "%{konnectorName} no permite que su Cozy acceda a sus datos",
     "title": "¿Qué sucede?"
   },
-
   "connector": {
     "mute": "Error desconocido",
     "debug": {
@@ -557,5 +547,10 @@
         "format": "DD MMM"
       }
     }
+  },
+  "sections": {
+    "label_compact": "Mosaico Compacto",
+    "label_detailed": "Lista Detallada",
+    "label_grouped": "Agrupado en Carpeta"
   }
 }

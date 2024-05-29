@@ -593,5 +593,10 @@
       "bikegoalSourceEmployerDescription": "Votre %{sourceType} %{sourceName} vous invite à participer à l’amélioration du territoire et bénéficier de la \"prime vélo\", cette application vous aidera à mesurer son avancement, et bien plus !",
       "bikegoalSourceDefaultDescription": "Votre %{sourceType} %{sourceName} vous invite à participer à l'amélioration du territoire, mémorisez et analysez vos déplacements !"
     }
+  },
+  "sections": {
+    "label_compact": "Mosaïque condensée",
+    "label_detailed": "Liste détaillée",
+    "label_grouped": "Regroupé en dossier"
   }
 }

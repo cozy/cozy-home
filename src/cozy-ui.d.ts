@@ -61,11 +61,20 @@ declare module 'cozy-ui/transpiled/react/Icons/Help' {
 declare module 'cozy-ui/transpiled/react/ActionsMenu/Actions' {
   type Action = {
     name: string
-    action: (doc: Section, opts: { handleAction: HandleActionCallback }) => void
+    action?: (
+      doc: Section,
+      opts: { handleAction: HandleActionCallback }
+    ) => void
     Component: React.FC
   }
+
+  export function divider(): Action
 
   export function makeActions(
     arg1: (() => Action)[]
   ): Record<string, () => Action>
+}
+
+declare module 'cozy-ui/transpiled/react/styles' {
+  export function makeStyles<T>(styles: T): T
 }

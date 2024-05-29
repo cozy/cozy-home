@@ -1,4 +1,5 @@
 import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
+import React from 'react'
 
 export interface DeviceSettings {
   detailedLines: boolean
@@ -45,18 +46,22 @@ export enum DisplayMode {
   DETAILED = 'detailed'
 }
 
-type HandleActionCallback = (action: DisplayMode) => void
+export enum GroupMode {
+  DEFAULT = 'default',
+  GROUPED = 'grouped'
+}
+
+export type HandleActionCallback = (action: DisplayMode | GroupMode) => void
 
 export type Action = {
   name: string
-  action: (doc: Section, opts: { handleAction: HandleActionCallback }) => void
+  action: (doc: Section[], opts: { handleAction: HandleActionCallback }) => void
   Component: React.FC
 }
 
 export interface SectionHeaderProps {
-  name: string
+  section: Section
   anchorRef?: React.RefObject<HTMLButtonElement>
   toggleMenu: () => void
   menuState: boolean
-  handleAction: (action: DisplayMode) => void
 }
