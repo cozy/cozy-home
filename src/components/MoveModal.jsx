@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useClient } from 'cozy-client'
-import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import { useInstanceSettings } from 'hooks/useInstanceSettings'
@@ -43,11 +43,7 @@ export const MoveModal = () => {
       content={t('move_modal.text', { from: movedFrom })}
       actions={
         <>
-          <Button
-            theme="primary"
-            onClick={closeModal}
-            label={t('move_modal.button')}
-          />
+          <Button onClick={closeModal} label={t('move_modal.button')} />
         </>
       }
     />
