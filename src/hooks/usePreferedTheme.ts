@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useCustomWallpaperContext } from './useCustomWallpaperContext'
 import { useClient } from 'cozy-client'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 const getHomeThemeCssVariable = (): string => {
   return getComputedStyle(document.getElementsByTagName('body')[0])
@@ -13,20 +14,32 @@ export const usePreferedTheme = (): string => {
     data: { wallpaperLink, binaryCustomWallpaper }
   } = useCustomWallpaperContext()
   const client = useClient()
-  const [preferedTheme, setPreferedTheme] = useState('inverted')
+  const { type } = useCozyTheme()
+  const defaultVariant = useMemo(
+    () => (type === 'dark' ? 'normal' : 'inverted'),
+    [type]
+  )
+  const [preferedVariant, setPreferedVariant] = useState(defaultVariant)
   // @ts-expect-error client is not typed
   const { cozyDefaultWallpaper } = client.getInstanceOptions()
+
   useEffect(() => {
-    const preferedTheme = getHomeThemeCssVariable()
+    const variantFromCSS = getHomeThemeCssVariable()
 
     if (
       (wallpaperLink && wallpaperLink !== cozyDefaultWallpaper) ||
       binaryCustomWallpaper
     ) {
-      setPreferedTheme('inverted')
+      setPreferedVariant(defaultVariant)
     } else {
-      setPreferedTheme(preferedTheme || 'inverted')
+      setPreferedVariant(variantFromCSS || defaultVariant)
     }
-  }, [wallpaperLink, binaryCustomWallpaper, cozyDefaultWallpaper])
-  return preferedTheme
+  }, [
+    wallpaperLink,
+    binaryCustomWallpaper,
+    cozyDefaultWallpaper,
+    defaultVariant
+  ])
+
+  return preferedVariant
 }

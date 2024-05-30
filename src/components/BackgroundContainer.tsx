@@ -10,12 +10,14 @@ type BackgroundContainerComputedProps = {
 
 const makeProps = (
   backgroundURL: string | null,
-  preferedTheme: string,
+  theme: { type: string; variant: string },
   binaryCustomWallpaper: string | null
 ): BackgroundContainerComputedProps => ({
   className: cx('background-container', {
-    'background-container-darken': preferedTheme === 'inverted',
-    'home-default-partner-background': preferedTheme === 'normal'
+    'background-container-darken':
+      theme.type === 'dark' ||
+      (theme.type === 'light' && theme.variant === 'inverted'),
+    'home-default-partner-background': theme.variant === 'normal'
   }),
   ...(binaryCustomWallpaper && {
     style: { backgroundImage: `url(${binaryCustomWallpaper})` }
@@ -33,7 +35,7 @@ export const BackgroundContainer = (): JSX.Element => {
   const theme = useCozyTheme()
 
   return (
-    <div {...makeProps(wallpaperLink, theme.variant, binaryCustomWallpaper)}>
+    <div {...makeProps(wallpaperLink, theme, binaryCustomWallpaper)}>
       <div></div>
       <div></div>
       <div></div>
