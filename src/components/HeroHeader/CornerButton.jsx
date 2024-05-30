@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     '&:hover': {
       color: theme.palette.text.primary
+    },
+    '&:visited': {
+      color: theme.palette.text.secondary
     }
   },
   cornerButtonInverted: {
