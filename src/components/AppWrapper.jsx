@@ -94,24 +94,26 @@ const AppWrapper = ({ children }) => {
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
           <CustomWallPaperProvider>
-            <ThemeProvider>
-              <AlertProvider>
-                <ReduxProvider store={store}>
-                  <ConditionalWrapper
-                    condition={persistor}
-                    wrapper={children => (
-                      <PersistGate loading={null} persistor={persistor}>
+            <CozyTheme ignoreItself>
+              <ThemeProvider>
+                <AlertProvider>
+                  <ReduxProvider store={store}>
+                    <ConditionalWrapper
+                      condition={persistor}
+                      wrapper={children => (
+                        <PersistGate loading={null} persistor={persistor}>
+                          {children}
+                        </PersistGate>
+                      )}
+                    >
+                      <Inner lang={lang} context={context}>
                         {children}
-                      </PersistGate>
-                    )}
-                  >
-                    <Inner lang={lang} context={context}>
-                      {children}
-                    </Inner>
-                  </ConditionalWrapper>
-                </ReduxProvider>
-              </AlertProvider>
-            </ThemeProvider>
+                      </Inner>
+                    </ConditionalWrapper>
+                  </ReduxProvider>
+                </AlertProvider>
+              </ThemeProvider>
+            </CozyTheme>
           </CustomWallPaperProvider>
         </CozyProvider>
       </BreakpointsProvider>
