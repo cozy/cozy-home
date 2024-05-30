@@ -5,15 +5,12 @@ import '@testing-library/jest-dom'
 
 import { ShortcutsView } from './ShortcutsView'
 import AppLike from 'test/AppLike'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 describe('Shortcuts', () => {
   it('Should display nothing if nothing was found', () => {
     const { container } = render(
       <AppLike>
-        <CozyTheme>
-          <ShortcutsView shortcutsDirectories={null} />
-        </CozyTheme>
+        <ShortcutsView shortcutsDirectories={null} />
       </AppLike>
     )
     expect(container).toMatchSnapshot()
@@ -25,13 +22,11 @@ describe('Shortcuts', () => {
 
     const root = render(
       <AppLike>
-        <CozyTheme>
-          <ShortcutsView
-            shortcutsDirectories={[
-              { name: listName, items: [{ name: listItem }] }
-            ]}
-          />
-        </CozyTheme>
+        <ShortcutsView
+          shortcutsDirectories={[
+            { name: listName, items: [{ name: listItem }] }
+          ]}
+        />
       </AppLike>
     )
     expect(root).toMatchSnapshot()
@@ -45,9 +40,7 @@ describe('Shortcuts', () => {
 
     const root = render(
       <AppLike>
-        <CozyTheme>
-          <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
-        </CozyTheme>
+        <ShortcutsView shortcutsDirectories={shortcutsDirectories} />
       </AppLike>
     )
 

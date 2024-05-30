@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Corner from './Corner'
+
 import flag from 'cozy-flags'
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import enLocale from 'locales/en.json'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { WebviewIntentProvider } from 'cozy-intent'
+
+import AppLike from 'test/AppLike'
+import Corner from './Corner'
 
 jest.mock(
   './SettingsButton',
@@ -22,11 +22,9 @@ describe('Corner', () => {
   it('should only render the log out button', () => {
     const root = render(
       <WebviewIntentProvider>
-        <BreakpointsProvider>
-          <I18n dictRequire={() => enLocale} lang="en">
-            <Corner />
-          </I18n>
-        </BreakpointsProvider>
+        <AppLike>
+          <Corner />
+        </AppLike>
       </WebviewIntentProvider>
     )
 
