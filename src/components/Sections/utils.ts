@@ -75,9 +75,10 @@ const sortSections = (sections: Section[]): Section[] => {
 // If no layout is provided, returns folders sorted alphabetically with the default layout
 export const formatSections = (
   folders?: DirectoryDataArray,
-  layout?: SectionSetting[] | SectionSetting
-): Section[] => {
-  if (!folders) return []
+  layout?: SectionSetting[] | SectionSetting,
+  isMobile?: boolean
+): [Section[], Section[]] => {
+  if (!folders) return [[], []]
 
   // Create a new variable to hold the processed layout
   const processedLayout = !layout
@@ -89,14 +90,17 @@ export const formatSections = (
   // Handle the case where no layout is provided or layout is an empty array
   // Return folders sorted alphabetically by name, using the default layout
   if (processedLayout.length === 0) {
-    return folders
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map(folder => ({
-        id: folder.id,
-        name: folder.name,
-        items: folder.items,
-        layout: _defaultLayout
-      }))
+    return [
+      folders
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(folder => ({
+          id: folder.id,
+          name: folder.name,
+          items: folder.items,
+          layout: _defaultLayout
+        })),
+      []
+    ]
   }
 
   // Create a map of layout settings for quick lookup
@@ -108,7 +112,17 @@ export const formatSections = (
   )
 
   // Sort the merged sections based on their order and name
-  return sortSections(mergedMap)
+  const sortedSections = sortSections(mergedMap)
+
+  const groupedSections = sortedSections.filter(
+    section => section.layout[isMobile ? 'mobile' : 'desktop'].grouped
+  )
+
+  const ungroupedSections = sortedSections.filter(
+    section => !section.layout[isMobile ? 'mobile' : 'desktop'].grouped
+  )
+
+  return [ungroupedSections, groupedSections]
 }
 
 export const handleSectionAction = (
@@ -147,4 +161,13 @@ export const computeDisplayMode = (
   const layout = section.layout[isMobile ? 'mobile' : 'desktop']
 
   return layout.detailedLines ? DisplayMode.DETAILED : DisplayMode.COMPACT
+}
+
+export const computeGroupMode = (
+  isMobile: boolean,
+  section: Section
+): GroupMode => {
+  const layout = section.layout[isMobile ? 'mobile' : 'desktop']
+
+  return layout.grouped ? GroupMode.GROUPED : GroupMode.DEFAULT
 }

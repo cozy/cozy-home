@@ -15,15 +15,16 @@ export const SectionHeader = ({
   section,
   anchorRef,
   toggleMenu,
-  menuState
+  menuState,
+  name
 }: SectionHeaderProps): JSX.Element => (
   <>
     <div className="u-flex u-w-100 u-flex-justify-between">
       <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
-        {section.name}
+        {section?.name ?? name}
       </Divider>
 
-      {flag('home.detailed-sections.show-more-dev') && (
+      {section && flag('home.detailed-sections.show-more-dev') && (
         <Button
           className="u-p-1"
           label={<Icon icon={DotsIcon} />}
@@ -34,19 +35,21 @@ export const SectionHeader = ({
       )}
     </div>
 
-    <CozyTheme variant="normal">
-      <ActionsMenu
-        actions={actions}
-        anchorOrigin={{
-          horizontal: 'right',
-          vertical: 'bottom'
-        }}
-        autoClose
-        docs={[section]}
-        onClose={toggleMenu}
-        open={menuState}
-        ref={anchorRef}
-      />
-    </CozyTheme>
+    {section && (
+      <CozyTheme variant="normal">
+        <ActionsMenu
+          actions={actions}
+          anchorOrigin={{
+            horizontal: 'right',
+            vertical: 'bottom'
+          }}
+          autoClose
+          docs={[section]}
+          onClose={toggleMenu}
+          open={menuState}
+          ref={anchorRef}
+        />
+      </CozyTheme>
+    )}
   </>
 )

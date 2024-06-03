@@ -36,6 +36,10 @@ export interface SectionViewProps {
   section: Section
 }
 
+export interface GroupedSectionViewProps {
+  sections: Section[]
+}
+
 export interface SectionsViewProps {
   data?: DirectoryDataArray
   type: 'shortcuts' | 'konnectorCategories'
@@ -60,8 +64,9 @@ export type Action = {
 }
 
 export interface SectionHeaderProps {
-  section: Section
+  section?: Section
   anchorRef?: React.RefObject<HTMLButtonElement>
-  toggleMenu: () => void
+  toggleMenu?: () => void
   menuState: boolean
+  name?: string
 }
