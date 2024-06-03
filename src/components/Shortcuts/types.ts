@@ -37,6 +37,9 @@ interface FileAttributes extends DirectoryAttributes {
   encrypted: boolean
   metadata: {
     extractor_version: number
+    description?: string
+    icon?: string
+    iconMimeType?: string
   }
 }
 
