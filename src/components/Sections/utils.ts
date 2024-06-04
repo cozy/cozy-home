@@ -132,11 +132,15 @@ export const handleSectionAction = (
   values: { shortcutsLayout: SectionSetting[] },
   save: (newValues: { shortcutsLayout: SectionSetting[] }) => void
 ): void => {
+  const isDisplayMode =
+    displayMode === DisplayMode.DETAILED || displayMode === DisplayMode.COMPACT
   const sectionToSave: SectionSetting = {
     ...section.layout,
     [isMobile ? 'mobile' : 'desktop']: {
       ...section.layout[isMobile ? 'mobile' : 'desktop'],
-      detailedLines: displayMode === DisplayMode.DETAILED
+      ...(isDisplayMode
+        ? { detailedLines: displayMode === DisplayMode.DETAILED }
+        : { grouped: displayMode === GroupMode.GROUPED })
     },
     id: section.id
   }

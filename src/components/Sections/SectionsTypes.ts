@@ -45,6 +45,12 @@ export interface SectionsViewProps {
   type: 'shortcuts' | 'konnectorCategories'
 }
 
+export interface SectionDialogProps {
+  onClose: () => void
+  sections: Section[]
+  hasDialog: string
+}
+
 export enum DisplayMode {
   COMPACT = 'compact',
   DETAILED = 'detailed'

@@ -5,6 +5,7 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
+import SectionDialog from 'components/Sections/SectionDialog'
 
 export const GroupedSectionView = ({
   sections
@@ -12,6 +13,7 @@ export const GroupedSectionView = ({
   const [menuState, setMenuState] = useState(false)
   const anchorRef = React.useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
+  const [dialogSectionId, setDialogSectionId] = useState('')
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
@@ -27,9 +29,7 @@ export const GroupedSectionView = ({
           return (
             <a
               key={section.id}
-              onClick={(onClickEvent: React.MouseEvent): void =>
-                onClickEvent.stopPropagation()
-              }
+              onClick={(): void => setDialogSectionId(section.id)}
               className="scale-hover u-c-pointer"
             >
               <SquareAppIcon
@@ -62,6 +62,14 @@ export const GroupedSectionView = ({
           )
         })}
       </div>
+
+      {dialogSectionId && (
+        <SectionDialog
+          sections={sections}
+          hasDialog={dialogSectionId}
+          onClose={(): void => setDialogSectionId('')}
+        />
+      )}
     </div>
   )
 }
