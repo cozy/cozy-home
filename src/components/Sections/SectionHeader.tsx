@@ -1,5 +1,5 @@
 import React from 'react'
-
+import cx from 'classnames'
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
@@ -8,8 +8,13 @@ import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
 
-import { SectionHeaderProps } from 'components/Sections/SectionsTypes'
+import {
+  GroupMode,
+  SectionHeaderProps
+} from 'components/Sections/SectionsTypes'
 import { actions } from 'components/Sections/SectionActions'
+import { computeGroupMode } from './utils'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const SectionHeader = ({
   section,
@@ -17,39 +22,54 @@ export const SectionHeader = ({
   toggleMenu,
   menuState,
   name
-}: SectionHeaderProps): JSX.Element => (
-  <>
-    <div className="u-flex u-w-100 u-flex-justify-between">
-      <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
-        {section?.name ?? name}
-      </Divider>
+}: SectionHeaderProps): JSX.Element | null => {
+  const { isMobile } = useBreakpoints()
+  const isGroupMode =
+    (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
 
-      {section && flag('home.detailed-sections.show-more-dev') && (
-        <Button
-          className="u-p-1"
-          label={<Icon icon={DotsIcon} />}
-          onClick={toggleMenu}
-          ref={anchorRef}
-          variant="text"
-        />
+  return (
+    <>
+      <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
+        {!isGroupMode ? (
+          <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
+            {section?.name ?? name}
+          </Divider>
+        ) : (
+          section?.name ?? name
+        )}
+
+        {section && flag('home.detailed-sections.show-more-dev') && (
+          <Button
+            className={cx({
+              ['u-p-1']: !isGroupMode,
+              ['u-p-0']: isGroupMode,
+              ['u-h-auto']: isGroupMode
+            })}
+            label={<Icon icon={DotsIcon} />}
+            onClick={toggleMenu}
+            ref={anchorRef}
+            variant="text"
+            style={{ color: 'var(--secondaryTextColor)' }}
+          />
+        )}
+      </div>
+
+      {section && (
+        <CozyTheme>
+          <ActionsMenu
+            actions={actions}
+            anchorOrigin={{
+              horizontal: 'right',
+              vertical: 'bottom'
+            }}
+            autoClose
+            docs={[section]}
+            onClose={toggleMenu}
+            open={menuState}
+            ref={anchorRef}
+          />
+        </CozyTheme>
       )}
-    </div>
-
-    {section && (
-      <CozyTheme variant="normal">
-        <ActionsMenu
-          actions={actions}
-          anchorOrigin={{
-            horizontal: 'right',
-            vertical: 'bottom'
-          }}
-          autoClose
-          docs={[section]}
-          onClose={toggleMenu}
-          open={menuState}
-          ref={anchorRef}
-        />
-      </CozyTheme>
-    )}
-  </>
-)
+    </>
+  )
+}

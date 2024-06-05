@@ -7,15 +7,16 @@ import { SectionDialogProps } from 'components/Sections/SectionsTypes'
 import { SectionBody } from 'components/Sections/SectionView'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 
-const SectionDialog = (props: SectionDialogProps): JSX.Element | null => {
+const SectionDialog = ({
+  hasDialog,
+  ...props
+}: SectionDialogProps): JSX.Element | null => {
   const [menuState, setMenuState] = useState(false)
   const anchorRef = React.useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
-  const section = props.sections.find(section => section.id === props.hasDialog)
+  const section = props.sections.find(section => section.id === hasDialog)
 
-  if (!section) {
-    return null
-  }
+  if (!section) return null
 
   return (
     <CozyTheme>
