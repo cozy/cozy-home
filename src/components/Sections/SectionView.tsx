@@ -5,20 +5,26 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import {
   DisplayMode,
+  GroupMode,
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import { ShortcutLink } from 'components/ShortcutLink'
-import { computeDisplayMode } from 'components/Sections/utils'
+import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
   const currentDisplayMode = computeDisplayMode(isMobile, section)
+  const isGroupMode =
+    (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
 
   return (
     <div
       className={cx(
-        'shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center',
+        'shortcuts-list u-w-100 ',
+        {
+          'u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center': !isGroupMode
+        },
         { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
       )}
     >

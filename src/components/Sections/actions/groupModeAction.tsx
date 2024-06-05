@@ -17,7 +17,7 @@ const StateSwitch = ({
   handleClick: () => void
   checked: boolean
 }): JSX.Element => {
-  return <Switch checked={checked} onChange={handleClick} />
+  return <Switch checked={checked} onChange={handleClick} color="primary" />
 }
 
 export const groupModeAction = (): (() => Action) => () => ({

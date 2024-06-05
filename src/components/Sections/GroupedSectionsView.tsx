@@ -6,6 +6,7 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import SectionDialog from 'components/Sections/SectionDialog'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 export const GroupedSectionView = ({
   sections
@@ -37,20 +38,12 @@ export const GroupedSectionView = ({
                 IconContent={
                   <Grid container spacing={0}>
                     {section.items.slice(0, 4).map(item => {
-                      const icon = item.attributes.metadata.icon ?? ''
-                      const iconMimeType = item.attributes.metadata.iconMimeType
-
                       return (
                         <Grid item xs={6} key={item.id}>
-                          <img
-                            src={
-                              iconMimeType
-                                ? `data:${iconMimeType};base64,${icon}`
-                                : `data:image/svg+xml;base64,${window.btoa(
-                                    icon
-                                  )}`
-                            }
-                            alt={item.attributes.name}
+                          <AppIcon
+                            app={item}
+                            type="app"
+                            className="item-grid-icon"
                           />
                         </Grid>
                       )
