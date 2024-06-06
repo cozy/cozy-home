@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 
-import Grid from 'cozy-ui/transpiled/react/Grid'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import SectionDialog from 'components/Sections/SectionDialog'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import SectionAppGroup from 'components/Sections/SectionAppGroup'
 
 export const GroupedSectionView = ({
   sections
@@ -22,7 +21,6 @@ export const GroupedSectionView = ({
         anchorRef={anchorRef}
         toggleMenu={toggleMenu}
         menuState={menuState}
-        name="Mes raccourcis"
       />
 
       <div className="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
@@ -36,19 +34,7 @@ export const GroupedSectionView = ({
               <SquareAppIcon
                 name={section.name}
                 IconContent={
-                  <Grid container spacing={0}>
-                    {section.items.slice(0, 4).map(item => {
-                      return (
-                        <Grid item xs={6} key={item.id}>
-                          <AppIcon
-                            app={item}
-                            type="app"
-                            className="item-grid-icon"
-                          />
-                        </Grid>
-                      )
-                    })}
-                  </Grid>
+                  <SectionAppGroup items={section.items.slice(0, 4)} />
                 }
               />
             </a>

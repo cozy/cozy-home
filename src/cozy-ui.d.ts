@@ -93,3 +93,7 @@ declare module 'cozy-ui/transpiled/react/ActionsMenu/Actions' {
 declare module 'cozy-ui/transpiled/react/styles' {
   export function makeStyles<T>(styles: T): T
 }
+
+declare module 'cozy-ui/react/Avatar/helpers' {
+  export function nameToColor(name: string): string
+}

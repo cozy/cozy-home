@@ -19,7 +19,7 @@ const SectionDialog = ({
   if (!section) return null
 
   return (
-    <CozyTheme>
+    <CozyTheme variant="normal">
       <Dialog
         content={<SectionBody section={section} />}
         fullScreen={false}
