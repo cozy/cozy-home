@@ -21,31 +21,43 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
 
   return (
-    <Grid item xs={6} key={item.id}>
-      <div
-        style={
-          !icon
-            ? {
-                backgroundColor: typedNameToColor(item.name)
-              }
-            : {}
-        }
-      >
-        {icon ? (
-          <img
-            src={
-              iconMimeType
-                ? `data:${iconMimeType};base64,${icon}`
-                : `data:image/svg+xml;base64,${window.btoa(icon)}`
-            }
-            alt={item.name}
-          />
-        ) : (
+    <Grid
+      item
+      xs={6}
+      key={item.id}
+      style={{
+        display: 'flex',
+        alignItems: 'center'
+      }}
+    >
+      {icon ? (
+        <img
+          src={
+            iconMimeType
+              ? `data:${iconMimeType};base64,${icon}`
+              : `data:image/svg+xml;base64,${window.btoa(icon)}`
+          }
+          alt={item.name}
+          style={{
+            display: 'block'
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            backgroundColor: typedNameToColor(item.name),
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            alignItems: 'center',
+            minWidth: '14px'
+          }}
+        >
           <Typography variant="subtitle2" align="center" className="u-white">
             {item.name[0].toUpperCase()}
           </Typography>
-        )}
-      </div>
+        </div>
+      )}
     </Grid>
   )
 }

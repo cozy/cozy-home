@@ -11,7 +11,8 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 export const ShortcutLink = ({
   display = 'compact',
   file,
-  desktopSize = 44
+  desktopSize = 44,
+  ...props
 }) => {
   const client = useClient()
   // We only need this call to useFetchShortcut in order to
@@ -41,6 +42,7 @@ export const ShortcutLink = ({
       target="_blank"
       rel="noopener noreferrer"
       className="scale-hover"
+      {...props}
     >
       {icon ? (
         <SquareAppIcon
