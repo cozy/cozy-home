@@ -8,11 +8,12 @@ const useCustomWallpaper = () => {
   const [wallpaperLink, setWallpaperLink] = useState(null)
   const [fetchStatus, setFetchStatus] = useState('idle')
   const [binaryCustomWallpaper, setBinaryCustomWallpaper] = useState(null)
+  const { cozyDefaultWallpaper } = client.getInstanceOptions()
+
   useEffect(() => {
     const fetchData = async () => {
       // happy path, in order to avoid a flash of the default wallpaper
       if (localStorage.getItem('hasCustomWallpaper') !== 'true') {
-        const { cozyDefaultWallpaper } = client.getInstanceOptions()
         setWallpaperLink(cozyDefaultWallpaper)
       }
       try {
@@ -39,17 +40,23 @@ const useCustomWallpaper = () => {
       } catch (error) {
         await localForage.removeItem('customWallpaper')
         localStorage.setItem('hasCustomWallpaper', false)
-        const { cozyDefaultWallpaper } = client.getInstanceOptions()
         setWallpaperLink(cozyDefaultWallpaper)
         setBinaryCustomWallpaper(null)
         setFetchStatus('failed')
       }
     }
     fetchData()
-  }, [client])
+  }, [client, cozyDefaultWallpaper])
 
   return {
-    data: { wallpaperLink, binaryCustomWallpaper },
+    data: {
+      wallpaperLink,
+      binaryCustomWallpaper,
+      isCustomWallpaper: Boolean(
+        (wallpaperLink && wallpaperLink !== cozyDefaultWallpaper) ||
+          binaryCustomWallpaper
+      )
+    },
     fetchStatus
   }
 }

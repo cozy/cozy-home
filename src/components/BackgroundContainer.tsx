@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useClient } from 'cozy-client'
+import React from 'react'
 import cx from 'classnames'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
 import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
+import { getHomeThemeCssVariable } from 'hooks/usePreferedTheme'
+
 type BackgroundContainerComputedProps = {
   className: string
   style?: { backgroundImage: string }
@@ -10,14 +11,14 @@ type BackgroundContainerComputedProps = {
 
 const makeProps = (
   backgroundURL: string | null,
-  theme: { type: string; variant: string },
+  isCustomWallpaper: boolean,
   binaryCustomWallpaper: string | null
 ): BackgroundContainerComputedProps => ({
   className: cx('background-container', {
     'background-container-darken':
-      theme.type === 'dark' ||
-      (theme.type === 'light' && theme.variant === 'inverted'),
-    'home-default-partner-background': theme.variant === 'normal'
+      isCustomWallpaper || getHomeThemeCssVariable() !== 'normal',
+    'home-default-partner-background':
+      !isCustomWallpaper && getHomeThemeCssVariable() === 'normal'
   }),
   ...(binaryCustomWallpaper && {
     style: { backgroundImage: `url(${binaryCustomWallpaper})` }
@@ -30,12 +31,13 @@ const makeProps = (
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
-    data: { wallpaperLink, binaryCustomWallpaper }
+    data: { wallpaperLink, binaryCustomWallpaper, isCustomWallpaper }
   } = useCustomWallpaperContext()
-  const theme = useCozyTheme()
 
   return (
-    <div {...makeProps(wallpaperLink, theme, binaryCustomWallpaper)}>
+    <div
+      {...makeProps(wallpaperLink, isCustomWallpaper, binaryCustomWallpaper)}
+    >
       <div></div>
       <div></div>
       <div></div>
