@@ -8,6 +8,7 @@ const CustomWallPaperContext = React.createContext<
 interface CustomWallPaperContextInterfaceData {
   wallpaperLink: string | null
   binaryCustomWallpaper: string | null
+  isCustomWallpaper: boolean
 }
 interface CustomWallPaperContextInterface {
   data: CustomWallPaperContextInterfaceData
