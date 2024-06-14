@@ -6,6 +6,7 @@ import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import SectionDialog from 'components/Sections/SectionDialog'
 import SectionAppGroup from 'components/Sections/SectionAppGroup'
+import { get4FirstItems } from 'components/Sections/utils'
 
 export const GroupedSectionView = ({
   sections
@@ -34,7 +35,7 @@ export const GroupedSectionView = ({
               <SquareAppIcon
                 name={section.name}
                 IconContent={
-                  <SectionAppGroup items={section.items.slice(0, 4)} />
+                  <SectionAppGroup items={get4FirstItems(section)} />
                 }
               />
             </a>

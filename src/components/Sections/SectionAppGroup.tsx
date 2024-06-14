@@ -21,15 +21,7 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
 
   return (
-    <Grid
-      item
-      xs={6}
-      key={item.id}
-      style={{
-        display: 'flex',
-        alignItems: 'center'
-      }}
-    >
+    <Grid item xs={6} key={item.id} className="section-app-group-grid">
       {icon ? (
         <img
           src={
@@ -38,20 +30,12 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
               : `data:image/svg+xml;base64,${window.btoa(icon)}`
           }
           alt={item.name}
-          style={{
-            display: 'block'
-          }}
+          className="section-app-group-icon"
         />
       ) : (
         <div
-          style={{
-            backgroundColor: typedNameToColor(item.name),
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
-            alignItems: 'center',
-            minWidth: '14px'
-          }}
+          style={{ backgroundColor: typedNameToColor(item.name) }}
+          className="section-app-group-tile"
         >
           <Typography variant="subtitle2" align="center" className="u-white">
             {item.name[0].toUpperCase()}

@@ -62,52 +62,48 @@ describe('formatSections', () => {
       }
     ] as SectionSetting[]
 
-    const expectedOutput = [
-      {
-        id: '2',
-        name: 'Name 2',
-        items: [{ id: 'item2' }],
-        layout: {
-          ..._defaultLayout,
-          order: 1,
-          originalName: 'Name 2',
-          createdByApp: 'By 2',
-          mobile: {
-            detailedLines: true,
-            grouped: true
+    const expectedOutput = {
+      groupedSections: [
+        {
+          id: '2',
+          items: [{ id: 'item2' }],
+          layout: {
+            createdByApp: 'By 2',
+            desktop: { detailedLines: false, grouped: true },
+            mobile: { detailedLines: true, grouped: true },
+            order: 1,
+            originalName: 'Name 2'
           },
-          desktop: {
-            detailedLines: false,
-            grouped: true
-          }
-        }
-      },
-      {
-        id: '1',
-        name: 'Name 1',
-        items: [{ id: 'item1' }],
-        layout: {
-          ..._defaultLayout,
-          order: 2,
-          originalName: 'Name 1',
-          createdByApp: 'By 1',
-          mobile: {
-            detailedLines: false,
-            grouped: false
+          name: 'Name 2'
+        },
+        {
+          id: '1',
+          items: [{ id: 'item1' }],
+          layout: {
+            createdByApp: 'By 1',
+            desktop: { detailedLines: true, grouped: true },
+            mobile: { detailedLines: false, grouped: false },
+            order: 2,
+            originalName: 'Name 1'
           },
-          desktop: {
-            detailedLines: true,
-            grouped: true
-          }
+          name: 'Name 1'
         }
-      },
-      {
-        id: '3',
-        name: 'Name 3',
-        items: [{ id: 'item3' }],
-        layout: _defaultLayout
-      }
-    ]
+      ],
+      ungroupedSections: [
+        {
+          id: '3',
+          items: [{ id: 'item3' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'Name 3'
+        }
+      ]
+    }
 
     const result = formatSections(folders, layout)
     expect(result).toEqual(expectedOutput)
@@ -126,26 +122,47 @@ describe('formatSections', () => {
       { id: '3', order: 1 }
     ] as SectionSetting[]
 
-    const expectedOutput = [
-      {
-        id: '2',
-        name: 'A Folder',
-        items: [{ id: 'item2' }],
-        layout: { ..._defaultLayout, order: 1 }
-      },
-      {
-        id: '1',
-        name: 'B Folder',
-        items: [{ id: 'item1' }],
-        layout: { ..._defaultLayout, order: 1 }
-      },
-      {
-        id: '3',
-        name: 'C Folder',
-        items: [{ id: 'item3' }],
-        layout: { ..._defaultLayout, order: 1 }
-      }
-    ]
+    const expectedOutput = {
+      groupedSections: [],
+      ungroupedSections: [
+        {
+          id: '2',
+          items: [{ id: 'item2' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: 1,
+            originalName: ''
+          },
+          name: 'A Folder'
+        },
+        {
+          id: '1',
+          items: [{ id: 'item1' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: 1,
+            originalName: ''
+          },
+          name: 'B Folder'
+        },
+        {
+          id: '3',
+          items: [{ id: 'item3' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: 1,
+            originalName: ''
+          },
+          name: 'C Folder'
+        }
+      ]
+    }
 
     const result = formatSections(folders, layout)
     expect(result).toEqual(expectedOutput)
@@ -164,26 +181,47 @@ describe('formatSections', () => {
       { id: '3', order: 1 }
     ] as SectionSetting[]
 
-    const expectedOutput = [
-      {
-        id: '3',
-        name: 'C Folder',
-        items: [{ id: 'item3' }],
-        layout: { ..._defaultLayout, order: 1 }
-      },
-      {
-        id: '1',
-        name: 'B Folder',
-        items: [{ id: 'item1' }],
-        layout: { ..._defaultLayout, order: 2 }
-      },
-      {
-        id: '2',
-        name: 'A Folder',
-        items: [{ id: 'item2' }],
-        layout: { ..._defaultLayout, order: Infinity }
-      }
-    ]
+    const expectedOutput = {
+      groupedSections: [],
+      ungroupedSections: [
+        {
+          id: '3',
+          items: [{ id: 'item3' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: 1,
+            originalName: ''
+          },
+          name: 'C Folder'
+        },
+        {
+          id: '1',
+          items: [{ id: 'item1' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: 2,
+            originalName: ''
+          },
+          name: 'B Folder'
+        },
+        {
+          id: '2',
+          items: [{ id: 'item2' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'A Folder'
+        }
+      ]
+    }
 
     const result = formatSections(folders, layout)
     expect(result).toEqual(expectedOutput)
@@ -195,20 +233,35 @@ describe('formatSections', () => {
       { id: '2', name: 'A Folder', items: [{ id: 'item2' }] }
     ] as Array<DirectoryData>
 
-    const expectedOutput = [
-      {
-        id: '2',
-        name: 'A Folder',
-        items: [{ id: 'item2' }],
-        layout: _defaultLayout
-      },
-      {
-        id: '1',
-        name: 'B Folder',
-        items: [{ id: 'item1' }],
-        layout: _defaultLayout
-      }
-    ]
+    const expectedOutput = {
+      groupedSections: [],
+      ungroupedSections: [
+        {
+          id: '2',
+          items: [{ id: 'item2' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'A Folder'
+        },
+        {
+          id: '1',
+          items: [{ id: 'item1' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'B Folder'
+        }
+      ]
+    }
 
     const result = formatSections(folders)
     expect(result).toEqual(expectedOutput)
@@ -222,20 +275,35 @@ describe('formatSections', () => {
 
     const layout: SectionSetting[] = []
 
-    const expectedOutput = [
-      {
-        id: '2',
-        name: 'A Folder',
-        items: [{ id: 'item2' }],
-        layout: _defaultLayout
-      },
-      {
-        id: '1',
-        name: 'B Folder',
-        items: [{ id: 'item1' }],
-        layout: _defaultLayout
-      }
-    ]
+    const expectedOutput = {
+      groupedSections: [],
+      ungroupedSections: [
+        {
+          id: '2',
+          items: [{ id: 'item2' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'A Folder'
+        },
+        {
+          id: '1',
+          items: [{ id: 'item1' }],
+          layout: {
+            createdByApp: '',
+            desktop: { detailedLines: false, grouped: false },
+            mobile: { detailedLines: false, grouped: false },
+            order: Infinity,
+            originalName: ''
+          },
+          name: 'B Folder'
+        }
+      ]
+    }
 
     const result = formatSections(folders, layout)
     expect(result).toEqual(expectedOutput)

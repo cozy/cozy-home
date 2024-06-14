@@ -27,20 +27,9 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         },
         { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
       )}
-      style={{
-        minWidth: '320px'
-      }}
     >
       {section.items.map((item, index) => (
-        <ShortcutLink
-          key={index}
-          file={item}
-          display={currentDisplayMode}
-          style={{
-            color: 'var(--primaryTextColor)',
-            fontWeight: 'bold'
-          }}
-        />
+        <ShortcutLink key={index} file={item} display={currentDisplayMode} />
       ))}
     </div>
   )
