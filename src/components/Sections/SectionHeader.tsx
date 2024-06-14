@@ -20,8 +20,7 @@ export const SectionHeader = ({
   section,
   anchorRef,
   toggleMenu,
-  menuState,
-  name
+  menuState
 }: SectionHeaderProps): JSX.Element | null => {
   const { isMobile } = useBreakpoints()
   const isGroupMode =
@@ -32,10 +31,10 @@ export const SectionHeader = ({
       <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
         {!isGroupMode ? (
           <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
-            {section?.name ?? name}
+            {section?.name}
           </Divider>
         ) : (
-          section?.name ?? name
+          section?.name
         )}
 
         {section && flag('home.detailed-sections.show-more-dev') && (
@@ -45,11 +44,10 @@ export const SectionHeader = ({
               ['u-p-0']: isGroupMode,
               ['u-h-auto']: isGroupMode
             })}
-            label={<Icon icon={DotsIcon} />}
+            label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
             onClick={toggleMenu}
             ref={anchorRef}
             variant="text"
-            style={{ color: 'var(--secondaryTextColor)' }}
           />
         )}
       </div>

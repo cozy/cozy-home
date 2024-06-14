@@ -4,7 +4,7 @@ import {
   Section,
   SectionSetting
 } from 'components/Sections/SectionsTypes'
-import { DirectoryDataArray } from 'components/Shortcuts/types'
+import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
 
 // Default layout configuration used when no specific layout is provided for a folder
 export const _defaultLayout: Omit<SectionSetting, 'id'> = {
@@ -70,15 +70,16 @@ const sortSections = (sections: Section[]): Section[] => {
   })
 }
 
-// Main function to format sections based on provided folders and layout settings
-// Returns a sorted list of sections, with each folder merged with its corresponding layout
-// If no layout is provided, returns folders sorted alphabetically with the default layout
+// Formats the provided folders into grouped and ungrouped sections
+// Uses the provided layout settings to determine the display mode for each section
+// If no layout is provided, uses the default layout
 export const formatSections = (
   folders?: DirectoryDataArray,
   layout?: SectionSetting[] | SectionSetting,
   isMobile?: boolean
-): [Section[], Section[]] => {
-  if (!folders) return [[], []]
+): { groupedSections: Section[]; ungroupedSections: Section[] } => {
+  const fallback = { groupedSections: [], ungroupedSections: [] }
+  if (!folders) return fallback
 
   // Create a new variable to hold the processed layout
   const processedLayout = !layout
@@ -90,8 +91,8 @@ export const formatSections = (
   // Handle the case where no layout is provided or layout is an empty array
   // Return folders sorted alphabetically by name, using the default layout
   if (processedLayout.length === 0) {
-    return [
-      folders
+    return {
+      ungroupedSections: folders
         .sort((a, b) => a.name.localeCompare(b.name))
         .map(folder => ({
           id: folder.id,
@@ -99,8 +100,8 @@ export const formatSections = (
           items: folder.items,
           layout: _defaultLayout
         })),
-      []
-    ]
+      groupedSections: []
+    }
   }
 
   // Create a map of layout settings for quick lookup
@@ -122,25 +123,26 @@ export const formatSections = (
     section => !section.layout[isMobile ? 'mobile' : 'desktop'].grouped
   )
 
-  return [ungroupedSections, groupedSections]
+  return { ungroupedSections, groupedSections }
 }
 
 export const handleSectionAction = (
   section: Section,
   isMobile: boolean,
-  displayMode: DisplayMode | GroupMode,
+  displayOrGroupMode: DisplayMode | GroupMode,
   values: { shortcutsLayout: SectionSetting[] },
   save: (newValues: { shortcutsLayout: SectionSetting[] }) => void
 ): void => {
   const isDisplayMode =
-    displayMode === DisplayMode.DETAILED || displayMode === DisplayMode.COMPACT
+    displayOrGroupMode === DisplayMode.DETAILED ||
+    displayOrGroupMode === DisplayMode.COMPACT
   const sectionToSave: SectionSetting = {
     ...section.layout,
     [isMobile ? 'mobile' : 'desktop']: {
       ...section.layout[isMobile ? 'mobile' : 'desktop'],
       ...(isDisplayMode
-        ? { detailedLines: displayMode === DisplayMode.DETAILED }
-        : { grouped: displayMode === GroupMode.GROUPED })
+        ? { detailedLines: displayOrGroupMode === DisplayMode.DETAILED }
+        : { grouped: displayOrGroupMode === GroupMode.GROUPED })
     },
     id: section.id
   }
@@ -175,3 +177,7 @@ export const computeGroupMode = (
 
   return layout.grouped ? GroupMode.GROUPED : GroupMode.DEFAULT
 }
+
+// Used when building the grouped view of a section (4 small icons into 1 big icon)
+export const get4FirstItems = (section: Section): FileData[] =>
+  section.items.slice(0, 4)

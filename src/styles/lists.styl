@@ -14,6 +14,7 @@
     grid-auto-rows minmax(rem(91), auto)
     grid-gap rem(10) 0
     justify-content center
+    min-width 320px
 
     &.detailed
         grid-template-columns repeat(3, detailedAppTileWithGutter)
@@ -64,6 +65,22 @@
     +small-screen()
         padding-left .5rem
 
+.scale-hover
+    transition transform 50ms ease
+
 .scale-hover:hover
     transform scale(1.0625)
-    transition transform 50ms ease
+
+.section-app-group-grid
+    display flex
+    align-items center
+
+.section-app-group-icon
+    display block
+
+.section-app-group-tile
+    display flex
+    justify-content center
+    width 100%
+    align-items center
+    min-width 14px

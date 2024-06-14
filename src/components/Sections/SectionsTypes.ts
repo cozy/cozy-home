@@ -74,5 +74,4 @@ export interface SectionHeaderProps {
   anchorRef?: React.RefObject<HTMLButtonElement>
   toggleMenu?: () => void
   menuState: boolean
-  name?: string
 }
