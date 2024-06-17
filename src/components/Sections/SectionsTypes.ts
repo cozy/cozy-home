@@ -17,6 +17,7 @@ export interface Section {
     desktop: DeviceSettings
     order: number
   }
+  type?: string
 }
 
 export interface SectionSetting {

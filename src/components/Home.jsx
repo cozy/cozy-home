@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import flag from 'cozy-flags'
 
 import flag from 'cozy-flags'
 import CozyDevTools from 'cozy-client/dist/devtools'
@@ -10,6 +11,7 @@ import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
 import Shortcuts from 'components/Shortcuts'
+import GroupedServices from 'components/GroupedServices'
 
 const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
   return (
@@ -20,7 +22,11 @@ const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
           {flag('debug') && <CozyDevTools />}
           <Applications onAppsFetched={setAppsReady} />
           <Shortcuts shortcutsDirectories={shortcutsDirectories} />
-          <Services />
+          {flag('home.detailed_services-dev') ? (
+            <GroupedServices />
+          ) : (
+            <Services />
+          )}
         </Content>
       </Main>
       <Outlet />

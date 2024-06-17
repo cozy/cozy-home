@@ -7,6 +7,7 @@ import { SectionHeader } from 'components/Sections/SectionHeader'
 import SectionDialog from 'components/Sections/SectionDialog'
 import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { get4FirstItems } from 'components/Sections/utils'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const GroupedSectionView = ({
   sections
@@ -15,6 +16,7 @@ export const GroupedSectionView = ({
   const anchorRef = React.useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
   const [dialogSectionId, setDialogSectionId] = useState('')
+  const { t } = useI18n()
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
@@ -33,10 +35,15 @@ export const GroupedSectionView = ({
               className="scale-hover u-c-pointer"
             >
               <SquareAppIcon
-                name={section.name}
+                name={
+                  section.type === 'category'
+                    ? t(`category.${section.name}`)
+                    : section.name
+                }
                 IconContent={
                   <SectionAppGroup items={get4FirstItems(section)} />
                 }
+                variant={section.pristine ? 'ghost' : 'normal'}
               />
             </a>
           )

@@ -4,9 +4,11 @@ import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
-const AddServiceTile = ({ label }) => {
+const AddServiceTile = ({ label, category }) => {
   const client = useClient()
-  const nativePath = '/discover/?type=konnector'
+  const nativePath = `/discover/?type=konnector${
+    category ? `&category=${category}` : ''
+  }`
   const slug = 'store'
   const cozyURL = new URL(client.getStackClient().uri)
   const { subdomain: subDomainType } = client.getInstanceOptions()

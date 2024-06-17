@@ -5,6 +5,8 @@ import { FileData } from 'components/Shortcuts/types'
 import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 interface SectionAppGroupProps {
   items: FileData[]
@@ -19,10 +21,24 @@ const typedNameToColor = nameToColor as (name: string) => string
 const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const icon = get(item, 'attributes.metadata.icon') as string
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
+  const { t } = useI18n()
 
   return (
-    <Grid item xs={6} key={item.id} className="section-app-group-grid">
-      {icon ? (
+    <Grid
+      item
+      xs={6}
+      key={item.id ?? item.slug}
+      className="section-app-group-grid"
+    >
+      {item.type === 'konnector' && (
+        <AppIcon
+          alt={t('app.logo.alt', { name: item.slug })}
+          app={item.slug}
+          type="konnector"
+          className="item-grid-icon"
+        />
+      )}
+      {item.type !== 'konnector' && icon ? (
         <img
           src={
             iconMimeType
@@ -38,7 +54,7 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
           className="section-app-group-tile"
         >
           <Typography variant="subtitle2" align="center" className="u-white">
-            {item.name[0].toUpperCase()}
+            {item.name?.[0].toUpperCase()}
           </Typography>
         </div>
       )}

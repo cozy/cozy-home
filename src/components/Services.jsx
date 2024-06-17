@@ -77,7 +77,6 @@ export const Services = () => {
     () => getRunningKonnectors(jobData),
     [jobData]
   )
-
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
       <Divider className="u-mv-0" />
