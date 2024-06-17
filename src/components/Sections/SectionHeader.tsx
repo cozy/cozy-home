@@ -7,6 +7,7 @@ import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import {
   GroupMode,
@@ -25,7 +26,8 @@ export const SectionHeader = ({
   const { isMobile } = useBreakpoints()
   const isGroupMode =
     (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
-
+  const isCategory = section?.type === 'category'
+  const { t } = useI18n()
   return (
     <>
       <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
@@ -33,23 +35,27 @@ export const SectionHeader = ({
           <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
             {section?.name}
           </Divider>
+        ) : isCategory ? (
+          t(`category.${section.name}`)
         ) : (
           section?.name
         )}
 
-        {section && flag('home.detailed-sections.show-more-dev') && (
-          <Button
-            className={cx({
-              ['u-p-1']: !isGroupMode,
-              ['u-p-0']: isGroupMode,
-              ['u-h-auto']: isGroupMode
-            })}
-            label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
-            onClick={toggleMenu}
-            ref={anchorRef}
-            variant="text"
-          />
-        )}
+        {!isCategory &&
+          section &&
+          flag('home.detailed-sections.show-more-dev') && (
+            <Button
+              className={cx({
+                ['u-p-1']: !isGroupMode,
+                ['u-p-0']: isGroupMode,
+                ['u-h-auto']: isGroupMode
+              })}
+              label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
+              onClick={toggleMenu}
+              ref={anchorRef}
+              variant="text"
+            />
+          )}
       </div>
 
       {section && (

@@ -308,7 +308,10 @@
     "productivity": "Productivity",
     "shopping": "Shopping",
     "public_service": "Public Services",
-    "other": "Others"
+    "other": "Others",
+    "others": "Other",
+    "education": "Education",
+    "online_services": "Online services"
   },
   "loading": {
     "initial": "Loading accounts...",

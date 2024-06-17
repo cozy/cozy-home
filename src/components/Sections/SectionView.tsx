@@ -11,13 +11,16 @@ import {
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import { ShortcutLink } from 'components/ShortcutLink'
 import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
+import KonnectorTile from 'components/KonnectorTile'
+import AddServiceTile from 'components/AddServiceTile'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
   const currentDisplayMode = computeDisplayMode(isMobile, section)
   const isGroupMode =
     (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
-
+  const { t } = useI18n()
   return (
     <div
       className={cx(
@@ -28,9 +31,21 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
       )}
     >
-      {section.items.map((item, index) => (
-        <ShortcutLink key={index} file={item} display={currentDisplayMode} />
-      ))}
+      {section.items.map((item, index) =>
+        item.type === 'konnector' ? (
+          <KonnectorTile
+            key={item.slug}
+            konnector={item.latest_version.manifest}
+            isInMaintenance={false}
+            loading={false}
+          />
+        ) : (
+          <ShortcutLink key={index} file={item} display={currentDisplayMode} />
+        )
+      )}
+      {section.type === 'category' && !section.pristine && (
+        <AddServiceTile label={t('add_service')} category={section.name} />
+      )}
     </div>
   )
 }
