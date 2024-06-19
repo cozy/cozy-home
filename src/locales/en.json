@@ -311,7 +311,8 @@
     "other": "Others",
     "others": "Other",
     "education": "Education",
-    "online_services": "Online services"
+    "online_services": "Online services",
+    "press": "Press"
   },
   "loading": {
     "initial": "Loading accounts...",

@@ -44,6 +44,22 @@
         text-decoration none
         -webkit-tap-highlight-color transparent // https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
 
+.dialogContentWrapper .shortcuts-list:not(.detailed)
+    display flex
+    flex-wrap wrap
+    align-items flex-start
+    justify-content space-between
+    width calc(100% + 2rem) !important
+    margin-left -1rem
+
+    &:after
+        content ''
+        flex auto
+
+div[class*="SquareAppIcon-icon-container"]
+    align-items flex-start
+    justify-content flex-start
+
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem
     transition height 200ms ease
