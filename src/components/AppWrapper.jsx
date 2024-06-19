@@ -1,10 +1,15 @@
-import React, { createContext } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
-import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
+import CozyClient, {
+  CozyProvider,
+  RealTimeQueries,
+  FlagshipLink
+} from 'cozy-client'
 import CozyDevtools from 'cozy-client/dist/devtools'
+import { useWebviewIntent } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -14,7 +19,7 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
-// import { isFlagshipApp } from 'cozy-device-helper'
+import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
 
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
@@ -31,11 +36,13 @@ export const AppContext = createContext()
  *
  * Is memoized to avoid several clients in case of hot-reload
  */
-export const setupAppContext = memoize(() => {
+export const setupAppContext = memoize(intent => {
   const lang = document.documentElement.getAttribute('lang') || 'en'
   const context = window.context || 'cozy'
   const root = document.querySelector('[role=application]')
   const data = root.dataset
+
+  const shouldUseFlagshipLink = isFlagshipApp() && isFlagshipOfflineSupported()
 
   // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
@@ -47,7 +54,10 @@ export const setupAppContext = memoize(() => {
       'home.store.persist'
     )
       ? true
-      : false
+      : false,
+    links: shouldUseFlagshipLink
+      ? new FlagshipLink({ webviewIntent: intent })
+      : null
   })
 
   cozyClient.registerPlugin(flag.plugin)
@@ -100,7 +110,21 @@ const ThemeProvider = ({ children }) => {
  * for an app
  */
 const AppWrapper = ({ children }) => {
-  const appContext = setupAppContext()
+  const webviewIntent = useWebviewIntent()
+  const [appContext, setAppContext] = useState(undefined)
+
+  useEffect(() => {
+    if (isFlagshipApp() && !webviewIntent) return
+
+    const newAppContext = setupAppContext(webviewIntent)
+
+    setAppContext(newAppContext)
+  }, [webviewIntent])
+
+  if (!appContext) {
+    return null
+  }
+
   const { store, cozyClient, context, lang, persistor } = appContext
 
   return (
