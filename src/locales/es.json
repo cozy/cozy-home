@@ -302,7 +302,11 @@
     "productivity": "Productividad",
     "shopping": "Compras",
     "public_service": "Servicios Públicos",
-    "other": "Otros"
+    "other": "Otros",
+    "others": "Otros",
+    "education": "Educación",
+    "online_services": "Servicios en línea",
+    "press": "Prensa"
   },
   "loading": {
     "initial": "Cargando cuentas...",

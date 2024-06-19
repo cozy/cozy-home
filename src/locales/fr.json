@@ -255,7 +255,6 @@
       }
     }
   },
-
   "intent": {
     "konnector": {
       "install": {
@@ -280,7 +279,6 @@
       "terminate": "Terminer"
     }
   },
-
   "field": {
     "password": {
       "visibility": {
@@ -293,11 +291,9 @@
       }
     }
   },
-
   "nav": {
     "services": "Services installés"
   },
-
   "category": {
     "all": "Tous",
     "banking": "Banques",
@@ -312,28 +308,28 @@
     "productivity": "Productivité",
     "shopping": "Shopping",
     "public_service": "Services publics",
-    "other": "Autres"
+    "other": "Autres",
+    "others": "Autres",
+    "education": "Éducation",
+    "online_services": "Services en ligne",
+    "press": "Presse"
   },
-
   "loading": {
     "initial": "Chargement des comptes…",
     "working": "Chargement"
   },
-
   "validation": {
     "exact_length": "La valeur doit faire exactement %{length} caractères.",
     "max_length": "La longueur maximum est de %{length} caractères.",
     "min_length": "La valeur doit contenir au moins %{length} caractères.",
     "pattern": "La valeur doit respecter un format spécifique : %{pattern}"
   },
-
   "update": {
     "title": "Une mise à jour est disponible pour ce service.",
     "regular": "Effectuez la mise à jour pour continuer à récupérer vos données et profiter des dernières fonctionnalités",
     "blocking": "Mettez-le à jour pour continuer à récupérer vos données",
     "CTA": "Mettre à jour"
   },
-
   "error": {
     "initial": "Quelque chose s’est mal passé pendant la récupération de vos connecteurs et de vos informations. Merci de recharger la page.",
     "LOGIN_FAILED": "Données de connexion incorrectes. Vérifiez les données de connexion dans le connecteur et relancez la connexion.",
@@ -348,14 +344,12 @@
     "text": "Le déplacement de vos données depuis %{from} est terminé avec succès.",
     "button": "Accéder à mon Cozy"
   },
-
   "maintenance": {
     "icon": "Ce connecteur est en cours de maintenance",
     "service": "Service interrompu",
     "problem": "%{konnectorName} ne permet pas à votre Cozy d'accéder à vos données",
     "title": "Que se passe-t-il ?"
   },
-
   "connector": {
     "title": "Mes services connectés",
     "mute": "Erreur silencieuse",

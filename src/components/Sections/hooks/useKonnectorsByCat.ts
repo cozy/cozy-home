@@ -6,7 +6,6 @@ import { sortBy } from 'lodash'
 import { useSelector } from 'react-redux'
 import { getInstalledKonnectors } from '../../../selectors/konnectors'
 import { suggestedKonnectorsConn } from 'queries'
-import { suggest } from 'cozy-minilog'
 
 interface KonnectorData {
   [key: string]: any[]
@@ -28,40 +27,51 @@ const transformAndSortData = (
 ): Section[] => {
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
 
-  return Object.keys(data)
-    .map(key => {
-      const allItems = data[key] || []
-      const installedItems = allItems.filter(item =>
-        installedKonnectorNames.has(item.latest_version.manifest.name)
+  const sections = Object.keys(data).map(key => {
+    const allItems = data[key] || []
+    const installedItems = allItems.filter(item =>
+      installedKonnectorNames.has(item.latest_version.manifest.name)
+    )
+    const suggestedItems = allItems.filter(item =>
+      suggestedKonnectors.find(
+        k => k.slug === item.latest_version.manifest.slug
       )
-      const suggestedItems = allItems.filter(item =>
-        suggestedKonnectors.find(
-          k => k.slug === item.latest_version.manifest.slug
-        )
-      )
+    )
 
-      const items =
-        installedItems.length > 0
-          ? [...installedItems, ...suggestedItems]
-          : allItems
+    const items =
+      installedItems.length > 0
+        ? [...installedItems, ...suggestedItems]
+        : allItems
 
-      return {
-        name: key,
-        items,
-        id: key,
-        type: 'category',
-        layout: {
-          originalName: key,
-          createdByApp: '',
-          mobile: { detailedLines: false, grouped: true },
-          desktop: { detailedLines: false, grouped: true },
-          order: 0
-        },
-        pristine: installedItems.length === 0
-      }
-    })
-    .sort((a, b) => a.name.localeCompare(b.name))
+    return {
+      name: key,
+      items,
+      id: key,
+      type: 'category',
+      layout: {
+        originalName: key,
+        createdByApp: '',
+        mobile: { detailedLines: false, grouped: true },
+        desktop: { detailedLines: false, grouped: true },
+        order: 0
+      },
+      pristine: installedItems.length === 0
+    }
+  })
+
+  sections.sort((a, b) => {
+    if (!a.pristine && b.pristine) {
+      return -1
+    }
+    if (a.pristine && !b.pristine) {
+      return 1
+    }
+    return a.name.localeCompare(b.name)
+  })
+
+  return sections
 }
+
 export const useKonnectorsByCat = (): Section[] => {
   const client = useClient()
   const [groupedData, setGroupedData] = useState<KonnectorData>({})

@@ -44,6 +44,10 @@ export const GroupedSectionView = ({
                   <SectionAppGroup items={get4FirstItems(section)} />
                 }
                 variant={section.pristine ? 'ghost' : 'normal'}
+                style={{
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start'
+                }}
               />
             </a>
           )
