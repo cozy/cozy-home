@@ -1,3 +1,5 @@
+import { IOCozyKonnector } from 'cozy-client/types/types'
+
 interface CozyMetadata {
   doctypeVersion: string
   metadataVersion: number
@@ -115,6 +117,10 @@ export interface FileData {
   cozyMetadata: CozyMetadata
   path: string
   _rev: string
+  slug?: string
+  latest_version: {
+    manifest: IOCozyKonnector
+  }
 }
 
 export type DirectoryDataArray = DirectoryData[]

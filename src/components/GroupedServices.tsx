@@ -1,9 +1,10 @@
 import React from 'react'
-import { useKonnectorsByCat } from 'components/Sections/hooks/useKonnectorsByCat'
-import { GroupedSectionView } from './Sections/GroupedSectionsView'
+
+import { GroupedSectionView } from 'components/Sections/GroupedSectionsView'
+import { useSections } from 'components/Sections/SectionsContext'
 
 export const GroupedServices = (): JSX.Element | null => {
-  const konnectorsByCategory = useKonnectorsByCat()
+  const { konnectorsByCategory } = useSections()
 
   if (konnectorsByCategory.length === 0) return null
 

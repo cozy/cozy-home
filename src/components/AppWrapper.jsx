@@ -20,6 +20,7 @@ import { usePreferedTheme } from 'hooks/usePreferedTheme'
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
 import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { SectionsProvider } from './Sections/SectionsContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
 
 export const AppContext = createContext()
@@ -59,13 +60,15 @@ export const setupAppContext = memoize(() => {
 
 const Inner = ({ children, lang, context }) => (
   <I18n lang={lang} dictRequire={dictRequire} context={context}>
-    {children}
-    <RealTimeQueries doctype="io.cozy.apps" />
-    <RealTimeQueries doctype="io.cozy.jobs" />
-    <RealTimeQueries doctype="io.cozy.triggers" />
-    <RealTimeQueries doctype="io.cozy.konnectors" />
-    <RealTimeQueries doctype="io.cozy.settings" />
-    {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}
+    <SectionsProvider>
+      {children}
+      <RealTimeQueries doctype="io.cozy.apps" />
+      <RealTimeQueries doctype="io.cozy.jobs" />
+      <RealTimeQueries doctype="io.cozy.triggers" />
+      <RealTimeQueries doctype="io.cozy.konnectors" />
+      <RealTimeQueries doctype="io.cozy.settings" />
+      {process.env.NODE_ENV !== 'production' ? <CozyDevtools /> : null}{' '}
+    </SectionsProvider>
   </I18n>
 )
 

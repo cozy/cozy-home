@@ -4,10 +4,10 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
-import SectionDialog from 'components/Sections/SectionDialog'
 import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { get4FirstItems } from 'components/Sections/utils'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useNavigate } from 'react-router-dom'
 
 export const GroupedSectionView = ({
   sections
@@ -15,8 +15,14 @@ export const GroupedSectionView = ({
   const [menuState, setMenuState] = useState(false)
   const anchorRef = React.useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
-  const [dialogSectionId, setDialogSectionId] = useState('')
   const { t } = useI18n()
+  const navigate = useNavigate()
+  const handleNavigation = (
+    name: string,
+    type: 'konnectors' | 'shortcuts'
+  ): void => {
+    navigate(`categories/${type}/${name}`)
+  }
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
@@ -31,7 +37,12 @@ export const GroupedSectionView = ({
           return (
             <a
               key={section.id}
-              onClick={(): void => setDialogSectionId(section.id)}
+              onClick={(): void =>
+                handleNavigation(
+                  section.id,
+                  section.type === 'category' ? 'konnectors' : 'shortcuts'
+                )
+              }
               className="scale-hover u-c-pointer"
             >
               <SquareAppIcon
@@ -53,14 +64,6 @@ export const GroupedSectionView = ({
           )
         })}
       </div>
-
-      {dialogSectionId && (
-        <SectionDialog
-          sections={sections}
-          hasDialog={dialogSectionId}
-          onClose={(): void => setDialogSectionId('')}
-        />
-      )}
     </div>
   )
 }
