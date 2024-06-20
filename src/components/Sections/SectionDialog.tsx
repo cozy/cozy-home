@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
-
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-
-import { SectionDialogProps } from 'components/Sections/SectionsTypes'
 import { SectionBody } from 'components/Sections/SectionView'
 import { SectionHeader } from 'components/Sections/SectionHeader'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSections } from './SectionsContext'
 
-const SectionDialog = ({
-  hasDialog,
-  ...props
-}: SectionDialogProps): JSX.Element | null => {
+const SectionDialog = (): JSX.Element | null => {
   const [menuState, setMenuState] = useState(false)
   const anchorRef = React.useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
-  const section = props.sections.find(section => section.id === hasDialog)
+  const { konnectorsByCategory, groupedSections } = useSections()
+  const { category, type } = useParams()
+  const navigate = useNavigate()
+
+  const section =
+    type === 'konnectors'
+      ? konnectorsByCategory?.find(section => section.id === category)
+      : type === 'shortcuts'
+      ? groupedSections?.find(section => section.id === category)
+      : null
+
+  const handleGoBack = (): void => navigate(-1)
 
   if (!section) return null
 
@@ -33,7 +40,7 @@ const SectionDialog = ({
             menuState={menuState}
           />
         }
-        {...props}
+        onClose={handleGoBack}
       />
     </CozyTheme>
   )

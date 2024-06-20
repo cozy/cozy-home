@@ -18,6 +18,7 @@ export interface Section {
     order: number
   }
   type?: string
+  pristine?: boolean
 }
 
 export interface SectionSetting {

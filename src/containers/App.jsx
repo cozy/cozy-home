@@ -41,6 +41,7 @@ import {
   contextQuery
 } from 'queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import SectionDialog from 'components/Sections/SectionDialog'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -165,6 +166,11 @@ const App = ({ accounts, konnectors, triggers }) => {
                   }
                 >
                   <Route path=":konnectorSlug/*" element={<Konnector />} />
+
+                  <Route
+                    path="categories/:type/:category"
+                    element={<SectionDialog />}
+                  />
 
                   <Route path="providers" element={<StoreRedirection />}>
                     <Route path=":category" element={<StoreRedirection />} />

@@ -31,12 +31,7 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
       className="section-app-group-grid"
     >
       {item.type === 'konnector' && (
-        <AppIcon
-          alt={t('app.logo.alt', { name: item.slug })}
-          app={item.slug}
-          type="konnector"
-          className="item-grid-icon"
-        />
+        <AppIcon app={item.slug} type="konnector" className="item-grid-icon" />
       )}
       {item.type !== 'konnector' && icon ? (
         <img

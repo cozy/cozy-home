@@ -13,7 +13,7 @@ import Services from 'components/Services'
 import Shortcuts from 'components/Shortcuts'
 import GroupedServices from 'components/GroupedServices'
 
-const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
+const Home = ({ setAppsReady, wrapper }) => {
   return (
     <CozyConfirmDialogProvider>
       <Main className="u-flex-grow-1">
@@ -21,7 +21,7 @@ const Home = ({ setAppsReady, wrapper, shortcutsDirectories }) => {
         <Content className="u-flex u-flex-column u-ph-1">
           {flag('debug') && <CozyDevTools />}
           <Applications onAppsFetched={setAppsReady} />
-          <Shortcuts shortcutsDirectories={shortcutsDirectories} />
+          <Shortcuts />
           {flag('home.detailed_services-dev') ? (
             <GroupedServices />
           ) : (
