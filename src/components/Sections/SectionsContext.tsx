@@ -73,7 +73,7 @@ export const SectionsProvider = ({
   const shortcutsLayout = values?.shortcutsLayout as SectionSetting
   const { isMobile } = useBreakpoints()
 
-  const konnectors = useKonnectorsByCat()
+  const konnectorsByCategory = useKonnectorsByCat()
 
   const { ungroupedSections, groupedSections } = formatSections(
     shortcutsDirectories,
@@ -84,7 +84,7 @@ export const SectionsProvider = ({
   return (
     <SectionsContext.Provider
       value={{
-        konnectorsByCategory: konnectors,
+        konnectorsByCategory: konnectorsByCategory,
         shortcutsDirectories,
         ungroupedSections,
         groupedSections
