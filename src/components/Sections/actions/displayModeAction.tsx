@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useSettings } from 'cozy-client'
+
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
@@ -8,9 +10,8 @@ import ListMin from 'cozy-ui/transpiled/react/Icons/ListMin'
 import MosaicMin from 'cozy-ui/transpiled/react/Icons/MosaicMin'
 import Radio from 'cozy-ui/transpiled/react/Radios'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import { useSettings } from 'cozy-client'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import {
   DisplayMode,

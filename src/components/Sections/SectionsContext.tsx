@@ -1,23 +1,22 @@
 import React, { createContext, useContext } from 'react'
 
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useQuery, useSettings } from 'cozy-client'
 
-import { useKonnectorsByCat } from 'components/Sections/hooks/useKonnectorsByCat'
-import { formatSections } from 'components/Sections/utils'
-import { DirectoryDataArray } from 'components/Shortcuts/types'
 import { Section, SectionSetting } from 'components/Sections/SectionsTypes'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { formatSections } from 'components/Sections/utils'
 import { formatShortcuts } from 'components/Shortcuts/utils'
+import { useKonnectorsByCat } from 'components/Sections/hooks/useKonnectorsByCat'
 import {
   mkHomeMagicFolderConn,
   mkHomeCustomShorcutsConn,
   mkHomeCustomShorcutsDirConn
 } from 'queries'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 interface SectionsContextValue {
   konnectorsByCategory: Section[]
-  shortcutsDirectories: DirectoryDataArray
+  shortcutsDirectories: Section[]
   ungroupedSections: Section[]
   groupedSections: Section[]
 }
@@ -66,8 +65,8 @@ export const SectionsProvider = ({
     }
   )
   const shortcutsDirectories = canHaveShortcuts
-    ? (formatShortcuts(folders, customHomeShortcuts) as DirectoryDataArray)
-    : ([] as DirectoryDataArray)
+    ? (formatShortcuts(folders, customHomeShortcuts) as Section[])
+    : []
 
   const { values } = useSettings('home', ['shortcutsLayout'])
   const shortcutsLayout = values?.shortcutsLayout as SectionSetting

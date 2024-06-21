@@ -1,4 +1,3 @@
-import { DirectoryData, DirectoryDataArray } from 'components/Shortcuts/types'
 import {
   DisplayMode,
   Section,
@@ -29,7 +28,7 @@ describe('formatSections', () => {
         name: 'Name 3',
         items: [{ id: 'item3' }]
       }
-    ] as DirectoryDataArray
+    ] as Section[]
 
     const layout = [
       {
@@ -114,7 +113,7 @@ describe('formatSections', () => {
       { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
       { id: '2', name: 'A Folder', items: [{ id: 'item2' }] },
       { id: '3', name: 'C Folder', items: [{ id: 'item3' }] }
-    ] as Array<DirectoryData>
+    ] as Array<Section>
 
     const layout = [
       { id: '1', order: 1 },
@@ -173,7 +172,7 @@ describe('formatSections', () => {
       { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
       { id: '2', name: 'A Folder', items: [{ id: 'item2' }] },
       { id: '3', name: 'C Folder', items: [{ id: 'item3' }] }
-    ] as Array<DirectoryData>
+    ] as Array<Section>
 
     const layout = [
       { id: '1', order: 2 },
@@ -231,7 +230,7 @@ describe('formatSections', () => {
     const folders = [
       { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
       { id: '2', name: 'A Folder', items: [{ id: 'item2' }] }
-    ] as Array<DirectoryData>
+    ] as Array<Section>
 
     const expectedOutput = {
       groupedSections: [],
@@ -271,7 +270,7 @@ describe('formatSections', () => {
     const folders = [
       { id: '1', name: 'B Folder', items: [{ id: 'item1' }] },
       { id: '2', name: 'A Folder', items: [{ id: 'item2' }] }
-    ] as Array<DirectoryData>
+    ] as Array<Section>
 
     const layout: SectionSetting[] = []
 

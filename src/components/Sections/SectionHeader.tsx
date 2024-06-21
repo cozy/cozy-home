@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
@@ -7,15 +8,15 @@ import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import { actions } from 'components/Sections/SectionActions'
+import { computeGroupMode } from 'components/Sections/utils'
 import {
   GroupMode,
   SectionHeaderProps
 } from 'components/Sections/SectionsTypes'
-import { actions } from 'components/Sections/SectionActions'
-import { computeGroupMode } from './utils'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const SectionHeader = ({
   section,

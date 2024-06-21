@@ -1,23 +1,17 @@
 import memoize from 'lodash/memoize'
+
 import CozyClient from 'cozy-client'
 
-interface Konnector {
-  latest_version: {
-    manifest: {
-      categories: string[]
-    }
-  }
-}
-
-interface GroupedKonnectors {
-  [category: string]: Konnector[]
-}
+import { IOCozyKonnector } from 'cozy-client/types/types'
+import { KonnectorFromRegistry } from 'components/Sections/SectionsTypes'
 
 // Define the grouping function
-const groupByCategory = (data: Konnector[]): GroupedKonnectors => {
-  const grouped: GroupedKonnectors = {}
+const groupByCategory = (
+  data: KonnectorFromRegistry[]
+): { [key: string]: IOCozyKonnector[] } => {
+  const grouped: { [key: string]: IOCozyKonnector[] } = {}
 
-  data.forEach((item: Konnector) => {
+  data.forEach(item => {
     if (
       item.latest_version &&
       item.latest_version.manifest &&
@@ -27,7 +21,7 @@ const groupByCategory = (data: Konnector[]): GroupedKonnectors => {
         if (!grouped[category]) {
           grouped[category] = []
         }
-        grouped[category].push(item)
+        grouped[category].push(item.latest_version.manifest)
       })
     }
   })
@@ -41,12 +35,12 @@ const memoizedGroupByCategory = memoize(groupByCategory)
 export const fetchAllKonnectors = async (
   client: CozyClient,
   channel = 'stable'
-): Promise<GroupedKonnectors> => {
+): Promise<{ [key: string]: IOCozyKonnector[] }> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const { data } = (await client.stackClient.fetchJSON(
     'GET',
     `/registry?versionsChannel=${channel}&filter[type]=konnector&limit=300`
-  )) as { data: Konnector[] }
+  )) as { data: KonnectorFromRegistry[] }
 
   return memoizedGroupByCategory(data)
 }

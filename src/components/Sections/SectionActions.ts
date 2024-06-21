@@ -4,8 +4,8 @@ import {
 } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 
 import { DisplayMode } from 'components/Sections/SectionsTypes'
-import { displayModeAction } from './actions/displayModeAction'
-import { groupModeAction } from './actions/groupModeAction'
+import { displayModeAction } from 'components/Sections/actions/displayModeAction'
+import { groupModeAction } from 'components/Sections/actions/groupModeAction'
 
 const actionArray = [
   displayModeAction(DisplayMode.COMPACT),
