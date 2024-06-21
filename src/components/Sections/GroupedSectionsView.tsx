@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
-import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { get4FirstItems } from 'components/Sections/utils'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { useNavigate } from 'react-router-dom'
 
 export const GroupedSectionView = ({
   sections

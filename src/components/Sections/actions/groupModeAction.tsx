@@ -3,12 +3,20 @@ import React from 'react'
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Switch from 'cozy-ui/transpiled/react/Switch'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import { useSettings } from 'cozy-client'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { GroupMode, Section, SectionViewProps } from '../SectionsTypes'
-import { computeGroupMode, handleSectionAction } from '../utils'
+import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useSettings } from 'cozy-client'
+
+import {
+  GroupMode,
+  Section,
+  SectionViewProps
+} from 'components/Sections/SectionsTypes'
+import {
+  computeGroupMode,
+  handleSectionAction
+} from 'components/Sections/utils'
 
 const StateSwitch = ({
   handleClick,

@@ -29,7 +29,7 @@
             grid-template-columns repeat(1, calc(100% - 2.5rem))
             column-gap 0
 
-        div[class*=" MuiGrid-grid-xs"]
+        div[class*='MuiGrid-grid-xs']
             padding 2px
 
     .item-grid-icon
@@ -49,14 +49,16 @@
     flex-wrap wrap
     align-items flex-start
     justify-content space-between
+    // @stylint off
     width calc(100% + 2rem) !important
+    // @stylint on
     margin-left -1rem
 
     &:after
         content ''
         flex auto
 
-div[class*="SquareAppIcon-icon-container"]
+div[class*='SquareAppIcon-icon-container']
     align-items flex-start
     justify-content flex-start
 

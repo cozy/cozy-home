@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { useNavigate, useParams } from 'react-router-dom'
+
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+
 import { SectionBody } from 'components/Sections/SectionView'
 import { SectionHeader } from 'components/Sections/SectionHeader'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useSections } from './SectionsContext'
+import { useSections } from 'components/Sections/SectionsContext'
 
 const SectionDialog = (): JSX.Element | null => {
   const [menuState, setMenuState] = useState(false)

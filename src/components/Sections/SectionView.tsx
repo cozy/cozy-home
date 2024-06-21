@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 
+import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import AddServiceTile from 'components/AddServiceTile'
+import KonnectorTile from 'components/KonnectorTile'
+import { SectionHeader } from 'components/Sections/SectionHeader'
+import { ShortcutLink } from 'components/ShortcutLink'
+import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
 import {
   DisplayMode,
   GroupMode,
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import { ShortcutLink } from 'components/ShortcutLink'
-import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
-import KonnectorTile from 'components/KonnectorTile'
-import AddServiceTile from 'components/AddServiceTile'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
@@ -34,8 +35,8 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       {section.items.map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
-            key={item.slug}
-            konnector={item.latest_version.manifest}
+            key={(item as IOCozyKonnector).slug}
+            konnector={item as IOCozyKonnector}
             isInMaintenance={false}
             loading={false}
           />

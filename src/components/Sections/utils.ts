@@ -1,10 +1,11 @@
+import type { IOCozyFile, IOCozyKonnector } from 'cozy-client/types/types'
+
 import {
   DisplayMode,
   GroupMode,
   Section,
   SectionSetting
 } from 'components/Sections/SectionsTypes'
-import { DirectoryDataArray, FileData } from 'components/Shortcuts/types'
 
 // Default layout configuration used when no specific layout is provided for a folder
 export const _defaultLayout: Omit<SectionSetting, 'id'> = {
@@ -36,7 +37,7 @@ const createSectionsMap = (
 // Merges a folder with its corresponding layout settings
 // If no specific layout is provided, uses the default layout
 const mergeFolderWithLayout = (
-  folder: DirectoryDataArray[0],
+  folder: Section,
   sectionsMap: { [key: string]: Omit<SectionSetting, 'id'> }
 ): Section => {
   const sectionLayout = sectionsMap[folder.id] || {}
@@ -74,7 +75,7 @@ const sortSections = (sections: Section[]): Section[] => {
 // Uses the provided layout settings to determine the display mode for each section
 // If no layout is provided, uses the default layout
 export const formatSections = (
-  folders?: DirectoryDataArray,
+  folders?: Section[],
   layout?: SectionSetting[] | SectionSetting,
   isMobile?: boolean
 ): { groupedSections: Section[]; ungroupedSections: Section[] } => {
@@ -179,5 +180,6 @@ export const computeGroupMode = (
 }
 
 // Used when building the grouped view of a section (4 small icons into 1 big icon)
-export const get4FirstItems = (section: Section): FileData[] =>
-  section.items.slice(0, 4)
+export const get4FirstItems = (
+  section: Section
+): IOCozyFile[] | IOCozyKonnector[] => section.items.slice(0, 4)
