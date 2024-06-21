@@ -7,6 +7,7 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import flag from 'cozy-flags'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { generateWebLink, useClient } from 'cozy-client'
 
 /**
  *
@@ -154,7 +155,7 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
   const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
   const error = getErrorForTriggers(triggers, jobs)
   const hasAtLeastOneError = error !== null
-
+  const client = useClient()
   const { lang } = useI18n()
 
   const hideKonnectorErrors = flag('home.konnectors.hide-errors') // flag used for some demo instances where we want to ignore all konnector errors
@@ -169,15 +170,36 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
         userError
       })
   const errorToDisplay = !userError && userError !== null ? userError : error
+
+  const handleClick = event => {
+    if (status === STATUS.NO_ACCOUNT) {
+      event.preventDefault() // Prevent the default behavior of NavLink
+
+      const cozyURL = new URL(client.getStackClient().uri)
+      const app = 'store'
+      const nativePath = `/discover/${konnector.slug}`
+      const { subdomain: subDomainType } = client.getInstanceOptions()
+      const url = generateWebLink({
+        pathname: '/',
+        cozyUrl: cozyURL.origin,
+        slug: app,
+        hash: nativePath,
+        subDomainType
+      })
+      window.open(url, '_blank') // Open in a new tab
+    }
+  }
+
   return (
     <NavLink
-      to={konnector.slug}
+      to={`/connected/${konnector.slug}`}
       title={getKonnectorError({
         error: errorToDisplay,
         lang,
         konnector
       })}
       className="scale-hover"
+      onClick={handleClick}
     >
       <SquareAppIcon
         app={konnector}

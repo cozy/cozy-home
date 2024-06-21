@@ -167,10 +167,9 @@ const App = ({ accounts, konnectors, triggers }) => {
                 >
                   <Route path=":konnectorSlug/*" element={<Konnector />} />
 
-                  <Route
-                    path="categories/:type/:category"
-                    element={<SectionDialog />}
-                  />
+                  <Route path="categories/*">
+                    <Route path=":type/:category" element={<SectionDialog />} />
+                  </Route>
 
                   <Route path="providers" element={<StoreRedirection />}>
                     <Route path=":category" element={<StoreRedirection />} />
