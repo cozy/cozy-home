@@ -44,6 +44,10 @@
         text-decoration none
         -webkit-tap-highlight-color transparent // https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
 
+// Hacks specific to categories display, at this point it decided not to modify cozy-ui
+
+// The CSS grid is no good in modal display because of the fluid width
+// To handle a more fixed design, we're using flexbox instead
 .dialogContentWrapper .shortcuts-list:not(.detailed)
     display flex
     flex-wrap wrap
@@ -58,9 +62,18 @@
         content ''
         flex auto
 
-div[class*='SquareAppIcon-icon-container']
+// Grid alignment for group of 1 to 4 apps icons
+div[class*='SquareAppIcon-icon-container'] .section-app-group
+    align-self flex-start
     align-items flex-start
     justify-content flex-start
+
+// Color issue with SquareAppIcon in detailed mode (appears blue)
+.shortcuts-list span[class*='MuiListItemText-primary']
+    color var(--primaryTextColor)
+    font-weight 700
+
+// End of categories display hacks
 
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem
