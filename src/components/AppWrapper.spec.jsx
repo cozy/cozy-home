@@ -16,6 +16,10 @@ const mockClient = {
   })
 }
 
+jest.mock('components/Sections/SectionsContext', () => ({
+  SectionsProvider: ({ children }) => children
+}))
+
 jest.mock('cozy-client', () => ({
   __esModule: true,
   ...jest.requireActual('cozy-client'),
