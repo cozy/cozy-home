@@ -18,6 +18,7 @@ const mockClient = {
 
 jest.mock('cozy-client', () => ({
   __esModule: true,
+  ...jest.requireActual('cozy-client'),
   CozyProvider: ({ children }) => children,
   RealTimeQueries: ({ doctype }) => (
     <div data-testid="RealTimeQueries">{doctype}</div>

@@ -3,9 +3,7 @@
 exports[`Shortcuts Should display a shortcut directory with its files 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": <body
-    class="CozyTheme--light-normal"
-  >
+  "baseElement": <body>
     <div>
       <div
         class="CozyTheme--light-normal u-dc"
@@ -208,9 +206,7 @@ Object {
 exports[`Shortcuts Should display multiple sections for multiple directories 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": <body
-    class="CozyTheme--light-normal"
-  >
+  "baseElement": <body>
     <div>
       <div
         class="CozyTheme--light-normal u-dc"
