@@ -32,17 +32,17 @@ class AppLike extends React.Component {
 
   render() {
     return (
-      <CozyTheme>
-        <BreakpointsProvider>
-          <CozyProvider client={this.props.client || defaultClient}>
+      <BreakpointsProvider>
+        <CozyProvider client={this.props.client || defaultClient}>
+          <CozyTheme>
             <ReduxProvider store={this.props.store || defaultClient.store}>
               <I18n dictRequire={() => enLocale} lang="en">
                 <BackupDataProvider>{this.props.children}</BackupDataProvider>
               </I18n>
             </ReduxProvider>
-          </CozyProvider>
-        </BreakpointsProvider>
-      </CozyTheme>
+          </CozyTheme>
+        </CozyProvider>
+      </BreakpointsProvider>
     )
   }
 }

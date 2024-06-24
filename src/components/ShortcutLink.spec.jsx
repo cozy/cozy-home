@@ -1,22 +1,19 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import AppLike from 'test/AppLike'
 
 import { ShortcutLink } from './ShortcutLink'
 import { useFetchShortcut } from 'cozy-client'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 jest.mock('cozy-client', () => {
   return {
+    ...jest.requireActual('cozy-client'),
     useClient: () => {},
     useFetchShortcut: jest.fn(),
     withClient: jest.fn()
   }
 })
-
-jest.mock('cozy-ui/transpiled/react/providers/Breakpoints', () => () => ({
-  isMobile: false
-}))
 
 describe('ShortcutLink', () => {
   it('should render a shortcut link with shortcut name initial', () => {
@@ -27,9 +24,9 @@ describe('ShortcutLink', () => {
     const file = { _id: '123', name: 'cozy.io.url', type: 'file' }
 
     render(
-      <CozyTheme>
+      <AppLike>
         <ShortcutLink file={file} />
-      </CozyTheme>
+      </AppLike>
     )
 
     expect(screen.getByRole('heading', { level: 6 })).toHaveTextContent(
@@ -53,9 +50,9 @@ describe('ShortcutLink', () => {
     const file = { _id: '123', name: 'cozy.io.url', type: 'file' }
 
     render(
-      <CozyTheme>
+      <AppLike>
         <ShortcutLink file={file} />
-      </CozyTheme>
+      </AppLike>
     )
 
     expect(screen.getByRole('heading', { level: 6 })).toHaveTextContent(
