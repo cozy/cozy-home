@@ -1,6 +1,5 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import flag from 'cozy-flags'
 
 import flag from 'cozy-flags'
 import CozyDevTools from 'cozy-client/dist/devtools'
