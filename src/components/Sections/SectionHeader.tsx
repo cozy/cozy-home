@@ -7,7 +7,6 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
@@ -42,21 +41,19 @@ export const SectionHeader = ({
           section?.name
         )}
 
-        {!isCategory &&
-          section &&
-          flag('home.detailed-sections.show-more-dev') && (
-            <Button
-              className={cx({
-                ['u-p-1']: !isGroupMode,
-                ['u-p-0']: isGroupMode,
-                ['u-h-auto']: isGroupMode
-              })}
-              label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
-              onClick={toggleMenu}
-              ref={anchorRef}
-              variant="text"
-            />
-          )}
+        {!isCategory && section && (
+          <Button
+            className={cx({
+              ['u-p-1']: !isGroupMode,
+              ['u-p-0']: isGroupMode,
+              ['u-h-auto']: isGroupMode
+            })}
+            label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
+            onClick={toggleMenu}
+            ref={anchorRef}
+            variant="text"
+          />
+        )}
       </div>
 
       {section && (

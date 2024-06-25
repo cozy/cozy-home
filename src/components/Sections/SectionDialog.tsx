@@ -23,7 +23,7 @@ const SectionDialog = (): JSX.Element | null => {
       ? groupedSections?.find(section => section.id === category)
       : null
 
-  const handleGoBack = (): void => navigate(-1)
+  const handleGoBack = (): void => navigate('/connected', { replace: true })
 
   if (!section) return null
 
