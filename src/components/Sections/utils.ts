@@ -131,7 +131,7 @@ export const handleSectionAction = (
   section: Section,
   isMobile: boolean,
   displayOrGroupMode: DisplayMode | GroupMode,
-  values: { shortcutsLayout: SectionSetting[] },
+  values: { shortcutsLayout?: SectionSetting[] },
   save: (newValues: { shortcutsLayout: SectionSetting[] }) => void
 ): void => {
   const isDisplayMode =
@@ -148,7 +148,7 @@ export const handleSectionAction = (
     id: section.id
   }
 
-  const fetchedLayout = values.shortcutsLayout
+  const fetchedLayout = values.shortcutsLayout ?? []
 
   save({
     shortcutsLayout: [

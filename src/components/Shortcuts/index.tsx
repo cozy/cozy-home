@@ -9,7 +9,7 @@ export const Shortcuts = (): JSX.Element => {
   const { ungroupedSections, groupedSections, shortcutsDirectories } =
     useSections()
 
-  if (flag('home.detailed_sections-dev')) {
+  if (flag('home.detailed-sections-dev')) {
     return (
       <>
         {ungroupedSections?.length > 0 &&

@@ -21,7 +21,7 @@ const Home = ({ setAppsReady, wrapper }) => {
           {flag('debug') && <CozyDevTools />}
           <Applications onAppsFetched={setAppsReady} />
           <Shortcuts />
-          {flag('home.detailed_services-dev') ? (
+          {flag('home.detailed-services-dev') ? (
             <GroupedServices />
           ) : (
             <Services />

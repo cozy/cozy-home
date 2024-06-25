@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
@@ -13,7 +13,7 @@ export const GroupedSectionView = ({
   sections
 }: GroupedSectionViewProps): JSX.Element => {
   const [menuState, setMenuState] = useState(false)
-  const anchorRef = React.useRef(null)
+  const anchorRef = useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
   const { t } = useI18n()
   const navigate = useNavigate()
