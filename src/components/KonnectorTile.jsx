@@ -138,9 +138,15 @@ const getFirstUserError = triggers => {
  * @param {boolean} props.isInMaintenance Is in maintenance
  * @param {boolean} props.loading isLoading ?
  * @param {import('cozy-client/types/types').IOCozyKonnector} props.konnector
+ * @param {boolean} props.isSuggestion
  * @returns
  */
-export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
+export const KonnectorTile = ({
+  konnector,
+  isInMaintenance,
+  loading,
+  isSuggestion
+}) => {
   const allTriggers =
     // @ts-ignore
     useSelector(state => state.cozy.documents['io.cozy.triggers']) || {}
@@ -171,7 +177,8 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
   const errorToDisplay = !userError && userError !== null ? userError : error
 
   const handleClick = event => {
-    if (status === STATUS.NO_ACCOUNT) {
+    // Navigate to the store if the konnector is a suggestion (ie not installed, not connected)
+    if (isSuggestion) {
       event.preventDefault() // Prevent the default behavior of NavLink
 
       const cozyURL = new URL(client.getStackClient().uri)
@@ -185,7 +192,7 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
         hash: nativePath,
         subDomainType
       })
-      window.open(url, '_blank') // Open in a new tab
+      window.open(url, '_blank')
     }
   }
 

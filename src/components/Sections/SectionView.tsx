@@ -22,6 +22,10 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const isGroupMode =
     (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
   const { t } = useI18n()
+  const isSuggestionModal = Boolean(
+    section.type === 'category' && section.pristine
+  )
+
   return (
     <div
       className={cx(
@@ -35,6 +39,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       {section.items.map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
+            isSuggestion={isSuggestionModal}
             key={(item as IOCozyKonnector).slug}
             konnector={item as IOCozyKonnector}
             isInMaintenance={false}
@@ -44,7 +49,8 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
           <ShortcutLink key={index} file={item} display={currentDisplayMode} />
         )
       )}
-      {section.type === 'category' && !section.pristine && (
+
+      {!isSuggestionModal && (
         <AddServiceTile label={t('add_service')} category={section.name} />
       )}
     </div>
