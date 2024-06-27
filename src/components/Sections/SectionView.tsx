@@ -38,16 +38,14 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
       )}
     >
-      {section.items.map((item, index) =>
+      {(section.items as IOCozyKonnector[]).map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
-            isSuggestion={
-              isSuggestionModal || isSuggested((item as IOCozyKonnector).slug)
-            }
-            key={(item as IOCozyKonnector).slug}
-            konnector={item as IOCozyKonnector}
+            isSuggestion={isSuggestionModal || isSuggested(item.slug)}
+            key={item.slug}
+            konnector={item}
             isInMaintenance={false}
-            loading={isRunning((item as IOCozyKonnector).slug)}
+            loading={isRunning(item.slug)}
           />
         ) : (
           <ShortcutLink key={index} file={item} display={currentDisplayMode} />
