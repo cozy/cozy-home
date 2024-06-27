@@ -9,7 +9,8 @@
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
       "queries": ["./src/queries"],
-      "selectors/*": ["./src/selectors/*"]
+      "selectors/*": ["./src/selectors/*"],
+      "lib/*": ["./src/lib/*"]
     }
   }
 }

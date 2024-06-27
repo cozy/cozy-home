@@ -115,3 +115,12 @@ interface Versions {
   has_versions: boolean
   stable: string[]
 }
+
+export interface SectionsContextValue {
+  konnectorsByCategory: Section[]
+  shortcutsDirectories: Section[]
+  ungroupedSections: Section[]
+  groupedSections: Section[]
+  displayTutorialTip: boolean
+  isRunning: (slug: string) => boolean
+}
