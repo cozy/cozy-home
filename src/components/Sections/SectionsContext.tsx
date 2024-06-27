@@ -4,7 +4,7 @@ import React, { createContext, useContext, useMemo } from 'react'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useQuery, useSettings } from 'cozy-client'
-import { QueryState } from 'cozy-client/types/types'
+import { IOCozyKonnector, QueryState } from 'cozy-client/types/types'
 
 import {
   SectionsContextValue,
@@ -18,6 +18,7 @@ import {
 } from 'lib/konnectors_typed'
 import { useMagicFolder } from 'components/Sections/hooks/useMagicFolder'
 import { useShortcutsDirectories } from 'components/Sections/hooks/useShortcutsDirectories'
+import { suggestedKonnectorsConn } from 'queries'
 
 // Create a context
 const SectionsContext = createContext<SectionsContextValue>({
@@ -26,7 +27,8 @@ const SectionsContext = createContext<SectionsContextValue>({
   ungroupedSections: [],
   groupedSections: [],
   displayTutorialTip: false,
-  isRunning: () => false
+  isRunning: () => false,
+  isSuggested: () => false
 })
 
 interface SectionsProviderProps {
@@ -60,6 +62,12 @@ export const SectionsProvider = ({
     () => getRunningKonnectors(jobData),
     [jobData]
   )
+  const { data: suggestedKonnectors } = useQuery(
+    suggestedKonnectorsConn.query,
+    suggestedKonnectorsConn
+  ) as {
+    data: IOCozyKonnector[]
+  }
 
   return (
     <SectionsContext.Provider
@@ -69,6 +77,9 @@ export const SectionsProvider = ({
         ungroupedSections,
         groupedSections,
         displayTutorialTip: areAllCategoriesPristine,
+        isSuggested: (slug: string): boolean => {
+          return suggestedKonnectors.some(konnector => konnector.slug === slug)
+        },
         isRunning: (slug: string): boolean => {
           return runningKonnectors.includes(slug)
         }
