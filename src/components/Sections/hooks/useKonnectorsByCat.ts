@@ -23,19 +23,19 @@ const transformAndSortData = (
 
   const sections = Object.keys(data).map(key => {
     const allItems = data[key] || []
-    const filteredItems = allItems.filter(
+    const availableItems = allItems.filter(
       item => !maintenanceSlugs.has(item.slug)
     )
-    const installedItems = filteredItems.filter(item =>
+    const installedItems = availableItems.filter(item =>
       installedKonnectorNames.has(item.name)
     )
-    const suggestedItems = filteredItems.filter(item =>
+    const suggestedItems = availableItems.filter(item =>
       suggestedKonnectors.some(k => k.slug === item.slug)
     )
     const items =
       installedItems.length > 0
         ? [...installedItems, ...suggestedItems]
-        : filteredItems
+        : availableItems
 
     return {
       name: key,

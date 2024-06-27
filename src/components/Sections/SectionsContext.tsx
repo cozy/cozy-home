@@ -1,8 +1,6 @@
-// SectionsProvider.tsx
 import React, { createContext, useContext, useMemo } from 'react'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useQuery, useSettings } from 'cozy-client'
 import { IOCozyKonnector, QueryState } from 'cozy-client/types/types'
 
@@ -39,8 +37,7 @@ interface SectionsProviderProps {
 export const SectionsProvider = ({
   children
 }: SectionsProviderProps): JSX.Element => {
-  const { t } = useI18n()
-  const magicHomeFolderId = useMagicFolder(t)
+  const magicHomeFolderId = useMagicFolder()
   const shortcutsDirectories = useShortcutsDirectories(magicHomeFolderId)
   const { values } = useSettings('home', ['shortcutsLayout'])
   const shortcutsLayout = values?.shortcutsLayout as SectionSetting
