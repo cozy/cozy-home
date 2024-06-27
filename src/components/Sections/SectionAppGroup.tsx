@@ -57,7 +57,7 @@ const SectionAppGroup = ({ items }: SectionAppGroupProps): JSX.Element => {
   return (
     <Grid container spacing={1} className="section-app-group">
       {items.map(item => (
-        <SectionAppTile key={item.id} item={item} />
+        <SectionAppTile key={item.id ?? item.name} item={item} />
       ))}
     </Grid>
   )

@@ -138,9 +138,15 @@ const getFirstUserError = triggers => {
  * @param {boolean} props.isInMaintenance Is in maintenance
  * @param {boolean} props.loading isLoading ?
  * @param {import('cozy-client/types/types').IOCozyKonnector} props.konnector
+ * @param {boolean} [props.isSuggestion=false] The Konnector is not installed and is displayed as a suggestion
  * @returns
  */
-export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
+export const KonnectorTile = ({
+  konnector,
+  isInMaintenance,
+  loading,
+  isSuggestion = false
+}) => {
   const allTriggers =
     // @ts-ignore
     useSelector(state => state.cozy.documents['io.cozy.triggers']) || {}
@@ -170,23 +176,25 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
       })
   const errorToDisplay = !userError && userError !== null ? userError : error
 
-  const handleClick = event => {
-    if (status === STATUS.NO_ACCOUNT) {
-      event.preventDefault() // Prevent the default behavior of NavLink
+  // Navigate to the store if the konnector is a suggestion (ie not installed)
+  const handleSuggestionClick = event => {
+    if (!isSuggestion) return // Should not happen but just in case
 
-      const cozyURL = new URL(client.getStackClient().uri)
-      const app = 'store'
-      const nativePath = `/discover/${konnector.slug}`
-      const { subdomain: subDomainType } = client.getInstanceOptions()
-      const url = generateWebLink({
-        pathname: '/',
-        cozyUrl: cozyURL.origin,
-        slug: app,
-        hash: nativePath,
-        subDomainType
-      })
-      window.open(url, '_blank') // Open in a new tab
-    }
+    event.preventDefault() // Prevent the default behavior of NavLink to avoid navigating to the konnector hash
+
+    const cozyURL = new URL(client.getStackClient().uri)
+    const app = 'store'
+    const nativePath = `/discover/${konnector.slug}`
+    const { subdomain: subDomainType } = client.getInstanceOptions()
+    const url = generateWebLink({
+      pathname: '/',
+      cozyUrl: cozyURL.origin,
+      slug: app,
+      hash: nativePath,
+      subDomainType
+    })
+
+    window.open(url, '_blank')
   }
 
   return (
@@ -198,7 +206,7 @@ export const KonnectorTile = ({ konnector, isInMaintenance, loading }) => {
         konnector
       })}
       className="scale-hover"
-      onClick={handleClick}
+      {...(isSuggestion ? { onClick: handleSuggestionClick } : {})}
     >
       <SquareAppIcon
         app={konnector}
