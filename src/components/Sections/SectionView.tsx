@@ -26,7 +26,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const isSuggestionModal = Boolean(
     section.type === 'category' && section.pristine
   )
-  const { isRunning } = useSections()
+  const { isRunning, isSuggested } = useSections()
 
   return (
     <div
@@ -41,7 +41,9 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       {section.items.map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
-            isSuggestion={isSuggestionModal}
+            isSuggestion={
+              isSuggestionModal || isSuggested((item as IOCozyKonnector).slug)
+            }
             key={(item as IOCozyKonnector).slug}
             konnector={item as IOCozyKonnector}
             isInMaintenance={false}
