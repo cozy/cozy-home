@@ -4,7 +4,7 @@ import { formatShortcuts } from 'components/Shortcuts/utils'
 import { Section } from 'components/Sections/SectionsTypes'
 
 export const useShortcutsDirectories = (
-  magicHomeFolderId: string | undefined
+  magicHomeFolderId?: string
 ): Section[] => {
   const homeShortcutsDirConn = mkHomeCustomShorcutsDirConn({
     currentFolderId: magicHomeFolderId
