@@ -15,6 +15,7 @@ import {
   GroupMode,
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
+import { useSections } from './SectionsContext'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
@@ -25,6 +26,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const isSuggestionModal = Boolean(
     section.type === 'category' && section.pristine
   )
+  const { isRunning } = useSections()
 
   return (
     <div
@@ -43,7 +45,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
             key={(item as IOCozyKonnector).slug}
             konnector={item as IOCozyKonnector}
             isInMaintenance={false}
-            loading={false}
+            loading={isRunning((item as IOCozyKonnector).slug)}
           />
         ) : (
           <ShortcutLink key={index} file={item} display={currentDisplayMode} />
