@@ -123,4 +123,5 @@ export interface SectionsContextValue {
   groupedSections: Section[]
   displayTutorialTip: boolean
   isRunning: (slug: string) => boolean
+  isSuggested: (slug: string) => boolean
 }
