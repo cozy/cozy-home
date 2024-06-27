@@ -19,6 +19,7 @@ interface SectionsContextValue {
   shortcutsDirectories: Section[]
   ungroupedSections: Section[]
   groupedSections: Section[]
+  displayTutorialTip: boolean
 }
 
 // Create a context
@@ -26,7 +27,8 @@ const SectionsContext = createContext<SectionsContextValue>({
   konnectorsByCategory: [],
   shortcutsDirectories: [],
   ungroupedSections: [],
-  groupedSections: []
+  groupedSections: [],
+  displayTutorialTip: false
 })
 
 interface SectionsProviderProps {
@@ -80,13 +82,18 @@ export const SectionsProvider = ({
     isMobile
   )
 
+  const areAllCategoriesPristine = konnectorsByCategory.every(
+    category => category.pristine
+  )
+
   return (
     <SectionsContext.Provider
       value={{
         konnectorsByCategory: konnectorsByCategory,
         shortcutsDirectories,
         ungroupedSections,
-        groupedSections
+        groupedSections,
+        displayTutorialTip: areAllCategoriesPristine
       }}
     >
       {children}
