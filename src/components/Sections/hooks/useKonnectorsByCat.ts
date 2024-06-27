@@ -13,23 +13,29 @@ import { suggestedKonnectorsConn } from 'queries'
 const transformAndSortData = (
   data: { [key: string]: IOCozyKonnector[] },
   installedKonnectors: IOCozyKonnector[],
-  suggestedKonnectors: IOCozyKonnector[]
+  suggestedKonnectors: IOCozyKonnector[],
+  appsAndKonnectorsInMaintenance: IOCozyKonnector[]
 ): Section[] => {
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
+  const maintenanceSlugs = new Set(
+    appsAndKonnectorsInMaintenance.map(k => k.slug)
+  )
 
   const sections = Object.keys(data).map(key => {
     const allItems = data[key] || []
-    const installedItems = allItems.filter(item =>
+    const filteredItems = allItems.filter(
+      item => !maintenanceSlugs.has(item.slug)
+    )
+    const installedItems = filteredItems.filter(item =>
       installedKonnectorNames.has(item.name)
     )
-    const suggestedItems = allItems.filter(item =>
-      suggestedKonnectors.find(k => k.slug === item.slug)
+    const suggestedItems = filteredItems.filter(item =>
+      suggestedKonnectors.some(k => k.slug === item.slug)
     )
-
     const items =
       installedItems.length > 0
         ? [...installedItems, ...suggestedItems]
-        : allItems
+        : filteredItems
 
     return {
       name: key,
@@ -114,10 +120,16 @@ export const useKonnectorsByCat = (): Section[] => {
         ? transformAndSortData(
             groupedData,
             installedKonnectors,
-            suggestedKonnectors
+            suggestedKonnectors,
+            appsAndKonnectorsInMaintenance
           )
         : [],
-    [groupedData, installedKonnectors, suggestedKonnectors]
+    [
+      appsAndKonnectorsInMaintenance,
+      groupedData,
+      installedKonnectors,
+      suggestedKonnectors
+    ]
   )
 
   return sortedData
