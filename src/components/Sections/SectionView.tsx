@@ -52,7 +52,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         )
       )}
 
-      {!isSuggestionModal && (
+      {!isSuggestionModal && section.type === 'category' && (
         <AddServiceTile label={t('add_service')} category={section.name} />
       )}
     </div>
