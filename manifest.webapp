@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.77.0",
+  "version": "1.79.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "home": {
@@ -120,7 +120,8 @@
       "verbs": [
         "GET"
       ],
-      "type": "com.bitwarden.ciphers"
+      "type": "com.bitwarden.ciphers",
+      "offline": false
     },
     "bank-accounts": {
       "description": "Required to edit bank accounts",
