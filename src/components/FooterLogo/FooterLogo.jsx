@@ -2,9 +2,11 @@ import React from 'react'
 import { useClient, useQuery } from 'cozy-client'
 import { buildContextQuery } from 'queries'
 import Divider from 'cozy-ui/transpiled/react/Divider'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const FooterLogo = () => {
   const client = useClient()
+  const { type, variant } = useCozyTheme()
   const rootURL = client.getStackClient().uri
 
   const contextQuery = buildContextQuery()
@@ -46,7 +48,11 @@ export const FooterLogo = () => {
                   alt={alt}
                   className="u-ph-1 u-mah-3"
                   style={{
-                    objectFit: 'contain'
+                    objectFit: 'contain',
+                    filter:
+                      type === 'dark' && variant === 'normal'
+                        ? 'brightness(10)'
+                        : undefined
                   }}
                 />
               ))}
