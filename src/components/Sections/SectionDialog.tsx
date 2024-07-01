@@ -23,7 +23,9 @@ const SectionDialog = (): JSX.Element | null => {
       ? groupedSections?.find(section => section.id === category)
       : null
 
-  const handleGoBack = (): void => navigate('/connected', { replace: true })
+  // Using relative path avoids an issue within React-Native
+  // Where an Android back button press would trigger unexpected behavior from the Webview browser
+  const handleGoBack = (): void => navigate('..', { replace: true })
 
   if (!section) return null
 
