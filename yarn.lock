@@ -6056,10 +6056,10 @@ cozy-interapp@^0.9.0:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.9.0.tgz#ddc0e1f650fa2e64f6f10f699d21de29d365a23a"
   integrity sha512-gI5MIhPqOlAYBBykOHrgYXgnuxvgnvH4jwM980WtFASieb4icI+2q4nBz0ZTubfCCB4bLgI5n34CCKzihwdUvA==
 
-cozy-keys-lib@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-6.0.0.tgz#1f664ecacea4260043aaa0339e34fa7189745e8d"
-  integrity sha512-iRldOTPk7WGAEJAe1yLi2BhqwaxeqrsTCG4C6IcMqtruo1igFJie5Din5Nj2FEBweA0FlPuzyLulkM+5AalRBg==
+cozy-keys-lib@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-6.1.0.tgz#ea6a1bc35c64733948b09b21590a2eadacb4c6bc"
+  integrity sha512-qqhQPuz5fSqhmOhUW6vjHf31omX9hEfTBK6YvQCSnYycwovdPvrUBFSwhQMd0IvWHHTErcDlLjQXAV2h2HpAYQ==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
@@ -6220,10 +6220,10 @@ cozy-tsconfig@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-tsconfig/-/cozy-tsconfig-1.2.0.tgz#17e61f960f139fae4d26cbac2254b9ab632b269e"
   integrity sha512-TRHnY9goF3FzVlUbP7BcHxuN2XAA4AmppT4fHHZmTKaSwYTByVR1Al+riFMDbce94kJZ1wzl9WNLWQuqzGZ6Cw==
 
-cozy-ui@^110.1.0:
-  version "110.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-110.1.0.tgz#3881ca8945a41848558f8c8133d8fb611b1d6195"
-  integrity sha512-mjC1snnTFMOWbIa6pbqmeUuHCo0Fy+VieH6jLuMWrlz7cgi0pLqWQS3/B4qexkuF4v5DVqjGhc4krRz25If9Ig==
+cozy-ui@^110.3.0:
+  version "110.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-110.3.0.tgz#5a9151779791891a2ed6c09831f9df5c76098b45"
+  integrity sha512-V4Ab/3V5sdT5BTzbD6Ih/uD63lKAtuGUXzqXnhGwOPyUvEFk0ie6cbawHIUHEyabkQfH5iMCptdBSjcYsB5HJw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@material-ui/core" "4.12.3"
