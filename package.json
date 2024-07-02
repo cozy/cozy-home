@@ -35,7 +35,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "cozy-client": "^48.1.0",
-    "cozy-device-helper": "2.7.0",
+    "cozy-device-helper": "3.0.0",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "3.2.2",
     "cozy-harvest-lib": "^26.0.1",
