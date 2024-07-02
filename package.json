@@ -34,11 +34,11 @@
   },
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
-    "cozy-client": "^48.1.0",
+    "cozy-client": "^48.5.0",
     "cozy-device-helper": "2.7.0",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "3.2.2",
-    "cozy-harvest-lib": "^26.0.1",
+    "cozy-harvest-lib": "^26.1.0",
     "cozy-intent": "^2.19.2",
     "cozy-interapp": "^0.9.0",
     "cozy-keys-lib": "^6.1.0",
