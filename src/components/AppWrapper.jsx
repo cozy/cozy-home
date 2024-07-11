@@ -10,12 +10,13 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import { usePreferedTheme } from 'hooks/usePreferedTheme'
+import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
@@ -73,11 +74,20 @@ const Inner = ({ children, lang, context }) => (
 )
 
 const ThemeProvider = ({ children }) => {
-  const preferedTheme = usePreferedTheme()
+  const {
+    data: { isCustomWallpaper }
+  } = useCustomWallpaperContext()
+  const { type } = useCozyTheme()
+
+  const variant = isCustomWallpaper
+    ? type === 'light'
+      ? 'inverted'
+      : 'normal'
+    : 'normal'
 
   return (
     <CozyTheme
-      variant={preferedTheme}
+      variant={variant}
       className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
     >
       {children}
@@ -98,7 +108,7 @@ const AppWrapper = ({ children }) => {
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
           <CustomWallPaperProvider>
-            <CozyTheme ignoreItself>
+            <CozyTheme>
               <ThemeProvider>
                 <AlertProvider>
                   <ReduxProvider store={store}>
