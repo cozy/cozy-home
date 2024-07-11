@@ -1,0 +1,49 @@
+<svg width="360" height="800" viewBox="0 0 360 800" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_329_24443)">
+<circle cy="80" r="240" fill="url(#SW)">
+	<animateTransform attributeName="transform" type="rotate"
+                              values="0 66.5 40; 180 66.5 40; 360 66.5 40"
+                              keyTimes="0; 0.5; 1"
+                              dur="10s" repeatCount="indefinite"/>
+</circle>
+<circle cx="359" cy="80" r="240" fill="url(#SE)">
+	<animateTransform attributeName="transform" type="rotate"
+                              values="0 307.5 40; 180 307.5 40; 360 307.5 40"
+                              keyTimes="0; 0.5; 1"
+                              dur="10s" repeatCount="indefinite"/>
+</circle>
+<circle cx="133" r="240" fill="url(#NW)">
+	<animateTransform attributeName="transform" type="rotate"
+                              values="0 66.5 40; 180 66.5 40; 360 66.5 40"
+                              keyTimes="0; 0.5; 1"
+                              dur="10s" repeatCount="indefinite"/>
+</circle>
+<circle cx="256" r="240" fill="url(#NE)">
+	<animateTransform attributeName="transform" type="rotate"
+                              values="0 307.5 40; 180 307.5 40; 360 307.5 40"
+                              keyTimes="0; 0.5; 1"
+                              dur="10s" repeatCount="indefinite"/>
+</circle>
+</g>
+<defs>
+<radialGradient id="SW" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 80) rotate(90) scale(240)">
+<stop stop-color="#00B1B4" stop-opacity="1"/>
+<stop offset="1" stop-color="#00B1B4" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="SE" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(359 80) rotate(90) scale(240)">
+<stop stop-color="#8978FF" stop-opacity="1"/>
+<stop offset="1" stop-color="#8978FF" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="NW" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(133) rotate(90) scale(240)">
+<stop stop-color="#5087F1" stop-opacity="1"/>
+<stop offset="1" stop-color="#5087F1" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="NE" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256) rotate(90) scale(240)">
+<stop stop-color="#297EF2" stop-opacity="1"/>
+<stop offset="1" stop-color="#297EF2" stop-opacity="0"/>
+</radialGradient>
+<clipPath id="clip0_329_24443">
+<rect width="360" height="800" fill="white"/>
+</clipPath>
+</defs>
+</svg>
