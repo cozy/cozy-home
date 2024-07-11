@@ -43,6 +43,10 @@ export interface GroupedSectionViewProps {
   sections: Section[]
 }
 
+export interface GroupedSectionTileProps {
+  section: Section
+}
+
 export interface SectionsViewProps {
   data?: IOCozyFile[] | IOCozyKonnector[]
   type: 'shortcuts' | 'konnectorCategories'
