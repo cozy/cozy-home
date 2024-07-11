@@ -45,6 +45,7 @@ const SectionDialog = (): JSX.Element | null => {
           />
         }
         onClose={handleGoBack}
+        fullWidth
       />
     </CozyTheme>
   )
