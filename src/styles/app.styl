@@ -24,21 +24,21 @@ body
         overflow auto
 
 .App
-    // Avoid mix-blend-mode from background-container to be linked to the background color of the body.
+    // Avoid mix-blend-mode from home-custom-background to be linked to the background color of the body.
     // Must not be responsive to the theme.
     background-color white
-    background-repeat no-repeat
-    background-size cover
-    background-position center
     overflow-y auto
+
     .corner
         z-index var(--zIndex-nav)
         margin rem(12) 2rem rem(-44) 0
+
         .corner-button
             +small-screen()
                 height 3rem
                 width 3rem
                 margin 0
+
         +small-screen()
             margin 0 0 -3rem
 
@@ -54,14 +54,14 @@ body
     backdrop-filter saturate(124%)
 
 +small-screen()
-    .main-view, .background-container
+    .main-view, .home-custom-background
         transition transform 200ms ease-out
         will-change transform
     .App--opened
         .main-view
             transform scale(1.3)
 
-        .background-container
+        .home-custom-background
             transform scale(1.1)
 
 

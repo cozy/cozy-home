@@ -1,14 +1,26 @@
-.background-container
+.home-background-container
+    position fixed
+    height 100vh
+    width 100%
+
+    &--light
+        background-color #E9F4FF
+
+    &--dark
+        background-color #142536
+
+.home-default-background
+    &::before
+        content ''
+        position fixed
+        height 100%
+        width 100%
+        background-size 100% 100%
+        background-image url('../assets/images/default-wallpaper.svg')
+        opacity .24
+
+.home-custom-background
+    mix-blend-mode multiply
     background-position center
     background-repeat no-repeat
     background-size cover
-    height 100vh
-    position fixed
-    width 100%
-
-.background-container-darken
-    mix-blend-mode multiply
-
-.home-default-partner-background
-    background-repeat repeat
-    background-size initial
