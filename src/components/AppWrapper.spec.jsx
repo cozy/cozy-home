@@ -44,9 +44,6 @@ jest.mock('redux-persist/integration/react', () => ({
 }))
 const AddButtonMock = () => <></>
 jest.mock('./AddButton/AddButton', () => AddButtonMock)
-jest.mock('hooks/usePreferedTheme', () => ({
-  usePreferedTheme: jest.fn().mockReturnValue('inverted')
-}))
 
 describe('AppWrapper.jsx', () => {
   beforeEach(() => {
