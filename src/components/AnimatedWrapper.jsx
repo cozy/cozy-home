@@ -3,7 +3,7 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import homeConfig from 'config/home.json'
 import { useOpenApp } from 'hooks/useOpenApp'
 import { RemoveScroll } from 'react-remove-scroll'
-import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
+import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import cx from 'classnames'
 
 import App from 'containers/App'
@@ -20,7 +20,7 @@ const AnimatedWrapper = () => {
   const { getAppState } = useOpenApp()
   const {
     data: { isCustomWallpaper }
-  } = useCustomWallpaperContext()
+  } = useWallpaperContext()
 
   const mainStyle = isFlagshipApp()
     ? {
