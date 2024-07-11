@@ -1,13 +1,13 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
+import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
     data: { binaryCustomWallpaper, isCustomWallpaper }
-  } = useCustomWallpaperContext()
+  } = useWallpaperContext()
   const { type } = useCozyTheme()
 
   return (

@@ -3,7 +3,7 @@ import homeConfig from 'config/home.json'
 import { useClient } from 'cozy-client'
 import localForage from 'localforage'
 
-const useCustomWallpaper = () => {
+const useWallpaper = () => {
   const client = useClient()
   const [wallpaperLink, setWallpaperLink] = useState(null)
   const [fetchStatus, setFetchStatus] = useState('idle')
@@ -61,4 +61,4 @@ const useCustomWallpaper = () => {
   }
 }
 
-export default useCustomWallpaper
+export default useWallpaper

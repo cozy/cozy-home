@@ -3,7 +3,7 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import { render } from '@testing-library/react'
 import App from '../components/AnimatedWrapper'
 import AppLike from 'test/AppLike'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { WallPaperProvider } from 'hooks/useWallpaperContext'
 import { act } from 'react-dom/test-utils'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
@@ -50,9 +50,9 @@ describe('App', () => {
     const { container } = render(
       <AppLike>
         <CozyTheme>
-          <CustomWallPaperProvider>
+          <WallPaperProvider>
             <App />
-          </CustomWallPaperProvider>
+          </WallPaperProvider>
         </CozyTheme>
       </AppLike>
     )
@@ -75,9 +75,9 @@ describe('App', () => {
     const { container } = render(
       <AppLike>
         <CozyTheme>
-          <CustomWallPaperProvider>
+          <WallPaperProvider>
             <App />
-          </CustomWallPaperProvider>
+          </WallPaperProvider>
         </CozyTheme>
       </AppLike>
     )

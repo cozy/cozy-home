@@ -16,11 +16,11 @@ import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import { useCustomWallpaperContext } from 'hooks/useCustomWallpaperContext'
+import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { WallPaperProvider } from 'hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
 
@@ -76,7 +76,7 @@ const Inner = ({ children, lang, context }) => (
 const ThemeProvider = ({ children }) => {
   const {
     data: { isCustomWallpaper }
-  } = useCustomWallpaperContext()
+  } = useWallpaperContext()
   const { type } = useCozyTheme()
 
   const variant = isCustomWallpaper
@@ -107,7 +107,7 @@ const AppWrapper = ({ children }) => {
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
-          <CustomWallPaperProvider>
+          <WallPaperProvider>
             <CozyTheme>
               <ThemeProvider>
                 <AlertProvider>
@@ -128,7 +128,7 @@ const AppWrapper = ({ children }) => {
                 </AlertProvider>
               </ThemeProvider>
             </CozyTheme>
-          </CustomWallPaperProvider>
+          </WallPaperProvider>
         </CozyProvider>
       </BreakpointsProvider>
     </AppContext.Provider>
