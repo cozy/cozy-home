@@ -1,10 +1,18 @@
+/**
+ * AddServiceTile component.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.label - The label for the service tile.
+ * @param {string} [props.category] - The category of the service tile.
+ * @returns {JSX.Element} The rendered AddServiceTile component.
+ */
 import React from 'react'
 import { useClient, generateWebLink } from 'cozy-client'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
-const AddServiceTile = ({ label, category }) => {
+const AddServiceTile = ({ label, category = '' }) => {
   const client = useClient()
   const nativePath = `/discover/?type=konnector${
     category ? `&category=${category}` : ''

@@ -8,6 +8,7 @@ import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
 import { get4FirstItems } from 'components/Sections/utils'
+import AddServiceTile from 'components/AddServiceTile'
 
 export const GroupedSectionView = ({
   sections
@@ -23,6 +24,7 @@ export const GroupedSectionView = ({
   ): void => {
     navigate(`categories/${type}/${name}`)
   }
+  const isServicesView = sections.find(section => section.type === 'category')
 
   return (
     <div className="shortcuts-list-wrapper u-m-auto u-w-100">
@@ -34,6 +36,10 @@ export const GroupedSectionView = ({
 
       <div className="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
         {sections.map(section => {
+          // We add a failsafe in the view to avoid rendering an empty section
+          // This case appeared in prod environment but wasn't expected to be possible
+          if (section.items.length === 0) return null
+
           return (
             <a
               key={section.id}
@@ -63,6 +69,8 @@ export const GroupedSectionView = ({
             </a>
           )
         })}
+
+        {isServicesView && <AddServiceTile label={t('add_service')} />}
       </div>
     </div>
   )
