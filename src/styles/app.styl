@@ -29,6 +29,18 @@ body
     background-color white
     overflow-y auto
 
+    &.custom-wallpaper
+        // black filter effect above the custom wallpaper image
+        &::before
+            content ''
+            position fixed
+            top 0
+            left 0
+            width 100%
+            height 100%
+            background-color rgba(0, 0, 0, .32)
+            backdrop-filter saturate(124%)
+
     .corner
         z-index var(--zIndex-nav)
         margin rem(12) 2rem rem(-44) 0
@@ -41,17 +53,6 @@ body
 
         +small-screen()
             margin 0 0 -3rem
-
-// black filter effect above the wallpaper image
-.App::before
-    content ''
-    position fixed
-    top 0
-    left 0
-    width 100%
-    height 100%
-    background-color rgba(0, 0, 0, .32)
-    backdrop-filter saturate(124%)
 
 +small-screen()
     .main-view, .home-custom-background
