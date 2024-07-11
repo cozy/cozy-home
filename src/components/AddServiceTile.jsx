@@ -1,3 +1,9 @@
+import React from 'react'
+import { useClient, generateWebLink } from 'cozy-client'
+import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+
+import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+
 /**
  * AddServiceTile component.
  *
@@ -6,13 +12,7 @@
  * @param {string} [props.category] - The category of the service tile.
  * @returns {JSX.Element} The rendered AddServiceTile component.
  */
-import React from 'react'
-import { useClient, generateWebLink } from 'cozy-client'
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
-
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
-
-const AddServiceTile = ({ label, category = '' }) => {
+const AddServiceTile = ({ label, category }) => {
   const client = useClient()
   const nativePath = `/discover/?type=konnector${
     category ? `&category=${category}` : ''
