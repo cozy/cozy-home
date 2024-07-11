@@ -31,6 +31,7 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
     size?: 'small' | 'medium' | 'large'
     title?: ReactNode
     fullScreen?: boolean
+    fullWidth?: boolean
   }
 
   const Dialog: (props: DialogProps) => JSX.Element
