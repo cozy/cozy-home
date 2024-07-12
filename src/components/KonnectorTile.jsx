@@ -33,12 +33,27 @@ export const STATUS = {
   LOADING: 5
 }
 
-const statusMap = {
+/**
+ * @typedef {Object} StatusMap
+ * @property {string} [STATUS.NO_ACCOUNT] - The status when there is no account, represented as 'ghost'.
+ * @property {string} [STATUS.MAINTENANCE] - The status when under maintenance, represented as 'maintenance'.
+ * @property {string} [STATUS.ERROR] - The status when there is an error, represented as 'error'.
+ * @property {string} [STATUS.LOADING] - The status when loading, represented as 'loading'.
+ * @property {string} [STATUS.HAS_ACCOUNT] - The status when there is an account, represented as 'ok'.
+ */
+
+/**
+ * A mapping of status constants to their corresponding string representations.
+ * @type {StatusMap}
+ */
+export const statusMap = {
   [STATUS.NO_ACCOUNT]: 'ghost',
   [STATUS.MAINTENANCE]: 'maintenance',
   [STATUS.ERROR]: 'error',
-  [STATUS.LOADING]: 'loading'
+  [STATUS.LOADING]: 'loading',
+  [STATUS.HAS_ACCOUNT]: 'ok'
 }
+
 /**
  *
  * @param {object} props
@@ -69,7 +84,7 @@ export const getKonnectorStatus = ({
  * @param {import('cozy-client/types/types').IOCozyKonnector['slug']} slug
  * @returns
  */
-function getTriggersBySlug(triggers, slug) {
+export function getTriggersBySlug(triggers, slug) {
   return Object.values(triggers).filter(trigger => {
     return (
       trigger.message &&
@@ -105,7 +120,7 @@ function getErrorForTriggers(triggers, jobs) {
  * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers
  * @returns
  */
-const getAccountsFromTrigger = (accounts, triggers) => {
+export const getAccountsFromTrigger = (accounts, triggers) => {
   const triggerAccountIds = triggers.map(trigger => trigger.message.account)
   const matchingAccounts = Object.values(accounts).filter(account =>
     triggerAccountIds.includes(account.id)
