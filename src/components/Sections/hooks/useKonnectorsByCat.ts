@@ -2,19 +2,33 @@ import { sortBy } from 'lodash'
 import { useSelector } from 'react-redux'
 import { useState, useEffect, useMemo } from 'react'
 
-import type { IOCozyApp, IOCozyKonnector } from 'cozy-client/types/types'
+import type {
+  IOCozyAccount,
+  IOCozyApp,
+  IOCozyKonnector,
+  IOCozyTrigger
+} from 'cozy-client/types/types'
 import { useClient, useQuery, useAppsInMaintenance } from 'cozy-client'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { Section } from 'components/Sections/SectionsTypes'
 import { fetchAllKonnectors } from 'components/Sections/queries/konnectors'
 import { getInstalledKonnectors } from 'selectors/konnectors'
 import { suggestedKonnectorsConn } from 'queries'
+import {
+  getAccountsFromTrigger,
+  getTriggersBySlug,
+  statusMap
+} from 'components/KonnectorTile'
 
 const transformAndSortData = (
-  data: { [key: string]: IOCozyKonnector[] },
+  data: { [key: string]: (IOCozyKonnector & { status?: string })[] },
   installedKonnectors: IOCozyKonnector[],
   suggestedKonnectors: IOCozyKonnector[],
-  appsAndKonnectorsInMaintenance: IOCozyKonnector[]
+  appsAndKonnectorsInMaintenance: IOCozyKonnector[],
+  t: (key: string) => string,
+  allTriggers: { trigger: IOCozyTrigger },
+  accounts: IOCozyAccount[]
 ): Section[] => {
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
   const maintenanceSlugs = new Set(
@@ -36,6 +50,54 @@ const transformAndSortData = (
       installedItems.length > 0
         ? [...installedItems, ...suggestedItems]
         : availableItems
+
+    items.map(item => {
+      const triggers = getTriggersBySlug(allTriggers, item.slug)
+      const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
+
+      if (accountsForKonnector.length === 0) {
+        item.status = statusMap.NO_ACCOUNT
+      } else {
+        item.status = statusMap.HAS_ACCOUNT
+      }
+
+      return item
+    })
+
+    // Items with true status are displayed first
+    // Then alphabetical order
+    // Then items with status = statusMap.NO_ACCOUNT
+    // Then alphabetical order
+
+    items.sort((a, b) => {
+      if (
+        a.status === statusMap.HAS_ACCOUNT &&
+        b.status !== statusMap.HAS_ACCOUNT
+      ) {
+        return -1
+      }
+      if (
+        a.status !== statusMap.HAS_ACCOUNT &&
+        b.status === statusMap.HAS_ACCOUNT
+      ) {
+        return 1
+      }
+
+      if (
+        a.status === statusMap.NO_ACCOUNT &&
+        b.status !== statusMap.NO_ACCOUNT
+      ) {
+        return -1
+      }
+      if (
+        a.status !== statusMap.NO_ACCOUNT &&
+        b.status === statusMap.NO_ACCOUNT
+      ) {
+        return 1
+      }
+
+      return a.name.localeCompare(b.name)
+    })
 
     return {
       name: key,
@@ -60,7 +122,8 @@ const transformAndSortData = (
     if (a.pristine && !b.pristine) {
       return 1
     }
-    return a.name.localeCompare(b.name)
+
+    return t(`category.${a.name}`).localeCompare(t(`category.${b.name}`))
   })
 
   return sections
@@ -76,6 +139,7 @@ export const useKonnectorsByCat = (): Section[] => {
         state: Record<string, unknown>
       ) => IOCozyKonnector[]
     ) || []
+  const { t } = useI18n()
 
   const appsAndKonnectorsInMaintenance = (
     useAppsInMaintenance as unknown as () => IOCozyApp[]
@@ -114,6 +178,25 @@ export const useKonnectorsByCat = (): Section[] => {
     void fetchData()
   }, [client])
 
+  // Bad typings this is temporary
+  // Render issue with the use of useSelector to check
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const allTriggers = (useSelector(
+    (state: {
+      cozy: {
+        documents: Record<string, Record<string, IOCozyTrigger>>
+      }
+    }) => state.cozy.documents['io.cozy.triggers']
+  ) || {}) as { trigger: IOCozyTrigger }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const accounts = (useSelector(
+    (state: {
+      cozy: {
+        documents: Record<string, Record<string, IOCozyAccount>>
+      }
+    }) => state.cozy.documents['io.cozy.accounts']
+  ) || {}) as unknown as IOCozyAccount[]
+
   const sortedData = useMemo(
     () =>
       groupedData
@@ -121,14 +204,20 @@ export const useKonnectorsByCat = (): Section[] => {
             groupedData,
             installedKonnectors,
             suggestedKonnectors,
-            appsAndKonnectorsInMaintenance
+            appsAndKonnectorsInMaintenance,
+            t,
+            allTriggers,
+            accounts
           )
         : [],
     [
+      accounts,
+      allTriggers,
       appsAndKonnectorsInMaintenance,
       groupedData,
       installedKonnectors,
-      suggestedKonnectors
+      suggestedKonnectors,
+      t
     ]
   )
 

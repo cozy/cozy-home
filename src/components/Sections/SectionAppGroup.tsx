@@ -1,18 +1,22 @@
 import React from 'react'
 import get from 'lodash/get'
+import cx from 'classnames'
 
 import type { IOCozyFile, IOCozyKonnector } from 'cozy-client/types/types'
 import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import { statusMap } from 'components/KonnectorTile'
 
 interface SectionAppGroupProps {
   items: IOCozyFile[] | IOCozyKonnector[]
 }
 
 interface SectionAppTileProps {
-  item: IOCozyFile | IOCozyKonnector
+  item: (IOCozyFile | IOCozyKonnector) & {
+    status?: string
+  }
 }
 
 const typedNameToColor = nameToColor as (name: string) => string
@@ -27,7 +31,9 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
         <AppIcon
           app={(item as IOCozyKonnector).slug}
           type="konnector"
-          className="item-grid-icon"
+          className={cx('item-grid-icon', {
+            ghost: item.status === statusMap.NO_ACCOUNT
+          })}
         />
       ) : icon ? (
         <img
