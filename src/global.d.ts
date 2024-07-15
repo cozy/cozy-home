@@ -7,3 +7,7 @@ declare module 'cozy-ui/transpiled/react/providers/Breakpoints' {
 }
 declare module 'cozy-ui/transpiled/react/Spinner'
 declare module 'cozy-ui/transpiled/react/SquareAppIcon'
+declare module 'assets/*' {
+  const assets: string
+  export default assets
+}
