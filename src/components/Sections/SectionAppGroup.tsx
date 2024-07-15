@@ -44,7 +44,7 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
           style={{ backgroundColor: typedNameToColor(item.name) }}
           className="section-app-group-tile"
         >
-          <Typography variant="subtitle2" align="center" className="u-white">
+          <Typography variant="subtitle2" align="center">
             {item.name?.[0].toUpperCase()}
           </Typography>
         </div>
