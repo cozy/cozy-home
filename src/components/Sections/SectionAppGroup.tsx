@@ -7,7 +7,7 @@ import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
-import { STATUS } from 'components/KonnectorTile'
+import { STATUS } from 'components/KonnectorHelpers'
 
 interface SectionAppGroupProps {
   items: IOCozyFile[] | IOCozyKonnector[]
@@ -15,7 +15,7 @@ interface SectionAppGroupProps {
 
 interface SectionAppTileProps {
   item: (IOCozyFile | IOCozyKonnector) & {
-    status?: string
+    status?: number
   }
 }
 
