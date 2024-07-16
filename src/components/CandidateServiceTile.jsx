@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
-import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import { useAlert } from 'cozy-ui/transpiled/react/providers/Alert'
 import { useClient } from 'cozy-client'
 import useRegistryInformation from 'hooks/useRegistryInformation'
 import { KonnectorSuggestionModal } from 'cozy-harvest-lib'
@@ -11,6 +11,7 @@ import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 const CandidateServiceTile = ({ konnector }) => {
   const { t } = useI18n()
   const client = useClient()
+  const { showAlert } = useAlert()
   const { slug } = konnector
   const registryData = useRegistryInformation(client, slug)
   const name = registryData
@@ -29,7 +30,10 @@ const CandidateServiceTile = ({ konnector }) => {
           }}
           onSilence={() => {
             setModalDisplayed(false)
-            Alerter.success(t('connector.silenced', { name: name }))
+            showAlert({
+              message: t('connector.silenced', { name: name }),
+              severity: 'success'
+            })
           }}
         />
       )}
