@@ -8,7 +8,6 @@ import { useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
 
-import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
@@ -139,7 +138,6 @@ const App = ({ accounts, konnectors, triggers }) => {
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
           ref={isReady ? div => setContentWrapper(div) : null}
         >
-          <Alerter />
           <MoveModal />
           <HeroHeader />
           {hasError && (
