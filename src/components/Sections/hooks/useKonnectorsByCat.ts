@@ -18,7 +18,7 @@ import { suggestedKonnectorsConn } from 'queries'
 import {
   getAccountsFromTrigger,
   getTriggersBySlug,
-  statusMap
+  STATUS
 } from 'components/KonnectorTile'
 
 const transformAndSortData = (
@@ -27,14 +27,13 @@ const transformAndSortData = (
   suggestedKonnectors: IOCozyKonnector[],
   appsAndKonnectorsInMaintenance: IOCozyKonnector[],
   t: (key: string) => string,
-  allTriggers: { trigger: IOCozyTrigger },
-  accounts: IOCozyAccount[]
+  allTriggers: Record<string, IOCozyTrigger>,
+  accounts: { [key: string]: IOCozyAccount }
 ): Section[] => {
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
   const maintenanceSlugs = new Set(
     appsAndKonnectorsInMaintenance.map(k => k.slug)
   )
-
   const sections = Object.keys(data).map(key => {
     const allItems = data[key] || []
     const availableItems = allItems.filter(
@@ -46,62 +45,56 @@ const transformAndSortData = (
     const suggestedItems = availableItems.filter(item =>
       suggestedKonnectors.some(k => k.slug === item.slug)
     )
-    const items =
+    const itemsToSort =
       installedItems.length > 0
         ? [...installedItems, ...suggestedItems]
         : availableItems
 
-    items.map(item => {
-      const triggers = getTriggersBySlug(allTriggers, item.slug)
-      const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
-
-      if (accountsForKonnector.length === 0) {
-        item.status = statusMap.NO_ACCOUNT
-      } else {
-        item.status = statusMap.HAS_ACCOUNT
-      }
-
-      return item
-    })
-
-    // Items with true status are displayed first
-    // Then alphabetical order
-    // Then items with status = statusMap.NO_ACCOUNT
-    // Then alphabetical order
-
-    items.sort((a, b) => {
-      if (
-        a.status === statusMap.HAS_ACCOUNT &&
-        b.status !== statusMap.HAS_ACCOUNT
-      ) {
-        return -1
-      }
-      if (
-        a.status !== statusMap.HAS_ACCOUNT &&
-        b.status === statusMap.HAS_ACCOUNT
-      ) {
-        return 1
-      }
-
-      if (
-        a.status === statusMap.NO_ACCOUNT &&
-        b.status !== statusMap.NO_ACCOUNT
-      ) {
-        return -1
-      }
-      if (
-        a.status !== statusMap.NO_ACCOUNT &&
-        b.status === statusMap.NO_ACCOUNT
-      ) {
-        return 1
-      }
-
-      return a.name.localeCompare(b.name)
-    })
-
     return {
       name: key,
-      items,
+      items: itemsToSort
+        .map(item => {
+          const triggers = getTriggersBySlug(
+            allTriggers as { trigger: IOCozyTrigger },
+            item.slug
+          )
+          const accountsForKonnector = getAccountsFromTrigger(
+            accounts as unknown as IOCozyAccount[],
+            triggers
+          )
+
+          const itemToReturn = {
+            ...item,
+            status:
+              (accountsForKonnector && accountsForKonnector.length > 0
+                ? STATUS.OK
+                : STATUS.NO_ACCOUNT) ?? STATUS.NO_ACCOUNT
+          }
+
+          return itemToReturn
+        })
+        .sort((a, b) => {
+          if (a.status === STATUS.OK && b.status !== STATUS.OK) {
+            return -1
+          }
+          if (a.status !== STATUS.OK && b.status === STATUS.OK) {
+            return 1
+          }
+
+          if (
+            a.status === STATUS.NO_ACCOUNT &&
+            b.status !== STATUS.NO_ACCOUNT
+          ) {
+            return -1
+          }
+          if (
+            a.status !== STATUS.NO_ACCOUNT &&
+            b.status === STATUS.NO_ACCOUNT
+          ) {
+            return 1
+          }
+          return a.name.localeCompare(b.name)
+        }),
       id: key,
       type: 'category',
       layout: {
@@ -130,6 +123,22 @@ const transformAndSortData = (
 }
 
 export const useKonnectorsByCat = (): Section[] => {
+  const allTriggers =
+    useSelector(
+      (state: {
+        cozy: {
+          documents: Record<string, Record<string, IOCozyTrigger>>
+        }
+      }) => state.cozy.documents['io.cozy.triggers']
+    ) || {}
+  const accounts =
+    useSelector(
+      (state: {
+        cozy: {
+          documents: Record<string, Record<string, IOCozyAccount>>
+        }
+      }) => state.cozy.documents['io.cozy.accounts']
+    ) || {}
   const client = useClient()
   const [groupedData, setGroupedData] =
     useState<{ [key: string]: IOCozyKonnector[] }>()
@@ -140,26 +149,21 @@ export const useKonnectorsByCat = (): Section[] => {
       ) => IOCozyKonnector[]
     ) || []
   const { t } = useI18n()
-
   const appsAndKonnectorsInMaintenance = (
     useAppsInMaintenance as unknown as () => IOCozyApp[]
   )()
-
   const installedKonnectors = sortBy(konnectors, konnector =>
     konnector.name.toLowerCase()
   )
-
   const suggestedKonnectorsQuery = useQuery(
     suggestedKonnectorsConn.query,
     suggestedKonnectorsConn
   ) as {
     data: IOCozyKonnector[]
   }
-
   const candidatesSlugBlacklist = appsAndKonnectorsInMaintenance
     .map(({ slug }) => slug)
     .concat(installedKonnectors.map(({ slug }) => slug))
-
   const suggestedKonnectors = useMemo(() => {
     return suggestedKonnectorsQuery.data
       ? suggestedKonnectorsQuery.data.filter(
@@ -178,48 +182,18 @@ export const useKonnectorsByCat = (): Section[] => {
     void fetchData()
   }, [client])
 
-  // Bad typings this is temporary
-  // Render issue with the use of useSelector to check
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const allTriggers = (useSelector(
-    (state: {
-      cozy: {
-        documents: Record<string, Record<string, IOCozyTrigger>>
-      }
-    }) => state.cozy.documents['io.cozy.triggers']
-  ) || {}) as { trigger: IOCozyTrigger }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const accounts = (useSelector(
-    (state: {
-      cozy: {
-        documents: Record<string, Record<string, IOCozyAccount>>
-      }
-    }) => state.cozy.documents['io.cozy.accounts']
-  ) || {}) as unknown as IOCozyAccount[]
+  const sortedData = (): Section[] =>
+    groupedData
+      ? transformAndSortData(
+          groupedData,
+          installedKonnectors,
+          suggestedKonnectors,
+          appsAndKonnectorsInMaintenance,
+          t,
+          allTriggers,
+          accounts
+        )
+      : []
 
-  const sortedData = useMemo(
-    () =>
-      groupedData
-        ? transformAndSortData(
-            groupedData,
-            installedKonnectors,
-            suggestedKonnectors,
-            appsAndKonnectorsInMaintenance,
-            t,
-            allTriggers,
-            accounts
-          )
-        : [],
-    [
-      accounts,
-      allTriggers,
-      appsAndKonnectorsInMaintenance,
-      groupedData,
-      installedKonnectors,
-      suggestedKonnectors,
-      t
-    ]
-  )
-
-  return sortedData
+  return sortedData()
 }
