@@ -7,7 +7,6 @@ import React from 'react'
 import { HashRouter } from 'react-router-dom'
 
 import { handleOAuthResponse } from 'cozy-harvest-lib'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 
@@ -52,11 +51,9 @@ const App = (): JSX.Element => {
       }}
     >
       <AppWrapper>
-        <BreakpointsProvider>
-          <HashRouter>
-            <AnimatedWrapper />
-          </HashRouter>
-        </BreakpointsProvider>
+        <HashRouter>
+          <AnimatedWrapper />
+        </HashRouter>
       </AppWrapper>
     </WebviewIntentProvider>
   )
