@@ -10,15 +10,7 @@ import {
   getTriggersBySlug
 } from 'components/KonnectorHelpers'
 import { Section } from 'components/Sections/SectionsTypes'
-
-// List of categories that are allowed to be included even if pristine
-const categoriesWhitelist = [
-  'banking',
-  'clouds',
-  'isp',
-  'energy',
-  'public_service'
-]
+import config from 'components/Sections/config.json'
 
 // Helper functions
 const isItemInMaintenance = (
@@ -59,15 +51,12 @@ const sortSections = (
 // New helper function for processing and sorting items within a category
 const processAndSortItems = (
   items: IOCozyKonnector[],
-  allTriggers: Record<string, IOCozyTrigger>,
-  accounts: { [key: string]: IOCozyAccount }
+  allTriggers: IOCozyTrigger[],
+  accounts: IOCozyAccount[]
 ): IOCozyKonnector[] => {
   return items
     .map(item => {
-      const triggers = getTriggersBySlug(
-        allTriggers as { trigger: IOCozyTrigger },
-        item.slug
-      )
+      const triggers = getTriggersBySlug(allTriggers, item.slug)
       const accountsForKonnector = getAccountsFromTrigger(accounts, triggers)
       return {
         ...item,
@@ -84,8 +73,8 @@ export const formatServicesSections = (
   suggestedKonnectors: IOCozyKonnector[],
   appsAndKonnectorsInMaintenance: IOCozyKonnector[],
   t: (key: string) => string,
-  allTriggers: Record<string, IOCozyTrigger>,
-  accounts: { [key: string]: IOCozyAccount }
+  allTriggers: IOCozyTrigger[],
+  accounts: IOCozyAccount[]
 ): Section[] => {
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
   const maintenanceSlugs = new Set(
@@ -127,6 +116,8 @@ export const formatServicesSections = (
   })
 
   return sections
-    .filter(section => shouldIncludeSection(section, categoriesWhitelist))
+    .filter(section =>
+      shouldIncludeSection(section, config.categoriesWhitelist)
+    )
     .sort((a, b) => sortSections(a, b, t))
 }
