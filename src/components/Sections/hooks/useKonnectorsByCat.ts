@@ -7,31 +7,51 @@ import type {
   IOCozyKonnector,
   IOCozyTrigger
 } from 'cozy-client/types/types'
-import { useClient, useQuery, useAppsInMaintenance } from 'cozy-client'
+import {
+  useClient,
+  useQuery,
+  useAppsInMaintenance,
+  QueryDefinition
+} from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { Section } from 'components/Sections/SectionsTypes'
 import { fetchAllKonnectors } from 'components/Sections/queries/konnectors'
 import {
-  accountsConn,
+  makeAccountsQuery,
   konnectorsConn,
   suggestedKonnectorsConn,
-  triggersConn
+  makeTriggersQuery
 } from 'queries'
 import { formatServicesSections } from 'components/Sections/lib/formatServicesSections'
+
+const _makeTriggersQuery = makeTriggersQuery as {
+  definition: () => QueryDefinition
+  options: Record<string, unknown>
+}
+
+const _makeAccountsQuery = makeAccountsQuery as {
+  definition: () => QueryDefinition
+  options: Record<string, unknown>
+}
 
 export const useKonnectorsByCat = (): Section[] => {
   const client = useClient()
   const { t } = useI18n()
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-  const { data: allTriggers } = useQuery(triggersConn.query, triggersConn) as {
+  const { data: allTriggers } = useQuery(
+    _makeTriggersQuery.definition(),
+    _makeTriggersQuery.options
+  ) as {
     data: IOCozyTrigger[]
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-  const { data: accounts } = useQuery(accountsConn.query, accountsConn) as {
+  const { data: accounts } = useQuery(
+    _makeAccountsQuery.definition(),
+    _makeAccountsQuery.options
+  ) as {
     data: IOCozyAccount[]
   }
+
   const { data: konnectors } = useQuery(
     konnectorsConn.query,
     konnectorsConn

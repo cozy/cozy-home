@@ -14,16 +14,20 @@ export const konnectorsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
-export const triggersConn = {
-  query: Q('io.cozy.triggers'),
-  as: 'io.cozy.triggers',
-  fetchPolicy: defaultFetchPolicy
+export const makeTriggersQuery = {
+  definition: () => Q('io.cozy.triggers'),
+  options: {
+    as: 'io.cozy.triggers',
+    fetchPolicy: defaultFetchPolicy
+  }
 }
 
-export const accountsConn = {
-  query: Q('io.cozy.accounts'),
-  as: 'io.cozy.accounts',
-  fetchPolicy: defaultFetchPolicy
+export const makeAccountsQuery = {
+  definition: () => Q('io.cozy.accounts'),
+  options: {
+    as: 'io.cozy.accounts',
+    fetchPolicy: defaultFetchPolicy
+  }
 }
 
 export const instanceSettingsConn = {
