@@ -1,5 +1,4 @@
 import { sortBy } from 'lodash'
-import { useSelector } from 'react-redux'
 import { useState, useEffect, useMemo, useCallback } from 'react'
 
 import type {
@@ -13,38 +12,32 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { Section } from 'components/Sections/SectionsTypes'
 import { fetchAllKonnectors } from 'components/Sections/queries/konnectors'
-import { getInstalledKonnectors } from 'selectors/konnectors'
-import { suggestedKonnectorsConn } from 'queries'
-import { formatServicesSections } from 'components/Sections/services/formatServicesSections'
+import {
+  accountsConn,
+  konnectorsConn,
+  suggestedKonnectorsConn,
+  triggersConn
+} from 'queries'
+import { formatServicesSections } from 'components/Sections/lib/formatServicesSections'
 
 export const useKonnectorsByCat = (): Section[] => {
   const client = useClient()
   const { t } = useI18n()
 
-  // Unsure how to handle the deps issues, useSelector should already be memoized
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const allTriggers =
-    useSelector(
-      (state: {
-        cozy: { documents: Record<string, Record<string, IOCozyTrigger>> }
-      }) => state.cozy.documents['io.cozy.triggers']
-    ) || {}
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const accounts =
-    useSelector(
-      (state: {
-        cozy: { documents: Record<string, Record<string, IOCozyAccount>> }
-      }) => state.cozy.documents['io.cozy.accounts']
-    ) || {}
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const konnectors: IOCozyKonnector[] =
-    useSelector(
-      getInstalledKonnectors as (
-        state: Record<string, unknown>
-      ) => IOCozyKonnector[]
-    ) || []
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  const { data: allTriggers } = useQuery(triggersConn.query, triggersConn) as {
+    data: IOCozyTrigger[]
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  const { data: accounts } = useQuery(accountsConn.query, accountsConn) as {
+    data: IOCozyAccount[]
+  }
+  const { data: konnectors } = useQuery(
+    konnectorsConn.query,
+    konnectorsConn
+  ) as {
+    data: IOCozyKonnector[]
+  }
 
   const appsAndKonnectorsInMaintenance = (
     useAppsInMaintenance as unknown as () => IOCozyApp[]

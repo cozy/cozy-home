@@ -14,12 +14,12 @@ export const STATUS = {
 
 /**
  * Get accounts from triggers
- * @param {Record<string, IOCozyAccount>} accounts
+ * @param {IOCozyAccount[]} accounts
  * @param {IOCozyTrigger[]} triggers
  * @returns {IOCozyAccount[]}
  */
 export const getAccountsFromTrigger = (
-  accounts: Record<string, IOCozyAccount>,
+  accounts: IOCozyAccount[],
   triggers: IOCozyTrigger[]
 ): IOCozyAccount[] => {
   const triggerAccountIds = triggers.map(trigger => trigger.message.account)
@@ -31,12 +31,12 @@ export const getAccountsFromTrigger = (
 
 /**
  * Get triggers by slug
- * @param {Record<string, IOCozyTrigger>} triggers
+ * @param {IOCozyTrigger[]} triggers
  * @param {IOCozyKonnector['slug']} slug
  * @returns {IOCozyTrigger[]}
  */
 export function getTriggersBySlug(
-  triggers: Record<string, IOCozyTrigger>,
+  triggers: IOCozyTrigger[],
   slug: IOCozyKonnector['slug']
 ): IOCozyTrigger[] {
   return Object.values(triggers).filter(trigger => {

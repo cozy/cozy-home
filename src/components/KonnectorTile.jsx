@@ -37,7 +37,6 @@ const getKonnectorError = ({ error, lang, konnector }) => {
  * @property {string} [STATUS.MAINTENANCE] - The status when under maintenance, represented as 'maintenance'.
  * @property {string} [STATUS.ERROR] - The status when there is an error, represented as 'error'.
  * @property {string} [STATUS.LOADING] - The status when loading, represented as 'loading'.
- * @property {string} [STATUS.HAS_ACCOUNT] - The status when there is an account, represented as 'ok'.
  */
 
 /**
@@ -48,8 +47,7 @@ const statusMap = {
   [STATUS.NO_ACCOUNT]: 'ghost',
   [STATUS.MAINTENANCE]: 'maintenance',
   [STATUS.ERROR]: 'error',
-  [STATUS.LOADING]: 'loading',
-  [STATUS.HAS_ACCOUNT]: 'ok'
+  [STATUS.LOADING]: 'loading'
 }
 
 /**

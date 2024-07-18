@@ -1,0 +1,9 @@
+{
+  "categoriesWhitelist": [
+    "banking",
+    "clouds",
+    "isp",
+    "energy",
+    "public_service"
+  ]
+}
