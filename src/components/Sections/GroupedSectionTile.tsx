@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Grid from 'cozy-ui/transpiled/react/Grid'
 
 import SectionAppGroup from 'components/Sections/SectionAppGroup'
 import { get4FirstItems } from 'components/Sections/utils'
@@ -26,30 +27,32 @@ const GroupedSectionTile = ({
   if (section.items.length === 0) return null
 
   return (
-    <a
-      key={section.id}
-      onClick={(): void =>
-        handleNavigation(
-          section.id,
-          section.type === 'category' ? 'konnectors' : 'shortcuts'
-        )
-      }
-      className="scale-hover u-c-pointer"
-    >
-      <SquareAppIcon
-        name={
-          section.type === 'category'
-            ? t(`category.${section.name}`)
-            : section.name
+    <Grid item xs>
+      <a
+        key={section.id}
+        onClick={(): void =>
+          handleNavigation(
+            section.id,
+            section.type === 'category' ? 'konnectors' : 'shortcuts'
+          )
         }
-        IconContent={<SectionAppGroup items={get4FirstItems(section)} />}
-        variant={section.pristine ? 'ghost' : 'normal'}
-        style={{
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start'
-        }}
-      />
-    </a>
+        className="scale-hover u-c-pointer"
+      >
+        <SquareAppIcon
+          name={
+            section.type === 'category'
+              ? t(`category.${section.name}`)
+              : section.name
+          }
+          IconContent={<SectionAppGroup items={get4FirstItems(section)} />}
+          variant={section.pristine ? 'ghost' : 'normal'}
+          style={{
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start'
+          }}
+        />
+      </a>
+    </Grid>
   )
 }
 

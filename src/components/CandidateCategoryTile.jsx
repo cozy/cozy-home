@@ -37,7 +37,7 @@ const CandidateCategoryTile = ({ slugs, category }) => {
             variant="ghost"
             name={t(`category.${category}`)}
             IconContent={
-              <Grid container spacing={0}>
+              <Grid container>
                 {slugs.slice(0, 4).map(slug => (
                   <Grid item xs={6} key={slug}>
                     <AppIcon

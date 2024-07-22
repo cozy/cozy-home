@@ -1,3 +1,28 @@
+.section-grid
+    padding 0 1rem
+    row-gap 1rem
+
+    &:not(.detailed) > div[class*='MuiGrid-grid-xs']
+        flex-basis 12.5%
+        flex-grow 0
+
+    a
+        text-decoration none
+
+    span[class*='MuiListItemText-primary']
+        color var(--primaryTextColor)
+        font-weight 700
+
+// SquareAppIcon in default mode is as wide as its text (margins included).
+// Values are 4.25rem for mobile and 6rem for desktop
+// Icon width is 3rem on mobile and 4rem on desktop
+// We have to offset that in the detailed mode container to keep icons aligned on the Y axis
+.detailed
+    padding 0 2rem // (6-4)/2 + 1 = 1, (tile width - icon width) / 2 + base padding
+
+    +small-screen()
+        padding 0 1.625rem // (4.25-3)/2 = 0.625, (tile width - icon width) / 2 + base padding
+
 .app-list, .services-list, .shortcuts-list
     appTileSize = 4rem
     appGridGutter = 2rem
@@ -46,8 +71,6 @@
         text-decoration none
         -webkit-tap-highlight-color transparent // https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
 
-// Hacks specific to categories display, at this point it decided not to modify cozy-ui
-
 // The CSS grid is no good in modal display because of the fluid width
 // To handle a more fixed design, we're using flexbox instead
 .dialogContentWrapper .shortcuts-list:not(.detailed)
@@ -69,13 +92,6 @@ div[class*='SquareAppIcon-icon-container'] .section-app-group
     align-self flex-start
     align-items flex-start
     justify-content flex-start
-
-// Color issue with SquareAppIcon in detailed mode (appears blue)
-.shortcuts-list span[class*='MuiListItemText-primary']
-    color var(--primaryTextColor)
-    font-weight 700
-
-// End of categories display hacks
 
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem

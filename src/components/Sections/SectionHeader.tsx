@@ -32,7 +32,7 @@ export const SectionHeader = ({
     <>
       <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
         {!isGroupMode ? (
-          <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
+          <Divider className="u-mv-2 u-flex-grow-1" variant="subtitle2">
             {section?.name}
           </Divider>
         ) : isCategory ? (

@@ -5,6 +5,7 @@ import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Grid from 'cozy-ui/transpiled/react/Grid'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
@@ -47,7 +48,11 @@ const getApplicationsList = memoize(data => {
         !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
     )
     const dedupapps = uniqBy(apps, 'slug')
-    const array = dedupapps.map(app => <AppTile key={app.id} app={app} />)
+    const array = dedupapps.map(app => (
+      <Grid key={app.id} item xs>
+        <AppTile app={app} />
+      </Grid>
+    ))
 
     array.push(
       <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
@@ -91,18 +96,20 @@ export const Applications = ({ onAppsFetched }) => {
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
-      <Divider className="u-mv-0" />
+      <Divider className="u-mv-2" />
 
-      <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
+      <Grid container className="section-grid">
         {getApplicationsList(data)}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
-            <ShortcutLink key={index} file={shortcut} />
+            <Grid key={index} item xs>
+              <ShortcutLink file={shortcut} />
+            </Grid>
           ))}
 
         {showLogout && <LogoutTile />}
-      </div>
+      </Grid>
     </div>
   )
 }

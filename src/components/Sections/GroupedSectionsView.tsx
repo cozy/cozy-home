@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Grid from 'cozy-ui/transpiled/react/Grid'
 
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
@@ -25,13 +26,17 @@ export const GroupedSectionView = ({
         menuState={menuState}
       />
 
-      <div className="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
+      <Grid container className="section-grid">
         {sections.map(section => (
           <GroupedSectionTile key={section.id} section={section} />
         ))}
 
-        {isServicesView && <AddServiceTile label={t('add_service')} />}
-      </div>
+        {isServicesView && (
+          <Grid item xs>
+            <AddServiceTile label={t('add_service')} />
+          </Grid>
+        )}
+      </Grid>
     </div>
   )
 }
