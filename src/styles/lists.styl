@@ -17,11 +17,15 @@
 // Values are 4.25rem for mobile and 6rem for desktop
 // Icon width is 3rem on mobile and 4rem on desktop
 // We have to offset that in the detailed mode container to keep icons aligned on the Y axis
+// All of this is not to be applied in the dialog mode
 .detailed
     padding 0 2rem // (6-4)/2 + 1 = 1, (tile width - icon width) / 2 + base padding
 
     +small-screen()
         padding 0 1.625rem // (4.25-3)/2 = 0.625, (tile width - icon width) / 2 + base padding
+
+.dialogContentWrapper .section-grid .detailed
+    padding 0 1rem
 
 .app-list, .services-list, .shortcuts-list
     appTileSize = 4rem
@@ -40,21 +44,10 @@
     grid-gap rem(10) 0
     justify-content center
 
-    &.detailed
-        grid-template-columns repeat(3, detailedAppTileWithGutter)
-        column-gap appGridGutter
-
     +small-screen()
         grid-template-columns repeat(auto-fill, mobileTileWithGutter)
         grid-auto-rows minmax(rem(68), auto)
         grid-gap rem(5) 0
-
-        &.detailed
-            grid-template-columns repeat(1, calc(100% - 2.5rem))
-            column-gap 0
-
-        div[class*='MuiGrid-grid-xs']
-            padding 2px
 
     .item-grid-icon
         width rem(16)
@@ -70,28 +63,6 @@
     a
         text-decoration none
         -webkit-tap-highlight-color transparent // https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
-
-// The CSS grid is no good in modal display because of the fluid width
-// To handle a more fixed design, we're using flexbox instead
-.dialogContentWrapper .shortcuts-list:not(.detailed)
-    display flex
-    flex-wrap wrap
-    align-items flex-start
-    justify-content space-between
-    // @stylint off
-    width calc(100% + 2rem) !important
-    // @stylint on
-    margin-left -1rem
-
-    &:after
-        content ''
-        flex auto
-
-// Grid alignment for group of 1 to 4 apps icons
-div[class*='SquareAppIcon-icon-container'] .section-app-group
-    align-self flex-start
-    align-items flex-start
-    justify-content flex-start
 
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem
@@ -120,16 +91,25 @@ div[class*='SquareAppIcon-icon-container'] .section-app-group
 .scale-hover:hover
     transform scale(1.0625)
 
-.section-app-group-grid
+.section-app-group
     display flex
-    align-items center
+    align-items flex-start
+    height 100%
 
 .section-app-group-icon
     display block
 
 .section-app-group-tile
-    display flex
-    justify-content center
-    width 100%
-    align-items center
-    min-width 14px
+    width rem(16)
+    height rem(16)
+    padding 2px
+
+    +small-screen()
+        width rem(12)
+        height rem(12)
+        padding 1px
+
+
+.item-grid-icon.ghost
+    filter saturate(0)
+

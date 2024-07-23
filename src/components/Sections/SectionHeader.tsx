@@ -38,7 +38,7 @@ export const SectionHeader = ({
         ) : isCategory ? (
           t(`category.${section.name}`)
         ) : (
-          section?.name
+          <div>{section?.name}</div>
         )}
 
         {!isCategory && section && (
@@ -75,3 +75,7 @@ export const SectionHeader = ({
     </>
   )
 }
+
+// 5 en 360
+// meme systeme entre les deux
+// probleme de padding sur colonne détaillée

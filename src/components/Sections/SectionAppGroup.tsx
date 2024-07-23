@@ -25,42 +25,41 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const icon = get(item, 'attributes.metadata.icon') as string
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
   return (
-    <Grid item xs={6} key={item.id} className="section-app-group-grid">
-      {item.type === 'konnector' ? (
-        <AppIcon
-          app={(item as IOCozyKonnector).slug}
-          type="konnector"
-          className={cx('item-grid-icon', {
-            ghost: item.status === STATUS.NO_ACCOUNT
-          })}
-        />
-      ) : icon ? (
-        <img
-          src={
-            iconMimeType
-              ? `data:${iconMimeType};base64,${icon}`
-              : `data:image/svg+xml;base64,${window.btoa(icon)}`
-          }
-          alt={item.name}
-          className="section-app-group-icon"
-        />
-      ) : (
-        <div
-          style={{ backgroundColor: typedNameToColor(item.name) }}
-          className="section-app-group-tile"
-        >
-          <Typography variant="subtitle2" align="center">
-            {item.name?.[0].toUpperCase()}
-          </Typography>
-        </div>
-      )}
+    <Grid item xs={6} key={item.id} className="section-app-group-tile">
+      <div className="section-app-group-inner-tile">
+        {item.type === 'konnector' ? (
+          <AppIcon
+            app={(item as IOCozyKonnector).slug}
+            type="konnector"
+            className={cx('item-grid-icon', {
+              ghost: item.status === STATUS.NO_ACCOUNT
+            })}
+          />
+        ) : icon ? (
+          <img
+            src={
+              iconMimeType
+                ? `data:${iconMimeType};base64,${icon}`
+                : `data:image/svg+xml;base64,${window.btoa(icon)}`
+            }
+            alt={item.name}
+            className="section-app-group-icon"
+          />
+        ) : (
+          <div style={{ backgroundColor: typedNameToColor(item.name) }}>
+            <Typography variant="subtitle2" align="center">
+              {item.name?.[0].toUpperCase()}
+            </Typography>
+          </div>
+        )}
+      </div>
     </Grid>
   )
 }
 
 const SectionAppGroup = ({ items }: SectionAppGroupProps): JSX.Element => {
   return (
-    <Grid container spacing={1} className="section-app-group">
+    <Grid container className="section-app-group">
       {items.map(item => (
         <SectionAppTile key={item.id ?? item.name} item={item} />
       ))}
