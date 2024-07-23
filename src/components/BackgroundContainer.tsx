@@ -28,12 +28,12 @@ export const BackgroundContainer = (): JSX.Element => {
           : undefined
       }
     >
+      <div />
+      <div />
+      <div />
       {!isCustomWallpaper && (
         <img className="home-default-background--img" src={DefaultWallpaper} />
       )}
-      <div></div>
-      <div></div>
-      <div></div>
     </div>
   )
 }
