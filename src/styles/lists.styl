@@ -2,34 +2,49 @@
     appTileSize = 4rem
     appGridGutter = 2rem
     mobileGridGutter = 1rem
-    mobileTileSize = 3rem
+    mobileTileSize = 2.5rem
+    tabletTileSize = 3rem
     white = #fff
     appTileWithGutter = appTileSize + appGridGutter
-    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - 2 * appGridGutter
+    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - 2.5rem
     mobileTileWithGutter = mobileTileSize + mobileGridGutter
+    tabletTileWithGutter = tabletTileSize + appGridGutter
     width 100%
     max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
     display grid
-    grid-template-columns repeat(auto-fill, appTileWithGutter)
+    grid-template-columns repeat(auto-fill, minmax(appTileWithGutter, 1fr))
     grid-auto-rows minmax(rem(91), auto)
     grid-gap rem(10) 0
     justify-content center
 
     &.detailed
-        grid-template-columns repeat(3, detailedAppTileWithGutter)
+        grid-template-columns repeat(3, 1fr)
         column-gap appGridGutter
+        width: calc(100% - 3rem) !important // @stylint ignore
+
+    &:not(.detailed)
+        width calc(100% - 1rem) !important // @stylint ignore
 
     +small-screen()
-        grid-template-columns repeat(auto-fill, mobileTileWithGutter)
+        grid-template-columns repeat(auto-fill, minmax(mobileTileWithGutter, 1fr))
         grid-auto-rows minmax(rem(68), auto)
         grid-gap rem(5) 0
 
         &.detailed
-            grid-template-columns repeat(1, calc(100% - 2.5rem))
+            grid-template-columns 1fr
             column-gap 0
+            width: calc(100% - 2rem) !important // @stylint ignore
 
         div[class*='MuiGrid-grid-xs']
             padding 2px
+
+    // 480px to 768px
+    @media (min-width: rem(size-helper('min', BP-tiny))) and (max-width: rem(size-helper('max', BP-small)))
+        grid-template-columns repeat(auto-fill, minmax(tabletTileWithGutter, 1fr))
+
+        &.detailed
+            // The exact min value does not need to be computed, 5rem is enough to handle the transition from 480 to 500px
+            grid-template-columns repeat(2, minmax(5rem, 1fr))
 
     .item-grid-icon
         width rem(16)
