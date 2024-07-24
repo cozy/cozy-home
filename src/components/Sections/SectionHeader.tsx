@@ -36,9 +36,9 @@ export const SectionHeader = ({
             {section?.name}
           </Divider>
         ) : isCategory ? (
-          t(`category.${section.name}`)
+          <div className="u-ellipsis">{t(`category.${section.name}`)}</div>
         ) : (
-          section?.name
+          <div className="u-ellipsis u-mr-half">{section?.name}</div>
         )}
 
         {!isCategory && section && (
