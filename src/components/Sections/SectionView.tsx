@@ -23,10 +23,10 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const isGroupMode =
     (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
   const { t } = useI18n()
-  const isSuggestionModal = Boolean(
+  const shouldOpenStoreModal = Boolean(
     section.type === 'category' && section.pristine
   )
-  const { isRunning, isSuggested } = useSections()
+  const { isRunning } = useSections()
 
   return (
     <div
@@ -41,7 +41,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       {(section.items as IOCozyKonnector[]).map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
-            isSuggestion={isSuggestionModal || isSuggested(item.slug)}
+            shouldOpenStore={shouldOpenStoreModal}
             key={item.slug}
             konnector={item}
             isInMaintenance={false}
@@ -52,7 +52,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         )
       )}
 
-      {!isSuggestionModal && section.type === 'category' && (
+      {!shouldOpenStoreModal && section.type === 'category' && (
         <AddServiceTile label={t('add_service')} category={section.name} />
       )}
     </div>
