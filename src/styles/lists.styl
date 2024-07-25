@@ -2,11 +2,11 @@
     appTileSize = 4rem
     appGridGutter = 2rem
     mobileGridGutter = 1rem
-    mobileTileSize = 2.5rem
+    mobileTileSize = 3rem
     tabletTileSize = 3rem
     white = #fff
     appTileWithGutter = appTileSize + appGridGutter
-    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - 2.5rem
+    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - .5rem
     mobileTileWithGutter = mobileTileSize + mobileGridGutter
     tabletTileWithGutter = tabletTileSize + appGridGutter
     width 100%
@@ -17,13 +17,13 @@
     grid-gap rem(10) 0
     justify-content center
 
+
+    // Caution: this section is full of magic numbers
+    // TODO: refactor this to use computed values to avoid glitches in the grid system
     &.detailed
         grid-template-columns repeat(3, 1fr)
         column-gap appGridGutter
-        width: calc(100% - 3rem) !important // @stylint ignore
-
-    &:not(.detailed)
-        width calc(100% - 1rem) !important // @stylint ignore
+        width: calc(100% - 2rem) !important // @stylint ignore
 
     +small-screen()
         grid-template-columns repeat(auto-fill, minmax(mobileTileWithGutter, 1fr))
@@ -33,7 +33,7 @@
         &.detailed
             grid-template-columns 1fr
             column-gap 0
-            width: calc(100% - 2rem) !important // @stylint ignore
+            width: calc(100% - 1.25rem) !important // @stylint ignore
 
         div[class*='MuiGrid-grid-xs']
             padding 2px
@@ -42,9 +42,14 @@
     @media (min-width: rem(size-helper('min', BP-tiny))) and (max-width: rem(size-helper('max', BP-small)))
         grid-template-columns repeat(auto-fill, minmax(tabletTileWithGutter, 1fr))
 
+        &:not(.detailed)
+            div[class*='tileWrapper']
+                width 5.25rem // Need this to align the tiles with the grid
+
         &.detailed
             // The exact min value does not need to be computed, 5rem is enough to handle the transition from 480 to 500px
             grid-template-columns repeat(2, minmax(5rem, 1fr))
+            width: calc(100% - 2.25rem) !important // @stylint ignore
 
     .item-grid-icon
         width rem(16)
