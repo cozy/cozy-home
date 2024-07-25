@@ -122,14 +122,14 @@ const getFirstUserError = triggers => {
  * @param {boolean} props.isInMaintenance Is in maintenance
  * @param {boolean} props.loading isLoading ?
  * @param {import('cozy-client/types/types').IOCozyKonnector} props.konnector
- * @param {boolean} [props.isSuggestion=false] The Konnector is not installed and is displayed as a suggestion
+ * @param {boolean} [props.shouldOpenStore=false] The Konnector should open the store when clicked (ie it's a forced suggestion)
  * @returns
  */
 export const KonnectorTile = ({
   konnector,
   isInMaintenance,
   loading,
-  isSuggestion = false
+  shouldOpenStore = false
 }) => {
   const allTriggers =
     // @ts-ignore
@@ -162,7 +162,7 @@ export const KonnectorTile = ({
 
   // Navigate to the store if the konnector is a suggestion (ie not installed)
   const handleSuggestionClick = event => {
-    if (!isSuggestion) return // Should not happen but just in case
+    if (!shouldOpenStore) return // Should not happen but just in case
 
     event.preventDefault() // Prevent the default behavior of NavLink to avoid navigating to the konnector hash
 
@@ -190,7 +190,7 @@ export const KonnectorTile = ({
         konnector
       })}
       className="scale-hover"
-      {...(isSuggestion ? { onClick: handleSuggestionClick } : {})}
+      {...(shouldOpenStore ? { onClick: handleSuggestionClick } : {})}
     >
       <SquareAppIcon
         app={konnector}
