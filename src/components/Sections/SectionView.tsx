@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import cx from 'classnames'
 
 import type { IOCozyKonnector } from 'cozy-client/types/types'
@@ -16,41 +16,52 @@ import {
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
 import { useSections } from './SectionsContext'
+import CandidateServiceTile from 'components/CandidateServiceTile'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
   const currentDisplayMode = computeDisplayMode(isMobile, section)
-  const isGroupMode =
-    (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
+  const isGroupMode = computeGroupMode(isMobile, section) === GroupMode.GROUPED
   const { t } = useI18n()
-  const shouldOpenStoreModal = Boolean(
-    section.type === 'category' && section.pristine
-  )
-  const { isRunning } = useSections()
+  const shouldOpenStoreModal = section.type === 'category' && section.pristine
+  const { isRunning, isInMaintenance } = useSections()
 
   return (
     <div
       className={cx(
-        'shortcuts-list u-w-100 ',
+        'shortcuts-list u-w-100',
         {
           'u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center': !isGroupMode
         },
-        { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
+        { detailed: currentDisplayMode === DisplayMode.DETAILED }
       )}
     >
-      {(section.items as IOCozyKonnector[]).map((item, index) =>
-        item.type === 'konnector' ? (
-          <KonnectorTile
-            shouldOpenStore={shouldOpenStoreModal}
-            key={item.slug}
-            konnector={item}
-            isInMaintenance={false}
-            loading={isRunning(item.slug)}
-          />
-        ) : (
-          <ShortcutLink key={index} file={item} display={currentDisplayMode} />
-        )
-      )}
+      {(section.items as IOCozyKonnector[]).map((item, index) => {
+        if (
+          item.type === 'konnector' ||
+          item._type === 'io.cozy.apps.suggestions'
+        ) {
+          return item._type === 'io.cozy.apps.suggestions' ? (
+            <CandidateServiceTile key={item.slug} konnector={item} />
+          ) : (
+            <KonnectorTile
+              shouldOpenStore={shouldOpenStoreModal}
+              key={item.slug}
+              konnector={item}
+              isInMaintenance={isInMaintenance(item.slug)}
+              loading={isRunning(item.slug)}
+            />
+          )
+        } else {
+          return (
+            <ShortcutLink
+              key={index}
+              file={item}
+              display={currentDisplayMode}
+            />
+          )
+        }
+      })}
 
       {!shouldOpenStoreModal && section.type === 'category' && (
         <AddServiceTile label={t('add_service')} category={section.name} />
@@ -61,7 +72,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
 
 export const SectionView = ({ section }: SectionViewProps): JSX.Element => {
   const [menuState, setMenuState] = useState(false)
-  const anchorRef = React.useRef(null)
+  const anchorRef = useRef(null)
   const toggleMenu = (): void => setMenuState(!menuState)
 
   return (

@@ -128,4 +128,5 @@ export interface SectionsContextValue {
   displayTutorialTip: boolean
   isRunning: (slug: string) => boolean
   isSuggested: (slug: string) => boolean
+  isInMaintenance: (slug: string) => boolean
 }
