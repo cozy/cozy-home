@@ -89,12 +89,13 @@ export const formatServicesSections = (
     const installedItems = availableItems.filter(item =>
       installedKonnectorNames.has(item.name)
     )
-    const suggestedItems = availableItems.filter(item =>
-      suggestedKonnectors.some(k => k.slug === item.slug)
-    )
+    const suggestedKonnectorsWithName = suggestedKonnectors.map(k => ({
+      ...k,
+      name: availableItems.find(i => i.slug === k.slug)?.name || k.slug
+    }))
     const itemsToSort =
       installedItems.length > 0
-        ? [...installedItems, ...suggestedItems]
+        ? [...installedItems, ...(suggestedKonnectorsWithName ?? [])]
         : availableItems
 
     const sortedItems = processAndSortItems(itemsToSort, allTriggers, accounts)
