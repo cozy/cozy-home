@@ -24,9 +24,11 @@ const typedNameToColor = nameToColor as (name: string) => string
 const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const icon = get(item, 'attributes.metadata.icon') as string
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
+
   return (
     <Grid item xs={6} key={item.id} className="section-app-group-grid">
-      {item.type === 'konnector' ? (
+      {item.type === 'konnector' ||
+      item._type === 'io.cozy.apps.suggestions' ? (
         <AppIcon
           app={(item as IOCozyKonnector).slug}
           type="konnector"
