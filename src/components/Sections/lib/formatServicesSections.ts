@@ -12,12 +12,6 @@ import {
 import { Section } from 'components/Sections/SectionsTypes'
 import config from 'components/Sections/config.json'
 
-// Helper functions
-const isItemInMaintenance = (
-  maintenanceSlugs: Set<string>,
-  item: IOCozyKonnector
-): boolean => !maintenanceSlugs.has(item.slug)
-
 const getItemStatus = (accountsForKonnector: IOCozyAccount[]): number =>
   accountsForKonnector && accountsForKonnector.length > 0
     ? STATUS.OK
@@ -66,7 +60,6 @@ const processAndSortItems = (
     .sort(sortItemsByStatusAndName)
 }
 
-// Main transformation function
 export const formatServicesSections = (
   data: { [key: string]: (IOCozyKonnector & { status?: string })[] },
   installedKonnectors: IOCozyKonnector[],
@@ -76,30 +69,46 @@ export const formatServicesSections = (
   allTriggers: IOCozyTrigger[],
   accounts: IOCozyAccount[]
 ): Section[] => {
+  // Create sets for fast lookup
   const installedKonnectorNames = new Set(installedKonnectors.map(k => k.name))
   const maintenanceSlugs = new Set(
     appsAndKonnectorsInMaintenance.map(k => k.slug)
   )
 
+  // Map each category to a section
   const sections: Section[] = Object.keys(data).map(key => {
     const allItems = data[key] || []
-    const availableItems = allItems.filter(item =>
-      isItemInMaintenance(maintenanceSlugs, item)
+    // Filter out items that are in maintenance
+    const availableItems = allItems.filter(
+      item => !maintenanceSlugs.has(item.slug)
     )
+    // Filter items that are installed
     const installedItems = availableItems.filter(item =>
       installedKonnectorNames.has(item.name)
     )
-    const suggestedKonnectorsWithName = suggestedKonnectors.map(k => ({
-      ...k,
-      name: availableItems.find(i => i.slug === k.slug)?.name || k.slug
-    }))
+
+    // Enhance suggestedKonnectors with names from availableItems only if they are in availableItems
+    const suggestedKonnectorsWithName = suggestedKonnectors
+      .map(k => ({
+        ...k,
+        name: availableItems.find(i => i.slug === k.slug)?.name || k.slug
+      }))
+      .filter(suggestedKonnector =>
+        availableItems.some(
+          availableItem => availableItem.slug === suggestedKonnector.slug
+        )
+      )
+
+    // Determine the items to be sorted
     const itemsToSort =
       installedItems.length > 0
-        ? [...installedItems, ...(suggestedKonnectorsWithName ?? [])]
+        ? [...installedItems, ...suggestedKonnectorsWithName]
         : availableItems
 
+    // Sort the items
     const sortedItems = processAndSortItems(itemsToSort, allTriggers, accounts)
 
+    // Construct the section
     return {
       name: key,
       items: sortedItems,
@@ -116,6 +125,7 @@ export const formatServicesSections = (
     }
   })
 
+  // Filter and sort the sections
   return sections
     .filter(section =>
       shouldIncludeSection(section, config.categoriesWhitelist)
