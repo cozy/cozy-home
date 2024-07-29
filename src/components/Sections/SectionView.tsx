@@ -37,22 +37,17 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       )}
     >
       {(section.items as IOCozyKonnector[]).map((item, index) => {
-        if (
-          item.type === 'konnector' ||
-          item._type === 'io.cozy.apps.suggestions'
-        ) {
-          return item._type === 'io.cozy.apps.suggestions' ? (
-            <CandidateServiceTile key={item.slug} konnector={item} />
-          ) : (
-            <KonnectorTile
+        if (item._type === 'io.cozy.apps.suggestions') {
+          return <CandidateServiceTile key={item.slug} konnector={item} />
+        } else if (item.type === 'konnector') {
+          <KonnectorTile
               shouldOpenStore={shouldOpenStoreModal}
               key={item.slug}
               konnector={item}
               isInMaintenance={isInMaintenance(item.slug)}
               loading={isRunning(item.slug)}
             />
-          )
-        } else {
+          } else {
           return (
             <ShortcutLink
               key={index}
