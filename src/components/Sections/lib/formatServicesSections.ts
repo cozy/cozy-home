@@ -159,8 +159,13 @@ export const formatServicesSections = (
         // Filter out items that are in maintenance
         const availableItems = allItems.filter(isAvailable)
 
+        // Filter out items that are in maintenance but keep installed ones
+        const availableOrInstalledItems = allItems.filter(
+          item => isAvailable(item) || isInstalled(item)
+        )
+
         // Filter out items that are installed
-        const installedItems = availableItems.filter(isInstalled)
+        const installedItems = availableOrInstalledItems.filter(isInstalled)
 
         // Get suggested konnectors that are also in available items, enhancing their names
         const suggestedKonnectorsWithName = getEnhancedSuggestedKonnectors(
