@@ -6,7 +6,7 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const FooterLogo = () => {
   const client = useClient()
-  const { type, variant } = useCozyTheme()
+  const { type } = useCozyTheme()
   const rootURL = client.getStackClient().uri
 
   const contextQuery = buildContextQuery()
@@ -25,13 +25,15 @@ export const FooterLogo = () => {
     <footer>
       <Divider />
       <div className="u-flex">
-        <div className="u-flex u-mh-auto u-maw-100 u-flex-items-center">
+        <div
+          className={`u-flex u-mh-auto u-maw-100 u-flex-items-center home-footer-logo-${type}`}
+        >
           {hasMain ? (
             <img
               key={main.src}
               src={`${rootURL}/assets${main.src}`}
               alt={main.alt}
-              className="u-ph-1 u-pv-1 u-mah-3"
+              className={`u-ph-1 u-pv-1 u-mah-3 home-footer-logo-${type}--primary`}
             />
           ) : null}
           {hasMain && hasSecondaries ? (
@@ -46,14 +48,8 @@ export const FooterLogo = () => {
                   key={src}
                   src={`${rootURL}/assets${src}`}
                   alt={alt}
-                  className="u-ph-1 u-mah-3"
-                  style={{
-                    objectFit: 'contain',
-                    filter:
-                      type === 'dark' && variant === 'normal'
-                        ? 'brightness(10)'
-                        : undefined
-                  }}
+                  className={`u-ph-1 u-mah-3 home-footer-logo-${type}--secondary`}
+                  style={{ objectFit: 'contain' }}
                 />
               ))}
             </div>
