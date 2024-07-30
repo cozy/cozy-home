@@ -21,7 +21,7 @@
     // Caution: this section is full of magic numbers
     // TODO: refactor this to use computed values to avoid glitches in the grid system
     &.detailed
-        grid-template-columns repeat(3, 1fr)
+        grid-template-columns repeat(3, minmax(0, 1fr))
         column-gap appGridGutter
         width: calc(100% - 2rem) !important // @stylint ignore
 
@@ -31,7 +31,7 @@
         grid-gap rem(5) 0
 
         &.detailed
-            grid-template-columns 1fr
+            grid-template-columns minmax(0, 1fr)
             column-gap 0
             width: calc(100% - 1.25rem) !important // @stylint ignore
 
