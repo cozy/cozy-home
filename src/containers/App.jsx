@@ -1,6 +1,6 @@
 /* global __SIMULATE_FLAGSHIP__ */
 import React, { useEffect, useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route } from 'react-router-dom'
 
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from 'cozy-minilog'
@@ -41,6 +41,7 @@ import {
 } from 'queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from 'components/Sections/SectionDialog'
+import { SentryRoutes } from 'lib/sentry'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -152,7 +153,7 @@ const App = ({ accounts, konnectors, triggers }) => {
           )}
           {!isFetching && (
             <>
-              <Routes>
+              <SentryRoutes>
                 <Route
                   path="/connected"
                   element={
@@ -177,7 +178,7 @@ const App = ({ accounts, konnectors, triggers }) => {
                 <Route path="/redirect" element={<IntentRedirect />} />
 
                 <Route path="*" element={<Navigate to="connected" />} />
-              </Routes>
+              </SentryRoutes>
             </>
           )}
 
