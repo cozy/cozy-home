@@ -19,7 +19,8 @@ module.exports = {
     url: 'http://cozy.localhost:8080/'
   },
   transform: {
-    '^.+\\.(ts|tsx|js|jsx)?$': 'babel-jest'
+    '^.+\\.(ts|tsx|js|jsx)?$': 'babel-jest',
+    '^.+\\.webapp$': '<rootDir>/test/jestLib/json-transformer.js'
   },
   transformIgnorePatterns: [
     'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core|copy-text-to-clipboard)'
