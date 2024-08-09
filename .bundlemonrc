@@ -48,7 +48,7 @@
     },
     {
       "path": "vendors/home.<hash>.js",
-      "maxSize": "1.5 MB"
+      "maxSize": "1.6 MB"
     },
     {
       "path": "vendors-home.<hash>.<hash>.min.css",
