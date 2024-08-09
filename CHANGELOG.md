@@ -1,3 +1,49 @@
+# 1.80.0
+
+## ✨ Features
+
+* [Describe new features here]
+* [Describe new features here]
+* [Describe new features here]
+
+## 🐛 Bug Fixes
+
+* [Describe bug fixes here]
+* [Describe bug fixes here]
+* [Describe bug fixes here]
+
+## 🔧 Tech
+
+* [Describe tech updates here]
+* [Describe tech updates here]
+* [Describe tech updates here]
+
+# 1.79.0
+
+## ✨ Features
+
+* Improved animations on mobile devices
+* Enabled the possibility to use detailed view for Services
+* Added new default wallpaper
+
+## 🐛 Bug Fixes
+
+* The color of the message for empty services is now theme-responsive
+* Fixed a crash of the viewer inside the harvest modal in some cases
+* Submit 2FA on the 2FA submit button click
+* Improved CSS grid for responsiveness
+* Micro-adjusted CSS for background in some cases:
+  * Moved custom wallpaper after empty div for overrides
+  * Background wasn't fullscreen in browsers with small screens
+  * Scrollbar was over the content
+* Added multiple improvements to shortcuts grids
+
+## 🔧 Tech
+
+* Updated `cozy-ui` from `110.8.1` to `110.8.2`
+* Updated `cozy-harvest-lib` from `27.0.0` to `27.0.1`
+* Replaced deprecated `Alerter` with the latest version
+
 # 1.49.0
 
 ## ✨ Features
