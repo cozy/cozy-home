@@ -11,3 +11,5 @@ declare module 'assets/*' {
   const assets: string
   export default assets
 }
+
+declare module 'react-swipeable-views'

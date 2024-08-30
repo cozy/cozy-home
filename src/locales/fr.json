@@ -600,5 +600,10 @@
     "label_compact": "Mosaïque condensée",
     "label_detailed": "Liste détaillée",
     "label_grouped": "Regroupé en dossier"
+  },
+  "AnnouncementsDialogContent": {
+    "dateFormat": "DD/MM/YYYY",
+    "next": "Message suivant",
+    "understand": "J'ai compris"
   }
 }

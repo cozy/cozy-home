@@ -1,0 +1,105 @@
+import React, { FC } from 'react'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import Buttons from 'cozy-ui/transpiled/react/Buttons'
+
+import { Announcement } from './types'
+import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
+
+interface AnnouncementsDialogContentProps {
+  isLast: boolean
+  announcement: Announcement
+  onDismiss: () => void
+  onNext: () => void
+}
+
+const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
+  isLast,
+  announcement,
+  onDismiss,
+  onNext
+}) => {
+  const { t, f } = useI18n()
+  const primaryImage = useAnnouncementsImage(
+    announcement.attributes.primary_image.data.attributes.formats.small.url
+  )
+  const secondaryImage = useAnnouncementsImage(
+    announcement.attributes.secondary_image.data?.attributes.formats.thumbnail
+      .url
+  )
+
+  const handleMainAction = (): void => {
+    if (announcement.attributes.main_action?.link) {
+      window.open(announcement.attributes.main_action.link, '_blank')
+    }
+  }
+
+  return (
+    <div className="u-flex u-flex-column u-flex-items-center">
+      {primaryImage ? (
+        <img
+          src={primaryImage}
+          alt={
+            announcement.attributes.primary_image.data.attributes
+              .alternativeText
+          }
+          className="u-mt-1 u-mb-2 u-bdrs-3 u-maw-100"
+          style={{
+            objectFit: 'cover',
+            objectPosition: '100% 0'
+          }}
+        />
+      ) : null}
+      <Typography align="center" className="u-mb-half" variant="h3">
+        {announcement.attributes.title}
+      </Typography>
+      <Typography
+        align="center"
+        color="textSecondary"
+        className="u-mb-1"
+        variant="body2"
+      >
+        {f(
+          announcement.attributes.start_at,
+          t('AnnouncementsDialogContent.dateFormat')
+        )}
+      </Typography>
+      <Typography align="center" className="u-mb-1">
+        {announcement.attributes.content}
+      </Typography>
+      {announcement.attributes.main_action ? (
+        <Buttons
+          className="u-mb-half"
+          variant="secondary"
+          label={announcement.attributes.main_action.label}
+          onClick={handleMainAction}
+        />
+      ) : null}
+      <Buttons
+        label={t(
+          isLast
+            ? 'AnnouncementsDialogContent.understand'
+            : 'AnnouncementsDialogContent.next'
+        )}
+        variant="secondary"
+        onClick={isLast ? onDismiss : onNext}
+      />
+      {secondaryImage ? (
+        <img
+          src={secondaryImage}
+          alt={
+            announcement.attributes.secondary_image.data?.attributes
+              .alternativeText
+          }
+          className="u-mt-1 u-w-2 u-h-2"
+          style={{
+            objectFit: 'cover',
+            objectPosition: '100% 0'
+          }}
+        />
+      ) : null}
+    </div>
+  )
+}
+
+export { AnnouncementsDialogContent }

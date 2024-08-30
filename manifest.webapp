@@ -98,6 +98,16 @@
     "identities": {
       "description": "Required to display identities debug data",
       "type": "io.cozy.identities"
+    },
+    "announcements-dev": {
+      "type": "cc.cozycloud.announcements.dev",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements, for development purposes"
+    },
+    "announcements-uploads-dev": {
+      "type": "cc.cozycloud.announcements.dev.uploads",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements images, for development purposes"
     }
   },
   "routes": {
