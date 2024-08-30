@@ -42,6 +42,7 @@ import {
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from 'components/Sections/SectionDialog'
 import { SentryRoutes } from 'lib/sentry'
+import { Announcements } from 'components/Announcements/Announcements'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -134,6 +135,7 @@ const App = ({ accounts, konnectors, triggers }) => {
       <ReloadFocus />
       <MainView>
         <BackupNotification />
+        <Announcements />
         <Corner />
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"

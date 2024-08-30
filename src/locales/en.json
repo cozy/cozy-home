@@ -600,5 +600,10 @@
     "label_compact": "Compact Mosaic",
     "label_detailed": "Detailed List",
     "label_grouped": "Grouped in Folder"
+  },
+  "AnnouncementsDialogContent": {
+    "dateFormat": "MM/DD/YYYY",
+    "next": "Next message",
+    "understand": "I understand"
   }
 }

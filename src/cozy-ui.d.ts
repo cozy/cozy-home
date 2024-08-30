@@ -42,8 +42,15 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
 
   const Dialog: (props: DialogProps) => JSX.Element
   const ConfirmDialog: (props: ConfirmDialogProps) => JSX.Element
+  const FixedActionsDialog: (props: DialogProps) => JSX.Element
 
-  export { ConfirmDialog, ConfirmDialogProps, Dialog, DialogProps }
+  export {
+    ConfirmDialog,
+    FixedActionsDialog,
+    ConfirmDialogProps,
+    Dialog,
+    DialogProps
+  }
 }
 
 declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
@@ -65,7 +72,11 @@ declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
 }
 
 declare module 'cozy-ui/transpiled/react/providers/I18n' {
-  export const useI18n: () => { t: (key: string) => string; lang: string }
+  export const useI18n: () => {
+    t: (key: string) => string
+    lang: string
+    f: (date: string, format: string) => string
+  }
 }
 
 declare module 'cozy-ui/transpiled/react/Buttons' {
@@ -103,4 +114,10 @@ declare module 'cozy-ui/transpiled/react/styles' {
 
 declare module 'cozy-ui/react/Avatar/helpers' {
   export function nameToColor(name: string): string
+}
+
+declare module 'cozy-ui/transpiled/react/Typography' {
+  export default function Typography(
+    props: Record<string, unknown>
+  ): JSX.Element
 }
