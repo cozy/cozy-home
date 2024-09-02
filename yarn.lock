@@ -3448,27 +3448,6 @@
     "@sentry/types" "7.118.0"
     "@sentry/utils" "7.118.0"
 
-"@sentry/browser@^6.0.1":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.13.2.tgz#8b731ecf8c3cdd92a4b6893a26f975fd5844056d"
-  integrity sha512-bkFXK4vAp2UX/4rQY0pj2Iky55Gnwr79CtveoeeMshoLy5iDgZ8gvnLNAz7om4B9OQk1u7NzLEa4IXAmHTUyag==
-  dependencies:
-    "@sentry/core" "6.13.2"
-    "@sentry/types" "6.13.2"
-    "@sentry/utils" "6.13.2"
-    tslib "^1.9.3"
-
-"@sentry/core@6.13.2":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.13.2.tgz#2ce164f81667aa89cd116f807d772b4718434583"
-  integrity sha512-snXNNFLwlS7yYxKTX4DBXebvJK+6ikBWN6noQ1CHowvM3ReFBlrdrs0Z0SsSFEzXm2S4q7f6HHbm66GSQZ/8FQ==
-  dependencies:
-    "@sentry/hub" "6.13.2"
-    "@sentry/minimal" "6.13.2"
-    "@sentry/types" "6.13.2"
-    "@sentry/utils" "6.13.2"
-    tslib "^1.9.3"
-
 "@sentry/core@7.118.0":
   version "7.118.0"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.118.0.tgz#1549b49621bc05a8df16c3546793a299b0638559"
@@ -3476,15 +3455,6 @@
   dependencies:
     "@sentry/types" "7.118.0"
     "@sentry/utils" "7.118.0"
-
-"@sentry/hub@6.13.2":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.13.2.tgz#ebc66fd55c96c7686a53ffd3521b6a63f883bb79"
-  integrity sha512-sppSuJdNMiMC/vFm/dQowCBh11uTrmvks00fc190YWgxHshodJwXMdpc+pN61VSOmy2QA4MbQ5aMAgHzPzel3A==
-  dependencies:
-    "@sentry/types" "6.13.2"
-    "@sentry/utils" "6.13.2"
-    tslib "^1.9.3"
 
 "@sentry/integrations@7.118.0":
   version "7.118.0"
@@ -3495,15 +3465,6 @@
     "@sentry/types" "7.118.0"
     "@sentry/utils" "7.118.0"
     localforage "^1.8.1"
-
-"@sentry/minimal@6.13.2":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.13.2.tgz#de3ecc62b9463bf56ccdbcf4c75f7ea1aeeebc11"
-  integrity sha512-6iJfEvHzzpGBHDfLxSHcGObh73XU1OSQKWjuhDOe7UQDyI4BQmTfcXAC+Fr8sm8C/tIsmpVi/XJhs8cubFdSMw==
-  dependencies:
-    "@sentry/hub" "6.13.2"
-    "@sentry/types" "6.13.2"
-    tslib "^1.9.3"
 
 "@sentry/react@7.118.0":
   version "7.118.0"
@@ -3526,23 +3487,10 @@
     "@sentry/types" "7.118.0"
     "@sentry/utils" "7.118.0"
 
-"@sentry/types@6.13.2":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.13.2.tgz#8388d5b92ea8608936e7aae842801dc90e0184e6"
-  integrity sha512-6WjGj/VjjN8LZDtqJH5ikeB1o39rO1gYS6anBxiS3d0sXNBb3Ux0pNNDFoBxQpOhmdDHXYS57MEptX9EV82gmg==
-
 "@sentry/types@7.118.0":
   version "7.118.0"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.118.0.tgz#ca3ab06912f60bc2a7ccf2d2e5ccf43985851aef"
   integrity sha512-2drqrD2+6kgeg+W/ycmiti3G4lJrV3hGjY9PpJ3bJeXrh6T2+LxKPzlgSEnKFaeQWkXdZ4eaUbtTXVebMjb5JA==
-
-"@sentry/utils@6.13.2":
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.13.2.tgz#fb8010e7b67cc8c084d8067d64ef25289269cda5"
-  integrity sha512-foF4PbxqPMWNbuqdXkdoOmKm3quu3PP7Q7j/0pXkri4DtCuvF/lKY92mbY0V9rHS/phCoj+3/Se5JvM2ymh2/w==
-  dependencies:
-    "@sentry/types" "6.13.2"
-    tslib "^1.9.3"
 
 "@sentry/utils@7.118.0":
   version "7.118.0"
@@ -6121,13 +6069,12 @@ cozy-flags@3.2.2:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^27.0.1:
-  version "27.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-27.0.1.tgz#240399810775621c1ef8f704660811e7090d3adf"
-  integrity sha512-uALRaixtx3bgujwsHEo4s2W04rnVN8LBtlAHCk3lW/hs2+ytnHaL3bQN1ox87sU3ze+Aqq4CfOgDaQ/pDOlCUQ==
+cozy-harvest-lib@29.0.0:
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-29.0.0.tgz#67a1c2943c1612320fade04e395695602d24c82a"
+  integrity sha512-6r+G0cZrd2j2NZZAoO2QNE7gdPTYKEgt88hi5XDfmmLOgCcE53pE22f0SGAwoUvf0dH87rIrn57uAPQrQQZlbQ==
   dependencies:
     "@cozy/minilog" "^1.0.0"
-    "@sentry/browser" "^6.0.1"
     classnames "^2.3.1"
     cozy-bi-auth "0.0.25"
     cozy-doctypes "^1.91.1"
