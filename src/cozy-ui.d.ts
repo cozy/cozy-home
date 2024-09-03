@@ -3,6 +3,12 @@ declare module 'cozy-ui/transpiled/react/*' {
   export default component
 }
 
+declare module 'cozy-ui/transpiled/react/Typography' {
+  export default function Typography(
+    props: Record<string, unknown>
+  ): JSX.Element
+}
+
 declare module 'cozy-ui/transpiled/react/CozyDialogs' {
   import { ReactNode } from 'react'
 
