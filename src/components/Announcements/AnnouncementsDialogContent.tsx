@@ -21,7 +21,8 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
 }) => {
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
-    announcement.attributes.primary_image.data.attributes.formats.small.url
+    announcement.attributes.primary_image.data.attributes.formats.small?.url ??
+      announcement.attributes.primary_image.data.attributes.url
   )
   const secondaryImage = useAnnouncementsImage(
     announcement.attributes.secondary_image.data?.attributes.formats.thumbnail
