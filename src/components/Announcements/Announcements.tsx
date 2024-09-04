@@ -22,7 +22,7 @@ const Announcements: FC = () => {
 
   const moreThan = config?.delayAfterDismiss ?? 24
   const hasBeenDismissedForMoreThan = values.dismissedAt
-    ? differenceInHours(Date.parse(values.dismissedAt), new Date()) >= moreThan
+    ? differenceInHours(new Date(), Date.parse(values.dismissedAt)) >= moreThan
     : true
   const canBeDisplayed = !hasBeenDismissed && hasBeenDismissedForMoreThan
   const announcements = useAnnouncements({

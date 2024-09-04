@@ -27,7 +27,7 @@ const useAnnouncements = ({
   const [fetchStatus, setFetchStatus] = useState('pending')
   const [rawData, setRawData] = useState<Announcement[] | null>(null)
   const [unseenData, setUnseenData] = useState<Announcement[]>([])
-  const [hasBeenFiltered, setHasBeenFiltered] = useState(false)
+  const [hasStartedFiltering, setHasStartedFiltering] = useState(false)
   const config = flag<AnnouncementsConfigFlag>('home.announcements')
   const { values, save } = useAnnouncementsSettings()
 
@@ -65,7 +65,8 @@ const useAnnouncements = ({
   }, [client?.stackClient, config, fetchStatus, lang, values, canBeDisplayed])
 
   useEffect(() => {
-    if (rawData !== null && values && !hasBeenFiltered) {
+    if (rawData !== null && values && !hasStartedFiltering) {
+      setHasStartedFiltering(true)
       const uuidsSeen = values.seen ?? []
       const uuidsFromApi = rawData.map(({ attributes }) => attributes.uuid)
 
@@ -83,9 +84,8 @@ const useAnnouncements = ({
       save({ seen: uuidsInCommon })
 
       setUnseenData(unseenData)
-      setHasBeenFiltered(true)
     }
-  }, [hasBeenFiltered, rawData, values, save])
+  }, [hasStartedFiltering, rawData, values, save])
 
   return unseenData
 }

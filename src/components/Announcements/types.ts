@@ -14,11 +14,12 @@ export interface Announcement {
       data: {
         attributes: {
           formats: {
-            small: {
+            small?: {
               url: string
             }
           }
           alternativeText?: string
+          url: string
         }
       }
     }
