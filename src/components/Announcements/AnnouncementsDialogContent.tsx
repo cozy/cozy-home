@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
+
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
+import Markdown from 'cozy-ui/transpiled/react/Markdown'
 
 import { Announcement } from './types'
 import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
@@ -65,9 +67,9 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
           t('AnnouncementsDialogContent.dateFormat')
         )}
       </Typography>
-      <Typography align="center" className="u-mb-1">
-        {announcement.attributes.content}
-      </Typography>
+      <div className="u-ta-center u-maw-100">
+        <Markdown content={announcement.attributes.content} />
+      </div>
       {announcement.attributes.main_action ? (
         <Buttons
           className="u-mb-half"
