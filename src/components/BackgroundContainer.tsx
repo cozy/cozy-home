@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import DefaultWallpaper from 'assets/images/default-wallpaper.svg'
+import DefaultWallpaper from 'assets/images/wallpaper.svg'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
