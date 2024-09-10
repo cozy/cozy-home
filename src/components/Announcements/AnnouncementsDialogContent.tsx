@@ -38,7 +38,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
   }
 
   return (
-    <div className="u-flex u-flex-column u-flex-items-center">
+    <div className="u-flex u-flex-column u-flex-items-center u-mh-2 u-mh-1-s">
       {primaryImage ? (
         <img
           src={primaryImage}
@@ -72,6 +72,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
       </div>
       {announcement.attributes.main_action ? (
         <Buttons
+          fullWidth
           className="u-mb-half"
           variant="secondary"
           label={announcement.attributes.main_action.label}
@@ -79,6 +80,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         />
       ) : null}
       <Buttons
+        fullWidth
         label={t(
           isLast
             ? 'AnnouncementsDialogContent.understand'
