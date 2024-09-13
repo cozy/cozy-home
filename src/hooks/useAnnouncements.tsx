@@ -79,7 +79,7 @@ const useAnnouncements = ({
 
       save({ seen: uuidsInCommon })
 
-      setUnseenData(unseenData)
+      setUnseenData(unseenData.slice(0, 5))
     }
   }, [hasStartedFiltering, rawData, values, save])
 
