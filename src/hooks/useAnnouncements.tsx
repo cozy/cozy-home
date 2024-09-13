@@ -77,10 +77,6 @@ const useAnnouncements = ({
       )
       const unseenData = getUnseenAnnouncements(rawData, uuidsInCommon)
 
-      // we consider the first post to have been seen as soon as it is displayed
-      if (unseenData.length > 0) {
-        uuidsInCommon.push(unseenData[0].attributes.uuid)
-      }
       save({ seen: uuidsInCommon })
 
       setUnseenData(unseenData)

@@ -14,9 +14,6 @@ const Announcements: FC = () => {
   const { values, save } = useAnnouncementsSettings()
 
   const handleDismiss = (): void => {
-    save({
-      dismissedAt: new Date().toISOString()
-    })
     setBeenDismissed(true)
   }
 
