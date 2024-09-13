@@ -11,15 +11,15 @@ import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
 interface AnnouncementsDialogContentProps {
   isLast: boolean
   announcement: Announcement
-  onDismiss: () => void
   onNext: () => void
+  onLast: () => void
 }
 
 const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
   isLast,
   announcement,
-  onDismiss,
-  onNext
+  onNext,
+  onLast
 }) => {
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
@@ -87,7 +87,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
             : 'AnnouncementsDialogContent.next'
         )}
         variant="secondary"
-        onClick={isLast ? onDismiss : onNext}
+        onClick={isLast ? onLast : onNext}
       />
       {secondaryImage ? (
         <img

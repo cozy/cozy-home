@@ -46,13 +46,29 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     setActiveStep(index)
   }
 
+  const handleLast = (): void => {
+    const uuid = announcements[activeStep].attributes.uuid
+    save({
+      dismissedAt: new Date().toISOString(),
+      seen: [...(values?.seen ?? []), uuid]
+    })
+    onDismiss()
+  }
+
+  const handleDismiss = (): void => {
+    save({
+      dismissedAt: new Date().toISOString()
+    })
+    onDismiss()
+  }
+
   const maxSteps = announcements.length
 
   return (
     <CozyTheme variant="normal">
       <FixedActionsDialog
         open
-        onClose={onDismiss}
+        onClose={handleDismiss}
         content={
           <SwipeableViews
             index={activeStep}
@@ -64,8 +80,8 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
                 key={index}
                 isLast={index === maxSteps - 1}
                 announcement={announcement}
-                onDismiss={onDismiss}
                 onNext={handleNext}
+                onLast={handleLast}
               />
             ))}
           </SwipeableViews>
