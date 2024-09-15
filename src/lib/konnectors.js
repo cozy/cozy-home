@@ -18,7 +18,7 @@ export const TWO_FA_ERRORS = [
 ]
 
 function patchFolderPermission(cozy, konnector, folderId = null) {
-  const slug = konnector.attributes ? konnector.attributes.slug : konnector.slug
+  const slug = konnector.slug
   const saveFolder = folderId
     ? { type: 'io.cozy.files', values: [folderId] }
     : {}

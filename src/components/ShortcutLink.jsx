@@ -25,7 +25,7 @@ export const ShortcutLink = ({
   const computedSize = isMobile ? 32 : desktopSize
 
   const { filename } = CozyFile.splitFilename(file)
-  const url = get(shortcutInfos, 'data.attributes.url', '#')
+  const url = get(shortcutInfos, 'data.url', '#')
 
   /**
    * If we don't have iconMimeType, we consider that the icon is a binary svg.
