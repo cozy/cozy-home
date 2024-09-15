@@ -25,17 +25,17 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
   const { isMobile } = useBreakpoints()
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
-    announcement.attributes.primary_image.data.attributes.formats.small?.url ??
-      announcement.attributes.primary_image.data.attributes.url
+    announcement.primary_image.data.formats.small?.url ??
+      announcement.primary_image.data.url
   )
   const secondaryImage = useAnnouncementsImage(
-    announcement.attributes.secondary_image.data?.attributes.formats.thumbnail
+    announcement.secondary_image.data?.formats.thumbnail
       .url
   )
 
   const handleMainAction = (): void => {
-    if (announcement.attributes.main_action?.link) {
-      window.open(announcement.attributes.main_action.link, '_blank')
+    if (announcement.main_action?.link) {
+      window.open(announcement.main_action.link, '_blank')
     }
   }
 
@@ -45,7 +45,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         <img
           src={primaryImage}
           alt={
-            announcement.attributes.primary_image.data.attributes
+            announcement.primary_image.data
               .alternativeText
           }
           className="u-mb-2 u-bdrs-3 u-maw-100 u-mt-2-s"
@@ -57,7 +57,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         />
       ) : null}
       <Typography align="center" className="u-mb-half" variant="h3">
-        {announcement.attributes.title}
+        {announcement.title}
       </Typography>
       <Typography
         align="center"
@@ -66,7 +66,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         variant="body2"
       >
         {f(
-          announcement.attributes.start_at,
+          announcement.start_at,
           t('AnnouncementsDialogContent.dateFormat')
         )}
       </Typography>
@@ -77,14 +77,14 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
           'u-ta-center u-maw-100'
         )}
       >
-        <Markdown content={announcement.attributes.content} />
+        <Markdown content={announcement.content} />
       </div>
-      {announcement.attributes.main_action ? (
+      {announcement.main_action ? (
         <Buttons
           fullWidth
           className="u-mb-half"
           variant="secondary"
-          label={announcement.attributes.main_action.label}
+          label={announcement.main_action.label}
           onClick={handleMainAction}
         />
       ) : null}
@@ -98,8 +98,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         <img
           src={secondaryImage}
           alt={
-            announcement.attributes.secondary_image.data?.attributes
-              .alternativeText
+            announcement.secondary_image.data?.alternativeText
           }
           className="u-mt-1 u-w-2 u-h-2"
           style={{

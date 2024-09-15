@@ -68,7 +68,7 @@ const useAnnouncements = ({
     if (rawData !== null && values && !hasStartedFiltering) {
       setHasStartedFiltering(true)
       const uuidsSeen = values.seen ?? []
-      const uuidsFromApi = rawData.map(({ attributes }) => attributes.uuid)
+      const uuidsFromApi = rawData.map(data => data.uuid)
 
       // we only keep the announcements seen that are still returned by the API
       // to limit the size of the seen array
