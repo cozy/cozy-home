@@ -18,7 +18,7 @@ jest.mock('cozy-client', () => {
 describe('ShortcutLink', () => {
   it('should render a shortcut link with shortcut name initial', () => {
     useFetchShortcut.mockReturnValue({
-      shortcutInfos: { data: { attributes: { url: 'http://cozy.io' } } }
+      shortcutInfos: { data: { url: 'http://cozy.io' } }
     })
 
     const file = { _id: '123', name: 'cozy.io.url', type: 'file' }

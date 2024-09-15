@@ -41,8 +41,8 @@ const IntentService = ({ data, service }) => {
               service.hideCross()
             }
             if (
-              intent.attributes.action === 'VIEW' &&
-              intent.attributes.type === 'io.cozy.accounts'
+              intent.action === 'VIEW' &&
+              intent.type === 'io.cozy.accounts'
             ) {
               navigate(`/${service.getData().slug}/accounts/${data.accountId}`)
             } else {
