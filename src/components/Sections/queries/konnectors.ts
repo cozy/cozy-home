@@ -1,6 +1,6 @@
 import memoize from 'lodash/memoize'
 
-import CozyClient from 'cozy-client'
+import CozyClient, { Q } from 'cozy-client'
 
 import { IOCozyKonnector } from 'cozy-client/types/types'
 import { KonnectorFromRegistry } from 'components/Sections/SectionsTypes'
@@ -36,10 +36,8 @@ export const fetchAllKonnectors = async (
   client: CozyClient,
   channel = 'stable'
 ): Promise<{ [key: string]: IOCozyKonnector[] }> => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-  const { data } = (await client.stackClient.fetchJSON(
-    'GET',
-    `/registry?versionsChannel=${channel}&filter[type]=konnector&limit=300`
+  const { data } = (await client.query(
+    Q('io.cozy.apps_registry').getById(`konnectors/${channel}`)
   )) as { data: KonnectorFromRegistry[] }
 
   return memoizedGroupByCategory(data)
