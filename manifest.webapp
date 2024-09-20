@@ -108,6 +108,16 @@
       "type": "cc.cozycloud.announcements.dev.uploads",
       "verbs": ["GET"],
       "description": "Remote-doctype required to get announcements images, for development purposes"
+    },
+     "announcements": {
+      "type": "cc.cozycloud.announcements",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements"
+    },
+    "announcements-uploads": {
+      "type": "cc.cozycloud.announcements.uploads",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements images"
     }
   },
   "routes": {
