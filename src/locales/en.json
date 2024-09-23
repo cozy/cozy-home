@@ -603,7 +603,6 @@
   },
   "AnnouncementsDialogContent": {
     "dateFormat": "MM/DD/YYYY",
-    "next": "Next message",
-    "understand": "I understand"
+    "skip": "Don't show again"
   }
 }

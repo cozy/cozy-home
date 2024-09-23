@@ -9,17 +9,13 @@ import { Announcement } from './types'
 import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
 
 interface AnnouncementsDialogContentProps {
-  isLast: boolean
   announcement: Announcement
-  onNext: () => void
-  onLast: () => void
+  onSkip: () => void
 }
 
 const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
-  isLast,
   announcement,
-  onNext,
-  onLast
+  onSkip
 }) => {
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
@@ -81,13 +77,9 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
       ) : null}
       <Buttons
         fullWidth
-        label={t(
-          isLast
-            ? 'AnnouncementsDialogContent.understand'
-            : 'AnnouncementsDialogContent.next'
-        )}
+        label={t('AnnouncementsDialogContent.skip')}
         variant="secondary"
-        onClick={isLast ? onLast : onNext}
+        onClick={onSkip}
       />
       {secondaryImage ? (
         <img
