@@ -33,12 +33,6 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
   }
 
   const handleNext = (): void => {
-    const uuid = announcements[activeStep].attributes.uuid
-    if (!values?.seen.includes(uuid)) {
-      save({
-        seen: [...(values?.seen ?? []), uuid]
-      })
-    }
     setActiveStep(activeStep + 1)
   }
 
@@ -46,13 +40,22 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     setActiveStep(index)
   }
 
-  const handleLast = (): void => {
+  const handleSkip = (): void => {
     const uuid = announcements[activeStep].attributes.uuid
-    save({
-      dismissedAt: new Date().toISOString(),
-      seen: [...(values?.seen ?? []), uuid]
-    })
-    onDismiss()
+    const isLast = activeStep === maxSteps - 1
+
+    if (!values.seen.includes(uuid)) {
+      save({
+        seen: [...values.seen, uuid],
+        ...(isLast ? { dismissedAt: new Date().toISOString() } : {})
+      })
+    }
+
+    if (isLast) {
+      onDismiss()
+    } else {
+      setActiveStep(activeStep + 1)
+    }
   }
 
   const handleDismiss = (): void => {
@@ -78,10 +81,8 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
             {announcements.map((announcement, index) => (
               <AnnouncementsDialogContent
                 key={index}
-                isLast={index === maxSteps - 1}
                 announcement={announcement}
-                onNext={handleNext}
-                onLast={handleLast}
+                onSkip={handleSkip}
               />
             ))}
           </SwipeableViews>
