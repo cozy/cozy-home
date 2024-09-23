@@ -6,7 +6,7 @@ import flag from 'cozy-flags'
 import CozyClient, {
   CozyProvider,
   RealTimeQueries,
-  FlagshipLink
+  WebFlagshipLink
 } from 'cozy-client'
 import CozyDevtools from 'cozy-devtools'
 import { useWebviewIntent } from 'cozy-intent'
@@ -43,7 +43,7 @@ export const setupAppContext = memoize(intent => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
-  const shouldUseFlagshipLink = isFlagshipApp() && isFlagshipOfflineSupported()
+  const shouldUseWebFlagshipLink = isFlagshipApp() && isFlagshipOfflineSupported()
 
   // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
@@ -56,8 +56,8 @@ export const setupAppContext = memoize(intent => {
     )
       ? true
       : false,
-    links: shouldUseFlagshipLink
-      ? new FlagshipLink({ webviewIntent: intent })
+    links: shouldUseWebFlagshipLink
+      ? new WebFlagshipLink({ webviewIntent: intent })
       : null
   })
 
