@@ -17,6 +17,12 @@ jest.mock(
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
+jest.mock('cozy-client', () => ({
+  ...jest.requireActual('cozy-client'),
+  useInstanceInfo: jest
+    .fn()
+    .mockReturnValue({ isLoaded: true, context: { data: {} } })
+}))
 
 describe('Corner', () => {
   it('should only render the log out button', () => {
