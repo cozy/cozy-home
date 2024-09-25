@@ -78,6 +78,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     <CozyTheme variant="normal">
       <FixedActionsDialog
         open
+        title={<span />} // Required to avoid margin-top problem inside flagship app
         onClose={handleDismiss}
         content={
           <SwipeableViews
