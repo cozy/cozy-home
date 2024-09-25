@@ -75,7 +75,7 @@ const useAnnouncements = ({
       const uuidsInCommon = uuidsSeen.filter(uuid =>
         uuidsFromApi.includes(uuid)
       )
-      const unseenData = getUnseenAnnouncements(rawData, uuidsInCommon)
+      const unseenData = getUnseenAnnouncements(rawData, [])
 
       save({ seen: uuidsInCommon })
 
