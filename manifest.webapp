@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.79.0",
+  "version": "1.82.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "home": {
@@ -141,6 +141,34 @@
     "identities": {
       "description": "Required to display identities debug data",
       "type": "io.cozy.identities"
+    },
+    "announcements-dev": {
+      "type": "cc.cozycloud.announcements.dev",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements, for development purposes"
+    },
+    "announcements-uploads-dev": {
+      "type": "cc.cozycloud.announcements.dev.uploads",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements images, for development purposes"
+    },
+    "announcements": {
+      "type": "cc.cozycloud.announcements",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements"
+    },
+    "announcements-uploads": {
+      "type": "cc.cozycloud.announcements.uploads",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements images"
     }
   },
   "routes": {
