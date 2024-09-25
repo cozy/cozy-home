@@ -45,7 +45,8 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
           className="u-mt-1 u-mb-2 u-bdrs-3 u-maw-100"
           style={{
             objectFit: 'cover',
-            objectPosition: '100% 0'
+            objectPosition: '100% 0',
+            maxHeight: '14rem'
           }}
         />
       ) : null}
