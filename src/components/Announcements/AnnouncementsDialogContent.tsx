@@ -4,6 +4,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import Markdown from 'cozy-ui/transpiled/react/Markdown'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { Announcement } from './types'
 import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
@@ -17,6 +18,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
   announcement,
   onSkip
 }) => {
+  const { isMobile } = useBreakpoints()
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
     announcement.attributes.primary_image.data.attributes.formats.small?.url ??
@@ -42,8 +44,9 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
             announcement.attributes.primary_image.data.attributes
               .alternativeText
           }
-          className="u-mt-1 u-mb-2 u-bdrs-3 u-maw-100"
+          className="u-mb-2 u-bdrs-3 u-maw-100"
           style={{
+            ...(isMobile ? { marginTop: 'calc(100vh / 6)' } : {}),
             objectFit: 'cover',
             objectPosition: '100% 0',
             maxHeight: '14rem'
