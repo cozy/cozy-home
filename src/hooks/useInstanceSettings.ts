@@ -47,12 +47,11 @@ const getLocalAttributes = (
 ): InstanceAttributes | undefined =>
   (Array.isArray(instanceSettings.data) &&
     instanceSettings.data.length > 0 &&
-    (instanceSettings.data[0] as { attributes?: InstanceAttributes })
-      .attributes) ||
+    (instanceSettings.data[0] as InstanceAttributes)) ||
   undefined
 
 type FetchAttributesResponse = {
-  data?: { attributes?: InstanceAttributes }
+  data?: InstanceAttributes
 } | void
 
 const fetchAttributes = async (
@@ -62,7 +61,7 @@ const fetchAttributes = async (
     Q('io.cozy.settings').getById('io.cozy.settings.instance')
   )) as FetchAttributesResponse
 
-  return res?.data?.attributes
+  return res?.data
 }
 
 export const useInstanceSettings = (client: CozyClient): InstanceSettings => {

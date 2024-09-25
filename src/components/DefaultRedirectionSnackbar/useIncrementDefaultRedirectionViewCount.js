@@ -2,24 +2,33 @@ import { useState, useEffect } from 'react'
 
 import {
   useClient,
+  useSettings,
   deconstructRedirectLink,
   hasQueryBeenLoaded
 } from 'cozy-client'
 
-import {
-  VIEW_COUNT_THRESHOLD,
-  incrementDefaultRedirectionViewCount
-} from './helpers'
+import { VIEW_COUNT_THRESHOLD } from './useShouldShowDefaultRedirectionSnackbar'
 import useHomeAppOpened from './useHomeAppOpened'
 
-const useIncrementDefaultRedirectionViewCount = (
-  instanceSettingsResult,
-  homeSettingsResult
-) => {
+const useIncrementDefaultRedirectionViewCount = () => {
   const client = useClient()
   const [hasIncremented, setHasIncremented] = useState(false)
   const { homeJustOpenedOnFlagshipApp, homeJustQuitOnFlagshipApp } =
     useHomeAppOpened()
+
+  const {
+    values: valueHome,
+    save: saveHome,
+    query: queryHome
+  } = useSettings('home', [
+    'default_redirection_view_count',
+    'default_redirection_snackbar_disabled'
+  ])
+
+  const { values: valueInstance, query: queryInstance } = useSettings(
+    'instance',
+    ['default_redirection']
+  )
 
   useEffect(() => {
     if (hasIncremented && homeJustQuitOnFlagshipApp) {
@@ -28,35 +37,18 @@ const useIncrementDefaultRedirectionViewCount = (
   }, [hasIncremented, homeJustQuitOnFlagshipApp])
 
   useEffect(() => {
-    if (
-      !hasQueryBeenLoaded(instanceSettingsResult) ||
-      !hasQueryBeenLoaded(homeSettingsResult)
-    ) {
+    if (!hasQueryBeenLoaded(queryHome) || !hasQueryBeenLoaded(queryInstance)) {
       return
     }
 
-    const {
-      data: {
-        attributes: { default_redirection }
-      }
-    } = instanceSettingsResult
-
-    const homeSettings =
-      (homeSettingsResult.data && homeSettingsResult.data[0]) || {}
-
-    const {
-      default_redirection_snackbar_disabled,
-      default_redirection_view_count
-    } = homeSettings
-
-    const { slug } = deconstructRedirectLink(default_redirection)
+    const { slug } = deconstructRedirectLink(valueInstance.default_redirection)
 
     const isDefaultRedirectionAppHomeApp = slug === 'home'
 
     const isShowThresholdReached =
-      default_redirection_view_count >= VIEW_COUNT_THRESHOLD
+      valueHome.default_redirection_view_count >= VIEW_COUNT_THRESHOLD
 
-    const isDisabled = default_redirection_snackbar_disabled
+    const isDisabled = valueHome.default_redirection_snackbar_disabled
 
     if (
       !hasIncremented &&
@@ -65,15 +57,21 @@ const useIncrementDefaultRedirectionViewCount = (
       !isShowThresholdReached &&
       !isDisabled
     ) {
-      incrementDefaultRedirectionViewCount(client, homeSettings)
+      saveHome({
+        default_redirection_view_count:
+          (valueHome.default_redirection_view_count ?? 0) + 1
+      })
       setHasIncremented(true)
     }
   }, [
     client,
     hasIncremented,
     homeJustOpenedOnFlagshipApp,
-    instanceSettingsResult,
-    homeSettingsResult
+    valueInstance,
+    valueHome,
+    queryHome,
+    queryInstance,
+    saveHome
   ])
 }
 

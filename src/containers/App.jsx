@@ -106,8 +106,8 @@ const App = ({ accounts, konnectors, triggers }) => {
     )
   }, [accounts, konnectors, triggers, context])
 
-  if (context?.attributes?.features) {
-    const flags = toFlagNames(context.attributes.features)
+  if (context?.features) {
+    const flags = toFlagNames(context.features)
     enableFlags(flags)
   }
   useEffect(() => {

@@ -33,7 +33,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
   }
 
   const handleNext = (): void => {
-    const uuid = announcements[activeStep].attributes.uuid
+    const uuid = announcements[activeStep].uuid
     if (!values?.seen.includes(uuid)) {
       save({
         seen: [...(values?.seen ?? []), uuid]

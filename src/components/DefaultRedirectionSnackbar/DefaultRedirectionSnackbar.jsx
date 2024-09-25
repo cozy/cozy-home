@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { useClient, useQuery } from 'cozy-client'
+import { useSettings } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
@@ -10,13 +10,12 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
 
-import { instanceSettingsConn, homeSettingsConn } from 'queries'
 import {
-  shouldShowDefaultRedirectionSnackbar,
-  disableDefaultRedirectionSnackbar,
-  setDefaultRedirectionToHome
-} from './helpers'
+  HOME_DEFAULT_REDIRECTION,
+  useShouldShowDefaultRedirectionSnackbar
+} from './useShouldShowDefaultRedirectionSnackbar'
 import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 const useStyles = makeStyles(theme => ({
   snackbar: {
@@ -29,39 +28,39 @@ const useStyles = makeStyles(theme => ({
 
 const DefaultAppSnackbar = () => {
   const { t } = useI18n()
-  const client = useClient()
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(true)
 
   const webviewIntent = useWebviewIntent()
 
-  const instanceSettingsResult = useQuery(
-    instanceSettingsConn.query,
-    instanceSettingsConn
-  )
+  const { save: saveHome } = useSettings('home', [
+    'default_redirection_snackbar_disabled'
+  ])
 
-  const homeSettingsResult = useQuery(homeSettingsConn.query, homeSettingsConn)
+  const { save: saveGlobal } = useSettings('instance', ['default_redirection'])
 
-  useIncrementDefaultRedirectionViewCount(
-    instanceSettingsResult,
-    homeSettingsResult
-  )
+  useIncrementDefaultRedirectionViewCount()
 
-  const showDefaultAppSnackbar = shouldShowDefaultRedirectionSnackbar(
-    instanceSettingsResult,
-    homeSettingsResult,
-    isOpen
-  )
+  const showDefaultAppSnackbar = useShouldShowDefaultRedirectionSnackbar(isOpen)
 
   const onRefuse = () => {
     setIsOpen(false)
-    disableDefaultRedirectionSnackbar(client, homeSettingsResult)
+    saveHome({
+      default_redirection_snackbar_disabled: true
+    })
   }
 
   const onAccept = () => {
     setIsOpen(false)
-    disableDefaultRedirectionSnackbar(client, homeSettingsResult)
-    setDefaultRedirectionToHome(client, instanceSettingsResult, webviewIntent)
+    saveHome({
+      default_redirection_snackbar_disabled: true
+    })
+    saveGlobal({
+      default_redirection: HOME_DEFAULT_REDIRECTION
+    })
+    if (isFlagshipApp()) {
+      webviewIntent.call('setDefaultRedirection', HOME_DEFAULT_REDIRECTION)
+    }
   }
 
   return (
