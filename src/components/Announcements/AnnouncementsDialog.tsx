@@ -27,6 +27,8 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
   const { isMobile } = useBreakpoints()
 
   const [activeStep, setActiveStep] = useState(0)
+  const [unSkippedAnnouncements, setUnSkippedAnnouncements] =
+    useState(announcements)
 
   const handleBack = (): void => {
     setActiveStep(activeStep - 1)
@@ -41,7 +43,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
   }
 
   const handleSkip = (): void => {
-    const uuid = announcements[activeStep].attributes.uuid
+    const uuid = unSkippedAnnouncements[activeStep].attributes.uuid
     const isLast = activeStep === maxSteps - 1
 
     if (!values.seen.includes(uuid)) {
@@ -51,10 +53,15 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
       })
     }
 
-    if (isLast) {
+    if (unSkippedAnnouncements.length === 1) {
       onDismiss()
     } else {
-      setActiveStep(activeStep + 1)
+      setUnSkippedAnnouncements(
+        unSkippedAnnouncements.filter(a => a.attributes.uuid !== uuid)
+      )
+      if (isLast) {
+        setActiveStep(activeStep - 1)
+      }
     }
   }
 
@@ -65,7 +72,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     onDismiss()
   }
 
-  const maxSteps = announcements.length
+  const maxSteps = unSkippedAnnouncements.length
 
   return (
     <CozyTheme variant="normal">
@@ -78,9 +85,9 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
             onChangeIndex={handleChangedIndex}
             animateTransitions={isMobile}
           >
-            {announcements.map((announcement, index) => (
+            {unSkippedAnnouncements.map(announcement => (
               <AnnouncementsDialogContent
-                key={index}
+                key={announcement.attributes.uuid}
                 announcement={announcement}
                 onSkip={handleSkip}
               />
