@@ -33,7 +33,7 @@ export const ShortcutLink = ({
    */
   const icon = get(file, 'attributes.metadata.icon')
   const iconMimeType = get(file, 'attributes.metadata.iconMimeType')
-  const description = get(file, 'attributes.metadata.target.description')
+  const description = get(file, 'attributes.metadata.description')
 
   return (
     <Link
