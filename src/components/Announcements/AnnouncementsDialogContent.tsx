@@ -25,12 +25,11 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
   const { isMobile } = useBreakpoints()
   const { t, f } = useI18n()
   const primaryImage = useAnnouncementsImage(
-    announcement.primary_image.data.formats.small?.url ??
-      announcement.primary_image.data.url
+    announcement.primary_image.data.attributes.formats.small?.url ??
+      announcement.primary_image.data.attributes.url
   )
   const secondaryImage = useAnnouncementsImage(
-    announcement.secondary_image.data?.formats.thumbnail
-      .url
+    announcement.secondary_image.data?.attributes.formats.thumbnail.url
   )
 
   const handleMainAction = (): void => {
@@ -44,10 +43,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
       {primaryImage ? (
         <img
           src={primaryImage}
-          alt={
-            announcement.primary_image.data
-              .alternativeText
-          }
+          alt={announcement.primary_image.data.attributes.alternativeText}
           className="u-mb-2 u-bdrs-3 u-maw-100 u-mt-2-s"
           style={{
             objectFit: 'cover',
@@ -65,10 +61,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
         className="u-mb-1"
         variant="body2"
       >
-        {f(
-          announcement.start_at,
-          t('AnnouncementsDialogContent.dateFormat')
-        )}
+        {f(announcement.start_at, t('AnnouncementsDialogContent.dateFormat'))}
       </Typography>
       <div
         className={cx(
@@ -97,9 +90,7 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
       {secondaryImage ? (
         <img
           src={secondaryImage}
-          alt={
-            announcement.secondary_image.data?.alternativeText
-          }
+          alt={announcement.secondary_image.data?.attributes.alternativeText}
           className="u-mt-1 u-w-2 u-h-2"
           style={{
             objectFit: 'cover',
