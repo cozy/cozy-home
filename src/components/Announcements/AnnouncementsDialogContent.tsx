@@ -44,9 +44,8 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
             announcement.attributes.primary_image.data.attributes
               .alternativeText
           }
-          className="u-mb-2 u-bdrs-3 u-maw-100"
+          className="u-mb-2 u-bdrs-3 u-maw-100 u-mt-2-s"
           style={{
-            ...(isMobile ? { marginTop: 'calc(100vh / 6)' } : {}),
             objectFit: 'cover',
             objectPosition: '100% 0',
             maxHeight: '14rem'
