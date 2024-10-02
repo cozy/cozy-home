@@ -40,16 +40,22 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
     fullWidth?: boolean
   }
 
+  interface DialogCloseButtonProps {
+    onClick?: () => void
+  }
+
   const Dialog: (props: DialogProps) => JSX.Element
   const ConfirmDialog: (props: ConfirmDialogProps) => JSX.Element
   const FixedActionsDialog: (props: DialogProps) => JSX.Element
+  const DialogCloseButton: (props: DialogCloseButtonProps) => JSX.Element
 
   export {
     ConfirmDialog,
     FixedActionsDialog,
     ConfirmDialogProps,
     Dialog,
-    DialogProps
+    DialogProps,
+    DialogCloseButton
   }
 }
 
