@@ -1,7 +1,10 @@
 import React, { useState, FC } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
-import { FixedActionsDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import {
+  FixedActionsDialog,
+  DialogCloseButton
+} from 'cozy-ui/transpiled/react/CozyDialogs'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import MobileStepper from 'cozy-ui/transpiled/react/MobileStepper'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
@@ -74,12 +77,20 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
 
   const maxSteps = unSkippedAnnouncements.length
 
+  // Having a title on flagship is required to have margin top
+  // This also provides a close button instead of the default back button
+  const extraProps = isMobile
+    ? {
+        title: <DialogCloseButton onClick={handleDismiss} />
+      }
+    : {
+        onClose: handleDismiss
+      }
+
   return (
     <CozyTheme variant="normal">
       <FixedActionsDialog
         open
-        title={<span />} // Required to avoid margin-top problem inside flagship app
-        onClose={handleDismiss}
         content={
           <SwipeableViews
             index={activeStep}
@@ -118,6 +129,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
             />
           ) : null
         }
+        {...extraProps}
       />
     </CozyTheme>
   )
