@@ -6,6 +6,7 @@
     "emitDeclarationOnly": false,
     "noEmit": true,
     "paths": {
+      "assistant/*": ["./src/assistant/*"],
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
       "queries": ["./src/queries"],
