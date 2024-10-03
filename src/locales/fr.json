@@ -1,4 +1,20 @@
 {
+  "assistant": {
+    "search": {
+      "placeholder": "Une question ?"
+    },
+    "dialog": {
+      "close": "Fermer"
+    },
+    "hello_name":"Bonjour %{name}, que puis-je faire pour vous ?",
+    "hello":"Bonjour, que puis-je faire pour vous ?",
+    "name":"Assistant Cozy",
+    "suggestions": {
+      "find_file": "Rechercher un fichier",
+      "reimbursements": "Vérifier mes remboursements",
+      "reorganise_files": "Réorganiser mes fichiers"
+    }
+  },
   "app": {
     "logo": {
       "alt": "Logo de %{name}"
