@@ -1,0 +1,18 @@
+@require 'settings/breakpoints.styl'
+
+.conversationSearchBar
+    max-height 178px
+    z-index calc(var(--zIndex-modal) + 15)
+
+    +gt-mobile()
+      max-height 95px
+
+.conversationSearchBar-input
+  max-height 155px
+
+  +gt-mobile()
+    max-height 80px
+
+  &--startAdornment
+    position absolute
+    opacity 0.42
