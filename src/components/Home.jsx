@@ -12,6 +12,7 @@ import Services from 'components/Services'
 import Shortcuts from 'components/Shortcuts'
 import GroupedServices from 'components/GroupedServices'
 import { Announcements } from 'components/Announcements/Announcements'
+import AssistantWrapper from 'components/AssistantWrapper'
 
 const Home = ({ setAppsReady, wrapper }) => {
   const { pathname } = useLocation()
@@ -23,6 +24,7 @@ const Home = ({ setAppsReady, wrapper }) => {
         {pathname === '/connected' && <Announcements />}
         <Content className="u-flex u-flex-column u-ph-1">
           {flag('debug') && <CozyDevTools />}
+          <AssistantWrapper />
           <Applications onAppsFetched={setAppsReady} />
           <Shortcuts />
           {flag('home.detailed-services-dev') ? (
