@@ -24,6 +24,16 @@
       "type": "io.cozy.apps",
       "verbs": ["GET", "POST", "PUT"]
     },
+    "chatConversations": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.conversations",
+      "verbs": ["GET", "POST"]
+    },
+    "chatEvents": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.events",
+      "verbs": ["GET"]
+    },
     "settings": {
       "description": "Required by the cozy-bar display Claudy, to know which applications are coming soon and to manage default redirection update",
       "type": "io.cozy.settings",
