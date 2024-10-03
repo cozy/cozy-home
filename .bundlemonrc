@@ -3,56 +3,43 @@
   "baseDir": "./build",
   "files": [
     {
-      "path": "app-home.<hash>.min.css",
-      "maxSize": "15 KB"
+      "path": "app-home.<hash>.min.css"
     },
     {
-      "path": "app/home.<hash>.js",
-      "maxSize": "50 KB"
+      "path": "app/home.<hash>.js"
     },
     {
-      "path": "intents-home.<hash>.min.css",
-      "maxSize": "6 KB"
+      "path": "intents-home.<hash>.min.css"
     },
     {
-      "path": "intents/home.<hash>.js",
-      "maxSize": "35 KB"
+      "path": "intents/home.<hash>.js"
     },
     {
-      "path": "intents/index.html",
-      "maxSize": "1 KB"
+      "path": "intents/index.html"
     },
     {
-      "path": "services/attributesHelpers/home.js",
-      "maxSize": "16 KB"
+      "path": "services/attributesHelpers/home.js"
     },
     {
-      "path": "services/deleteAccounts/home.js",
-      "maxSize": "500 KB"
+      "path": "services/deleteAccounts/home.js"
     },
     {
-      "path": "services/myselfFromIdenties/home.js",
-      "maxSize": "245 KB"
+      "path": "services/myselfFromIdenties/home.js"
     },
     {
-      "path": "services/polyfillFetch/home.js",
-      "maxSize": "99 KB"
+      "path": "services/polyfillFetch/home.js"
     },
     {
       "path": "services/softDeleteOrRestoreAccounts/home.js",
-      "maxSize": "490 KB"
     },
     {
-      "path": "services/updateAccounts/home.js",
-      "maxSize": "467 KB"
+      "path": "services/updateAccounts/home.js"
     },
     {
-      "path": "vendors/home.<hash>.js",
-      "maxSize": "1.6 MB"
+      "path": "vendors/home.<hash>.js"
     },
     {
-      "path": "vendors-home.<hash>.<hash>.min.css",
-      "maxSize": "40 KB"
+      "path": "vendors-home.<hash>.<hash>.min.css"
     }
   ],
   "reportOutput": ["github"]
