@@ -63,6 +63,7 @@ const Inner = ({ children, lang, context }) => (
   <I18n lang={lang} dictRequire={dictRequire} context={context}>
     <SectionsProvider>
       {children}
+      <RealTimeQueries doctype="io.cozy.ai.chat.conversations" />
       <RealTimeQueries doctype="io.cozy.apps" />
       <RealTimeQueries doctype="io.cozy.jobs" />
       <RealTimeQueries doctype="io.cozy.triggers" />
