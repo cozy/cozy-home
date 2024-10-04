@@ -35,6 +35,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "@sentry/react": "7.119.0",
+    "comlink": "4.4.1",
     "cozy-client": "^48.25.0",
     "cozy-device-helper": "2.7.0",
     "cozy-doctypes": "1.83.8",
