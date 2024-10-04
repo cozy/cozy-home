@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import FileTypeFolderIcon from 'cozy-ui/transpiled/react/Icons/FileTypeFolder'
 import ContactsIcon from 'cozy-ui/transpiled/react/Icons/Contacts'
+import { useDataProxy } from '../dataproxy/DataProxyProvider'
 
 export const useFetchResult = searchValue => {
   const [state, setState] = useState({
@@ -9,67 +10,23 @@ export const useFetchResult = searchValue => {
     results: null,
     searchValue: null
   })
+  const dataProxy = useDataProxy()
 
   useEffect(() => {
     const fetch = async searchValue => {
+      const result = await dataProxy.search(searchValue)
+
+      console.log('SEARCH RESULT FROM FETCH', result)
       setState({ isLoading: true, results: null, searchValue })
 
-      const results = await new Promise(resolve =>
-        setTimeout(
-          () =>
-            resolve([
-              {
-                icon: FileTypeFolderIcon,
-                primary: 'Axa',
-                secondary: '/Adminisitratif/',
-                onClick: () => {}
-              },
-              {
-                icon: FileTypeFolderIcon,
-                primary: 'Axa',
-                secondary: '/Adminisitratif/',
-                onClick: () => {}
-              },
-              {
-                icon: ContactsIcon,
-                primary: 'Conseiller AXA',
-                secondary: '0475361254',
-                onClick: () => {}
-              },
-              {
-                icon: ContactsIcon,
-                primary: 'Conseiller AXA',
-                secondary: '0475361254',
-                onClick: () => {}
-              },
-              {
-                icon: FileTypeFolderIcon,
-                primary: 'Axa',
-                secondary: '/Adminisitratif/',
-                onClick: () => {}
-              },
-              {
-                icon: FileTypeFolderIcon,
-                primary: 'Axa',
-                secondary: '/Adminisitratif/',
-                onClick: () => {}
-              },
-              {
-                icon: ContactsIcon,
-                primary: 'Conseiller AXA',
-                secondary: '0475361254',
-                onClick: () => {}
-              },
-              {
-                icon: ContactsIcon,
-                primary: 'Conseiller AXA',
-                secondary: '0475361254',
-                onClick: () => {}
-              }
-            ]),
-          500
-        )
-      )
+      const results = result.map(r => {
+        return {
+          icon: r.type === 'file' ? FileTypeFolderIcon : ContactsIcon,
+          primary: r.title,
+          secondary: r.name,
+          onClick: () => { console.log('SELECTED', r.title)}
+        }
+      })
 
       setState({ isLoading: false, results, searchValue })
     }
