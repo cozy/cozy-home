@@ -14,7 +14,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.81.0",
+  "version": "1.82.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "home": {
@@ -33,6 +33,21 @@
         "GET",
         "POST",
         "PUT"
+      ]
+    },
+    "chatConversations": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.conversations",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    "chatEvents": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.events",
+      "verbs": [
+        "GET"
       ]
     },
     "settings": {
@@ -155,6 +170,20 @@
         "GET"
       ],
       "description": "Remote-doctype required to get announcements images, for development purposes"
+    },
+    "announcements": {
+      "type": "cc.cozycloud.announcements",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements"
+    },
+    "announcements-uploads": {
+      "type": "cc.cozycloud.announcements.uploads",
+      "verbs": [
+        "GET"
+      ],
+      "description": "Remote-doctype required to get announcements images"
     }
   },
   "routes": {
