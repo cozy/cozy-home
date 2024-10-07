@@ -24,6 +24,7 @@ const styles = {
     right: '1rem',
     bottom: '1rem',
     position: 'fixed',
+    zIndex: 'var(--zIndex-low)',
     marginBottom: immersive ? 'var(--flagship-bottom-height)' : 0
   })
 }
@@ -53,6 +54,7 @@ export const AddButton = () => {
       <Fab
         color="primary"
         aria-label="add"
+        size="medium"
         ref={anchorRef}
         style={styles.fab(getFlagshipMetadata().immersive)}
         onClick={showMenu}
