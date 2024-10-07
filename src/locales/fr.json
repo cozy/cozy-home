@@ -1,7 +1,7 @@
 {
   "assistant": {
     "search": {
-      "placeholder": "Une question ?"
+      "placeholder": "Une question ?"
     },
     "dialog": {
       "close": "Fermer"

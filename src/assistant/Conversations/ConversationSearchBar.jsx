@@ -29,6 +29,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
   useTimeoutWhen(() => setShowSuggestions(true), 2000)
 
   useEventListener(inputRef.current, 'input', () => {
+    // TODO: hack found on internet, we could try remove the auto assignment to see if it still works without it
     inputRef.current.style.height = 'auto'
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
   })
