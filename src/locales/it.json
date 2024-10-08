@@ -1,4 +1,20 @@
 {
+  "assistant": {
+    "search": {
+      "placeholder": "Avete una domanda?"
+    },
+    "dialog": {
+      "close": "Chiudere"
+    },
+    "hello_name":"Salve %{name}, cosa posso fare per lei?",
+    "hello":"Salve, cosa posso fare per lei?",
+    "name":"Assistente Cozy",
+    "suggestions": {
+      "find_file": "Ricerca di un file",
+      "reimbursements": "Controllare i miei rimborsi",
+      "reorganise_files": "Riorganizzare i miei file"
+    }
+  },
   "app": {
     "logo": {
       "alt": "%{name} logo"
@@ -349,7 +365,7 @@
       "reload": "Refresh now"
     }
   },
- 
+
   "maintenance": {
     "icon": "This connector is under maintenance",
     "service": "Service interrupted",

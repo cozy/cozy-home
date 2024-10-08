@@ -1,4 +1,20 @@
 {
+  "assistant": {
+    "search": {
+      "placeholder": "Eine Frage?"
+    },
+    "dialog": {
+      "close": "Schließen"
+    },
+    "hello_name":"Hallo %{name}, was kann ich für Sie tun?",
+    "hello":"Hallo, was kann ich für Sie tun?",
+    "name":"Cozy Assistent",
+    "suggestions": {
+      "find_file": "Eine Datei suchen",
+      "reimbursements": "Meine Rückerstattungen überprüfen",
+      "reorganise_files": "Meine Dateien neu ordnen"
+    }
+  },
   "app": {
     "logo": {
       "alt": "%{name} Logo"
@@ -349,7 +365,7 @@
       "reload": "Jetzt aktualisieren"
     }
   },
-  
+
   "maintenance": {
     "icon": "Dieser Connector wird gerade gewartet.",
     "service": "Dienst unterbrochen",

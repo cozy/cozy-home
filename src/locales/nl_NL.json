@@ -1,4 +1,20 @@
 {
+  "assistant": {
+    "search": {
+      "placeholder": "Heb je een vraag?"
+    },
+    "dialog": {
+      "close": "Sluit"
+    },
+    "hello_name":"Hallo %{name}, wat kan ik voor je doen?",
+    "hello":"Hallo, wat kan ik voor u doen?",
+    "name":"Cozy Assistent",
+    "suggestions": {
+      "find_file": "Een bestand zoeken",
+      "reimbursements": "Mijn vergoedingen controleren",
+      "reorganise_files": "Mijn bestanden reorganiseren"
+    }
+  },
   "app": {
     "logo": {
       "alt": "%{name}-logo"
