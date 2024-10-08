@@ -32,7 +32,14 @@ export const BackgroundContainer = (): JSX.Element => {
       <div />
       <div />
       {!isCustomWallpaper && (
-        <img className="home-default-background--img" src={DefaultWallpaper} />
+        <div
+          className="home-default-background--img"
+          style={{
+            backgroundImage: `url(${DefaultWallpaper})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100%'
+          }}
+        />
       )}
     </div>
   )
