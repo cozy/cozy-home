@@ -1,4 +1,20 @@
 {
+  "assistant": {
+    "search": {
+      "placeholder": "質問はありますか？"
+    },
+    "dialog": {
+      "close": "閉じる"
+    },
+    "hello_name":"${name}さん、こんにちは。",
+    "hello":"こんにちは、何かご用ですか？",
+    "name":"アシスタント Cozy",
+    "suggestions": {
+      "find_file": "ファイルの検索",
+      "reimbursements": "返済額の確認",
+      "reorganise_files": "ファイルの整理"
+    }
+  },
   "app": {
     "logo": {
       "alt": "%{name} ロゴ"
@@ -337,7 +353,7 @@
       "reload": "今すぐ更新"
     }
   },
- 
+
   "maintenance": {
     "icon": "This connector is under maintenance",
     "service": "Service interrupted",
