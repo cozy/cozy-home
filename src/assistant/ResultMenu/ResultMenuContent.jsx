@@ -33,7 +33,7 @@ const SearchResult = () => {
   ))
 }
 
-const ResultMenuContent = ({ onClick }) => {
+const ResultMenuContent = ({ hasArrowDown, onClick }) => {
   const { searchValue } = useSearch()
 
   return (
@@ -41,7 +41,11 @@ const ResultMenuContent = ({ onClick }) => {
       <ResultMenuItem
         icon={
           <Circle size="small">
-            <Icon icon={ArrowUpIcon} size={12} />
+            <Icon
+              icon={ArrowUpIcon}
+              size={12}
+              rotate={hasArrowDown ? 180 : 0}
+            />
           </Circle>
         }
         primaryText={searchValue}

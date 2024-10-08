@@ -17,9 +17,14 @@ import SuggestionsPlaceholder from './SuggestionsPlaceholder'
 
 import styles from './styles.styl'
 
-const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
+const ConversationSearchBar = ({
+  assistantStatus,
+  conversationId,
+  autoFocus,
+  hasArrowDown,
+  onClose
+}) => {
   const { t } = useI18n()
-  const resultPaneAnchorRef = useRef()
   const { assistantState, onAssistantExecute } = useAssistant()
   const { setSearchValue, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
@@ -58,7 +63,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
     })
 
   return (
-    <div ref={resultPaneAnchorRef} className="u-w-100 u-maw-7 u-mh-auto">
+    <div className="u-w-100 u-maw-7 u-mh-auto">
       <SearchBar
         className={styles['conversationSearchBar']}
         icon={null}
@@ -74,7 +79,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
             inputProps: {
               className: styles['conversationSearchBar-input']
             },
-            autoFocus: true,
+            autoFocus,
             startAdornment: showSuggestions && (
               <SuggestionsPlaceholder inputValue={inputValue} />
             ),
@@ -103,6 +108,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
                   >
                     <Icon
                       icon={ArrowUpIcon}
+                      rotate={hasArrowDown ? 180 : 0}
                       size={12}
                       color={
                         inputValue
@@ -124,7 +130,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
         onChange={handleChange}
       />
       {!conversationId && (
-        <ResultMenu anchorRef={resultPaneAnchorRef} onClick={handleClick} />
+        <ResultMenu onClick={handleClick} onClose={onClose} />
       )}
     </div>
   )
