@@ -19,19 +19,36 @@ export const DataProxyProvider = React.memo(({ children }) => {
   useEffect(() => {
     if (!client) return
 
-    const cozyURL = new URL(client.getStackClient().uri)
-    const { subdomain: subDomainType } = client.getInstanceOptions()
-    const slug = 'dataproxy'
+    const doThing = async () => {
+      const cozyURL = new URL(client.getStackClient().uri)
+      const { subdomain: subDomainType } = client.getInstanceOptions()
+      const slug = 'dataproxy'
 
-    const dataProxyUrl = generateWebLink({
-      pathname: '/',
-      cozyUrl: cozyURL.origin,
-      slug,
-      hash: null,
-      subDomainType
-    })
+      const dataProxyUrl = generateWebLink({
+        pathname: '/',
+        cozyUrl: cozyURL.origin,
+        slug,
+        hash: null,
+        subDomainType
+      })
 
-    setIframeUrl(dataProxyUrl)
+      const result = await client.stackClient.fetchJSON('POST', '/intents', {
+        data: {
+          type: 'io.cozy.intents',
+          attributes: {
+            action: 'OPEN',
+            type: 'io.cozy.dataproxy',
+            permissions: ['GET']
+          }
+        }
+      })
+
+      console.log('result', result.data)
+  
+      setIframeUrl(result.data?.attributes?.services[0]?.href)
+    }
+
+    doThing()
   }, [client])
 
   const onIframeLoaded = () => {
