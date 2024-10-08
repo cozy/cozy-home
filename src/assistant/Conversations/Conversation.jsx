@@ -12,7 +12,7 @@ const Conversation = ({ id, myself }) => {
   const givenName = myself.name?.givenName
 
   return (
-    <div className="u-mt-0 u-mt-2-s u-maw-7 u-mh-auto">
+    <div className="u-maw-7 u-mh-auto">
       <ChatAssistantItem
         label={
           givenName
