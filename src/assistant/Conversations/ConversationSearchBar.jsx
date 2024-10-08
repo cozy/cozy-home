@@ -20,13 +20,17 @@ import styles from './styles.styl'
 const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
   const { t } = useI18n()
   const resultPaneAnchorRef = useRef()
-  const { onAssistantExecute } = useAssistant()
+  const { assistantState, onAssistantExecute } = useAssistant()
   const { setSearchValue, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const inputRef = useRef()
 
-  useTimeoutWhen(() => setShowSuggestions(true), 2000)
+  useTimeoutWhen(
+    () => setShowSuggestions(true),
+    2000,
+    inputValue === '' && !assistantState.conversationId
+  )
 
   useEventListener(inputRef.current, 'input', () => {
     // TODO: hack found on internet, we could try remove the auto assignment to see if it still works without it
@@ -37,6 +41,7 @@ const ConversationSearchBar = ({ assistantStatus, conversationId }) => {
   const handleChange = ev => {
     delayedSetSearchValue(ev.target.value)
     setInputValue(ev.target.value)
+    setShowSuggestions(false)
   }
 
   const handleStop = () => {
