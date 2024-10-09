@@ -6,7 +6,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
 import Circle from 'cozy-ui/transpiled/react/Circle'
 import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
-import CrossMediumIcon from 'cozy-ui/transpiled/react/Icons/CrossMedium'
+import StopIcon from 'cozy-ui/transpiled/react/Icons/Stop'
 import ButtonBase from 'cozy-ui/transpiled/react/ButtonBase'
 import useEventListener from 'cozy-ui/transpiled/react/hooks/useEventListener'
 
@@ -90,7 +90,7 @@ const ConversationSearchBar = ({
                   onClick={handleStop}
                 >
                   <Circle size="small">
-                    <Icon icon={CrossMediumIcon} size={12} />
+                    <Icon icon={StopIcon} size={12} />
                   </Circle>
                 </ButtonBase>
               ) : (
