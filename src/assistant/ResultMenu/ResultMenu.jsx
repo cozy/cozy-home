@@ -24,7 +24,9 @@ const ResultMenu = ({ onClick, onClose }) => {
         disableAutoFocus
         hideBackdrop
         componentsProps={{
-          dialogTitle: { style: { height: '6.5rem' } },
+          dialogTitle: {
+            style: { height: 'calc(6.5rem + var(--flagship-top-height, 0px))' }
+          },
           divider: { className: 'u-dn' }
         }}
         title={' '}
