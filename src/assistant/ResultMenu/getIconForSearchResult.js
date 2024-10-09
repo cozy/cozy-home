@@ -23,6 +23,15 @@ import EncryptedFolderIcon from './EncryptedFolderIcon'
 
 export const getIconForSearchResult = (searchResult) => {
   console.log('getIconForSearchResult', searchResult)
+
+  if (searchResult.doc.type === 'io.cozy.apps') {
+    console.log('APP', searchResult)
+    return {
+      type: 'app',
+      app: searchResult.doc
+    }
+  }
+
   if (searchResult.type === 'notes') {
     return {
       type: 'component',
@@ -45,14 +54,6 @@ export const getIconForSearchResult = (searchResult) => {
     return {
       type: 'component',
       component: ContactsIcon
-    }
-  }
-
-  if (searchResult.doc.type === 'io.cozy.apps') {
-    console.log('APP', searchResult)
-    return {
-      type: 'app',
-      app: searchResult.doc
     }
   }
 
