@@ -57,6 +57,7 @@
     "leaflet": "1.7.1",
     "localforage": "^1.10.0",
     "lodash": "4.17.21",
+    "mime-types": "2.1.35",
     "moment": "2.29.4",
     "papaparse": "5.3.1",
     "prop-types": "^15.8.1",
