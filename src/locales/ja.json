@@ -1,7 +1,8 @@
 {
   "assistant": {
     "search": {
-      "placeholder": "質問はありますか？"
+      "placeholder": "質問はありますか？",
+      "result": "アシスタントに聞く"
     },
     "dialog": {
       "close": "閉じる"

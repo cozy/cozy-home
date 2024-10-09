@@ -1,7 +1,8 @@
 {
   "assistant": {
     "search": {
-      "placeholder": "Avete una domanda?"
+      "placeholder": "Avete una domanda?",
+      "result": "Chiedete all'assistente"
     },
     "dialog": {
       "close": "Chiudere"

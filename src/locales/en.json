@@ -1,7 +1,8 @@
 {
   "assistant": {
     "search": {
-      "placeholder": "Any question?"
+      "placeholder": "Any question?",
+      "result": "Ask the assistant"
     },
     "dialog": {
       "close": "Close"

@@ -6,6 +6,7 @@ import Circle from 'cozy-ui/transpiled/react/Circle'
 import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItemSkeleton from 'cozy-ui/transpiled/react/Skeletons/ListItemSkeleton'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { useSearch } from '../SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
@@ -34,6 +35,7 @@ const SearchResult = () => {
 }
 
 const ResultMenuContent = ({ hasArrowDown, onClick }) => {
+  const { t } = useI18n()
   const { searchValue } = useSearch()
 
   return (
@@ -49,6 +51,7 @@ const ResultMenuContent = ({ hasArrowDown, onClick }) => {
           </Circle>
         }
         primaryText={searchValue}
+        secondaryText={t('assistant.search.result')}
         onClick={onClick}
       />
       {flag('cozy.assistant.withSearchResult') && <SearchResult />}
