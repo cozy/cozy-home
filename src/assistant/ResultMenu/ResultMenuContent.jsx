@@ -13,7 +13,7 @@ import ResultMenuItem from './ResultMenuItem'
 const SearchResult = () => {
   const { isLoading, results } = useSearch()
 
-  if (isLoading)
+  if (isLoading && !results?.length)
     return (
       <>
         <ListItemSkeleton hasSecondary />
