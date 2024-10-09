@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import FileTypeFolderIcon from 'cozy-ui/transpiled/react/Icons/FileTypeFolder'
-import ContactsIcon from 'cozy-ui/transpiled/react/Icons/Contacts'
-import FileTypeTextIcon from 'cozy-ui/transpiled/react/Icons/FileTypeText'
-import FileTypeNoteIcon from 'cozy-ui/transpiled/react/Icons/FileTypeNote'
 import { useDataProxy } from '../dataproxy/DataProxyProvider'
+import { getIconForSearchResult } from './ResultMenu/getIconForSearchResult'
 
 export const useFetchResult = searchValue => {
   const [state, setState] = useState({
@@ -49,48 +46,5 @@ export const useFetchResult = searchValue => {
   return {
     isLoading: state.isLoading,
     results: state.results
-  }
-}
-
-const getIconForSearchResult = (searchResult) => {
-  console.log('getIconForSearchResult', searchResult)
-  if (searchResult.type === 'notes') {
-    return {
-      type: 'component',
-      component: FileTypeNoteIcon
-    }
-  }
-
-  if (searchResult.type === 'drive') {
-    if (searchResult.doc.type === 'directory') {
-      return {
-        type: 'component',
-        component: FileTypeFolderIcon
-      }
-    }
-
-    return {
-      type: 'component',
-      component: FileTypeTextIcon
-    }
-  }
-
-  if (searchResult.type === 'contacts') {
-    return {
-      type: 'component',
-      component: ContactsIcon
-    }
-  }
-
-  if (searchResult.doc.type === 'io.cozy.apps') {
-    console.log('APP', searchResult)
-    return {
-      type: 'app',
-      app: searchResult.doc
-    }
-  }
-
-  return {
-    type: 'unknown'
   }
 }
