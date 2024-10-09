@@ -22,15 +22,17 @@ const SearchResult = () => {
       </>
     )
 
-  return results.map((result, idx) => (
-    <ResultMenuItem
-      key={idx}
-      icon={result.icon}
-      primaryText={result.primary}
-      secondaryText={result.secondary}
-      onClick={result.onClick}
-    />
-  ))
+  return results.map((result, idx) => {
+    return (
+      <ResultMenuItem
+        key={result.id || idx}
+        icon={result.icon}
+        primaryText={result.primary}
+        secondaryText={result.secondary}
+        onClick={result.onClick}
+      />
+    )
+  })
 }
 
 const ResultMenuContent = ({ hasArrowDown, onClick }) => {
