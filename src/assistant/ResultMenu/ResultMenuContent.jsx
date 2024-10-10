@@ -14,7 +14,7 @@ import ResultMenuItem from './ResultMenuItem'
 const SearchResult = () => {
   const { isLoading, results } = useSearch()
 
-  if (isLoading)
+  if (isLoading && !results?.length)
     return (
       <>
         <ListItemSkeleton hasSecondary />
@@ -23,15 +23,17 @@ const SearchResult = () => {
       </>
     )
 
-  return results.map((result, idx) => (
-    <ResultMenuItem
-      key={idx}
-      icon={<Icon icon={result.icon} size={32} />}
-      primaryText={result.primary}
-      secondaryText={result.secondary}
-      onClick={result.onClick}
-    />
-  ))
+  return results.map((result, idx) => {
+    return (
+      <ResultMenuItem
+        key={result.id || idx}
+        icon={result.icon}
+        primaryText={result.primary}
+        secondaryText={result.secondary}
+        onClick={result.onClick}
+      />
+    )
+  })
 }
 
 const ResultMenuContent = ({ hasArrowDown, onClick }) => {
