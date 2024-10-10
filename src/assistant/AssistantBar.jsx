@@ -5,7 +5,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import AssistantIcon from 'assets/icons/icon-assistant.svg'
+import AssistantIcon from 'assets/images/icon-assistant.png'
 
 import AssistantDialog from './AssistantDialog'
 
