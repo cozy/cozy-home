@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-import AssistantIcon from 'assets/icons/icon-assistant.svg'
+import AssistantIcon from 'assets/images/icon-assistant.png'
 
 import ChatItem from './ChatItem'
 
