@@ -17,7 +17,7 @@ export const useAssistant = () => {
 const AssistantProvider = ({ children }) => {
   const client = useClient()
   const [assistantState, setAssistantState] = useState({
-    message: '',
+    messages: [],
     status: 'idle',
     conversationId: undefined
   })
@@ -36,11 +36,19 @@ const AssistantProvider = ({ children }) => {
             }, 250)
           }
         } else {
-          setAssistantState(v => ({
-            ...v,
-            message: v.message + res.content,
-            status: 'writing'
-          }))
+          setAssistantState(v => {
+            const arr = v.messages
+            arr.push({
+              message: res.content,
+              position: res.position
+            })
+
+            return {
+              ...v,
+              messages: arr,
+              status: 'writing'
+            }
+          })
         }
       }
     }
@@ -54,7 +62,7 @@ const AssistantProvider = ({ children }) => {
 
       setAssistantState(v => ({
         ...v,
-        message: '',
+        messages: [],
         status: 'idle'
       }))
 
@@ -72,7 +80,7 @@ const AssistantProvider = ({ children }) => {
 
       setAssistantState(v => ({
         ...v,
-        message: '',
+        messages: [],
         status: 'pending',
         conversationId:
           id !== assistantState.conversationId ? id : v.conversationId

@@ -14,13 +14,18 @@ const ChatConversation = ({ conversation, myself }) => {
 
   const showLastConv = assistantState.status !== 'idle'
 
+  const realtimeLabel = assistantState.messages
+    .sort((a, b) => a.position - b.position)
+    .map(message => message.message)
+    .join('')
+
   useEffect(() => {
     // force scroll down if new message of change in AI instant response
     listRef.current?.lastElementChild?.scrollIntoView({ block: 'end' })
   }, [
     conversation?.messages?.length,
     assistantState.status,
-    assistantState.message
+    assistantState.messages.length
   ])
 
   return (
@@ -65,7 +70,7 @@ const ChatConversation = ({ conversation, myself }) => {
       {showLastConv && (
         <ChatRealtimeAnswer
           isLoading={assistantState.status === 'pending'}
-          label={assistantState.message}
+          label={realtimeLabel}
         />
       )}
     </div>
