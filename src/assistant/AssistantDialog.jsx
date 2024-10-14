@@ -8,8 +8,6 @@ import ConversationSearchBar from './Conversations/ConversationSearchBar'
 import AssistantProvider, { useAssistant } from './AssistantProvider'
 import SearchProvider from './SearchProvider'
 
-import styles from './styles.styl'
-
 const AssistantDialog = ({ onClose }) => {
   const { assistantState } = useAssistant()
   const { isMobile } = useBreakpoints()
@@ -19,7 +17,6 @@ const AssistantDialog = ({ onClose }) => {
       open
       fullScreen
       size="full"
-      className={styles['assistantDialog']}
       componentsProps={{
         dialogTitle: { className: isMobile ? 'u-ph-0' : '' },
         dialogActions: { className: isMobile ? 'u-mh-half' : 'u-mb-2' },
