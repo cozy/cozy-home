@@ -25,7 +25,7 @@ const ResultMenu = ({ onClick, onClose }) => {
         hideBackdrop
         componentsProps={{
           dialogTitle: {
-            style: { height: 'calc(6.5rem + var(--flagship-top-height, 0px))' }
+            style: { height: 'calc(6rem + var(--flagship-top-height, 0px))' }
           },
           divider: { className: 'u-dn' }
         }}
