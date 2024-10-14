@@ -4,10 +4,10 @@ import { useTimeoutWhen } from 'rooks'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
-import Circle from 'cozy-ui/transpiled/react/Circle'
 import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
 import StopIcon from 'cozy-ui/transpiled/react/Icons/Stop'
-import ButtonBase from 'cozy-ui/transpiled/react/ButtonBase'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 import useEventListener from 'cozy-ui/transpiled/react/hooks/useEventListener'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
@@ -76,6 +76,7 @@ const ConversationSearchBar = ({
         componentsProps={{
           inputBase: {
             inputRef: inputRef,
+            className: 'u-pv-0',
             rows: 1,
             multiline: true,
             inputProps: {
@@ -87,39 +88,29 @@ const ConversationSearchBar = ({
             ),
             endAdornment:
               assistantStatus !== 'idle' ? (
-                <ButtonBase
-                  className="u-bdrs-circle u-mr-half"
-                  onClick={handleStop}
-                >
-                  <Circle size="small">
-                    <Icon icon={StopIcon} size={12} />
-                  </Circle>
-                </ButtonBase>
+                <IconButton className="u-p-half" onClick={handleStop}>
+                  <Button
+                    component="div"
+                    className="u-miw-auto u-w-2 u-h-2 u-bdrs-circle"
+                    classes={{ label: 'u-flex u-w-auto' }}
+                    label={<Icon icon={StopIcon} size={12} />}
+                  />
+                </IconButton>
               ) : (
-                <ButtonBase
-                  className="u-bdrs-circle u-mr-half"
-                  onClick={handleClick}
-                >
-                  <Circle
-                    size="small"
-                    backgroundColor={
-                      inputValue
-                        ? 'var(--primaryColor)'
-                        : 'var(--actionColorDisabledBackground)'
+                <IconButton className="u-p-half">
+                  <Button
+                    component="div"
+                    className="u-miw-auto u-w-2 u-h-2 u-bdrs-circle"
+                    classes={{ label: 'u-flex u-w-auto' }}
+                    label={
+                      <Icon
+                        icon={ArrowUpIcon}
+                        rotate={hasArrowDown ? 180 : 0}
+                        size={12}
+                      />
                     }
-                  >
-                    <Icon
-                      icon={ArrowUpIcon}
-                      rotate={hasArrowDown ? 180 : 0}
-                      size={12}
-                      color={
-                        inputValue
-                          ? 'var(--primaryContrastTextColor)'
-                          : 'var(--disabledTextColor)'
-                      }
-                    />
-                  </Circle>
-                </ButtonBase>
+                  />
+                </IconButton>
               ),
             onKeyDown: ev => {
               if (!isMobile && ev.key === 'Enter') {
