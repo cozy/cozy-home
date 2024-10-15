@@ -16,6 +16,7 @@ import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
+import { DataProxyProvider } from 'dataproxy/DataProxyProvider'
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 import schema from '../schema'
@@ -110,32 +111,34 @@ const AppWrapper = ({ children }) => {
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
-          <WallPaperProvider>
-            <CozyTheme>
-              <ThemeProvider>
-                <AlertProvider>
-                  <AssistantProvider>
-                    <SearchProvider>
-                      <ReduxProvider store={store}>
-                        <ConditionalWrapper
-                          condition={persistor}
-                          wrapper={children => (
-                            <PersistGate loading={null} persistor={persistor}>
+          <DataProxyProvider>
+            <WallPaperProvider>
+              <CozyTheme>
+                <ThemeProvider>
+                  <AlertProvider>
+                    <AssistantProvider>
+                      <SearchProvider>
+                        <ReduxProvider store={store}>
+                          <ConditionalWrapper
+                            condition={persistor}
+                            wrapper={children => (
+                              <PersistGate loading={null} persistor={persistor}>
+                                {children}
+                              </PersistGate>
+                            )}
+                          >
+                            <Inner lang={lang} context={context}>
                               {children}
-                            </PersistGate>
-                          )}
-                        >
-                          <Inner lang={lang} context={context}>
-                            {children}
-                          </Inner>
-                        </ConditionalWrapper>
-                      </ReduxProvider>
-                    </SearchProvider>
-                  </AssistantProvider>
-                </AlertProvider>
-              </ThemeProvider>
-            </CozyTheme>
-          </WallPaperProvider>
+                            </Inner>
+                          </ConditionalWrapper>
+                        </ReduxProvider>
+                      </SearchProvider>
+                    </AssistantProvider>
+                  </AlertProvider>
+                </ThemeProvider>
+              </CozyTheme>
+            </WallPaperProvider>
+          </DataProxyProvider>
         </CozyProvider>
       </BreakpointsProvider>
     </AppContext.Provider>
