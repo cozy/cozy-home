@@ -9,6 +9,7 @@
       {
         "relativeDepth": 1,
         "aliases": [
+          { "alias": "dataproxy", "matcher": "^dataproxy" },
           { "alias": "components", "matcher": "^components" },
           { "alias": "config", "matcher": "^config" },
           { "alias": "containers", "matcher": "^containers" },
