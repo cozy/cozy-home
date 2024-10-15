@@ -1,6 +1,5 @@
 import React from 'react'
 
-import flag from 'cozy-flags'
 import List from 'cozy-ui/transpiled/react/List'
 import Circle from 'cozy-ui/transpiled/react/Circle'
 import PaperplaneIcon from 'cozy-ui/transpiled/react/Icons/Paperplane'
@@ -8,6 +7,8 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItemSkeleton from 'cozy-ui/transpiled/react/Skeletons/ListItemSkeleton'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+
+import { useDataProxy } from 'dataproxy/DataProxyProvider'
 
 import { useSearch } from '../Search/SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
@@ -39,6 +40,7 @@ const ResultMenuContent = ({ onClick }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const { searchValue } = useSearch()
+  const { dataProxyServicesAvailable } = useDataProxy()
 
   return (
     <List>
@@ -52,7 +54,7 @@ const ResultMenuContent = ({ onClick }) => {
         secondaryText={t('assistant.search.result')}
         onClick={onClick}
       />
-      {flag('cozy.assistant.withSearchResult') && <SearchResult />}
+      {dataProxyServicesAvailable && <SearchResult />}
     </List>
   )
 }
