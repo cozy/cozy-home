@@ -96,12 +96,17 @@ const ConversationSearchBar = ({
                   />
                 </IconButton>
               ) : (
-                <IconButton className="u-p-half">
+                <IconButton
+                  className="u-p-half"
+                  disabled={inputValue === ''}
+                  onClick={handleClick}
+                >
                   <Button
                     component="div"
                     className="u-miw-auto u-w-2 u-h-2 u-bdrs-circle"
                     classes={{ label: 'u-flex u-w-auto' }}
                     label={<Icon icon={PaperplaneIcon} />}
+                    disabled={inputValue === ''}
                   />
                 </IconButton>
               ),
