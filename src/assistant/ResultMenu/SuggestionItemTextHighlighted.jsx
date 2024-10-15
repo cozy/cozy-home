@@ -104,6 +104,8 @@ const highlightQueryTerms = (searchResult, query) => {
 }
 
 const SuggestionItemTextHighlighted = ({ text, query }) => {
+  if (!text) return null
+
   const textHighlighted = highlightQueryTerms(text, query)
   if (Array.isArray(textHighlighted)) {
     return textHighlighted.map((item, idx) => ({
