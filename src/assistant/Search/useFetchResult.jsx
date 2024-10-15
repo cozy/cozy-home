@@ -44,14 +44,13 @@ export const useFetchResult = searchValue => {
     }
 
     if (searchValue) {
-      // !state.results below is a quick fix condition to avoid triggering the skeleton at each search. Don't know if it's the best approach, we should maybe remove it when working on the search correctly
-      if (searchValue !== state.searchValue && !state.results) {
+      if (searchValue !== state.searchValue) {
         fetch(searchValue)
       }
     } else {
       setState({ isLoading: true, results: null, searchValue: null })
     }
-  }, [dataProxy, searchValue, state.searchValue, state.results, setState])
+  }, [dataProxy, searchValue, state.searchValue, setState])
 
   return {
     isLoading: state.isLoading,
