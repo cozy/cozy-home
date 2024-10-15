@@ -28,7 +28,6 @@ const AssistantDialog = ({ onClose }) => {
             <ConversationSearchBar
               assistantStatus={assistantState.status}
               conversationId={assistantState.conversationId}
-              hasArrowDown
               autoFocus
               onClose={onClose}
             />

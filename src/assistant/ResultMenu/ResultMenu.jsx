@@ -30,7 +30,7 @@ const ResultMenu = ({ onClick, onClose }) => {
           divider: { className: 'u-dn' }
         }}
         title={' '}
-        content={<ResultMenuContent hasArrowDown onClick={onClick} />}
+        content={<ResultMenuContent onClick={onClick} />}
         onClose={onClose}
       />
     )

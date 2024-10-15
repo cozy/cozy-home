@@ -3,10 +3,11 @@ import React from 'react'
 import flag from 'cozy-flags'
 import List from 'cozy-ui/transpiled/react/List'
 import Circle from 'cozy-ui/transpiled/react/Circle'
-import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
+import PaperplaneIcon from 'cozy-ui/transpiled/react/Icons/Paperplane'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItemSkeleton from 'cozy-ui/transpiled/react/Skeletons/ListItemSkeleton'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useSearch } from '../SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
@@ -34,8 +35,9 @@ const SearchResult = () => {
   ))
 }
 
-const ResultMenuContent = ({ hasArrowDown, onClick }) => {
+const ResultMenuContent = ({ onClick }) => {
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const { searchValue } = useSearch()
 
   return (
@@ -43,11 +45,7 @@ const ResultMenuContent = ({ hasArrowDown, onClick }) => {
       <ResultMenuItem
         icon={
           <Circle size="small">
-            <Icon
-              icon={ArrowUpIcon}
-              size={12}
-              rotate={hasArrowDown ? 180 : 0}
-            />
+            <Icon icon={PaperplaneIcon} size={isMobile ? 12 : undefined} />
           </Circle>
         }
         primaryText={searchValue}
