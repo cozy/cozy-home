@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import Minilog from 'cozy-minilog'
-import FileTypeFolderIcon from 'cozy-ui/transpiled/react/Icons/FileTypeFolder'
-import ContactsIcon from 'cozy-ui/transpiled/react/Icons/Contacts'
 
 import { useDataProxy } from 'dataproxy/DataProxyProvider'
+
+import { getIconForSearchResult } from './getIconForSearchResult'
 
 const log = Minilog('🔍 [useFetchResult]')
 
@@ -28,8 +28,9 @@ export const useFetchResult = searchValue => {
       const searchResults = await dataProxy.search(searchValue)
 
       const results = searchResults.map(r => {
+        const icon = getIconForSearchResult(r)
         return {
-          icon: r.type === 'file' ? FileTypeFolderIcon : ContactsIcon,
+          icon: icon,
           primary: r.title,
           secondary: r.name,
           onClick: () => {

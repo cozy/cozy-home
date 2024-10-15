@@ -27,7 +27,7 @@ const SearchResult = () => {
   return results.map((result, idx) => (
     <ResultMenuItem
       key={idx}
-      icon={<Icon icon={result.icon} size={32} />}
+      icon={result.icon}
       primaryText={result.primary}
       secondaryText={result.secondary}
       onClick={result.onClick}
