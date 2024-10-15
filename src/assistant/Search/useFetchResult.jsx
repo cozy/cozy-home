@@ -30,6 +30,7 @@ export const useFetchResult = searchValue => {
       const results = searchResults.map(r => {
         const icon = getIconForSearchResult(r)
         return {
+          id: r.doc._id,
           icon: icon,
           primary: r.title,
           secondary: r.name,
