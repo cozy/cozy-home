@@ -5,8 +5,16 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import SuggestionItemTextHighlighted from './SuggestionItemTextHighlighted'
 
-const ResultMenuItem = ({ icon, primaryText, secondaryText, onClick }) => {
+const ResultMenuItem = ({
+  icon,
+  primaryText,
+  secondaryText,
+  onClick,
+  query,
+  highlightQuery = false
+}) => {
   const iconComponent =
     icon.type === 'component' ? (
       <Icon icon={icon.component} size={32} />
@@ -16,10 +24,22 @@ const ResultMenuItem = ({ icon, primaryText, secondaryText, onClick }) => {
       icon
     )
 
+  const primary = highlightQuery ? (
+    <SuggestionItemTextHighlighted text={primaryText} query={query} />
+  ) : (
+    primaryText
+  )
+
+  const secondary = highlightQuery ? (
+    <SuggestionItemTextHighlighted text={secondaryText} query={query} />
+  ) : (
+    secondaryText
+  )
+
   return (
     <ListItem button size="small" onClick={onClick}>
       <ListItemIcon>{iconComponent}</ListItemIcon>
-      <ListItemText primary={primaryText} secondary={secondaryText} />
+      <ListItemText primary={primary} secondary={secondary} />
     </ListItem>
   )
 }

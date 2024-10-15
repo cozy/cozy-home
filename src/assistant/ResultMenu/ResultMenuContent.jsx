@@ -14,7 +14,7 @@ import { useSearch } from '../Search/SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
 
 const SearchResult = () => {
-  const { isLoading, results } = useSearch()
+  const { isLoading, results, searchValue } = useSearch()
 
   if (isLoading && !results?.length)
     return (
@@ -31,6 +31,8 @@ const SearchResult = () => {
       icon={result.icon}
       primaryText={result.primary}
       secondaryText={result.secondary}
+      query={searchValue}
+      highlightQuery="true"
       onClick={result.onClick}
     />
   ))
@@ -51,6 +53,7 @@ const ResultMenuContent = ({ onClick }) => {
           </Circle>
         }
         primaryText={searchValue}
+        query={searchValue}
         secondaryText={t('assistant.search.result')}
         onClick={onClick}
       />
