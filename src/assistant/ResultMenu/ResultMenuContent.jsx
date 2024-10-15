@@ -26,7 +26,7 @@ const SearchResult = () => {
 
   return results.map((result, idx) => (
     <ResultMenuItem
-      key={idx}
+      key={result.id || idx}
       icon={result.icon}
       primaryText={result.primary}
       secondaryText={result.secondary}
