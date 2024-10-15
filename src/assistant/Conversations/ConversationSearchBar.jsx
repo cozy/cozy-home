@@ -4,7 +4,7 @@ import { useTimeoutWhen } from 'rooks'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
-import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
+import PaperplaneIcon from 'cozy-ui/transpiled/react/Icons/Paperplane'
 import StopIcon from 'cozy-ui/transpiled/react/Icons/Stop'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Button from 'cozy-ui/transpiled/react/Buttons'
@@ -22,7 +22,6 @@ const ConversationSearchBar = ({
   assistantStatus,
   conversationId,
   autoFocus,
-  hasArrowDown,
   onClose
 }) => {
   const { t } = useI18n()
@@ -102,13 +101,7 @@ const ConversationSearchBar = ({
                     component="div"
                     className="u-miw-auto u-w-2 u-h-2 u-bdrs-circle"
                     classes={{ label: 'u-flex u-w-auto' }}
-                    label={
-                      <Icon
-                        icon={ArrowUpIcon}
-                        rotate={hasArrowDown ? 180 : 0}
-                        size={12}
-                      />
-                    }
+                    label={<Icon icon={PaperplaneIcon} />}
                   />
                 </IconButton>
               ),
