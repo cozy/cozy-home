@@ -47,7 +47,9 @@ const getApplicationsList = memoize(data => {
         !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
     )
     const dedupapps = uniqBy(apps, 'slug')
-    const array = dedupapps.map(app => <AppTile key={app.id} app={app} />)
+    const array = dedupapps
+      .filter(app => app.name !== 'cozy-data-proxy') // This filter should be temporary (see commit message for more details)
+      .map(app => <AppTile key={app.id} app={app} />)
 
     array.push(
       <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
