@@ -19,7 +19,7 @@ const SearchProvider = ({ children }) => {
   const { isLoading, results } = useFetchResult(searchValue)
 
   const delayedSetSearchValue = useMemo(
-    () => debounce(setSearchValue, 375),
+    () => debounce(setSearchValue, 250),
     [setSearchValue]
   )
 
