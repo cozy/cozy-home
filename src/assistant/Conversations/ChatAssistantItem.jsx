@@ -7,7 +7,7 @@ import AssistantIcon from 'assets/images/icon-assistant.png'
 
 import ChatItem from './ChatItem'
 
-const ChatAssistantItem = ({ className, label, noAnimation, ...props }) => {
+const ChatAssistantItem = ({ className, label, ...props }) => {
   const { t } = useI18n()
   // need memo to avoid rendering it everytime
   const icon = useMemo(() => <Icon icon={AssistantIcon} size={32} />, [])
@@ -19,7 +19,6 @@ const ChatAssistantItem = ({ className, label, noAnimation, ...props }) => {
       icon={icon}
       name={t('assistant.name')}
       label={label}
-      noAnimation={noAnimation}
     />
   )
 }

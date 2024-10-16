@@ -18,7 +18,6 @@ const ChatRealtimeAnswer = ({ isLoading, label }) => {
           label
         )
       }
-      noAnimation
     />
   )
 }

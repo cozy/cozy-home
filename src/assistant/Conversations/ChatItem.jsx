@@ -5,7 +5,7 @@ import Box from 'cozy-ui/transpiled/react/Box'
 
 import ChatItemLabel from './ChatItemLabel'
 
-const ChatItem = ({ className, icon, name, label, noAnimation }) => {
+const ChatItem = ({ className, icon, name, label }) => {
   return (
     <>
       <Box
@@ -20,7 +20,7 @@ const ChatItem = ({ className, icon, name, label, noAnimation }) => {
         </Typography>
       </Box>
       <Box pl="44px">
-        <ChatItemLabel label={label} noAnimation={noAnimation} />
+        <ChatItemLabel label={label} />
       </Box>
     </>
   )
