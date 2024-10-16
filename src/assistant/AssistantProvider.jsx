@@ -50,7 +50,7 @@ const AssistantProvider = ({ children }) => {
     async (inputValue, callback) => {
       if (!inputValue) return
 
-      callback()
+      callback?.()
 
       setAssistantState(v => ({
         ...v,
@@ -81,13 +81,24 @@ const AssistantProvider = ({ children }) => {
     [client, assistantState.conversationId]
   )
 
+  const clearAssistant = useCallback(
+    () =>
+      setAssistantState({
+        message: '',
+        status: 'idle',
+        conversationId: undefined
+      }),
+    []
+  )
+
   const value = useMemo(
     () => ({
       assistantState,
       setAssistantState,
+      clearAssistant,
       onAssistantExecute
     }),
-    [assistantState, onAssistantExecute]
+    [assistantState, clearAssistant, onAssistantExecute]
   )
 
   return (
