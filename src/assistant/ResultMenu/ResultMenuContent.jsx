@@ -9,7 +9,7 @@ import ListItemSkeleton from 'cozy-ui/transpiled/react/Skeletons/ListItemSkeleto
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import { useSearch } from '../SearchProvider'
+import { useSearch } from '../Search/SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
 
 const SearchResult = () => {
