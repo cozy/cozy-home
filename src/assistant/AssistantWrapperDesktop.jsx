@@ -3,7 +3,7 @@ import flag from 'cozy-flags'
 
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import AssistantBar from 'assistant/AssistantBar'
+import SearchBar from './Search/SearchBar'
 
 const AssistantWrapperDesktop = () => {
   const { isMobile } = useBreakpoints()
@@ -12,7 +12,7 @@ const AssistantWrapperDesktop = () => {
 
   return (
     <div className="app-list-wrapper u-mb-3 u-mh-auto u-w-100">
-      <AssistantBar />
+      <SearchBar />
     </div>
   )
 }
