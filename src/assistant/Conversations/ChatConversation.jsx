@@ -43,7 +43,6 @@ const ChatConversation = ({ conversation, myself }) => {
               key={conversation._id + '--' + idx}
               className="u-mt-1-half"
               label={message.content}
-              noAnimation
             />
           )
         }
@@ -57,7 +56,6 @@ const ChatConversation = ({ conversation, myself }) => {
             key={conversation._id + '--' + idx}
             className="u-mt-1-half"
             label={message.content}
-            noAnimation
           />
         )
       })}

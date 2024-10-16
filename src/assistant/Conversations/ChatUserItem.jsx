@@ -13,7 +13,6 @@ const ChatUserItem = ({ className, label, myself, ...props }) => {
       icon={<Avatar text={getInitials(myself)} size="small" />}
       name={getDisplayName(myself)}
       label={label}
-      noAnimation
     />
   )
 }
