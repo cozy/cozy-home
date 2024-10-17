@@ -10,7 +10,10 @@ import styles from './styles.styl'
 const ResultMenu = ({ anchorRef, onClick }) => {
   return (
     <Popper
-      style={{ width: anchorRef.current.offsetWidth }}
+      style={{
+        width: anchorRef.current.offsetWidth,
+        zIndex: 'var(--zIndex-popover)'
+      }}
       anchorEl={anchorRef.current}
       open={Boolean(anchorRef.current)}
       placement="bottom-start"
