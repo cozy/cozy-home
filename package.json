@@ -15,7 +15,7 @@
     "watch:browser": "cs watch --browser --barV7 false",
     "watch:mobile": "cs watch --mobile",
     "start": "cs start --browser --barV7 false",
-    "cozyPublish": "cs publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
+    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-origin}",
     "test": "jest",
     "typecheck": "yarn tsc"
