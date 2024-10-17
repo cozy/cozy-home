@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
 import useEventListener from 'cozy-ui/transpiled/react/hooks/useEventListener'
 
-import SuggestionsPlaceholder from '../Conversations/SuggestionsPlaceholder'
+import SuggestionsPlaceholder from './SuggestionsPlaceholder'
 
 import styles from '../Conversations/styles.styl'
 
