@@ -31,7 +31,7 @@ const SearchDialog = () => {
       size="full"
       disableGutters
       componentsProps={{
-        dialogTitle: { className: 'u-ph-half u-mt-3' },
+        dialogTitle: { className: 'u-ph-half u-pv-0 u-mt-3 u-ov-visible' },
         divider: { className: 'u-dn' }
       }}
       title={<SearchBar />}
