@@ -25,6 +25,7 @@ const ConversationBar = ({ assistantStatus }) => {
 
   // to adjust input height for multiline when typing in it
   useEventListener(inputRef.current, 'input', () => {
+    inputRef.current.style.height = 'auto' // to resize input when emptying it
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
   })
 
