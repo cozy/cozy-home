@@ -1,7 +1,9 @@
 import React, { useMemo, useContext, useState, useCallback } from 'react'
 
 import { useClient } from 'cozy-client'
-import useRealtime from 'cozy-ui/transpiled/react/hooks/useRealtime'
+import useRealtime from 'cozy-realtime/dist/useRealtime'
+
+import { CHAT_EVENTS_DOCTYPE, CHAT_CONVERSATIONS_DOCTYPE } from './queries'
 
 export const AssistantContext = React.createContext()
 
@@ -14,17 +16,44 @@ export const useAssistant = () => {
   return context
 }
 
+const pushMessagesIdInState = (res, setState) => {
+  const messagesId = res.messages.map(message => message.id)
+  setState(v => ({
+    ...v,
+    messagesId
+  }))
+}
+
+const isMessageForThisConversation = (res, messagesId) =>
+  messagesId.includes(res._id)
+
 const AssistantProvider = ({ children }) => {
   const client = useClient()
   const [assistantState, setAssistantState] = useState({
     message: '',
     status: 'idle',
+    messagesId: [],
     conversationId: undefined
   })
 
   useRealtime(client, {
-    'io.cozy.ai.chat.events': {
+    [CHAT_CONVERSATIONS_DOCTYPE]: {
       created: res => {
+        pushMessagesIdInState(res, setAssistantState)
+      },
+      updated: res => {
+        pushMessagesIdInState(res, setAssistantState)
+      }
+    }
+  })
+
+  useRealtime(client, {
+    [CHAT_EVENTS_DOCTYPE]: {
+      created: res => {
+        if (!isMessageForThisConversation(res, assistantState.messagesId)) {
+          return
+        }
+
         if (res.object === 'done') {
           if (assistantState.status !== 'idle') {
             // to be sure the last response is inside io.cozy.ai.chat.conversations
@@ -86,6 +115,7 @@ const AssistantProvider = ({ children }) => {
       setAssistantState({
         message: '',
         status: 'idle',
+        messagesId: [],
         conversationId: undefined
       }),
     []
