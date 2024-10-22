@@ -1,7 +1,8 @@
 import { Q, fetchPolicies } from 'cozy-client'
 
 const CONTACTS_DOCTYPE = 'io.cozy.contacts'
-const CHAT_CONVERSATIONS_DOCTYPE = 'io.cozy.ai.chat.conversations'
+export const CHAT_CONVERSATIONS_DOCTYPE = 'io.cozy.ai.chat.conversations'
+export const CHAT_EVENTS_DOCTYPE = 'io.cozy.ai.chat.events'
 
 const defaultFetchPolicy = fetchPolicies.olderThan(86_400_000) // 24 hours
 
