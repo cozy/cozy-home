@@ -13,6 +13,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
+import AssistantWrapperMobile from 'assistant/AssistantWrapperMobile'
 import AssistantDialog from 'assistant/Views/AssistantDialog'
 import SearchDialog from 'assistant/Views/SearchDialog'
 import AddButton from 'components/AddButton/AddButton'
@@ -190,6 +191,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         </div>
         <FooterLogo />
       </MainView>
+      <AssistantWrapperMobile />
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>

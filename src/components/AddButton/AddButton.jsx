@@ -24,7 +24,6 @@ const styles = {
     right: '1rem',
     bottom: '1rem',
     position: 'fixed',
-    zIndex: 'var(--zIndex-low)',
     marginBottom: immersive ? 'var(--flagship-bottom-height)' : 0
   })
 }
