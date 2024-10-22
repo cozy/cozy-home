@@ -2,6 +2,7 @@
   "assistant": {
     "search": {
       "placeholder": "Any question?",
+      "send": "Send",
       "result": "Ask the assistant"
     },
     "dialog": {
