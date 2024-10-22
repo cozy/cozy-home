@@ -31,6 +31,7 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   // eslint-disable-next-line react/display-name
   Routes: jest.fn(),
+  useNavigate: () => () => {},
   // eslint-disable-next-line react/display-name
   withRouter: Component => props => <Component {...props} />
 }))

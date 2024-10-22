@@ -1,14 +1,17 @@
 import React from 'react'
 import { createStore } from 'redux'
-import { CozyProvider } from 'cozy-client'
-import { createMockClient } from 'cozy-client/dist/mock'
 import { Provider as ReduxProvider } from 'react-redux'
 import PropTypes from 'prop-types'
+
+import { CozyProvider } from 'cozy-client'
+import { createMockClient } from 'cozy-client/dist/mock'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import { BackupDataProvider } from 'components/BackupNotification/useBackupData'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
+
+import { BackupDataProvider } from 'components/BackupNotification/useBackupData'
+
 import enLocale from '../src/locales/en.json'
 
 const fakeDefaultReduxState = {
