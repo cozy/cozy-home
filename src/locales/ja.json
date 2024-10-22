@@ -2,6 +2,7 @@
   "assistant": {
     "search": {
       "placeholder": "質問はありますか？",
+      "send": "送る",
       "result": "アシスタントに聞く"
     },
     "dialog": {

@@ -7,6 +7,7 @@ import { useAssistant } from '../AssistantProvider'
 import ResultMenuContent from '../ResultMenu/ResultMenuContent'
 import { useSearch } from '../Search/SearchProvider'
 import SearchBar from '../Search/SearchBar'
+import SearchSubmitFab from '../Search/SearchSubmitFab'
 
 const SearchDialog = () => {
   const { onAssistantExecute } = useAssistant()
@@ -37,7 +38,10 @@ const SearchDialog = () => {
       }}
       title={<SearchBar />}
       content={
-        searchValue !== '' && <ResultMenuContent onClick={handleClick} />
+        <>
+          {searchValue !== '' && <ResultMenuContent onClick={handleClick} />}
+          <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
+        </>
       }
       onClose={handleClose}
     />
