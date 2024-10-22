@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import DefaultWallpaper from 'assets/images/wallpaper.svg'
+import DefaultWallpaper from 'assets/images/default-wallpaper.svg'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
@@ -32,14 +32,7 @@ export const BackgroundContainer = (): JSX.Element => {
       <div />
       <div />
       {!isCustomWallpaper && (
-        <div
-          className="home-default-background--img"
-          style={{
-            backgroundImage: `url(${DefaultWallpaper})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100%'
-          }}
-        />
+        <img className="home-default-background--img" src={DefaultWallpaper} />
       )}
     </div>
   )
