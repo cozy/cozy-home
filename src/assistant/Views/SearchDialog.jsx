@@ -31,7 +31,8 @@ const SearchDialog = () => {
       size="full"
       disableGutters
       componentsProps={{
-        dialogTitle: { className: 'u-ph-half u-pv-0 u-mt-3 u-ov-visible' },
+        // don't touch padding-top in dialogTitle, there is a flagship override. Play with margin instead.
+        dialogTitle: { className: 'u-ph-half u-pb-0 u-mt-2-half u-ov-visible' },
         divider: { className: 'u-dn' }
       }}
       title={<SearchBar />}
