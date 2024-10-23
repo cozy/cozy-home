@@ -70,7 +70,7 @@ export const getIconForSearchResult = searchResult => {
  * @param {boolean} [options.isEncrypted] - Indicates whether the file is encrypted. Default is false.
  * @returns {import('react').ReactNode} - The icon corresponding to the file's mime type.
  */
-const getDriveMimeTypeIcon = (
+export const getDriveMimeTypeIcon = (
   isDirectory,
   name,
   mime,
