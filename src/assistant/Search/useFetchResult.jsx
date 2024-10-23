@@ -23,7 +23,7 @@ export const useFetchResult = searchValue => {
         return
       }
 
-      setState({ isLoading: true, results: null, searchValue })
+      setState(old => ({ isLoading: true, results: old.results, searchValue }))
 
       const searchResults = await dataProxy.search(searchValue)
 
