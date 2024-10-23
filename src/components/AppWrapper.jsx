@@ -68,6 +68,7 @@ const Inner = ({ children, lang, context }) => (
       {children}
       <RealTimeQueries doctype="io.cozy.ai.chat.conversations" />
       <RealTimeQueries doctype="io.cozy.apps" />
+      <RealTimeQueries doctype="io.cozy.files" />
       <RealTimeQueries doctype="io.cozy.jobs" />
       <RealTimeQueries doctype="io.cozy.triggers" />
       <RealTimeQueries doctype="io.cozy.konnectors" />
