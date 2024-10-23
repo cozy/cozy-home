@@ -95,9 +95,15 @@ const ConversationBar = ({ assistantStatus }) => {
                 </IconButton>
               ),
             onKeyDown: ev => {
-              if (!isMobile && ev.key === 'Enter') {
-                ev.preventDefault() // prevent form submit
-                handleClick()
+              if (!isMobile) {
+                if (ev.shiftKey && ev.key === 'Enter') {
+                  return ev
+                }
+
+                if (ev.key === 'Enter') {
+                  ev.preventDefault() // prevent form submit
+                  return handleClick()
+                }
               }
             }
           }
