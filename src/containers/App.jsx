@@ -191,7 +191,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         </div>
         <FooterLogo />
       </MainView>
-      <AssistantWrapperMobile />
+      {flag('cozy.assistant.enabled') && isMobile && <AssistantWrapperMobile />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>

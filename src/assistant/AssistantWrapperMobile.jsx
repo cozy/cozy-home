@@ -4,7 +4,6 @@ import flag from 'cozy-flags'
 import cx from 'classnames'
 
 import { getFlagshipMetadata } from 'cozy-device-helper'
-import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -16,12 +15,9 @@ import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import styles from './styles.styl'
 
 export const AssistantWrapperMobile = () => {
-  const { isMobile } = useBreakpoints()
   const { type } = useCozyTheme()
   const { t } = useI18n()
   const navigate = useNavigate()
-
-  if (!flag('cozy.assistant.enabled') || !isMobile) return null
 
   return (
     <div
