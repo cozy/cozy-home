@@ -4,18 +4,21 @@ import { useNavigate } from 'react-router-dom'
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
+import { useSearch } from '../Search/SearchProvider'
 import Conversation from '../Conversations/Conversation'
 import ConversationBar from '../Conversations/ConversationBar'
 import { useAssistant } from '../AssistantProvider'
 
 const AssistantDialog = () => {
   const { assistantState, clearAssistant } = useAssistant()
+  const { clearSearch } = useSearch()
   const { isMobile } = useBreakpoints()
   const navigate = useNavigate()
 
   const onClose = () => {
     navigate('..')
     clearAssistant()
+    clearSearch()
   }
 
   return (
