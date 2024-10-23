@@ -64,7 +64,9 @@ const AssistantProvider = ({ children }) => {
               }))
             }, 250)
           }
-        } else {
+        }
+
+        if (res.object === 'delta') {
           setAssistantState(v => ({
             ...v,
             message: v.message + res.content,
