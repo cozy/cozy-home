@@ -11,6 +11,7 @@
     "hello_name":"${name}さん、こんにちは。",
     "hello":"こんにちは、何かご用ですか？",
     "name":"アシスタント Cozy",
+    "sources":"%{smart_count} ソース |||| %{smart_count} ソース",
     "suggestions": {
       "find_file": "ファイルの検索",
       "reimbursements": "返済額の確認",

@@ -11,6 +11,7 @@
     "hello_name":"Hallo %{name}, was kann ich für Sie tun?",
     "hello":"Hallo, was kann ich für Sie tun?",
     "name":"Cozy Assistent",
+    "sources":"%{smart_count} Quelle |||| %{smart_count} Quellen",
     "suggestions": {
       "find_file": "Eine Datei suchen",
       "reimbursements": "Meine Rückerstattungen überprüfen",
