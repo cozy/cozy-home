@@ -13,7 +13,7 @@ import Grow from 'cozy-ui/transpiled/react/Grow'
 import { buildFilesByIds } from 'assistant/queries'
 import SourcesItem from './SourcesItem'
 
-const Sources = ({ files }) => {
+const Sources = ({ messageId, files }) => {
   const [showSources, setShowSources] = useState(false)
   const { t } = useI18n()
   const ref = useRef()
@@ -58,8 +58,8 @@ const Sources = ({ files }) => {
         unmountOnExit={true}
       >
         <div>
-          {files.map((file, index) => (
-            <SourcesItem key={`${file._id}-${index}`} file={file} />
+          {files.map(file => (
+            <SourcesItem key={`${messageId}-${file._id}`} file={file} />
           ))}
         </div>
       </Grow>
@@ -67,7 +67,7 @@ const Sources = ({ files }) => {
   )
 }
 
-const SourcesWithFilesQuery = ({ sources }) => {
+const SourcesWithFilesQuery = ({ messageId, sources }) => {
   const fileIds = sources.map(source => source.id)
 
   const filesByIds = buildFilesByIds(fileIds)
@@ -80,7 +80,7 @@ const SourcesWithFilesQuery = ({ sources }) => {
 
   if (isLoading || files.length === 0) return null
 
-  return <Sources files={files} />
+  return <Sources messageId={messageId} files={files} />
 }
 
 export default SourcesWithFilesQuery
