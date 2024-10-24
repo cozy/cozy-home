@@ -42,6 +42,7 @@ const ChatConversation = ({ conversation, myself }) => {
             <ChatAssistantItem
               key={conversation._id + '--' + idx}
               className="u-mt-1-half"
+              id={message.id}
               label={message.content}
               sources={message.sources}
             />
@@ -56,6 +57,7 @@ const ChatConversation = ({ conversation, myself }) => {
           <ChatAssistantItem
             key={conversation._id + '--' + idx}
             className="u-mt-1-half"
+            id={message.id}
             label={message.content}
             sources={message.sources}
           />
