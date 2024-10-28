@@ -1,5 +1,6 @@
 import React from 'react'
 
+import flag from 'cozy-flags'
 import List from 'cozy-ui/transpiled/react/List'
 import Circle from 'cozy-ui/transpiled/react/Circle'
 import PaperplaneIcon from 'cozy-ui/transpiled/react/Icons/Paperplane'
@@ -46,17 +47,19 @@ const ResultMenuContent = ({ onClick }) => {
 
   return (
     <List>
-      <ResultMenuItem
-        icon={
-          <Circle size="small">
-            <Icon icon={PaperplaneIcon} size={isMobile ? 12 : undefined} />
-          </Circle>
-        }
-        primaryText={searchValue}
-        query={searchValue}
-        secondaryText={t('assistant.search.result')}
-        onClick={onClick}
-      />
+      {flag('cozy.assistant.enabled') && (
+        <ResultMenuItem
+          icon={
+            <Circle size="small">
+              <Icon icon={PaperplaneIcon} size={isMobile ? 12 : undefined} />
+            </Circle>
+          }
+          primaryText={searchValue}
+          query={searchValue}
+          secondaryText={t('assistant.search.result')}
+          onClick={onClick}
+        />
+      )}
       {dataProxyServicesAvailable && <SearchResult />}
     </List>
   )

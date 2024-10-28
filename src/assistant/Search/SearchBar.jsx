@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import flag from 'cozy-flags'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useSearch } from './SearchProvider'
@@ -21,6 +22,8 @@ const SearchBar = () => {
   }
 
   const handleClick = () => {
+    if (!flag('cozy.assistant.enabled')) return
+
     const conversationId = makeConversationId()
     onAssistantExecute({ value: inputValue, conversationId })
     navigate(`assistant/${conversationId}`)
