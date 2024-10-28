@@ -9,14 +9,13 @@ import ConversationBar from '../Conversations/ConversationBar'
 import { useAssistant } from '../AssistantProvider'
 
 const AssistantDialog = () => {
-  const { assistantState, clearAssistant } = useAssistant()
+  const { assistantState } = useAssistant()
   const { isMobile } = useBreakpoints()
   const navigate = useNavigate()
   const { conversationId } = useParams()
 
   const onClose = () => {
     navigate('..')
-    clearAssistant()
   }
 
   return (

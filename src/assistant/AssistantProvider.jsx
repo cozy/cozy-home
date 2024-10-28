@@ -52,6 +52,7 @@ const AssistantProvider = ({ children }) => {
   useRealtime(client, {
     [CHAT_EVENTS_DOCTYPE]: {
       created: res => {
+        // to exclude realtime messages if not relevant to the actual conversation
         if (!isMessageForThisConversation(res, assistantState.messagesId)) {
           return
         }
@@ -79,17 +80,23 @@ const AssistantProvider = ({ children }) => {
     }
   })
 
+  const clearAssistant = useCallback(
+    () =>
+      setAssistantState({
+        message: '',
+        status: 'idle',
+        messagesId: []
+      }),
+    []
+  )
+
   const onAssistantExecute = useCallback(
     async ({ value, conversationId }, callback) => {
       if (!value) return
 
       callback?.()
 
-      setAssistantState(v => ({
-        ...v,
-        message: '',
-        status: 'idle'
-      }))
+      clearAssistant()
 
       await client.stackClient.fetchJSON(
         'POST',
@@ -101,21 +108,10 @@ const AssistantProvider = ({ children }) => {
 
       setAssistantState(v => ({
         ...v,
-        message: '',
         status: 'pending'
       }))
     },
-    [client]
-  )
-
-  const clearAssistant = useCallback(
-    () =>
-      setAssistantState({
-        message: '',
-        status: 'idle',
-        messagesId: []
-      }),
-    []
+    [client, clearAssistant]
   )
 
   const value = useMemo(
