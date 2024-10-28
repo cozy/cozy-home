@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
@@ -22,6 +23,7 @@ const ConversationBar = ({ assistantStatus }) => {
   const { clearSearch, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
   const inputRef = useRef()
+  const { conversationId } = useParams()
 
   // to adjust input height for multiline when typing in it
   useEventListener(inputRef.current, 'input', () => {
@@ -45,7 +47,7 @@ const ConversationBar = ({ assistantStatus }) => {
   }
 
   const handleClick = () =>
-    onAssistantExecute(inputValue, () => {
+    onAssistantExecute({ value: inputValue, conversationId }, () => {
       handleClear()
       inputRef.current.style.height = 'auto'
     })

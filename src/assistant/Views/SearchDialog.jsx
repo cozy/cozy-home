@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
-import { useAssistant } from '../AssistantProvider'
+import { makeConversationId, useAssistant } from '../AssistantProvider'
 import ResultMenuContent from '../ResultMenu/ResultMenuContent'
 import { useSearch } from '../Search/SearchProvider'
 import SearchBar from '../Search/SearchBar'
@@ -15,9 +15,10 @@ const SearchDialog = () => {
   const { searchValue, clearSearch } = useSearch()
 
   const handleClick = () => {
-    onAssistantExecute(searchValue)
+    const conversationId = makeConversationId()
+    onAssistantExecute({ value: searchValue, conversationId })
     clearSearch()
-    navigate('../assistant', { replace: true })
+    navigate(`../assistant/${conversationId}`, { replace: true })
   }
 
   const handleClose = () => {
