@@ -58,6 +58,7 @@ const SearchBar = () => {
       value={inputValue}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      onClear={handleClear}
       onChange={handleChange}
     />
   )
