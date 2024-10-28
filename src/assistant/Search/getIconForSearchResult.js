@@ -52,7 +52,8 @@ export const getIconForSearchResult = searchResult => {
   }
 
   return {
-    type: 'unknown'
+    type: 'component',
+    component: IconFiles
   }
 }
 
