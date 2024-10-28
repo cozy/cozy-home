@@ -96,8 +96,8 @@ const App = ({ accounts, konnectors, triggers }) => {
   const context = useQuery(contextQuery.definition, contextQuery.options)
 
   const showAssistantForMobile = isFlagshipApp()
-    ? flag('cozy.search.enabled-for-flagship')
-    : flag('cozy.search.enabled') && isMobile
+    ? flag('cozy.searchbar.enabled-for-flagship')
+    : flag('cozy.searchbar.enabled') && isMobile
 
   useEffect(() => {
     setIsFetching(
