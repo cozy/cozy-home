@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import flag from 'cozy-flags'
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import SearchProvider from '../Search/SearchProvider'
@@ -40,7 +41,9 @@ const SearchDialog = () => {
       content={
         <>
           {searchValue !== '' && <ResultMenuContent onClick={handleClick} />}
-          <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
+          {flag('cozy.assistant.enabled') && (
+            <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
+          )}
         </>
       }
       onClose={handleClose}
