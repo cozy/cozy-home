@@ -27,7 +27,7 @@ export const DataProxyProvider = React.memo(({ children }) => {
 
     const initIframe = async () => {
       try {
-        if (!flag('cozy.assistant.withSearchResult')) {
+        if (!flag('cozy.search.with-result')) {
           log.log(
             'Dataproxy features will be disabled due to missing feature flags'
           )
