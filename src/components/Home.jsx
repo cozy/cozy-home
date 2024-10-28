@@ -28,13 +28,13 @@ const Home = ({ setAppsReady, wrapper }) => {
       <Main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />
         {pathname === '/connected' && <Announcements />}
-        {flag('cozy.search.enabled') && !isMobile && (
+        {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantWrapperDesktop />
         )}
         <Content
           className={cx('u-flex u-flex-column u-ph-1', {
             [styles['homeMainContent--withAssistant']]:
-              isMobile && flag('cozy.search.enabled'),
+              isMobile && flag('cozy.searchbar.enabled'),
             [styles['homeMainContent--immersive']]:
               getFlagshipMetadata().immersive
           })}
