@@ -12,7 +12,6 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { useAssistant } from '../AssistantProvider'
-import { useSearch } from '../Search/SearchProvider'
 
 import styles from './styles.styl'
 
@@ -20,7 +19,6 @@ const ConversationBar = ({ assistantStatus }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const { onAssistantExecute } = useAssistant()
-  const { clearSearch, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
   const inputRef = useRef()
   const { conversationId } = useParams()
@@ -33,11 +31,9 @@ const ConversationBar = ({ assistantStatus }) => {
 
   const handleClear = () => {
     setInputValue('')
-    clearSearch()
   }
 
   const handleChange = ev => {
-    delayedSetSearchValue(ev.target.value)
     setInputValue(ev.target.value)
   }
 
