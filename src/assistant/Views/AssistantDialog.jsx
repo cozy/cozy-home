@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -14,6 +14,7 @@ const AssistantDialog = () => {
   const { clearSearch } = useSearch()
   const { isMobile } = useBreakpoints()
   const navigate = useNavigate()
+  const { conversationId } = useParams()
 
   const onClose = () => {
     navigate('..')
@@ -32,7 +33,7 @@ const AssistantDialog = () => {
         divider: { className: 'u-dn' }
       }}
       title={isMobile ? ' ' : ' '}
-      content={<Conversation id={assistantState.conversationId} />}
+      content={<Conversation id={conversationId} />}
       actions={<ConversationBar assistantStatus={assistantState.status} />}
       onClose={onClose}
     />

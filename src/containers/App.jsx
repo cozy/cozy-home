@@ -167,7 +167,10 @@ const App = ({ accounts, konnectors, triggers }) => {
                     />
                   }
                 >
-                  <Route path="assistant" element={<AssistantDialog />} />
+                  <Route
+                    path="assistant/:conversationId"
+                    element={<AssistantDialog />}
+                  />
                   <Route path="search" element={<SearchDialog />} />
 
                   <Route path=":konnectorSlug/*" element={<Konnector />} />
