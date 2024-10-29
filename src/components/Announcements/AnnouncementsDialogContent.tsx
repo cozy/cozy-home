@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import cx from 'classnames'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -8,6 +9,9 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { Announcement } from './types'
 import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
+
+// @ts-expect-error stylus files are not typed
+import styles from './styles.styl'
 
 interface AnnouncementsDialogContentProps {
   announcement: Announcement
@@ -66,7 +70,13 @@ const AnnouncementsDialogContent: FC<AnnouncementsDialogContentProps> = ({
           t('AnnouncementsDialogContent.dateFormat')
         )}
       </Typography>
-      <div className="u-ta-center u-maw-100">
+      <div
+        className={cx(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+          styles['announcement_content'],
+          'u-ta-center u-maw-100'
+        )}
+      >
         <Markdown content={announcement.attributes.content} />
       </div>
       {announcement.attributes.main_action ? (
