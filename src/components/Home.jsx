@@ -3,7 +3,6 @@ import cx from 'classnames'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import flag from 'cozy-flags'
-import CozyDevTools from 'cozy-client/dist/devtools'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { getFlagshipMetadata } from 'cozy-device-helper'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
@@ -39,7 +38,6 @@ const Home = ({ setAppsReady, wrapper }) => {
               getFlagshipMetadata().immersive
           })}
         >
-          {flag('debug') && <CozyDevTools />}
           <Applications onAppsFetched={setAppsReady} />
           <Shortcuts />
           {flag('home.detailed-services-dev') ? (
