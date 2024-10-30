@@ -622,6 +622,6 @@
   },
   "AnnouncementsDialogContent": {
     "dateFormat": "DD/MM/YYYY",
-    "skip": "Ne plus afficher"
+    "skip": "Message lu"
   }
 }
