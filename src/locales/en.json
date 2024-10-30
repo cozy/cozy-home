@@ -622,6 +622,6 @@
   },
   "AnnouncementsDialogContent": {
     "dateFormat": "MM/DD/YYYY",
-    "skip": "Message seen"
+    "skip": "Understood"
   }
 }
