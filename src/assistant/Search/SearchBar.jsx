@@ -5,7 +5,8 @@ import flag from 'cozy-flags'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useSearch } from './SearchProvider'
-import { makeConversationId, useAssistant } from '../AssistantProvider'
+import { useAssistant } from '../AssistantProvider'
+import { makeConversationId } from '../helpers'
 import SearchBarMobile from './SearchBarMobile'
 import SearchBarDesktop from './SearchBarDesktop'
 

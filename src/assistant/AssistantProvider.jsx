@@ -5,17 +5,9 @@ import { useClient } from 'cozy-client'
 import useRealtime from 'cozy-realtime/dist/useRealtime'
 
 import { CHAT_EVENTS_DOCTYPE, CHAT_CONVERSATIONS_DOCTYPE } from './queries'
+import { pushMessagesIdInState, isMessageForThisConversation } from './helpers'
 
 export const AssistantContext = React.createContext()
-
-export const getInstantMessage = assistantState =>
-  Object.keys(assistantState.message)
-    .sort((a, b) => a - b)
-    .map(key => assistantState.message[key])
-    .join('')
-
-export const makeConversationId = () =>
-  `${Date.now()}-${Math.floor(Math.random() * 90000) + 10000}`
 
 export const useAssistant = () => {
   const context = useContext(AssistantContext)
@@ -25,17 +17,6 @@ export const useAssistant = () => {
   }
   return context
 }
-
-const pushMessagesIdInState = (res, setState) => {
-  const messagesId = res.messages.map(message => message.id)
-  setState(v => ({
-    ...v,
-    messagesId
-  }))
-}
-
-const isMessageForThisConversation = (res, messagesId) =>
-  messagesId.includes(res._id)
 
 const AssistantProvider = ({ children }) => {
   const client = useClient()
