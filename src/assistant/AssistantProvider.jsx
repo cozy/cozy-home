@@ -1,4 +1,5 @@
 import React, { useMemo, useContext, useState, useCallback } from 'react'
+import set from 'lodash/set'
 
 import { useClient } from 'cozy-client'
 import useRealtime from 'cozy-realtime/dist/useRealtime'
@@ -6,6 +7,12 @@ import useRealtime from 'cozy-realtime/dist/useRealtime'
 import { CHAT_EVENTS_DOCTYPE, CHAT_CONVERSATIONS_DOCTYPE } from './queries'
 
 export const AssistantContext = React.createContext()
+
+export const getInstantMessage = assistantState =>
+  Object.keys(assistantState.message)
+    .sort((a, b) => a - b)
+    .map(key => assistantState.message[key])
+    .join('')
 
 export const makeConversationId = () =>
   `${Date.now()}-${Math.floor(Math.random() * 90000) + 10000}`
@@ -33,7 +40,7 @@ const isMessageForThisConversation = (res, messagesId) =>
 const AssistantProvider = ({ children }) => {
   const client = useClient()
   const [assistantState, setAssistantState] = useState({
-    message: '',
+    message: {},
     status: 'idle',
     messagesId: []
   })
@@ -70,9 +77,11 @@ const AssistantProvider = ({ children }) => {
         }
 
         if (res.object === 'delta') {
+          const message = set(assistantState.message, res.position, res.content)
+
           setAssistantState(v => ({
             ...v,
-            message: v.message + res.content,
+            message,
             status: 'writing'
           }))
         }
@@ -83,7 +92,7 @@ const AssistantProvider = ({ children }) => {
   const clearAssistant = useCallback(
     () =>
       setAssistantState({
-        message: '',
+        message: {},
         status: 'idle',
         messagesId: []
       }),
