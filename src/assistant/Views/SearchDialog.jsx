@@ -41,7 +41,7 @@ const SearchDialog = () => {
       title={<SearchBar />}
       content={
         <>
-          {searchValue !== '' && <ResultMenuContent onClick={handleClick} />}
+          {searchValue && <ResultMenuContent onClick={handleClick} />}
           {flag('cozy.assistant.enabled') && (
             <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
           )}
