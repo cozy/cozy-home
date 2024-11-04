@@ -8,8 +8,6 @@
     "dialog": {
       "close": "Fermer"
     },
-    "hello_name":"Bonjour %{name}, que puis-je faire pour vous ?",
-    "hello":"Bonjour, que puis-je faire pour vous ?",
     "name":"Assistant Cozy",
     "sources":"%{smart_count} source |||| %{smart_count} sources",
     "suggestions": {

@@ -8,8 +8,6 @@
     "dialog": {
       "close": "閉じる"
     },
-    "hello_name":"${name}さん、こんにちは。",
-    "hello":"こんにちは、何かご用ですか？",
     "name":"アシスタント Cozy",
     "sources":"%{smart_count} ソース |||| %{smart_count} ソース",
     "suggestions": {
