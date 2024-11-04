@@ -8,8 +8,6 @@
     "dialog": {
       "close": "Close"
     },
-    "hello_name":"Hello %{name}, what can I do for you?",
-    "hello":"Hello, what can I do for you?",
     "name":"Cozy Assistant",
     "sources":"%{smart_count} source |||| %{smart_count} sources",
     "suggestions": {
