@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import flag from 'cozy-flags'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { useSearch } from './SearchProvider'
-import { useAssistant } from '../AssistantProvider'
-import { makeConversationId } from '../helpers'
+
 import SearchBarMobile from './SearchBarMobile'
 import SearchBarDesktop from './SearchBarDesktop'
 
@@ -14,32 +11,10 @@ const SearchBar = () => {
   const { isMobile } = useBreakpoints()
   const [inputValue, setInputValue] = useState('')
   const { clearSearch, delayedSetSearchValue } = useSearch()
-  const { onAssistantExecute } = useAssistant()
-  const navigate = useNavigate()
 
   const handleClear = () => {
     setInputValue('')
     clearSearch()
-  }
-
-  const handleClick = () => {
-    if (!flag('cozy.assistant.enabled')) return
-
-    const conversationId = makeConversationId()
-    onAssistantExecute({ value: inputValue, conversationId })
-    navigate(`assistant/${conversationId}`)
-    // setTimeout usefull to prevent the field from emptying before the route is changed
-    // works because the modal appears on top of the view that carries the input and not instead of it.
-    setTimeout(() => {
-      handleClear()
-    }, 100)
-  }
-
-  const handleKeyDown = ev => {
-    if (ev.key === 'Enter') {
-      ev.preventDefault() // prevent form submit
-      if (inputValue !== '') handleClick()
-    }
   }
 
   const handleChange = ev => {
@@ -60,8 +35,6 @@ const SearchBar = () => {
   return (
     <SearchBarDesktop
       value={inputValue}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
       onClear={handleClear}
       onChange={handleChange}
     />
