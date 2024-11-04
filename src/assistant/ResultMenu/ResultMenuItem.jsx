@@ -11,6 +11,7 @@ const ResultMenuItem = ({
   icon,
   primaryText,
   secondaryText,
+  selected,
   onClick,
   query,
   highlightQuery = false
@@ -37,7 +38,7 @@ const ResultMenuItem = ({
   )
 
   return (
-    <ListItem button size="small" onClick={onClick}>
+    <ListItem button size="small" selected={selected} onClick={onClick}>
       <ListItemIcon>{iconComponent}</ListItemIcon>
       <ListItemText primary={primary} secondary={secondary} />
     </ListItem>

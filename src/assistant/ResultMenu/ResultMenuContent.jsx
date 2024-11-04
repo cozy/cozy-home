@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import flag from 'cozy-flags'
 import List from 'cozy-ui/transpiled/react/List'
@@ -15,7 +15,7 @@ import { useSearch } from '../Search/SearchProvider'
 import ResultMenuItem from './ResultMenuItem'
 
 const SearchResult = () => {
-  const { isLoading, results, searchValue } = useSearch()
+  const { isLoading, results, selectedIndex, searchValue } = useSearch()
 
   if (isLoading && !results?.length)
     return (
@@ -34,19 +34,24 @@ const SearchResult = () => {
       secondaryText={result.secondary}
       query={searchValue}
       highlightQuery="true"
+      selected={
+        flag('cozy.assistant.enabled')
+          ? selectedIndex === idx + 1
+          : selectedIndex === idx
+      }
       onClick={result.onClick}
     />
   ))
 }
 
-const ResultMenuContent = ({ onClick }) => {
+const ResultMenuContent = forwardRef(({ onClick }, ref) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const { searchValue } = useSearch()
+  const { searchValue, selectedIndex } = useSearch()
   const { dataProxyServicesAvailable } = useDataProxy()
 
   return (
-    <List>
+    <List ref={ref}>
       {flag('cozy.assistant.enabled') && (
         <ResultMenuItem
           icon={
@@ -57,12 +62,15 @@ const ResultMenuContent = ({ onClick }) => {
           primaryText={searchValue}
           query={searchValue}
           secondaryText={t('assistant.search.result')}
+          selected={selectedIndex === 0}
           onClick={onClick}
         />
       )}
       {dataProxyServicesAvailable && <SearchResult />}
     </List>
   )
-}
+})
+
+ResultMenuContent.displayName = 'ResultMenuContent'
 
 export default ResultMenuContent
