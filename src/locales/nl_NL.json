@@ -8,8 +8,6 @@
     "dialog": {
       "close": "Sluit"
     },
-    "hello_name":"Hallo %{name}, wat kan ik voor je doen?",
-    "hello":"Hallo, wat kan ik voor u doen?",
     "name":"Cozy Assistent",
     "sources":"%{smart_count} bron |||| %{smart_count} bronnen",
     "suggestions": {
