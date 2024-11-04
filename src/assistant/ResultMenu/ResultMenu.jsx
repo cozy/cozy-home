@@ -7,7 +7,7 @@ import ResultMenuContent from './ResultMenuContent'
 
 import styles from './styles.styl'
 
-const ResultMenu = ({ anchorRef, onClick }) => {
+const ResultMenu = ({ anchorRef, listRef, onClick }) => {
   return (
     <Popper
       style={{
@@ -20,7 +20,7 @@ const ResultMenu = ({ anchorRef, onClick }) => {
     >
       <Paper className={styles['resultMenu']} square>
         <div className={styles['resultMenu-inner']}>
-          <ResultMenuContent onClick={onClick} />
+          <ResultMenuContent ref={listRef} onClick={onClick} />
         </div>
       </Paper>
     </Popper>

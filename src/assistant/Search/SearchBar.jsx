@@ -10,7 +10,7 @@ import SearchBarDesktop from './SearchBarDesktop'
 const SearchBar = () => {
   const { isMobile } = useBreakpoints()
   const [inputValue, setInputValue] = useState('')
-  const { clearSearch, delayedSetSearchValue } = useSearch()
+  const { clearSearch, setSelectedIndex, delayedSetSearchValue } = useSearch()
 
   const handleClear = () => {
     setInputValue('')
@@ -18,6 +18,7 @@ const SearchBar = () => {
   }
 
   const handleChange = ev => {
+    setSelectedIndex(0)
     delayedSetSearchValue(ev.target.value)
     setInputValue(ev.target.value)
   }

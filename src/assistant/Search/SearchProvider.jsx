@@ -16,6 +16,7 @@ export const useSearch = () => {
 
 const SearchProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState()
   const { isLoading, results } = useFetchResult(searchValue)
 
   const delayedSetSearchValue = useMemo(
@@ -23,7 +24,10 @@ const SearchProvider = ({ children }) => {
     [setSearchValue]
   )
 
-  const clearSearch = useCallback(() => setSearchValue(''), [])
+  const clearSearch = useCallback(() => {
+    setSearchValue('')
+    setSelectedIndex()
+  }, [])
 
   const value = useMemo(
     () => ({
@@ -32,9 +36,18 @@ const SearchProvider = ({ children }) => {
       delayedSetSearchValue,
       isLoading,
       clearSearch,
+      selectedIndex,
+      setSelectedIndex,
       results
     }),
-    [searchValue, delayedSetSearchValue, isLoading, clearSearch, results]
+    [
+      searchValue,
+      delayedSetSearchValue,
+      isLoading,
+      clearSearch,
+      selectedIndex,
+      results
+    ]
   )
 
   return (
