@@ -13,7 +13,11 @@ const ChatConversation = ({ conversation, myself }) => {
   const { assistantState } = useAssistant()
   const listRef = useRef()
 
-  const showLastConv = assistantState.status !== 'idle'
+  // test on role === user to be sure the last response is inside io.cozy.ai.chat.conversations
+  const showRealtimeMessage =
+    assistantState.status !== 'idle' ||
+    conversation?.messages?.[conversation?.messages?.length - 1]?.role ===
+      'user'
 
   useEffect(() => {
     // force scroll down if new message of change in AI instant response
@@ -50,7 +54,7 @@ const ChatConversation = ({ conversation, myself }) => {
           )
         }
 
-        if (showLastConv) {
+        if (showRealtimeMessage) {
           return null
         }
 
@@ -65,7 +69,7 @@ const ChatConversation = ({ conversation, myself }) => {
         )
       })}
 
-      {showLastConv && (
+      {showRealtimeMessage && (
         <ChatRealtimeAnswer
           isLoading={assistantState.status === 'pending'}
           label={getInstantMessage(assistantState)}

@@ -26,49 +26,57 @@ const AssistantProvider = ({ children }) => {
     messagesId: []
   })
 
-  useRealtime(client, {
-    [CHAT_CONVERSATIONS_DOCTYPE]: {
-      created: res => {
-        pushMessagesIdInState(res, setAssistantState)
-      },
-      updated: res => {
-        pushMessagesIdInState(res, setAssistantState)
-      }
-    }
-  })
-
-  useRealtime(client, {
-    [CHAT_EVENTS_DOCTYPE]: {
-      created: res => {
-        // to exclude realtime messages if not relevant to the actual conversation
-        if (!isMessageForThisConversation(res, assistantState.messagesId)) {
-          return
-        }
-
-        if (res.object === 'done') {
-          if (assistantState.status !== 'idle') {
-            // to be sure the last response is inside io.cozy.ai.chat.conversations
-            setTimeout(() => {
-              setAssistantState(v => ({
-                ...v,
-                status: 'idle'
-              }))
-            }, 250)
-          }
-        }
-
-        if (res.object === 'delta') {
-          const message = set(assistantState.message, res.position, res.content)
-
-          setAssistantState(v => ({
-            ...v,
-            message,
-            status: 'writing'
-          }))
+  useRealtime(
+    client,
+    {
+      [CHAT_CONVERSATIONS_DOCTYPE]: {
+        created: res => {
+          pushMessagesIdInState(res, setAssistantState)
+        },
+        updated: res => {
+          pushMessagesIdInState(res, setAssistantState)
         }
       }
-    }
-  })
+    },
+    []
+  )
+
+  useRealtime(
+    client,
+    {
+      [CHAT_EVENTS_DOCTYPE]: {
+        created: res => {
+          setAssistantState(prevState => {
+            // to exclude realtime messages if not relevant to the actual conversation
+            if (!isMessageForThisConversation(res, prevState.messagesId)) {
+              return prevState
+            }
+
+            if (res.object === 'done') {
+              if (prevState.status !== 'idle') {
+                return {
+                  ...prevState,
+                  status: 'idle'
+                }
+              }
+            }
+
+            if (res.object === 'delta') {
+              const message = set(prevState.message, res.position, res.content)
+              return {
+                ...prevState,
+                message,
+                status: 'writing'
+              }
+            }
+
+            return prevState
+          })
+        }
+      }
+    },
+    []
+  )
 
   const clearAssistant = useCallback(
     () =>
