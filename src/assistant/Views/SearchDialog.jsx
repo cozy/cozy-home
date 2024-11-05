@@ -5,7 +5,7 @@ import flag from 'cozy-flags'
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import SearchProvider from '../Search/SearchProvider'
-import { useAssistant } from '../AssistantProvider'
+import AssistantProvider, { useAssistant } from '../AssistantProvider'
 import { makeConversationId } from '../helpers'
 import ResultMenuContent from '../ResultMenu/ResultMenuContent'
 import { useSearch } from '../Search/SearchProvider'
@@ -54,9 +54,11 @@ const SearchDialog = () => {
 
 const SearchDialogWithProviders = () => {
   return (
-    <SearchProvider>
-      <SearchDialog />
-    </SearchProvider>
+    <AssistantProvider>
+      <SearchProvider>
+        <SearchDialog />
+      </SearchProvider>
+    </AssistantProvider>
   )
 }
 
