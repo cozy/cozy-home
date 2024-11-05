@@ -1,4 +1,5 @@
 import React, { useMemo, useContext, useState, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 import set from 'lodash/set'
 
 import { useClient } from 'cozy-client'
@@ -19,6 +20,7 @@ export const useAssistant = () => {
 }
 
 const AssistantProvider = ({ children }) => {
+  const { conversationId } = useParams()
   const client = useClient()
   const [assistantState, setAssistantState] = useState({
     message: {},
@@ -31,10 +33,10 @@ const AssistantProvider = ({ children }) => {
     {
       [CHAT_CONVERSATIONS_DOCTYPE]: {
         created: res => {
-          pushMessagesIdInState(res, setAssistantState)
+          pushMessagesIdInState(conversationId, res, setAssistantState)
         },
         updated: res => {
-          pushMessagesIdInState(res, setAssistantState)
+          pushMessagesIdInState(conversationId, res, setAssistantState)
         }
       }
     },

@@ -7,7 +7,9 @@ export const getInstantMessage = assistantState =>
 export const makeConversationId = () =>
   `${Date.now()}-${Math.floor(Math.random() * 90000) + 10000}`
 
-export const pushMessagesIdInState = (res, setState) => {
+export const pushMessagesIdInState = (id, res, setState) => {
+  if (id !== res._id) return
+
   const messagesId = res.messages.map(message => message.id)
   setState(v => ({
     ...v,
