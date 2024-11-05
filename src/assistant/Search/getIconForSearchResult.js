@@ -26,14 +26,14 @@ export const getIconForSearchResult = searchResult => {
     }
   }
 
-  if (searchResult.type === 'notes') {
+  if (searchResult.slug === 'notes') {
     return {
       type: 'component',
       component: IconNote
     }
   }
 
-  if (searchResult.type === 'drive') {
+  if (searchResult.slug === 'drive') {
     return {
       type: 'component',
       component: getDriveMimeTypeIcon(
@@ -44,7 +44,7 @@ export const getIconForSearchResult = searchResult => {
     }
   }
 
-  if (searchResult.type === 'contacts') {
+  if (searchResult.slug === 'contacts') {
     return {
       type: 'component',
       component: ContactsIcon
