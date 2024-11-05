@@ -6,7 +6,7 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import Conversation from '../Conversations/Conversation'
 import ConversationBar from '../Conversations/ConversationBar'
-import { useAssistant } from '../AssistantProvider'
+import AssistantProvider, { useAssistant } from '../AssistantProvider'
 
 const AssistantDialog = () => {
   const { assistantState } = useAssistant()
@@ -36,4 +36,12 @@ const AssistantDialog = () => {
   )
 }
 
-export default AssistantDialog
+const AssistantDialogWithProviders = () => {
+  return (
+    <AssistantProvider>
+      <AssistantDialog />
+    </AssistantProvider>
+  )
+}
+
+export default AssistantDialogWithProviders

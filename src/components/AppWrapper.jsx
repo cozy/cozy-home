@@ -21,7 +21,6 @@ import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import AssistantProvider from 'assistant/AssistantProvider'
 import { WallPaperProvider } from 'hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
@@ -116,22 +115,20 @@ const AppWrapper = ({ children }) => {
               <CozyTheme>
                 <ThemeProvider>
                   <AlertProvider>
-                    <AssistantProvider>
-                      <ReduxProvider store={store}>
-                        <ConditionalWrapper
-                          condition={persistor}
-                          wrapper={children => (
-                            <PersistGate loading={null} persistor={persistor}>
-                              {children}
-                            </PersistGate>
-                          )}
-                        >
-                          <Inner lang={lang} context={context}>
+                    <ReduxProvider store={store}>
+                      <ConditionalWrapper
+                        condition={persistor}
+                        wrapper={children => (
+                          <PersistGate loading={null} persistor={persistor}>
                             {children}
-                          </Inner>
-                        </ConditionalWrapper>
-                      </ReduxProvider>
-                    </AssistantProvider>
+                          </PersistGate>
+                        )}
+                      >
+                        <Inner lang={lang} context={context}>
+                          {children}
+                        </Inner>
+                      </ConditionalWrapper>
+                    </ReduxProvider>
                   </AlertProvider>
                 </ThemeProvider>
               </CozyTheme>

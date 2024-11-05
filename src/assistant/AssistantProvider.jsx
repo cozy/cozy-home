@@ -22,7 +22,7 @@ const AssistantProvider = ({ children }) => {
   const client = useClient()
   const [assistantState, setAssistantState] = useState({
     message: {},
-    status: 'idle',
+    status: 'pending',
     messagesId: []
   })
 
@@ -82,7 +82,7 @@ const AssistantProvider = ({ children }) => {
     () =>
       setAssistantState({
         message: {},
-        status: 'idle',
+        status: 'pending',
         messagesId: []
       }),
     []
