@@ -4,7 +4,7 @@ import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
 import CozyClient, { CozyProvider, RealTimeQueries } from 'cozy-client'
-import CozyDevtools from 'cozy-client/dist/devtools'
+import CozyDevtools from 'cozy-devtools'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
