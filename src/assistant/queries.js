@@ -7,16 +7,9 @@ export const FILES_DOCTYPE = 'io.cozy.files'
 
 const defaultFetchPolicy = fetchPolicies.olderThan(86_400_000) // 24 hours
 
-// we don't use getByIds here to get `path` attribute in the result
-// this have to be fixed, it's a work in progess
-// meanwhile we use this sub-optimal request
 export const buildFilesByIds = ids => {
   return {
-    definition: Q(FILES_DOCTYPE).where({
-      _id: {
-        $in: ids
-      }
-    }),
+    definition: Q(FILES_DOCTYPE).getByIds(ids),
     options: {
       as: `${FILES_DOCTYPE}/${ids.join('')}`,
       fetchPolicy: defaultFetchPolicy
