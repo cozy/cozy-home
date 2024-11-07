@@ -1,3 +1,14 @@
+# 1.83.0
+
+### ✨ Features
+
+* feat(search): Change search attribute names by @Ldoppea in https://github.com/cozy/cozy-home/pull/2241
+
+### 🐛  Fixes
+
+* fix(Assistant): Now exclude realtime message if not relevant by @JF-Cozy in https://github.com/cozy/cozy-home/pull/2240
+
+
 # 1.49.0
 
 ## ✨ Features
