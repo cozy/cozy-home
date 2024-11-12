@@ -22,6 +22,11 @@ const Sources = ({ messageId, files }) => {
     setShowSources(v => !v)
   }
 
+  // we want to scroll down to the sources button when it is displayed
+  useEffect(() => {
+    ref.current?.scrollIntoView(false)
+  }, [])
+
   useEffect(() => {
     if (showSources) {
       const sourcesBottom = ref.current.getBoundingClientRect().bottom
