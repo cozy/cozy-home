@@ -12,6 +12,7 @@ import ChatRealtimeAnswer from './ChatRealtimeAnswer'
 const ChatConversation = ({ conversation, myself }) => {
   const { assistantState } = useAssistant()
   const listRef = useRef()
+  const instantMessageKeysCount = Object.keys(assistantState.message).length
 
   // test on role === user to be sure the last response is inside io.cozy.ai.chat.conversations
   const showRealtimeMessage =
@@ -21,11 +22,11 @@ const ChatConversation = ({ conversation, myself }) => {
 
   useEffect(() => {
     // force scroll down if new message of change in AI instant response
-    listRef.current?.lastElementChild?.scrollIntoView({ block: 'end' })
+    listRef.current?.lastElementChild?.scrollIntoView(false)
   }, [
     conversation?.messages?.length,
     assistantState.status,
-    assistantState.message
+    instantMessageKeysCount
   ])
 
   return (
