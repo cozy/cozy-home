@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import flag from 'cozy-flags'
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import SearchProvider from '../Search/SearchProvider'
 import AssistantProvider, { useAssistant } from '../AssistantProvider'
@@ -54,11 +55,13 @@ const SearchDialog = () => {
 
 const SearchDialogWithProviders = () => {
   return (
-    <AssistantProvider>
-      <SearchProvider>
-        <SearchDialog />
-      </SearchProvider>
-    </AssistantProvider>
+    <CozyTheme variant="normal">
+      <AssistantProvider>
+        <SearchProvider>
+          <SearchDialog />
+        </SearchProvider>
+      </AssistantProvider>
+    </CozyTheme>
   )
 }
 
