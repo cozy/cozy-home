@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import Conversation from '../Conversations/Conversation'
@@ -38,9 +39,11 @@ const AssistantDialog = () => {
 
 const AssistantDialogWithProviders = () => {
   return (
-    <AssistantProvider>
-      <AssistantDialog />
-    </AssistantProvider>
+    <CozyTheme variant="normal">
+      <AssistantProvider>
+        <AssistantDialog />
+      </AssistantProvider>
+    </CozyTheme>
   )
 }
 
