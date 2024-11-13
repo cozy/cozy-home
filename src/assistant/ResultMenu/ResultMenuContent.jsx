@@ -30,8 +30,10 @@ const SearchResult = () => {
     <ResultMenuItem
       key={result.id || idx}
       icon={result.icon}
+      slug={result.slug}
       primaryText={result.primary}
       secondaryText={result.secondary}
+      secondaryUrl={result.secondaryUrl}
       query={searchValue}
       highlightQuery="true"
       selected={

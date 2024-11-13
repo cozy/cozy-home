@@ -6,11 +6,14 @@ import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import SuggestionItemTextHighlighted from './SuggestionItemTextHighlighted'
+import SuggestionItemTextSecondary from './SuggestionItemTextSecondary'
 
 const ResultMenuItem = ({
   icon,
   primaryText,
   secondaryText,
+  secondaryUrl,
+  slug,
   selected,
   onClick,
   query,
@@ -32,7 +35,12 @@ const ResultMenuItem = ({
   )
 
   const secondary = highlightQuery ? (
-    <SuggestionItemTextHighlighted text={secondaryText} query={query} />
+    <SuggestionItemTextSecondary
+      text={secondaryText}
+      query={query}
+      slug={slug}
+      url={secondaryUrl}
+    />
   ) : (
     secondaryText
   )

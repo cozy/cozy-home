@@ -36,6 +36,8 @@ export const useFetchResult = searchValue => {
         return {
           id: r.doc._id,
           icon: icon,
+          slug: r.slug,
+          secondaryUrl: r.secondaryUrl,
           primary: r.title,
           secondary: r.subTitle,
           onClick: () => {
