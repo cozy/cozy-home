@@ -8,8 +8,7 @@ import React from 'react'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 import SuggestionItemTextHighlighted from './SuggestionItemTextHighlighted'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-
-import styles from './styles.styl'
+import Link from 'cozy-ui/transpiled/react/Link'
 
 const SuggestionItemTextSecondary = ({ text, query, url, slug }) => {
   const { isMobile } = useBreakpoints()
@@ -22,8 +21,9 @@ const SuggestionItemTextSecondary = ({ text, query, url, slug }) => {
   return (
     <AppLinker app={app} href={url}>
       {({ href, onClick }) => (
-        <a
-          className={styles['suggestion-item-parent-link']}
+        <Link
+          color="textSecondary"
+          underline="hover"
           href={href}
           onClick={e => {
             e.stopPropagation()
@@ -37,7 +37,7 @@ const SuggestionItemTextSecondary = ({ text, query, url, slug }) => {
             query={query}
             slug={slug}
           />
-        </a>
+        </Link>
       )}
     </AppLinker>
   )
