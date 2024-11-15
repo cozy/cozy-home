@@ -17,27 +17,19 @@ import {
   computeGroupMode,
   handleSectionAction
 } from 'components/Sections/utils'
-
-const StateSwitch = ({
-  handleClick,
-  checked
-}: {
-  handleClick: () => void
-  checked: boolean
-}): JSX.Element => {
-  return <Switch checked={checked} onChange={handleClick} color="primary" />
-}
+import { useNavigate } from 'react-router-dom'
 
 export const groupModeAction = (): (() => Action) => () => ({
   name: `sectionAction_group`,
   Component: React.forwardRef<{ docs?: Section[] }>(
     function SectionActionComponent(props: { docs?: Section[] }, ref) {
+      const navigate = useNavigate()
       const { t } = useI18n()
       const { isMobile } = useBreakpoints()
       const { values, save } = useSettings('home', ['shortcutsLayout'])
       const section = props.docs?.[0] as SectionViewProps['section']
       const currentGroupMode = computeGroupMode(isMobile, section)
-      const handleClick = (): void =>
+      const handleClick = (): void => {
         handleSectionAction(
           section,
           isMobile,
@@ -47,17 +39,20 @@ export const groupModeAction = (): (() => Action) => () => ({
           values,
           save
         )
+        if (currentGroupMode === GroupMode.GROUPED) {
+          navigate('/connected')
+        }
+      }
 
       return (
-        <ActionsMenuItem {...props} ref={ref}>
+        <ActionsMenuItem {...props} ref={ref} onClick={handleClick}>
           <ListItemText
             className="u-mr-half"
             primary={t(`sections.label_grouped`)}
           />
-
-          <StateSwitch
-            handleClick={handleClick}
+          <Switch
             checked={currentGroupMode === GroupMode.GROUPED}
+            color="primary"
           />
         </ActionsMenuItem>
       )
