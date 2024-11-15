@@ -1,14 +1,11 @@
 import { formatShortcuts } from './utils'
 
 const directories = [
-  { _id: '1', attributes: { name: '1' } },
-  { _id: '2', attributes: { name: '2' } }
+  { _id: '1', name: '1' },
+  { _id: '2', name: '2' }
 ]
 
-const shortcuts = [
-  { attributes: { dir_id: '1' } },
-  { attributes: { dir_id: '2' } }
-]
+const shortcuts = [{ dir_id: '1' }, { dir_id: '2' }]
 
 const expected = [
   { id: '1', name: '1', items: [shortcuts[0]] },
