@@ -6315,10 +6315,10 @@ cozy-tsconfig@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-tsconfig/-/cozy-tsconfig-1.2.0.tgz#17e61f960f139fae4d26cbac2254b9ab632b269e"
   integrity sha512-TRHnY9goF3FzVlUbP7BcHxuN2XAA4AmppT4fHHZmTKaSwYTByVR1Al+riFMDbce94kJZ1wzl9WNLWQuqzGZ6Cw==
 
-cozy-ui@^113.0.0:
-  version "113.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-113.0.0.tgz#5e99de9d2a44a837fa8a69d741b119832a91cb31"
-  integrity sha512-SoLEPgJSFpIRiTSVPPingNGlzn2S3gbSwnTt7+z84v57PzFVTeOtIo67QucVFKme9DkUagOe+2pDqqCYYK1qTQ==
+cozy-ui@^113.3.0:
+  version "113.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-113.3.0.tgz#2acd1818a329ec4b8288ca7d603db8580f4ce249"
+  integrity sha512-D3SMBVBCIA4FFyoiqYeduJtRASlKaLgHAFJ0dSZ4mTc1GcBX++86Y2fU5WcohAtmLtdDoWPD2J4GdhcrzEvYdw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@material-ui/core" "4.12.3"
