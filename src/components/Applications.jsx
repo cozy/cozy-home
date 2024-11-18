@@ -38,28 +38,27 @@ LoadingAppTiles.displayName = LoadingAppTiles
 
 const isValidData = memoize(data => Array.isArray(data) && data.length > 0)
 
-const getApplicationsList = memoize(data => {
+const getApplicationsList = data => {
   if (isValidData(data)) {
+    const hiddenApps = flag('apps.hidden') || []
     const apps = data.filter(
       app =>
         app.state !== 'hidden' &&
         !homeConfig.filteredApps.includes(app.slug) &&
-        !flag(`home_hidden_apps.${app.slug.toLowerCase()}`) // can be set in the context with `home_hidden_apps: - drive - banks`for example
+        !hiddenApps.includes(app.slug.toLowerCase())
     )
     const dedupapps = uniqBy(apps, 'slug')
-    const array = dedupapps
-      .filter(app => app.name !== 'cozy-data-proxy') // This filter should be temporary (see commit message for more details)
-      .map(app => <AppTile key={app.id} app={app} />)
+    const appList = dedupapps.map(app => <AppTile key={app.id} app={app} />)
 
-    array.push(
+    appList.push(
       <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
     )
 
-    return array
+    return appList
   } else {
     return <LoadingAppTiles num={3} />
   }
-})
+}
 
 export const Applications = ({ onAppsFetched }) => {
   const showLogout = !!flag('home.mainlist.show-logout')
