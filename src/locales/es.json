@@ -27,8 +27,8 @@
   },
   "manifest": {
     "name": "Inicio",
-    "short_description": "Cozy Collect es la aplicación que le ayuda a recopilar todos sus datos personales que están en Cozy.",
-    "long_description": "Con Cozy Collect, usted puede facilmente:\n* Descargar documentos de todos sus proveedores\n* Establecer la frecuencia con la que Cozy recopilará sus facturas\n* Acceder directoamente a los documentos recopilados por su Cozy",
+    "short_description": "Cozy Home es la aplicación que le ayuda a recopilar todos sus datos personales que están en Cozy.",
+    "long_description": "Con Cozy Home, usted puede facilmente:\n* Descargar documentos de todos sus proveedores\n* Establecer la frecuencia con la que Cozy recopilará sus facturas\n* Acceder directoamente a los documentos recopilados por su Cozy",
     "changes": "Seguro ya se ha dado cuenta, el Store ha llegado a su Cozy\nAprovechamos para mejorar Collect:\n*Adaptación a Store.\n*Fusión de fichas: cuando se tienen diversas cuentas en un proveedor, la primera se fusiona baja la ficha del proveedor.\n*Mejora de algunas páginas de Conectores."
   },
   "add_service": "Añadir",

@@ -27,8 +27,8 @@
   },
   "manifest": {
     "name": "Accueil",
-    "short_description": "Cozy Collect est l'application de récupération de vos données personnelles disponible sur Cozy.",
-    "long_description": "Avec Cozy Collect, vous pouvez facilement :\n\n * Télécharger les documents de tous vos fournisseurs\n * Configurer la fréquence à laquelle Cozy va récupérer vos factures\n * Accéder directement aux documents récupérés par votre Cozy",
+    "short_description": "Cozy Home est l'application de récupération de vos données personnelles disponible sur Cozy.",
+    "long_description": "Avec Cozy Home, vous pouvez facilement :\n\n * Télécharger les documents de tous vos fournisseurs\n * Configurer la fréquence à laquelle Cozy va récupérer vos factures\n * Accéder directement aux documents récupérés par votre Cozy",
     "changes": "Cela ne vous aura pas échappé, le Store est arrivé dans Cozy !\nNous en avons profité pour améliorer Collect :\n\n * Adaptation au Store.\n * Fusion des tuiles : lorsque vous avez plusieurs comptes pour un même fournisseur ces derniers sont désormais réunis sous la tuile de ce fournisseur.\n * Amélioration des pages des connecteurs."
   },
   "add_service": "Ajouter",
