@@ -27,8 +27,8 @@
   },
   "manifest": {
     "name": "Zuhause",
-    "short_description": "Cozy Collect ist die Anwendung, die dir hilft, alle deine persönlichen Daten in Cozy zu sammeln.",
-    "long_description": "Mit Cozy Collect kannst du ganz einfach:\n * Dokumente all deiner Dienste herunterladen\n * Festlegen, wie häufig Cozy deine Rechnungen holt\n * Direkt auf all die von Cozy gesammelten Dokumente zugreifen",
+    "short_description": "Cozy Home ist die Anwendung, die dir hilft, alle deine persönlichen Daten in Cozy zu sammeln.",
+    "long_description": "Mit Cozy Home kannst du ganz einfach:\n * Dokumente all deiner Dienste herunterladen\n * Festlegen, wie häufig Cozy deine Rechnungen holt\n * Direkt auf all die von Cozy gesammelten Dokumente zugreifen",
     "changes": "Du hast es nicht verpasst, der Store ist in deinem Cozy angekommen!\nWir haben es genutzt, um Collect zu verbessern:\n * Store Anpassungen.\n * Kachelzusammenführung: Wenn du mehrere Konten bei einem Dienst hast, werden diese nun unter die Dienstleister-Kachel zusammengeführt.\n * Verbesserungen einiger Connector-Seiten."
   },
   "add_service": "Hinzufügen",
