@@ -2,6 +2,7 @@ import * as Comlink from 'comlink'
 import React, { useContext, useState, useEffect } from 'react'
 
 import { useClient } from 'cozy-client'
+import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import Minilog from 'cozy-minilog'
 
@@ -66,7 +67,11 @@ export const DataProxyProvider = React.memo(({ children }) => {
       }
     }
 
-    initIframe()
+    if (isFlagshipApp()) {
+      setDataProxyServicesAvailable(false)
+    } else {
+      initIframe()
+    }
   }, [client])
 
   const onIframeLoaded = () => {
