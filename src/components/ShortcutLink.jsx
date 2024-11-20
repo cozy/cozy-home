@@ -1,8 +1,9 @@
 import React from 'react'
 import get from 'lodash/get'
 
-import { useClient, useFetchShortcut, useInstanceInfo } from 'cozy-client'
+import { useClient, useFetchShortcut } from 'cozy-client'
 import { CozyFile } from 'cozy-doctypes'
+import flag from 'cozy-flags'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
@@ -22,7 +23,6 @@ export const ShortcutLink = ({
   // waiting an http request to resolve.
   const { shortcutInfos } = useFetchShortcut(client, file._id)
   const { isMobile } = useBreakpoints()
-  const instanceInfo = useInstanceInfo()
 
   const computedSize = isMobile ? 32 : desktopSize
   const { filename } = CozyFile.splitFilename(file)
@@ -35,8 +35,6 @@ export const ShortcutLink = ({
   const icon = get(file, 'attributes.metadata.icon')
   const iconMimeType = get(file, 'attributes.metadata.iconMimeType')
   const description = get(file, 'attributes.metadata.description')
-  const shouldShortcutBadgeHidden =
-    instanceInfo.context?.data?.hide_shortcut_badge_on_home ?? false
 
   return (
     <Link
@@ -65,7 +63,7 @@ export const ShortcutLink = ({
               alt={filename}
             />
           }
-          hideShortcutBadge={shouldShortcutBadgeHidden}
+          hideShortcutBadge={flag('home.hide-shortcut-badge')}
         />
       ) : (
         <SquareAppIcon
@@ -73,7 +71,7 @@ export const ShortcutLink = ({
           variant="shortcut"
           display={display}
           description={description}
-          hideShortcutBadge={shouldShortcutBadgeHidden}
+          hideShortcutBadge={flag('home.hide-shortcut-badge')}
         />
       )}
     </Link>
