@@ -8,7 +8,7 @@ import { getFlagshipMetadata } from 'cozy-device-helper'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import AssistantWrapperDesktop from 'assistant/AssistantWrapperDesktop'
+import { AssistantWrapperDesktop } from 'cozy-dataproxy-lib'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
