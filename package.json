@@ -41,7 +41,7 @@
     "cozy-devtools": "^1.2.1",
     "cozy-doctypes": "1.83.8",
     "cozy-flags": "4.0.0",
-    "cozy-harvest-lib": "^30.6.1",
+    "cozy-harvest-lib": "^31.0.0",
     "cozy-intent": "^2.29.1",
     "cozy-interapp": "^0.9.0",
     "cozy-keys-lib": "^6.1.1",
