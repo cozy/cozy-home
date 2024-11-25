@@ -20,7 +20,7 @@ jest.mock('cozy-device-helper', () => ({
 }))
 
 jest.mock('cozy-harvest-lib', () => ({
-  Routes: ({ konnector, triggers, onDismiss }) => (
+  HarvestRoutes: ({ konnector, triggers, onDismiss }) => (
     <div konnector={konnector} triggers={triggers} onClick={onDismiss}>
       {konnector.slug}
     </div>

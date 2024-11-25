@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 import log from 'cozy-logger'
-import { Routes as HarvestRoutes } from 'cozy-harvest-lib'
+import { HarvestRoutes } from 'cozy-harvest-lib'
 
 import { closeApp, openApp } from 'hooks/useOpenApp'
 import { getKonnector } from 'ducks/konnectors'
