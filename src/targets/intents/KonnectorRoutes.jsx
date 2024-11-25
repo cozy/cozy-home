@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Routes } from 'cozy-harvest-lib'
+import { HarvestRoutes } from 'cozy-harvest-lib'
 import { useParams } from 'react-router-dom'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { useClient } from 'cozy-client'
 import Intents from 'cozy-interapp'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 
-export const HarvestRoutes = ({ intentData, intentId }) => {
+export const KonnectorRoutes = ({ intentData, intentId }) => {
   const { konnectorSlug } = useParams()
   const client = useClient()
 
@@ -22,7 +22,7 @@ export const HarvestRoutes = ({ intentData, intentId }) => {
 
   return (
     <CozyTheme variant="normal">
-      <Routes
+      <HarvestRoutes
         konnectorRoot={`/${konnectorSlug}`}
         konnectorSlug={konnectorSlug}
         onDismiss={() => (service ? service.cancel() : undefined)}

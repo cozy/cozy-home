@@ -11,7 +11,7 @@ import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 
 import IntentHandler from 'containers/IntentHandler'
 import AppWrapper, { AppContext } from 'components/AppWrapper'
-import { HarvestRoutes } from './HarvestRoute'
+import { KonnectorRoutes } from './KonnectorRoutes'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route
                 path=":konnectorSlug/*"
                 element={
-                  <HarvestRoutes intentData={data} intentId={intentId} />
+                  <KonnectorRoutes intentData={data} intentId={intentId} />
                 }
               />
             </Routes>
