@@ -25,6 +25,8 @@ export const AssistantWrapperMobile = () => {
   const { t } = useI18n()
   const navigate = useNavigate()
 
+  const isAssistantEnabled = flag('cozy.assistant.enabled')
+
   return (
     <CozyTheme variant="normal">
       <div
@@ -43,7 +45,9 @@ export const AssistantWrapperMobile = () => {
             <Icon className="u-ml-1 u-mr-half" icon={AssistantIcon} size={24} />
           }
           type="button"
-          label={t('assistant.search.placeholder')}
+          label={
+            isAssistantEnabled ? t('assistant.search.placeholder') : undefined // Fallback on SearchBar default
+          }
           onClick={() => navigate('connected/search')}
         />
       </div>
