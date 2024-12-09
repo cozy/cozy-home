@@ -24,8 +24,10 @@ const SearchBarDesktop = ({ value, onClear, onChange }) => {
   const searchRef = useRef()
   const listRef = useRef()
 
+  const isAssistantEnabled = flag('cozy.assistant.enabled')
+
   const handleClick = () => {
-    if (!flag('cozy.assistant.enabled')) return
+    if (!isAssistantEnabled) return
 
     const conversationId = makeConversationId()
     onAssistantExecute({ value, conversationId })
@@ -84,7 +86,9 @@ const SearchBarDesktop = ({ value, onClear, onChange }) => {
           ref={searchRef}
           size="large"
           icon={<Icon className="u-mh-1" icon={AssistantIcon} size={32} />}
-          placeholder={t('assistant.search.placeholder')}
+          placeholder={
+            isAssistantEnabled ? t('assistant.search.placeholder') : undefined // Fallback on SearchBar default
+          }
           value={value}
           componentsProps={{
             inputBase: { onKeyDown: handleKeyDown }
