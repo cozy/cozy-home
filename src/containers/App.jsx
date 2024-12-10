@@ -1,12 +1,12 @@
 /* global __SIMULATE_FLAGSHIP__ */
 import React, { useEffect, useState } from 'react'
 import { Navigate, Route } from 'react-router-dom'
-
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from 'cozy-minilog'
 import { useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
+import pako from 'pako'
 
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
@@ -141,6 +141,45 @@ const App = ({ accounts, konnectors, triggers }) => {
       <BackgroundContainer />
       <ReloadFocus />
       <MainView>
+        <button
+          onClick={async () => {
+            const start = new Date()
+
+            console.log('---')
+            const result = await webviewIntent.call('getPerfs')
+            // console.log('result', result)
+            const end = new Date()
+            const duration = end.getTime() - start.getTime()
+            console.log(`⏰ operation took ${duration}ms`)
+
+            const start2 = new Date()
+
+            const result2 = await webviewIntent.call('getPerfsSerialized')
+            const result2Obj = JSON.parse(result2)
+            // console.log('result2', result2Obj.length)
+            const end2 = new Date()
+            const duration2 = end2.getTime() - start2.getTime()
+            console.log(`⏰ operation serialized took ${duration2}ms`)
+
+            const start3 = new Date()
+
+            const result3 = await webviewIntent.call('getPerfsCompressed')
+            const end3intermediate = new Date()
+            const duration3intermediate = end3intermediate.getTime() - start3.getTime()
+            console.log(`⏰ operation compressed took ${duration3intermediate}ms`)
+            const gezipedData = atob(result3)
+            const gzipedDataArray = Uint8Array.from(gezipedData, c => c.charCodeAt(0))
+            const result3Dec = pako.ungzip(gzipedDataArray)
+            const resultStr = new TextDecoder().decode(result3Dec)
+            const result3Obj = JSON.parse(resultStr)
+            console.log('result3', result3Obj.length)
+            const end3final = new Date()
+            const duration3final = end3final.getTime() - start3.getTime()
+            console.log(`⏰ operation compressed took ${duration3final}ms`)
+          }}
+        >
+          TEST PERF
+        </button>
         <BackupNotification />
         <Corner />
         <div
