@@ -13,6 +13,7 @@ import {
   useAppsInMaintenance,
   useClient,
   useQuery,
+  useQueryAll,
   useSettings
 } from 'cozy-client'
 import {
@@ -85,17 +86,17 @@ export const SectionsProvider = ({
   const client = useClient()
   const { t } = useI18n()
 
-  const { data: allTriggers } = useQuery(
+  const { data: allTriggers } = useQueryAll(
     _makeTriggersQuery.definition(),
     _makeTriggersQuery.options
   ) as { data: IOCozyTrigger[] }
 
-  const { data: accounts } = useQuery(
+  const { data: accounts } = useQueryAll(
     _makeAccountsQuery.definition(),
     _makeAccountsQuery.options
   ) as { data: IOCozyAccount[] }
 
-  const { data: konnectors } = useQuery(
+  const { data: konnectors } = useQueryAll(
     konnectorsConn.query,
     konnectorsConn
   ) as { data: IOCozyKonnector[] }
