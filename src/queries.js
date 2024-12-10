@@ -15,9 +15,15 @@ export const konnectorsConn = {
 }
 
 export const makeTriggersQuery = {
-  definition: () => Q('io.cozy.triggers'),
+  definition: () => {
+    return Q('io.cozy.triggers')
+      .partialIndex({
+        worker: 'konnector'
+      })
+      .limitBy(1000)
+  },
   options: {
-    as: 'io.cozy.triggers',
+    as: 'io.cozy.triggers/worker=konnector',
     fetchPolicy: defaultFetchPolicy
   }
 }
