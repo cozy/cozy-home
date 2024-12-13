@@ -7,8 +7,8 @@ import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { getFlagshipMetadata } from 'cozy-device-helper'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { AssistantDesktopWrapper } from 'components/Assistant/AssistantDesktopWrapper'
 
-import AssistantWrapperDesktop from 'assistant/AssistantWrapperDesktop'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
@@ -28,7 +28,7 @@ const Home = ({ setAppsReady, wrapper }) => {
         <ScrollToTopOnMount target={wrapper} />
         {pathname === '/connected' && <Announcements />}
         {flag('cozy.searchbar.enabled') && !isMobile && (
-          <AssistantWrapperDesktop />
+          <AssistantDesktopWrapper />
         )}
         <Content
           className={cx('u-flex u-flex-column u-ph-1', {

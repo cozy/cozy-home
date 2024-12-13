@@ -13,9 +13,9 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import AssistantWrapperMobile from 'assistant/AssistantWrapperMobile'
-import AssistantDialog from 'assistant/Views/AssistantDialog'
-import SearchDialog from 'assistant/Views/SearchDialog'
+import { AssistantMobileWrapper } from 'components/Assistant/AssistantMobileWrapper'
+import { AssistantDialog } from 'cozy-dataproxy-lib'
+import { SearchDialog } from 'cozy-dataproxy-lib'
 import AddButton from 'components/AddButton/AddButton'
 import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
@@ -199,7 +199,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         </div>
         <FooterLogo />
       </MainView>
-      {showAssistantForMobile && <AssistantWrapperMobile />}
+      {showAssistantForMobile && <AssistantMobileWrapper />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
