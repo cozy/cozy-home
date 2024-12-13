@@ -1,21 +1,4 @@
 {
-  "assistant": {
-    "search": {
-      "placeholder": "Any question?",
-      "send": "Send",
-      "result": "Ask the assistant"
-    },
-    "dialog": {
-      "close": "Close"
-    },
-    "name":"Cozy Assistant",
-    "sources":"%{smart_count} source |||| %{smart_count} sources",
-    "suggestions": {
-      "find_file": "Search a file",
-      "reimbursements": "Check my repayments",
-      "reorganise_files": "Reorganise my files"
-    }
-  },
   "app": {
     "logo": {
       "alt": "%{name} logo"
