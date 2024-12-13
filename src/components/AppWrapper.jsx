@@ -16,7 +16,7 @@ import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import { DataProxyProvider } from 'dataproxy/DataProxyProvider'
+import { DataProxyProvider } from 'cozy-dataproxy-lib'
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 import schema from '../schema'
