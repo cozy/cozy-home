@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import React from 'react'
 
 import log from 'cozy-logger'
 
@@ -28,3 +29,11 @@ console.warn = function (msg, msg2) {
   }
   return originalWarn.apply(this, arguments)
 }
+
+jest.mock('cozy-dataproxy-lib', () => ({
+  DataProxyProvider: ({ children }) => children,
+  SearchDialog: () => <div>SearchDialog</div>,
+  AssistantDialog: () => <div>AssistantDialog</div>,
+  AssistantDesktop: () => <div>AssistantDesktop</div>,
+  AssistantMobile: () => <div>AssistantMobile</div>
+}))
