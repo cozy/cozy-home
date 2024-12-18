@@ -30,7 +30,7 @@ export const AssistantMobileWrapper = () => {
             getFlagshipMetadata().immersive
         })}
       >
-        <AssistantMobile isCustomWallpaper={isCustomWallpaper} />
+        <AssistantMobile />
       </div>
     </CozyTheme>
   )
