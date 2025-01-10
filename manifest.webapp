@@ -272,32 +272,32 @@
   "locales": {
     "de": {
       "name": "Zuhause",
-      "short_description": "Cozy Collect ist die Anwendung, die dir hilft, alle deine persönlichen Daten in Cozy zu sammeln.",
-      "long_description": "Mit Cozy Collect kannst du ganz einfach:\n * Dokumente all deiner Dienste herunterladen\n * Festlegen, wie häufig Cozy deine Rechnungen holt\n * Direkt auf all die von Cozy gesammelten Dokumente zugreifen",
+      "short_description": "Cozy Home ist die Anwendung, die dir hilft, alle deine persönlichen Daten in Cozy zu sammeln.",
+      "long_description": "Mit Cozy Home kannst du ganz einfach:\n * Dokumente all deiner Dienste herunterladen\n * Festlegen, wie häufig Cozy deine Rechnungen holt\n * Direkt auf all die von Cozy gesammelten Dokumente zugreifen",
       "changes": "Du hast es nicht verpasst, der Store ist in deinem Cozy angekommen!\nWir haben es genutzt, um Collect zu verbessern:\n * Store Anpassungen.\n * Kachelzusammenführung: Wenn du mehrere Konten bei einem Dienst hast, werden diese nun unter die Dienstleister-Kachel zusammengeführt.\n * Verbesserungen einiger Connector-Seiten."
     },
     "en": {
       "name": "Home",
-      "short_description": "Cozy Collect is the application that help you gather all your personal data inside Cozy.",
-      "long_description": "With Cozy Collect, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
+      "short_description": "Cozy Home is the application that help you gather all your personal data inside Cozy.",
+      "long_description": "With Cozy Home, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
       "changes": "You haven't missed it, the Store arrived in your Cozy!\nWe took advantage of it to improve Collect:\n * Store adaptation.\n * Tile merge: when you have several accounts for a single supplier, the former are now merged under the supplier tile.\n * Improvement of some Connectors pages."
     },
     "es": {
       "name": "Inicio",
-      "short_description": "Cozy Collect es la aplicación que le ayuda a recopilar todos sus datos personales que están en Cozy.",
-      "long_description": "Con Cozy Collect, usted puede facilmente:\n* Descargar documentos de todos sus proveedores\n* Establecer la frecuencia con la que Cozy recopilará sus facturas\n* Acceder directoamente a los documentos recopilados por su Cozy",
+      "short_description": "Cozy Home es la aplicación que le ayuda a recopilar todos sus datos personales que están en Cozy.",
+      "long_description": "Con Cozy Home, usted puede facilmente:\n* Descargar documentos de todos sus proveedores\n* Establecer la frecuencia con la que Cozy recopilará sus facturas\n* Acceder directoamente a los documentos recopilados por su Cozy",
       "changes": "Seguro ya se ha dado cuenta, el Store ha llegado a su Cozy\nAprovechamos para mejorar Collect:\n*Adaptación a Store.\n*Fusión de fichas: cuando se tienen diversas cuentas en un proveedor, la primera se fusiona baja la ficha del proveedor.\n*Mejora de algunas páginas de Conectores."
     },
     "fr": {
       "name": "Accueil",
-      "short_description": "Cozy Collect est l'application de récupération de vos données personnelles disponible sur Cozy.",
-      "long_description": "Avec Cozy Collect, vous pouvez facilement :\n\n * Télécharger les documents de tous vos fournisseurs\n * Configurer la fréquence à laquelle Cozy va récupérer vos factures\n * Accéder directement aux documents récupérés par votre Cozy",
+      "short_description": "Cozy Home est l'application de récupération de vos données personnelles disponible sur Cozy.",
+      "long_description": "Avec Cozy Home, vous pouvez facilement :\n\n * Télécharger les documents de tous vos fournisseurs\n * Configurer la fréquence à laquelle Cozy va récupérer vos factures\n * Accéder directement aux documents récupérés par votre Cozy",
       "changes": "Cela ne vous aura pas échappé, le Store est arrivé dans Cozy !\nNous en avons profité pour améliorer Collect :\n\n * Adaptation au Store.\n * Fusion des tuiles : lorsque vous avez plusieurs comptes pour un même fournisseur ces derniers sont désormais réunis sous la tuile de ce fournisseur.\n * Amélioration des pages des connecteurs."
     },
     "it": {
       "name": "Home",
-      "short_description": "Cozy Collect is the application that help you gather all your personal data inside Cozy.",
-      "long_description": "With Cozy Collect, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
+      "short_description": "Cozy Home is the application that help you gather all your personal data inside Cozy.",
+      "long_description": "With Cozy Home, you can easily:\n * Downloads documents from all your suppliers\n * Set how often Cozy will collect your bills\n * Access directly to the documents gathered by your Cozy",
       "changes": "You haven't missed it, the Store arrived in your Cozy!\nWe took advantage of it to improve Collect:\n * Store adaptation.\n * Tile merge: when you have several accounts for a single supplier, the former are now merged under the supplier tile.\n * Improvement of some Connectors pages."
     },
     "ja": {
