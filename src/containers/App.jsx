@@ -47,17 +47,26 @@ import { Announcements } from 'components/Announcements/Announcements'
 window.flag = window.flag || flag
 window.minilog = minilog
 
-const App = ({ accounts, konnectors, triggers }) => {
+let startHomeApp = 0
+let startFetching = 0
+
+const App = ({ accounts, konnectors, triggers, apps }) => {
+  if (startHomeApp < 1) {
+    startHomeApp = performance.now()
+  }
+  if (startFetching < 1) {
+    startFetching = performance.now()
+  }
   const { isMobile } = useBreakpoints()
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors, triggers].some(collection =>
+    [accounts, konnectors, triggers, apps].some(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
   )
   const [hasError, setHasError] = useState(false)
-  const [isReady, setIsReady] = useState(false)
   const [appsReady, setAppsReady] = useState(false)
+  const [didInit, setDidInit] = useState(false)
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
@@ -93,41 +102,100 @@ const App = ({ accounts, konnectors, triggers }) => {
     : null
   const context = useQuery(contextQuery.definition, contextQuery.options)
 
-  useEffect(() => {
-    setIsFetching(
-      [accounts, konnectors, triggers, context].some(collection =>
-        ['pending', 'loading'].includes(collection.fetchStatus)
-      )
-    )
-    setHasError(
-      [accounts, konnectors, triggers, context].find(
-        collection => collection.fetchStatus === 'failed'
-      )
-    )
-  }, [accounts, konnectors, triggers, context])
+  // useEffect(() => {
+  //   setIsFetching(
+  //     [accounts, konnectors, triggers, apps, context].some(collection =>
+  //       ['pending', 'loading'].includes(collection.fetchStatus)
+  //     )
+  //   )
+  //   if (isFetching) {
+  //     console.timeEnd('fetching')
+  //   }
+  //   setHasError(
+  //     [accounts, konnectors, triggers, apps, context].find(
+  //       collection => collection.fetchStatus === 'failed'
+  //     )
+  //   )
+  //   setAppsReady(Array.isArray(apps.data) && apps?.data?.length > 0)
+  // }, [accounts, konnectors, triggers, apps, isFetching, context])
+
+  if (!appsReady && Array.isArray(apps.data) && apps?.data?.length > 0) {
+    setAppsReady(true)
+  }
+  const isCollectionFetching = [
+    accounts,
+    konnectors,
+    triggers,
+    apps,
+    context
+  ].some(collection => ['pending', 'loading'].includes(collection.fetchStatus))
+  const hasCollectionError = [
+    accounts,
+    konnectors,
+    triggers,
+    apps,
+    context
+  ].find(collection => collection.fetchStatus === 'failed')
+
+  if (isFetching && !isCollectionFetching) {
+    const stopFetching = performance.now()
+    console.log(`--Fetching took: ${stopFetching - startFetching} ms`);
+    startFetching = 0
+
+    setIsFetching(false)
+  }
+  if (!hasError && hasCollectionError) {
+    setHasError(true)
+  }
 
   if (context?.features) {
     const flags = toFlagNames(context.features)
     enableFlags(flags)
   }
-  useEffect(() => {
-    setIsReady(
-      appsReady &&
-        !hasError &&
-        !isFetching &&
-        shortcutsDirectories !== undefined
-    )
-  }, [appsReady, hasError, isFetching, shortcutsDirectories])
 
-  useEffect(() => {
-    if (isReady && webviewIntent) {
+  if (
+    !didInit &&
+    appsReady &&
+    !hasError &&
+    !isFetching &&
+    shortcutsDirectories !== undefined
+  ) {
+    if (webviewIntent) {
+      const stopHomeApp = performance.now()
+      console.log(`--Start home took: ${stopHomeApp - startHomeApp} ms`);
+      startHomeApp = 0
+      console.log('----- IS READY')
       webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
-    if (isReady && !webviewIntent && __SIMULATE_FLAGSHIP__) {
+    if (!webviewIntent && __SIMULATE_FLAGSHIP__) {
       document.getElementById('splashscreen').style.display = 'none'
     }
-  }, [isReady, theme, webviewIntent])
+    setDidInit(true)
+  }
+
+
+  // useEffect(() => {
+  //   setIsReady(
+  //     appsReady &&
+  //       !hasError &&
+  //       !isFetching &&
+  //       shortcutsDirectories !== undefined
+  //   )
+  // }, [appsReady, hasError, isFetching, shortcutsDirectories])
+
+  // useEffect(() => {
+  //   if (isReady && webviewIntent) {
+  //     console.timeEnd('start home')
+
+  //     console.log('----- IS READY')
+  //     webviewIntent.call('setTheme', theme.variant)
+  //     webviewIntent.call('hideSplashScreen')
+  //   }
+  //   if (isReady && !webviewIntent && __SIMULATE_FLAGSHIP__) {
+  //     document.getElementById('splashscreen').style.display = 'none'
+  //   }
+  // }, [isReady, theme, webviewIntent])
 
   return (
     <>
@@ -139,7 +207,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         <Corner />
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
-          ref={isReady ? div => setContentWrapper(div) : null}
+          ref={didInit ? div => setContentWrapper(div) : null}
         >
           <MoveModal />
           <HeroHeader />
@@ -161,7 +229,6 @@ const App = ({ accounts, konnectors, triggers }) => {
                   element={
                     <Home
                       wrapper={contentWrapper}
-                      setAppsReady={() => setAppsReady(true)}
                       shortcutsDirectories={shortcutsDirectories}
                     />
                   }

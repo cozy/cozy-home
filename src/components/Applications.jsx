@@ -59,17 +59,33 @@ const getApplicationsList = memoize(data => {
   }
 })
 
-export const Applications = ({ onAppsFetched }) => {
+let startAppsQuery = 0
+export const Applications = () => {
+  console.log('go apps')
+  //console.time('apps fetched')
   const showLogout = !!flag('home.mainlist.show-logout')
   const { t } = useI18n()
 
-  const { data } = useQuery(appsConn.query, appsConn)
+  //console.time('query apps component')
+  if (startAppsQuery < 1) {
+    startAppsQuery = performance.now()
+  }
+  const { data: apps } = useQuery(appsConn.query, appsConn)
+  if (apps && apps.length > 0) {
+    console.log('data apps : ', apps)
+    //console.timeEnd('query apps component')
+    const endAppsQuery = performance.now()
+    console.log(`Query apps time : ${endAppsQuery - startAppsQuery}`)
+    startAppsQuery = 0
+  }
 
   const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+
   const magicHomeFolder = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn
   )
+
   const magicHomeFolderId = magicHomeFolder?.data?.[0]?._id
   const homeShortcutsConn = mkHomeShorcutsConn(magicHomeFolderId)
   const { data: shortcuts } = useQuery(homeShortcutsConn.query, {
@@ -77,24 +93,12 @@ export const Applications = ({ onAppsFetched }) => {
     enabled: !!magicHomeFolderId
   })
 
-  const didLoad = useRef(false)
-
-  useEffect(() => {
-    const isReady =
-      didLoad.current === false && onAppsFetched && isValidData(data)
-
-    if (isReady) {
-      onAppsFetched(data)
-      didLoad.current = true
-    }
-  }, [data, onAppsFetched])
-
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <Divider className="u-mv-0" />
 
       <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
-        {getApplicationsList(data)}
+        {getApplicationsList(apps)}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (

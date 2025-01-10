@@ -134,6 +134,7 @@ export const KonnectorTile = ({
   const allTriggers =
     // @ts-ignore
     useSelector(state => state.cozy.documents['io.cozy.triggers']) || {}
+  console.log('all triggers : ', allTriggers)
   const triggers = getTriggersBySlug(allTriggers, konnector.slug)
   const userError = getFirstUserError(triggers)
   // @ts-ignore

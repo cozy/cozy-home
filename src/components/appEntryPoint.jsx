@@ -4,6 +4,7 @@ import '../flags'
 const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 const TRIGGER_DOCTYPE = 'io.cozy.triggers'
+const APPS_DOCTYPE = 'io.cozy.apps'
 
 const OLDER_THAN_THIRTY_SECONDS = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
@@ -20,8 +21,15 @@ const appEntryPoint = queryConnect({
   },
   triggers: {
     query: () =>
-      Q(TRIGGER_DOCTYPE).where({ worker: { $in: ['client', 'konnector'] } }),
+      Q(TRIGGER_DOCTYPE).partialIndex({
+        worker: { $in: ['client', 'konnector'] }
+      }),
     as: 'io.cozy.triggers/by_worker_client_konnector',
+    fetchPolicy: OLDER_THAN_THIRTY_SECONDS
+  },
+  apps: {
+    query: () => Q(APPS_DOCTYPE),
+    as: 'io.cozy.apps',
     fetchPolicy: OLDER_THAN_THIRTY_SECONDS
   }
 })

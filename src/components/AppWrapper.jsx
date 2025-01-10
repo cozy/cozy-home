@@ -8,7 +8,7 @@ import CozyClient, {
   RealTimeQueries,
   WebFlagshipLink
 } from 'cozy-client'
-import CozyDevtools from 'cozy-client/dist/devtools'
+import CozyDevtools from 'cozy-devtools'
 import { useWebviewIntent } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
