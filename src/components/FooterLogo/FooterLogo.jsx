@@ -1,6 +1,6 @@
 import React from 'react'
 import { useClient, useQuery } from 'cozy-client'
-import { buildContextQuery } from 'queries'
+import { makeContextQuery } from 'queries'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
@@ -9,8 +9,10 @@ export const FooterLogo = () => {
   const { type } = useCozyTheme()
   const rootURL = client.getStackClient().uri
 
-  const contextQuery = buildContextQuery()
-  const { data } = useQuery(contextQuery.definition, contextQuery.options)
+  const { data } = useQuery(
+    makeContextQuery.definition,
+    makeContextQuery.options
+  )
 
   const logos = data?.logos?.home?.light || []
   const secondaries = logos.filter(logos => logos.type === 'secondary')

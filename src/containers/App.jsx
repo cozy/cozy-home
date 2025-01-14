@@ -1,8 +1,8 @@
 /* global __SIMULATE_FLAGSHIP__ */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navigate, Route } from 'react-router-dom'
 
-import flag, { enable as enableFlags } from 'cozy-flags'
+import flag from 'cozy-flags'
 import minilog from 'cozy-minilog'
 import { useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
@@ -25,12 +25,10 @@ import IntentRedirect from 'components/IntentRedirect'
 import MoveModal from 'components/MoveModal'
 import StoreRedirection from 'components/StoreRedirection'
 import BackupNotification from 'components/BackupNotification/BackupNotification'
-import appEntryPoint from 'components/appEntryPoint'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { BackgroundContainer } from 'components/BackgroundContainer'
 import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
-import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import ReloadFocus from './ReloadFocus'
@@ -39,27 +37,22 @@ import { formatShortcuts } from 'components/Shortcuts/utils'
 import {
   mkHomeMagicFolderConn,
   mkHomeCustomShorcutsConn,
-  mkHomeCustomShorcutsDirConn,
-  contextQuery
+  mkHomeCustomShorcutsDirConn
 } from 'queries'
+import { useFetchInitialData } from 'hooks/useFetchInitialData'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from 'components/Sections/SectionDialog'
 import { SentryRoutes } from 'lib/sentry'
+import '../flags'
 
 window.flag = window.flag || flag
 window.minilog = minilog
 
-const App = ({ accounts, konnectors, triggers }) => {
+const App = () => {
   const { isMobile } = useBreakpoints()
   const [contentWrapper, setContentWrapper] = useState(undefined)
-  const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors, triggers].some(collection =>
-      ['pending', 'loading'].includes(collection.fetchStatus)
-    )
-  )
-  const [hasError, setHasError] = useState(false)
-  const [isReady, setIsReady] = useState(false)
-  const [appsReady, setAppsReady] = useState(false)
+
+  const [didInit, setDidInit] = useState(false)
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
@@ -93,48 +86,28 @@ const App = ({ accounts, konnectors, triggers }) => {
   const shortcutsDirectories = canHaveShortcuts
     ? formatShortcuts(folders, customHomeShortcuts)
     : null
-  const context = useQuery(contextQuery.definition, contextQuery.options)
+
+  const { isFetching, hasError } = useFetchInitialData()
 
   const showAssistantForMobile = isFlagshipApp()
     ? flag('cozy.searchbar.enabled-for-flagship')
     : flag('cozy.searchbar.enabled') && isMobile
 
-  useEffect(() => {
-    setIsFetching(
-      [accounts, konnectors, triggers, context].some(collection =>
-        ['pending', 'loading'].includes(collection.fetchStatus)
-      )
-    )
-    setHasError(
-      [accounts, konnectors, triggers, context].find(
-        collection => collection.fetchStatus === 'failed'
-      )
-    )
-  }, [accounts, konnectors, triggers, context])
-
-  if (context?.attributes?.features) {
-    const flags = toFlagNames(context.attributes.features)
-    enableFlags(flags)
-  }
-
-  useEffect(() => {
-    setIsReady(
-      appsReady &&
-        !hasError &&
-        !isFetching &&
-        shortcutsDirectories !== undefined
-    )
-  }, [appsReady, hasError, isFetching, shortcutsDirectories])
-
-  useEffect(() => {
-    if (isReady && webviewIntent) {
+  if (
+    !didInit &&
+    !hasError &&
+    !isFetching &&
+    shortcutsDirectories !== undefined
+  ) {
+    if (webviewIntent) {
       webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
-    if (isReady && !webviewIntent && __SIMULATE_FLAGSHIP__) {
+    if (!webviewIntent && __SIMULATE_FLAGSHIP__) {
       document.getElementById('splashscreen').style.display = 'none'
     }
-  }, [isReady, theme, webviewIntent])
+    setDidInit(true)
+  }
 
   return (
     <>
@@ -145,7 +118,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         <Corner />
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
-          ref={isReady ? div => setContentWrapper(div) : null}
+          ref={didInit ? div => setContentWrapper(div) : null}
         >
           <MoveModal />
           <HeroHeader />
@@ -205,4 +178,4 @@ const App = ({ accounts, konnectors, triggers }) => {
   )
 }
 
-export default appEntryPoint(App)
+export default App
