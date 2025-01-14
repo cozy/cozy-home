@@ -14,6 +14,22 @@ export const konnectorsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
+export const makeAppsQuery = {
+  definition: () => Q('io.cozy.apps'),
+  options: {
+    as: 'io.cozy.apps',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
+
+export const makeKonnectorsQuery = {
+  definition: () => Q('io.cozy.konnectors'),
+  options: {
+    as: 'io.cozy.konnectors',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
+
 export const makeTriggersQuery = {
   definition: () => {
     return Q('io.cozy.triggers')
@@ -133,14 +149,14 @@ export const mkHomeCustomShorcutsConn = foldersId => {
   }
 }
 
-export const buildContextQuery = () => ({
+export const makeContextQuery = {
   definition: () => Q('io.cozy.settings').getById('io.cozy.settings.context'),
   options: {
     as: 'io.cozy.settings/io.cozy.settings.context',
     fetchPolicy: defaultFetchPolicy,
     singleDocData: true
   }
-})
+}
 
 export const buildExistingTimeseriesGeojsonQuery = () => ({
   definition: Q('io.cozy.timeseries.geojson')
@@ -153,12 +169,3 @@ export const buildExistingTimeseriesGeojsonQuery = () => ({
     fetchPolicy: CozyClient.fetchPolicies.olderThan(60 * 60 * 24 * 365 * 1000)
   }
 })
-
-export const contextQuery = {
-  definition: Q('io.cozy.settings').getById('io.cozy.settings.context'),
-  options: {
-    as: 'io.cozy.settings/io.cozy.settings.context',
-    fetchPolicy: defaultFetchPolicy,
-    singleDocData: true
-  }
-}
