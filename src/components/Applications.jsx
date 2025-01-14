@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
 import { useQuery } from 'cozy-client'
@@ -60,17 +60,19 @@ const getApplicationsList = data => {
   }
 }
 
-export const Applications = ({ onAppsFetched }) => {
+export const Applications = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
   const { t } = useI18n()
 
-  const { data } = useQuery(appsConn.query, appsConn)
+  const { data: apps } = useQuery(appsConn.query, appsConn)
 
   const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+
   const magicHomeFolder = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn
   )
+
   const magicHomeFolderId = magicHomeFolder?.data?.[0]?._id
   const homeShortcutsConn = mkHomeShorcutsConn(magicHomeFolderId)
   const { data: shortcuts } = useQuery(homeShortcutsConn.query, {
@@ -78,24 +80,12 @@ export const Applications = ({ onAppsFetched }) => {
     enabled: !!magicHomeFolderId
   })
 
-  const didLoad = useRef(false)
-
-  useEffect(() => {
-    const isReady =
-      didLoad.current === false && onAppsFetched && isValidData(data)
-
-    if (isReady) {
-      onAppsFetched(data)
-      didLoad.current = true
-    }
-  }, [data, onAppsFetched])
-
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <Divider className="u-mv-0" />
 
       <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
-        {getApplicationsList(data)}
+        {getApplicationsList(apps)}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
