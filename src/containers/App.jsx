@@ -167,7 +167,6 @@ const App = ({ accounts, konnectors, triggers }) => {
                   element={
                     <Home
                       wrapper={contentWrapper}
-                      setAppsReady={() => setAppsReady(true)}
                       shortcutsDirectories={shortcutsDirectories}
                     />
                   }

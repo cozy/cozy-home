@@ -18,7 +18,7 @@ import { Announcements } from 'components/Announcements/Announcements'
 
 import styles from './styles.styl'
 
-const Home = ({ setAppsReady, wrapper }) => {
+const Home = ({ wrapper }) => {
   const { pathname } = useLocation()
   const { isMobile } = useBreakpoints()
 
@@ -38,7 +38,7 @@ const Home = ({ setAppsReady, wrapper }) => {
               getFlagshipMetadata().immersive
           })}
         >
-          <Applications onAppsFetched={setAppsReady} />
+          <Applications />
           <Shortcuts />
           {flag('home.detailed-services-dev') ? (
             <GroupedServices />
