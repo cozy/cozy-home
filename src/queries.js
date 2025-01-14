@@ -18,7 +18,7 @@ export const makeTriggersQuery = {
   definition: () => {
     return Q('io.cozy.triggers')
       .partialIndex({
-        worker: 'konnector'
+        worker: { $in: ['client', 'konnector'] } // client is for CLISK
       })
       .limitBy(1000)
   },
