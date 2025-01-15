@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import cx from 'classnames'
 
+import { useQuery } from 'cozy-client'
 import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
@@ -17,6 +18,7 @@ import {
 } from 'components/Sections/SectionsTypes'
 import { useSections } from './SectionsContext'
 import CandidateServiceTile from 'components/CandidateServiceTile'
+import { makeTriggersWithJobStatusQuery } from 'queries'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
@@ -25,6 +27,13 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { t } = useI18n()
   const shouldOpenStoreModal = section.type === 'category' && section.pristine
   const { isRunning, isInMaintenance } = useSections()
+
+  // This query is useful to fetch the triggers' current_state, used to display
+  // the konnector icon. The data is fetched from the store in KonnectorTile
+  useQuery(
+    makeTriggersWithJobStatusQuery.definition(),
+    makeTriggersWithJobStatusQuery.options
+  )
 
   return (
     <div
