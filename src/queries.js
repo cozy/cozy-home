@@ -14,6 +14,14 @@ export const konnectorsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
+export const makeJobsQuery = {
+  definition: () => Q('io.cozy.jobs'),
+  options: {
+    as: 'io.cozy.jobs',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
+
 export const makeAppsQuery = {
   definition: () => Q('io.cozy.apps'),
   options: {
@@ -39,7 +47,21 @@ export const makeTriggersQuery = {
       .limitBy(1000)
   },
   options: {
-    as: 'io.cozy.triggers/worker=konnector',
+    as: 'io.cozy.triggers/worker=client-or-konnector',
+    fetchPolicy: defaultFetchPolicy
+  }
+}
+
+export const makeTriggersWithJobStatusQuery = {
+  definition: () => {
+    return Q('io.cozy.triggers')
+      .where({
+        worker: { $in: ['client', 'konnector'] } // client is for CLISK
+      })
+      .limitBy(1000)
+  },
+  options: {
+    as: 'io.cozy.triggers/worker=client-or-konnector/withjobstatus',
     fetchPolicy: defaultFetchPolicy
   }
 }
