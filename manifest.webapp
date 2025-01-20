@@ -16,6 +16,7 @@
   },
   "version": "1.85.0",
   "licence": "AGPL-3.0",
+  "offline_support": true,
   "permissions": {
     "home": {
       "description": "Required to manage default redirection update",
