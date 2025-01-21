@@ -23,6 +23,6 @@ module.exports = {
     '^.+\\.webapp$': '<rootDir>/test/jestLib/json-transformer.js'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core|copy-text-to-clipboard)'
+    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|react-swipeable-views-core|copy-text-to-clipboard)'
   ]
 }
