@@ -6107,13 +6107,6 @@ cozy-device-helper@^2.1.0:
   dependencies:
     lodash "^4.17.19"
 
-cozy-device-helper@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-3.1.0.tgz#140079bf4a6844b21d6ac0a3a2d75741dba15faa"
-  integrity sha512-KorbuWN+oZ+v7okbXQTbLuW6nt7IyVnIIsDXB3Ay6zdtl5nV13+fOGKeRsjaecgBDLSXWJ07j0ooT7l6orZpDg==
-  dependencies:
-    lodash "^4.17.19"
-
 cozy-device-helper@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-3.1.2.tgz#1a276a5c116d7b15968ddbcb33aff1d05b1e7a68"
@@ -6136,17 +6129,6 @@ cozy-doctypes@1.83.8:
   integrity sha512-S88VzjnfZTHo7Mix7M3qId0YF6gOmL+C0X2LZnQp6F2cEOKa7sOlDiMD18u2kfPwyvlxxM+tQBI9ArEM/Xqkog==
   dependencies:
     cozy-logger "^1.9.0"
-    date-fns "^1.30.1"
-    es6-promise-pool "^2.5.0"
-    lodash "^4.17.19"
-    prop-types "^15.7.2"
-
-cozy-doctypes@^1.91.1:
-  version "1.91.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.91.1.tgz#cf22ce27a751228009f662f1166c3deaf479b7d6"
-  integrity sha512-lP1nHZE9JIWtTbeSS3kGvtDGZsoY2wVMY2Smfv7QF9PJG2OFs1EKa02XSeJZhQGYGfXeVnvm6jLN4IIpkMAl0A==
-  dependencies:
-    cozy-logger "^1.10.4"
     date-fns "^1.30.1"
     es6-promise-pool "^2.5.0"
     lodash "^4.17.19"
@@ -6231,7 +6213,7 @@ cozy-keys-lib@^6.1.1:
     tldjs "^2.3.1"
     zxcvbn "^4.4.2"
 
-cozy-logger@1.10.4, cozy-logger@^1.10.4:
+cozy-logger@1.10.4:
   version "1.10.4"
   resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.4.tgz#8a55a0b1fc23db9cf90524043d959c274d376c24"
   integrity sha512-zDpG+edSqghx6HAIh6wIWmqQ49IX85anv+Y4P5pjHs4w697n5yI13UzhW7NczhFlflVF9ibxeKXqBNYvb4DW+Q==
@@ -6368,20 +6350,6 @@ cozy-scripts@8.4.0:
     webpack-bundle-analyzer "3.6.1"
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
-
-cozy-sharing@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-sharing/-/cozy-sharing-16.0.0.tgz#9a60dd71fed3c27429a18050491c3e1b95fcfdca"
-  integrity sha512-o3djy0MdFMhBkoQHRjeoQOQgP2iIMh0eUGAiqxpSJxx4zu0nUfLtOR66WS341SyYxFsqgy4b61EoJPS/tDMrTg==
-  dependencies:
-    "@cozy/minilog" "^1.0.0"
-    classnames "^2.2.6"
-    cozy-device-helper "^3.1.0"
-    cozy-doctypes "^1.91.1"
-    lodash "^4.17.19"
-    react-autosuggest "^10.1.0"
-    react-tooltip "^3.11.1"
-    snarkdown "^2.0.0"
 
 cozy-stack-client@^50.4.0:
   version "50.4.0"
@@ -12773,11 +12741,6 @@ oauth-sign@~0.9.0:
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-object-assign@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
-  integrity sha1-m+3VygiXlJvKR+f/QIBi1Un1h/I=
-
 object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -13187,11 +13150,6 @@ pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
-
-papaparse@5.3.1:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.1.tgz#770b7a9124d821d4b2132132b7bd7dce7194b5b1"
-  integrity sha512-Dbt2yjLJrCwH2sRqKFFJaN5XgIASO9YOFeFP8rIBRG2Ain8mqk5r1M6DkfvqEVozVcz3r3HaUGw253hA1nLIcA==
 
 papaparse@^5.1.1:
   version "5.2.0"
@@ -14149,17 +14107,6 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-autosuggest@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/react-autosuggest/-/react-autosuggest-10.1.0.tgz#4d25b8acc78bb518eb70189bb96bcd777dc71ffb"
-  integrity sha512-/azBHmc6z/31s/lBf6irxPf/7eejQdR0IqnZUzjdSibtlS8+Rw/R79pgDAo6Ft5QqCUTyEQ+f0FhL+1olDQ8OA==
-  dependencies:
-    es6-promise "^4.2.8"
-    prop-types "^15.7.2"
-    react-themeable "^1.1.0"
-    section-iterator "^2.0.0"
-    shallow-equal "^1.2.1"
-
 react-chartjs-2@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-4.1.0.tgz#2a123df16d3a987c54eb4e810ed766d3c03adf8d"
@@ -14502,20 +14449,6 @@ react-test-renderer@18.2.0:
     react-is "^18.2.0"
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
-
-react-themeable@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-themeable/-/react-themeable-1.1.0.tgz#7d4466dd9b2b5fa75058727825e9f152ba379a0e"
-  integrity sha1-fURm3ZsrX6dQWHJ4JenxUro3mg4=
-  dependencies:
-    object-assign "^3.0.0"
-
-react-tooltip@^3.11.1:
-  version "3.11.6"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.11.6.tgz#4f9735a2a4aa50580af351ce23e74a56f41afc0c"
-  integrity sha512-nTc1yHHaPCHHURvMpf/VNF17pIZiU4zwUGFJBUVr1fZkezFC7E0VPMMVrCfDjt+IpwTHICyzlyx+1FiQ7lw5LQ==
-  dependencies:
-    prop-types "^15.6.0"
 
 react-transition-group@^4.3.0, react-transition-group@^4.4.0:
   version "4.4.1"
@@ -15414,11 +15347,6 @@ script-ext-html-webpack-plugin@2.1.3:
   dependencies:
     debug "^4.1.0"
 
-section-iterator@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/section-iterator/-/section-iterator-2.0.0.tgz#bf444d7afeeb94ad43c39ad2fb26151627ccba2a"
-  integrity sha1-v0RNev7rlK1Dw5rS+yYVFifMuio=
-
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -15734,11 +15662,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-snarkdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-2.0.0.tgz#b1feb4db91b9f94a8ebbd7a50f3e99aee18b1e03"
-  integrity sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A==
 
 sockjs-client@1.4.0:
   version "1.4.0"
