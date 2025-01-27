@@ -43,7 +43,12 @@ export const setupAppContext = memoize(intent => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
-  const shouldUseWebFlagshipLink = isFlagshipApp() && isFlagshipOfflineSupported()
+  const shouldUseWebFlagshipLink =
+    isFlagshipApp() && isFlagshipOfflineSupported()
+
+  const links = shouldUseWebFlagshipLink
+    ? [new WebFlagshipLink({ webviewIntent: intent })]
+    : null
 
   // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
@@ -56,9 +61,7 @@ export const setupAppContext = memoize(intent => {
     )
       ? true
       : false,
-    links: shouldUseWebFlagshipLink
-      ? new WebFlagshipLink({ webviewIntent: intent })
-      : null
+    links
   })
 
   cozyClient.registerPlugin(flag.plugin)
