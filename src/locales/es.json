@@ -22,8 +22,8 @@
     }
   },
   "date": {
-    "format": "DD/MM/YYYY",
-    "placeholder": "dd/mm/yyyy"
+    "format": "dd/LL/yyyy",
+    "placeholder": "iiiiii/mm/yyyy"
   },
   "manifest": {
     "name": "Inicio",
@@ -162,7 +162,7 @@
         "syncing": "ejecutándose...",
         "unknown": "desconocido",
         "last_sync": "Última sincronización: **%{date}**",
-        "date_format": "MMMM D[,] YYYY [a las] HH[:]mm",
+        "date_format": "LLLL D[,] yyyy [a las] HH[:]mm",
         "bill": "Encuentre sus datos en la aplicación Drive en este sitio:"
       },
       "error": {
@@ -573,7 +573,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "DD MMM"
+        "format": "dd MMM"
       }
     }
   },

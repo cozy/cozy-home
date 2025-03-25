@@ -9,6 +9,7 @@ import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoi
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
+import { SharingContext } from 'cozy-sharing'
 
 import { BackupDataProvider } from 'components/BackupNotification/useBackupData'
 
@@ -22,6 +23,17 @@ const reduxStore = createStore(() => fakeDefaultReduxState)
 
 const defaultClient = createMockClient({})
 defaultClient.ensureStore()
+
+const mockSharingContextValue = {
+  refresh: jest.fn(),
+  hasWriteAccess: jest.fn(),
+  getRecipients: jest.fn().mockReturnValue([]),
+  getDocumentPermissions: jest.fn(),
+  isOwner: jest.fn(),
+  allLoaded: jest.fn(),
+  hasSharedParent: jest.fn(),
+  getSharingLink: jest.fn()
+}
 
 class AppLike extends React.Component {
   constructor(props, context) {
@@ -38,15 +50,19 @@ class AppLike extends React.Component {
     return (
       <BreakpointsProvider>
         <CozyProvider client={this.props.client || defaultClient}>
-          <CozyTheme>
-            <AlertProvider>
-              <ReduxProvider store={this.props.store || defaultClient.store}>
-                <I18n dictRequire={() => enLocale} lang="en">
-                  <BackupDataProvider>{this.props.children}</BackupDataProvider>
-                </I18n>
-              </ReduxProvider>
-            </AlertProvider>
-          </CozyTheme>
+          <SharingContext.Provider value={mockSharingContextValue}>
+            <CozyTheme>
+              <AlertProvider>
+                <ReduxProvider store={this.props.store || defaultClient.store}>
+                  <I18n dictRequire={() => enLocale} lang="en">
+                    <BackupDataProvider>
+                      {this.props.children}
+                    </BackupDataProvider>
+                  </I18n>
+                </ReduxProvider>
+              </AlertProvider>
+            </CozyTheme>
+          </SharingContext.Provider>
         </CozyProvider>
       </BreakpointsProvider>
     )

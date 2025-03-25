@@ -5,8 +5,8 @@
     }
   },
   "date": {
-    "format": "DD/MM/YYYY",
-    "placeholder": "dd/mm/yyyy"
+    "format": "dd/LL/yyyy",
+    "placeholder": "iiiiii/mm/yyyy"
   },
   "manifest": {
     "name": "Accueil",
@@ -151,7 +151,7 @@
         "syncing": "en cours…",
         "unknown": "indéterminée",
         "last_sync": "Dernière mise à jour : **%{date}**",
-        "date_format": "Le D MMMM YYYY [à] HH[:]mm",
+        "date_format": "Le D LLLL yyyy [à] HH[:]mm",
         "bill": "Retrouvez vos données dans l'application Cozy Drive à l'emplacement :"
       },
       "error": {
@@ -563,7 +563,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "DD MMM"
+        "format": "dd MMM"
       }
     }
   },
@@ -602,7 +602,7 @@
     "label_grouped": "Regroupé en dossier"
   },
   "AnnouncementsDialogContent": {
-    "dateFormat": "DD/MM/YYYY",
+    "dateFormat": "dd/LL/yyyy",
     "skip": "J'ai compris"
   }
 }

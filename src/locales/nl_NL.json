@@ -22,8 +22,8 @@
     }
   },
   "date": {
-    "format": "MM/DD/YYYY",
-    "placeholder": "mm/dd/yyyy"
+    "format": "LL/dd/yyyy",
+    "placeholder": "mm/iiiiii/yyyy"
   },
   "manifest": {
     "name": "Startpagina",
@@ -168,7 +168,7 @@
         "syncing": "wordt uitgevoerd...",
         "unknown": "onbekend",
         "last_sync": "Laatst gesynchroniseerd op: **%{date}**",
-        "date_format": "MMMM D[,] YYYY [om] HH[:]mm",
+        "date_format": "LLLL D[,] yyyy [om] HH[:]mm",
         "bill": "Vind je gegevens terug in de Drive-app op deze locatie:"
       },
       "error": {
@@ -589,7 +589,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "DD MMM"
+        "format": "dd MMM"
       }
     }
   },

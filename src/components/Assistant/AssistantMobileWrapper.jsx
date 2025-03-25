@@ -11,7 +11,7 @@ import CozyTheme, {
 import styles from './styles.styl'
 
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
-import { AssistantMobile } from 'cozy-dataproxy-lib'
+import { AssistantMobile } from 'cozy-search'
 
 export const AssistantMobileWrapper = () => {
   const { type } = useCozyTheme()

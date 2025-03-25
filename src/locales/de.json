@@ -22,8 +22,8 @@
     }
   },
   "date": {
-    "format": "DD.MM.YYYY",
-    "placeholder": "dd.mm.yyyy"
+    "format": "dd.LL.yyyy",
+    "placeholder": "iiiiii.mm.yyyy"
   },
   "manifest": {
     "name": "Zuhause",
@@ -162,7 +162,7 @@
         "syncing": "läuft...",
         "unknown": "unbekannt",
         "last_sync": "Letzte Synchronisation: **%{date}**",
-        "date_format": "MMMM D[,] YYYY [um] HH[:]mm",
+        "date_format": "LLLL D[,] yyyy [um] HH[:]mm",
         "bill": "Finde deine Daten in der Drive App an dieser Stelle:"
       },
       "error": {
@@ -577,7 +577,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "MMM DD"
+        "format": "MMM dd"
       }
     }
   }

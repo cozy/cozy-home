@@ -1,5 +1,6 @@
 import 'cozy-ui/dist/cozy-ui.min.css'
 import 'cozy-ui/transpiled/react/stylesheet.css'
+import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'styles/intents.styl'
 
