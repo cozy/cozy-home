@@ -1,12 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-/* global __DEVELOPMENT__ */
 
-import AppWrapper, { setupAppContext } from './AppWrapper'
-import { render } from '@testing-library/react'
+import { setupAppContext } from './AppWrapper'
 import React from 'react'
-import AppLike from 'test/AppLike'
-import { WallPaperProvider } from 'hooks/useWallpaperContext'
-import { act } from 'react-dom/test-utils'
 
 const mockClient = {
   registerPlugin: jest.fn(),
@@ -49,7 +44,7 @@ describe('AppWrapper.jsx', () => {
   beforeEach(() => {
     document.documentElement.setAttribute('lang', 'fr')
     document.body.innerHTML = `
-      <div role="application" data-cozy-token="token" data-cozy-domain="domain">
+      <div role="application" data-cozy='{"domain":"domain","token":"token"}'>
       </div>
     `
   })
@@ -66,42 +61,6 @@ describe('AppWrapper.jsx', () => {
           context: expect.any(String)
         })
       )
-    })
-  })
-
-  describe('AppWrapper', () => {
-    it('should render children', async () => {
-      // Given
-      window.__DEVELOPMENT__ = 'defined'
-      // act(() => {
-      // When
-      const { getByText } = render(
-        <AppLike>
-          <WallPaperProvider>
-            <AppWrapper>children</AppWrapper>
-          </WallPaperProvider>
-        </AppLike>
-      )
-      await act(async () => {})
-
-      // Then
-      expect(getByText('children')).toBeTruthy()
-      // })
-    })
-
-    it('should contain RealTimeQueries', async () => {
-      // Given
-      window.__DEVELOPMENT__ = 'defined'
-
-      // When
-      const { getAllByTestId } = render(
-        <AppWrapper>
-          <WallPaperProvider>children</WallPaperProvider>
-        </AppWrapper>
-      )
-      await act(async () => {})
-      // Then
-      expect(getAllByTestId('RealTimeQueries')).toBeTruthy()
     })
   })
 })

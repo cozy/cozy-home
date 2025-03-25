@@ -22,8 +22,8 @@
     }
   },
   "date": {
-    "format": "YYYY/MM/DD",
-    "placeholder": "yyyy/mm/dd"
+    "format": "yyyy/LL/dd",
+    "placeholder": "yyyy/mm/iiiiii"
   },
   "manifest": {
     "name": "ホーム",
@@ -162,7 +162,7 @@
         "syncing": "実行中…",
         "unknown": "不明",
         "last_sync": "前回の同期: **%{date}**",
-        "date_format": "YYYY[/]MM[/]DD HH[:]mm",
+        "date_format": "yyyy[/]LL[/]dd HH[:]mm",
         "bill": "ドライブアプリで、この場所のデータを見つけます:"
       },
       "error": {
@@ -565,7 +565,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "MM/DD"
+        "format": "LL/dd"
       }
     }
   }

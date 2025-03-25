@@ -8,14 +8,16 @@ import CozyClient, {
   RealTimeQueries,
   WebFlagshipLink
 } from 'cozy-client'
+import SharingProvider from 'cozy-sharing'
 import CozyDevtools from 'cozy-devtools'
 import { useWebviewIntent } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme, {
+  useCozyTheme
+} from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
@@ -41,7 +43,7 @@ export const setupAppContext = memoize(intent => {
   const lang = document.documentElement.getAttribute('lang') || 'en'
   const context = window.context || 'cozy'
   const root = document.querySelector('[role=application]')
-  const data = root.dataset
+  const data = JSON.parse(root.dataset.cozy)
 
   const shouldUseWebFlagshipLink =
     isFlagshipApp() && isFlagshipOfflineSupported()
@@ -52,9 +54,9 @@ export const setupAppContext = memoize(intent => {
 
   // New improvements must be done with CozyClient
   const cozyClient = new CozyClient({
-    uri: `${window.location.protocol}//${data.cozyDomain}`,
+    uri: `${window.location.protocol}//${data.domain}`,
     schema,
-    token: data.cozyToken,
+    token: data.token,
     store: false,
     backgroundFetching: /*       isFlagshipApp() || */ flag(
       'home.store.persist'
@@ -135,34 +137,36 @@ const AppWrapper = ({ children }) => {
 
   return (
     <AppContext.Provider value={appContext}>
-      <BreakpointsProvider>
-        <CozyProvider client={cozyClient}>
-          <DataProxyProvider>
-            <WallPaperProvider>
-              <CozyTheme>
-                <ThemeProvider>
-                  <AlertProvider>
-                    <ReduxProvider store={store}>
-                      <ConditionalWrapper
-                        condition={persistor}
-                        wrapper={children => (
-                          <PersistGate loading={null} persistor={persistor}>
+      <CozyProvider client={cozyClient}>
+        <BreakpointsProvider>
+          <SharingProvider doctype="io.cozy.files" documentType="Files">
+            <DataProxyProvider>
+              <WallPaperProvider>
+                <CozyTheme>
+                  <ThemeProvider>
+                    <AlertProvider>
+                      <ReduxProvider store={store}>
+                        <ConditionalWrapper
+                          condition={persistor}
+                          wrapper={children => (
+                            <PersistGate loading={null} persistor={persistor}>
+                              {children}
+                            </PersistGate>
+                          )}
+                        >
+                          <Inner lang={lang} context={context}>
                             {children}
-                          </PersistGate>
-                        )}
-                      >
-                        <Inner lang={lang} context={context}>
-                          {children}
-                        </Inner>
-                      </ConditionalWrapper>
-                    </ReduxProvider>
-                  </AlertProvider>
-                </ThemeProvider>
-              </CozyTheme>
-            </WallPaperProvider>
-          </DataProxyProvider>
-        </CozyProvider>
-      </BreakpointsProvider>
+                          </Inner>
+                        </ConditionalWrapper>
+                      </ReduxProvider>
+                    </AlertProvider>
+                  </ThemeProvider>
+                </CozyTheme>
+              </WallPaperProvider>
+            </DataProxyProvider>
+          </SharingProvider>
+        </BreakpointsProvider>
+      </CozyProvider>
     </AppContext.Provider>
   )
 }

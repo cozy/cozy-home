@@ -22,8 +22,8 @@
     }
   },
   "date": {
-    "format": "MM/DD/YYYY",
-    "placeholder": "mm/dd/yyyy"
+    "format": "LL/dd/yyyy",
+    "placeholder": "mm/iiiiii/yyyy"
   },
   "manifest": {
     "name": "Home",
@@ -162,7 +162,7 @@
         "syncing": "running…",
         "unknown": "unknown",
         "last_sync": "Last synchronization: **%{date}**",
-        "date_format": "MMMM D[,] YYYY [at] HH[:]mm",
+        "date_format": "LLLL D[,] yyyy [at] HH[:]mm",
         "bill": "Find your datas in the Drive app at this location:"
       },
       "error": {
@@ -577,7 +577,7 @@
   "tile": {
     "konnector": {
       "lastSyncDate": {
-        "format": "MMM DD"
+        "format": "MMM dd"
       }
     }
   }

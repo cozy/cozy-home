@@ -2,7 +2,7 @@ import React from 'react'
 
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import { AssistantDesktop } from 'cozy-dataproxy-lib'
+import { AssistantDesktop } from 'cozy-search'
 
 export const AssistantDesktopWrapper = () => {
   return (
