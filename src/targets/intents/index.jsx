@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <AppContext.Consumer>
           {({ data }) => (
             <Routes>
-              <Route path="/" element={<IntentHandler appData={data} />} />
+              <Route path="/" element={<IntentHandler />} />
               <Route
                 path=":konnectorSlug/*"
                 element={
