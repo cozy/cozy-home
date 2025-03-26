@@ -13,7 +13,6 @@ env:
   MATTERMOST_CHANNEL: '{"dev":"app---home","beta":"app---home,publication","stable":"app---home,publication"}'
   MATTERMOST_HOOK_URL: ${{ secrets.MATTERMOST_HOOK_URL }}
   REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
-  BUNDLEMON_PROJECT_ID: ${{ secrets.BUNDLEMON_PROJECT_ID }}
 
 jobs:
   build:
