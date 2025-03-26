@@ -1,32 +1,30 @@
+$app-tile-size = 4rem
+$app-grid-gutter = 2rem
+$mobile-grid-gutter = 1rem
+$mobile-tile-size = 3rem
+$tablet-tile-size = 3rem
+$app-tile-with-gutter = $app-tile-size + $app-grid-gutter
+$mobile-tile-with-gutter = $mobile-tile-size + $mobile-grid-gutter
+$tablet-tile-with-gutter = $tablet-tile-size + $app-grid-gutter
+
 .app-list, .services-list, .shortcuts-list
-    appTileSize = 4rem
-    appGridGutter = 2rem
-    mobileGridGutter = 1rem
-    mobileTileSize = 3rem
-    tabletTileSize = 3rem
-    white = #fff
-    appTileWithGutter = appTileSize + appGridGutter
-    detailedAppTileWithGutter = 3 * (appTileSize + appGridGutter) - .5rem
-    mobileTileWithGutter = mobileTileSize + mobileGridGutter
-    tabletTileWithGutter = tabletTileSize + appGridGutter
     width 100%
-    max-width 'calc(%s * 8 + %s * 7 + 4rem)' % (appTileSize appGridGutter) // 8 columns + 7 column gaps + border gaps
+    max-width 'calc(%s * 8 + %s * 7 + 4rem)' % ($app-tile-size $app-grid-gutter) // 8 columns + 7 column gaps + border gaps
     display grid
-    grid-template-columns repeat(auto-fill, minmax(appTileWithGutter, 1fr))
+    grid-template-columns repeat(auto-fill, minmax($app-tile-with-gutter, 1fr))
     grid-auto-rows minmax(rem(91), auto)
     grid-gap rem(10) 0
     justify-content center
-
 
     // Caution: this section is full of magic numbers
     // TODO: refactor this to use computed values to avoid glitches in the grid system
     &.detailed
         grid-template-columns repeat(3, minmax(0, 1fr))
-        column-gap appGridGutter
+        column-gap $app-grid-gutter
         width: calc(100% - 2rem) !important // @stylint ignore
 
     +small-screen()
-        grid-template-columns repeat(auto-fill, minmax(mobileTileWithGutter, 1fr))
+        grid-template-columns repeat(auto-fill, minmax($mobile-tile-with-gutter, 1fr))
         grid-auto-rows minmax(rem(68), auto)
         grid-gap rem(5) 0
 
@@ -40,7 +38,7 @@
 
     // 480px to 768px
     @media (min-width: rem(size-helper('min', BP-tiny))) and (max-width: rem(size-helper('max', BP-small)))
-        grid-template-columns repeat(auto-fill, minmax(tabletTileWithGutter, 1fr))
+        grid-template-columns repeat(auto-fill, minmax($tablet-tile-with-gutter, 1fr))
 
         &:not(.detailed)
             div[class*='tileWrapper']
