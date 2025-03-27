@@ -8,8 +8,6 @@ import CozyTheme, {
   useCozyTheme
 } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import styles from './styles.styl'
-
 import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import { AssistantMobile } from 'cozy-search'
 
@@ -23,11 +21,10 @@ export const AssistantMobileWrapper = () => {
   return (
     <CozyTheme variant="normal">
       <div
-        className={cx(styles['mobile-assistant'], {
-          [styles[`mobile-assistant--${type}`]]: !isCustomWallpaper,
-          [styles['mobile-assistant--offset']]: flag('home.fab.button.enabled'),
-          [styles['mobile-assistant--immersive']]:
-            getFlagshipMetadata().immersive
+        className={cx('home-mobile-assistant', {
+          [`home-mobile-assistant--${type}`]: !isCustomWallpaper,
+          ['home-mobile-assistant--offset']: flag('home.fab.button.enabled'),
+          ['home-mobile-assistant--immersive']: getFlagshipMetadata().immersive
         })}
       >
         <AssistantMobile />
