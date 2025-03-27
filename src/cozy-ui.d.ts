@@ -127,3 +127,7 @@ declare module 'cozy-ui/transpiled/react/Typography' {
     props: Record<string, unknown>
   ): JSX.Element
 }
+
+declare module 'cozy-ui/transpiled/react/helpers/isTwakeTheme' {
+  export function isTwakeTheme(): boolean
+}
