@@ -17,7 +17,7 @@ Object {
             List title
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -49,7 +49,7 @@ Object {
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-11 Component-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
+                      class="MuiBadge-badge-11 makeStyles-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -90,7 +90,7 @@ Object {
           List title
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -122,7 +122,7 @@ Object {
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-11 Component-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
+                    class="MuiBadge-badge-11 makeStyles-qualifier-9 MuiBadge-anchorOriginBottomRightRectangular-19"
                   >
                     <svg
                       class="styles__icon___23x3R"
@@ -220,7 +220,7 @@ Object {
             a
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -252,7 +252,7 @@ Object {
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-73 Component-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
+                      class="MuiBadge-badge-73 makeStyles-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -286,7 +286,7 @@ Object {
             c
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -318,7 +318,7 @@ Object {
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-127 Component-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
+                      class="MuiBadge-badge-127 makeStyles-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -359,7 +359,7 @@ Object {
           a
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -391,7 +391,7 @@ Object {
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-73 Component-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
+                    class="MuiBadge-badge-73 makeStyles-qualifier-71 MuiBadge-anchorOriginBottomRightRectangular-81"
                   >
                     <svg
                       class="styles__icon___23x3R"
@@ -425,7 +425,7 @@ Object {
           c
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center"
+          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -457,7 +457,7 @@ Object {
                     />
                   </span>
                   <span
-                    class="MuiBadge-badge-127 Component-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
+                    class="MuiBadge-badge-127 makeStyles-qualifier-125 MuiBadge-anchorOriginBottomRightRectangular-135"
                   >
                     <svg
                       class="styles__icon___23x3R"

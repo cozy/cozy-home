@@ -2,12 +2,14 @@ import React, { useMemo } from 'react'
 import sortBy from 'lodash/sortBy'
 import { useAppsInMaintenance, useQuery } from 'cozy-client'
 import { useSelector } from 'react-redux'
+import cx from 'classnames'
 
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Divider from 'cozy-ui/transpiled/react/Divider'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
@@ -79,8 +81,13 @@ export const Services = () => {
   )
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
-      <Divider className="u-mv-0" />
-      <div className="services-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
+      {!isTwakeTheme() && <Divider className="u-mv-0" />}
+      <div
+        className={cx('services-list u-w-100 u-mh-auto u-flex-justify-center', {
+          'services-list--gutter': isTwakeTheme(),
+          'u-mv-3 u-mv-2-t': !isTwakeTheme()
+        })}
+      >
         {installedKonnectors.map(konnector => (
           <KonnectorTile
             key={konnector.id}
