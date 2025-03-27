@@ -8,6 +8,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import LogoutLargeIcon from 'cozy-ui/transpiled/react/Icons/LogoutLarge'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 const LogoutTile = () => {
   const { t } = useI18n()
@@ -28,7 +29,12 @@ const LogoutTile = () => {
     <div onClick={logout} className="scale-hover u-c-pointer">
       <SquareAppIcon
         name={t('logout')}
-        IconContent={<Icon icon={LogoutLargeIcon} size={isMobile ? 32 : 44} />}
+        IconContent={
+          <Icon
+            icon={LogoutLargeIcon}
+            size={isTwakeTheme() ? (isMobile ? 24 : 32) : isMobile ? 32 : 44}
+          />
+        }
       />
     </div>
   )
