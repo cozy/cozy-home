@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 const useStyles = makeStyles(theme => ({
   shadow: {
@@ -45,16 +46,18 @@ export const HeroHeader = () => {
           { [classes.nameInverted]: theme.variant === 'inverted' }
         )}
       >
-        {publicName}
+        {isTwakeTheme() ? 'Twake workplace' : publicName}
       </Typography>
-      <Typography
-        className={cx(
-          'hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
-          { [classes.hostInverted]: theme.variant === 'inverted' }
-        )}
-      >
-        {host}
-      </Typography>
+      {!isTwakeTheme() && (
+        <Typography
+          className={cx(
+            'hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
+            { [classes.hostInverted]: theme.variant === 'inverted' }
+          )}
+        >
+          {host}
+        </Typography>
+      )}
     </header>
   )
 }

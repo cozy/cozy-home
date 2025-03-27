@@ -5,6 +5,8 @@ import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
+import cx from 'classnames'
 
 import AppTile from 'components/AppTile'
 import LogoutTile from 'components/LogoutTile'
@@ -82,9 +84,14 @@ export const Applications = () => {
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
-      <Divider className="u-mv-0" />
+      {!isTwakeTheme() && <Divider className="u-mv-0" />}
 
-      <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
+      <div
+        className={cx('app-list u-w-100 u-mh-auto u-flex-justify-center', {
+          'app-list--gutter': isTwakeTheme(),
+          'u-mt-2-t u-mb-1-t u-mv-3': !isTwakeTheme()
+        })}
+      >
         {getApplicationsList(apps)}
 
         {shortcuts &&
