@@ -2,6 +2,7 @@ import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'cozy-search/dist/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
+import 'cozy-bar/dist/stylesheet.css'
 import 'styles/index.styl'
 import 'url-search-params-polyfill'
 
