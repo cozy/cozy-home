@@ -1,6 +1,7 @@
 /* global __SIMULATE_FLAGSHIP__ */
 import React, { useState } from 'react'
 import { Navigate, Route } from 'react-router-dom'
+import { BarComponent } from 'cozy-bar'
 
 import flag from 'cozy-flags'
 import minilog from 'cozy-minilog'
@@ -12,6 +13,7 @@ import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import { AssistantMobileWrapper } from 'components/Assistant/AssistantMobileWrapper'
 import { AssistantDialog, SearchDialog } from 'cozy-search'
@@ -110,11 +112,18 @@ const App = () => {
 
   return (
     <>
+      {isTwakeTheme() && (
+        <BarComponent
+          componentsProps={{
+            Wrapper: { className: 'u-bg-transparent u-elevation-0' }
+          }}
+        />
+      )}
       <BackgroundContainer />
       <ReloadFocus />
       <MainView>
         <BackupNotification />
-        <Corner />
+        {!isTwakeTheme() && <Corner />}
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
           ref={didInit ? div => setContentWrapper(div) : null}

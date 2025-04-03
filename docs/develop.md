@@ -17,4 +17,4 @@ $ yarn start
 
 ### Flagship mode
 
-If you want to simulate flagship environment, you can edit the `__SIMULATE_FLAGSHIP__` var in the `webpack.config.cozy-home.js`. It'll simulate a splashscreen during the loading of the application and simulate a call to `hideSplashscreen`. 
+If you want to simulate flagship environment, you can edit the `__SIMULATE_FLAGSHIP__` var in the `webpack.config.cozy-home.js`. It'll simulate a splashscreen during the loading of the application and simulate a call to `hideSplashscreen`. Add also `style="display: block;margin: 0"` to body in index.ejs.
