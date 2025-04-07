@@ -17,7 +17,6 @@ import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import { AssistantMobileWrapper } from 'components/Assistant/AssistantMobileWrapper'
 import { AssistantDialog, SearchDialog } from 'cozy-search'
-import AddButton from 'components/AddButton/AddButton'
 import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
 import HeroHeader from 'components/HeroHeader'
@@ -28,7 +27,6 @@ import StoreRedirection from 'components/StoreRedirection'
 import BackupNotification from 'components/BackupNotification/BackupNotification'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { BackgroundContainer } from 'components/BackgroundContainer'
-import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
 import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
@@ -181,7 +179,6 @@ const App = () => {
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
-      {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
 }
