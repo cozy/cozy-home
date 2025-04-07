@@ -31,15 +31,13 @@ export const SectionHeader = ({
   return (
     <>
       <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
-        {!isGroupMode ? (
-          <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
-            {section?.name}
-          </Divider>
-        ) : isCategory ? (
-          <div className="u-ellipsis">{t(`category.${section.name}`)}</div>
-        ) : (
-          <div className="u-ellipsis u-mr-half">{section?.name}</div>
-        )}
+        {isGroupMode ? (
+          isCategory ? (
+            <div className="u-ellipsis">{t(`category.${section.name}`)}</div>
+          ) : (
+            <div className="u-ellipsis u-mr-half">{section?.name}</div>
+          )
+        ) : null}
 
         {!isCategory && section && (
           <Button
