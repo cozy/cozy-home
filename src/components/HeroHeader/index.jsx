@@ -9,9 +9,6 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 const useStyles = makeStyles(theme => ({
-  shadow: {
-    boxShadow: theme.shadows[1]
-  },
   nameInverted: {
     textShadow: theme.textShadows[1]
   },
@@ -34,7 +31,7 @@ export const HeroHeader = () => {
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <div>
         <img
-          className={cx('hero-avatar u-mb-1 u-mb-half-s', classes.shadow)}
+          className="hero-avatar u-mb-1 u-mb-half-s"
           aria-hidden="true"
           src={`${rootURL}/public/avatar`}
         />
