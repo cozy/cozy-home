@@ -567,9 +567,6 @@
       }
     }
   },
-  "addButton": {
-    "add": "Ajouter"
-  },
   "defaultRedirection": {
     "snackbar": {
       "description": "Définir cette page comme page par défaut sur votre application mobile ?",

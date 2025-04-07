@@ -2,7 +2,6 @@ import cx from 'classnames'
 import React from 'react'
 
 import { getFlagshipMetadata } from 'cozy-device-helper'
-import flag from 'cozy-flags'
 
 import CozyTheme, {
   useCozyTheme
@@ -23,7 +22,6 @@ export const AssistantMobileWrapper = () => {
       <div
         className={cx('home-mobile-assistant', {
           [`home-mobile-assistant--${type}`]: !isCustomWallpaper,
-          ['home-mobile-assistant--offset']: flag('home.fab.button.enabled'),
           ['home-mobile-assistant--immersive']: getFlagshipMetadata().immersive
         })}
       >

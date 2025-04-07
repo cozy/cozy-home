@@ -567,9 +567,6 @@
       }
     }
   },
-  "addButton": {
-    "add": "Add"
-  },
   "defaultRedirection": {
     "snackbar": {
       "description": "Set this page as the home screen of your mobile application?",
