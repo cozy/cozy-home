@@ -8,14 +8,23 @@ import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
-const useStyles = makeStyles(theme => ({
-  nameInverted: {
-    textShadow: theme.textShadows[1]
-  },
-  hostInverted: {
-    textShadow: theme.textShadows[1]
+const useStyles = makeStyles(theme => {
+  return {
+    title: {
+      letterSpacing: 0.35,
+      color:
+        theme.type === 'light'
+          ? 'rgba(28, 27, 31, 1)'
+          : 'rgba(255, 255, 255, 1)'
+    },
+    nameInverted: {
+      textShadow: theme.textShadows[1]
+    },
+    hostInverted: {
+      textShadow: theme.textShadows[1]
+    }
   }
-}))
+})
 
 export const HeroHeader = () => {
   const client = useClient()
@@ -38,10 +47,9 @@ export const HeroHeader = () => {
       </div>
       <Typography
         variant="h1"
-        className={cx(
-          'hero-title u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
-          { [classes.nameInverted]: theme.variant === 'inverted' }
-        )}
+        className={cx('hero-title u-ta-center u-mv-0 u-mh-1', classes.title, {
+          [classes.nameInverted]: theme.variant === 'inverted'
+        })}
       >
         {isTwakeTheme() ? 'Twake workplace' : publicName}
       </Typography>
