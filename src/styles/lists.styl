@@ -13,11 +13,12 @@ $tablet-tile-with-gutter = $tablet-tile-size + $app-grid-gutter
     display grid
     grid-template-columns repeat(auto-fill, minmax($app-tile-with-gutter, 1fr))
     grid-auto-rows minmax(rem(91), auto)
-    grid-gap rem(10) 0
+    grid-gap rem(14) 0
     justify-content center
+    margin-bottom rem(14)
 
     &--gutter
-        grid-gap rem(10) 2rem
+        grid-gap rem(14) 2rem
 
     // Caution: this section is full of magic numbers
     // TODO: refactor this to use computed values to avoid glitches in the grid system
