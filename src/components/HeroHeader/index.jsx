@@ -52,7 +52,7 @@ export const HeroHeader = () => {
           [classes.nameInverted]: theme.variant === 'inverted'
         })}
       >
-        {isTwakeTheme() ? 'Twake workplace' : publicName}
+        {isTwakeTheme() ? 'Twake Workplace' : publicName}
       </Typography>
       {!isTwakeTheme() && (
         <Typography
