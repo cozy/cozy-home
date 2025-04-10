@@ -112,6 +112,7 @@ const App = () => {
     <>
       {isTwakeTheme() && (
         <BarComponent
+          searchOptions={{ enabled: false }}
           componentsProps={{
             Wrapper: { className: 'u-bg-transparent u-elevation-0' }
           }}
