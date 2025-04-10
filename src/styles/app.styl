@@ -54,6 +54,12 @@ body
         +small-screen()
             margin 0 0 -3rem
 
+.main-view
+    min-height 100vh
+
+    &--immersive
+        min-height calc(100vh - var(--flagship-bottom-height) - var(--flagship-top-height))
+
 +small-screen()
     .main-view, .home-custom-background
         transition transform 200ms ease-out
