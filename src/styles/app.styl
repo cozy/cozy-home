@@ -55,7 +55,8 @@ body
             margin 0 0 -3rem
 
 .main-view
-    min-height 100vh
+    padding-bottom 3rem // center main view content by adding same height at bottom as cozy-bar adds at top
+    min-height calc(100vh - 3rem - 3rem)
 
     &--immersive
         min-height calc(100vh - var(--flagship-bottom-height) - var(--flagship-top-height))
