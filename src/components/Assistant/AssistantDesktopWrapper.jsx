@@ -21,7 +21,8 @@ export const AssistantDesktopWrapper = () => {
               ? {
                   size: 'medium',
                   className: styles[`search-bar-background--${type}`],
-                  hasHalfBorderRadius: true
+                  hasHalfBorderRadius: true,
+                  disabledHover: true
                 }
               : {
                   elevation: 1,
