@@ -57,6 +57,8 @@ export const SectionHeader = ({
       {section && (
         <CozyTheme>
           <ActionsMenu
+            /*
+            // @ts-expect-error ActionsMenu not correctly typed */
             actions={actions}
             anchorOrigin={{
               horizontal: 'right',
