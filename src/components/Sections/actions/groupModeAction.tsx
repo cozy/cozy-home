@@ -45,6 +45,8 @@ export const groupModeAction = (): (() => Action) => () => ({
       }
 
       return (
+        /*
+        // @ts-expect-error ActionsMenuItem not correctly typed */
         <ActionsMenuItem {...props} ref={ref} onClick={handleClick}>
           <ListItemText
             className="u-mr-half"

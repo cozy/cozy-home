@@ -11,6 +11,8 @@ import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 const useStyles = makeStyles(theme => {
   return {
     title: {
+      fontSize: '24px',
+      lineHeight: '28px',
       letterSpacing: 0.35,
       color:
         theme.type === 'light'
@@ -40,18 +42,18 @@ export const HeroHeader = () => {
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <div>
         <img
-          className="hero-avatar u-mb-1 u-mb-half-s"
+          className="hero-avatar u-mb-half"
           aria-hidden="true"
           src={`${rootURL}/public/avatar`}
         />
       </div>
       <Typography
         variant="h1"
-        className={cx('hero-title u-ta-center u-mv-0 u-mh-1', classes.title, {
+        className={cx('u-ta-center u-mv-0 u-mh-1', classes.title, {
           [classes.nameInverted]: theme.variant === 'inverted'
         })}
       >
-        {isTwakeTheme() ? 'Twake workplace' : publicName}
+        {isTwakeTheme() ? 'Twake Workplace' : publicName}
       </Typography>
       {!isTwakeTheme() && (
         <Typography
