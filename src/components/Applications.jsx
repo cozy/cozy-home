@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
 import { useQuery } from 'cozy-client'
+import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 import flag from 'cozy-flags'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
@@ -50,7 +51,12 @@ const getApplicationsList = data => {
         !hiddenApps.includes(app.slug.toLowerCase())
     )
     const dedupapps = uniqBy(apps, 'slug')
-    const appList = dedupapps.map(app => <AppTile key={app.id} app={app} />)
+
+    const sortedApps = flag('apps.sort')
+      ? sortApplicationsList(dedupapps, flag('apps.sort'))
+      : dedupapps
+
+    const appList = sortedApps.map(app => <AppTile key={app.id} app={app} />)
 
     appList.push(
       <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
