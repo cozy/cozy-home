@@ -39,6 +39,8 @@ export const displayModeAction =
         const isActive = actionLabel === currentDisplayMode
 
         return (
+          /*
+          // @ts-expect-error ActionsMenuItem not correctly typed */
           <ActionsMenuItem
             {...props}
             ref={ref}
