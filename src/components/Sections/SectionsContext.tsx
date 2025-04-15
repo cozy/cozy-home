@@ -38,12 +38,7 @@ import {
 } from 'lib/konnectors_typed'
 import { useMagicFolder } from 'components/Sections/hooks/useMagicFolder'
 import { useShortcutsDirectories } from 'components/Sections/hooks/useShortcutsDirectories'
-import {
-  konnectorsConn,
-  makeAccountsQuery,
-  makeTriggersQuery,
-  suggestedKonnectorsConn
-} from 'queries'
+import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from 'queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { fetchAllKonnectors } from './queries/konnectors'
 import { formatServicesSections } from './lib/formatServicesSections'
@@ -65,7 +60,6 @@ const SectionsContext = createContext<SectionsContextValue>({
   ungroupedSections: [],
   groupedSections: [],
   isRunning: () => false,
-  isSuggested: () => false,
   isInMaintenance: () => false
 })
 
@@ -108,27 +102,6 @@ export const SectionsProvider = ({
     [konnectors]
   )
 
-  const suggestedKonnectorsQuery = useQuery(
-    suggestedKonnectorsConn.query,
-    suggestedKonnectorsConn
-  ) as { data: IOCozyKonnector[] }
-
-  const candidatesSlugBlacklist = useMemo(
-    () =>
-      appsAndKonnectorsInMaintenance
-        .map(({ slug }) => slug)
-        .concat(installedKonnectors.map(({ slug }) => slug)),
-    [appsAndKonnectorsInMaintenance, installedKonnectors]
-  )
-
-  const suggestedKonnectors = useMemo(() => {
-    return suggestedKonnectorsQuery.data
-      ? suggestedKonnectorsQuery.data.filter(
-          ({ slug }) => !candidatesSlugBlacklist.includes(slug)
-        )
-      : []
-  }, [suggestedKonnectorsQuery.data, candidatesSlugBlacklist])
-
   const [groupedData, setGroupedData] =
     useState<{ [key: string]: IOCozyKonnector[] }>()
 
@@ -147,7 +120,6 @@ export const SectionsProvider = ({
         ? formatServicesSections(
             groupedData,
             installedKonnectors,
-            suggestedKonnectors,
             appsAndKonnectorsInMaintenance,
             t,
             allTriggers,
@@ -157,7 +129,6 @@ export const SectionsProvider = ({
     [
       groupedData,
       installedKonnectors,
-      suggestedKonnectors,
       appsAndKonnectorsInMaintenance,
       t,
       allTriggers,
@@ -194,8 +165,6 @@ export const SectionsProvider = ({
         shortcutsDirectories,
         ungroupedSections,
         groupedSections,
-        isSuggested: (slug: string): boolean =>
-          suggestedKonnectors.some(konnector => konnector.slug === slug),
         isRunning: (slug: string): boolean => runningKonnectors.includes(slug),
         isInMaintenance: (slug: string): boolean =>
           Boolean(appsAndKonnectorsInMaintenanceBySlug[slug])

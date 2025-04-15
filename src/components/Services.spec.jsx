@@ -28,7 +28,6 @@ jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
 describe('Services component', () => {
   const setup = ({
     installedKonnectors,
-    suggestedKonnectorsQuery,
     appsAndKonnectorsInMaintenance = []
   } = {}) => {
     const client = createMockClient({
@@ -44,7 +43,6 @@ describe('Services component', () => {
         },
         'app-suggestions': {
           lastUpdate: new Date(),
-          data: suggestedKonnectorsQuery ? suggestedKonnectorsQuery.data : [],
           doctype: 'io.cozy.apps.suggestions',
           hasMore: false
         }
@@ -54,10 +52,7 @@ describe('Services component', () => {
     useAppsInMaintenance.mockReturnValue(appsAndKonnectorsInMaintenance)
     const root = render(
       <AppLike client={client} store={client.store}>
-        <Services
-          installedKonnectors={installedKonnectors || []}
-          suggestedKonnectorsQuery={suggestedKonnectorsQuery || { data: [] }}
-        />
+        <Services installedKonnectors={installedKonnectors || []} />
       </AppLike>
     )
     return { root }
@@ -75,67 +70,6 @@ describe('Services component', () => {
     root.getByText('test3')
   })
 
-  it('should display the empty component when there are no services', () => {
-    const installedKonnectors = []
-    const { root } = setup({
-      installedKonnectors,
-      suggestedKonnectorsQuery: { data: [{ slug: 'suggestion-1' }] }
-    })
-    expect(root.queryByText('slug1')).toBe(null)
-    root.getByText('Start gathering your data!')
-    root.getByText(
-      'Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)'
-    )
-  })
-
-  it('should keep show empty component when no services have been installed', () => {
-    const { root } = setup({
-      installedKonnectors: [],
-      suggestedKonnectorsQuery: {
-        data: [
-          { slug: 'suggestion-1', _id: 1 },
-          { slug: 'suggestion-2', _id: 2 },
-          { slug: 'test-1', _id: 3 }
-        ]
-      }
-    })
-    expect(root.getByText('suggestion-1')).toBeTruthy()
-    root.getByText('Start gathering your data!')
-    root.getByText(
-      'Synchronise your brands with your Cozy to automatically retrieve your data (bills, reimbursements, expenses…)'
-    )
-  })
-
-  it('should display suggestions after services have been installed', () => {
-    const installedKonnectors = [
-      { slug: 'test-1', _id: '1', name: 'Test1' },
-      { slug: 'test-2', _id: '2', name: 'Test 2' },
-      { slug: 'test-3', _id: '3', name: 'Test 3' }
-    ]
-    const { root } = setup({
-      installedKonnectors,
-      suggestedKonnectorsQuery: {
-        data: [
-          { slug: 'suggestion-1', _id: 1 },
-          { slug: 'suggestion-2', _id: 2 },
-          { slug: 'test-1', _id: 3 }
-        ]
-      }
-    })
-    root.getByText('suggestion-1')
-    root.getByText('suggestion-2')
-    root.getByText('test-1')
-  })
-
-  it('should show category if enough working konnectors in category', () => {
-    const installedKonnectors = []
-    const { root } = setup({
-      installedKonnectors,
-      suggestedKonnectorsQuery: { data: [] }
-    })
-    root.getByRole('heading', { name: 'Energy' })
-  })
-
   it('should hide category if not enough working konnectors in category', () => {
     const installedKonnectors = []
     const appsAndKonnectorsInMaintenance = [
@@ -147,7 +81,6 @@ describe('Services component', () => {
     ]
     const { root } = setup({
       installedKonnectors,
-      suggestedKonnectorsQuery: { data: [] },
       appsAndKonnectorsInMaintenance
     })
     expect(root.queryByRole('heading', { name: 'Energy' })).toBeNull

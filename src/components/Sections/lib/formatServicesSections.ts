@@ -64,24 +64,6 @@ const processAndSortItems = (
     .sort(sortItemsByStatusAndName)
 }
 
-// Enhance suggested konnectors with names from available items
-// This is needed because the suggested konnectors only have slugs
-// We need a name to be able to localeCompare and sort items
-const getEnhancedSuggestedKonnectors = (
-  suggestedKonnectors: IOCozyKonnector[],
-  availableItems: IOCozyKonnector[]
-): IOCozyKonnector[] => {
-  const availableItemsMap = new Map(
-    availableItems.map(item => [item.slug, item.name])
-  )
-  return suggestedKonnectors.reduce((acc, k) => {
-    if (availableItemsMap.has(k.slug)) {
-      acc.push({ ...k, name: availableItemsMap.get(k.slug) || k.slug })
-    }
-    return acc
-  }, [] as IOCozyKonnector[])
-}
-
 /**
  * Formats the given data into sections for display.
  *
@@ -133,7 +115,6 @@ const getEnhancedSuggestedKonnectors = (
 export const formatServicesSections = (
   data: { [key: string]: (IOCozyKonnector & { status?: string })[] },
   installedKonnectors: IOCozyKonnector[],
-  suggestedKonnectors: IOCozyKonnector[],
   appsAndKonnectorsInMaintenance: IOCozyKonnector[],
   t: (key: string) => string,
   allTriggers: IOCozyTrigger[],
@@ -167,17 +148,9 @@ export const formatServicesSections = (
         // Filter out items that are installed
         const installedItems = availableOrInstalledItems.filter(isInstalled)
 
-        // Get suggested konnectors that are also in available items, enhancing their names
-        const suggestedKonnectorsWithName = getEnhancedSuggestedKonnectors(
-          suggestedKonnectors,
-          availableItems
-        )
-
         // Determine the items to sort: prioritize installed items and add suggested ones if any, otherwise use all available items
         const itemsToSort =
-          installedItems.length > 0
-            ? [...installedItems, ...suggestedKonnectorsWithName]
-            : availableItems
+          installedItems.length > 0 ? installedItems : availableItems
 
         // Sort the items based on triggers and accounts
         const sortedItems = processAndSortItems(

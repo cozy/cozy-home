@@ -87,16 +87,6 @@ export const homeSettingsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
-export const suggestedKonnectorsConn = {
-  query: () =>
-    Q('io.cozy.apps.suggestions')
-      .where({ silenced: false })
-      .indexFields(['silenced', 'slug'])
-      .sortBy([{ silenced: 'asc' }, { slug: 'asc' }]),
-  as: 'app-suggestions',
-  fetchPolicy: defaultFetchPolicy
-}
-
 export const mkHomeMagicFolderConn = t => {
   return {
     query: Q('io.cozy.files')

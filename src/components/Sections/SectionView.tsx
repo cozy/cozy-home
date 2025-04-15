@@ -18,7 +18,6 @@ import {
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
 import { useSections } from './SectionsContext'
-import CandidateServiceTile from 'components/CandidateServiceTile'
 import { makeTriggersWithJobStatusQuery } from 'queries'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
@@ -48,9 +47,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       )}
     >
       {(section.items as IOCozyKonnector[]).map((item, index) => {
-        if (item._type === 'io.cozy.apps.suggestions') {
-          return <CandidateServiceTile key={item.slug} konnector={item} />
-        } else if (item.type === 'konnector') {
+        if (item.type === 'konnector') {
           return (
             <KonnectorTile
               shouldOpenStore={shouldOpenStoreModal}
