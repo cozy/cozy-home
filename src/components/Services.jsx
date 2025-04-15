@@ -13,11 +13,6 @@ import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
-import CandidateCategoryTile from 'components/CandidateCategoryTile'
-import CandidateServiceTile from 'components/CandidateServiceTile'
-import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
-import candidatesConfig from 'config/candidates'
-import { suggestedKonnectorsConn } from 'queries'
 
 import {
   fetchRunningKonnectors,
@@ -36,34 +31,6 @@ export const Services = () => {
   const installedKonnectors = sortBy(konnectors, konnector =>
     konnector.name.toLowerCase()
   )
-  const suggestedKonnectorsQuery = useQuery(
-    suggestedKonnectorsConn.query,
-    suggestedKonnectorsConn
-  )
-
-  const candidatesSlugBlacklist = appsAndKonnectorsInMaintenance
-    .map(({ slug }) => slug)
-    .concat(installedKonnectors.map(({ slug }) => slug))
-
-  const suggestedKonnectors = suggestedKonnectorsQuery.data
-    ? suggestedKonnectorsQuery.data.filter(
-        ({ slug }) => !candidatesSlugBlacklist.includes(slug)
-      )
-    : []
-  const fallbackKonnectorSuggestions = candidatesConfig.konnectors.filter(
-    ({ slug }) => !candidatesSlugBlacklist.includes(slug)
-  )
-
-  const categorySuggestions = Object.entries(candidatesConfig.categories).map(
-    ([category, slugs]) => [
-      category,
-      slugs.filter(slug => !candidatesSlugBlacklist.includes(slug))
-    ]
-  )
-
-  const hasZeroInstalledKonnectors = !installedKonnectors.length
-  const displayFallbackSuggestions =
-    hasZeroInstalledKonnectors && suggestedKonnectors.length === 0
 
   const { data: jobData } = useQuery(
     fetchRunningKonnectors.definition,
@@ -94,24 +61,6 @@ export const Services = () => {
             loading={runningKonnectors.includes(konnector.slug)}
           />
         ))}
-        {suggestedKonnectors.map(suggestion => (
-          <CandidateServiceTile key={suggestion.slug} konnector={suggestion} />
-        ))}
-        {displayFallbackSuggestions &&
-          fallbackKonnectorSuggestions.map(candidate => (
-            <FallbackCandidateServiceTile
-              key={candidate.slug}
-              slug={candidate.slug}
-            />
-          ))}
-        {hasZeroInstalledKonnectors &&
-          categorySuggestions.map(([category, slugs]) => (
-            <CandidateCategoryTile
-              key={category}
-              slugs={slugs}
-              category={category}
-            />
-          ))}
         {<AddServiceTile label={t('add_service')} />}
       </div>
     </div>

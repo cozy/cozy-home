@@ -126,6 +126,5 @@ export interface SectionsContextValue {
   ungroupedSections: Section[]
   groupedSections: Section[]
   isRunning: (slug: string) => boolean
-  isSuggested: (slug: string) => boolean
   isInMaintenance: (slug: string) => boolean
 }
