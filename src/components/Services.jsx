@@ -20,8 +20,8 @@ import {
 } from 'lib/konnectors_typed'
 
 import { getInstalledKonnectors } from '../selectors/konnectors'
-export const Services = () => {
-  const { t } = useI18n()
+
+export const useServices = () => {
   const appsAndKonnectorsInMaintenance = useAppsInMaintenance()
   const appsAndKonnectorsInMaintenanceBySlug = keyBy(
     appsAndKonnectorsInMaintenance,
@@ -41,6 +41,23 @@ export const Services = () => {
     () => getRunningKonnectors(jobData),
     [jobData]
   )
+
+  return {
+    installedKonnectors,
+    runningKonnectors,
+    appsAndKonnectorsInMaintenanceBySlug
+  }
+}
+
+export const Services = () => {
+  const { t } = useI18n()
+
+  const {
+    installedKonnectors,
+    runningKonnectors,
+    appsAndKonnectorsInMaintenanceBySlug
+  } = useServices()
+
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
       {!isTwakeTheme() && <Divider className="u-mv-0" />}

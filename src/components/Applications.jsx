@@ -68,8 +68,7 @@ const getApplicationsList = data => {
   }
 }
 
-export const Applications = () => {
-  const showLogout = !!flag('home.mainlist.show-logout')
+export const useApps = () => {
   const { t } = useI18n()
 
   const { data: apps } = useQuery(appsConn.query, appsConn)
@@ -88,6 +87,16 @@ export const Applications = () => {
     enabled: !!magicHomeFolderId
   })
 
+  return {
+    apps: getApplicationsList(apps),
+    shortcuts
+  }
+}
+
+export const Applications = () => {
+  const showLogout = !!flag('home.mainlist.show-logout')
+  const { apps, shortcuts } = useApps()
+
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       {!isTwakeTheme() && <Divider className="u-mv-0" />}
@@ -98,7 +107,7 @@ export const Applications = () => {
           'u-mt-2-t u-mb-1-t u-mv-3': !isTwakeTheme()
         })}
       >
-        {getApplicationsList(apps)}
+        {apps}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
