@@ -9,6 +9,7 @@ import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from 'components/Assistant/AssistantDesktopWrapper'
 
+import ApplicationsAndServices from 'components/ApplicationsAndServices'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 import Services from 'components/Services'
@@ -38,12 +39,18 @@ const Home = ({ wrapper }) => {
               getFlagshipMetadata().immersive
           })}
         >
-          <Applications />
-          <Shortcuts />
-          {flag('home.detailed-services-dev') ? (
-            <GroupedServices />
+          {flag('home.apps.only-one-list') ? (
+            <ApplicationsAndServices />
           ) : (
-            <Services />
+            <>
+              <Applications />
+              <Shortcuts />
+              {flag('home.detailed-services-dev') ? (
+                <GroupedServices />
+              ) : (
+                <Services />
+              )}
+            </>
           )}
         </Content>
       </Main>
