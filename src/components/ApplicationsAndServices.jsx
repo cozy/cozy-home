@@ -7,6 +7,7 @@ import ShortcutLink from 'components/ShortcutLink'
 
 import { useApps } from './Applications'
 import { useServices } from './Services'
+import AddTile from './AddTile'
 
 export const ApplicationsAndServices = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
@@ -22,6 +23,7 @@ export const ApplicationsAndServices = () => {
           shortcuts.map((shortcut, index) => (
             <ShortcutLink key={index} file={shortcut} />
           ))}
+        {<AddTile />}
         {showLogout && <LogoutTile />}
       </div>
     </div>
