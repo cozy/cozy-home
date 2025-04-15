@@ -44,11 +44,14 @@ const isValidData = memoize(data => Array.isArray(data) && data.length > 0)
 const getApplicationsList = data => {
   if (isValidData(data)) {
     const hiddenApps = flag('apps.hidden') || []
+    const hiddenHomeApps = flag('apps.hidden-in-home') || []
+
     const apps = data.filter(
       app =>
         app.state !== 'hidden' &&
         !homeConfig.filteredApps.includes(app.slug) &&
-        !hiddenApps.includes(app.slug.toLowerCase())
+        !hiddenApps.includes(app.slug.toLowerCase()) &&
+        !hiddenHomeApps.includes(app.slug.toLowerCase())
     )
     const dedupapps = uniqBy(apps, 'slug')
 
