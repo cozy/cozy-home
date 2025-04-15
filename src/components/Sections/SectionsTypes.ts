@@ -125,7 +125,6 @@ export interface SectionsContextValue {
   shortcutsDirectories: Section[]
   ungroupedSections: Section[]
   groupedSections: Section[]
-  displayTutorialTip: boolean
   isRunning: (slug: string) => boolean
   isSuggested: (slug: string) => boolean
   isInMaintenance: (slug: string) => boolean

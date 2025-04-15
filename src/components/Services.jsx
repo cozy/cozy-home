@@ -16,7 +16,6 @@ import KonnectorTile from 'components/KonnectorTile'
 import CandidateCategoryTile from 'components/CandidateCategoryTile'
 import CandidateServiceTile from 'components/CandidateServiceTile'
 import FallbackCandidateServiceTile from 'components/FallbackCandidateServiceTile'
-import EmptyServicesListTip from 'components/EmptyServicesListTip'
 import candidatesConfig from 'config/candidates'
 import { suggestedKonnectorsConn } from 'queries'
 
@@ -65,10 +64,6 @@ export const Services = () => {
   const hasZeroInstalledKonnectors = !installedKonnectors.length
   const displayFallbackSuggestions =
     hasZeroInstalledKonnectors && suggestedKonnectors.length === 0
-  const displayTutorialTip =
-    hasZeroInstalledKonnectors &&
-    (suggestedKonnectors.length >= 1 ||
-      fallbackKonnectorSuggestions.length >= 1)
 
   const { data: jobData } = useQuery(
     fetchRunningKonnectors.definition,
@@ -119,7 +114,6 @@ export const Services = () => {
           ))}
         {<AddServiceTile label={t('add_service')} />}
       </div>
-      {displayTutorialTip && <EmptyServicesListTip />}
     </div>
   )
 }
