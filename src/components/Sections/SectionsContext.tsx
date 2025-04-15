@@ -64,7 +64,6 @@ const SectionsContext = createContext<SectionsContextValue>({
   shortcutsDirectories: [],
   ungroupedSections: [],
   groupedSections: [],
-  displayTutorialTip: false,
   isRunning: () => false,
   isSuggested: () => false,
   isInMaintenance: () => false
@@ -178,10 +177,6 @@ export const SectionsProvider = ({
     'slug'
   )
 
-  const areAllCategoriesPristine = konnectorsByCategory.every(
-    category => category.pristine
-  )
-
   const { data: jobData } = useQuery(
     fetchRunningKonnectors.definition,
     fetchRunningKonnectors.options
@@ -199,7 +194,6 @@ export const SectionsProvider = ({
         shortcutsDirectories,
         ungroupedSections,
         groupedSections,
-        displayTutorialTip: areAllCategoriesPristine,
         isSuggested: (slug: string): boolean =>
           suggestedKonnectors.some(konnector => konnector.slug === slug),
         isRunning: (slug: string): boolean => runningKonnectors.includes(slug),
