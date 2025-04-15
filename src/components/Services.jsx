@@ -42,21 +42,27 @@ export const useServices = () => {
     [jobData]
   )
 
+  const konnectorsToShow = installedKonnectors.map(konnector => (
+    <KonnectorTile
+      key={konnector.id}
+      konnector={konnector}
+      isInMaintenance={has(
+        appsAndKonnectorsInMaintenanceBySlug,
+        konnector.slug
+      )}
+      loading={runningKonnectors.includes(konnector.slug)}
+    />
+  ))
+
   return {
-    installedKonnectors,
-    runningKonnectors,
-    appsAndKonnectorsInMaintenanceBySlug
+    konnectors: konnectorsToShow
   }
 }
 
 export const Services = () => {
   const { t } = useI18n()
 
-  const {
-    installedKonnectors,
-    runningKonnectors,
-    appsAndKonnectorsInMaintenanceBySlug
-  } = useServices()
+  const { konnectors } = useServices()
 
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
@@ -67,17 +73,7 @@ export const Services = () => {
           'u-mv-3 u-mv-2-t': !isTwakeTheme()
         })}
       >
-        {installedKonnectors.map(konnector => (
-          <KonnectorTile
-            key={konnector.id}
-            konnector={konnector}
-            isInMaintenance={has(
-              appsAndKonnectorsInMaintenanceBySlug,
-              konnector.slug
-            )}
-            loading={runningKonnectors.includes(konnector.slug)}
-          />
-        ))}
+        {konnectors}
         {<AddServiceTile label={t('add_service')} />}
       </div>
     </div>
