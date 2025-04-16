@@ -6388,10 +6388,10 @@ cozy-scripts@8.4.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-search@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.4.0.tgz#126413d3e67ed105c4e76f6b3464324dc0e8db51"
-  integrity sha512-rFmOr3QM+doasZOhT4dW+/fvv/qUmpg/cPBzFTOt/x1XOvgbFORnHLRIXst2cFPRgpXarlRwj33+cqfjTKYAKQ==
+cozy-search@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.5.0.tgz#7b66d3372a9b766c39a7cf11b0e49e5130c75f29"
+  integrity sha512-4z6Kq6RYL2hrXiNA8Bd8FJDJ8uBh/6Ew+qD+v3d/oR+hRcVdqtUa7yKIXM5DmLESVzWjWiMRAXvsAjIHQe10Ng==
   dependencies:
     classnames "2.5.1"
     lodash "4.17.21"
@@ -6437,10 +6437,10 @@ cozy-tsconfig@^1.8.1:
   resolved "https://registry.yarnpkg.com/cozy-tsconfig/-/cozy-tsconfig-1.8.1.tgz#5f206f4e6e041a4afc6691098264ba630bdeb7e2"
   integrity sha512-/9QBxK8Tc12O2ojuyRpSMjPpXpqldVvzfNB1+/nPD+IkIBkU+mqxpHYJwKWjNYHGraCSy69mIwt9J3aiaJdz9w==
 
-cozy-ui@^122.7.0:
-  version "122.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-122.7.0.tgz#fc4af58014537a80d979168c3b37686152ee4889"
-  integrity sha512-7cjT3LRBdCHjMFRoKEQIZ8kbeuQy6giS1/8GFJoKcMiwN4uE873dHJDBUb0tv0AMx64chB9ClSL+HaPsY8hSIQ==
+cozy-ui@^122.8.0:
+  version "122.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-122.8.0.tgz#d0c41ac50531edff821c0b0ff4a3f9b1e5fb323d"
+  integrity sha512-cq/7Kuk7/EB45nSv9KfeBBS6y3iso8GrFNINNSbwFqWDuG6vASpwDKwPHB54OYLUnUQs2bRy5KcVJuVrn8Ubuw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@date-io/date-fns" "1"
