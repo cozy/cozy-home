@@ -51,7 +51,7 @@
     "cozy-minilog": "^3.10.0",
     "cozy-pouch-link": "^57.6.1",
     "cozy-realtime": "^5.6.4",
-    "cozy-search": "^0.5.0",
+    "cozy-search": "^0.5.1",
     "cozy-sharing": "^25.0.0",
     "cozy-stack-client": "^56.0.0",
     "cozy-tsconfig": "^1.8.1",
