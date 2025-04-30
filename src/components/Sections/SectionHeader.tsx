@@ -37,7 +37,11 @@ export const SectionHeader = ({
           ) : (
             <div className="u-ellipsis u-mr-half">{section?.name}</div>
           )
-        ) : null}
+        ) : (
+          <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
+            {section?.name}
+          </Divider>
+        )}
 
         {!isCategory && section && (
           <Button
