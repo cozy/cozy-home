@@ -8,8 +8,6 @@ import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import Divider from 'cozy-ui/transpiled/react/Divider'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
@@ -66,12 +64,10 @@ export const Services = () => {
 
   return (
     <div className="services-list-wrapper u-m-auto u-w-100">
-      {!isTwakeTheme() && <Divider className="u-mv-0" />}
       <div
-        className={cx('services-list u-w-100 u-mh-auto u-flex-justify-center', {
-          'services-list--gutter': isTwakeTheme(),
-          'u-mv-3 u-mv-2-t': !isTwakeTheme()
-        })}
+        className={cx(
+          'services-list services-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center'
+        )}
       >
         {konnectors}
         {<AddServiceTile label={t('add_service')} />}

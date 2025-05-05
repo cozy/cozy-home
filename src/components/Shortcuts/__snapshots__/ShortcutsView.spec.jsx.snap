@@ -17,7 +17,7 @@ Object {
             List title
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+            class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -90,7 +90,7 @@ Object {
           List title
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+          class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -220,7 +220,7 @@ Object {
             a
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+            class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -286,7 +286,7 @@ Object {
             c
           </h6>
           <div
-            class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+            class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -359,7 +359,7 @@ Object {
           a
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+          class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
@@ -425,7 +425,7 @@ Object {
           c
         </h6>
         <div
-          class="shortcuts-list u-w-100 u-mh-auto u-flex-justify-center u-mv-3 u-mv-2-t"
+          class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
