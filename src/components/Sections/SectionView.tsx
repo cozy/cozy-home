@@ -5,7 +5,6 @@ import { useQuery } from 'cozy-client'
 import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import AddServiceTile from 'components/AddServiceTile'
 import KonnectorTile from 'components/KonnectorTile'
@@ -38,10 +37,9 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   return (
     <div
       className={cx(
-        'shortcuts-list u-w-100',
+        'shortcuts-list shortcuts-list--gutter u-w-100',
         {
-          'u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center': !isGroupMode,
-          'shortcuts-list--gutter': isTwakeTheme()
+          'u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center': !isGroupMode
         },
         { detailed: currentDisplayMode === DisplayMode.DETAILED }
       )}

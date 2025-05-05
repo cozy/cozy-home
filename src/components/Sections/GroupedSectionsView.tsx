@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import cx from 'classnames'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
 import { SectionHeader } from 'components/Sections/SectionHeader'
@@ -29,11 +28,7 @@ export const GroupedSectionView = ({
 
       <div
         className={cx(
-          'shortcuts-list u-w-100 u-mh-auto u-flex-justify-center',
-          {
-            'shortcuts-list--gutter': isTwakeTheme(),
-            'u-mv-3 u-mv-2-t ': !isTwakeTheme()
-          }
+          'shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center'
         )}
       >
         {sections.map(section => (
