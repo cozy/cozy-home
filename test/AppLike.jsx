@@ -21,7 +21,9 @@ const fakeDefaultReduxState = {
 }
 const reduxStore = createStore(() => fakeDefaultReduxState)
 
-const defaultClient = createMockClient({})
+const defaultClient = createMockClient({
+  clientOptions: { uri: 'https://claude.mycozy.cloud' }
+})
 defaultClient.ensureStore()
 
 const mockSharingContextValue = {
