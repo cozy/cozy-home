@@ -11,12 +11,17 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
 
 jest.mock('cozy-device-helper', () => ({
+  ...jest.requireActual('cozy-device-helper'),
   isFlagshipApp: jest.fn(),
   getFlagshipMetadata: jest.fn().mockReturnValue({
     immersive: jest.fn()
   }),
   isAndroidApp: jest.fn(),
   isIOS: jest.fn()
+}))
+
+jest.mock('cozy-bar', () => ({
+  BarComponent: () => <div data-testid="BarComponent" />
 }))
 
 jest.mock('cozy-harvest-lib', () => ({
