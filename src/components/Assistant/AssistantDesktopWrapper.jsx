@@ -3,7 +3,6 @@ import React from 'react'
 import CozyTheme, {
   useCozyTheme
 } from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import { AssistantDesktop } from 'cozy-search'
 
@@ -17,17 +16,12 @@ export const AssistantDesktopWrapper = () => {
       <div className="app-list-wrapper u-mh-auto u-mb-3">
         <AssistantDesktop
           componentsProps={{
-            SearchBarDesktop: isTwakeTheme()
-              ? {
-                  size: 'medium',
-                  className: styles[`search-bar-background--${type}`],
-                  hasHalfBorderRadius: true,
-                  disabledHover: true
-                }
-              : {
-                  elevation: 1,
-                  hasHalfBorderRadius: true
-                }
+            SearchBarDesktop: {
+              size: 'medium',
+              className: styles[`search-bar-background--${type}`],
+              hasHalfBorderRadius: true,
+              disabledHover: true
+            }
           }}
         />
       </div>

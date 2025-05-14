@@ -13,11 +13,9 @@ import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 import { AssistantMobileWrapper } from 'components/Assistant/AssistantMobileWrapper'
 import { AssistantDialog, SearchDialog } from 'cozy-search'
-import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
 import HeroHeader from 'components/HeroHeader'
 import Home from 'components/Home'
@@ -110,19 +108,16 @@ const App = () => {
 
   return (
     <>
-      {isTwakeTheme() && (
-        <BarComponent
-          searchOptions={{ enabled: false }}
-          componentsProps={{
-            Wrapper: { className: 'u-bg-transparent u-elevation-0' }
-          }}
-        />
-      )}
+      <BarComponent
+        searchOptions={{ enabled: false }}
+        componentsProps={{
+          Wrapper: { className: 'u-bg-transparent u-elevation-0' }
+        }}
+      />
       <BackgroundContainer />
       <ReloadFocus />
       <MainView>
         <BackupNotification />
-        {!isTwakeTheme() && <Corner />}
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
           ref={didInit ? div => setContentWrapper(div) : null}

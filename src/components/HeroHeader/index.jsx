@@ -7,7 +7,6 @@ import Avatar from 'cozy-ui/transpiled/react/Avatar'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 const useStyles = makeStyles(theme => {
   return {
@@ -33,7 +32,6 @@ export const HeroHeader = () => {
   const classes = useStyles()
   const theme = useCozyTheme()
   const rootURL = client.getStackClient().uri
-  const { host } = new URL(rootURL)
 
   const { instanceSettings } = useInstanceSettings(client)
   const publicName = instanceSettings?.['public_name'] || '\u00A0'
@@ -55,16 +53,6 @@ export const HeroHeader = () => {
       >
         {publicName}
       </Typography>
-      {!isTwakeTheme() && (
-        <Typography
-          className={cx(
-            'hero-subtitle u-ta-center u-mv-0 u-mh-1 u-primaryTextColor',
-            { [classes.hostInverted]: theme.variant === 'inverted' }
-          )}
-        >
-          {host}
-        </Typography>
-      )}
     </header>
   )
 }

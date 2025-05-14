@@ -8,12 +8,11 @@ import flag from 'cozy-flags'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 
 export const ShortcutLink = ({
   display = 'compact',
   file,
-  desktopSize = isTwakeTheme() ? 32 : 44,
+  desktopSize = 32,
   ...props
 }) => {
   const client = useClient()
@@ -25,7 +24,7 @@ export const ShortcutLink = ({
   const { shortcutInfos } = useFetchShortcut(client, file._id)
   const { isMobile } = useBreakpoints()
 
-  const computedSize = isMobile ? (isTwakeTheme() ? 24 : 32) : desktopSize
+  const computedSize = isMobile ? 24 : desktopSize
   const { filename } = CozyFile.splitFilename(file)
   const url = get(shortcutInfos, 'data.url', '#')
 
