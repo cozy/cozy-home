@@ -1,6 +1,5 @@
 {
-  "name": "Home",
-  "name_prefix": "Twake",
+  "name": "Twake Workplace",
   "slug": "home",
   "icon": "icon.svg",
   "categories": ["cozy", "konnectors"],
