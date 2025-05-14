@@ -1,16 +1,17 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { useWallpaperContext } from 'hooks/useWallpaperContext'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import DefaultWallpaper from 'assets/images/default-wallpaper.svg'
+import { useDefaultWallpaper } from 'hooks/useDefaultWallpaper'
+import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
     data: { binaryCustomWallpaper, isCustomWallpaper }
   } = useWallpaperContext()
   const { type } = useCozyTheme()
+  const defaultWallpaper = useDefaultWallpaper()
 
   return (
     <div
@@ -31,8 +32,8 @@ export const BackgroundContainer = (): JSX.Element => {
       <div />
       <div />
       <div />
-      {!isCustomWallpaper && (
-        <img className="home-default-background--img" src={DefaultWallpaper} />
+      {!isCustomWallpaper && defaultWallpaper && (
+        <img className="home-default-background--img" src={defaultWallpaper} />
       )}
     </div>
   )
