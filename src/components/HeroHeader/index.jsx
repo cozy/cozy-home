@@ -38,13 +38,11 @@ export const HeroHeader = () => {
 
   return (
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
-      <Avatar className="u-mb-half" size="xl">
-        <img
-          width="100%"
-          height="100%"
-          src={`${rootURL}/public/avatar?fallback=initials`}
-        />
-      </Avatar>
+      <Avatar
+        className="u-mb-half"
+        size="xl"
+        src={`${rootURL}/public/avatar?fallback=initials`}
+      />
       <Typography
         variant="h3"
         className={cx('u-ta-center u-mv-0 u-mh-1', classes.title, {
