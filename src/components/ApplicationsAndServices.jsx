@@ -26,7 +26,7 @@ export const ApplicationsAndServices = () => {
           shortcuts.map((shortcut, index) => (
             <ShortcutLink key={index} file={shortcut} />
           ))}
-        {isMobile && <AssistantTile />}
+        {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
         {<AddTile />}
         {showLogout && <LogoutTile />}
       </div>
