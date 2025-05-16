@@ -13,21 +13,23 @@ import AddTile from './AddTile'
 
 export const ApplicationsAndServices = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
-  const { apps, shortcuts } = useApps()
+  const { appsComponents, apps, shortcuts } = useApps()
   const { konnectors } = useServices()
   const { isMobile } = useBreakpoints()
+
+  const isStoreAvailable = apps.find(({ slug }) => slug === 'store')
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <div className="app-list app-list--gutter u-w-100 u-mh-auto u-flex-justify-center">
-        {apps}
+        {appsComponents}
         {konnectors}
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
             <ShortcutLink key={index} file={shortcut} />
           ))}
         {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
-        {<AddTile />}
+        {isStoreAvailable && <AddTile />}
         {showLogout && <LogoutTile />}
       </div>
     </div>
