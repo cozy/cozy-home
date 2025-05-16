@@ -17,7 +17,9 @@ export const ApplicationsAndServices = () => {
   const { konnectors } = useServices()
   const { isMobile } = useBreakpoints()
 
-  const isStoreAvailable = apps.find(({ slug }) => slug === 'store')
+  const hiddenApps = flag('apps.hidden') || []
+  const isStoreAvailable =
+    apps.find(({ slug }) => slug === 'store') && !hiddenApps.includes('store')
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
