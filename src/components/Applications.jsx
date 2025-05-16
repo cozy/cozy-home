@@ -89,14 +89,15 @@ export const useApps = () => {
   })
 
   return {
-    apps: getApplicationsList(apps),
+    appsComponents: getApplicationsList(apps),
+    apps,
     shortcuts
   }
 }
 
 export const Applications = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
-  const { apps, shortcuts } = useApps()
+  const { appsComponents, shortcuts } = useApps()
 
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
@@ -105,7 +106,7 @@ export const Applications = () => {
           'app-list u-w-100 u-mh-auto u-flex-justify-center app-list--gutter'
         )}
       >
-        {apps}
+        {appsComponents}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
