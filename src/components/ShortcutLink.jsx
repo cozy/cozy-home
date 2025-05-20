@@ -7,14 +7,8 @@ import flag from 'cozy-flags'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-export const ShortcutLink = ({
-  display = 'compact',
-  file,
-  desktopSize = 32,
-  ...props
-}) => {
+export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
   const client = useClient()
   // We only need this call to useFetchShortcut in order to
   // get the URL of the shortcut. For the rest of the information
@@ -22,9 +16,7 @@ export const ShortcutLink = ({
   // within the file. So let's use these informations instead of
   // waiting an http request to resolve.
   const { shortcutInfos } = useFetchShortcut(client, file._id)
-  const { isMobile } = useBreakpoints()
 
-  const computedSize = isMobile ? 24 : desktopSize
   const { filename } = CozyFile.splitFilename(file)
   const url = get(shortcutInfos, 'data.url', '#')
 
@@ -52,16 +44,16 @@ export const ShortcutLink = ({
           display={display}
           description={description}
           IconContent={
-            <img
-              src={
-                iconMimeType
-                  ? `data:${iconMimeType};base64,${icon}`
-                  : `data:image/svg+xml;base64,${window.btoa(icon)}`
-              }
-              width={computedSize}
-              height={computedSize}
-              alt={filename}
-            />
+            <div className="u-w-2 u-h-2">
+              <img
+                src={
+                  iconMimeType
+                    ? `data:${iconMimeType};base64,${icon}`
+                    : `data:image/svg+xml;base64,${window.btoa(icon)}`
+                }
+                alt={filename}
+              />
+            </div>
           }
           hideShortcutBadge={flag('home.hide-shortcut-badge')}
         />
