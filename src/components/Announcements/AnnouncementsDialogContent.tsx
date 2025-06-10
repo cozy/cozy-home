@@ -8,7 +8,7 @@ import Markdown from 'cozy-ui/transpiled/react/Markdown'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { Announcement } from './types'
-import { useAnnouncementsImage } from 'hooks/useAnnouncementsImage'
+import { useAnnouncementsImage } from '@/hooks/useAnnouncementsImage'
 
 // @ts-expect-error stylus files are not typed
 import styles from './styles.styl'

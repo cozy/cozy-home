@@ -5,7 +5,7 @@ import { useClient } from 'cozy-client'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
-import { useInstanceSettings } from 'hooks/useInstanceSettings'
+import { useInstanceSettings } from '@/hooks/useInstanceSettings'
 
 const importImage = require('assets/images/moved-cozy.svg')
 

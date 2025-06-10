@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import flag from 'cozy-flags'
 import { WebviewIntentProvider } from 'cozy-intent'
 
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 import Corner from './Corner'
 
 jest.mock(

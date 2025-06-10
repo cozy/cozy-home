@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import AppHighlightAlert from 'components/AppHighlightAlert/AppHighlightAlert'
-import { buildExistingTimeseriesGeojsonQuery } from 'queries'
+import AppHighlightAlert from '@/components/AppHighlightAlert/AppHighlightAlert'
+import { buildExistingTimeseriesGeojsonQuery } from '@/queries'
 
 const APP_START_COUNT_KEY =
   'GeolocationTrackingAppHighlightAlert__appStartCount'

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { GroupedSectionView } from 'components/Sections/GroupedSectionsView'
-import { useSections } from 'components/Sections/SectionsContext'
+import { GroupedSectionView } from '@/components/Sections/GroupedSectionsView'
+import { useSections } from '@/components/Sections/SectionsContext'
 
 export const GroupedServices = (): JSX.Element | null => {
   const { konnectorsByCategory } = useSections()

@@ -12,11 +12,11 @@ import {
   GroupMode,
   Section,
   SectionViewProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import {
   computeGroupMode,
   handleSectionAction
-} from 'components/Sections/utils'
+} from '@/components/Sections/utils'
 import { useNavigate } from 'react-router-dom'
 
 export const groupModeAction = (): (() => Action) => () => ({

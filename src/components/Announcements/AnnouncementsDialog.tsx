@@ -15,7 +15,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { AnnouncementsDialogContent } from './AnnouncementsDialogContent'
 import { Announcement } from './types'
-import { useAnnouncementsSettings } from 'hooks/useAnnouncementsSettings'
+import { useAnnouncementsSettings } from '@/hooks/useAnnouncementsSettings'
 
 interface AnnouncementsDialogProps {
   announcements: Array<Announcement>

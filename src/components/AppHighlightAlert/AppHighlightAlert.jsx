@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import PointerAlert from 'cozy-ui/transpiled/react/PointerAlert'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import { useContainerDimensions } from 'hooks/useContainerDimensions'
+import { useContainerDimensions } from '@/hooks/useContainerDimensions'
 
 const BASE_FONTSIZE = 16
 
