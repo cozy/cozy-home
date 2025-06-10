@@ -2,7 +2,7 @@
   "name": "Home",
   "name_prefix": "Twake",
   "slug": "home",
-  "icon": "icon.svg",
+  "icon": "assets/icon.svg",
   "categories": ["cozy", "konnectors"],
   "type": "webapp",
   "source": "git://github.com/cozy/cozy-home.git",
