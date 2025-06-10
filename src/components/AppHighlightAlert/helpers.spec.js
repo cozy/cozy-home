@@ -1,6 +1,6 @@
-import { getAvailableAppHighlightAlerts } from 'components/AppHighlightAlert/helpers'
-import { getBackupAppHighlightAlert } from 'components/AppHighlightAlert/BackupAppHighlightAlert'
-import { getGeolocationTrackingAppHighlightAlert } from 'components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
+import { getAvailableAppHighlightAlerts } from '@/components/AppHighlightAlert/helpers'
+import { getBackupAppHighlightAlert } from '@/components/AppHighlightAlert/BackupAppHighlightAlert'
+import { getGeolocationTrackingAppHighlightAlert } from '@/components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
 
 jest.mock('components/AppHighlightAlert/BackupAppHighlightAlert')
 jest.mock('components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert')

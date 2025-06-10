@@ -13,15 +13,15 @@ import { handleOAuthResponse } from 'cozy-harvest-lib'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 
-import AppWrapper from 'components/AppWrapper'
-import { closeApp, openApp } from 'hooks/useOpenApp'
+import AppWrapper from '@/components/AppWrapper'
+import { closeApp, openApp } from '@/hooks/useOpenApp'
 import { Root } from 'react-dom/client'
 
 import {
   BackupDataProvider,
   useBackupData,
   BackupInfo
-} from 'components/BackupNotification/useBackupData'
+} from '@/components/BackupNotification/useBackupData'
 
 export const renderApp = (root?: Root): void => {
   if (handleOAuthResponse()) {

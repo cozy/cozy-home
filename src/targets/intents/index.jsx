@@ -11,7 +11,7 @@ import { createRoot } from 'react-dom/client'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 
 import IntentHandler from 'containers/IntentHandler'
-import AppWrapper, { AppContext } from 'components/AppWrapper'
+import AppWrapper, { AppContext } from '@/components/AppWrapper'
 import { KonnectorRoutes } from './KonnectorRoutes'
 
 document.addEventListener('DOMContentLoaded', () => {

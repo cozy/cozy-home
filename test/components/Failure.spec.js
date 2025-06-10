@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 
-import { Failure } from 'components/Failure'
+import { Failure } from '@/components/Failure'
 import AppLike from '../AppLike'
 
 describe('Failure component', () => {

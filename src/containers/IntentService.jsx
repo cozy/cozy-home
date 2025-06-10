@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { useClient } from 'cozy-client'
-import { fetchKonnectorBySlug } from 'queries'
+import { fetchKonnectorBySlug } from '@/queries'
 import { useNavigate } from 'react-router-dom'
 
 const IntentService = ({ data, service }) => {

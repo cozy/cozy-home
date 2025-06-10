@@ -12,7 +12,7 @@ import {
   STATUS,
   getAccountsFromTrigger,
   getTriggersBySlug
-} from 'components/KonnectorHelpers'
+} from '@/components/KonnectorHelpers'
 
 /**
  *

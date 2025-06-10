@@ -3,7 +3,7 @@ import { render, act } from '@testing-library/react'
 import flag from 'cozy-flags'
 import { createMockClient } from 'cozy-client/dist/mock'
 
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 import { Applications } from './Applications'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 

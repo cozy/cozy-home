@@ -7,11 +7,11 @@ import { useClient } from 'cozy-client'
 import {
   Announcement,
   AnnouncementsConfigFlag
-} from 'components/Announcements/types'
+} from '@/components/Announcements/types'
 import {
   getUnseenAnnouncements,
   isAnnouncement
-} from 'components/Announcements/helpers'
+} from '@/components/Announcements/helpers'
 import { useAnnouncementsSettings } from './useAnnouncementsSettings'
 
 interface UseAnnouncementsProps {

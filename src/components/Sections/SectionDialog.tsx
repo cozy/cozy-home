@@ -4,9 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
-import { SectionBody } from 'components/Sections/SectionView'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import { useSections } from 'components/Sections/SectionsContext'
+import { SectionBody } from '@/components/Sections/SectionView'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import { useSections } from '@/components/Sections/SectionsContext'
 
 const SectionDialog = (): JSX.Element | null => {
   const [menuState, setMenuState] = useState(false)

@@ -4,7 +4,7 @@ import {
   makeTriggersWithJobStatusQuery,
   makeAppsQuery,
   makeJobsQuery
-} from 'queries'
+} from '@/queries'
 import { withClient } from 'cozy-client'
 class RealoadFocus extends React.Component {
   static contextTypes = {

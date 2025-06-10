@@ -1,6 +1,6 @@
 import React from 'react'
 import { useClient } from 'cozy-client'
-import { useInstanceSettings } from 'hooks/useInstanceSettings'
+import { useInstanceSettings } from '@/hooks/useInstanceSettings'
 import cx from 'classnames'
 
 import Avatar from 'cozy-ui/transpiled/react/Avatar'

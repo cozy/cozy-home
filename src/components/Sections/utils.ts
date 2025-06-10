@@ -5,7 +5,7 @@ import {
   GroupMode,
   Section,
   SectionSetting
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 
 // Default layout configuration used when no specific layout is provided for a folder
 export const _defaultLayout: Omit<SectionSetting, 'id'> = {

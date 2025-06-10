@@ -1,4 +1,4 @@
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 import AppTileWrapper from './AppTile'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import React from 'react'

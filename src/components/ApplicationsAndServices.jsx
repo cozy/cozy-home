@@ -3,8 +3,8 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import LogoutTile from 'components/LogoutTile'
-import ShortcutLink from 'components/ShortcutLink'
+import LogoutTile from '@/components/LogoutTile'
+import ShortcutLink from '@/components/ShortcutLink'
 
 import { useApps } from './Applications'
 import { useServices } from './Services'

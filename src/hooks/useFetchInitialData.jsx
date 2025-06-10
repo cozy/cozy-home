@@ -5,7 +5,7 @@ import {
   makeAppsQuery,
   makeKonnectorsQuery,
   makeTriggersQuery
-} from 'queries'
+} from '@/queries'
 import log from 'cozy-logger'
 
 export const useFetchInitialData = () => {

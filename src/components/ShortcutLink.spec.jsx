@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 
 import { ShortcutLink } from './ShortcutLink'
 import { useFetchShortcut } from 'cozy-client'

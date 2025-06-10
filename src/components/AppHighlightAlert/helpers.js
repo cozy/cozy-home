@@ -1,5 +1,5 @@
-import { getBackupAppHighlightAlert } from 'components/AppHighlightAlert/BackupAppHighlightAlert'
-import { getGeolocationTrackingAppHighlightAlert } from 'components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
+import { getBackupAppHighlightAlert } from '@/components/AppHighlightAlert/BackupAppHighlightAlert'
+import { getGeolocationTrackingAppHighlightAlert } from '@/components/AppHighlightAlert/GeolocationTrackingAppHighlightAlert'
 
 export const getAvailableAppHighlightAlerts = async (client, installedApps) => {
   const appHighlightAlerts = [
