@@ -4,9 +4,9 @@ import { differenceInHours } from 'date-fns'
 import flag from 'cozy-flags'
 
 import { AnnouncementsDialog } from './AnnouncementsDialog'
-import { useAnnouncements } from 'hooks/useAnnouncements'
+import { useAnnouncements } from '@/hooks/useAnnouncements'
 import { AnnouncementsConfigFlag } from './types'
-import { useAnnouncementsSettings } from 'hooks/useAnnouncementsSettings'
+import { useAnnouncementsSettings } from '@/hooks/useAnnouncementsSettings'
 
 const Announcements: FC = () => {
   const config = flag<AnnouncementsConfigFlag>('home.announcements')

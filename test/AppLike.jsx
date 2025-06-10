@@ -11,7 +11,7 @@ import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
 import { SharingContext } from 'cozy-sharing'
 
-import { BackupDataProvider } from 'components/BackupNotification/useBackupData'
+import { BackupDataProvider } from '@/components/BackupNotification/useBackupData'
 
 import enLocale from '../src/locales/en.json'
 

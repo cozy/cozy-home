@@ -4,7 +4,7 @@ import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import AppHighlightAlert from 'components/AppHighlightAlert/AppHighlightAlert'
+import AppHighlightAlert from '@/components/AppHighlightAlert/AppHighlightAlert'
 
 const APP_START_COUNT_KEY = 'BackupAppHighlightAlert__appStartCount'
 

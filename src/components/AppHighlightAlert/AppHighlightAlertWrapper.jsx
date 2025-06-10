@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { getAvailableAppHighlightAlerts } from 'components/AppHighlightAlert/helpers'
+import { getAvailableAppHighlightAlerts } from '@/components/AppHighlightAlert/helpers'
 import { useClient } from 'cozy-client'
 import log from 'cozy-logger'
 

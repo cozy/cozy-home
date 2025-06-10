@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { ShortcutsView } from './ShortcutsView'
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 
 describe('Shortcuts', () => {
   it('Should display nothing if nothing was found', () => {

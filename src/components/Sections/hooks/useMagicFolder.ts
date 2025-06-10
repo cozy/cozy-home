@@ -1,6 +1,6 @@
 import { useQuery } from 'cozy-client'
 
-import { mkHomeMagicFolderConn } from 'queries'
+import { mkHomeMagicFolderConn } from '@/queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const useMagicFolder = (): string | undefined => {

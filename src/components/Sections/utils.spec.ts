@@ -2,13 +2,13 @@ import {
   DisplayMode,
   Section,
   SectionSetting
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import {
   _defaultLayout,
   formatSections,
   computeDisplayMode,
   handleSectionAction
-} from 'components/Sections/utils'
+} from '@/components/Sections/utils'
 
 describe('formatSections', () => {
   it('should merge sections and sort them correctly based on order and name', () => {
