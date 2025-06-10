@@ -6,18 +6,18 @@ import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import AddServiceTile from 'components/AddServiceTile'
-import KonnectorTile from 'components/KonnectorTile'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import { ShortcutLink } from 'components/ShortcutLink'
-import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
+import AddServiceTile from '@/components/AddServiceTile'
+import KonnectorTile from '@/components/KonnectorTile'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import { ShortcutLink } from '@/components/ShortcutLink'
+import { computeDisplayMode, computeGroupMode } from '@/components/Sections/utils'
 import {
   DisplayMode,
   GroupMode,
   SectionViewProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import { useSections } from './SectionsContext'
-import { makeTriggersWithJobStatusQuery } from 'queries'
+import { makeTriggersWithJobStatusQuery } from '@/queries'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()

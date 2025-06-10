@@ -2,16 +2,12 @@
   "extends": "cozy-tsconfig",
   "include": ["./src/**/*"],
   "exclude": ["node_modules"],
+  "emitDeclarationOnly": false,
+  "noEmit": true,
   "compilerOptions": {
-    "emitDeclarationOnly": false,
-    "noEmit": true,
     "paths": {
-      "assistant/*": ["./src/assistant/*"],
-      "components/*": ["./src/components/*"],
-      "hooks/*": ["./src/hooks/*"],
-      "queries": ["./src/queries"],
-      "selectors/*": ["./src/selectors/*"],
-      "lib/*": ["./src/lib/*"]
+      "@/*": ["./src/*"],
+      "@/test/*": ["./test/*"]
     }
-  }
+  },
 }

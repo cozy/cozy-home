@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useClient } from 'cozy-client'
-import { AnnouncementsConfig } from 'components/Announcements/types'
+import { AnnouncementsConfig } from '@/components/Announcements/types'
 import flag from 'cozy-flags'
 
 /**

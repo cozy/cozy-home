@@ -3,10 +3,10 @@ import cx from 'classnames'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import AddServiceTile from 'components/AddServiceTile'
-import GroupedSectionTile from 'components/Sections/GroupedSectionTile'
+import { GroupedSectionViewProps } from '@/components/Sections/SectionsTypes'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import AddServiceTile from '@/components/AddServiceTile'
+import GroupedSectionTile from '@/components/Sections/GroupedSectionTile'
 
 export const GroupedSectionView = ({
   sections

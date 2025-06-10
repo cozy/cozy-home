@@ -10,12 +10,12 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import { actions } from 'components/Sections/SectionActions'
-import { computeGroupMode } from 'components/Sections/utils'
+import { actions } from '@/components/Sections/SectionActions'
+import { computeGroupMode } from '@/components/Sections/utils'
 import {
   GroupMode,
   SectionHeaderProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 
 export const SectionHeader = ({
   section,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useClient, useQuery } from 'cozy-client'
-import { makeContextQuery } from 'queries'
+import { makeContextQuery } from '@/queries'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 

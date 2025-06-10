@@ -24,11 +24,11 @@ import { RealtimePlugin } from 'cozy-realtime'
 import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
 
 import { DataProxyProvider } from 'cozy-dataproxy-lib'
-import { useWallpaperContext } from 'hooks/useWallpaperContext'
+import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { WallPaperProvider } from 'hooks/useWallpaperContext'
+import { WallPaperProvider } from '@/hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
 

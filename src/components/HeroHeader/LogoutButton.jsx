@@ -6,7 +6,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useWebviewIntent } from 'cozy-intent'
 
 import CornerButton from './CornerButton'
-import { LogoutDialog } from 'components/HeroHeader/LogoutModal'
+import { LogoutDialog } from '@/components/HeroHeader/LogoutModal'
 import { isFlagshipApp } from 'cozy-device-helper'
 
 const LogoutButton = () => {
