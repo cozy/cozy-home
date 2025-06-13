@@ -88,7 +88,7 @@
     "babel-jest": "27.5.1",
     "babel-preset-cozy-app": "2.0.2",
     "bundlemon": "3.1.0",
-    "cozy-scripts": "8.4.0",
+    "cozy-app-publish": "^0.41.0",
     "eslint": "8.9.0",
     "eslint-config-cozy-app": "4.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
