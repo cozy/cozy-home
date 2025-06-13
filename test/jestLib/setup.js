@@ -3,15 +3,6 @@ import React from 'react'
 
 import log from 'cozy-logger'
 
-// installed by cozy-scripts
-require('@babel/polyfill')
-
-// polyfill for requestAnimationFrame
-/* istanbul ignore next */
-global.requestAnimationFrame = cb => {
-  setTimeout(cb, 0)
-}
-
 log.setLevel('error')
 
 // eslint-disable-next-line no-console
