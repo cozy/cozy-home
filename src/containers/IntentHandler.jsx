@@ -8,7 +8,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import appEntryPoint from '@/components/appEntryPoint'
-import IntentService from 'containers/IntentService'
+import IntentService from '@/containers/IntentService'
 
 class IntentHandler extends Component {
   constructor(props, context) {

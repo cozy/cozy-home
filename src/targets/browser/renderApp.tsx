@@ -3,7 +3,7 @@ import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'cozy-search/dist/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-bar/dist/stylesheet.css'
-import 'styles/index.styl'
+import '@/styles/index.styl'
 import 'url-search-params-polyfill'
 
 import React from 'react'
@@ -38,7 +38,7 @@ export const renderApp = (root?: Root): void => {
 
 const App = (): JSX.Element => {
   // eslint-disable-next-line
-  const AnimatedWrapper = require('components/AnimatedWrapper').default as () => JSX.Element
+  const AnimatedWrapper = require('@/components/AnimatedWrapper').default as () => JSX.Element
 
   const { setBackupInfo } = useBackupData()
 
