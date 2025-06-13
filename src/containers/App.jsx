@@ -1,4 +1,3 @@
-/* global __SIMULATE_FLAGSHIP__ */
 import React, { useState } from 'react'
 import { Navigate, Route } from 'react-router-dom'
 import { BarComponent } from 'cozy-bar'
@@ -100,7 +99,8 @@ const App = () => {
       webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
-    if (!webviewIntent && __SIMULATE_FLAGSHIP__) {
+
+    if (!webviewIntent && process.env.PUBLIC_SIMULATE_FLAGSHIP) {
       document.getElementById('splashscreen').style.display = 'none'
     }
     setDidInit(true)
