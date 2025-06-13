@@ -1,7 +1,5 @@
 import { useClient, generateWebLink } from 'cozy-client'
 
-import DefaultWallpaper from '@/assets/images/default-wallpaper.svg'
-
 export const useDefaultWallpaper = (): string | undefined => {
   const client = useClient()
 
@@ -9,7 +7,7 @@ export const useDefaultWallpaper = (): string | undefined => {
     ? generateWebLink({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         cozyUrl: client.getStackClient().uri,
-        pathname: DefaultWallpaper,
+        pathname: '/assets/default-wallpaper.svg',
         hash: '',
         searchParams: [],
         slug: 'home',
