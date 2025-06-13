@@ -57,7 +57,7 @@ export const setupAppContext = memoize(intent => {
     uri: `${window.location.protocol}//${data.domain}`,
     schema,
     token: data.token,
-    store: false,
+    useCustomStore: true,
     backgroundFetching: /*       isFlagshipApp() || */ flag(
       'home.store.persist'
     )
