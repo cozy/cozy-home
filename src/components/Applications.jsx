@@ -12,7 +12,7 @@ import LogoutTile from '@/components/LogoutTile'
 import ShortcutLink from '@/components/ShortcutLink'
 import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
-import homeConfig from 'config/home.json'
+import homeConfig from '@/config/home.json'
 import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from '@/queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'

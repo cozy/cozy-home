@@ -3,7 +3,7 @@ import React from 'react'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import EmptyIcon from 'assets/icons/color/default.svg'
+import EmptyIcon from '@/assets/icons/color/default.svg'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'

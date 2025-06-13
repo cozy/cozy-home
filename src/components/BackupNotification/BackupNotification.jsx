@@ -20,7 +20,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import ConfirmStopBackupDialog from '@/components/BackupNotification/ConfirmStopBackupDialog'
 import { useBackupData } from '@/components/BackupNotification/useBackupData'
 
-import styles from 'styles/backupNotification.styl'
+import styles from '@/styles/backupNotification.styl'
 
 const BackupNotification = () => {
   const client = useClient()
