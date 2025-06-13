@@ -1,46 +1,92 @@
 {
-  "verbose": true,
   "baseDir": "./build",
+  "pathLabels": {
+      "chunkId": "[\\d-]+"
+  },
   "files": [
-    {
-      "path": "app-home.<hash>.min.css"
-    },
-    {
-      "path": "app/home.<hash>.js"
-    },
-    {
-      "path": "intents-home.<hash>.min.css"
-    },
-    {
-      "path": "intents/home.<hash>.js"
-    },
-    {
-      "path": "intents/index.html"
-    },
-    {
-      "path": "services/attributesHelpers/home.js"
-    },
-    {
-      "path": "services/deleteAccounts/home.js"
-    },
-    {
-      "path": "services/myselfFromIdenties/home.js"
-    },
-    {
-      "path": "services/polyfillFetch/home.js"
-    },
-    {
-      "path": "services/softDeleteOrRestoreAccounts/home.js",
-    },
-    {
-      "path": "services/updateAccounts/home.js"
-    },
-    {
-      "path": "vendors/home.<hash>.js"
-    },
-    {
-      "path": "vendors-home.<hash>.<hash>.min.css"
-    }
+      {
+          "path": "intent/static/js/<chunkId>.<hash>.js"
+      },
+      {
+          "path": "intent/static/js/cozy.<hash>.js"
+      },
+      {
+          "path": "intent/static/js/intents.<hash>.js"
+      },
+      {
+          "path": "intent/static/js/lib-router.<hash>.js"
+      },
+      {
+          "path": "intent/static/js/lib-react.<hash>.js"
+      },
+      {
+          "path": "intent/static/css/cozy.<hash>.css"
+      },
+      {
+          "path": "intent/static/css/intents.<hash>.css"
+      },
+      {
+          "path": "static/js/<chunkId>.<hash>.js"
+      },
+      {
+          "path": "static/js/cozy.<hash>.js"
+      },
+      {
+          "path": "static/js/main.<hash>.js"
+      },
+      {
+          "path": "static/js/lib-react.<hash>.js"
+      },
+      {
+          "path": "static/js/lib-router.<hash>.js"
+      },
+      {
+          "path": "static/css/cozy.<hash>.css"
+      },
+      {
+          "path": "static/css/main.<hash>.css"
+      },
+      {
+          "path": "static/svg/*.<hash>.svg"
+      },
+      {
+          "path": "services/attributesHelpers.js"
+      },
+      {
+          "path": "services/polyfillFetch.js"
+      },
+      {
+          "path": "services/myselfFromIdenties.js"
+      },
+      {
+          "path": "services/sourceAccountIdentifierNormalizerHelper.js"
+      },
+      {
+          "path": "services/cliskTimeout.js"
+      },
+      {
+          "path": "services/sourceAccountIdentifierNormalizer.js"
+      },
+      {
+          "path": "services/deleteAccounts.js"
+      },
+      {
+          "path": "services/updateAccounts.js"
+      },
+      {
+          "path": "services/softDeleteOrRestoreAccounts.js"
+      }
+  ],
+  "groups": [
+      {
+          "path": "**/*.js"
+      },
+      {
+          "path": "**/*.css"
+      },
+      {
+          "path": "**/*.{png,svg,ico}"
+      }
   ],
   "reportOutput": ["github"]
 }
