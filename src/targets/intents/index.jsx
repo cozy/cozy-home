@@ -2,7 +2,7 @@ import 'cozy-ui/dist/cozy-ui.min.css'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
-import 'styles/intents.styl'
+import '@/styles/intents.styl'
 
 import React from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { createRoot } from 'react-dom/client'
 
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 
-import IntentHandler from 'containers/IntentHandler'
+import IntentHandler from '@/containers/IntentHandler'
 import AppWrapper, { AppContext } from '@/components/AppWrapper'
 import { KonnectorRoutes } from './KonnectorRoutes'
 

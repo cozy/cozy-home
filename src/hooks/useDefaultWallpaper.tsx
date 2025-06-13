@@ -1,6 +1,6 @@
 import { useClient, generateWebLink } from 'cozy-client'
 
-import DefaultWallpaper from 'assets/images/default-wallpaper.svg'
+import DefaultWallpaper from '@/assets/images/default-wallpaper.svg'
 
 export const useDefaultWallpaper = (): string | undefined => {
   const client = useClient()

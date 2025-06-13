@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 // import { isFlagshipApp } from 'cozy-device-helper'
 
 import flag from 'cozy-flags'
-import getReducers from 'reducers'
+import getReducers from '@/reducers'
 const migrations = {
   0: () => {
     return {}

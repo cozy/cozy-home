@@ -19,7 +19,7 @@ import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoi
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
 
-import configureStore from 'store/configureStore'
+import configureStore from '@/store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
 
@@ -30,7 +30,7 @@ import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
 import { WallPaperProvider } from '@/hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
-const dictRequire = lang => require(`locales/${lang}.json`)
+const dictRequire = lang => require(`@/locales/${lang}.json`)
 
 export const AppContext = createContext()
 

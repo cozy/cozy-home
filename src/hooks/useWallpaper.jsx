@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import homeConfig from 'config/home.json'
+import homeConfig from '@/config/home.json'
 import { useClient } from 'cozy-client'
 import localForage from 'localforage'
 
