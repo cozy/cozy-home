@@ -171,32 +171,32 @@
   "services": {
     "myselfFromIdentities": {
       "type": "node",
-      "file": "services/myselfFromIdenties/home.js",
+      "file": "services/myselfFromIdenties.js",
       "trigger": "@event io.cozy.identities:CREATED,UPDATED"
     },
     "updateAccounts": {
       "type": "node",
-      "file": "services/updateAccounts/home.js",
+      "file": "services/updateAccounts.js",
       "trigger": "@event com.bitwarden.ciphers:UPDATED"
     },
     "deleteAccounts": {
       "type": "node",
-      "file": "services/deleteAccounts/home.js",
+      "file": "services/deleteAccounts.js",
       "trigger": "@event com.bitwarden.ciphers:DELETED"
     },
     "softDeleteOrRestoreAccount": {
       "type": "node",
-      "file": "services/softDeleteOrRestoreAccounts/home.js",
+      "file": "services/softDeleteOrRestoreAccounts.js",
       "trigger": "@event com.bitwarden.ciphers:UPDATED:!=:deletedDate"
     },
     "cliskTimeout": {
       "type": "node",
-      "file": "services/cliskTimeout/home.js",
+      "file": "services/cliskTimeout.js",
       "comment": "This service must be called programmatically from the flagship app. It stopps the given job with a context deadline exceeded error"
     },
     "sourceAccountIdentifierNormalizer": {
       "type": "node",
-      "file": "services/sourceAccountIdentifierNormalizer/home.js",
+      "file": "services/sourceAccountIdentifierNormalizer.js",
       "comment": "This service must be called manually"
     }
   }
