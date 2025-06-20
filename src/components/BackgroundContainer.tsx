@@ -3,8 +3,8 @@ import cx from 'classnames'
 
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import { useDefaultWallpaper } from 'hooks/useDefaultWallpaper'
-import { useWallpaperContext } from 'hooks/useWallpaperContext'
+import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
+import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {

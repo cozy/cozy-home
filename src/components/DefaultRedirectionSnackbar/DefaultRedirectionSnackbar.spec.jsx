@@ -5,7 +5,7 @@ import { useSettings } from 'cozy-client'
 
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
 import { useShouldShowDefaultRedirectionSnackbar } from './useShouldShowDefaultRedirectionSnackbar'
 

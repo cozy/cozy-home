@@ -7,9 +7,9 @@ import { render } from '@testing-library/react'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { createMockClient } from 'cozy-client/dist/mock'
 
-import { KonnectorTile, getKonnectorStatus } from 'components/KonnectorTile'
-import { STATUS } from 'components/KonnectorHelpers'
-import AppLike from 'test/AppLike'
+import { KonnectorTile, getKonnectorStatus } from '@/components/KonnectorTile'
+import { STATUS } from '@/components/KonnectorHelpers'
+import AppLike from '@/test/AppLike'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

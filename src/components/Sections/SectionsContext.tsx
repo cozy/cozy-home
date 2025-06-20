@@ -30,15 +30,15 @@ import {
   Section,
   SectionsContextValue,
   SectionSetting
-} from 'components/Sections/SectionsTypes'
-import { formatSections } from 'components/Sections/utils'
+} from '@/components/Sections/SectionsTypes'
+import { formatSections } from '@/components/Sections/utils'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
-} from 'lib/konnectors_typed'
-import { useMagicFolder } from 'components/Sections/hooks/useMagicFolder'
-import { useShortcutsDirectories } from 'components/Sections/hooks/useShortcutsDirectories'
-import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from 'queries'
+} from '@/lib/konnectors_typed'
+import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
+import { useShortcutsDirectories } from '@/components/Sections/hooks/useShortcutsDirectories'
+import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from '@/queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { fetchAllKonnectors } from './queries/konnectors'
 import { formatServicesSections } from './lib/formatServicesSections'

@@ -6,9 +6,9 @@ import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 import log from 'cozy-logger'
 import { HarvestRoutes } from 'cozy-harvest-lib'
 
-import { closeApp, openApp } from 'hooks/useOpenApp'
-import { getKonnector } from 'ducks/konnectors'
-import { getTriggersByKonnector } from 'reducers'
+import { closeApp, openApp } from '@/hooks/useOpenApp'
+import { getKonnector } from '@/ducks/konnectors'
+import { getTriggersByKonnector } from '@/reducers'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const StatelessKonnector = ({ konnector, triggers, slug }) => {

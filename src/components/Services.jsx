@@ -9,13 +9,13 @@ import has from 'lodash/has'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import AddServiceTile from 'components/AddServiceTile'
-import KonnectorTile from 'components/KonnectorTile'
+import AddServiceTile from '@/components/AddServiceTile'
+import KonnectorTile from '@/components/KonnectorTile'
 
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
-} from 'lib/konnectors_typed'
+} from '@/lib/konnectors_typed'
 
 import { getInstalledKonnectors } from '../selectors/konnectors'
 

@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import SectionAppGroup from 'components/Sections/SectionAppGroup'
-import { get4FirstItems } from 'components/Sections/utils'
-import { GroupedSectionTileProps } from 'components/Sections/SectionsTypes'
+import SectionAppGroup from '@/components/Sections/SectionAppGroup'
+import { get4FirstItems } from '@/components/Sections/utils'
+import { GroupedSectionTileProps } from '@/components/Sections/SectionsTypes'
 
 const GroupedSectionTile = ({
   section

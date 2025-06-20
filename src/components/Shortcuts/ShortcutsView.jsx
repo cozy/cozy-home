@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import Divider from 'cozy-ui/transpiled/react/Divider'
 
-import { ShortcutLink } from 'components/ShortcutLink'
+import { ShortcutLink } from '@/components/ShortcutLink'
 
 export const ShortcutsView = ({ shortcutsDirectories }) => {
   return !shortcutsDirectories ? null : (

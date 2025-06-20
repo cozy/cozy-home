@@ -3,7 +3,7 @@ import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'cozy-search/dist/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-bar/dist/stylesheet.css'
-import 'styles/index.styl'
+import '@/styles/index.styl'
 import 'url-search-params-polyfill'
 
 import React from 'react'
@@ -13,15 +13,15 @@ import { handleOAuthResponse } from 'cozy-harvest-lib'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { WebviewIntentProvider } from 'cozy-intent'
 
-import AppWrapper from 'components/AppWrapper'
-import { closeApp, openApp } from 'hooks/useOpenApp'
+import AppWrapper from '@/components/AppWrapper'
+import { closeApp, openApp } from '@/hooks/useOpenApp'
 import { Root } from 'react-dom/client'
 
 import {
   BackupDataProvider,
   useBackupData,
   BackupInfo
-} from 'components/BackupNotification/useBackupData'
+} from '@/components/BackupNotification/useBackupData'
 
 export const renderApp = (root?: Root): void => {
   if (handleOAuthResponse()) {
@@ -38,7 +38,7 @@ export const renderApp = (root?: Root): void => {
 
 const App = (): JSX.Element => {
   // eslint-disable-next-line
-  const AnimatedWrapper = require('components/AnimatedWrapper').default as () => JSX.Element
+  const AnimatedWrapper = require('@/components/AnimatedWrapper').default as () => JSX.Element
 
   const { setBackupInfo } = useBackupData()
 

@@ -8,9 +8,9 @@ import {
   STATUS,
   getAccountsFromTrigger,
   getTriggersBySlug
-} from 'components/KonnectorHelpers'
-import { Section } from 'components/Sections/SectionsTypes'
-import config from 'components/Sections/config.json'
+} from '@/components/KonnectorHelpers'
+import { Section } from '@/components/Sections/SectionsTypes'
+import config from '@/components/Sections/config.json'
 
 // Determine the status of an item based on associated accounts
 const getItemStatus = (accountsForKonnector: IOCozyAccount[]): number =>

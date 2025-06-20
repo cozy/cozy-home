@@ -17,11 +17,11 @@ import {
   DisplayMode,
   Section,
   SectionViewProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import {
   computeDisplayMode,
   handleSectionAction
-} from 'components/Sections/utils'
+} from '@/components/Sections/utils'
 
 export const displayModeAction =
   (actionLabel: DisplayMode): (() => Action) =>

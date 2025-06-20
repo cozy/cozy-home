@@ -7,7 +7,7 @@ import { render } from '@testing-library/react'
 import { useAppsInMaintenance } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { Services } from './Services'
-import AppLike from 'test/AppLike'
+import AppLike from '@/test/AppLike'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
