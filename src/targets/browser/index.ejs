@@ -29,7 +29,7 @@
   -->
   <div role="application" data-cozy="{{.CozyData}}"></div>
   <% htmlPlugin.files.js.forEach(function(file) { %>
-    <script defer src="<%- file %>"></script>
-  <% }); %>
+    <script src="<%- file %>"></script>
+    <% }); %>
 </body>
 </html>
