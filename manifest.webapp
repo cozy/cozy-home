@@ -1,0 +1,203 @@
+{
+  "name": "Home",
+  "name_prefix": "Twake",
+  "slug": "home",
+  "icon": "assets/icon.svg",
+  "categories": ["cozy", "konnectors"],
+  "type": "webapp",
+  "source": "git://github.com/cozy/cozy-home.git",
+  "editor": "Cozy",
+  "developer": {
+   "name": "Twake Workplace",
+    "url": "https://twake.app"
+  },
+  "version": "1.87.0",
+  "licence": "AGPL-3.0",
+  "offline_support": true,
+  "permissions": {
+    "home": {
+      "description": "Required to manage default redirection update",
+      "type": "io.cozy.home.settings",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "apps": {
+      "description": "Required by the cozy-bar to display the icons of the apps",
+      "type": "io.cozy.apps",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "chatConversations": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.conversations",
+      "verbs": ["GET", "POST"]
+    },
+    "chatEvents": {
+      "description": "Required by the cozy Assistant",
+      "type": "io.cozy.ai.chat.events",
+      "verbs": ["GET"]
+    },
+    "settings": {
+      "description": "Required by the cozy-bar display Claudy, to know which applications are coming soon and to manage default redirection update",
+      "type": "io.cozy.settings",
+      "verbs": ["GET", "PUT"]
+    },
+    "konnectors": {
+      "description": "Required to get the list of konnectors",
+      "type": "io.cozy.konnectors",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "accounts": {
+      "description": "Required to manage accounts associated to konnectors",
+      "type": "io.cozy.accounts",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "files": {
+      "description": "Required to access folders",
+      "type": "io.cozy.files",
+      "verbs": ["GET", "PATCH", "POST"]
+    },
+    "jobs": {
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.jobs",
+      "verbs": ["ALL"]
+    },
+    "contacts": {
+      "description": "Required for the service to update the myself contact, and to add contacts to contracts/accounts",
+      "type": "io.cozy.contacts",
+      "verbs": ["ALL"]
+    },
+    "triggers": {
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.triggers",
+      "verbs": ["ALL"]
+    },
+    "permissions": {
+      "description": "Required to run the konnectors",
+      "verbs": ["ALL"],
+      "type": "io.cozy.permissions"
+    },
+    "appSuggestions": {
+      "description": "Required to display konnector suggestions",
+      "verbs": ["GET", "PUT"],
+      "type": "io.cozy.apps.suggestions"
+    },
+    "organizations": {
+      "description": "Required to update konnector passwords",
+      "verbs": ["ALL"],
+      "type": "com.bitwarden.organizations"
+    },
+    "ciphers": {
+      "description": "Required to know if the vault is used or not",
+      "verbs": ["GET"],
+      "type": "com.bitwarden.ciphers"
+    },
+    "bank-accounts": {
+      "description": "Required to edit bank accounts",
+      "type": "io.cozy.bank.accounts"
+    },
+    "bank-settings": {
+      "description": "Required to edit bank settings",
+      "type": "io.cozy.bank.settings"
+    },
+    "geojson-timeseries": {
+      "description": "Required to display geojson timeseries",
+      "type": "io.cozy.timeseries.geojson"
+    },
+    "bills": {
+      "description": "Required to display bills debug data",
+      "type": "io.cozy.bills"
+    },
+    "identities": {
+      "description": "Required to display identities debug data",
+      "type": "io.cozy.identities"
+    },
+    "announcements-dev": {
+      "type": "cc.cozycloud.announcements.dev",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements, for development purposes"
+    },
+    "announcements-uploads-dev": {
+      "type": "cc.cozycloud.announcements.dev.uploads",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements images, for development purposes"
+    },
+     "announcements": {
+      "type": "cc.cozycloud.announcements",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements"
+    },
+    "announcements-uploads": {
+      "type": "cc.cozycloud.announcements.uploads",
+      "verbs": ["GET"],
+      "description": "Remote-doctype required to get announcements images"
+    }
+  },
+  "routes": {
+    "/": {
+      "folder": "/",
+      "index": "index.html",
+      "public": false
+    },
+    "/intents": {
+      "folder": "/intents",
+      "index": "index.html",
+      "public": false
+    },
+    "/intro": {
+      "folder": "/",
+      "index": "index.html",
+      "public": false
+    }
+  },
+  "intents": [
+    {
+      "action": "CREATE",
+      "type": ["io.cozy.accounts"],
+      "href": "/intents",
+      "data": ["slug"]
+    },
+    {
+      "action": "VIEW",
+      "type": ["io.cozy.accounts"],
+      "href": "/intents",
+      "data": ["slug", "accountId"]
+    },
+    {
+      "action": "REDIRECT",
+      "type": ["io.cozy.accounts"],
+      "href": "/#/redirect",
+      "data": ["account", "konnector"]
+    }
+  ],
+  "services": {
+    "myselfFromIdentities": {
+      "type": "node",
+      "file": "services/myselfFromIdenties.js",
+      "trigger": "@event io.cozy.identities:CREATED,UPDATED"
+    },
+    "updateAccounts": {
+      "type": "node",
+      "file": "services/updateAccounts.js",
+      "trigger": "@event com.bitwarden.ciphers:UPDATED"
+    },
+    "deleteAccounts": {
+      "type": "node",
+      "file": "services/deleteAccounts.js",
+      "trigger": "@event com.bitwarden.ciphers:DELETED"
+    },
+    "softDeleteOrRestoreAccount": {
+      "type": "node",
+      "file": "services/softDeleteOrRestoreAccounts.js",
+      "trigger": "@event com.bitwarden.ciphers:UPDATED:!=:deletedDate"
+    },
+    "cliskTimeout": {
+      "type": "node",
+      "file": "services/cliskTimeout.js",
+      "comment": "This service must be called programmatically from the flagship app. It stopps the given job with a context deadline exceeded error"
+    },
+    "sourceAccountIdentifierNormalizer": {
+      "type": "node",
+      "file": "services/sourceAccountIdentifierNormalizer.js",
+      "comment": "This service must be called manually"
+    }
+  }
+}
