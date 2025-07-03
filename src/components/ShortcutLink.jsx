@@ -54,7 +54,12 @@ export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
                   alt={filename}
                 />
               ) : (
-                <img src={shortcutImg} width={32} height={32} />
+                <img
+                  className="u-bdrs-5"
+                  src={shortcutImg}
+                  width={32}
+                  height={32}
+                />
               )}
             </div>
           }
