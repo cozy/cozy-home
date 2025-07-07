@@ -5230,10 +5230,10 @@ cozy-realtime@^5.6.4:
   dependencies:
     "@cozy/minilog" "^1.0.0"
 
-cozy-search@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.8.1.tgz#7acccb03e12cfa77daf1928784f96e5fd2b690d8"
-  integrity sha512-2jqQIfBJhajsbwGwgII4i2pd5gKVCUQlVWRe39vLKV2QXmoAykQDMjcdmRIzFEdWWoMrX3+peMir3+/vT+cixg==
+cozy-search@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.8.3.tgz#5bd34bf232a06bd60e41808ce1ee2a5ae183efc1"
+  integrity sha512-oMOUUNTXzv3MacWuBIn9os3YV6QF6MTGOcAxYuHZa4AOko75W0mnHYCI7d7goy+4uPZ3HSU9JEt1Qw3I7ClHIQ==
   dependencies:
     classnames "2.5.1"
     lodash "4.17.21"
