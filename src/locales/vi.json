@@ -1,0 +1,605 @@
+{
+  "app": {
+    "logo": {
+      "alt": "Logo %{name}"
+    }
+  },
+  "date": {
+    "format": "dd/MM/yyyy",
+    "placeholder": "dd/mm/yyyy"
+  },
+  "manifest": {
+    "name": "Trang chủ",
+    "short_description": "Cozy Home là ứng dụng giúp bạn tập hợp tất cả dữ liệu cá nhân của mình bên trong Cozy.",
+    "long_description": "Với Cozy Home, bạn có thể dễ dàng:\n * Tải xuống tài liệu từ tất cả nhà cung cấp của bạn\n * Thiết lập tần suất Cozy sẽ thu thập hóa đơn của bạn\n * Truy cập trực tiếp vào các tài liệu được thu thập bởi Cozy của bạn",
+    "changes": "Bạn đã không bỏ lỡ, Cửa hàng đã có mặt trong Cozy của bạn!\nChúng tôi đã tận dụng cơ hội để cải thiện Thu thập:\n * Thích ứng với Cửa hàng.\n * Hợp nhất ô: khi bạn có nhiều tài khoản cho một nhà cung cấp, các tài khoản trước đó hiện được hợp nhất dưới ô nhà cung cấp.\n * Cải thiện một số trang Connectors."
+  },
+  "add_service": "Thêm",
+  "fix_konnector_error": "Sửa ngay",
+  "logout": "Đăng xuất",
+  "logout_dialog": {
+    "title": "Đăng xuất",
+    "content": "Bạn có chắc chắn muốn đăng xuất khỏi Cozy của mình không?",
+    "cancel": "Hủy",
+    "confirm": "Đăng xuất"
+  },
+  "help": "Trợ giúp",
+  "help_link": "https://help.cozy.io/",
+  "home_config_magic_folder": "/Settings/Home",
+  "account": {
+    "config": {
+      "default_folder": "/Administrative/%{name}",
+      "optional": "(Tùy chọn)",
+      "title": "Kết nối tài khoản %{name} của bạn",
+      "data": {
+        "title": "Dữ liệu được thu thập:",
+        "service": {
+          "description": "Mô tả dịch vụ:"
+        }
+      },
+      "tabs": {
+        "sync": "đồng bộ hóa",
+        "account": "tài khoản",
+        "data": "dữ liệu được thu thập"
+      }
+    },
+    "disconnect": {
+      "title": "Ngắt kết nối",
+      "description": "Bạn sẽ được ngắt kết nối khỏi tài khoản này, nhưng dữ liệu đã nhập sẽ được giữ lại"
+    },
+    "form": {
+      "title": "Tài khoản",
+      "label": {
+        "firstname": "Tên",
+        "lastname": "Họ",
+        "login": "Đăng nhập",
+        "consumerKey": "Consumer Key",
+        "consumerSecret": "Consumer Secret",
+        "appKey": "Application Key",
+        "appSecret": "Application Secret",
+        "tricountUrl": "Tricount URL",
+        "cardNumber": "Số thẻ",
+        "dob": "Ngày sinh",
+        "password": "Mật khẩu",
+        "email": "Email",
+        "bank_identifier": "Mã định danh ngân hàng (tùy chọn)",
+        "profileName": "Tên hồ sơ",
+        "identifier": "Mã định danh",
+        "new_identifier": "Mã định danh",
+        "secret": "Mật khẩu",
+        "answer": "Câu trả lời bí mật",
+        "access_token": "Access token",
+        "accessTokenSecret": "Access token secret",
+        "apikey": "Api key",
+        "phoneNumber": "Số điện thoại",
+        "folderPath": "Đường dẫn thư mục",
+        "namePath": "Tên thư mục",
+        "authCode": "Mã xác thực",
+        "accountName": "Tên tài khoản",
+        "loginUrl": "URL đăng nhập",
+        "token": "Token",
+        "agreement": "Tôi đồng ý",
+        "refreshToken": "Refresh Token",
+        "timeout": "Độ trễ (ms)",
+        "branchName": "Chi nhánh",
+        "code": "Mã bí mật"
+      },
+      "placeholder": {
+        "password": "Mật khẩu bạn sử dụng để kết nối với dịch vụ",
+        "update_password": "Cập nhật mật khẩu",
+        "accountName": "Ví dụ: Tài khoản cá nhân",
+        "namePath": "Ví dụ: Hóa đơn của Camille. Tên đường dẫn mặc định là tên đăng nhập của bạn."
+      },
+      "button": {
+        "connect": "Kết nối",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "disconnect": "Ngắt kết nối tài khoản này",
+        "delete": "Xóa tài khoản này",
+        "advanced": "Tùy chọn nâng cao",
+        "synchronize": "Đồng bộ hóa ngay"
+      }
+    },
+    "folder": {
+      "title": "Cài đặt thư mục liên quan",
+      "withoutSettings": {
+        "title": "Thư mục liên quan"
+      },
+      "link": "Mở thư mục trong Cozy Drive",
+      "changePath": "thay đổi đường dẫn",
+      "error": "Ối, có gì đó đã xảy ra sai sót. Đừng hoảng sợ, các tệp của bạn vẫn ở đó, vui lòng thử lại sau",
+      "close": "đóng",
+      "warning": "Bạn đang thay đổi đường dẫn thư mục của mình",
+      "oldFiles": "Tất cả hóa đơn cũ của bạn sẽ được chuyển đến đường dẫn mới của bạn.",
+      "newFiles": "Các hóa đơn mới của bạn sẽ được tải xuống trong đường dẫn mới của bạn.",
+      "newPath": "Mọi thứ đã diễn ra tốt đẹp, đường dẫn mới cho tài khoản %{name} của bạn là:",
+      "placeholder": {
+        "administrative": "Hành chính",
+        "photos": "Ảnh"
+      }
+    },
+    "success": {
+      "title": {
+        "connect": "Cấu hình thành công!",
+        "update": "Tài khoản %{name} của bạn đã được cập nhật!"
+      },
+      "banksLinkText": "Xem tài khoản của tôi trong %{appName}",
+      "driveLinkText": "Mở thư mục trong Cozy Drive",
+      "button": "Đóng"
+    },
+    "message": {
+      "folder": {
+        "title": "Thư mục",
+        "link": "Mở thư mục trên cozy drive"
+      },
+      "success": {
+        "connect": "Dữ liệu của bạn sẽ có sẵn trong Cozy của bạn trong vài phút và những dữ liệu tiếp theo sẽ theo một cách tự động.",
+        "update": "Tài khoản %{name} của bạn đã được cập nhật thành công.",
+        "delete": "Tài khoản đã được xóa thành công."
+      },
+      "syncing": {
+        "bill": "Hóa đơn của bạn đang đồng bộ hóa và sẽ có sẵn trong đường dẫn sau:"
+      },
+      "synced": {
+        "title": "Đồng bộ hóa dữ liệu của bạn",
+        "cron": "Tần suất đồng bộ hóa: %{frequency}",
+        "cron_hourly": "mỗi giờ",
+        "cron_daily": "một lần mỗi ngày",
+        "cron_weekly": "một lần mỗi tuần",
+        "cron_monthly": "một lần mỗi tháng",
+        "cron_undefined": "thủ công",
+        "syncing": "đang chạy…",
+        "unknown": "không xác định",
+        "last_sync": "Đồng bộ hóa lần cuối: **%{date}**",
+        "date_format": "dd/MM/yyyy [lúc] HH[:]mm",
+        "bill": "Tìm dữ liệu của bạn trong ứng dụng Drive tại vị trí này:"
+      },
+      "error": {
+        "server": "Xin lỗi, máy chủ của chúng tôi đã gặp sự cố, bạn có phiền bắt đầu lại không?",
+        "bad_credentials": "Xin lỗi, bạn đã nhập sai tên đăng nhập hoặc mật khẩu.",
+        "delete": "Xin lỗi, máy chủ của chúng tôi đã gặp sự cố, bạn có phiền bắt đầu lại không?"
+      }
+    },
+    "forceConnection": "Chạy lại ngay bây giờ",
+    "editor_detail": "Dịch vụ được phát triển bởi %{editor}"
+  },
+  "account_picker": {
+    "add_account_button": {
+      "label": "Thêm tài khoản"
+    }
+  },
+  "apps": {
+    "title": "Ứng dụng của tôi",
+    "installing": "Đang cài đặt…"
+  },
+  "connection": {
+    "CTA": {
+      "twofa_failed": "Chạy lại ngay bây giờ"
+    },
+    "error": {
+      "default": {
+        "title": "Đã xảy ra lỗi",
+        "description": "Thật không may, đã xảy ra sự cố khi cố gắng kết nối với %{name}. Vui lòng kiểm tra lại thông tin tài khoản của bạn, truy cập trợ giúp trực tuyến của chúng tôi hoặc liên hệ với chúng tôi tại contact@cozycloud.cc."
+      },
+      "DISK_QUOTA_EXCEEDED": {
+        "title": "Dung lượng lưu trữ Cozy đã đầy",
+        "description": "Dịch vụ này không thể tìm nạp tài liệu của bạn ngay bây giờ. Vui lòng xóa một số tệp hoặc đi đến **Cài đặt > Lưu trữ** để có thêm không gian trống."
+      },
+      "CHALLENGE_ASKED": {
+        "title": "Yêu cầu thách thức",
+        "description": "Có vẻ như trang web yêu cầu yếu tố xác thực thứ hai mà chúng tôi chưa hỗ trợ. Bạn có thể thử giải quyết vấn đề trên trang web [%{name}](%{link}) trước khi thử lại."
+      },
+      "LOGIN_FAILED": {
+        "title": "Thông tin đăng nhập sai",
+        "description": "Thông tin đăng nhập sai. Kiểm tra các trường konnector và chạy kết nối lại."
+      },
+      "LOGIN_FAILED.NEEDS_SECRET": {
+        "title": "Cần mật khẩu bí mật",
+        "description": "Một trường bổ sung phải được điền trước khi kiểm tra thông tin đăng nhập của bạn."
+      },
+      "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
+        "title": "Tạm thời bị chặn",
+        "description": "Đã có quá nhiều lần thử. Vui lòng cập nhật thông tin đăng nhập của bạn trên trang web [%{name}](%{link}) và cập nhật konnector sau."
+      },
+      "MAINTENANCE": {
+        "title": "Trang web không khả dụng",
+        "description": "Có vẻ như trang web [%{name}](%{link}) không khả dụng hoặc konnector phải được cập nhật. Vui lòng chạy lại connector sau hoặc truy cập trợ giúp trực tuyến của chúng tôi."
+      },
+      "NOT_EXISTING_DIRECTORY": {
+        "title": "Thiếu thư mục đích",
+        "description": "Có vẻ như thư mục đích của tài khoản này đã bị xóa. Vui lòng khôi phục nó bằng cách ngắt kết nối tài khoản này và sau đó kết nối lại."
+      },
+      "UNKNOWN_ERROR": {
+        "title": "Lỗi kết nối",
+        "description": "Đã xảy ra lỗi không xác định."
+      },
+      "USER_ACTION_NEEDED": {
+        "title": "Cần hành động trên nhà cung cấp",
+        "description": "Có vẻ như trang web [%{name}](%{link}) yêu cầu bạn đăng nhập và thực hiện một hành động cụ thể. Vui lòng chạy lại connector sau khi bạn đã giải quyết vấn đề trên trang web."
+      },
+      "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
+        "title": "Yêu cầu làm mới quyền truy cập",
+        "description": "Dịch vụ [%{name}](%{link}) yêu cầu bạn cho phép quyền truy cập của mình một lần nữa. Vui lòng ngắt kết nối và kết nối lại tài khoản %{name} của bạn với ứng dụng này. Không có dữ liệu nào sẽ bị mất."
+      },
+      "USER_ACTION_NEEDED.ACCOUNT_REMOVED": {
+        "title": "Tài khoản không khả dụng",
+        "description": "Có vẻ như tài khoản của bạn không còn hoạt động. Vui lòng kiểm tra tài khoản của bạn trên [%{name}](%{link}) trước khi thử lại."
+      },
+      "USER_ACTION_NEEDED.CHANGE_PASSWORD": {
+        "title": "Yêu cầu cập nhật mật khẩu",
+        "description": "Có vẻ như trang web [%{name}](%{link}) yêu cầu bạn đăng nhập và cập nhật mật khẩu của mình. Vui lòng chạy lại connector sau khi bạn đã giải quyết vấn đề trên trang web."
+      },
+      "USER_ACTION_NEEDED.PERMISSIONS_CHANGED": {
+        "title": "Cần xác thực quyền mới",
+        "description": "Connector của bạn đã được cập nhật và quyền đã thay đổi. Vui lòng xác thực chúng trước khi khởi chạy connector lại."
+      },
+      "USER_ACTION_NEEDED.TWOFA_EXPIRED": {
+        "title": "Khởi chạy lại kết nối với dịch vụ để lấy dữ liệu của bạn",
+        "description": "Kết nối cuối cùng với dịch vụ đã thất bại; vui lòng khởi chạy lại. Bạn có thể phải cung cấp mã xác thực."
+      },
+      "USER_ACTION_NEEDED.WRONG_TWOFA_CODE": {
+        "title": "Mã xác thực hai yếu tố sai được cung cấp",
+        "description": "Mã xác thực hai yếu tố được cung cấp là sai, vui lòng bắt đầu lại."
+      },
+      "VENDOR_DOWN": {
+        "title": "Dịch vụ không khả dụng",
+        "description": "Có vẻ như dịch vụ [%{name}](%{link}) không khả dụng vào lúc này. Vui lòng chạy lại connector sau."
+      },
+      "VENDOR_DOWN.BANK_DOWN": {
+        "title": "Trang web không khả dụng",
+        "description": "Có vẻ như trang web [%{name}](%{link}) không khả dụng vào lúc này. Vui lòng chạy lại connector sau."
+      },
+      "VENDOR_DOWN.LINXO_DOWN": {
+        "title": "Dịch vụ không khả dụng",
+        "description": "Có vẻ như chúng tôi đang gặp quá tải với các konnector ngân hàng của chúng tôi vào lúc này. Vui lòng chạy lại connector sau."
+      }
+    }
+  },
+  "intent": {
+    "konnector": {
+      "install": {
+        "error": {
+          "message": "Konnector không thể được cài đặt"
+        }
+      }
+    },
+    "service": {
+      "return": "Quay lại danh sách connectors",
+      "success": {
+        "button": {
+          "label": "Đóng"
+        }
+      },
+      "error": {
+        "initialization": "Dịch vụ không thể khởi tạo. Xin lỗi vì sự bất tiện.",
+        "creation": "Không thể tạo tài khoản, đã xảy ra lỗi.",
+        "cause": "Nguyên nhân: %{error}"
+      },
+      "cancel": "Hủy",
+      "terminate": "Kết thúc"
+    }
+  },
+  "field": {
+    "password": {
+      "visibility": {
+        "hide": "Ẩn",
+        "show": "Hiện",
+        "title": {
+          "hide": "Ẩn mật khẩu",
+          "show": "Hiện mật khẩu"
+        }
+      }
+    }
+  },
+  "nav": {
+    "services": "Dịch vụ của tôi"
+  },
+  "category": {
+    "all": "Tất cả danh mục",
+    "konnectors": "Dịch vụ",
+    "banking": "Ngân hàng",
+    "cozy": "Những điều cần thiết",
+    "education": "Giáo dục",
+    "energy": "Năng lượng",
+    "health": "Sức khỏe",
+    "host_provider": "Máy chủ",
+    "insurance": "Bảo hiểm",
+    "isp": "Di động và Internet",
+    "online_services": "Dịch vụ trực tuyến",
+    "others": "Khác",
+    "mes_infos": "Thử nghiệm MesInfos",
+    "partners": "Đối tác",
+    "productivity": "Năng suất",
+    "press": "Báo chí",
+    "ptnb": "Thử nghiệm PTNB",
+    "public_service": "Dịch vụ công",
+    "shopping": "Mua sắm",
+    "social": "Xã hội",
+    "telecom": "Viễn thông",
+    "transport": "Vận tải",
+    "pro": "Công việc",
+    "tech": "Công nghệ",
+    "clouds": "Đám mây & kho lưu trữ",
+    "finance": "Việc làm & tài chính"
+  },
+  "loading": {
+    "initial": "Đang tải tài khoản...",
+    "working": "Đang tải"
+  },
+  "validation": {
+    "exact_length": "Nó phải được tạo thành từ chính xác %{length} ký tự.",
+    "max_length": "Độ dài tối đa là %{length} ký tự.",
+    "min_length": "Nó phải chứa ít nhất %{length} ký tự.",
+    "pattern": "Giá trị phải khớp với một mẫu cụ thể: %{pattern}"
+  },
+  "update": {
+    "title": "Có bản cập nhật cho dịch vụ này.",
+    "regular": "Thực hiện bản cập nhật này để tiếp tục lấy dữ liệu của bạn và có các tính năng mới nhất",
+    "blocking": "Cập nhật nó để tiếp tục lấy dữ liệu của bạn",
+    "CTA": "Cập nhật"
+  },
+  "error": {
+    "initial": "Đã xảy ra sự cố khi tìm nạp connectors và thông tin của bạn. Vui lòng làm mới trang.",
+    "LOGIN_FAILED": "Thông tin đăng nhập sai. Kiểm tra các trường konnector và chạy kết nối lại.",
+    "UNKNOWN_ERROR": "Đã xảy ra điều gì đó bất ngờ khi chạy connector",
+    "JOB_TIMEOUT": "Việc thực thi connector quá lâu",
+    "button": {
+      "reload": "Làm mới ngay"
+    }
+  },
+  "move_modal": {
+    "title": "Di chuyển hoàn tất",
+    "text": "Việc di chuyển dữ liệu của bạn từ %{from} đã thành công.",
+    "button": "Truy cập Cozy của tôi"
+  },
+  "maintenance": {
+    "icon": "Connector này đang được bảo trì",
+    "service": "Dịch vụ bị gián đoạn",
+    "problem": "%{konnectorName} không cho phép Cozy của bạn truy cập dữ liệu của bạn",
+    "title": "Chuyện gì đang xảy ra?"
+  },
+  "connector": {
+    "title": "Dịch vụ đã kết nối của tôi",
+    "mute": "Tắt tiếng lỗi",
+    "debug": {
+      "successMessage": "Konnector này chỉ dành cho mục đích gỡ lỗi, đây là thông báo thành công tùy chỉnh bổ sung."
+    },
+    "empty": {
+      "title": "Bắt đầu thu thập dữ liệu của bạn!",
+      "text": "Đồng bộ hóa các thương hiệu của bạn với Cozy để tự động truy xuất dữ liệu của bạn (hóa đơn, hoàn tiền, chi phí…)"
+    },
+    "silenced": "%{name} sẽ không được đề xuất nữa. Bạn luôn có thể tìm thấy nhà cung cấp bằng cách nhấp vào nút \"Thêm\".",
+    "noAccount": "Không có tài khoản",
+    "add": "Thêm dịch vụ",
+    "update": "Có bản cập nhật",
+    "logo": {
+      "alt": "Logo %{name}"
+    },
+    "enedis": {
+      "description": {
+        "service": "Phục hồi dữ liệu Linky của bạn bằng cách kết nối tài khoản Enedis của bạn. Bạn phải có đồng hồ đo Linky và trước tiên phải tạo tài khoản Enedis của mình (trên [trang web Enedis](https://espace-client-connexion.enedis.fr/auth/UI/Login?realm=particuliers). Connector này được cung cấp bởi Fing cho dự án MesInfos. Nó truy xuất dữ liệu từ hợp đồng điện của bạn và tải xuống mức tiêu thụ điện của bạn ngày hôm trước. Connector này đang chạy trên Cozy của bạn và Fing sẽ không có quyền truy cập vào dữ liệu này."
+      }
+    },
+    "orange": {
+      "message": {
+        "delay": "Sau khi kết nối, một yêu cầu trích xuất dữ liệu của bạn sẽ được gửi đến hệ thống thông tin Orange. Những dữ liệu này sẽ có sẵn trong vòng 15 ngày. Dữ liệu của bạn sẽ được cập nhật tự động, mỗi 15 ngày."
+      }
+    },
+    "orangemobile": {
+      "description": {
+        "connector": "Trong bối cảnh 'MesInfos', Orange cho phép bạn định vị điện thoại của mình thường xuyên.\n\n**Thu thập dữ liệu cần sự đồng ý rõ ràng của bạn**\n\nSự đồng ý này có thể được thu hồi bất cứ lúc nào bởi connector dữ liệu này.\n\nBằng cách nhấp vào \"Đồng ý\", bạn đồng ý thu thập vị trí điện thoại của mình, mỗi 30 phút. Thông tin thu thập sẽ chỉ là: \n<ul><li>Ngày và giờ của vị trí này.</li><li>Dữ liệu vị trí của anten radio gần nhất tại thời điểm thu thập.</li></ul>Dữ liệu được Orange thu thập sau khi bạn đồng ý sẽ chỉ có sẵn trong Cozy mà bạn đã được chỉ định trong bối cảnh « Mes Infos ». Chúng sẽ được thêm vào dữ liệu vị trí đã được lưu trữ trong nhật ký cuộc gọi.",
+        "service": "Connector này sẽ tải xuống dữ liệu từ tài khoản Orange của bạn trên Cozy của bạn. Nó sẽ tự động tải xuống nhật ký cuộc gọi từ điện thoại của bạn. Do đó nhật ký cuộc gọi bao gồm số điện thoại của bạn, số điện thoại tương ứng của bạn, ngày và giờ của cuộc gọi này và dữ liệu vị trí của anten radio gần nhất tại thời điểm thu thập.\n\nBạn sẽ có thể sử dụng những dữ liệu này trong các ứng dụng khác nhau trong Cozy của mình, ví dụ \"Mapping My Life\" (sẽ có sẵn sớm trên Cozy Store).",
+        "field": {
+          "agreement": "Bạn có đồng ý để Orange định vị thường xuyên điện thoại của bạn trong bối cảnh « Mes Infos » không?"
+        }
+      }
+    },
+    "orangevideos": {
+      "description": {
+        "service": "Connector này sẽ tải xuống dữ liệu từ tài khoản Orange của bạn trên Cozy của bạn. Nó sẽ tự động tải xuống danh sách các bộ phim bạn đã tải xuống miễn phí (TV Replay) hoặc VOD trả phí từ 01/01/2015 (nội dung người lớn không được bao gồm).\n\nBạn sẽ có thể sử dụng những dữ liệu này trong các ứng dụng khác nhau trong Cozy của mình, ví dụ \"My Movies Music\" (sẽ có sẵn sớm trên Cozy Store)."
+      }
+    },
+    "axabanque102": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "banquepopulaire": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "barclays136": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "bforbank97": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "bnpparibas82": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "boursorama83": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "bred": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "caatlantica3": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "caissedepargne1": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "carrefour159": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "casden173": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cdngroup109": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cdngroup88": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cic45": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "cic63": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "comptenickel168": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "creditcooperatif148": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "creditmaritime": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "fortuneo84": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "hellobank145": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "hsbc119": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo).",
+        "connector": "Câu trả lời bí mật được [HSBC yêu cầu](https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion) khi bạn kết nối mà không có xác thực kép. Ví dụ: tên của thú cưng của bạn là gì?"
+      }
+    },
+    "ingdirect95": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "labanquepostale44": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl143": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl144": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "lcl146": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "monabanq96": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    },
+    "societegenerale": {
+      "description": {
+        "service": "Kết nối với ngân hàng của bạn được vận hành và bảo mật bởi đối tác của chúng tôi: Linxo. [Tìm hiểu thêm](https://support.cozy.io/article/147-linxo)."
+      }
+    }
+  },
+  "Queue": {
+    "header": "Đang đồng bộ tài khoản:",
+    "header_mobile": "%{done} trên %{total}",
+    "header_done": "Đã đồng bộ %{done} trên %{total}",
+    "item": {
+      "pending": "Đang chờ"
+    },
+    "close": "Đóng"
+  },
+  "services": {
+    "title": "Dịch vụ của tôi"
+  },
+  "status": {
+    "interrupted": "DỊCH VỤ BỊ GIÁN ĐOẠN",
+    "edf": {
+      "maintenance": "Hệ thống thông tin của EDF đã thay đổi và quyền truy cập dữ liệu liên quan không hoạt động nữa. Konnector này hiện không thể lấy lại dữ liệu của bạn từ EDF. Chúng tôi đang cố gắng khôi phục tình hình và sẽ thông báo cho bạn khi nó được sửa chữa. [Tìm hiểu thêm](%{supportLink})",
+      "support_link": "https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas"
+    }
+  },
+  "tile": {
+    "konnector": {
+      "lastSyncDate": {
+        "format": "dd MMM"
+      }
+    }
+  },
+  "defaultRedirection": {
+    "snackbar": {
+      "description": "Đặt trang này làm màn hình chính của ứng dụng di động của bạn?",
+      "refuse": "Không, cảm ơn",
+      "accept": "OK"
+    }
+  },
+  "backup": {
+    "backupInProgress": "Đang sao lưu",
+    "confirmStopBackupModal": {
+      "title": "Dừng sao lưu?",
+      "description": "Bản sao lưu của bạn chưa hoàn tất - bạn có thực sự muốn dừng nó không? Những ảnh đã được lưu sẽ vẫn còn trong Cozy của bạn, và bạn có thể tiếp tục sao lưu vào lúc khác.",
+      "cancel": "Hủy",
+      "stop": "Dừng"
+    },
+    "appHighlightAlert": {
+      "description": "Lưu ảnh của bạn một cách an toàn trong Cozy để bảo vệ chúng khỏi bị mất hoặc trộm!"
+    }
+  },
+  "appHighlightAlert": {
+    "geolocationTracking": {
+      "defaultDescription": "Theo dõi hành trình và dấu chân carbon của bạn với CO2 Coach",
+      "bikegoalSourceEmployerDescription": "%{sourceType} %{sourceName} của bạn mời bạn tham gia cải thiện khu vực và hưởng lợi từ \"prime vélo\", ứng dụng này sẽ giúp bạn đo lường tiến trình của nó, và nhiều hơn nữa!",
+      "bikegoalSourceDefaultDescription": "%{sourceType} %{sourceName} của bạn mời bạn đóng góp vào việc cải thiện khu vực. Lưu và phân tích các hành trình của bạn!"
+    }
+  },
+  "sections": {
+    "label_compact": "Ghép nối Compact",
+    "label_detailed": "Danh sách Chi tiết",
+    "label_grouped": "Nhóm trong Thư mục"
+  },
+  "AnnouncementsDialogContent": {
+    "dateFormat": "dd/MM/yyyy",
+    "skip": "Đã hiểu"
+  }
+}
