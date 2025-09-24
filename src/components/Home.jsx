@@ -5,7 +5,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import flag from 'cozy-flags'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { getFlagshipMetadata } from 'cozy-device-helper'
-import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
+// import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
 
@@ -25,13 +25,14 @@ const Home = ({ wrapper }) => {
 
   return (
     <CozyConfirmDialogProvider>
-      <Main className="u-flex-grow-1">
+      <main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />
         {pathname === '/connected' && <Announcements />}
         {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantDesktopWrapper />
         )}
-        <Content
+        <div
+          role="main"
           className={cx('u-flex u-flex-column u-ph-1', {
             [styles['homeMainContent--withAssistant']]:
               isMobile && flag('cozy.searchbar.enabled'),
@@ -52,8 +53,8 @@ const Home = ({ wrapper }) => {
               )}
             </>
           )}
-        </Content>
-      </Main>
+        </div>
+      </main>
       <Outlet />
     </CozyConfirmDialogProvider>
   )
