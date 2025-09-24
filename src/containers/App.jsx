@@ -10,7 +10,7 @@ import { isFlagshipApp } from 'cozy-device-helper'
 
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { Main } from 'cozy-ui/transpiled/react/Layout'
+import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
@@ -107,7 +107,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <Layout monoColumn>
       <BarComponent
         searchOptions={{ enabled: false }}
         componentsProps={{
@@ -125,14 +125,14 @@ const App = () => {
           <MoveModal />
           <HeroHeader />
           {hasError && (
-            <Main className="u-flex u-flex-items-center u-flex-justify-center">
+            <main className="u-flex u-flex-items-center u-flex-justify-center">
               <Failure errorType="initial" />
-            </Main>
+            </main>
           )}
           {isFetching && (
-            <Main className="u-flex u-flex-items-center u-flex-justify-center">
+            <main className="u-flex u-flex-items-center u-flex-justify-center">
               <Spinner size="xxlarge" />
-            </Main>
+            </main>
           )}
           {!isFetching && (
             <>
@@ -175,7 +175,7 @@ const App = () => {
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
-    </>
+    </Layout>
   )
 }
 

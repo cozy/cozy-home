@@ -56,6 +56,7 @@ export const setupAppContext = memoize(intent => {
   const cozyClient = new CozyClient({
     uri: `${window.location.protocol}//${data.domain}`,
     schema,
+    autoHydrate: true,
     token: data.token,
     useCustomStore: true,
     backgroundFetching: /*       isFlagshipApp() || */ flag(
