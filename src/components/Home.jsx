@@ -8,6 +8,7 @@ import { getFlagshipMetadata } from 'cozy-device-helper'
 // import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
+import { WidgetsWrapper } from './Widgets/WidgetsWrapper'
 
 import ApplicationsAndServices from '@/components/ApplicationsAndServices'
 import Applications from '@/components/Applications'
@@ -30,6 +31,9 @@ const Home = ({ wrapper }) => {
         {pathname === '/connected' && <Announcements />}
         {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantDesktopWrapper />
+        )}
+        {flag('cozy.widgets.enabled') && (
+          <WidgetsWrapper />
         )}
         <div
           role="main"

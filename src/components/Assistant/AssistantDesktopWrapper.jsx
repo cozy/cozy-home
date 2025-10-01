@@ -3,6 +3,7 @@ import React from 'react'
 import CozyTheme, {
   useCozyTheme
 } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import flag from 'cozy-flags'
 
 import { AssistantDesktop } from 'cozy-search'
 
@@ -13,7 +14,7 @@ export const AssistantDesktopWrapper = () => {
 
   return (
     <CozyTheme variant="normal">
-      <div className="app-list-wrapper u-mh-auto u-mb-3">
+      <div className={`app-list-wrapper u-mh-auto ${flag('cozy.widgets.enabled') ? 'u-mb-1' : 'u-mb-3'}`}>
         <AssistantDesktop
           componentsProps={{
             SearchBarDesktop: {

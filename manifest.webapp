@@ -129,6 +129,11 @@
       "type": "cc.cozycloud.announcements.uploads",
       "verbs": ["GET"],
       "description": "Remote-doctype required to get announcements images"
+    },
+    "grades": {
+      "type": "io.cozy.timeseries.grades",
+      "description": "Required by Papillon",
+      "verbs": ["GET"]
     }
   },
   "routes": {
