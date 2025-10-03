@@ -11,7 +11,7 @@
    "name": "Twake Workplace",
     "url": "https://twake.app"
   },
-  "version": "1.87.0",
+  "version": "1.88.0",
   "licence": "AGPL-3.0",
   "offline_support": true,
   "permissions": {
