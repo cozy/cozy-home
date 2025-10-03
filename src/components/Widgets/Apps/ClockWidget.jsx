@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { Widget } from '../WidgetsWrapper'
+import Widget from '../Atoms/Widget'
 
 const lz = (num) => (num < 10 ? `0${num}` : num)
 

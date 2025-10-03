@@ -601,5 +601,13 @@
   "AnnouncementsDialogContent": {
     "dateFormat": "dd/LL/yyyy",
     "skip": "J'ai compris"
+  },
+  "Widget" : {
+    "open": "Ouvrir",
+    "Drive" : {
+      "NoRecentFiles": "Aucun fichier récent",
+      "NoRecentFolders": "Aucun dossier récent",
+      "NoTrashedFiles": "Aucun fichier dans la corbeille"
+    }
   }
 }

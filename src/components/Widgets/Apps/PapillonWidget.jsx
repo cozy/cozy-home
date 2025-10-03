@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { Widget } from '../WidgetsWrapper'
-import { PapillonWidgetView } from '../Views/PapillonWidgetView'
+import Widget from '../Atoms/Widget'
+import { PapillonWidgetView } from './Views/PapillonWidgetView'
 import { useAppLinkWithStoreFallback, useClient } from 'cozy-client'
 
 export const PapillonWidget = () => {
@@ -13,8 +13,8 @@ export const PapillonWidget = () => {
   return (
     <Widget
       title="Papillon"
-      icon="cube"
-      headerShown={false}
+      app="papillon"
+      headerShown={true}
       link={useAppLinkWithStoreFallback('papillon', client, '/').url}
     >
       <PapillonWidgetView />
