@@ -69,6 +69,17 @@ const getApplicationsList = data => {
   }
 }
 
+const buildEntrypoints = apps => {
+  return apps.flatMap(app => {
+    if (!app.entrypoints) return []
+
+    return app.entrypoints.map(entrypoint => ({
+      ...entrypoint,
+      slug: app.slug
+    }))
+  })
+}
+
 export const useApps = () => {
   const { t } = useI18n()
 
@@ -88,10 +99,13 @@ export const useApps = () => {
     enabled: !!magicHomeFolderId
   })
 
+  const entrypoints = buildEntrypoints(apps)
+
   return {
     appsComponents: getApplicationsList(apps),
     apps,
-    shortcuts
+    shortcuts,
+    entrypoints
   }
 }
 
