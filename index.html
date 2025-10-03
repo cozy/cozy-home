@@ -1,1 +1,45 @@
-<!DOCTYPE html><html lang="{{.Locale}}"><head><meta charset="utf-8"><title>Cozy Home</title>{{.Favicon}}<link rel="manifest" href="/manifest.json" crossorigin="use-credentials"><meta name="msapplication-TileColor" content="#2b5797"><meta name="theme-color" content="#ffffff"><meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,viewport-fit=cover"><link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Bold.immutable.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="//{{.Domain}}/assets/fonts/Lato-Regular.immutable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="vendors-home.455a7a9968c163e4237e.0.min.css"><link rel="stylesheet" href="app-home.76bff0d92a7e67339a0d.min.css"><link rel="stylesheet" href="//{{.Domain}}/assets/fonts/fonts.css">{{.ThemeCSS}}</head><body style="display: block;margin: 0"><div role="application" data-cozy="{{.CozyData}}" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}" data-cozy-locale="{{.Locale}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-app-name="{{.AppName}}" data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-tracking="{{.Tracking}}" data-cozy-icon-path="{{.IconPath}}" data-cozy-subdomain-type="{{.SubDomain}}" data-cozy-default-wallpaper="{{.DefaultWallpaper}}" data-cozy-flags="{{.Flags}}"><script src="vendors/home.5c16d7bea3c7c2dc11ee.js"></script><script src="app/home.55a1171169ab4b0c885c.js"></script></div></body></html>
+<!DOCTYPE html>
+<html lang="{{.Locale}}">
+<head>
+  <meta charset="utf-8">
+  <title>Twake Home</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/assets/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/assets/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/assets/manifest.json" crossOrigin="use-credentials">
+  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#297EF2">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
+  {{.CozyFonts}}
+  
+    <link rel="stylesheet" href="/static/css/cozy.6232f633.css?cb4941d7b5690e53" />
+  
+    <link rel="stylesheet" href="/static/css/main.3f714acf.css?cb4941d7b5690e53" />
+  
+  {{.ThemeCSS}}
+</head>
+<body>
+  <!--
+    Uncomment below body to simulate flagship
+    <body style="display: block;margin: 0">
+  -->
+  <!--
+    Uncomment below div to simulate flagship
+    <div style="position:absolute; z-index: 1000; height: 100%; width: 100%; background-color: blue; opacity: 0.5;" id="splashscreen">splashscreen</div>
+  -->
+  <div role="application" data-cozy="{{.CozyData}}"></div>
+  
+    <script src="/static/js/cozy.ffdb59ce.js?cb4941d7b5690e53"></script>
+    
+    <script src="/static/js/lib-react.ebbbd148.js?cb4941d7b5690e53"></script>
+    
+    <script src="/static/js/lib-router.2669f700.js?cb4941d7b5690e53"></script>
+    
+    <script src="/static/js/933.13f71131.js?cb4941d7b5690e53"></script>
+    
+    <script src="/static/js/main.6450491c.js?cb4941d7b5690e53"></script>
+    
+</body>
+</html>
