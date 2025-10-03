@@ -608,6 +608,11 @@
       "NoRecentFiles": "No recent files",
       "NoRecentFolders": "No recent folders",
       "NoTrashedFiles": "No files in the trash"
+    },
+    "Papillon": {
+      "NoCourses": "No upcoming courses",
+      "NoHomeworks": "No homework due",
+      "NoGrades": "No grades available"
     }
   }
 }

@@ -5,6 +5,28 @@ const defaultFetchPolicy = CozyClient.fetchPolicies.olderThan(
   DEFAULT_CACHE_TIMEOUT_QUERIES
 )
 
+export const buildTimetableQuery = (sourceAccountIdentifier, start, end) => ({
+  definition: () =>
+    Q('io.cozy.calendar.events')
+      .where({
+        cozyMetadata: {
+          sourceAccountIdentifier
+        },
+        start: end ? { $lte: end, $gte: start } : { $gte: start }
+      })
+      .indexFields(['cozyMetadata.sourceAccountIdentifier', 'start']),
+  options: {
+    as:
+      'io.cozy.calendar.events/account/' +
+      sourceAccountIdentifier +
+      '/start/' +
+      start +
+      '/end/' +
+      end,
+    fetchPolicy: defaultFetchPolicy
+  }
+})
+
 export const buildGradesQuery = (sourceAccountIdentifier, period) => ({
   definition: () =>
     Q('io.cozy.timeseries.grades')

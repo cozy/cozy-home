@@ -130,6 +130,11 @@
       "verbs": ["GET"],
       "description": "Remote-doctype required to get announcements images"
     },
+    "calendar": {
+      "type": "io.cozy.calendar.*",
+      "description": "Required by Papillon",
+      "verbs": ["GET"]
+    },
     "grades": {
       "type": "io.cozy.timeseries.grades",
       "description": "Required by Papillon",
