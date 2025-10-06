@@ -69,15 +69,29 @@ const getApplicationsList = data => {
   }
 }
 
+const buildEntrypoints = apps => {
+  return apps.flatMap(app => {
+    if (!app.entrypoints) return []
+
+    return app.entrypoints.map(entrypoint => ({
+      ...entrypoint,
+      slug: app.slug
+    }))
+  })
+}
+
 export const useApps = () => {
   const { data: apps } = useQuery(appsConn.query, appsConn)
 
   const shortcuts = useFetchHomeShortcuts()
 
+  const entrypoints = buildEntrypoints(apps)
+
   return {
     appsComponents: getApplicationsList(apps),
     apps,
-    shortcuts
+    shortcuts,
+    entrypoints
   }
 }
 
