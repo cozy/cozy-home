@@ -27,6 +27,26 @@ export const buildTimetableQuery = (sourceAccountIdentifier, start, end) => ({
   }
 })
 
+export const buildHomeworkQuery = sourceAccountIdentifier => ({
+  definition: () =>
+    Q('io.cozy.calendar.todos')
+      .where({
+        dueDate: { $gt: null },
+        cozyMetadata: {
+          sourceAccountIdentifier
+        }
+      })
+      .indexFields(['cozyMetadata.sourceAccountIdentifier', 'dueDate'])
+      .sortBy([
+        { 'cozyMetadata.sourceAccountIdentifier': 'desc' },
+        { dueDate: 'desc' }
+      ]),
+  options: {
+    as: 'io.cozy.calendar.todos/account/' + sourceAccountIdentifier,
+    fetchPolicy: defaultFetchPolicy
+  }
+})
+
 export const buildGradesQuery = (sourceAccountIdentifier, period) => ({
   definition: () =>
     Q('io.cozy.timeseries.grades')
