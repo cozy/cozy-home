@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
-import { useQuery } from 'cozy-client'
+import { useQuery, useFetchHomeShortcuts } from 'cozy-client'
 import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
@@ -13,7 +13,7 @@ import ShortcutLink from '@/components/ShortcutLink'
 import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from '@/config/home.json'
-import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from '@/queries'
+import { appsConn } from '@/queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
@@ -72,19 +72,7 @@ const getApplicationsList = data => {
 export const useApps = () => {
   const { data: apps } = useQuery(appsConn.query, appsConn)
 
-  const homeMagicFolderConn = mkHomeMagicFolderConn()
-
-  const magicHomeFolder = useQuery(
-    homeMagicFolderConn.query,
-    homeMagicFolderConn
-  )
-
-  const magicHomeFolderId = magicHomeFolder?.data?.[0]?._id
-  const homeShortcutsConn = mkHomeShorcutsConn(magicHomeFolderId)
-  const { data: shortcuts } = useQuery(homeShortcutsConn.query, {
-    ...homeShortcutsConn,
-    enabled: !!magicHomeFolderId
-  })
+  const shortcuts = useFetchHomeShortcuts()
 
   return {
     appsComponents: getApplicationsList(apps),
