@@ -1,9 +1,12 @@
 import React from 'react'
 import get from 'lodash/get'
 
-import { useClient, useFetchShortcut } from 'cozy-client'
+import { useClient, useFetchShortcut, models } from 'cozy-client'
 import flag from 'cozy-flags'
-import { splitFilename } from 'cozy-client/dist/models/file'
+
+const {
+  file: { splitFilename, getShortcutImgSrc }
+} = models
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
@@ -19,12 +22,8 @@ export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
   const { filename } = splitFilename(file)
   const url = get(shortcutInfos, 'data.url', '#')
 
-  /**
-   * If we don't have iconMimeType, we consider that the icon is a binary svg.
-   * Otherwise we consider that the icon comes from Iconizer api so it is in base64 directly.
-   */
-  const icon = get(file, 'attributes.metadata.icon')
-  const iconMimeType = get(file, 'attributes.metadata.iconMimeType')
+  const shortcutImgSrc = getShortcutImgSrc(file)
+
   const description = get(file, 'attributes.metadata.description')
 
   return (
@@ -36,7 +35,7 @@ export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
       className="scale-hover"
       {...props}
     >
-      {icon || shortcutImg ? (
+      {shortcutImgSrc || shortcutImg ? (
         <SquareAppIcon
           name={filename}
           variant="shortcut"
@@ -44,15 +43,8 @@ export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
           description={description}
           IconContent={
             <div className="u-w-2 u-h-2">
-              {icon ? (
-                <img
-                  src={
-                    iconMimeType
-                      ? `data:${iconMimeType};base64,${icon}`
-                      : `data:image/svg+xml;base64,${window.btoa(icon)}`
-                  }
-                  alt={filename}
-                />
+              {shortcutImgSrc ? (
+                <img src={shortcutImgSrc} alt={filename} />
               ) : (
                 <img
                   className="u-bdrs-5"
