@@ -36,7 +36,6 @@ import {
   mkHomeCustomShorcutsDirConn
 } from '@/queries'
 import { useFetchInitialData } from '@/hooks/useFetchInitialData'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from '@/components/Sections/SectionDialog'
 import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
@@ -52,9 +51,7 @@ const App = () => {
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
-  const { t } = useI18n()
-
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const homeMagicFolderConn = mkHomeMagicFolderConn()
   const { data: magicFolder } = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn

@@ -1,12 +1,9 @@
 import { useQuery } from 'cozy-client'
 
 import { mkHomeMagicFolderConn } from '@/queries'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const useMagicFolder = (): string | undefined => {
-  const { t } = useI18n()
-
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const homeMagicFolderConn = mkHomeMagicFolderConn()
   const { data: magicFolder } = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn
