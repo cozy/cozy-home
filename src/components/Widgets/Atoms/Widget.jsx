@@ -42,6 +42,7 @@ export const Widget = ({
                 client={client}
                 app={app}
                 priority="registry"
+                type="app"
               />
             ) : (
               <Icon size={20} icon={icon} />

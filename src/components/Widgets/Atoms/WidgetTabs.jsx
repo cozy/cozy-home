@@ -15,12 +15,16 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { LinearProgress, CircularProgress } from 'cozy-ui/transpiled/react/Progress';
 
+import { Transition } from 'react-transition-group';
+
+import styles from './widget.styl'
+
 export const WidgetTabs = ({
   tabs,
   defaultTab = 0
 }) => {
-  const [selectedTab, setSelectedTab] = useState(defaultTab)
   const { type } = useCozyTheme()
+  const [selectedTab, setSelectedTab] = useState(defaultTab)
 
   return (
     <div
@@ -72,13 +76,39 @@ export const WidgetTabs = ({
         style={{
           flex: 1,
           overflowY: 'scroll',
+          position: 'relative',
         }}
       >
-        {useMemo(() => {
-          const tab = tabs && tabs[selectedTab]
-          if (!tab) return null
-          return typeof tab.render === 'function' ? tab.render() : tab.render
-        }, [selectedTab, tabs && tabs[selectedTab] && tabs[selectedTab].render])}
+        <div style={{ position: 'relative', minHeight: '100%' }}>
+          {tabs.map((tab, index) => {
+            const isActive = index === selectedTab
+            const content = typeof tab.render === 'function' ? tab.render() : tab.render
+
+            return (
+              <Transition in={isActive} timeout={0} key={tab.label} mountOnEnter>
+                {state => (
+                  <div
+                    key={tab.label}
+                    style={{
+                      display: 'block',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      inset: 0,
+                      zIndex: isActive ? 3 : 2,
+                      pointerEvents: isActive ? 'all' : 'none',
+                    }}
+                    className={`${styles[`app-tab`]} ${styles[`app-tab--${state}`]}`}
+                  >
+                    {content}
+                  </div>
+                )}
+              </Transition>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

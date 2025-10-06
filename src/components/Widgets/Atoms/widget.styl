@@ -30,3 +30,25 @@
     height: 100%
     overflow: scroll
     min-width: 0
+
+.app-tab
+    transition: opacity 200ms, transform 400ms
+    transition-timing-function: cubic-bezier(0.3, 0, 0, 1)
+    overflow: scroll
+
+.app-tab--entering
+    transition: none;
+    opacity: 0
+    transform: translateY(40px) scale(0.95)
+
+.app-tab--entered
+    opacity: 1
+    transform: translateY(0)
+
+.app-tab--exiting
+    opacity: 0
+    transform: translateY(-40px) scale(0.9)
+
+.app-tab--exited
+    opacity: 0
+    transform: translateY(-40px) scale(0.9)
