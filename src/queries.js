@@ -103,15 +103,6 @@ export const fetchKonnectorBySlug = slug => {
     fetchPolicy: defaultFetchPolicy
   }
 }
-export const mkHomeShorcutsConn = folderId => {
-  return {
-    query: Q('io.cozy.files')
-      .where({ dir_id: folderId, class: 'shortcut' })
-      .indexFields(['dir_id', 'class']),
-    as: `home/io.cozy.files/dir_id=${folderId},class=shortcut`,
-    fetchPolicy: defaultFetchPolicy
-  }
-}
 
 export const mkHomeCustomShorcutsDirConn = ({
   currentFolderId,
