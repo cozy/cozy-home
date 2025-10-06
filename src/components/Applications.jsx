@@ -70,11 +70,9 @@ const getApplicationsList = data => {
 }
 
 export const useApps = () => {
-  const { t } = useI18n()
-
   const { data: apps } = useQuery(appsConn.query, appsConn)
 
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const homeMagicFolderConn = mkHomeMagicFolderConn()
 
   const magicHomeFolder = useQuery(
     homeMagicFolderConn.query,

@@ -87,10 +87,10 @@ export const homeSettingsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
-export const mkHomeMagicFolderConn = t => {
+export const mkHomeMagicFolderConn = () => {
   return {
     query: Q('io.cozy.files')
-      .where({ path: t('home_config_magic_folder') })
+      .where({ path: '/Settings/Home' })
       .indexFields(['path']),
     as: 'home/io.cozy.files/path=magic-folder',
     fetchPolicy: defaultFetchPolicy
