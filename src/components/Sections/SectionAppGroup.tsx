@@ -1,13 +1,15 @@
 import React from 'react'
-import get from 'lodash/get'
 import cx from 'classnames'
 
 import type { IOCozyFile, IOCozyKonnector } from 'cozy-client/types/types'
+import { models } from 'cozy-client'
 import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import { STATUS } from '@/components/KonnectorHelpers'
+
+const { file } = models
 
 interface SectionAppGroupProps {
   items: IOCozyFile[] | IOCozyKonnector[]
@@ -22,8 +24,7 @@ interface SectionAppTileProps {
 const typedNameToColor = nameToColor as (name: string) => string
 
 const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
-  const icon = get(item, 'attributes.metadata.icon') as string
-  const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
+  const shortcutImgSrc = file.getShortcutImgSrc(item as IOCozyFile)
 
   return (
     <Grid item xs={6} key={item.id} className="section-app-group-grid">
@@ -36,13 +37,9 @@ const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
             ghost: item.status === STATUS.NO_ACCOUNT
           })}
         />
-      ) : icon ? (
+      ) : shortcutImgSrc ? (
         <img
-          src={
-            iconMimeType
-              ? `data:${iconMimeType};base64,${icon}`
-              : `data:image/svg+xml;base64,${window.btoa(icon)}`
-          }
+          src={shortcutImgSrc}
           alt={item.name}
           className="section-app-group-icon"
         />
