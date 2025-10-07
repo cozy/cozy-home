@@ -12,7 +12,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-import { useClient } from 'cozy-client'
+import { useAppLinkWithStoreFallback, useClient } from 'cozy-client'
 
 export const Widget = ({
   children,
@@ -25,6 +25,8 @@ export const Widget = ({
   const { type } = useCozyTheme()
   const client = useClient()
   const { t } = useI18n()
+
+  const appLink = useAppLinkWithStoreFallback(link, client, '/')
 
   return (
     <div className={`${styles[`app-widget`]} ${styles[`app-widget-background--${type}`]} u-flex u-flex-column u-mh-auto u-bdrs-8`}>
@@ -58,7 +60,7 @@ export const Widget = ({
               size="small"
               endIcon={<Icon size={12} icon="rise" />}
               onClick={() => {
-                window.location.href = link
+                window.location.href = appLink.url
               }}
               style={{
                 marginRight: 3

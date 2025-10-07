@@ -604,6 +604,7 @@
   },
   "Widget" : {
     "open": "Ouvrir",
+    "customize": "Personnaliser les widgets",
     "Drive" : {
       "NoRecentFiles": "Aucun fichier récent",
       "NoRecentFolders": "Aucun dossier récent",

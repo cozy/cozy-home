@@ -23,5 +23,5 @@ export const WidgetProps = {
   title: 'Papillon',
   app: 'papillon',
   headerShown: true,
-  link: (client) => useAppLinkWithStoreFallback('papillon', client, '/').url
+  link: 'papillon',
 }

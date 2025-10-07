@@ -21,5 +21,5 @@ export const WidgetProps = {
   title: 'Drive',
   app: 'drive',
   headerShown: true,
-  link: (client) => useAppLinkWithStoreFallback('drive', client, '/').url
+  link: 'drive'
 }

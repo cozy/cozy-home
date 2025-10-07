@@ -56,6 +56,7 @@ export const WidgetsWrapper = () => {
   const { type } = useCozyTheme()
   const { isMobile } = useBreakpoints()
   const client = useClient()
+  const { t } = useI18n()
 
   const [installedWidgets, setInstalledWidgets] = React.useState(isMobile ? [2] : [1, 2])
   const [customWidgetsOpen, setCustomWidgetsOpen] = React.useState(false)
@@ -150,7 +151,7 @@ export const WidgetsWrapper = () => {
           <Button
             onClick={() => setCustomWidgetsOpen(true)}
             size="small"
-            label="Personnaliser les widgets"
+            label={t('Widget.customize')}
             variant="primary"
             startIcon={<Icon size={14} style={{marginRight: 4}} icon="plus" />}
           />
