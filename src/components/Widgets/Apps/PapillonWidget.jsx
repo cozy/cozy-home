@@ -12,12 +12,16 @@ export const PapillonWidget = () => {
 
   return (
     <Widget
-      title="Papillon"
-      app="papillon"
-      headerShown={true}
-      link={useAppLinkWithStoreFallback('papillon', client, '/').url}
+      {...WidgetProps}
     >
       <PapillonWidgetView />
     </Widget>
   )
+}
+
+export const WidgetProps = {
+  title: 'Papillon',
+  app: 'papillon',
+  headerShown: true,
+  link: (client) => useAppLinkWithStoreFallback('papillon', client, '/').url
 }

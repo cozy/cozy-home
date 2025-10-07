@@ -83,7 +83,7 @@ export const DriveWidgetFoldersTab = () => {
   return (
     <List dense style={{ padding: 0 }}>
       {folders && folders.length > 0 && folders.map(folder => 
-        <WidgetDriveFolderItem key={file._id} folder={folder} client={client} />
+        <WidgetDriveFolderItem key={folder._id} folder={folder} client={client} />
       )}
     </List>
   )

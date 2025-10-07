@@ -14,6 +14,7 @@ import ListItemSecondaryAction from 'cozy-ui/transpiled/react/ListItemSecondaryA
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { LinearProgress, CircularProgress } from 'cozy-ui/transpiled/react/Progress';
+import Tooltip from 'cozy-ui/transpiled/react/Tooltip';
 
 import { Transition } from 'react-transition-group';
 

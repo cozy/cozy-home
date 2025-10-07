@@ -280,6 +280,7 @@ export const PapHomeworksItem = ({ client, homework }) => {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 9,
+            overflow: 'hidden',
           }}
         >
           <div 
@@ -290,7 +291,7 @@ export const PapHomeworksItem = ({ client, homework }) => {
               borderRadius: 6,
             }}
           />
-          <Typography variant="caption" color="textSecondary">
+          <Typography variant="caption" color="textSecondary" style={{ ellipsizeMode: 'tail', overflow: 'hidden', whiteSpace: 'nowrap', width: '100%' }}>
             {homework.label ?? "Untitled"}
           </Typography>
         </div>

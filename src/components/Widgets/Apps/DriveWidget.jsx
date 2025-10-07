@@ -10,12 +10,16 @@ export const DriveWidget = () => {
 
   return (
     <Widget
-      title="Drive"
-      app="drive"
-      headerShown={true}
-      link={useAppLinkWithStoreFallback('drive', client, '/').url}
+      {...WidgetProps}
     >
       <DriveWidgetView />
     </Widget>
   )
+}
+
+export const WidgetProps = {
+  title: 'Drive',
+  app: 'drive',
+  headerShown: true,
+  link: (client) => useAppLinkWithStoreFallback('drive', client, '/').url
 }

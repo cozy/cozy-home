@@ -21,8 +21,7 @@ export const ClockWidget = () => {
 
   return (
     <Widget
-      title="Clock"
-      icon="clock"
+      {...WidgetProps}
     >
       <div
         className="u-flex u-flex-column u-w-100 u-h-100"
@@ -48,3 +47,9 @@ export const ClockWidget = () => {
     </Widget>
   )
 }
+
+export const WidgetProps = {
+  title: 'Horloge',
+  icon: 'clock',
+}
+export default ClockWidget
