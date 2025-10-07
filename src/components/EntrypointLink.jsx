@@ -20,13 +20,6 @@ export const EntrypointLink = ({ entrypoint }) => {
     pathname: '/',
     hash: entrypoint.hash
   })
-  const imageUrl = generateWebLink({
-    cozyUrl,
-    subDomainType,
-    slug: entrypoint.slug,
-    pathname: entrypoint.icon,
-    hash: ''
-  })
 
   const title = entrypoint.title[lang] || entrypoint.title['en']
 
@@ -43,7 +36,12 @@ export const EntrypointLink = ({ entrypoint }) => {
         variant="shortcut"
         IconContent={
           <div className="u-w-2 u-h-2">
-            <img className="u-bdrs-5" src={imageUrl} width={32} height={32} />
+            <img
+              className="u-bdrs-5"
+              src={`data:image/svg+xml;base64,${entrypoint.icon}`}
+              width={32}
+              height={32}
+            />
           </div>
         }
         hideShortcutBadge={true}
