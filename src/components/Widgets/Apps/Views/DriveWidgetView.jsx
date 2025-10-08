@@ -3,7 +3,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import Widget from '../../Atoms/Widget'
 import WidgetTabs, { LoadingWidgetView, UnimplementedWidgetView } from '../../Atoms/WidgetTabs'
 import { useAppLinkWithStoreFallback, useClient, useQuery } from 'cozy-client'
-import { buildDriveFoldersQuery, buildDriveRecentsQuery, buildDriveSharedQuery, buildDriveTrashedQuery } from '../Queries/DriveQueries'
+import { buildDriveFavoritesQuery, buildDriveFoldersQuery, buildDriveRecentsQuery, buildDriveSharedQuery, buildDriveTrashedQuery } from '../Queries/DriveQueries'
 import List from 'cozy-ui/transpiled/react/List'
 import ListItemByDoc from 'cozy-ui/transpiled/react/ListItem/ListItemByDoc'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -14,17 +14,26 @@ import Filename from 'cozy-ui/transpiled/react/Filename'
 import FileTypeFolderIcon from 'cozy-ui/transpiled/react/Icons/FileTypeFolder'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import SharedDocuments from 'cozy-sharing/dist/components/SharedDocuments'
+
+
+import styles from './DriveWidgetView.styl'
+
 export const DriveWidgetView = () => {
   return (
     <>
-      <WidgetTabs
-        tabs={[
-          { label: "Fichiers", icon: "clock", render: <DriveWidgetFileTab /> },
-          { label: "Dossiers", icon: "folder", render: <DriveWidgetFoldersTab /> },
-          { label: "Corbeille", icon: "trash", render: <DriveWidgetTrashedTab /> },
-          // { label: "Partagés", icon: "share", render: <UnimplementedWidgetView /> },
-        ]}
-      />
+      <SharedDocuments>
+        {({ sharedDocuments, allLoaded }) => (
+          <WidgetTabs
+            tabs={[
+              { label: "Fichiers", icon: "clock", render: <DriveWidgetFileTab /> },
+              { label: "Partages", icon: "share", render: <DriveWidgetSharingsTab sharedDocumentIds={sharedDocuments} /> },
+              { label: "Favoris", icon: "star", render: <DriveWidgetFavoritesTab /> },
+              // { label: "Partagés", icon: "share", render: <UnimplementedWidgetView /> },
+            ]}
+          />
+        )}
+      </SharedDocuments>
     </>
   )
 }
@@ -89,11 +98,41 @@ export const DriveWidgetFoldersTab = () => {
   )
 }
 
-export const DriveWidgetTrashedTab = () => {
+export const DriveWidgetSharingsTab = ({ sharedDocumentIds = []}) => {
   const client = useClient()
   const { t } = useI18n()
 
-  const driveQuery = buildDriveTrashedQuery()
+  const driveQuery = buildDriveSharedQuery({ ids: sharedDocumentIds })
+
+  const { data: files, filesFetchStatus } = useQuery(
+    driveQuery.definition,
+    driveQuery.options
+  )
+
+  if (filesFetchStatus === 'loading') {
+    return <LoadingWidgetView />
+  }
+
+  if (!files || files.length === 0) {
+    return (
+      <UnimplementedWidgetView label={t('Widget.Drive.NoTrashedFiles')} />
+    )
+  }
+
+  return (
+    <List dense style={{ padding: 0 }}>
+      {files && files.length > 0 && files.map(file =>
+        <WidgetDriveFileItem key={file._id} file={file} client={client} />
+      )}
+    </List>
+  )
+}
+
+export const DriveWidgetFavoritesTab = () => {
+  const client = useClient()
+  const { t } = useI18n()
+
+  const driveQuery = buildDriveFavoritesQuery()
 
   const { data: files, filesFetchStatus } = useQuery(
     driveQuery.definition,
@@ -129,9 +168,19 @@ export const WidgetDriveFileItem = ({ file, client }) => {
     `#/folder/${directory}/file/${fileId}`
   ).url
 
+  const drivePathURL = useAppLinkWithStoreFallback(
+    'drive',
+    client,
+    `#/folder/${directory}`
+  ).url
+
   const openFile = () => {
     window.location.href = driveURL
   }
+
+  console.log('Rendering file item for file:', file)
+
+  const finalPath = file.restore_path ? file.restore_path : file.path;
 
   return (
     <ListItemByDoc
@@ -150,13 +199,45 @@ export const WidgetDriveFileItem = ({ file, client }) => {
         />
       }
       secondary={
-        <Typography variant="caption" color="textSecondary">
-          {new Date(file.cozyMetadata.updatedAt).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          })}
-        </Typography>
+        <a
+          href={drivePathURL}
+          className={styles['underline-on-hover']}
+          style={{
+            width: "100%",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            display: "block",
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
+            color: 'inherit',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'baseline',
+              gap: '4px',
+              minWidth: 0,
+              textOverflow: 'ellipsis',
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {finalPath.split('/').slice(1).map((part, index, arr) => (
+              <>
+                {index > 0 && index < arr.length &&
+                  <Typography variant="caption" color="textSecondary" className="slash">
+                    /
+                  </Typography>
+                }
+                <Typography variant="caption" color="textPrimary" style={{ display: "inline" }}>
+                  {part}
+                </Typography>
+              </>
+            ))}
+          </div>
+        </a>
       }
     />
   )

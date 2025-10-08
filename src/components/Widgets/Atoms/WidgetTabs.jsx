@@ -22,10 +22,24 @@ import styles from './widget.styl'
 
 export const WidgetTabs = ({
   tabs,
-  defaultTab = 0
+  defaultTab = 0,
+  onTabChange
 }) => {
   const { type } = useCozyTheme()
   const [selectedTab, setSelectedTab] = useState(defaultTab)
+
+  const changeTab = (index) => {
+    setSelectedTab(index)
+    if (onTabChange) {
+      onTabChange(index)
+    }
+  }
+
+  if (!tabs || tabs.length === 0) {
+    return (
+      <UnimplementedWidgetView label="No tabs available" />
+    )
+  }
 
   return (
     <div
@@ -51,7 +65,7 @@ export const WidgetTabs = ({
         {tabs.map((tab, index) => (
           <Button
             key={tab.label}
-            onClick={() => setSelectedTab(index)}
+            onClick={() => changeTab(index)}
             label={
               <Icon
                 icon={tab.icon}

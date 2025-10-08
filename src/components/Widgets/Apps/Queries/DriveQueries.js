@@ -17,14 +17,26 @@ export const buildDriveRecentsQuery = () => ({
   }
 })
 
-export const buildDriveSharedQuery = () => ({
+export const buildDriveFavoritesQuery = () => ({
   definition: () =>
     Q('io.cozy.files')
-      .where({ type: "file", trashed: false })
-      .sortBy([{'cozyMetadata.updatedAt': 'desc'}])
+      .where({ type: "file", trashed: false, "cozyMetadata.favorite": true })
+      .sortBy([{ 'cozyMetadata.updatedAt': 'desc' }])
       .limitBy(20),
   options: {
-    as: 'io.cozy.files/shared',
+    as: 'io.cozy.files/favorites',
+    fetchPolicy: defaultFetchPolicy
+  }
+})
+
+export const buildDriveSharedQuery = ({ ids }) => ({
+  definition: () =>
+    Q('io.cozy.files')
+      .getByIds(ids)
+      .sortBy([{ type: 'asc' }, { name: 'asc' }]),
+  options: {
+    as: `sharings-by-ids-${ids.join('')}`,
+    enabled: true,
     fetchPolicy: defaultFetchPolicy
   }
 })
