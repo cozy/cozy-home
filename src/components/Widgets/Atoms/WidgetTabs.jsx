@@ -90,7 +90,7 @@ export const WidgetTabs = ({
       <div
         style={{
           flex: 1,
-          overflowY: 'scroll',
+          overflowY: 'hidden',
           position: 'relative',
         }}
       >
