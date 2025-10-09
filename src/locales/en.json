@@ -604,6 +604,8 @@
   },
   "Widget" : {
     "open": "Open",
+    "configure": "Configure",
+    "openApp": "Open app",
     "customize": "Customize widgets",
     "Drive": {
       "NoRecentFiles": "No recent files",
