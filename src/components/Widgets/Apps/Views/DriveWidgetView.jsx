@@ -14,31 +14,56 @@ import Filename from 'cozy-ui/transpiled/react/Filename'
 import FileTypeFolderIcon from 'cozy-ui/transpiled/react/Icons/FileTypeFolder'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+
+import Viewer, {
+  FooterActionButtons,
+  ForwardOrDownloadButton,
+  SharingButton
+} from 'cozy-viewer'
+
 import SharedDocuments from 'cozy-sharing/dist/components/SharedDocuments'
 
 
 import styles from './DriveWidgetView.styl'
 
 export const DriveWidgetView = () => {
+  const [openedFile, setOpenedFile] = useState({
+    files: [],
+    index: 0
+  })
+
   return (
     <>
       <SharedDocuments>
         {({ sharedDocuments, allLoaded }) => (
           <WidgetTabs
             tabs={[
-              { label: "Fichiers", icon: "clock", render: <DriveWidgetFileTab /> },
-              { label: "Partages", icon: "share", render: <DriveWidgetSharingsTab sharedDocumentIds={sharedDocuments} /> },
-              { label: "Favoris", icon: "star", render: <DriveWidgetFavoritesTab /> },
+              { label: "Fichiers", icon: "clock", render: <DriveWidgetFileTab setOpenedFile={setOpenedFile} /> },
+              { label: "Partages", icon: "share", render: <DriveWidgetSharingsTab setOpenedFile={setOpenedFile} sharedDocumentIds={sharedDocuments} /> },
+              { label: "Favoris", icon: "star", render: <DriveWidgetFavoritesTab setOpenedFile={setOpenedFile} /> },
               // { label: "Partagés", icon: "share", render: <UnimplementedWidgetView /> },
             ]}
           />
         )}
       </SharedDocuments>
+
+      {openedFile.files.length > 0 && (
+        <Viewer
+          files={openedFile.files}
+          onCloseRequest={() => setOpenedFile({ files: [], index: 0 })}
+          currentIndex={openedFile.index}
+          onChangeRequest={nextPhoto => {
+            const photo = openedFile.files.findIndex(f => f._id === nextPhoto._id)
+            setOpenedFile({ ...openedFile, index: photo })
+          }}
+        />
+      )}
     </>
   )
 }
 
-export const DriveWidgetFileTab = () => {
+export const DriveWidgetFileTab = ({ setOpenedFile }) => {
   const client = useClient()
   const { t } = useI18n()
 
@@ -61,8 +86,8 @@ export const DriveWidgetFileTab = () => {
 
   return (
     <List dense style={{ padding: 0 }}>
-      {files && files.length > 0 && files.map(file => 
-        <WidgetDriveFileItem key={file._id} file={file} client={client} />
+      {files && files.length > 0 && files.map((file, i) => 
+        <WidgetDriveFileItem key={file._id} file={file} client={client} open={() => setOpenedFile({ files: files, index: i })} />
       )}
     </List>
   )
@@ -98,7 +123,7 @@ export const DriveWidgetFoldersTab = () => {
   )
 }
 
-export const DriveWidgetSharingsTab = ({ sharedDocumentIds = []}) => {
+export const DriveWidgetSharingsTab = ({ sharedDocumentIds = [], setOpenedFile }) => {
   const client = useClient()
   const { t } = useI18n()
 
@@ -121,14 +146,14 @@ export const DriveWidgetSharingsTab = ({ sharedDocumentIds = []}) => {
 
   return (
     <List dense style={{ padding: 0 }}>
-      {files && files.length > 0 && files.map(file =>
-        <WidgetDriveFileItem key={file._id} file={file} client={client} />
+      {files && files.length > 0 && files.map((file, i) =>
+        <WidgetDriveFileItem key={file._id} file={file} client={client} open={() => setOpenedFile({ files: files, index: i })} />
       )}
     </List>
   )
 }
 
-export const DriveWidgetFavoritesTab = () => {
+export const DriveWidgetFavoritesTab = ({ setOpenedFile }) => {
   const client = useClient()
   const { t } = useI18n()
 
@@ -151,14 +176,14 @@ export const DriveWidgetFavoritesTab = () => {
 
   return (
     <List dense style={{ padding: 0 }}>
-      {files && files.length > 0 && files.map(file => 
-        <WidgetDriveFileItem key={file._id} file={file} client={client} />
+      {files && files.length > 0 && files.map((file, i) =>
+        <WidgetDriveFileItem key={file._id} file={file} client={client} open={() => setOpenedFile({ files: files, index: i })} />
       )}
     </List>
   )
 }
 
-export const WidgetDriveFileItem = ({ file, client }) => {
+export const WidgetDriveFileItem = ({ file, client, open }) => {
   const directory = file.dir_id
   const fileId = file.id
 
@@ -175,6 +200,10 @@ export const WidgetDriveFileItem = ({ file, client }) => {
   ).url
 
   const openFile = () => {
+    if (open) {
+      open()
+      return
+    }
     window.location.href = driveURL
   }
 
