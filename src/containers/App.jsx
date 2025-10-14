@@ -104,7 +104,8 @@ const App = () => {
   }
 
   return (
-    <Layout monoColumn>
+    // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
+    <Layout monoColumn className="u-bg-white">
       <BarComponent
         searchOptions={{ enabled: false }}
         componentsProps={{
