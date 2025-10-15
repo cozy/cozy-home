@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
-import { useQuery, useFetchHomeShortcuts } from 'cozy-client'
-import { sortApplicationsList } from 'cozy-client/dist/models/applications'
+import { useQuery, useFetchHomeShortcuts, models } from 'cozy-client'
+
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import cx from 'classnames'
@@ -16,6 +16,10 @@ import homeConfig from '@/config/home.json'
 import { appsConn } from '@/queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+
+const {
+  applications: { sortApplicationsList }
+} = models
 
 const LoadingAppTiles = memo(({ num }) => {
   const { t } = useI18n()
