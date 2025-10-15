@@ -18,7 +18,11 @@ import { appsConn } from '@/queries'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const {
-  applications: { sortApplicationsList, selectEntrypoints, filterEntrypoints }
+  applications: {
+    sortApplicationsList,
+    selectEntrypoints,
+    checkEntrypointCondition
+  }
 } = models
 
 const LoadingAppTiles = memo(({ num }) => {
@@ -85,7 +89,22 @@ const getEntrypoints = apps => {
     'new-file-type-sheet',
     'new-file-type-slide'
   ])
-  const filteredEntrypoints = filterEntrypoints(selectedEntrypoints)
+
+  // Custom filtering because we want to ignore flag related to top bar
+  const filteredEntrypoints = selectedEntrypoints.filter(entrypoint => {
+    const conditions = entrypoint.conditions || []
+
+    return conditions.every(condition => {
+      if (
+        condition.type === 'flag' &&
+        condition.name === 'bar.onlyoffice.enabled'
+      ) {
+        return true
+      }
+
+      return checkEntrypointCondition(condition)
+    })
+  })
 
   return filteredEntrypoints.map(entrypoint => ({
     ...entrypoint,
