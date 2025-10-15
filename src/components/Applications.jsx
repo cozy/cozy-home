@@ -18,7 +18,7 @@ import { appsConn } from '@/queries'
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
 const {
-  applications: { sortApplicationsList }
+  applications: { sortApplicationsList, selectEntrypoints, filterEntrypoints }
 } = models
 
 const LoadingAppTiles = memo(({ num }) => {
@@ -73,15 +73,24 @@ const getApplicationsList = data => {
   }
 }
 
-const buildEntrypoints = apps => {
-  return apps.flatMap(app => {
-    if (!app.entrypoints) return []
+// We get only the entrypoints we want:
+// - Drive onlyoffice
+const getEntrypoints = apps => {
+  const driveApp = apps.find(app => app.slug === 'drive') || {}
 
-    return app.entrypoints.map(entrypoint => ({
-      ...entrypoint,
-      slug: app.slug
-    }))
-  })
+  const driveEntrypoints = driveApp.entrypoints || []
+
+  const selectedEntrypoints = selectEntrypoints(driveEntrypoints, [
+    'new-file-type-text',
+    'new-file-type-sheet',
+    'new-file-type-slide'
+  ])
+  const filteredEntrypoints = filterEntrypoints(selectedEntrypoints)
+
+  return filteredEntrypoints.map(entrypoint => ({
+    ...entrypoint,
+    slug: driveApp.slug
+  }))
 }
 
 export const useApps = () => {
@@ -89,7 +98,7 @@ export const useApps = () => {
 
   const shortcuts = useFetchHomeShortcuts()
 
-  const entrypoints = buildEntrypoints(apps)
+  const entrypoints = getEntrypoints(apps)
 
   return {
     appsComponents: getApplicationsList(apps),
