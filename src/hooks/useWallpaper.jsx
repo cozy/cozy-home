@@ -10,6 +10,7 @@ const useWallpaper = () => {
   const [fetchStatus, setFetchStatus] = useState('idle')
   const [binaryCustomWallpaper, setBinaryCustomWallpaper] = useState(null)
   const { cozyDefaultWallpaper } = client.getInstanceOptions()
+  const [widgets, setWidgets] = useState([1, 2])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +81,7 @@ const useWallpaper = () => {
     data: {
       wallpaperLink,
       binaryCustomWallpaper,
+      widgets,
       isCustomWallpaper: Boolean(
         (wallpaperLink && wallpaperLink !== cozyDefaultWallpaper) ||
           binaryCustomWallpaper
@@ -87,6 +89,13 @@ const useWallpaper = () => {
     },
     setWallpaperLink: setWallpaperLinkAndStore,
     returnToDefaultWallpaper,
+    installWidget: (widgetIndex) => {
+      if (widgets.length >= 2) return
+      setWidgets([...widgets, widgetIndex])
+    },
+    uninstallWidget: (widgetIndex) => {
+      setWidgets(widgets.filter(i => i !== widgetIndex))
+    },
     fetchStatus
   }
 }

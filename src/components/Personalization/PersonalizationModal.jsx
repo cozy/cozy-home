@@ -14,6 +14,7 @@ import Wallpaper from "./Wallpaper";
 import { Transition } from 'react-transition-group';
 import { useWallpaperContext } from "@/hooks/useWallpaperContext";
 import { useClient } from "cozy-client";
+import Widget from "./Widget";
 
 export const PersonalizationModal = () => {
   const client = useClient();
@@ -33,7 +34,7 @@ export const PersonalizationModal = () => {
         icon: 'mosaic',
         onClick: () => { setTabSelected(1) },
         enabled: false,
-        component: <div>Widgets</div>
+        component: <Widget client={client} />
       },
     ],
     {
@@ -47,10 +48,8 @@ export const PersonalizationModal = () => {
   return (
     <div
       style={{
-        width: 'calc(100% - 32px)',
-        height: 'calc(100% - 32px)',
-        padding: 16,
-        gap: 16,
+        width: '100%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -60,12 +59,13 @@ export const PersonalizationModal = () => {
     >
       <div
         style={{
-          width: '100%',
+          width: 'calc(100% - (16px * 2))',
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          gap: 8
+          gap: 8,
+          margin: 16,
         }}
       >
         {tabs.map((tab, index) => (

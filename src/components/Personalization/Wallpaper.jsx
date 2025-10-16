@@ -1,11 +1,12 @@
-import Typography from 'cozy-ui/transpiled/react/Typography';
 import React, { useEffect, useState } from 'react'
 
-import styles from './Wallpaper.styl'
+import Typography from 'cozy-ui/transpiled/react/Typography';
 import Icon from 'cozy-ui/transpiled/react/Icon';
-import useWallpaper from '@/hooks/useWallpaper';
+
 import { useWallpaperContext } from '@/hooks/useWallpaperContext';
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper';
+
+import styles from './Wallpaper.styl'
 
 const Wallpapers = [
   {

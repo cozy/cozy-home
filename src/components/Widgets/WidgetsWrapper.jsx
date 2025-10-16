@@ -34,7 +34,7 @@ import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import { useClient } from 'cozy-client'
 import WidgetListItem from './WidgetListItem'
 
-const AvailableWidgets = [
+export const AvailableWidgets = [
   {
     name: 'clock',
     component: ClockWidget,

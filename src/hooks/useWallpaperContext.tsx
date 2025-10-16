@@ -8,13 +8,16 @@ const WallPaperContext = React.createContext<
 interface WallPaperContextInterfaceData {
   wallpaperLink: string | null
   binaryCustomWallpaper: string | null
-  isCustomWallpaper: boolean
+  isCustomWallpaper: boolean,
+  widgets: number[]
 }
 interface WallPaperContextInterface {
   data: WallPaperContextInterfaceData
   setWallpaperLink: (link: string | null) => void
   returnToDefaultWallpaper: () => void
   fetchStatus: string
+  installWidget: (id: number) => void
+  uninstallWidget: (id: number) => void
 }
 export const WallPaperProvider = ({
   children
