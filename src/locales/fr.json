@@ -540,6 +540,10 @@
       }
     }
   },
+  "shortcut": {
+    "edit": "Modifier le raccourci",
+    "delete": "Supprimer"
+  },
   "Queue": {
     "header": "Synchronisation :",
     "header_mobile": "%{done} sur %{total}",
