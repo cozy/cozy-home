@@ -540,6 +540,10 @@
       }
     }
   },
+  "shortcut": {
+    "edit": "Modify shortcut",
+    "delete": "Delete"
+  },
   "Queue": {
     "header": "Syncing accounts:",
     "header_mobile": "%{done} of %{total}",

@@ -19,6 +19,205 @@ Object {
           <div
             class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
+            <span
+              class="MuiBadge-root"
+            >
+              <a
+                class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+                href="#"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="makeStyles-tileWrapper-6"
+                  data-testid="square-app-icon"
+                >
+                  <div
+                    class="TwakeTheme--light-normal u-dc"
+                  >
+                    <span
+                      class="MuiBadge-root-9"
+                    >
+                      <span
+                        class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                      >
+                        <h2
+                          class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
+                        >
+                          L
+                        </h2>
+                        <span
+                          class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
+                        />
+                      </span>
+                      <span
+                        class="MuiBadge-badge-10 makeStyles-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
+                      >
+                        <svg
+                          class="styles__icon___23x3R"
+                          height="10"
+                          viewBox="0 0 16 16"
+                          width="10"
+                        >
+                          <path
+                            d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                  <h6
+                    class="MuiTypography-root makeStyles-name-1 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  >
+                    List item
+                  </h6>
+                </div>
+              </a>
+              <span
+                class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
+              >
+                <button
+                  class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="MuiIconButton-label"
+                  >
+                    <svg
+                      class="styles__icon___23x3R"
+                      height="16"
+                      style="transform: rotate(90deg);"
+                      viewBox="0 0 16 4"
+                      width="16"
+                    >
+                      <path
+                        d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="MuiPopover-root"
+      role="presentation"
+      style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
+    >
+      <div
+        data-test="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+        tabindex="-1"
+      >
+        <ul
+          class="MuiList-root MuiMenu-list MuiList-padding"
+          role="menu"
+          tabindex="-1"
+        >
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M.889 16a.86.86 0 01-.633-.256.86.86 0 01-.256-.633v-2.155a1.755 1.755 0 01.511-1.245L11.733.511c.178-.163.374-.289.59-.378a1.836 1.836 0 011.366 0c.222.09.415.223.578.4l1.222 1.245c.178.163.307.355.389.578a1.925 1.925 0 010 1.344 1.666 1.666 0 01-.39.589l-11.2 11.2A1.755 1.755 0 013.045 16H.89zM12.978 4.267l1.244-1.245-1.244-1.244-1.245 1.244 1.245 1.245z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Modify shortcut
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M3.556 16c-.49 0-.908-.174-1.256-.522a1.712 1.712 0 01-.522-1.256V2.667h-.89V.889h4.445V0h5.334v.889h4.444v1.778h-.889v11.555c0 .49-.174.908-.522 1.256a1.712 1.712 0 01-1.256.522H3.556zm8.888-13.333H3.556v11.555h8.888V2.667zm-7.11 9.777H7.11v-8H5.333v8zm3.555 0h1.778v-8H8.889v8z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Delete
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        data-test="sentinelEnd"
+        tabindex="0"
+      />
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="TwakeTheme--light-normal u-dc"
+    >
+      <div
+        class="shortcuts-list-wrapper u-m-auto u-w-100"
+      >
+        <h6
+          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
+        >
+          List title
+        </h6>
+        <div
+          class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
+        >
+          <span
+            class="MuiBadge-root"
+          >
             <a
               class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
               href="#"
@@ -70,77 +269,35 @@ Object {
                 </h6>
               </div>
             </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="TwakeTheme--light-normal u-dc"
-    >
-      <div
-        class="shortcuts-list-wrapper u-m-auto u-w-100"
-      >
-        <h6
-          class="MuiTypography-root styles__divider___SuA5q u-mv-0 MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
-        >
-          List title
-        </h6>
-        <div
-          class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
-        >
-          <a
-            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <div
-              class="makeStyles-tileWrapper-6"
-              data-testid="square-app-icon"
+            <span
+              class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
             >
-              <div
-                class="TwakeTheme--light-normal u-dc"
+              <button
+                class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                tabindex="0"
+                type="button"
               >
                 <span
-                  class="MuiBadge-root-9"
+                  class="MuiIconButton-label"
                 >
-                  <span
-                    class="MuiBadge-root-9 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="16"
+                    style="transform: rotate(90deg);"
+                    viewBox="0 0 16 4"
+                    width="16"
                   >
-                    <h2
-                      class="MuiTypography-root-32 makeStyles-letter-4 MuiTypography-h2-38 MuiTypography-colorTextPrimary-57 MuiTypography-alignCenter-48"
-                    >
-                      L
-                    </h2>
-                    <span
-                      class="MuiBadge-badge-10 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-16"
+                    <path
+                      d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
                     />
-                  </span>
-                  <span
-                    class="MuiBadge-badge-10 makeStyles-qualifier-8 MuiBadge-anchorOriginBottomRightRectangular-18"
-                  >
-                    <svg
-                      class="styles__icon___23x3R"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
-                    >
-                      <path
-                        d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
-                      />
-                    </svg>
-                  </span>
+                  </svg>
                 </span>
-              </div>
-              <h6
-                class="MuiTypography-root makeStyles-name-1 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
-              >
-                List item
-              </h6>
-            </div>
-          </a>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </span>
+          </span>
         </div>
       </div>
     </div>
@@ -218,57 +375,89 @@ Object {
           <div
             class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
-            <a
-              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-              href="#"
-              rel="noopener noreferrer"
-              target="_blank"
+            <span
+              class="MuiBadge-root"
             >
-              <div
-                class="makeStyles-tileWrapper-67"
-                data-testid="square-app-icon"
+              <a
+                class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+                href="#"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <div
-                  class="TwakeTheme--light-normal u-dc"
+                  class="makeStyles-tileWrapper-77"
+                  data-testid="square-app-icon"
                 >
-                  <span
-                    class="MuiBadge-root-70"
+                  <div
+                    class="TwakeTheme--light-normal u-dc"
                   >
                     <span
-                      class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                      class="MuiBadge-root-80"
                     >
-                      <h2
-                        class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
-                      >
-                        B
-                      </h2>
                       <span
-                        class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
-                      />
-                    </span>
-                    <span
-                      class="MuiBadge-badge-71 makeStyles-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
-                    >
-                      <svg
-                        class="styles__icon___23x3R"
-                        height="10"
-                        viewBox="0 0 16 16"
-                        width="10"
+                        class="MuiBadge-root-80 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                       >
-                        <path
-                          d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                        <h2
+                          class="MuiTypography-root-103 makeStyles-letter-75 MuiTypography-h2-109 MuiTypography-colorTextPrimary-128 MuiTypography-alignCenter-119"
+                        >
+                          B
+                        </h2>
+                        <span
+                          class="MuiBadge-badge-81 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-87"
                         />
-                      </svg>
+                      </span>
+                      <span
+                        class="MuiBadge-badge-81 makeStyles-qualifier-79 MuiBadge-anchorOriginBottomRightRectangular-89"
+                      >
+                        <svg
+                          class="styles__icon___23x3R"
+                          height="10"
+                          viewBox="0 0 16 16"
+                          width="10"
+                        >
+                          <path
+                            d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                          />
+                        </svg>
+                      </span>
                     </span>
-                  </span>
+                  </div>
+                  <h6
+                    class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  >
+                    b
+                  </h6>
                 </div>
-                <h6
-                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+              </a>
+              <span
+                class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
+              >
+                <button
+                  class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                  tabindex="0"
+                  type="button"
                 >
-                  b
-                </h6>
-              </div>
-            </a>
+                  <span
+                    class="MuiIconButton-label"
+                  >
+                    <svg
+                      class="styles__icon___23x3R"
+                      height="16"
+                      style="transform: rotate(90deg);"
+                      viewBox="0 0 16 4"
+                      width="16"
+                    >
+                      <path
+                        d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+              </span>
+            </span>
           </div>
         </div>
         <div
@@ -282,60 +471,278 @@ Object {
           <div
             class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
           >
-            <a
-              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-              href="#"
-              rel="noopener noreferrer"
-              target="_blank"
+            <span
+              class="MuiBadge-root"
             >
-              <div
-                class="makeStyles-tileWrapper-67"
-                data-testid="square-app-icon"
+              <a
+                class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+                href="#"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <div
-                  class="TwakeTheme--light-normal u-dc"
+                  class="makeStyles-tileWrapper-77"
+                  data-testid="square-app-icon"
                 >
-                  <span
-                    class="MuiBadge-root-124"
+                  <div
+                    class="TwakeTheme--light-normal u-dc"
                   >
                     <span
-                      class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                      class="MuiBadge-root-134"
                     >
-                      <h2
-                        class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
-                      >
-                        D
-                      </h2>
                       <span
-                        class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
-                      />
-                    </span>
-                    <span
-                      class="MuiBadge-badge-125 makeStyles-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
-                    >
-                      <svg
-                        class="styles__icon___23x3R"
-                        height="10"
-                        viewBox="0 0 16 16"
-                        width="10"
+                        class="MuiBadge-root-134 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                       >
-                        <path
-                          d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                        <h2
+                          class="MuiTypography-root-157 makeStyles-letter-75 MuiTypography-h2-163 MuiTypography-colorTextPrimary-182 MuiTypography-alignCenter-173"
+                        >
+                          D
+                        </h2>
+                        <span
+                          class="MuiBadge-badge-135 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-141"
                         />
-                      </svg>
+                      </span>
+                      <span
+                        class="MuiBadge-badge-135 makeStyles-qualifier-133 MuiBadge-anchorOriginBottomRightRectangular-143"
+                      >
+                        <svg
+                          class="styles__icon___23x3R"
+                          height="10"
+                          viewBox="0 0 16 16"
+                          width="10"
+                        >
+                          <path
+                            d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                          />
+                        </svg>
+                      </span>
                     </span>
-                  </span>
+                  </div>
+                  <h6
+                    class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  >
+                    d
+                  </h6>
                 </div>
-                <h6
-                  class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+              </a>
+              <span
+                class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
+              >
+                <button
+                  class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                  tabindex="0"
+                  type="button"
                 >
-                  d
-                </h6>
-              </div>
-            </a>
+                  <span
+                    class="MuiIconButton-label"
+                  >
+                    <svg
+                      class="styles__icon___23x3R"
+                      height="16"
+                      style="transform: rotate(90deg);"
+                      viewBox="0 0 16 4"
+                      width="16"
+                    >
+                      <path
+                        d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+              </span>
+            </span>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="MuiPopover-root"
+      role="presentation"
+      style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
+    >
+      <div
+        data-test="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+        tabindex="-1"
+      >
+        <ul
+          class="MuiList-root MuiMenu-list MuiList-padding"
+          role="menu"
+          tabindex="-1"
+        >
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M.889 16a.86.86 0 01-.633-.256.86.86 0 01-.256-.633v-2.155a1.755 1.755 0 01.511-1.245L11.733.511c.178-.163.374-.289.59-.378a1.836 1.836 0 011.366 0c.222.09.415.223.578.4l1.222 1.245c.178.163.307.355.389.578a1.925 1.925 0 010 1.344 1.666 1.666 0 01-.39.589l-11.2 11.2A1.755 1.755 0 013.045 16H.89zM12.978 4.267l1.244-1.245-1.244-1.244-1.245 1.244 1.245 1.245z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Modify shortcut
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M3.556 16c-.49 0-.908-.174-1.256-.522a1.712 1.712 0 01-.522-1.256V2.667h-.89V.889h4.445V0h5.334v.889h4.444v1.778h-.889v11.555c0 .49-.174.908-.522 1.256a1.712 1.712 0 01-1.256.522H3.556zm8.888-13.333H3.556v11.555h8.888V2.667zm-7.11 9.777H7.11v-8H5.333v8zm3.555 0h1.778v-8H8.889v8z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Delete
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        data-test="sentinelEnd"
+        tabindex="0"
+      />
+    </div>
+    <div
+      aria-hidden="true"
+      class="MuiPopover-root"
+      role="presentation"
+      style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
+    >
+      <div
+        data-test="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
+        tabindex="-1"
+      >
+        <ul
+          class="MuiList-root MuiMenu-list MuiList-padding"
+          role="menu"
+          tabindex="-1"
+        >
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M.889 16a.86.86 0 01-.633-.256.86.86 0 01-.256-.633v-2.155a1.755 1.755 0 01.511-1.245L11.733.511c.178-.163.374-.289.59-.378a1.836 1.836 0 011.366 0c.222.09.415.223.578.4l1.222 1.245c.178.163.307.355.389.578a1.925 1.925 0 010 1.344 1.666 1.666 0 01-.39.589l-11.2 11.2A1.755 1.755 0 013.045 16H.89zM12.978 4.267l1.244-1.245-1.244-1.244-1.245 1.244 1.245 1.245z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Modify shortcut
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+          <li
+            aria-disabled="false"
+            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            role="menuitem"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root cozyListItemIcon"
+            >
+              <svg
+                class="styles__icon___23x3R"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <path
+                  d="M3.556 16c-.49 0-.908-.174-1.256-.522a1.712 1.712 0 01-.522-1.256V2.667h-.89V.889h4.445V0h5.334v.889h4.444v1.778h-.889v11.555c0 .49-.174.908-.522 1.256a1.712 1.712 0 01-1.256.522H3.556zm8.888-13.333H3.556v11.555h8.888V2.667zm-7.11 9.777H7.11v-8H5.333v8zm3.555 0h1.778v-8H8.889v8z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiListItemText-root"
+            >
+              <span
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              >
+                Delete
+              </span>
+            </div>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        data-test="sentinelEnd"
+        tabindex="0"
+      />
     </div>
   </body>,
   "container": <div>
@@ -353,57 +760,89 @@ Object {
         <div
           class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
         >
-          <a
-            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
+          <span
+            class="MuiBadge-root"
           >
-            <div
-              class="makeStyles-tileWrapper-67"
-              data-testid="square-app-icon"
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <div
-                class="TwakeTheme--light-normal u-dc"
+                class="makeStyles-tileWrapper-77"
+                data-testid="square-app-icon"
               >
-                <span
-                  class="MuiBadge-root-70"
+                <div
+                  class="TwakeTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-70 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                    class="MuiBadge-root-80"
                   >
-                    <h2
-                      class="MuiTypography-root-93 makeStyles-letter-65 MuiTypography-h2-99 MuiTypography-colorTextPrimary-118 MuiTypography-alignCenter-109"
-                    >
-                      B
-                    </h2>
                     <span
-                      class="MuiBadge-badge-71 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-77"
-                    />
-                  </span>
-                  <span
-                    class="MuiBadge-badge-71 makeStyles-qualifier-69 MuiBadge-anchorOriginBottomRightRectangular-79"
-                  >
-                    <svg
-                      class="styles__icon___23x3R"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
+                      class="MuiBadge-root-80 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                     >
-                      <path
-                        d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                      <h2
+                        class="MuiTypography-root-103 makeStyles-letter-75 MuiTypography-h2-109 MuiTypography-colorTextPrimary-128 MuiTypography-alignCenter-119"
+                      >
+                        B
+                      </h2>
+                      <span
+                        class="MuiBadge-badge-81 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-87"
                       />
-                    </svg>
+                    </span>
+                    <span
+                      class="MuiBadge-badge-81 makeStyles-qualifier-79 MuiBadge-anchorOriginBottomRightRectangular-89"
+                    >
+                      <svg
+                        class="styles__icon___23x3R"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <path
+                          d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                        />
+                      </svg>
+                    </span>
                   </span>
-                </span>
+                </div>
+                <h6
+                  class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                >
+                  b
+                </h6>
               </div>
-              <h6
-                class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+            </a>
+            <span
+              class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
+            >
+              <button
+                class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                tabindex="0"
+                type="button"
               >
-                b
-              </h6>
-            </div>
-          </a>
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="16"
+                    style="transform: rotate(90deg);"
+                    viewBox="0 0 16 4"
+                    width="16"
+                  >
+                    <path
+                      d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </span>
+          </span>
         </div>
       </div>
       <div
@@ -417,57 +856,89 @@ Object {
         <div
           class="shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center"
         >
-          <a
-            class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
+          <span
+            class="MuiBadge-root"
           >
-            <div
-              class="makeStyles-tileWrapper-67"
-              data-testid="square-app-icon"
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineNone scale-hover MuiTypography-colorPrimary"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <div
-                class="TwakeTheme--light-normal u-dc"
+                class="makeStyles-tileWrapper-77"
+                data-testid="square-app-icon"
               >
-                <span
-                  class="MuiBadge-root-124"
+                <div
+                  class="TwakeTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-124 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                    class="MuiBadge-root-134"
                   >
-                    <h2
-                      class="MuiTypography-root-147 makeStyles-letter-65 MuiTypography-h2-153 MuiTypography-colorTextPrimary-172 MuiTypography-alignCenter-163"
-                    >
-                      D
-                    </h2>
                     <span
-                      class="MuiBadge-badge-125 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-131"
-                    />
-                  </span>
-                  <span
-                    class="MuiBadge-badge-125 makeStyles-qualifier-123 MuiBadge-anchorOriginBottomRightRectangular-133"
-                  >
-                    <svg
-                      class="styles__icon___23x3R"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
+                      class="MuiBadge-root-134 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                     >
-                      <path
-                        d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                      <h2
+                        class="MuiTypography-root-157 makeStyles-letter-75 MuiTypography-h2-163 MuiTypography-colorTextPrimary-182 MuiTypography-alignCenter-173"
+                      >
+                        D
+                      </h2>
+                      <span
+                        class="MuiBadge-badge-135 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-141"
                       />
-                    </svg>
+                    </span>
+                    <span
+                      class="MuiBadge-badge-135 makeStyles-qualifier-133 MuiBadge-anchorOriginBottomRightRectangular-143"
+                    >
+                      <svg
+                        class="styles__icon___23x3R"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <path
+                          d="M14.222 14.222H1.778V1.778H8V0H1.778C.79 0 0 .8 0 1.778v12.444C0 15.2.791 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V8h-1.778v6.222zM9.778 0v1.778h3.19l-8.737 8.738 1.253 1.253 8.738-8.738v3.191H16V0H9.778z"
+                        />
+                      </svg>
+                    </span>
                   </span>
-                </span>
+                </div>
+                <h6
+                  class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                >
+                  d
+                </h6>
               </div>
-              <h6
-                class="MuiTypography-root makeStyles-name-62 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+            </a>
+            <span
+              class="MuiBadge-badge badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular"
+            >
+              <button
+                class="MuiButtonBase-root MuiIconButton-root shortcut-actions-menu small"
+                tabindex="0"
+                type="button"
               >
-                d
-              </h6>
-            </div>
-          </a>
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    class="styles__icon___23x3R"
+                    height="16"
+                    style="transform: rotate(90deg);"
+                    viewBox="0 0 16 4"
+                    width="16"
+                  >
+                    <path
+                      d="M2 0C.9 0 0 .9 0 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM8 0C6.9 0 6 .9 6 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </span>
+          </span>
         </div>
       </div>
     </div>
