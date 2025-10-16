@@ -27,7 +27,7 @@ import SharedDocuments from 'cozy-sharing/dist/components/SharedDocuments'
 
 import styles from './DriveWidgetView.styl'
 
-export const DriveWidgetView = () => {
+export const DriveWidgetView = ({ app, layoutControls, index }) => {
   const [openedFile, setOpenedFile] = useState({
     files: [],
     index: 0
@@ -38,6 +38,9 @@ export const DriveWidgetView = () => {
       <SharedDocuments>
         {({ sharedDocuments, allLoaded }) => (
           <WidgetTabs
+            app={app}
+            index={index}
+            layoutControls={layoutControls}
             tabs={[
               { label: "Fichiers", icon: "clock", render: <DriveWidgetFileTab setOpenedFile={setOpenedFile} /> },
               { label: "Partages", icon: "share", render: <DriveWidgetSharingsTab setOpenedFile={setOpenedFile} sharedDocumentIds={sharedDocuments} /> },
@@ -206,8 +209,6 @@ export const WidgetDriveFileItem = ({ file, client, open }) => {
     }
     window.location.href = driveURL
   }
-
-  console.log('Rendering file item for file:', file)
 
   const finalPath = file.restore_path ? file.restore_path : file.path;
 

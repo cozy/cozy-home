@@ -9,6 +9,7 @@ import { getFlagshipMetadata } from 'cozy-device-helper'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
 import { WidgetsWrapper } from './Widgets/WidgetsWrapper'
+import { PersonalizationWrapper } from './Personalization/PersonalizationWrapper'
 
 import ApplicationsAndServices from '@/components/ApplicationsAndServices'
 import Applications from '@/components/Applications'
@@ -34,6 +35,9 @@ const Home = ({ wrapper }) => {
         )}
         {flag('cozy.widgets.enabled') && (
           <WidgetsWrapper />
+        )}
+        {flag('cozy.personalization.enabled') && (
+          <PersonalizationWrapper />
         )}
         <div
           role="main"

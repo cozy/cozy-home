@@ -607,6 +607,9 @@
     "configure": "Configure",
     "openApp": "Open app",
     "customize": "Customize widgets",
+    "up": "Move up",
+    "down": "Move down",
+    "remove": "Remove",
     "Drive": {
       "NoRecentFiles": "No recent files",
       "NoRecentFolders": "No recent folders",

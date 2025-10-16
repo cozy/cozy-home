@@ -70,9 +70,34 @@ export const WidgetsWrapper = () => {
     setInstalledWidgets([...installedWidgets, widgetIndex])
   }
 
+  const reorderWidget = (fromIndex, displaceBy) => {
+    const toIndex = fromIndex + displaceBy
+    if (toIndex < 0 || toIndex >= installedWidgets.length) return
+    const newInstalledWidgets = [...installedWidgets]
+    const temp = newInstalledWidgets[fromIndex]
+    newInstalledWidgets[fromIndex] = newInstalledWidgets[toIndex]
+    newInstalledWidgets[toIndex] = temp
+    setInstalledWidgets(newInstalledWidgets)
+  }
+
+  const layoutControls = (index , command) => {
+    console.log(index, command)
+    switch (command) {
+      case 'up':
+        return reorderWidget(index, -1)
+      case 'down':
+        return reorderWidget(index, 1)
+      case 'uninstall':
+        const widgetIndex = installedWidgets[index]
+        return uninstallWidget(widgetIndex)
+      default:
+        return
+    }
+  }
+
   return (
     <>
-      {!isMobile && (
+      {/* !isMobile && (
         <div
           style={{
             position: 'fixed',
@@ -87,7 +112,7 @@ export const WidgetsWrapper = () => {
             <Icon icon="plus" />
           </Fab>
         </div>
-      )}
+      ) */}
 
       {customWidgetsOpen && (
         <BottomSheet
@@ -131,10 +156,10 @@ export const WidgetsWrapper = () => {
       )}
 
       <div className={`app-list-wrapper ${styles[`app-widget-container`]} u-flex ${isMobile ? 'u-flex-column u-ph-1': 'u-flex-row'} u-mh-auto ${!isMobile ? 'u-mb-3' : ''}`}>
-        {installedWidgets.map((widgetIndex) => {
+        {installedWidgets.map((widgetIndex, i) => {
           const WidgetComponent = AvailableWidgets[widgetIndex].component
           return (
-            <WidgetComponent key={widgetIndex} />
+            <WidgetComponent key={widgetIndex} i={[i, installedWidgets.length]} layoutControls={(command) => {layoutControls(i, command)}} />
           )
         })}
       </div>

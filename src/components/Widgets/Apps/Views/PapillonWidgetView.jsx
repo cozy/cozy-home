@@ -19,7 +19,7 @@ import { subjectColor } from '../Utils/subjectColor'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 
-export const PapillonWidgetView = () => {
+export const PapillonWidgetView = ({ app, layoutControls, index }) => {
   const [selectedTab, setSelectedTab] = useState(2)
   const { type } = useCozyTheme()
 
@@ -52,6 +52,9 @@ export const PapillonWidgetView = () => {
 
   return (
     <WidgetTabs
+      app={app}
+      index={index}
+      layoutControls={layoutControls}
       tabs={tabs}
     />
   )

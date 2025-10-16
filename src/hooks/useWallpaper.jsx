@@ -5,6 +5,7 @@ import localForage from 'localforage'
 
 const useWallpaper = () => {
   const client = useClient()
+
   const [wallpaperLink, setWallpaperLink] = useState(null)
   const [fetchStatus, setFetchStatus] = useState('idle')
   const [binaryCustomWallpaper, setBinaryCustomWallpaper] = useState(null)
@@ -18,6 +19,14 @@ const useWallpaper = () => {
       }
       try {
         setFetchStatus('loading')
+        const link = await localForage.getItem('customWallpaper')
+        if (link) {
+          setWallpaperLink(link)
+          setFetchStatus('loaded')
+          return
+        }
+
+        /*
         const binary = await localForage.getItem('customWallpaper')
         if (binary) {
           setBinaryCustomWallpaper(binary)
@@ -37,6 +46,7 @@ const useWallpaper = () => {
           await localForage.setItem('customWallpaper', base64data)
           localStorage.setItem('hasCustomWallpaper', true)
         }
+          */
       } catch (error) {
         await localForage.removeItem('customWallpaper')
         localStorage.setItem('hasCustomWallpaper', false)
@@ -48,6 +58,24 @@ const useWallpaper = () => {
     fetchData()
   }, [client, cozyDefaultWallpaper])
 
+  const setWallpaperLinkAndStore = async link => {
+    setWallpaperLink(link)
+    if (link === cozyDefaultWallpaper) {
+      await localForage.removeItem('customWallpaper')
+      localStorage.setItem('hasCustomWallpaper', false)
+      setBinaryCustomWallpaper(null)
+    }
+    localStorage.setItem('hasCustomWallpaper', true)
+    await localForage.setItem('customWallpaper', link)
+  }
+
+  const returnToDefaultWallpaper = async () => {
+    setWallpaperLink(cozyDefaultWallpaper)
+    await localForage.removeItem('customWallpaper')
+    localStorage.setItem('hasCustomWallpaper', false)
+    setBinaryCustomWallpaper(null)
+  }
+
   return {
     data: {
       wallpaperLink,
@@ -57,6 +85,8 @@ const useWallpaper = () => {
           binaryCustomWallpaper
       )
     },
+    setWallpaperLink: setWallpaperLinkAndStore,
+    returnToDefaultWallpaper,
     fetchStatus
   }
 }

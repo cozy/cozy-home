@@ -1,0 +1,50 @@
+.wallpaperGrid
+  display grid
+  grid-template-columns 1fr 1fr
+  gap 8px
+  width 100%
+  height 100%
+
+.wallpaperItem
+  cursor pointer
+  border-radius 12px
+  overflow hidden
+  position relative
+  width calc(100% - (2px * 2))
+  height calc(100% - (2px * 2))
+  outline 0px solid
+  outline-color: var(--primaryColor)
+  margin: 2px
+  transition outline-width 0.15s
+  background: var(--defaultBackgroundColor)
+
+.wallpaperItem:hover
+  border 1px solid var(--borderGhostColor)
+  margin 1px
+
+.wallpaperItem--selected
+  outline-width 3px
+  margin 0px
+  border 2px solid var(--paperBackgroundColor)
+
+.wallpaperItem--selected:hover
+  border 2px solid var(--paperBackgroundColor)
+  margin 0px
+
+.wallpaperImage
+  width 100%
+  height 100%
+  object-fit cover
+  object-position center
+  position absolute
+  top 0
+  left 0
+  z-index 1
+
+.wallpaperLabel
+  position absolute
+  bottom 12px
+  left 0px
+  width 100%
+  text-align center
+  z-index 2

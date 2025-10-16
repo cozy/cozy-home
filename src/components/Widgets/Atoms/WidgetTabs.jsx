@@ -15,18 +15,46 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { LinearProgress, CircularProgress } from 'cozy-ui/transpiled/react/Progress';
 import Tooltip from 'cozy-ui/transpiled/react/Tooltip';
+import Menu from 'cozy-ui/transpiled/react/Menu'
+import MenuItem from 'cozy-ui/transpiled/react/MenuItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
+import Divider from 'cozy-ui/transpiled/react/Divider'
+
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import { Transition } from 'react-transition-group';
 
 import styles from './widget.styl'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 export const WidgetTabs = ({
   tabs,
+  app,
+  layoutControls,
   defaultTab = 0,
-  onTabChange
+  onTabChange,
+  index
 }) => {
   const { type } = useCozyTheme()
+  const { t } = useI18n()
+  const client = useClient()
   const [selectedTab, setSelectedTab] = useState(defaultTab)
+
+  const i = index && index[0] ? index[0] : 0
+  const j = index && index[1] ? index[1] - 1 : 0
+
+  const appLink = useAppLinkWithStoreFallback(app, client, '/')
+
+  const [menuOpened, setMenuOpened] = React.useState(false)
+  const ref = React.useRef(null)
+
+  const toggleMenu = () => {
+    setMenuOpened(!menuOpened)
+  }
+
+  const closeMenu = () => {
+    setMenuOpened(false)
+  }
 
   const changeTab = (index) => {
     setSelectedTab(index)
@@ -41,6 +69,15 @@ export const WidgetTabs = ({
     )
   }
 
+  const tabButtonStyle = {
+    width: '32px',
+    maxWidth: '32px',
+    minWidth: '32px',
+    height: '32px',
+    borderRadius: 50,
+    padding: 0,
+  }
+
   return (
     <div
       style={{
@@ -49,43 +86,6 @@ export const WidgetTabs = ({
         height: '100%',
       }}
     >
-      <div
-        style={{
-          padding: '8px 8px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          gap: 8,
-          borderColor: type === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-          borderRightWidth: 1,
-          borderRightStyle: 'solid',
-        }}
-      >
-        {tabs.map((tab, index) => (
-          <Button
-            key={tab.label}
-            onClick={() => changeTab(index)}
-            label={
-              <Icon
-                icon={tab.icon}
-                color={selectedTab === index ? 'var(--primaryColor)' : undefined}
-              />
-            }
-            variant={selectedTab === index ? 'ghost' : 'text'}
-            size="small"
-            color={selectedTab === index ? 'primary' : 'inherit'}
-            style={{
-              width: '2rem',
-              maxWidth: '2rem',
-              minWidth: '2rem',
-              height: '2rem',
-              borderRadius: 8,
-              padding: 0,
-            }}
-          />
-        ))}
-      </div>
 
       <div
         style={{
@@ -124,6 +124,108 @@ export const WidgetTabs = ({
             )
           })}
         </div>
+      </div>
+
+      <div
+        style={{
+          padding: '8px 8px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          gap: 8
+        }}
+      >
+        <Button
+          key={"app:" + app}
+          ref={ref}
+          label={
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
+              }}
+            >
+              <AppIcon
+                client={client}
+                app={app}
+                priority="registry"
+                type="app"
+              />
+            </div>
+          }
+          variant={'text'}
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          size="small"
+          onClick={toggleMenu}
+          color={'inherit'}
+          style={tabButtonStyle}
+        />
+
+        <Menu
+          open={menuOpened}
+          anchorEl={ref.current}
+          getContentAnchorEl={null}
+          keepMounted
+          onClose={() => closeMenu()}
+
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+        >
+          <MenuItem onClick={() => { layoutControls("up"); }} disabled={i == 0}>
+            <ListItemIcon>
+              <Icon icon="up" />
+            </ListItemIcon>
+            <ListItemText primary={t('Widget.up')} />
+          </MenuItem>
+
+          <MenuItem onClick={() => { layoutControls("down"); }} disabled={j == i}>
+            <ListItemIcon>
+              <Icon icon="up" style={{rotate: '180deg'}} />
+            </ListItemIcon>
+            <ListItemText primary={t('Widget.down')} />
+          </MenuItem>
+
+          <Divider className="u-mv-half" />
+
+          <MenuItem onClick={() => { closeMenu(); window.location.href = appLink.url; }}>
+            <ListItemIcon>
+              <Icon icon="openapp" />
+            </ListItemIcon>
+            <ListItemText primary={t('Widget.openApp')} />
+          </MenuItem>
+
+          <MenuItem onClick={() => { layoutControls("uninstall"); closeMenu(); }}>
+            <ListItemIcon>
+              <Icon icon="trash" />
+            </ListItemIcon>
+            <ListItemText primary={t('Widget.remove')} />
+          </MenuItem>
+        </Menu>
+
+        {tabs.map((tab, index) => (
+          <Button
+            key={tab.label}
+            onClick={() => changeTab(index)}
+            label={
+              <Icon
+                icon={tab.icon}
+                color={selectedTab === index ? 'var(--primaryColor)' : undefined}
+              />
+            }
+            variant={selectedTab === index ? 'ghost' : 'text'}
+            size="small"
+            color={selectedTab === index ? 'primary' : 'inherit'}
+            style={tabButtonStyle}
+          />
+        ))}
       </div>
     </div>
   )

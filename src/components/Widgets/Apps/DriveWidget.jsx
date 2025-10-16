@@ -5,14 +5,14 @@ import WidgetTabs, { UnimplementedWidgetView } from '../Atoms/WidgetTabs'
 import { DriveWidgetView } from './Views/DriveWidgetView'
 import { useAppLinkWithStoreFallback, useClient } from 'cozy-client'
 
-export const DriveWidget = () => {
+export const DriveWidget = ({ layoutControls, i }) => {
   const client = useClient()
 
   return (
     <Widget
       {...WidgetProps}
     >
-      <DriveWidgetView />
+      <DriveWidgetView app={WidgetProps.app} layoutControls={layoutControls} index={i} client={client} />
     </Widget>
   )
 }
