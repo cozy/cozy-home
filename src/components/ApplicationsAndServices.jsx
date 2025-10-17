@@ -5,6 +5,7 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import LogoutTile from '@/components/LogoutTile'
 import ShortcutLink from '@/components/ShortcutLink'
+import EntrypointLink from '@/components/EntrypointLink'
 
 import { useApps } from './Applications'
 import { useServices } from './Services'
@@ -13,7 +14,7 @@ import AddTile from './AddTile'
 
 export const ApplicationsAndServices = () => {
   const showLogout = !!flag('home.mainlist.show-logout')
-  const { appsComponents, apps, shortcuts } = useApps()
+  const { appsComponents, apps, shortcuts, entrypoints } = useApps()
   const { konnectors } = useServices()
   const { isMobile } = useBreakpoints()
 
@@ -29,6 +30,10 @@ export const ApplicationsAndServices = () => {
         {shortcuts &&
           shortcuts.map((shortcut, index) => (
             <ShortcutLink key={index} file={shortcut} />
+          ))}
+        {entrypoints &&
+          entrypoints.map(entrypoint => (
+            <EntrypointLink key={entrypoint.name} entrypoint={entrypoint} />
           ))}
         {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
         {isStoreAvailable && <AddTile />}

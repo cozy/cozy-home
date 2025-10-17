@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
-import { useQuery } from 'cozy-client'
-import { sortApplicationsList } from 'cozy-client/dist/models/applications'
+import { useQuery, useFetchHomeShortcuts, models } from 'cozy-client'
+
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import cx from 'classnames'
@@ -13,9 +13,17 @@ import ShortcutLink from '@/components/ShortcutLink'
 import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from '@/config/home.json'
-import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from '@/queries'
+import { appsConn } from '@/queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+
+const {
+  applications: {
+    sortApplicationsList,
+    selectEntrypoints,
+    checkEntrypointCondition
+  }
+} = models
 
 const LoadingAppTiles = memo(({ num }) => {
   const { t } = useI18n()
@@ -69,29 +77,53 @@ const getApplicationsList = data => {
   }
 }
 
-export const useApps = () => {
-  const { t } = useI18n()
+// We get only the entrypoints we want:
+// - Drive onlyoffice
+const getEntrypoints = apps => {
+  const driveApp = apps.find(app => app.slug === 'drive') || {}
 
+  const driveEntrypoints = driveApp.entrypoints || []
+
+  const selectedEntrypoints = selectEntrypoints(driveEntrypoints, [
+    'new-file-type-text',
+    'new-file-type-sheet',
+    'new-file-type-slide'
+  ])
+
+  // Custom filtering because we want to ignore flag related to top bar
+  const filteredEntrypoints = selectedEntrypoints.filter(entrypoint => {
+    const conditions = entrypoint.conditions || []
+
+    return conditions.every(condition => {
+      if (
+        condition.type === 'flag' &&
+        condition.name === 'bar.onlyoffice.enabled'
+      ) {
+        return true
+      }
+
+      return checkEntrypointCondition(condition)
+    })
+  })
+
+  return filteredEntrypoints.map(entrypoint => ({
+    ...entrypoint,
+    slug: driveApp.slug
+  }))
+}
+
+export const useApps = () => {
   const { data: apps } = useQuery(appsConn.query, appsConn)
 
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const shortcuts = useFetchHomeShortcuts()
 
-  const magicHomeFolder = useQuery(
-    homeMagicFolderConn.query,
-    homeMagicFolderConn
-  )
-
-  const magicHomeFolderId = magicHomeFolder?.data?.[0]?._id
-  const homeShortcutsConn = mkHomeShorcutsConn(magicHomeFolderId)
-  const { data: shortcuts } = useQuery(homeShortcutsConn.query, {
-    ...homeShortcutsConn,
-    enabled: !!magicHomeFolderId
-  })
+  const entrypoints = getEntrypoints(apps)
 
   return {
     appsComponents: getApplicationsList(apps),
     apps,
-    shortcuts
+    shortcuts,
+    entrypoints
   }
 }
 

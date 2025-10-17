@@ -36,7 +36,6 @@
   "logout": "Ausloggen",
   "help": "Hilfe",
   "help_link": "https://help.cozy.io/",
-  "home_config_magic_folder": "/Einstellungen/Zuhause",
   "account": {
     "config": {
       "default_folder": "/Verwaltung/%{name}",

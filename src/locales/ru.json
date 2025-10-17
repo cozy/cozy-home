@@ -25,7 +25,6 @@
 },
 "help": "Помощь",
 "help_link": "https://help.cozy.io/",
-"home_config_magic_folder": "/Настройки/Главная",
 "account": {
 "config": {
 "default_folder": "/Административные/%{name}",

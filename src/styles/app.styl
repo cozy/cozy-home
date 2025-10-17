@@ -24,22 +24,7 @@ body
         overflow auto
 
 .App
-    // Avoid mix-blend-mode from home-custom-background to be linked to the background color of the body.
-    // Must not be responsive to the theme.
-    background-color white
     overflow-y overlay
-
-    &.custom-wallpaper
-        // black filter effect above the custom wallpaper image
-        &::before
-            content ''
-            position fixed
-            top 0
-            left 0
-            width 100%
-            height 100%
-            background-color rgba(0, 0, 0, .32)
-            backdrop-filter saturate(124%)
 
     .corner
         z-index var(--zIndex-nav)

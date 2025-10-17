@@ -36,7 +36,6 @@ import {
   mkHomeCustomShorcutsDirConn
 } from '@/queries'
 import { useFetchInitialData } from '@/hooks/useFetchInitialData'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from '@/components/Sections/SectionDialog'
 import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
@@ -52,9 +51,7 @@ const App = () => {
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
-  const { t } = useI18n()
-
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const homeMagicFolderConn = mkHomeMagicFolderConn()
   const { data: magicFolder } = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn
@@ -107,7 +104,8 @@ const App = () => {
   }
 
   return (
-    <Layout monoColumn>
+    // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
+    <Layout monoColumn className="u-bg-white">
       <BarComponent
         searchOptions={{ enabled: false }}
         componentsProps={{
