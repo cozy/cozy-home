@@ -12,6 +12,7 @@ import { AvailableWidgets } from '../Widgets/WidgetsWrapper';
 
 import { appsConn } from '@/queries';
 import { useQuery } from 'cozy-client'
+import { useWallpaperContext } from '@/hooks/useWallpaperContext';
 
 const Widget = ({ client }) => {
   const { data: apps } = useQuery(appsConn.query, appsConn)
