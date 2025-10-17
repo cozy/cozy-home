@@ -51,7 +51,7 @@
     "cozy-sharing": "^26.3.0",
     "cozy-stack-client": "^60.6.0",
     "cozy-tsconfig": "^1.8.1",
-    "cozy-ui": "^130.3.1",
+    "cozy-ui": "^130.10.0",
     "cozy-viewer": "^23.5.0",
     "date-fns": "2.28.0",
     "es-abstract": "1.20.2",
@@ -73,6 +73,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "2.3.0",
     "reselect": "^4.1.8",
+    "rooks": "7.14.1",
     "terser-webpack-plugin": "1.4.4"
   },
   "devDependencies": {
