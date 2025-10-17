@@ -87,10 +87,10 @@ export const homeSettingsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
-export const mkHomeMagicFolderConn = t => {
+export const mkHomeMagicFolderConn = () => {
   return {
     query: Q('io.cozy.files')
-      .where({ path: t('home_config_magic_folder') })
+      .where({ path: '/Settings/Home' })
       .indexFields(['path']),
     as: 'home/io.cozy.files/path=magic-folder',
     fetchPolicy: defaultFetchPolicy
@@ -100,15 +100,6 @@ export const fetchKonnectorBySlug = slug => {
   return {
     query: Q('io.cozy.konnectors').getById(`io.cozy.konnectors/${slug}`),
     as: `io.cozy.konnectors/${slug}`,
-    fetchPolicy: defaultFetchPolicy
-  }
-}
-export const mkHomeShorcutsConn = folderId => {
-  return {
-    query: Q('io.cozy.files')
-      .where({ dir_id: folderId, class: 'shortcut' })
-      .indexFields(['dir_id', 'class']),
-    as: `home/io.cozy.files/dir_id=${folderId},class=shortcut`,
     fetchPolicy: defaultFetchPolicy
   }
 }

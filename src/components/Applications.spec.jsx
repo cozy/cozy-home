@@ -13,8 +13,19 @@ jest.mock('cozy-flags', () => {
 
 const setup = ({ queries } = {}) => {
   if (!queries) {
+    const client = createMockClient({
+      queries: {
+        'io.cozy.apps': {
+          lastUpdate: new Date(),
+          data: [],
+          doctype: 'io.cozy.apps',
+          hasMore: false
+        }
+      }
+    })
+
     const root = render(
-      <AppLike>
+      <AppLike client={client} store={client.store}>
         <CozyTheme>
           <Applications />
         </CozyTheme>
@@ -58,16 +69,22 @@ describe('Applications', () => {
     ]
     const { root } = setup({
       queries: {
-        'home/io.cozy.files/path=magic-folder': {
+        'io.cozy.files/path/Settings/Home': {
           lastUpdate: new Date(),
           data: [{ id: 'folderId' }],
           doctype: 'io.cozy.files',
           hasMore: false
         },
-        'home/io.cozy.files/dir_id=folderId,class=shortcut': {
+        'io.cozy.files/dir_id/folderId/class/shortcut': {
           lastUpdate: new Date(),
           data: shortcuts,
           doctype: 'io.cozy.files',
+          hasMore: false
+        },
+        'io.cozy.apps': {
+          lastUpdate: new Date(),
+          data: [],
+          doctype: 'io.cozy.apps',
           hasMore: false
         }
       }

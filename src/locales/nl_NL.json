@@ -42,7 +42,6 @@
   },
   "help": "Hulp",
   "help_link": "https://help.cozy.io/",
-  "home_config_magic_folder": "/Settings/Home",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",

@@ -36,7 +36,6 @@
   "logout": "Cerrar sesión",
   "help": "Ayuda",
   "help_link": "https://help.cozy.io/",
-  "home_config_magic_folder": "V",
   "account": {
     "config": {
       "default_folder": "/Administrative/%{name}",
