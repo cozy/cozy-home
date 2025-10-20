@@ -6,6 +6,7 @@ import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import { editShortcut } from './actions/editShortcut'
 import { deleteShortcut } from './actions/deleteShortcut'
 import cx from 'classnames'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
@@ -51,23 +52,25 @@ const ShortcutActionsMenu = ({
           <Icon icon={DotsIcon} rotate={90} />
         </IconButton>
       )}
-      <ActionsMenu
-        ref={anchorRef}
-        open={isMenuOpen}
-        actions={actions}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-        onClose={() => setIsMenuOpen(false)}
-      />
-      {isEditModalOpen && (
-        <ShortcutEditModal
-          file={file}
-          shortcutInfos={shortcutInfos}
-          onClose={() => setIsEditModalOpen(false)}
+      <CozyTheme variant="normal">
+        <ActionsMenu
+          ref={anchorRef}
+          open={isMenuOpen}
+          actions={actions}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          onClose={() => setIsMenuOpen(false)}
         />
-      )}
+        {isEditModalOpen && (
+          <ShortcutEditModal
+            file={file}
+            shortcutInfos={shortcutInfos}
+            onClose={() => setIsEditModalOpen(false)}
+          />
+        )}
+      </CozyTheme>
     </>
   )
 }
