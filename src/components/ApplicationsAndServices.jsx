@@ -18,10 +18,6 @@ export const ApplicationsAndServices = () => {
   const { konnectors } = useServices()
   const { isMobile } = useBreakpoints()
 
-  const hiddenApps = flag('apps.hidden') || []
-  const isStoreAvailable =
-    apps.find(({ slug }) => slug === 'store') && !hiddenApps.includes('store')
-
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
       <div className="app-list app-list--gutter u-w-100 u-mh-auto u-flex-justify-center">
@@ -36,7 +32,7 @@ export const ApplicationsAndServices = () => {
             <EntrypointLink key={entrypoint.name} entrypoint={entrypoint} />
           ))}
         {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
-        <AddTile isStoreAvailable={isStoreAvailable} />
+        <AddTile apps={apps} />
         {showLogout && <LogoutTile />}
       </div>
     </div>
