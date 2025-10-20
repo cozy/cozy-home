@@ -36,7 +36,7 @@ export const ApplicationsAndServices = () => {
             <EntrypointLink key={entrypoint.name} entrypoint={entrypoint} />
           ))}
         {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
-        {isStoreAvailable && <AddTile />}
+        <AddTile isStoreAvailable={isStoreAvailable} />
         {showLogout && <LogoutTile />}
       </div>
     </div>

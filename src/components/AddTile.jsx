@@ -13,7 +13,7 @@ import ShortcutCreateModal from './Shortcuts/ShortcutCreateModal'
  *
  * @returns {JSX.Element} The rendered AddTile component.
  */
-const AddTile = () => {
+const AddTile = ({ isStoreAvailable }) => {
   const client = useClient()
   const nativePath = '/discover'
   const slug = 'store'
@@ -38,25 +38,29 @@ const AddTile = () => {
     )
   }
 
-  return (
-    <AppLinker
-      app={{ slug: 'store' }}
-      nativePath={nativePath}
-      href={generateWebLink({
-        pathname: '/',
-        cozyUrl: cozyURL.origin,
-        slug,
-        hash: nativePath,
-        subDomainType
-      })}
-    >
-      {({ onClick, href }) => (
-        <a onClick={onClick} href={href} className={styles['scale-hover']}>
-          <SquareAppIcon name={t('add_service')} variant="add" />
-        </a>
-      )}
-    </AppLinker>
-  )
+  if (isStoreAvailable) {
+    return (
+      <AppLinker
+        app={{ slug: 'store' }}
+        nativePath={nativePath}
+        href={generateWebLink({
+          pathname: '/',
+          cozyUrl: cozyURL.origin,
+          slug,
+          hash: nativePath,
+          subDomainType
+        })}
+      >
+        {({ onClick, href }) => (
+          <a onClick={onClick} href={href} className={styles['scale-hover']}>
+            <SquareAppIcon name={t('add_service')} variant="add" />
+          </a>
+        )}
+      </AppLinker>
+    )
+  }
+
+  return null
 }
 
 export default AddTile
