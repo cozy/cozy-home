@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useClient } from 'cozy-client'
 
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { ShortcutDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
 
@@ -25,7 +26,13 @@ const ShortcutEditModal = ({ file, shortcutInfos, onClose }) => {
   }
 
   return (
-    <ShortcutDialog shortcut={shortcutData} onSave={onSave} onClose={onClose} />
+    <CozyTheme variant="normal">
+      <ShortcutDialog
+        shortcut={shortcutData}
+        onSave={onSave}
+        onClose={onClose}
+      />
+    </CozyTheme>
   )
 }
 

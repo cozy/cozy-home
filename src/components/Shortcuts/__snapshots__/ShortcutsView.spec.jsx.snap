@@ -100,6 +100,9 @@ Object {
                     class="MuiTouchRipple-root"
                   />
                 </button>
+                <div
+                  class="TwakeTheme--light-normal u-dc"
+                />
               </span>
             </span>
           </div>
@@ -108,7 +111,7 @@ Object {
     </div>
     <div
       aria-hidden="true"
-      class="MuiPopover-root"
+      class="MuiPopover-root-64"
       role="presentation"
       style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
     >
@@ -117,23 +120,23 @@ Object {
         tabindex="0"
       />
       <div
-        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        class="MuiPaper-root-66 MuiMenu-paper-62 MuiPopover-paper-65 MuiPaper-elevation8-77 MuiPaper-rounded-67"
         style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
         tabindex="-1"
       >
         <ul
-          class="MuiList-root MuiMenu-list MuiList-padding"
+          class="MuiList-root-95 MuiMenu-list-63 MuiList-padding-96"
           role="menu"
           tabindex="-1"
         >
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            class="MuiListItem-root-102 MuiButtonBase-root-110 MuiListItem-root-102 MuiMenuItem-root-99 cozyActionsItem MuiMenuItem-gutters-100 MuiListItem-gutters-107 MuiListItem-button-108 Mui-focusVisible Mui-focusVisible medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-115 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -147,26 +150,26 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-117"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-123 MuiListItemText-primary-121 MuiTypography-body1-125 MuiTypography-displayBlock-152"
               >
                 Modify shortcut
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-159"
             />
           </li>
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            class="MuiListItem-root-102 MuiButtonBase-root-110 MuiListItem-root-102 MuiMenuItem-root-99 cozyActionsItem MuiMenuItem-gutters-100 MuiListItem-gutters-107 MuiListItem-button-108 medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-115 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -180,16 +183,16 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-117"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-123 MuiListItemText-primary-121 MuiTypography-body1-125 MuiTypography-displayBlock-152"
               >
                 Delete
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-159"
             />
           </li>
         </ul>
@@ -296,6 +299,9 @@ Object {
                   class="MuiTouchRipple-root"
                 />
               </button>
+              <div
+                class="TwakeTheme--light-normal u-dc"
+              />
             </span>
           </span>
         </div>
@@ -385,29 +391,29 @@ Object {
                 target="_blank"
               >
                 <div
-                  class="makeStyles-tileWrapper-77"
+                  class="makeStyles-tileWrapper-174"
                   data-testid="square-app-icon"
                 >
                   <div
                     class="TwakeTheme--light-normal u-dc"
                   >
                     <span
-                      class="MuiBadge-root-80"
+                      class="MuiBadge-root-177"
                     >
                       <span
-                        class="MuiBadge-root-80 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                        class="MuiBadge-root-177 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                       >
                         <h2
-                          class="MuiTypography-root-103 makeStyles-letter-75 MuiTypography-h2-109 MuiTypography-colorTextPrimary-128 MuiTypography-alignCenter-119"
+                          class="MuiTypography-root-200 makeStyles-letter-172 MuiTypography-h2-206 MuiTypography-colorTextPrimary-225 MuiTypography-alignCenter-216"
                         >
                           B
                         </h2>
                         <span
-                          class="MuiBadge-badge-81 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-87"
+                          class="MuiBadge-badge-178 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-184"
                         />
                       </span>
                       <span
-                        class="MuiBadge-badge-81 makeStyles-qualifier-79 MuiBadge-anchorOriginBottomRightRectangular-89"
+                        class="MuiBadge-badge-178 makeStyles-qualifier-176 MuiBadge-anchorOriginBottomRightRectangular-186"
                       >
                         <svg
                           class="styles__icon___23x3R"
@@ -423,7 +429,7 @@ Object {
                     </span>
                   </div>
                   <h6
-                    class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                    class="MuiTypography-root makeStyles-name-169 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                   >
                     b
                   </h6>
@@ -456,6 +462,9 @@ Object {
                     class="MuiTouchRipple-root"
                   />
                 </button>
+                <div
+                  class="TwakeTheme--light-normal u-dc"
+                />
               </span>
             </span>
           </div>
@@ -481,29 +490,29 @@ Object {
                 target="_blank"
               >
                 <div
-                  class="makeStyles-tileWrapper-77"
+                  class="makeStyles-tileWrapper-174"
                   data-testid="square-app-icon"
                 >
                   <div
                     class="TwakeTheme--light-normal u-dc"
                   >
                     <span
-                      class="MuiBadge-root-134"
+                      class="MuiBadge-root-235"
                     >
                       <span
-                        class="MuiBadge-root-134 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                        class="MuiBadge-root-235 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                       >
                         <h2
-                          class="MuiTypography-root-157 makeStyles-letter-75 MuiTypography-h2-163 MuiTypography-colorTextPrimary-182 MuiTypography-alignCenter-173"
+                          class="MuiTypography-root-258 makeStyles-letter-172 MuiTypography-h2-264 MuiTypography-colorTextPrimary-283 MuiTypography-alignCenter-274"
                         >
                           D
                         </h2>
                         <span
-                          class="MuiBadge-badge-135 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-141"
+                          class="MuiBadge-badge-236 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-242"
                         />
                       </span>
                       <span
-                        class="MuiBadge-badge-135 makeStyles-qualifier-133 MuiBadge-anchorOriginBottomRightRectangular-143"
+                        class="MuiBadge-badge-236 makeStyles-qualifier-234 MuiBadge-anchorOriginBottomRightRectangular-244"
                       >
                         <svg
                           class="styles__icon___23x3R"
@@ -519,7 +528,7 @@ Object {
                     </span>
                   </div>
                   <h6
-                    class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                    class="MuiTypography-root makeStyles-name-169 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                   >
                     d
                   </h6>
@@ -552,6 +561,9 @@ Object {
                     class="MuiTouchRipple-root"
                   />
                 </button>
+                <div
+                  class="TwakeTheme--light-normal u-dc"
+                />
               </span>
             </span>
           </div>
@@ -560,7 +572,7 @@ Object {
     </div>
     <div
       aria-hidden="true"
-      class="MuiPopover-root"
+      class="MuiPopover-root-232"
       role="presentation"
       style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
     >
@@ -569,23 +581,23 @@ Object {
         tabindex="0"
       />
       <div
-        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        class="MuiPaper-root-292 MuiMenu-paper-230 MuiPopover-paper-233 MuiPaper-elevation8-303 MuiPaper-rounded-293"
         style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
         tabindex="-1"
       >
         <ul
-          class="MuiList-root MuiMenu-list MuiList-padding"
+          class="MuiList-root-321 MuiMenu-list-231 MuiList-padding-322"
           role="menu"
           tabindex="-1"
         >
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            class="MuiListItem-root-328 MuiButtonBase-root-336 MuiListItem-root-328 MuiMenuItem-root-325 cozyActionsItem MuiMenuItem-gutters-326 MuiListItem-gutters-333 MuiListItem-button-334 Mui-focusVisible Mui-focusVisible medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-341 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -599,26 +611,26 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-343"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-349 MuiListItemText-primary-347 MuiTypography-body1-351 MuiTypography-displayBlock-378"
               >
                 Modify shortcut
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-478"
             />
           </li>
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            class="MuiListItem-root-328 MuiButtonBase-root-336 MuiListItem-root-328 MuiMenuItem-root-325 cozyActionsItem MuiMenuItem-gutters-326 MuiListItem-gutters-333 MuiListItem-button-334 medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-341 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -632,16 +644,16 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-343"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-349 MuiListItemText-primary-347 MuiTypography-body1-351 MuiTypography-displayBlock-378"
               >
                 Delete
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-478"
             />
           </li>
         </ul>
@@ -653,7 +665,7 @@ Object {
     </div>
     <div
       aria-hidden="true"
-      class="MuiPopover-root"
+      class="MuiPopover-root-290"
       role="presentation"
       style="position: fixed; z-index: var(--zIndex-modal); right: 0px; bottom: 0px; top: 0px; left: 0px; visibility: hidden;"
     >
@@ -662,23 +674,23 @@ Object {
         tabindex="0"
       />
       <div
-        class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation8 MuiPaper-rounded"
+        class="MuiPaper-root-381 MuiMenu-paper-288 MuiPopover-paper-291 MuiPaper-elevation8-392 MuiPaper-rounded-382"
         style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;"
         tabindex="-1"
       >
         <ul
-          class="MuiList-root MuiMenu-list MuiList-padding"
+          class="MuiList-root-410 MuiMenu-list-289 MuiList-padding-411"
           role="menu"
           tabindex="-1"
         >
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-focusVisible Mui-focusVisible medium"
+            class="MuiListItem-root-417 MuiButtonBase-root-425 MuiListItem-root-417 MuiMenuItem-root-414 cozyActionsItem MuiMenuItem-gutters-415 MuiListItem-gutters-422 MuiListItem-button-423 Mui-focusVisible Mui-focusVisible medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-430 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -692,26 +704,26 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-432"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-438 MuiListItemText-primary-436 MuiTypography-body1-440 MuiTypography-displayBlock-467"
               >
                 Modify shortcut
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-488"
             />
           </li>
           <li
             aria-disabled="false"
-            class="MuiListItem-root MuiButtonBase-root MuiListItem-root MuiMenuItem-root cozyActionsItem MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button medium"
+            class="MuiListItem-root-417 MuiButtonBase-root-425 MuiListItem-root-417 MuiMenuItem-root-414 cozyActionsItem MuiMenuItem-gutters-415 MuiListItem-gutters-422 MuiListItem-button-423 medium"
             role="menuitem"
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root cozyListItemIcon"
+              class="MuiListItemIcon-root-430 cozyListItemIcon"
             >
               <svg
                 class="styles__icon___23x3R"
@@ -725,16 +737,16 @@ Object {
               </svg>
             </div>
             <div
-              class="MuiListItemText-root"
+              class="MuiListItemText-root-432"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                class="MuiTypography-root-438 MuiListItemText-primary-436 MuiTypography-body1-440 MuiTypography-displayBlock-467"
               >
                 Delete
               </span>
             </div>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root-488"
             />
           </li>
         </ul>
@@ -770,29 +782,29 @@ Object {
               target="_blank"
             >
               <div
-                class="makeStyles-tileWrapper-77"
+                class="makeStyles-tileWrapper-174"
                 data-testid="square-app-icon"
               >
                 <div
                   class="TwakeTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-80"
+                    class="MuiBadge-root-177"
                   >
                     <span
-                      class="MuiBadge-root-80 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                      class="MuiBadge-root-177 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                     >
                       <h2
-                        class="MuiTypography-root-103 makeStyles-letter-75 MuiTypography-h2-109 MuiTypography-colorTextPrimary-128 MuiTypography-alignCenter-119"
+                        class="MuiTypography-root-200 makeStyles-letter-172 MuiTypography-h2-206 MuiTypography-colorTextPrimary-225 MuiTypography-alignCenter-216"
                       >
                         B
                       </h2>
                       <span
-                        class="MuiBadge-badge-81 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-87"
+                        class="MuiBadge-badge-178 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-184"
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-81 makeStyles-qualifier-79 MuiBadge-anchorOriginBottomRightRectangular-89"
+                      class="MuiBadge-badge-178 makeStyles-qualifier-176 MuiBadge-anchorOriginBottomRightRectangular-186"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -808,7 +820,7 @@ Object {
                   </span>
                 </div>
                 <h6
-                  class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-name-169 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   b
                 </h6>
@@ -841,6 +853,9 @@ Object {
                   class="MuiTouchRipple-root"
                 />
               </button>
+              <div
+                class="TwakeTheme--light-normal u-dc"
+              />
             </span>
           </span>
         </div>
@@ -866,29 +881,29 @@ Object {
               target="_blank"
             >
               <div
-                class="makeStyles-tileWrapper-77"
+                class="makeStyles-tileWrapper-174"
                 data-testid="square-app-icon"
               >
                 <div
                   class="TwakeTheme--light-normal u-dc"
                 >
                   <span
-                    class="MuiBadge-root-134"
+                    class="MuiBadge-root-235"
                   >
                     <span
-                      class="MuiBadge-root-134 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
+                      class="MuiBadge-root-235 styles__SquareAppIcon-wrapper___2SEuM styles__SquareAppIcon-wrapper--light___2iR5Y undefined"
                     >
                       <h2
-                        class="MuiTypography-root-157 makeStyles-letter-75 MuiTypography-h2-163 MuiTypography-colorTextPrimary-182 MuiTypography-alignCenter-173"
+                        class="MuiTypography-root-258 makeStyles-letter-172 MuiTypography-h2-264 MuiTypography-colorTextPrimary-283 MuiTypography-alignCenter-274"
                       >
                         D
                       </h2>
                       <span
-                        class="MuiBadge-badge-135 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-141"
+                        class="MuiBadge-badge-236 badgeSizeLarge MuiBadge-anchorOriginTopRightRectangular-242"
                       />
                     </span>
                     <span
-                      class="MuiBadge-badge-135 makeStyles-qualifier-133 MuiBadge-anchorOriginBottomRightRectangular-143"
+                      class="MuiBadge-badge-236 makeStyles-qualifier-234 MuiBadge-anchorOriginBottomRightRectangular-244"
                     >
                       <svg
                         class="styles__icon___23x3R"
@@ -904,7 +919,7 @@ Object {
                   </span>
                 </div>
                 <h6
-                  class="MuiTypography-root makeStyles-name-72 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-name-169 u-spacellipsis MuiTypography-h6 MuiTypography-colorTextPrimary MuiTypography-alignCenter"
                 >
                   d
                 </h6>
@@ -937,6 +952,9 @@ Object {
                   class="MuiTouchRipple-root"
                 />
               </button>
+              <div
+                class="TwakeTheme--light-normal u-dc"
+              />
             </span>
           </span>
         </div>
