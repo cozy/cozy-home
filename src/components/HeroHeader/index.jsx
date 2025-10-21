@@ -2,6 +2,7 @@ import React from 'react'
 import { useClient } from 'cozy-client'
 import { useInstanceSettings } from '@/hooks/useInstanceSettings'
 import cx from 'classnames'
+import flag from 'cozy-flags'
 
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
@@ -36,6 +37,10 @@ export const HeroHeader = () => {
   const { instanceSettings } = useInstanceSettings(client)
   const publicName = instanceSettings?.['public_name'] || '\u00A0'
 
+  const displayName = flag('home.display-url-in-hero-header')
+    ? new URL(rootURL).host
+    : publicName
+
   return (
     <header className="hero-header u-pos-relative u-flex u-flex-column u-flex-justify-center u-flex-items-center u-flex-shrink-0 u-bxz">
       <Avatar
@@ -49,7 +54,7 @@ export const HeroHeader = () => {
           [classes.nameInverted]: theme.variant === 'inverted'
         })}
       >
-        {publicName}
+        {displayName}
       </Typography>
     </header>
   )
