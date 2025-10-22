@@ -540,6 +540,10 @@
       }
     }
   },
+  "shortcut": {
+    "edit": "Chỉnh sửa lối tắt",
+    "delete": "Xóa"
+  },
   "Queue": {
     "header": "Đang đồng bộ tài khoản:",
     "header_mobile": "%{done} trên %{total}",

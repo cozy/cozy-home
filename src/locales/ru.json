@@ -540,6 +540,10 @@
 }
 }
 },
+"shortcut": {
+"edit": "Изменить ярлык",
+"delete": "Удалить"
+},
 "Queue": {
 "header": "Синхронизация аккаунтов:",
 "header_mobile": "%{done} из %{total}",

@@ -1,6 +1,6 @@
 {
   "name": "cozy-home",
-  "version": "1.88.0",
+  "version": "1.89.0",
   "main": "src/index.jsx",
   "scripts": {
     "tx": "tx pull --all || true",
@@ -32,7 +32,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "@sentry/react": "7.119.0",
-    "cozy-bar": "^25.0.0",
+    "cozy-bar": "^25.1.1",
     "cozy-client": "^60.14.0",
     "cozy-dataproxy-lib": "^4.11.0",
     "cozy-device-helper": "^3.8.0",
@@ -51,7 +51,7 @@
     "cozy-sharing": "^26.5.2",
     "cozy-stack-client": "^60.6.0",
     "cozy-tsconfig": "^1.8.1",
-    "cozy-ui": "^130.3.1",
+    "cozy-ui": "^131.0.1",
     "cozy-viewer": "^23.5.0",
     "date-fns": "2.28.0",
     "es-abstract": "1.20.2",
@@ -73,6 +73,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "2.3.0",
     "reselect": "^4.1.8",
+    "rooks": "7.14.1",
     "terser-webpack-plugin": "1.4.4"
   },
   "devDependencies": {
