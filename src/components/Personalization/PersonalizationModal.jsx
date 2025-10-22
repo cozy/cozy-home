@@ -21,7 +21,6 @@ export const PersonalizationModal = () => {
   const [tabSelected, setTabSelected] = useState(0);
 
   const tabs = [
-    ...flag('cozy.widgets.enabled') && [
       {
         label: 'Wallpaper',
         icon: 'palette',
@@ -29,6 +28,7 @@ export const PersonalizationModal = () => {
         enabled: false,
         component: <Wallpaper client={client} />
       },
+    ...flag('cozy.widgets.enabled') ? [
       {
         label: 'Widgets',
         icon: 'mosaic',
@@ -36,7 +36,7 @@ export const PersonalizationModal = () => {
         enabled: false,
         component: <Widget client={client} />
       },
-    ],
+    ] : [],
     {
       label: 'Dark theme',
       icon: 'contrast',
@@ -70,6 +70,7 @@ export const PersonalizationModal = () => {
       >
         {tabs.map((tab, index) => (
           <Button
+            key={tab.label}
             className={`u-bdrs-circle ${styles['personalizationTabButton'] } ${tabSelected === index ? styles['personalizationTabButton--selected'] : ''}`}
             label={<Icon icon={tab.icon} size={14} />}
             size="small"
