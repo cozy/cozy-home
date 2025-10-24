@@ -101,25 +101,34 @@ export const WidgetTabs = ({
 
             return (
               <Transition in={isActive} timeout={0} key={tab.label} mountOnEnter>
-                {state => (
-                  <div
-                    key={tab.label}
-                    style={{
-                      display: 'block',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      inset: 0,
-                      zIndex: isActive ? 3 : 2,
-                      pointerEvents: isActive ? 'all' : 'none',
-                    }}
-                    className={`${styles[`app-tab`]} ${styles[`app-tab--${state}`]}`}
-                  >
-                    {content}
-                  </div>
-                )}
+                {state => () => {
+                  try {
+                    return (
+                      <div
+                        key={tab.label}
+                        style={{
+                          display: 'block',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          inset: 0,
+                          zIndex: isActive ? 3 : 2,
+                          pointerEvents: isActive ? 'all' : 'none',
+                        }}
+                        className={`${styles[`app-tab`]} ${styles[`app-tab--${state}`]}`}
+                      >
+                        {content}
+                      </div>
+                    )
+                  } catch (e) {
+                    console.error('Error rendering widget tab content:', e)
+                    return (
+                      <></>
+                    )
+                  }
+                }}
               </Transition>
             )
           })}
