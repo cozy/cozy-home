@@ -143,7 +143,7 @@ export const DriveWidgetSharingsTab = ({ sharedDocumentIds = [], setOpenedFile }
 
   if (!files || files.length === 0) {
     return (
-      <UnimplementedWidgetView label={t('Widget.Drive.NoTrashedFiles')} />
+      <UnimplementedWidgetView label={t('Widget.Drive.NoSharedFiles')} />
     )
   }
 
@@ -173,7 +173,7 @@ export const DriveWidgetFavoritesTab = ({ setOpenedFile }) => {
 
   if (!files || files.length === 0) {
     return (
-      <UnimplementedWidgetView label={t('Widget.Drive.NoTrashedFiles')} />
+      <UnimplementedWidgetView label={t('Widget.Drive.NoFavoriteFiles')} />
     )
   }
 

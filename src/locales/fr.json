@@ -616,7 +616,9 @@
     "Drive" : {
       "NoRecentFiles": "Aucun fichier récent",
       "NoRecentFolders": "Aucun dossier récent",
-      "NoTrashedFiles": "Aucun fichier dans la corbeille"
+      "NoTrashedFiles": "Aucun fichier dans la corbeille",
+      "NoSharedFiles": "Aucun fichier partagé",
+      "NoFavoriteFiles": "Aucun fichier favori"
     },
     "Papillon" : {
       "NoCourses": "Aucun cours à venir",

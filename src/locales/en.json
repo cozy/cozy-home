@@ -616,7 +616,9 @@
     "Drive": {
       "NoRecentFiles": "No recent files",
       "NoRecentFolders": "No recent folders",
-      "NoTrashedFiles": "No files in the trash"
+      "NoTrashedFiles": "No files in the trash",
+      "NoSharedFiles": "No shared files",
+      "NoFavoriteFiles": "No favorite files"
     },
     "Papillon": {
       "NoCourses": "No upcoming courses",
