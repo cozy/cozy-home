@@ -25,13 +25,18 @@ export const Widget = ({
 }) => {
   const { type } = useCozyTheme()
 
-  return (
-    <div className={`${styles[`app-widget`]} ${styles[`app-widget-background--${type}`]} u-flex u-flex-column u-mh-auto u-bdrs-8`}>
-      <div className={`${styles[`app-widget-children`]}`}>
-        {children}
+  try {
+    return (
+      <div className={`${styles[`app-widget`]} ${styles[`app-widget-background--${type}`]} u-flex u-flex-column u-mh-auto u-bdrs-8`}>
+        <div className={`${styles[`app-widget-children`]}`}>
+          {children}
+        </div>
       </div>
-    </div>
-  )
+    )
+  } catch (e) {
+    console.error('Error rendering Widget component', e)
+    return null
+  }
 }
 
 export default Widget
