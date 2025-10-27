@@ -7,6 +7,7 @@ import { useWallpaperContext } from '@/hooks/useWallpaperContext';
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper';
 
 import styles from './Wallpaper.styl'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme';
 
 const Wallpapers = [
   {
@@ -58,6 +59,8 @@ const Wallpaper = (client) => {
   const { data, setWallpaperLink, returnToDefaultWallpaper } = useWallpaperContext();
   const defaultWallpaper = useDefaultWallpaper()
 
+  const { type } = useCozyTheme()
+
   useEffect(() => {
     if (data?.wallpaperLink) {
       const wp = Wallpapers.find(wp => wp.image === data.wallpaperLink.split('/').pop())
@@ -78,7 +81,7 @@ const Wallpaper = (client) => {
       {Wallpapers.map((wallpaper) => (
         <div
           key={wallpaper.label}
-          className={`${styles['wallpaperItem']} ${currentWallpaper === wallpaper.key ? styles['wallpaperItem--selected'] : ''}`}
+          className={`${styles['wallpaperItem']} ${styles['wallpaperItem--' + type]} ${currentWallpaper === wallpaper.key ? styles['wallpaperItem--selected'] : ''}`}
           onClick={() => {
             setCurrentWallpaper(wallpaper.key)
 

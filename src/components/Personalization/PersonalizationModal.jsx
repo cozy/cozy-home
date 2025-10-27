@@ -13,12 +13,24 @@ import Wallpaper from "./Wallpaper";
 
 import { Transition } from 'react-transition-group';
 import { useWallpaperContext } from "@/hooks/useWallpaperContext";
-import { useClient } from "cozy-client";
+import { useClient, useQuery } from "cozy-client";
 import Widget from "./Widget";
+import { buildSettingsInstanceQuery } from "./queries";
+import { useI18n } from "cozy-ui/transpiled/react/providers/I18n";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export const PersonalizationModal = () => {
   const client = useClient();
+  const { t } = useI18n();
   const [tabSelected, setTabSelected] = useState(0);
+
+  const instanceQuery = buildSettingsInstanceQuery()
+  const { data: instance, ...instanceQueryLeft } = useQuery(
+    instanceQuery.definition,
+    instanceQuery.options
+  )
+
+  console.log("Inst : ", instance)
 
   const tabs = [
       {
@@ -37,12 +49,6 @@ export const PersonalizationModal = () => {
         component: <Widget client={client} />
       },
     ] : [],
-    {
-      label: 'Dark theme',
-      icon: 'contrast',
-      onClick: () => { },
-      enabled: false,
-    }
   ]
 
   return (
@@ -78,6 +84,8 @@ export const PersonalizationModal = () => {
             onClick={tab.onClick}
           />
         ))}
+
+        <ThemeSwitcher />
       </div>
 
       <div

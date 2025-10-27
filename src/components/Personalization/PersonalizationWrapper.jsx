@@ -78,7 +78,7 @@ export const PersonalizationWrapper = () => {
                   style={{
                     marginRight: 14,
                     marginBottom: 14,
-                    borderRadius: radius,
+                    borderRadius: radius
                   }}
                 >
                   <div
