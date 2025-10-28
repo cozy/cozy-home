@@ -11,9 +11,17 @@ const ShortcutCreateModal = ({ onClose }) => {
   const magicHomeFolderId = useMagicFolder()
 
   const createShortcut = async (makedFileName, makedURL) => {
+    let homeFolderId = magicHomeFolderId
+
+    if (!homeFolderId) {
+      homeFolderId = await client
+        .collection('io.cozy.files')
+        .ensureDirectoryExists('/Settings/Home')
+    }
+
     await client.save({
       _type: 'io.cozy.files.shortcuts',
-      dir_id: magicHomeFolderId,
+      dir_id: homeFolderId,
       name: makedFileName,
       url: makedURL
     })
