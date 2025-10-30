@@ -25,7 +25,7 @@ const Announcements: FC = () => {
       })
       setBeenActivated(true)
     }
-  }, [hasBeenActivated, save, values.firstActivatedAt, fetchStatus])
+  }, [hasBeenActivated, values.firstActivatedAt, fetchStatus])
 
   const handleDismiss = (): void => {
     setBeenDismissed(true)

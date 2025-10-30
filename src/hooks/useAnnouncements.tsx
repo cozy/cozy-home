@@ -81,7 +81,7 @@ const useAnnouncements = ({
 
       setUnseenData(unseenData.slice(0, 5))
     }
-  }, [hasStartedFiltering, rawData, values, save])
+  }, [hasStartedFiltering, rawData, values])
 
   return unseenData
 }
