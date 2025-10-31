@@ -94,17 +94,9 @@ const ThemeProvider = ({ children }) => {
   const {
     data: { isCustomWallpaper }
   } = useWallpaperContext()
-  const { type } = useCozyTheme()
-
-  const variant = isCustomWallpaper
-    ? type === 'light'
-      ? 'inverted'
-      : 'normal'
-    : 'normal'
 
   return (
     <CozyTheme
-      variant={variant}
       className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
     >
       {children}

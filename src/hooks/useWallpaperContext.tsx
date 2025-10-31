@@ -12,6 +12,8 @@ interface WallPaperContextInterfaceData {
 }
 interface WallPaperContextInterface {
   data: WallPaperContextInterfaceData
+  setWallpaperLink: (link: string | null) => void
+  returnToDefaultWallpaper: () => void
   fetchStatus: string
 }
 export const WallPaperProvider = ({

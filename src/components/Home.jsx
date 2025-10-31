@@ -8,6 +8,7 @@ import { getFlagshipMetadata } from 'cozy-device-helper'
 // import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
+import { PersonalizationWrapper } from './Personalization/PersonalizationWrapper'
 
 import ApplicationsAndServices from '@/components/ApplicationsAndServices'
 import Applications from '@/components/Applications'
@@ -31,6 +32,7 @@ const Home = ({ wrapper }) => {
         {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantDesktopWrapper />
         )}
+        {flag('cozy.personalization.enabled') && <PersonalizationWrapper />}
         <div
           role="main"
           className={cx('u-flex u-flex-column u-ph-1', {

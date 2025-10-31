@@ -1,0 +1,40 @@
+.personalizationTabButton
+  min-width: 40px !important
+  width: 40px !important
+  min-height: 40px !important
+  height: 40px !important
+  padding: 0 !important
+  background-color: var(--actionColorGhost) !important
+  border-radius: 50
+  display: flex
+  align-items: center
+  justify-content: center
+
+.personalizationTabButton--selected
+  background-color: var(--actionColorDisabled) !important
+
+.personalization-tab
+  transition: opacity 200ms, transform 200ms
+  transition-timing-function: cubic-bezier(0.3, 0, 0, 1)
+  width: 100%
+  height: 100%
+  position: absolute
+  top: 0
+  left: 0
+  pointer-events: none
+
+.personalization-tab--entering
+  transition: none
+  opacity: 0
+  transform: scale(0.93)
+
+.personalization-tab--entered
+  opacity: 1
+  transform: scale(1)
+  pointer-events: all
+
+.personalization-tab--exiting
+  opacity: 0
+
+.personalization-tab--exited
+  opacity: 0
