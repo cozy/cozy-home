@@ -8,7 +8,7 @@ import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 
 export const BackgroundContainer = (): JSX.Element => {
   const {
-    data: { binaryCustomWallpaper, isCustomWallpaper }
+    data: { binaryCustomWallpaper, isCustomWallpaper, wallpaperLink }
   } = useWallpaperContext()
   const { type } = useCozyTheme()
   const defaultWallpaper = useDefaultWallpaper()
@@ -26,12 +26,20 @@ export const BackgroundContainer = (): JSX.Element => {
       style={
         binaryCustomWallpaper
           ? { backgroundImage: `url(${binaryCustomWallpaper})` }
-          : undefined
+          : { backgroundImage: 'none' }
       }
     >
       <div />
       <div />
       <div />
+
+      {isCustomWallpaper && wallpaperLink && (
+        <img
+          className="home-custom-background--img"
+          src={wallpaperLink}
+        />
+      )}
+
       {!isCustomWallpaper && defaultWallpaper && (
         <img className="home-default-background--img" src={defaultWallpaper} />
       )}

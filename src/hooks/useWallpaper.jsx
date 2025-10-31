@@ -18,24 +18,11 @@ const useWallpaper = () => {
       }
       try {
         setFetchStatus('loading')
-        const binary = await localForage.getItem('customWallpaper')
-        if (binary) {
-          setBinaryCustomWallpaper(binary)
-        }
-        const response = await client
-          .collection('io.cozy.files')
-          .getDownloadLinkByPath(homeConfig.customWallpaperPath)
-        setWallpaperLink(response)
-        setFetchStatus('loaded')
-        const fetchBinary = await fetch(response)
-        const blob = await fetchBinary.blob()
-        const reader = new FileReader()
-        reader.readAsDataURL(blob)
-        reader.onloadend = async () => {
-          const base64data = reader.result
-          setBinaryCustomWallpaper(base64data)
-          await localForage.setItem('customWallpaper', base64data)
-          localStorage.setItem('hasCustomWallpaper', true)
+        const link = await localForage.getItem('customWallpaper')
+        if (link) {
+          setWallpaperLink(link)
+          setFetchStatus('loaded')
+          return
         }
       } catch (error) {
         await localForage.removeItem('customWallpaper')
@@ -48,6 +35,24 @@ const useWallpaper = () => {
     fetchData()
   }, [client, cozyDefaultWallpaper])
 
+  const setWallpaperLinkAndStore = async link => {
+    setWallpaperLink(link)
+    if (link === cozyDefaultWallpaper) {
+      await localForage.removeItem('customWallpaper')
+      localStorage.setItem('hasCustomWallpaper', false)
+      setBinaryCustomWallpaper(null)
+    }
+    localStorage.setItem('hasCustomWallpaper', true)
+    await localForage.setItem('customWallpaper', link)
+  }
+
+  const returnToDefaultWallpaper = async () => {
+    setWallpaperLink(cozyDefaultWallpaper)
+    await localForage.removeItem('customWallpaper')
+    localStorage.setItem('hasCustomWallpaper', false)
+    setBinaryCustomWallpaper(null)
+  }
+
   return {
     data: {
       wallpaperLink,
@@ -57,6 +62,8 @@ const useWallpaper = () => {
           binaryCustomWallpaper
       )
     },
+    setWallpaperLink: setWallpaperLinkAndStore,
+    returnToDefaultWallpaper,
     fetchStatus
   }
 }
