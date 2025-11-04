@@ -1,50 +1,40 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react'
 
 import Fab from 'cozy-ui/transpiled/react/Fab'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Paper from 'cozy-ui/transpiled/react/Paper'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import { Fade, Grow, Popper } from '@material-ui/core';
-import { PersonalizationModal } from "./PersonalizationModal";
-import useBreakpoints from "cozy-ui/transpiled/react/providers/Breakpoints";
-import BottomSheet, { BottomSheetHeader, BottomSheetItem, BottomSheetTitle } from 'cozy-ui/transpiled/react/BottomSheet'
-
+import { Grow, Popper } from '@material-ui/core'
+import { PersonalizationModal } from './PersonalizationModal'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import BottomSheet from 'cozy-ui/transpiled/react/BottomSheet'
+import styles from './Personalization.styl'
 
 export const PersonalizationWrapper = () => {
   const { isMobile } = useBreakpoints()
 
-  const [openAppMenu, setOpenAppMenu] = useState(false);
-  const ref = useRef(null);
+  const [openAppMenu, setOpenAppMenu] = useState(false)
+  const ref = useRef(null)
 
   const toggleAppMenu = () => {
-    setOpenAppMenu(!openAppMenu);
+    setOpenAppMenu(!openAppMenu)
   }
-
-  const radius = 12;
 
   return (
     <>
       <div
-        style={{
-          position: 'fixed',
-          bottom: 16,
-          right: 16,
-          zIndex: 10
-        }}
-        key={"personalize-fab-container"}
+        className={`${styles['personalize-fab-container']} u-pos-fixed u-bottom-m u-right-m`}
+        key={'personalize-fab-container'}
       >
         <Fab
           onClick={() => toggleAppMenu()}
           ref={ref}
-          key={"personalize-fab"}
-          style={{
-            borderRadius: 50,
-          }}
+          key="personalize-fab"
+          className="u-bdrs-circle"
         >
           <Icon
-            icon={"pen"}
-            key={"personalize-fab-icon"}
-            color={"var(--primaryColor)"}
+            icon="pen"
+            key="personalize-fab-icon"
+            color="var(--primaryColor)"
             size={18}
           />
         </Fab>
@@ -53,7 +43,7 @@ export const PersonalizationWrapper = () => {
       {isMobile && openAppMenu && (
         <BottomSheet
           onClose={() => setOpenAppMenu(false)}
-          key={"personalize-bottom-sheet"}
+          key="personalize-bottom-sheet"
           backdrop
         >
           <div>
@@ -61,37 +51,24 @@ export const PersonalizationWrapper = () => {
           </div>
         </BottomSheet>
       )}
-      
+
       {!isMobile && (
-        <Popper id={"popper"} open={openAppMenu} anchorEl={ref.current} transition
-          style={{
-            zIndex: 10
-          }}
+        <Popper
+          id="popper"
+          open={openAppMenu}
+          anchorEl={ref.current}
+          transition
+          className={styles['personalize-popper']}
         >
           {({ TransitionProps }) => (
-              <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: 'right bottom' }}
-            >
-                <Paper
-                  elevation={8}
-                  style={{
-                    marginRight: 14,
-                    marginBottom: 14,
-                    borderRadius: radius
-                  }}
+            <Grow {...TransitionProps} className={styles['personalize-grow']}>
+              <Paper elevation={8} className="u-mr-1 u-mb-1 u-bdrs-6">
+                <div
+                  className={`${styles['personalize-modal-container']} u-bdrs-6 u-ov-hidden`}
                 >
-                  <div
-                    style={{
-                      width: 300,
-                      height: 440,
-                      overflow: 'hidden',
-                      borderRadius: radius
-                    }}
-                  >
-                    <PersonalizationModal />
-                  </div>
-                </Paper>
+                  <PersonalizationModal />
+                </div>
+              </Paper>
             </Grow>
           )}
         </Popper>

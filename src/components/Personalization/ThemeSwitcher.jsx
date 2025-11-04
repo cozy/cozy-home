@@ -1,37 +1,22 @@
-import React, { useRef, useState } from "react";
+import React from 'react'
 
-import Fab from 'cozy-ui/transpiled/react/Fab'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Paper from 'cozy-ui/transpiled/react/Paper'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/Buttons'
-import { Fade, Grow, Popper } from '@material-ui/core';
 
-import styles from './Personalization.styl'
-import flag from "cozy-flags";
-import Wallpaper from "./Wallpaper";
-
-import { Transition } from 'react-transition-group';
-import { useWallpaperContext } from "@/hooks/useWallpaperContext";
-import { useClient, useQuery } from "cozy-client";
-import Widget from "./Widget";
-import { buildSettingsInstanceQuery } from "./queries";
-import { useI18n } from "cozy-ui/transpiled/react/providers/I18n";
+import { useClient, useQuery } from 'cozy-client'
+import { buildSettingsInstanceQuery } from './queries'
 
 import Tabs from 'cozy-ui/transpiled/react/Tabs'
 import Tab from 'cozy-ui/transpiled/react/Tab'
 
 import DevicesIcon from 'cozy-ui/transpiled/react/Icons/Devices'
-import SunIcon from "./icons/SunIcon";
-import MoonIcon from "./icons/MoonIcon";
+import SunIcon from './icons/SunIcon'
+import MoonIcon from './icons/MoonIcon'
 
 export const ThemeSwitcher = () => {
-  const client = useClient();
-  const { t } = useI18n();
-  const [tabSelected, setTabSelected] = useState(0);
+  const client = useClient()
 
   const instanceQuery = buildSettingsInstanceQuery()
-  const { data: instance, ...instanceQueryLeft } = useQuery(
+  const { data: instance } = useQuery(
     instanceQuery.definition,
     instanceQuery.options
   )
@@ -55,7 +40,6 @@ export const ThemeSwitcher = () => {
 
   const handleChange = async v => {
     const newColorScheme = options[v].value
-    console.log("newcs:", newColorScheme)
 
     await client.save({
       _rev: instance.meta.rev,
@@ -67,25 +51,20 @@ export const ThemeSwitcher = () => {
     })
   }
 
-  if (!colorSchemeValue) return null;
-  
+  if (!colorSchemeValue) return null
+
   return (
-    <div
-      style={{
-        width: 120
-      }}
-    >
+    <div className="u-w-4">
       <Tabs
         narrowed
         segmented
-        value={options.findIndex((o) => o.value == colorSchemeValue)}
-        onChange={(e, v) => handleChange(v)}
+        value={options.findIndex(o => o.value == colorSchemeValue)}
+        onChange={(_, v) => handleChange(v)}
       >
         {options.map(option => (
           <Tab
-            label={(
-              <Icon icon={option.icon} />
-            )}
+            key={option.value}
+            label={<Icon icon={option.icon} />}
             id={option.value}
           />
         ))}

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import homeConfig from '@/config/home.json'
 import { useClient } from 'cozy-client'
 import localForage from 'localforage'
 
@@ -35,15 +34,27 @@ const useWallpaper = () => {
     fetchData()
   }, [client, cozyDefaultWallpaper])
 
+  /**
+   * Sets the wallpaper link and stores it in localForage.
+   *
+   * This function updates the wallpaper link state and stores the provided link
+   * in localForage. It also updates the localStorage flag indicating that a custom
+   * wallpaper is set.
+   *
+   * @async
+   * @param {string} link - The wallpaper link to be set.
+   * @returns {Promise<void>}
+   */
   const setWallpaperLinkAndStore = async link => {
     setWallpaperLink(link)
     if (link === cozyDefaultWallpaper) {
       await localForage.removeItem('customWallpaper')
       localStorage.setItem('hasCustomWallpaper', false)
       setBinaryCustomWallpaper(null)
+    } else {
+      localStorage.setItem('hasCustomWallpaper', true)
+      await localForage.setItem('customWallpaper', link)
     }
-    localStorage.setItem('hasCustomWallpaper', true)
-    await localForage.setItem('customWallpaper', link)
   }
 
   const returnToDefaultWallpaper = async () => {
