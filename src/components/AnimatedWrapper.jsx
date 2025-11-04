@@ -1,9 +1,7 @@
 import React from 'react'
 import { isFlagshipApp } from 'cozy-device-helper'
 import homeConfig from '@/config/home.json'
-import { useOpenApp } from '@/hooks/useOpenApp'
 import { RemoveScroll } from 'react-remove-scroll'
-import cx from 'classnames'
 
 import App from '@/containers/App'
 
@@ -16,8 +14,6 @@ const RemoveScrollOnFlaghsip = ({ children }) => {
 }
 
 const AnimatedWrapper = () => {
-  const { getAppState } = useOpenApp()
-
   const mainStyle = isFlagshipApp()
     ? {
         position: 'fixed',
@@ -28,10 +24,7 @@ const AnimatedWrapper = () => {
   return (
     <RemoveScrollOnFlaghsip>
       <div
-        className={cx(
-          `App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center`,
-          { [getAppState]: !!getAppState }
-        )}
+        className="App u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
         style={mainStyle}
       >
         <App {...homeConfig} />
