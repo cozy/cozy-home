@@ -1,7 +1,12 @@
 {
   "defaultDateFormat": "LL/dd/yyyy",
-  "defaultTriggerTimeInterval": [0, 5],
-  "filteredApps": ["home"],
+  "defaultTriggerTimeInterval": [
+    0,
+    5
+  ],
+  "filteredApps": [
+    "home"
+  ],
   "displayedErrorTypes": [
     "DISK_QUOTA_EXCEEDED",
     "CHALLENGE_ASKED",
@@ -19,5 +24,5 @@
     "USER_ACTION_NEEDED.SCA_REQUIRED",
     "USER_ACTION_NEEDED.WEBAUTH_REQUIRED"
   ],
-  "customWallpaperPath": "/Settings/Home/Wallpaper.jpg"
+  "customWallpaperPath": "/Settings/Home"
 }
