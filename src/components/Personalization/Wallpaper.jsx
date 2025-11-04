@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import Typography from 'cozy-ui/transpiled/react/Typography';
-import Icon from 'cozy-ui/transpiled/react/Icon';
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
-import { useWallpaperContext } from '@/hooks/useWallpaperContext';
-import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper';
+import { useWallpaperContext } from '@/hooks/useWallpaperContext'
+import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 
 import styles from './Wallpaper.styl'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme';
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 const Wallpapers = [
   {
@@ -53,17 +52,19 @@ const Wallpapers = [
   },
 ]
 
-const Wallpaper = (client) => {
-  const [currentWallpaper, setCurrentWallpaper] = useState('bg_twp_default');
+const Wallpaper = () => {
+  const [currentWallpaper, setCurrentWallpaper] = useState('bg_twp_default')
 
-  const { data, setWallpaperLink, returnToDefaultWallpaper } = useWallpaperContext();
+  const { data, setWallpaperLink, returnToDefaultWallpaper } = useWallpaperContext()
   const defaultWallpaper = useDefaultWallpaper()
 
   const { type } = useCozyTheme()
 
   useEffect(() => {
     if (data?.wallpaperLink) {
-      const wp = Wallpapers.find(wp => wp.image === data.wallpaperLink.split('/').pop())
+      const wp = Wallpapers.find(
+        wp => wp.image === data.wallpaperLink.split('/').pop()
+      )
       if (wp) {
         setCurrentWallpaper(wp.key)
       } else {
@@ -75,31 +76,40 @@ const Wallpaper = (client) => {
   }, [data?.wallpaperLink])
 
   return (
-    <div
-      className={`${styles['wallpaperGrid']}`}
-    >
-      {Wallpapers.map((wallpaper) => (
+    <div className={`${styles['wallpaperGrid']} u-m-1 u-mt-0`}>
+      {Wallpapers.map(wallpaper => (
         <div
           key={wallpaper.label}
-          className={`${styles['wallpaperItem']} ${styles['wallpaperItem--' + type]} ${currentWallpaper === wallpaper.key ? styles['wallpaperItem--selected'] : ''}`}
+          className={`${styles['wallpaperItem']} ${
+            styles['wallpaperItem--' + type]
+          } ${
+            currentWallpaper === wallpaper.key
+              ? styles['wallpaperItem--selected']
+              : ''
+          } u-c-pointer u-ov-hidden u-pos-relative u-bdrs-6`}
           onClick={() => {
             setCurrentWallpaper(wallpaper.key)
 
             if (wallpaper.role === 'default') {
               returnToDefaultWallpaper()
-              return;
+              return
             }
             if (wallpaper.role === 'import') {
               return;
             }
-            setWallpaperLink(wallpaper.role === 'import' ? null : "/assets/backgrounds/" + wallpaper.image)
+            setWallpaperLink(
+              wallpaper.role === 'import'
+                ? null
+                : '/assets/backgrounds/' + wallpaper.image
+            )
           }}
         >
           <img
             className={`${styles['wallpaperImage']}`}
             src={
-              wallpaper.role == 'default' ? defaultWallpaper :
-              "/assets/backgrounds/" + wallpaper.image
+              wallpaper.role == 'default'
+                ? defaultWallpaper
+                : '/assets/backgrounds/' + wallpaper.image
             }
             alt={wallpaper.label}
           />

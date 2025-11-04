@@ -1,27 +1,21 @@
 .wallpaperGrid
   display grid
   grid-template-columns 1fr 1fr
-  gap 8px
-  width calc(100% - (16px * 2))
-  height calc(100% - (16px * 1))
-  margin 16px
-  margin-top: 0px
+  gap 0.5rem
+  width calc(100% - 2rem)
+  height calc(100% - 1rem)
 
 .wallpaperItem
-  cursor pointer
-  border-radius 12px
-  overflow hidden
-  position relative
-  width calc(100% - (2px * 2))
-  height calc(100% - (2px * 2))
+  width calc(100% - 4px)
+  height calc(100% - 4px)
   outline 0px solid
   outline-color: var(--primaryColor)
   margin: 2px
   transition outline-width 0.15s
-  background: #ffffff
+  background: var(--paperBackgroundColor)
 
 .wallpaperItem--dark
-  background: #222222
+  background: var(--greyA400)
 
 .wallpaperItem:hover
   border 1px solid var(--borderGhostColor)
@@ -32,10 +26,6 @@
   margin 0px
   border 2px solid var(--paperBackgroundColor)
 
-.wallpaperItem--selected:hover
-  border 2px solid var(--paperBackgroundColor)
-  margin 0px
-
 .wallpaperImage
   width 100%
   height 100%
@@ -44,7 +34,6 @@
   position absolute
   top 0
   left 0
-  z-index 1
 
 .wallpaperLabel
   position absolute
@@ -52,4 +41,3 @@
   left 0px
   width 100%
   text-align center
-  z-index 2
