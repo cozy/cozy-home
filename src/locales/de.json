@@ -579,5 +579,8 @@
         "format": "MMM dd"
       }
     }
+  },
+  "wallpaper": {
+    "import": "Importieren"
   }
 }

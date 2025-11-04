@@ -604,5 +604,8 @@
   "AnnouncementsDialogContent": {
     "dateFormat": "LL/dd/yyyy",
     "skip": "Understood"
+  },
+  "wallpaper": {
+    "import": "Import"
   }
 }

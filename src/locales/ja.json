@@ -567,5 +567,8 @@
         "format": "LL/dd"
       }
     }
+  },
+  "wallpaper": {
+    "import": "インポート"
   }
 }

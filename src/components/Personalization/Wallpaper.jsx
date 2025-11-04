@@ -8,6 +8,7 @@ import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 
 import styles from './Wallpaper.styl'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const Wallpapers = [
   {
@@ -66,6 +67,7 @@ const Wallpaper = () => {
   const defaultWallpaper = useDefaultWallpaper()
 
   const { type } = useCozyTheme()
+  const { t } = useI18n()
 
   const fileInputRef = useRef(null)
 
@@ -151,7 +153,11 @@ const Wallpaper = () => {
                 ? defaultWallpaper
                 : '/assets/backgrounds/' + wallpaper.image
             }
-            alt={wallpaper.label}
+            alt={
+              wallpaper.role === 'import'
+                ? t('wallpaper.import')
+                : wallpaper.label
+            }
           />
 
           <Typography
@@ -159,7 +165,9 @@ const Wallpaper = () => {
             className={`${styles['wallpaperLabel']}`}
             color={wallpaper.role === 'import' ? 'primary' : 'textSecondary'}
           >
-            {wallpaper.label}
+            {wallpaper.role === 'import'
+              ? t('wallpaper.import')
+              : wallpaper.label}
           </Typography>
         </div>
       ))}
