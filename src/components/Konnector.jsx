@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
@@ -6,7 +6,6 @@ import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 import log from 'cozy-logger'
 import { HarvestRoutes } from 'cozy-harvest-lib'
 
-import { closeApp, openApp } from '@/hooks/useOpenApp'
 import { getKonnector } from '@/ducks/konnectors'
 import { getTriggersByKonnector } from '@/reducers'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
@@ -19,12 +18,6 @@ export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   const onDismiss = useCallback(() => navigate('/connected'), [navigate])
   const konnectorSlug = slug || konnector?.slug || location.hash.split('/')[2]
   const location = useLocation()
-
-  useEffect(() => {
-    openApp()
-
-    return closeApp
-  }, [])
 
   if (!slug) {
     log(
