@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import Fab from 'cozy-ui/transpiled/react/Fab'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Paper from 'cozy-ui/transpiled/react/Paper'
-import { Grow, Popper } from '@material-ui/core'
+import { Grow, Popper, ClickAwayListener } from '@material-ui/core'
 import { PersonalizationModal } from './PersonalizationModal'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import BottomSheet from 'cozy-ui/transpiled/react/BottomSheet'
@@ -61,15 +61,17 @@ export const PersonalizationWrapper = () => {
           className={styles['personalize-popper']}
         >
           {({ TransitionProps }) => (
-            <Grow {...TransitionProps} className={styles['personalize-grow']}>
-              <Paper elevation={8} className="u-mr-1 u-mb-1 u-bdrs-6">
-                <div
-                  className={`${styles['personalize-modal-container']} u-bdrs-6 u-ov-hidden`}
-                >
-                  <PersonalizationModal />
-                </div>
-              </Paper>
-            </Grow>
+            <ClickAwayListener onClickAway={() => setOpenAppMenu(false)}>
+              <Grow {...TransitionProps} className={styles['personalize-grow']}>
+                <Paper elevation={8} className="u-mr-1 u-mb-1 u-bdrs-6">
+                  <div
+                    className={`${styles['personalize-modal-container']} u-bdrs-6 u-ov-hidden`}
+                  >
+                    <PersonalizationModal />
+                  </div>
+                </Paper>
+              </Grow>
+            </ClickAwayListener>
           )}
         </Popper>
       )}
