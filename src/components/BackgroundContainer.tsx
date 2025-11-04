@@ -33,14 +33,11 @@ export const BackgroundContainer = (): JSX.Element => {
       <div />
       <div />
 
-      {isCustomWallpaper && wallpaperLink && (
-        <img
-          className="home-custom-background--img"
-          src={wallpaperLink}
-        />
+      {isCustomWallpaper && !binaryCustomWallpaper && wallpaperLink && (
+        <img className="home-custom-background--img" src={wallpaperLink} />
       )}
 
-      {!isCustomWallpaper && defaultWallpaper && (
+      {!isCustomWallpaper && !binaryCustomWallpaper && defaultWallpaper && (
         <img className="home-default-background--img" src={defaultWallpaper} />
       )}
     </div>

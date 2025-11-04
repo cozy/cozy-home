@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
+import logger from 'cozy-logger'
 import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 
@@ -53,12 +54,41 @@ const Wallpapers = [
 ]
 
 const Wallpaper = () => {
-  const [currentWallpaper, setCurrentWallpaper] = useState('bg_twp_default')
+  const [currentWallpaper, setCurrentWallpaper] = useState()
 
-  const { data, setWallpaperLink, returnToDefaultWallpaper } = useWallpaperContext()
+  const {
+    data,
+    setWallpaperLink,
+    returnToDefaultWallpaper,
+    clearCustomWallpaper,
+    saveCustomWallpaper
+  } = useWallpaperContext()
   const defaultWallpaper = useDefaultWallpaper()
 
   const { type } = useCozyTheme()
+
+  const fileInputRef = useRef(null)
+
+  const allowedTypes = React.useMemo(
+    () => new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']),
+    []
+  )
+
+  const handleFileSelected = async event => {
+    const file = event.target?.files?.[0]
+    if (!file) return
+
+    if (!allowedTypes.has(file.type)) {
+      logger.error('Unsupported file type selected:', file.type || '(unknown)')
+      event.target.value = ''
+      return
+    }
+
+    await saveCustomWallpaper(file)
+
+    // Allow selecting the same file again by resetting the input value
+    event.target.value = ''
+  }
 
   useEffect(() => {
     if (data?.wallpaperLink) {
@@ -77,6 +107,13 @@ const Wallpaper = () => {
 
   return (
     <div className={`${styles['wallpaperGrid']} u-m-1 u-mt-0`}>
+      <input
+        ref={fileInputRef}
+        type="file"
+        className="u-dn"
+        accept={Array.from(allowedTypes).join(',')}
+        onChange={handleFileSelected}
+      />
       {Wallpapers.map(wallpaper => (
         <div
           key={wallpaper.label}
@@ -87,15 +124,18 @@ const Wallpaper = () => {
               ? styles['wallpaperItem--selected']
               : ''
           } u-c-pointer u-ov-hidden u-pos-relative u-bdrs-6`}
-          onClick={() => {
+          onClick={async () => {
             setCurrentWallpaper(wallpaper.key)
+
+            if (wallpaper.role === 'import') {
+              fileInputRef.current.click()
+              return
+            }
+            await clearCustomWallpaper()
 
             if (wallpaper.role === 'default') {
               returnToDefaultWallpaper()
               return
-            }
-            if (wallpaper.role === 'import') {
-              return;
             }
             setWallpaperLink(
               wallpaper.role === 'import'
