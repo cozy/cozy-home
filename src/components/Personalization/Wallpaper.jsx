@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
@@ -21,35 +21,35 @@ const Wallpapers = [
     image: 'role_import.svg'
   },
   {
-    key: 'bg_twp_softpink',
-    label: 'Soft Pink',
-    image: 'bg_twp_softpink.svg'
+    key: 'bg_twp_orbitalblue',
+    label: 'Orbital Blue',
+    image: 'bg_twp_orbitalblue.jpg'
   },
   {
-    key: 'bg_twp_oceanblue',
-    label: 'Ocean Blue',
-    image: 'bg_twp_oceanblue.svg'
+    key: 'bg_twp_earlymorning',
+    label: 'Early Morning',
+    image: 'bg_twp_earlymorning.jpg'
   },
   {
-    key: 'bg_twp_sunset',
-    label: 'Sunset',
-    image: 'bg_twp_sunset.svg'
+    key: 'bg_twp_eclipse',
+    label: 'Eclipse',
+    image: 'bg_twp_eclipse.svg'
   },
   {
-    key: 'bg_twp_forest',
-    label: 'Forest',
-    image: 'bg_twp_forest.svg'
+    key: 'bg_twp_solarglass',
+    label: 'Solar Glass',
+    image: 'bg_twp_solarglass.jpg'
   },
   {
-    key: 'bg_twp_lavender',
-    label: 'Lavender',
-    image: 'bg_twp_lavender.svg'
+    key: 'bg_twp_stripes',
+    label: 'Stripes',
+    image: 'bg_twp_stripes.svg'
   },
   {
-    key: 'bg_twp_minimalgray',
-    label: 'Minimal Gray',
-    image: 'bg_twp_minimalgray.svg'
-  },
+    key: 'bg_twp_stellarburst',
+    label: 'Stellar Burst',
+    image: 'bg_twp_stellarburst.jpg'
+  }
 ]
 
 const Wallpaper = () => {
@@ -71,7 +71,7 @@ const Wallpaper = () => {
         setCurrentWallpaper('bg_custom')
       }
     } else {
-      setCurrentWallpaper('bg_twp_default')
+      setCurrentWallpaper()
     }
   }, [data?.wallpaperLink])
 
