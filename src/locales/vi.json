@@ -604,5 +604,8 @@
   "AnnouncementsDialogContent": {
     "dateFormat": "dd/MM/yyyy",
     "skip": "Đã hiểu"
+  },
+  "wallpaper": {
+    "import": "Nhập"
   }
 }

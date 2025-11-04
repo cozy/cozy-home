@@ -610,5 +610,8 @@
     "appHighlightAlert": {
       "description": "Bewaar je foto's veilig op je Cozy om ze te beschermen tegen verlies of diefstal."
     }
+  },
+  "wallpaper": {
+    "import": "Importeren"
   }
 }

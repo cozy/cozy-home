@@ -580,5 +580,8 @@
     "label_compact": "Mosaico Compacto",
     "label_detailed": "Lista Detallada",
     "label_grouped": "Agrupado en Carpeta"
+  },
+  "wallpaper": {
+    "import": "Importar"
   }
 }
