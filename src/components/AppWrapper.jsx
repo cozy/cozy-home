@@ -12,7 +12,7 @@ import SharingProvider from 'cozy-sharing'
 import CozyDevtools from 'cozy-devtools'
 import { useWebviewIntent } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import CozyTheme, { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
@@ -22,7 +22,6 @@ import { RealtimePlugin } from 'cozy-realtime'
 import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
 
 import { DataProxyProvider } from 'cozy-dataproxy-lib'
-import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
@@ -91,14 +90,8 @@ const Inner = ({ children, lang, context }) => (
 )
 
 const ThemeProvider = ({ children }) => {
-  const {
-    data: { isCustomWallpaper }
-  } = useWallpaperContext()
-
   return (
-    <CozyTheme
-      className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
-    >
+    <CozyTheme className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center">
       {children}
     </CozyTheme>
   )

@@ -1,5 +1,5 @@
-import * as React from "react";
-const MoonIcon = (props) => (
+import * as React from 'react'
+const MoonIcon = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={16}
@@ -13,5 +13,5 @@ const MoonIcon = (props) => (
       d="M6.091 5c0-.747.17-1.477.49-2.137a5.3 5.3 0 0 0-1.543.703A5.335 5.335 0 0 0 2.769 9.04a5.334 5.334 0 0 0 9.666 1.922c.318-.476.55-.999.702-1.545A4.907 4.907 0 0 1 6.09 5m1.334 0a3.576 3.576 0 0 0 6.104 2.529.667.667 0 0 1 1.138.471A6.67 6.67 0 0 1 6.7 14.54 6.668 6.668 0 0 1 8 1.332a.667.667 0 0 1 .471 1.138 3.58 3.58 0 0 0-1.046 2.53"
     />
   </svg>
-);
-export default MoonIcon;
+)
+export default MoonIcon
