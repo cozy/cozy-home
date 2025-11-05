@@ -1,58 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 
-import Typography from 'cozy-ui/transpiled/react/Typography'
-
 import logger from 'cozy-logger'
 import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 
 import styles from './Wallpaper.styl'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-
-const Wallpapers = [
-  {
-    key: 'bg_twp_default',
-    label: 'Twake Default',
-    role: 'default'
-  },
-  {
-    key: 'bg_custom',
-    role: 'import',
-    label: 'Importer',
-    image: 'role_import.svg'
-  },
-  {
-    key: 'bg_twp_orbitalblue',
-    label: 'Orbital Blue',
-    image: 'bg_twp_orbitalblue.jpg'
-  },
-  {
-    key: 'bg_twp_earlymorning',
-    label: 'Early Morning',
-    image: 'bg_twp_earlymorning.jpg'
-  },
-  {
-    key: 'bg_twp_eclipse',
-    label: 'Eclipse',
-    image: 'bg_twp_eclipse.svg'
-  },
-  {
-    key: 'bg_twp_solarglass',
-    label: 'Solar Glass',
-    image: 'bg_twp_solarglass.jpg'
-  },
-  {
-    key: 'bg_twp_stripes',
-    label: 'Stripes',
-    image: 'bg_twp_stripes.svg'
-  },
-  {
-    key: 'bg_twp_stellarburst',
-    label: 'Stellar Burst',
-    image: 'bg_twp_stellarburst.jpg'
-  }
-]
+import { Wallpapers, ALLOWED_WALLPAPER_TYPES } from './wallpapers'
+import { WallpaperItem } from './WallpaperItem'
+import { getCurrentWallpaperKey } from './wallpaperUtils'
 
 const Wallpaper = () => {
   const [currentWallpaper, setCurrentWallpaper] = useState()
@@ -66,21 +21,13 @@ const Wallpaper = () => {
   } = useWallpaperContext()
   const defaultWallpaper = useDefaultWallpaper()
 
-  const { type } = useCozyTheme()
-  const { t } = useI18n()
-
   const fileInputRef = useRef(null)
-
-  const allowedTypes = React.useMemo(
-    () => new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']),
-    []
-  )
 
   const handleFileSelected = async event => {
     const file = event.target?.files?.[0]
     if (!file) return
 
-    if (!allowedTypes.has(file.type)) {
+    if (!ALLOWED_WALLPAPER_TYPES.has(file.type)) {
       logger.error('Unsupported file type selected:', file.type || '(unknown)')
       event.target.value = ''
       return
@@ -92,19 +39,32 @@ const Wallpaper = () => {
     event.target.value = ''
   }
 
-  useEffect(() => {
-    if (data?.wallpaperLink) {
-      const wp = Wallpapers.find(
-        wp => wp.image === data.wallpaperLink.split('/').pop()
-      )
-      if (wp) {
-        setCurrentWallpaper(wp.key)
-      } else {
-        setCurrentWallpaper('bg_custom')
-      }
-    } else {
-      setCurrentWallpaper()
+  const handleWallpaperSelect = async wallpaper => {
+    setCurrentWallpaper(wallpaper.key)
+
+    if (wallpaper.role === 'import') {
+      fileInputRef.current.click()
+      return
     }
+
+    await clearCustomWallpaper()
+
+    if (wallpaper.role === 'default') {
+      returnToDefaultWallpaper()
+      return
+    }
+
+    setWallpaperLink('/assets/backgrounds/' + wallpaper.image)
+  }
+
+  const handleRemoveCustomWallpaper = async () => {
+    await clearCustomWallpaper()
+    setCurrentWallpaper('bg_twp_default')
+  }
+
+  useEffect(() => {
+    const wallpaperKey = getCurrentWallpaperKey(data?.wallpaperLink, Wallpapers)
+    setCurrentWallpaper(wallpaperKey)
   }, [data?.wallpaperLink])
 
   return (
@@ -113,63 +73,19 @@ const Wallpaper = () => {
         ref={fileInputRef}
         type="file"
         className="u-dn"
-        accept={Array.from(allowedTypes).join(',')}
+        accept={Array.from(ALLOWED_WALLPAPER_TYPES).join(',')}
         onChange={handleFileSelected}
       />
       {Wallpapers.map(wallpaper => (
-        <div
+        <WallpaperItem
           key={wallpaper.label}
-          className={`${styles['wallpaperItem']} ${
-            styles['wallpaperItem--' + type]
-          } ${
-            currentWallpaper === wallpaper.key
-              ? styles['wallpaperItem--selected']
-              : ''
-          } u-c-pointer u-ov-hidden u-pos-relative u-bdrs-6`}
-          onClick={async () => {
-            setCurrentWallpaper(wallpaper.key)
-
-            if (wallpaper.role === 'import') {
-              fileInputRef.current.click()
-              return
-            }
-            await clearCustomWallpaper()
-
-            if (wallpaper.role === 'default') {
-              returnToDefaultWallpaper()
-              return
-            }
-            setWallpaperLink(
-              wallpaper.role === 'import'
-                ? null
-                : '/assets/backgrounds/' + wallpaper.image
-            )
-          }}
-        >
-          <img
-            className={`${styles['wallpaperImage']}`}
-            src={
-              wallpaper.role == 'default'
-                ? defaultWallpaper
-                : '/assets/backgrounds/' + wallpaper.image
-            }
-            alt={
-              wallpaper.role === 'import'
-                ? t('wallpaper.import')
-                : wallpaper.label
-            }
-          />
-
-          <Typography
-            variant="caption"
-            className={`${styles['wallpaperLabel']}`}
-            color={wallpaper.role === 'import' ? 'primary' : 'textSecondary'}
-          >
-            {wallpaper.role === 'import'
-              ? t('wallpaper.import')
-              : wallpaper.label}
-          </Typography>
-        </div>
+          wallpaper={wallpaper}
+          isSelected={currentWallpaper === wallpaper.key}
+          defaultWallpaper={defaultWallpaper}
+          binaryCustomWallpaper={data?.binaryCustomWallpaper}
+          onSelect={() => handleWallpaperSelect(wallpaper)}
+          onRemove={handleRemoveCustomWallpaper}
+        />
       ))}
     </div>
   )

@@ -1,0 +1,50 @@
+export const Wallpapers = [
+  {
+    key: 'bg_twp_default',
+    label: 'Twake Default',
+    role: 'default'
+  },
+  {
+    key: 'bg_custom',
+    role: 'import',
+    label: 'Importer',
+    image: 'role_import.svg'
+  },
+  {
+    key: 'bg_twp_orbitalblue',
+    label: 'Orbital Blue',
+    image: 'bg_twp_orbitalblue.jpg'
+  },
+  {
+    key: 'bg_twp_earlymorning',
+    label: 'Early Morning',
+    image: 'bg_twp_earlymorning.jpg'
+  },
+  {
+    key: 'bg_twp_eclipse',
+    label: 'Eclipse',
+    image: 'bg_twp_eclipse.svg'
+  },
+  {
+    key: 'bg_twp_solarglass',
+    label: 'Solar Glass',
+    image: 'bg_twp_solarglass.jpg'
+  },
+  {
+    key: 'bg_twp_stripes',
+    label: 'Stripes',
+    image: 'bg_twp_stripes.svg'
+  },
+  {
+    key: 'bg_twp_stellarburst',
+    label: 'Stellar Burst',
+    image: 'bg_twp_stellarburst.jpg'
+  }
+]
+
+export const ALLOWED_WALLPAPER_TYPES = new Set([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif'
+])
