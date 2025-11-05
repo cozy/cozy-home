@@ -59,6 +59,8 @@ export const PersonalizationWrapper = () => {
           anchorEl={ref.current}
           transition
           className={styles['personalize-popper']}
+          placement="bottom-end"
+          modifiers={{ offset: { offset: '0,8' } }}
         >
           {({ TransitionProps }) => (
             <ClickAwayListener onClickAway={() => setOpenAppMenu(false)}>
