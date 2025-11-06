@@ -31,7 +31,9 @@ const Home = ({ wrapper }) => {
         {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantDesktopWrapper />
         )}
-        {flag('cozy.personalization.enabled') && <PersonalizationWrapper />}
+        {flag('home.wallpaper-personalization.enabled') && (
+          <PersonalizationWrapper />
+        )}
         <div
           role="main"
           className={cx('u-flex u-flex-column u-ph-1', {
