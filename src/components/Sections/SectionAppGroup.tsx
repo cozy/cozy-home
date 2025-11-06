@@ -6,7 +6,7 @@ import { models } from 'cozy-client'
 import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
-import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import AppIcon from 'cozy-ui-plus/dist/AppIcon'
 import { STATUS } from '@/components/KonnectorHelpers'
 
 const { file } = models

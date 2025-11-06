@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 import { useWallpaperContext } from '@/hooks/useWallpaperContext'

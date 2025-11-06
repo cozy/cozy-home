@@ -11,7 +11,7 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
 import { AssistantDialog, SearchDialog } from 'cozy-search'

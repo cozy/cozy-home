@@ -1,8 +1,8 @@
 import React from 'react'
 import { useClient, generateWebLink } from 'cozy-client'
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
+import AppLinker from 'cozy-ui-plus/dist/AppLinker'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 
 /**
  * AddServiceTile component.

@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 
 import { useSettings } from 'cozy-client'
 
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import AppLike from '@/test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'

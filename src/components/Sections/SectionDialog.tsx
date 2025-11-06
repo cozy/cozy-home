@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import { SectionBody } from '@/components/Sections/SectionView'

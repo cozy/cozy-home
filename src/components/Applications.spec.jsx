@@ -5,7 +5,7 @@ import { createMockClient } from 'cozy-client/dist/mock'
 
 import AppLike from '@/test/AppLike'
 import { Applications } from './Applications'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)

@@ -11,7 +11,7 @@ const {
   file: { splitFilename, getShortcutImgSrc }
 } = models
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import Badge from 'cozy-ui/transpiled/react/Badge'
 import Link from 'cozy-ui/transpiled/react/Link'
 

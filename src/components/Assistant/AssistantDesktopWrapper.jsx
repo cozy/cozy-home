@@ -1,8 +1,6 @@
 import React from 'react'
 
-import CozyTheme, {
-  useCozyTheme
-} from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme, { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AssistantDesktop } from 'cozy-search'
 

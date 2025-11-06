@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import { CozyProvider, createMockClient } from 'cozy-client'
 
 import { FooterLogo } from './FooterLogo'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 describe('FooterLogo', () => {
   const setup = mockLogos => {

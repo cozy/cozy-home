@@ -5,7 +5,7 @@ import Intents from 'cozy-interapp'
 
 import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import appEntryPoint from '@/components/appEntryPoint'
 import IntentService from '@/containers/IntentService'

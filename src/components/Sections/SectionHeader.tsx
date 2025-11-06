@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'

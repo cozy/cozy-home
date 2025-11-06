@@ -1,6 +1,6 @@
 import AppLike from '@/test/AppLike'
 import AppTileWrapper from './AppTile'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { render, waitFor, screen } from '@testing-library/react'

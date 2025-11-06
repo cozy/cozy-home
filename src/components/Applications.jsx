@@ -15,7 +15,7 @@ import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighligh
 import homeConfig from '@/config/home.json'
 import { appsConn } from '@/queries'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 
 const {
   applications: {

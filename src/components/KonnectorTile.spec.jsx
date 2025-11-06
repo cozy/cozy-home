@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { createMockClient } from 'cozy-client/dist/mock'
 
 import { KonnectorTile, getKonnectorStatus } from '@/components/KonnectorTile'

@@ -6,7 +6,7 @@ import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import { editShortcut } from './actions/editShortcut'
 import { deleteShortcut } from './actions/deleteShortcut'
 import cx from 'classnames'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
