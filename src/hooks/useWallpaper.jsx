@@ -40,6 +40,24 @@ const useWallpaper = () => {
   }, [client, cozyDefaultWallpaper])
 
   /**
+   * Updates the wallpaper state in memory and storage.
+   *
+   * This function updates the wallpaper link state, stores or removes the link
+   * in localForage, and updates the localStorage flag indicating whether a custom
+   * wallpaper is set.
+   *
+   * @async
+   * @param {string} link - The wallpaper link to be set.
+   * @param {boolean} hasCustom - Whether this is a custom wallpaper (default: true).
+   * @returns {Promise<void>}
+   */
+  const updateWallpaperState = async (link, hasCustom = true) => {
+    setWallpaperLink(link)
+    await localForage.setItem('customWallpaper', hasCustom ? link : null)
+    localStorage.setItem('hasCustomWallpaper', hasCustom)
+  }
+
+  /**
    * Sets the wallpaper link and stores it in localForage.
    *
    * This function updates the wallpaper link state and stores the provided link
@@ -51,15 +69,12 @@ const useWallpaper = () => {
    * @returns {Promise<void>}
    */
   const setWallpaperLinkAndStore = async link => {
-    setWallpaperLink(link)
     if (link === cozyDefaultWallpaper) {
-      await localForage.removeItem('customWallpaper')
-      localStorage.setItem('hasCustomWallpaper', false)
-      setBinaryCustomWallpaper(null)
-    } else {
-      localStorage.setItem('hasCustomWallpaper', true)
-      await localForage.setItem('customWallpaper', link)
+      await updateWallpaperState(cozyDefaultWallpaper, false)
+      return
     }
+
+    await updateWallpaperState(link, true)
   }
 
   /**
@@ -73,9 +88,7 @@ const useWallpaper = () => {
    * @returns {Promise<void>}
    */
   const returnToDefaultWallpaper = async () => {
-    setWallpaperLink(cozyDefaultWallpaper)
-    await localForage.removeItem('customWallpaper')
-    localStorage.setItem('hasCustomWallpaper', false)
+    await updateWallpaperState(cozyDefaultWallpaper, false)
   }
 
   /**
@@ -89,11 +102,8 @@ const useWallpaper = () => {
    * @returns {Promise<void>}
    */
   const clearCustomWallpaper = async () => {
-    // Delete the binary file, clear caches and return to default wallpaper
     await clearBinary()
-    setWallpaperLink(cozyDefaultWallpaper)
-    await localForage.removeItem('customWallpaper')
-    localStorage.setItem('hasCustomWallpaper', false)
+    await updateWallpaperState(cozyDefaultWallpaper, false)
   }
 
   return {
