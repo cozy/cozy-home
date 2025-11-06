@@ -13,10 +13,19 @@ export const PersonalizationWrapper = () => {
   const { isMobile } = useBreakpoints()
 
   const [openAppMenu, setOpenAppMenu] = useState(false)
+  const [isPopperAnimationComplete, setIsPopperAnimationComplete] =
+    useState(false)
   const ref = useRef(null)
 
   const toggleAppMenu = () => {
     setOpenAppMenu(!openAppMenu)
+    if (openAppMenu) {
+      setIsPopperAnimationComplete(false)
+    }
+  }
+
+  const handlePopperEntered = () => {
+    setIsPopperAnimationComplete(true)
   }
 
   return (
@@ -47,7 +56,7 @@ export const PersonalizationWrapper = () => {
           backdrop
         >
           <div>
-            <PersonalizationModal />
+            <PersonalizationModal isAnimationComplete={true} />
           </div>
         </BottomSheet>
       )}
@@ -64,12 +73,18 @@ export const PersonalizationWrapper = () => {
         >
           {({ TransitionProps }) => (
             <ClickAwayListener onClickAway={() => setOpenAppMenu(false)}>
-              <Grow {...TransitionProps} className={styles['personalize-grow']}>
+              <Grow
+                {...TransitionProps}
+                className={styles['personalize-grow']}
+                onEntered={handlePopperEntered}
+              >
                 <Paper elevation={8} className="u-mr-1 u-mb-1 u-bdrs-6">
                   <div
                     className={`${styles['personalize-modal-container']} u-bdrs-6 u-ov-hidden`}
                   >
-                    <PersonalizationModal />
+                    <PersonalizationModal
+                      isAnimationComplete={isPopperAnimationComplete}
+                    />
                   </div>
                 </Paper>
               </Grow>

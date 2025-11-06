@@ -20,7 +20,11 @@ export const ThemeSwitcher = () => {
     instanceQuery.options
   )
 
-  const colorSchemeValue = instance?.colorScheme || 'auto'
+  const colorSchemeValue =
+    instance?.attributes?.colorScheme || instance?.colorScheme || 'auto'
+  const selectedIndex = themeOptions.findIndex(
+    o => o.value === colorSchemeValue
+  )
 
   const handleChange = async v => {
     const newColorScheme = themeOptions[v].value
@@ -46,7 +50,7 @@ export const ThemeSwitcher = () => {
       <Tabs
         narrowed
         segmented
-        value={themeOptions.findIndex(o => o.value === colorSchemeValue)}
+        value={selectedIndex}
         onChange={(_, v) => handleChange(v)}
       >
         {themeOptions.map(option => (
