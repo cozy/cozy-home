@@ -30,13 +30,12 @@ const useWallpaper = () => {
           return
         }
       } catch (error) {
-        await localForage.removeItem('customWallpaper')
-        localStorage.setItem('hasCustomWallpaper', false)
-        setWallpaperLink(cozyDefaultWallpaper)
+        returnToDefaultWallpaper()
         setFetchStatus('failed')
       }
     }
     fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, cozyDefaultWallpaper])
 
   /**
