@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useClient, generateWebLink } from 'cozy-client'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 

@@ -5,7 +5,7 @@ import {
   FixedActionsDialog,
   DialogCloseButton
 } from 'cozy-ui/transpiled/react/CozyDialogs'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import MobileStepper from 'cozy-ui/transpiled/react/MobileStepper'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'

@@ -5,7 +5,7 @@ import App from '../components/AnimatedWrapper'
 import AppLike from '@/test/AppLike'
 import { WallPaperProvider } from '@/hooks/useWallpaperContext'
 import { act } from 'react-dom/test-utils'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 // eslint-disable-next-line react/display-name
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import SectionAppGroup from '@/components/Sections/SectionAppGroup'

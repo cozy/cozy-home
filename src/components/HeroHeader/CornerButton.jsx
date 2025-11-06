@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import Button, { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 

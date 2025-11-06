@@ -5,7 +5,7 @@ import cx from 'classnames'
 import flag from 'cozy-flags'
 
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useClient } from 'cozy-client'
 
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { ShortcutDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
 

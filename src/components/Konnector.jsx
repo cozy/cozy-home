@@ -9,7 +9,7 @@ import { HarvestRoutes } from 'cozy-harvest-lib'
 import { closeApp, openApp } from '@/hooks/useOpenApp'
 import { getKonnector } from '@/ducks/konnectors'
 import { getTriggersByKonnector } from '@/reducers'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   const navigate = useNavigate()

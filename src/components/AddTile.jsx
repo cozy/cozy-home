@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import flag from 'cozy-flags'
 import { useClient, generateWebLink } from 'cozy-client'
-import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+import AppLinker from 'cozy-ui-plus/dist/AppLinker'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import styles from '@/styles/lists.styl'

@@ -12,9 +12,7 @@ import SharingProvider from 'cozy-sharing'
 import CozyDevtools from 'cozy-devtools'
 import { useWebviewIntent } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import CozyTheme, {
-  useCozyTheme
-} from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme, { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'

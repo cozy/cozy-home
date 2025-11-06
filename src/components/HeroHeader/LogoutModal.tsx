@@ -2,8 +2,8 @@ import React from 'react'
 
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
-import { useI18n } from "cozy-ui/transpiled/react/providers/I18n"
-import CozyTheme from "cozy-ui/transpiled/react/providers/CozyTheme"
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 export const LogoutDialog = (props: {
   open: boolean
