@@ -6,7 +6,7 @@ import Wallpaper from './Wallpaper'
 import { useClient } from 'cozy-client'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
-export const PersonalizationModal = () => {
+export const PersonalizationModal = ({ isAnimationComplete = false }) => {
   const client = useClient()
 
   return (
@@ -14,7 +14,7 @@ export const PersonalizationModal = () => {
       <div
         className={`${styles['personalize-modal-title']} u-flex u-flex-row u-flex-items-center u-flex-justify-end u-m-1`}
       >
-        <ThemeSwitcher />
+        <ThemeSwitcher isAnimationComplete={isAnimationComplete} />
       </div>
 
       <Wallpaper client={client} />
