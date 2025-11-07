@@ -26,19 +26,19 @@ export const Wallpapers = [
     image: 'bg_twp_eclipse.svg'
   },
   {
-    key: 'bg_twp_solarglass',
-    label: 'Solar Glass',
-    image: 'bg_twp_solarglass.jpg'
-  },
-  {
-    key: 'bg_twp_stripes',
-    label: 'Stripes',
-    image: 'bg_twp_stripes.svg'
+    key: 'bg_twp_dawn',
+    label: 'Dawn',
+    image: 'bg_twp_dawn.jpg'
   },
   {
     key: 'bg_twp_stellarburst',
     label: 'Stellar Burst',
     image: 'bg_twp_stellarburst.jpg'
+  },
+  {
+    key: 'bg_twp_stripes',
+    label: 'Stripes',
+    image: 'bg_twp_stripes.jpg'
   }
 ]
 
