@@ -5245,10 +5245,10 @@ cozy-interapp@^0.5.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.5.7.tgz#75cafe1732ad660e2caf1ccf412f302594705f39"
   integrity sha512-laIL/ATYV9oZnmqS+LMoO9qzk8XjJ1v2/YrA1Po2rI8ia/MDgjYO07424x2RuvHhNOBPGjD+JmqwQ0rNDlLW+Q==
 
-cozy-keys-lib@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-7.0.0.tgz#07b46521ad6148c1ed129a7fc685526d683b99bf"
-  integrity sha512-Qy3YfWe3FBVuxjHM9e58pVj7fMUDa9AVeK6a4q7W1R35zJi8PXQh0GW2hCIPYf2wmDsPdGt/Qy/4cIjnmpMnxg==
+cozy-keys-lib@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-7.1.0.tgz#ed41848c55b3df26837fbd2b325f274cd152239b"
+  integrity sha512-bJEcLKwQWlJda6SqhEJg0xZDMWAeL/WjKS5f+a38cUSeDBRGz2vzsFT5GKIz/8pbytNqlKgZmGxFe5kmHOLVgw==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
