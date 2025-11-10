@@ -31,7 +31,7 @@ export const PersonalizationWrapper = () => {
   return (
     <>
       <div
-        className={`${styles['personalize-fab-container']} u-pos-fixed u-bottom-m u-right-m`}
+        className={`${styles['personalize-fab-container']} u-pos-fixed u-bottom-l u-right-m`}
         key={'personalize-fab-container'}
       >
         <Fab
@@ -55,7 +55,7 @@ export const PersonalizationWrapper = () => {
           key="personalize-bottom-sheet"
           backdrop
         >
-          <div>
+          <div className={styles['personalize-bottomSheet-content']}>
             <PersonalizationModal isAnimationComplete={true} />
           </div>
         </BottomSheet>
