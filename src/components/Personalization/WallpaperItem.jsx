@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Circle from 'cozy-ui/transpiled/react/Circle'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
@@ -13,6 +14,7 @@ import {
   getWallpaperAlt,
   getWallpaperLabel
 } from './wallpaperUtils'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const WallpaperItem = ({
   wallpaper,
@@ -24,6 +26,7 @@ export const WallpaperItem = ({
 }) => {
   const { type } = useCozyTheme()
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
 
   const src = getWallpaperSrc(
     wallpaper,
@@ -35,11 +38,14 @@ export const WallpaperItem = ({
   const hasCustomWallpaper =
     wallpaper.role === 'import' && binaryCustomWallpaper
 
-  const className = `${styles['wallpaperItem']} ${
-    styles['wallpaperItem--' + type]
-  } ${
-    isSelected ? styles['wallpaperItem--selected'] : ''
-  } u-c-pointer u-ov-hidden u-pos-relative u-bdrs-6`
+  const className = cx(
+    styles['wallpaperItem'],
+    styles['wallpaperItem--' + type],
+    {
+      [styles['wallpaperItem--selected']]: isSelected
+    },
+    'u-c-pointer u-ov-hidden u-pos-relative u-bdrs-6'
+  )
 
   const labelColor = hasCustomWallpaper
     ? undefined
@@ -55,11 +61,15 @@ export const WallpaperItem = ({
       {hasCustomWallpaper && (
         <>
           <div
-            className={`${styles['wallpaperOverlay']} u-o-20 u-w-100 u-h-100`}
+            className={cx(styles['wallpaperOverlay'], 'u-o-20 u-w-100 u-h-100')}
           />
           <Circle
-            backgroundColor="var(--white)"
-            className="u-pos-absolute u-top-xs u-right-xs u-o-40"
+            backgroundColor={'var(--primaryColor)'}
+            className={cx(
+              'u-pos-absolute',
+              isMobile ? 'u-top-0 u-right-0' : 'u-top-xs u-right-xs u-o-40'
+            )}
+            size={isMobile ? 'small' : undefined}
           >
             <IconButton
               size="small"
@@ -69,7 +79,11 @@ export const WallpaperItem = ({
                 await onRemove()
               }}
             >
-              <Icon icon={CrossIcon} size={12} color="var(--black)" />
+              <Icon
+                icon={CrossIcon}
+                size={12}
+                color={isMobile ? 'var(--white)' : 'var(--black)'}
+              />
             </IconButton>
           </Circle>
         </>

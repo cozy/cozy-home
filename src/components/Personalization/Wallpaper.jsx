@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import logger from 'cozy-logger'
 import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import cx from 'classnames'
 
 import styles from './Wallpaper.styl'
 import { Wallpapers, ALLOWED_WALLPAPER_TYPES } from './wallpapers'
@@ -11,6 +13,7 @@ import { getCurrentWallpaperKey } from './wallpaperUtils'
 
 const Wallpaper = () => {
   const [currentWallpaper, setCurrentWallpaper] = useState()
+  const { isMobile } = useBreakpoints()
 
   const {
     data,
@@ -67,8 +70,12 @@ const Wallpaper = () => {
     setCurrentWallpaper(wallpaperKey)
   }, [data?.wallpaperLink])
 
+  const containerClassName = cx(styles['wallpaperGrid'], 'u-m-1', 'u-mt-0', {
+    [styles['wallpaperGrid--bottomSheet']]: isMobile
+  })
+
   return (
-    <div className={`${styles['wallpaperGrid']} u-m-1 u-mt-0`}>
+    <div className={containerClassName}>
       <input
         ref={fileInputRef}
         type="file"

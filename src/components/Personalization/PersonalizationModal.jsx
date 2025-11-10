@@ -10,7 +10,7 @@ export const PersonalizationModal = ({ isAnimationComplete = false }) => {
   const client = useClient()
 
   return (
-    <div className="u-w-100 u-h-100 u-flex u-flex-column u-flex-items-center u-flex-justify-start u-pos-relative">
+    <div className="u-w-100 u-h-100 u-flex u-flex-column u-flex-items-center u-flex-items-end-t u-flex-items-end-t u-flex-items-end-s u-flex-justify-start u-pos-relative">
       <div
         className={`${styles['personalize-modal-title']} u-flex u-flex-row u-flex-items-center u-flex-justify-end u-m-1`}
       >
