@@ -8,6 +8,8 @@ import { PersonalizationModal } from './PersonalizationModal'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import BottomSheet from 'cozy-ui/transpiled/react/BottomSheet'
 import styles from './Personalization.styl'
+import flag from 'cozy-flags'
+import cx from 'classnames'
 
 export const PersonalizationWrapper = () => {
   const { isMobile } = useBreakpoints()
@@ -31,7 +33,12 @@ export const PersonalizationWrapper = () => {
   return (
     <>
       <div
-        className={`${styles['personalize-fab-container']} u-pos-fixed u-bottom-l u-right-m`}
+        className={cx(
+          styles['personalize-fab-container'],
+          'u-pos-fixed',
+          'u-right-m',
+          flag('cozy.searchbar.enabled') ? 'u-bottom-xl' : 'u-bottom-l'
+        )}
         key={'personalize-fab-container'}
       >
         <Fab
