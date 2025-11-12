@@ -84,6 +84,8 @@ export const PersonalizationWrapper = () => {
                   >
                     <PersonalizationModal
                       isAnimationComplete={isPopperAnimationComplete}
+                      showCloseButton
+                      onClose={() => setOpenAppMenu(false)}
                     />
                   </div>
                 </Paper>
