@@ -79,7 +79,7 @@ export const PersonalizationWrapper = () => {
           modifiers={{ offset: { offset: '0,8' } }}
         >
           {({ TransitionProps }) => (
-            <ClickAwayListener onClickAway={() => setOpenAppMenu(false)}>
+            <ClickAwayListener onClickAway={() => toggleAppMenu()}>
               <Grow
                 {...TransitionProps}
                 className={styles['personalize-grow']}
@@ -92,7 +92,7 @@ export const PersonalizationWrapper = () => {
                     <PersonalizationModal
                       isAnimationComplete={isPopperAnimationComplete}
                       showCloseButton
-                      onClose={() => setOpenAppMenu(false)}
+                      onClose={() => toggleAppMenu()}
                     />
                   </div>
                 </Paper>
