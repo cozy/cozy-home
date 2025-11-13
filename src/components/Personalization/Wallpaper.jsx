@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 
 import logger from 'cozy-logger'
 import { useWallpaperContext } from '@/hooks/useWallpaperContext'
-import { useDefaultWallpaper } from '@/hooks/useDefaultWallpaper'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import cx from 'classnames'
 
@@ -22,7 +21,6 @@ const Wallpaper = () => {
     clearCustomWallpaper,
     saveCustomWallpaper
   } = useWallpaperContext()
-  const defaultWallpaper = useDefaultWallpaper()
 
   const fileInputRef = useRef(null)
 
@@ -88,7 +86,6 @@ const Wallpaper = () => {
           key={wallpaper.label}
           wallpaper={wallpaper}
           isSelected={currentWallpaper === wallpaper.key}
-          defaultWallpaper={defaultWallpaper}
           binaryCustomWallpaper={data?.binaryCustomWallpaper}
           onSelect={() => handleWallpaperSelect(wallpaper)}
           onRemove={handleRemoveCustomWallpaper}

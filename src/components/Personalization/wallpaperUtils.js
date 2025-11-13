@@ -2,22 +2,21 @@
  * Returns the source URL or data for a given wallpaper.
  *
  * @param {Object} wallpaper - The wallpaper object.
- * @param {string} defaultWallpaper - The URL or path for the default wallpaper.
  * @param {string|undefined} binaryCustomWallpaper - The custom wallpaper as a base64 string or URL (if applicable).
- * @returns {string} - The resolved wallpaper image source (URL, base64 data, etc).
+ * @param {string} theme - The theme of the wallpaper.
+ * @returns {string|null} - The resolved wallpaper image source (URL, base64 data, etc).
  */
-export const getWallpaperSrc = (
-  wallpaper,
-  defaultWallpaper,
-  binaryCustomWallpaper
-) => {
-  if (wallpaper.role === 'default') {
-    return defaultWallpaper
+export const getWallpaperSrc = (wallpaper, binaryCustomWallpaper, theme) => {
+  if (wallpaper.role === 'default' && theme === 'light') {
+    return '/assets/backgrounds/' + wallpaper.lightThumbnail
   }
   if (wallpaper.role === 'import' && binaryCustomWallpaper) {
     return binaryCustomWallpaper
   }
-  return '/assets/backgrounds/' + wallpaper.image
+  if (wallpaper.image) {
+    return '/assets/backgrounds/' + wallpaper.image
+  }
+  return null
 }
 
 /**

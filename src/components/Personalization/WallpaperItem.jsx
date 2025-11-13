@@ -19,7 +19,6 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 export const WallpaperItem = ({
   wallpaper,
   isSelected,
-  defaultWallpaper,
   binaryCustomWallpaper,
   onSelect,
   onRemove
@@ -28,11 +27,7 @@ export const WallpaperItem = ({
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
-  const src = getWallpaperSrc(
-    wallpaper,
-    defaultWallpaper,
-    binaryCustomWallpaper
-  )
+  const src = getWallpaperSrc(wallpaper, binaryCustomWallpaper, type)
   const alt = getWallpaperAlt(wallpaper, t)
   const label = getWallpaperLabel(wallpaper, t, binaryCustomWallpaper)
   const hasCustomWallpaper =
@@ -57,7 +52,7 @@ export const WallpaperItem = ({
 
   return (
     <div className={className} onClick={onSelect}>
-      <img className={styles['wallpaperImage']} src={src} alt={alt} />
+      {src && <img className={styles['wallpaperImage']} src={src} alt={alt} />}
       {hasCustomWallpaper && (
         <>
           <div
