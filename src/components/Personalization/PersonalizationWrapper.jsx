@@ -6,7 +6,9 @@ import Paper from 'cozy-ui/transpiled/react/Paper'
 import { Grow, Popper, ClickAwayListener } from '@material-ui/core'
 import { PersonalizationModal } from './PersonalizationModal'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import BottomSheet from 'cozy-ui/transpiled/react/BottomSheet'
+import BottomSheet, {
+  BottomSheetItem
+} from 'cozy-ui/transpiled/react/BottomSheet'
 import styles from './Personalization.styl'
 import flag from 'cozy-flags'
 import cx from 'classnames'
@@ -62,9 +64,11 @@ export const PersonalizationWrapper = () => {
           key="personalize-bottom-sheet"
           backdrop
         >
-          <div className={styles['personalize-bottomSheet-content']}>
-            <PersonalizationModal isAnimationComplete={true} />
-          </div>
+          <BottomSheetItem disableGutters>
+            <div className={styles['personalize-bottomSheet-content']}>
+              <PersonalizationModal isAnimationComplete={true} />
+            </div>
+          </BottomSheetItem>
         </BottomSheet>
       )}
 
