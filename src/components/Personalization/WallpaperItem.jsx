@@ -48,7 +48,11 @@ export const WallpaperItem = ({
     ? 'primary'
     : 'textSecondary'
 
-  const labelStyle = hasCustomWallpaper ? { color: 'white' } : undefined
+  const labelStyle = wallpaper.labelColor
+    ? { color: wallpaper.labelColor }
+    : hasCustomWallpaper
+    ? { color: 'white' }
+    : undefined
 
   return (
     <div className={className} onClick={onSelect}>
