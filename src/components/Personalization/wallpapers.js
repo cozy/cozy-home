@@ -14,32 +14,38 @@ export const Wallpapers = [
   {
     key: 'bg_twp_orbitalblue',
     label: 'Orbital Blue',
-    image: 'bg_twp_orbitalblue.jpg'
+    image: 'bg_twp_orbitalblue.jpg',
+    labelColor: 'var(--black)'
   },
   {
     key: 'bg_twp_earlymorning',
     label: 'Early Morning',
-    image: 'bg_twp_earlymorning.jpg'
+    image: 'bg_twp_earlymorning.jpg',
+    labelColor: 'var(--white)'
   },
   {
     key: 'bg_twp_eclipse',
     label: 'Eclipse',
-    image: 'bg_twp_eclipse.svg'
+    image: 'bg_twp_eclipse.svg',
+    labelColor: 'var(--black)'
   },
   {
     key: 'bg_twp_dawn',
     label: 'Dawn',
-    image: 'bg_twp_dawn.jpg'
+    image: 'bg_twp_dawn.jpg',
+    labelColor: 'var(--white)'
   },
   {
     key: 'bg_twp_stellarburst',
     label: 'Stellar Burst',
-    image: 'bg_twp_stellarburst.jpg'
+    image: 'bg_twp_stellarburst.jpg',
+    labelColor: 'var(--white)'
   },
   {
     key: 'bg_twp_stripes',
     label: 'Stripes',
-    image: 'bg_twp_stripes.jpg'
+    image: 'bg_twp_stripes.jpg',
+    labelColor: 'var(--white)'
   }
 ]
 
