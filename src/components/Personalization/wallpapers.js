@@ -1,15 +1,15 @@
 export const Wallpapers = [
   {
-    key: 'bg_twp_default',
-    label: 'Twake Default',
-    role: 'default',
-    lightThumbnail: 'default_light_thumbnail.svg'
-  },
-  {
     key: 'bg_custom',
     role: 'import',
     label: 'Importer',
     image: 'role_import.svg'
+  },
+  {
+    key: 'bg_twp_default',
+    label: 'Twake Default',
+    role: 'default',
+    lightThumbnail: 'default_light_thumbnail.svg'
   },
   {
     key: 'bg_twp_orbitalblue',
