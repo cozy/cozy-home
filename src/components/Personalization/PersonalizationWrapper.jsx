@@ -39,7 +39,9 @@ export const PersonalizationWrapper = () => {
           styles['personalize-fab-container'],
           'u-pos-fixed',
           'u-right-m',
-          flag('cozy.searchbar.enabled') ? 'u-bottom-xl' : 'u-bottom-l'
+          flag('cozy.searchbar.enabled')
+            ? styles['personalize-fab-container-with-searchbar']
+            : 'u-bottom-l'
         )}
         key={'personalize-fab-container'}
       >

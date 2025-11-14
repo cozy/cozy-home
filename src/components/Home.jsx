@@ -7,7 +7,6 @@ import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { getFlagshipMetadata } from 'cozy-device-helper'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
-import { PersonalizationWrapper } from './Personalization/PersonalizationWrapper'
 
 import ApplicationsAndServices from '@/components/ApplicationsAndServices'
 import Applications from '@/components/Applications'
@@ -30,9 +29,6 @@ const Home = ({ wrapper }) => {
         {pathname === '/connected' && <Announcements />}
         {flag('cozy.searchbar.enabled') && !isMobile && (
           <AssistantDesktopWrapper />
-        )}
-        {flag('home.wallpaper-personalization.enabled') && (
-          <PersonalizationWrapper />
         )}
         <div
           role="main"

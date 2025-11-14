@@ -18,6 +18,7 @@ import { AssistantDialog, SearchDialog } from 'cozy-search'
 import Failure from '@/components/Failure'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
+import { PersonalizationWrapper } from '@/components/Personalization/PersonalizationWrapper'
 import IntentRedirect from '@/components/IntentRedirect'
 import MoveModal from '@/components/MoveModal'
 import StoreRedirection from '@/components/StoreRedirection'
@@ -172,6 +173,9 @@ const App = () => {
         <FooterLogo />
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
+      {flag('home.wallpaper-personalization.enabled') && (
+        <PersonalizationWrapper />
+      )}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
     </Layout>
   )
