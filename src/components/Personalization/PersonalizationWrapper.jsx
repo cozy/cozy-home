@@ -39,7 +39,7 @@ export const PersonalizationWrapper = () => {
           styles['personalize-fab-container'],
           'u-pos-fixed',
           'u-right-m',
-          flag('cozy.searchbar.enabled')
+          flag('cozy.searchbar.enabled') && isMobile
             ? styles['personalize-fab-container-with-searchbar']
             : 'u-bottom-l'
         )}
