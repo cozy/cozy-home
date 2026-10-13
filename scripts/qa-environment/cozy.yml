@@ -1,0 +1,32 @@
+# Configuration of the Cozy Stack of the QA environment (docker-compose.yaml); the port comes from
+# COZY_PORT.
+host: 0.0.0.0
+
+admin:
+  host: 0.0.0.0
+  port: 6060
+
+subdomains: flat
+
+fs:
+  url: file:///var/lib/cozy/storage
+
+couchdb:
+  url: http://admin:password@couchdb:5984/
+
+mail:
+  host: mailpit
+  port: 1025
+  disable_tls: true
+  skip_certificate_validation: true
+  noreply_address: noreply@cozy.localhost
+  noreply_name: Cozy QA
+
+# The other apps (Settings, Drive, Store) and the konnectors listed by Home come from the registry
+registries:
+  default:
+    - https://apps-registry.cozycloud.cc/
+
+contexts:
+  default:
+    default_redirection: home/
