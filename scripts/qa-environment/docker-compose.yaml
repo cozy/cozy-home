@@ -1,0 +1,36 @@
+# QA stack started by start.sh: a Cozy Stack serving the build of build.sh as the home app,
+# with CouchDB and Mailpit catching the emails it sends.
+services:
+  couchdb:
+    image: couchdb:3
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:5984/ || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "127.0.0.1:${QA_MAIL_PORT:?}:8025"
+
+  cozystack:
+    image: ${QA_STACK_IMAGE:-cozy/cozy-stack:latest}
+    pull_policy: always
+    depends_on:
+      couchdb:
+        condition: service_healthy
+    environment:
+      COZY_ADMIN_PASSPHRASE: cozy
+      # The instances are <uid>.cozy.localhost:<port>: the stack listens on the published port so
+      # that the URLs it builds work from the host and from the network alike
+      COZY_PORT: "${QA_STACK_PORT:?}"
+    command: ["cozy-stack", "serve", "--dev"]
+    volumes:
+      - ../../build:/app/home:ro
+      - ./cozy.yml:/etc/cozy/cozy.yml:ro
+    ports:
+      - "127.0.0.1:${QA_STACK_PORT:?}:${QA_STACK_PORT:?}"
