@@ -32,7 +32,7 @@ export const LegacyApplicationsAndServices = () => {
           entrypoints.map(entrypoint => (
             <EntrypointLink key={entrypoint.name} entrypoint={entrypoint} />
           ))}
-        {isMobile && flag('cozy.assistant.enabled') && <AssistantTile />}
+        {isMobile && flag('cozy.assistant.legacy.enabled') && <AssistantTile />}
         <AddTile apps={apps} />
         {showLogout && <LogoutTile />}
       </div>
