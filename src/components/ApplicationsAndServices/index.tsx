@@ -80,7 +80,7 @@ export const ApplicationsAndServices = (): JSX.Element => {
             </SortableContext>
           )}
           <AppHighlightAlertWrapper apps={appsForAlerts} />
-          {isMobile && Boolean(flag('cozy.assistant.enabled')) && (
+          {isMobile && Boolean(flag('cozy.assistant.legacy.enabled')) && (
             <AssistantTile />
           )}
           <AddTile apps={apps} />
